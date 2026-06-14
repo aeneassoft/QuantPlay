@@ -27,9 +27,11 @@ class GTOBaseline:
     VALUE_EQ = 0.62
     BLUFF_EQ = 0.38
 
-    # Analytic thresholds as PRIORS — an optimiser may tune them against the GTO benchmark.
-    PARAMS = {"cbet_eq": 0.48, "cbet_bluff": 0.6, "cbet_size": 0.5,
-              "donk_eq": 0.80, "donk_freq": 0.25}
+    # Analytic thresholds as PRIORS. cbet_eq + donk_eq are SOLVER-CALIBRATED (held-out TV-gap over the
+    # _gto_bench_cache, benchmark/calibrate.py 2026-06-14): cut over-c-bet from 93% -> 80% IP (GTO ~75%),
+    # held-out loss 0.62 -> 0.50. (Under-donk 4% vs GTO 22% remains structural; hand-selection gap unchanged.)
+    PARAMS = {"cbet_eq": 0.72, "cbet_bluff": 0.6, "cbet_size": 0.5,
+              "donk_eq": 0.75, "donk_freq": 0.25}
 
     def __init__(self, hero: int = 0, seed: int = 0, iters: int = 300, params: dict | None = None) -> None:
         self.hero = hero
