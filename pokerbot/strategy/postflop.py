@@ -3,7 +3,7 @@
 The edge: pick the bet size s (fraction of pot) that maximizes EV against the opponent's
 fold-frequency-vs-size curve F(s).
   - Bluff EV (per pot):   ev_bluff(s)  = F(s) - s*(1 - F(s))      [win 1 pot on fold, lose s when called]
-  - Value objective:      value_score(s) = (1 - F(s)) * s          [maximize chips paid off]
+  - Value EV (per pot):   value_score(s) = F + (1-F)*(e_call*(1+2s) - (1-e_call)*s)   [exact: fold-win + showdown]
 Against a GTO opponent F(s) = s/(1+s) and every bluff size is break-even. Profit only comes from
 an opponent who deviates — so a *learned* per-size fold model (e.g. from probing Slumbot) is what
 turns this into an edge.
@@ -46,8 +46,11 @@ def ev_bluff(s: float, F: float) -> float:
 
 
 def value_score(s: float, F: float, eq: float) -> float:
-    e_call = max(0.45, eq - 0.18 * s)        # villain calls tighter as the bet grows
-    return (1.0 - F) * s * (2.0 * e_call - 1.0)
+    """Exact value-bet EV vs size (pot units, P=1): win the pot on a fold, else showdown for P+2sP.
+    Replaces the old surrogate (1-F)*s*(2e-1), which dropped the fold-win term F*P and the (1+2s) pot
+    geometry -> it under-bet thin value and mis-ranked sizes. (openai_strategy.json fold_equity.ev_value)"""
+    e_call = max(0.10, eq - 0.25 * s)        # equity vs the (tightening) calling range; may drop below 0.5
+    return F + (1.0 - F) * (e_call * (1.0 + 2.0 * s) - (1.0 - e_call) * s)
 
 
 class PriorFoldModel:
