@@ -104,17 +104,18 @@ SOTA_FOCUS = (
 
 
 def main():
-    extract(config.ROOT / "algorithmic-game-theory.pdf",
+    books = config.ROOT / "books"     # all source PDFs live here (papers under books/papers/)
+    extract(books / "algorithmic-game-theory.pdf",
             config.KNOWLEDGE_DIR / "theory" / "algorithmic_game_theory.json", AGT_FOCUS,
             config.CLAUDE_HAIKU_MODEL)
-    extract(config.ROOT / "Beyond GTO_ Poker Exploits Simplified (The Poker Solved Series).pdf",
+    extract(books / "Beyond GTO_ Poker Exploits Simplified (The Poker Solved Series).pdf",
             config.KNOWLEDGE_DIR / "exploit" / "beyond_gto.json", BGTO_FOCUS,
             config.CLAUDE_MODEL)
-    extract(config.ROOT / "Exploitative Poker_ Learn to Play the Player_ Using Planned Betting Lines.pdf",
+    extract(books / "Exploitative Poker_ Learn to Play the Player_ Using Planned Betting Lines.pdf",
             config.KNOWLEDGE_DIR / "exploit" / "exploitative_poker.json", EXPLO_FOCUS,
             config.CLAUDE_MODEL)
     for paper in ("Supremus.pdf", "Pluribus.pdf"):
-        extract(config.ROOT / "Scienctific Papers" / paper,
+        extract(books / "papers" / paper,
                 config.KNOWLEDGE_DIR / "theory" / (paper.replace(".pdf", "_paper.json").lower()),
                 SOTA_FOCUS, config.CLAUDE_MODEL)
 

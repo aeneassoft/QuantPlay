@@ -9,6 +9,33 @@ online opponent-exploiting layer, and tooling to measure our play against true G
 **universal adaptive exploiter** — a low-exploitability baseline + an online opponent model that detects and
 safely exploits each opponent's leaks (confidence-gated), built to handle opponents we haven't seen yet.
 
+## ★ Latest session — Consolidation & Unification (2026-06-14, supersedes older detail below)
+**Plan:** [docs/CONSOLIDATION_PLAN.md](CONSOLIDATION_PLAN.md) · **Architecture:** [docs/META_STRATEGY.md](META_STRATEGY.md)
+- **Exploit↔GTO unified (no mismatch):** ONE best-response engine — pointed at the opponent = exploit, pointed
+  at itself (self-play) = converges to the floor (GTO/CCE). Live design = a GTO **floor** + a BOUNDED,
+  confidence-gated exploit **overlay** (`freq_delta∈[-0.3,0.3]`) on top; no read → pure floor.
+- **Floor sharpened (grounded):** preflop exact-lookup table distilled from PokerBench (**88.6%** held-out,
+  beats both LoRAs) → `knowledge_base/ranges/preflop_gto_table.json` + `strategy/preflop_gto.py`, wired into
+  sixmax RFI. Postflop priors solver-CALIBRATED (cbet_eq 0.48→0.72, held-out TV-gap 0.62→0.50). sixmax made
+  role-aware → measured solver gap 45%→31%.
+- **Knowledge-as-database (Phase 0A):** 5 books extracted via Claude → **262 exploit primitives** + **95 AGT
+  theory** concepts; deduped to **62 stat-keyed wireable rules** → `knowledge_base/exploit/unified.json`. The 2
+  SOTA papers (**Supremus**, **Pluribus**) → **27 recipe items** (CFVnet 7×500 zero-sum MLP, bucketing
+  1326→1000, DCFR+, depth-limited re-solving) → `knowledge_base/theory/`. Grounds the eventual self-play net.
+- **Phase 0C bug-hunt (3 agent-audited + verified fixes):** sixmax decision rng was reseeded per-spot → fake
+  (deterministic) mixing → now persistent rng (real mixing, 117/83 over 200 same-spot calls); gto_baseline's
+  calibrated c-bet branch was DEAD live (no `aggressor` key) → now derives initiative from history; opponent.py
+  exploit stats jumped prior→raw at n≥4 → Bayesian shrinkage (k=6). Tests green; duplicate null still 0±0.
+- **Phase 0B:** source PDFs moved to `books/` (papers under `books/papers/`).
+- **Objective edge CONFIRMED:** adaptive+gate beats a diverse suite (worst +27 bb/100), 2× extraction vs static.
+  Exploitation is a real MEASURED edge; vs near-GTO the ceiling is ~break-even (needs AIVAT to measure).
+- **Net verdict (refined):** a net is the eventual path to a true GTO floor (Supremus = proof) via self-play,
+  but a big build for an unmeasurable near-GTO gain — DEFERRED behind the cheap floor + the field-edge.
+- **Compute:** GCP 256-CPU/GPU quota requested (~business days); ≤12 vCPU adjustable now. → **RunPod-first**
+  for GPU + 12-vCPU GCP for small CPU; high-leverage calcs only; spot + `--kill`/auto-stop.
+- **Next:** Phase 1 — wire `unified.json` as the bounded overlay (Build A) + re-test the edge (duplicate-gated)
+  → Phase 2 — the self-play→GTO net on RunPod (the Supremus/Pluribus recipe), warm-started by solver data.
+
 ## Run it
 - 6-max vs 5 bots (main app): `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000
 - Heads-Up + live coach: `python -m pokerbot.web.server --open`
