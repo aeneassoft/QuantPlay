@@ -60,6 +60,15 @@ Three resources were run in parallel (the clean split — see the memory note [[
   328k samples); 256³ net → held-out **TV-gap 17.7%→17.0%**, saved `data/floor_net.pt`. **KEY FINDING
   (empirically validated, not just taken from the OpenAI tips): bigger nets barely move it → the bottleneck is
   DATA COVERAGE, not the model.** Vetted OpenAI (gpt-5.1) advice via [extraction/cfr_tips.py](../extraction/cfr_tips.py).
+- **Exploit playbook WIRED** into the adaptive engine as a cold-start prior ([pokerbot/strategy/playbook.py](../pokerbot/strategy/playbook.py)):
+  nearest-profile lookup -> bounded, confidence-FADED nudge (bluff / value / bluff-catch); `directive_to_nudge`
+  is the SAME channel the live LLM strategist will write into later. Tests: `python -m tests.test_playbook`.
+- **LBR exploitability evaluator** ([pokerbot/benchmark/lbr.py](../pokerbot/benchmark/lbr.py)): a Local-Best-Response
+  lower bound via rollouts with RE-SAMPLED hidden cards (no hidden-info cheat) + passive continuation.
+  VALIDATED (crushes a nit +75+/-4 bb/100). v1 (uniform range) is a LOOSE bound -> too weak to find a leak in
+  the baseline floor yet (LBR loses to it); v2 = Bayesian action-consistent range for a tight number.
+- **Qwen LoRA fine-tune SAVED** (step-500, 97% token-acc) -> `models/qwen_poker_ckpt500/` (adapter 666 MB);
+  pod auto-killed (billing stopped). The strategist layer for the INTEGRATION plan.
 
 ## Open threads / next steps (in priority order)
 0. **GTO floor — the #1 lever (now evidence-backed).** The distilled floor plateaus ~17% TV on SRP-flop-only
@@ -69,8 +78,8 @@ Three resources were run in parallel (the clean split — see the memory note [[
    exploitability (TV is only a proxy — a low TV can still be exploitable). Then wire `floor_net.pt` as the
    policy floor (`cfr_policy.py`, see [INTEGRATION.md](INTEGRATION.md)). Methodology lab: validate CFR+ on the
    self-contained Leduc Deep-CFR (`deep_cfr.py`, exact exploitability) before any NLHE self-play.
-1. Retrieve the Qwen LoRA from the pod, then **`python -m extraction.runpod_run --kill`** (stop billing).
-2. (Optional) On-pod eval LoRA vs base on held-out PokerBench (prove the gain) before killing.
+1. ✅ DONE — Qwen LoRA saved to `models/qwen_poker_ckpt500/` (step-500, 97%); pod killed (no billing).
+2. Eval the saved LoRA vs base Qwen on held-out PokerBench locally (RTX 3080 Ti) to prove the decision gain.
 3. **Make `gto_baseline` c-bet texture-aware** (high on dry/high/rainbow, low on monotone/connected) and fix
    the size to ~⅔ pot — the concrete bot change the cache points to. → [pokerbot/strategy/gto_baseline.py](../pokerbot/strategy/gto_baseline.py)
 4. **Wire the exploit playbook into the adaptive engine** as a cold-start prior (nearest-profile lookup,
