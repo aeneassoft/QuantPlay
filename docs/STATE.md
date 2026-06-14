@@ -68,7 +68,8 @@ Three resources were run in parallel (the clean split — see the memory note [[
   VALIDATED (crushes a nit +75+/-4 bb/100). v1 (uniform range) is a LOOSE bound -> too weak to find a leak in
   the baseline floor yet (LBR loses to it); v2 = Bayesian action-consistent range for a tight number.
 - **Qwen LoRA fine-tune SAVED** (step-500, 97% token-acc) -> `models/qwen_poker_ckpt500/` (adapter 666 MB);
-  pod auto-killed (billing stopped). The strategist layer for the INTEGRATION plan.
+  pod auto-killed (billing stopped). The strategist layer for the INTEGRATION plan. **Eval PROVEN:** held-out
+  PokerBench decision-match **base 18.3% -> LoRA 71.7% (+53pp)** ([extraction/qwen_eval.py](../extraction/qwen_eval.py)).
 
 ## Open threads / next steps (in priority order)
 0. **GTO floor — the #1 lever (now evidence-backed).** The distilled floor plateaus ~17% TV on SRP-flop-only
