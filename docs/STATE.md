@@ -67,6 +67,21 @@ Three resources were run in parallel (the clean split — see the memory note [[
   the `_OOP/_IP` ranges before acting on the absolute number; the texture-relative direction is fine).
 
 ## Shipped 2026-06-14
+- **Active-learning toolkit + the verify-lesson + 6-max solvability (autonomous block).**
+  - `extraction/blindspot_radar.py` — massive concurrent Claude-Haiku triage of bot decisions → ranked
+    suspected blindspots. LESSON (hard-won): LLM triage is a HYPOTHESIS generator, not truth — it flagged
+    `thin_value_too_big` with high confidence; the fix was MEASURED neutral-to-worse → reverted. Also
+    play-testing bb/100 is too NOISY to verify a single rule. → use the GROUNDED signal + solver to verify.
+  - `extraction/grounded_blindspots.py` — per-spot solver-disagreement from the cache (matches gto_benchmark:
+    IP-high 23%, OOP-connected 24%). The reliable acquisition signal. Real grounded floor gaps: OOP donks the
+    wrong (strong) hands; IP OVER-c-bets (95% vs GTO 79%). Use the AGGREGATE (gap+bet-freq), not top-individual.
+  - **GCP pipeline VALIDATED** (`extraction/gcp_solve_setup.sh` + `gcp_solve_launch.sh`): TexasSolver-Linux +
+    mass_solve run end-to-end on a VM. BUT free-tier is capped at **12 vCPU global (CPUS_ALL_REGIONS)** → the
+    big saturated coverage-solve needs an account upgrade / quota increase. Project id `project-f2a4a8eb-7533-4ecf-a00`.
+  - **6-max solvability (gpt-5.1, `data/sessions/solvability_6max.md`):** 6-max NLHE is NOT solvable like HU —
+    PPAD-hard, Nash non-unique, no-regret → CCE not Nash, no scalar exploitability. Realistic target = a
+    **bounded-exploitability blueprint + adaptive exploit** = exactly this project's thesis (validated). North
+    star: minimize measured LBR exploitability while maximizing realized bb/100 vs the exploitable field.
 - **★ Anti-spew floor fix + independent bot audit (the session's biggest MEASURED win).** Traced the no-exploit
   floor's catastrophic loss vs strong opponents to ONE leak: it bluff-RAISED air (eq<0.33) at ~pot size =
   effectively all-in on deeper/later streets, and value-raised dominated top pair, because `PriorFoldModel`
