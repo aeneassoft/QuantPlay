@@ -120,8 +120,9 @@ def build_dataset(pot: float = 20.0, stack: float = 100.0):
 
 
 # ----------------------------------------------------------------- net + train (torch, pod-side)
-def train(X, Y, epochs=300, lr=1e-3, hidden=(128, 128), device=None, seed=0, net=None):
-    """Distill toward the GTO targets. Pass `net` to WARM-START (continue training across rounds)."""
+def train(X, Y, epochs=300, lr=1e-3, hidden=(128, 128), device=None, seed=0, net=None, bs=0):
+    """Distill toward the GTO targets. Pass `net` to WARM-START (continue training across rounds).
+    bs>0 enables minibatching (full-batch underfits a large set — only `epochs` gradient steps total)."""
     import numpy as np
     import torch
     import torch.nn as nn
@@ -139,11 +140,22 @@ def train(X, Y, epochs=300, lr=1e-3, hidden=(128, 128), device=None, seed=0, net
         net = nn.Sequential(*layers)
     net = net.to(dev)
     opt = torch.optim.Adam(net.parameters(), lr=lr)
+    nN = Xt.shape[0]
+    loss = None
     for _ in range(epochs):
-        opt.zero_grad()
-        loss = -(Yt * torch.log_softmax(net(Xt), dim=1)).sum(1).mean()   # cross-entropy / KL to GTO
-        loss.backward()
-        opt.step()
+        if bs and bs < nN:
+            perm = torch.randperm(nN, device=dev)
+            for i in range(0, nN, bs):
+                idx = perm[i:i + bs]
+                opt.zero_grad()
+                loss = -(Yt[idx] * torch.log_softmax(net(Xt[idx]), dim=1)).sum(1).mean()
+                loss.backward()
+                opt.step()
+        else:
+            opt.zero_grad()
+            loss = -(Yt * torch.log_softmax(net(Xt), dim=1)).sum(1).mean()   # cross-entropy / KL to GTO
+            loss.backward()
+            opt.step()
     return net, float(loss.item())
 
 

@@ -55,8 +55,20 @@ Three resources were run in parallel (the clean split — see the memory note [[
   into `adaptive.py`: logs predicted-vs-observed folds in the spots we ACTUALLY bet (selection-aware), bias-
   corrects future fold-equity, exposes a data-driven confidence. None-safe (no data -> behaviour unchanged).
   Tests: `python -m tests.test_calibration`. Persisted per opponent under `data/calibration/<name>.json`.
+- **GTO-floor net v0 (distillation)** ([extraction/distill_improve.py](../extraction/distill_improve.py)) on the
+  1340-board solver cache (local RTX 3080 Ti): added minibatching to `distill.train` (full-batch underfit
+  328k samples); 256³ net → held-out **TV-gap 17.7%→17.0%**, saved `data/floor_net.pt`. **KEY FINDING
+  (empirically validated, not just taken from the OpenAI tips): bigger nets barely move it → the bottleneck is
+  DATA COVERAGE, not the model.** Vetted OpenAI (gpt-5.1) advice via [extraction/cfr_tips.py](../extraction/cfr_tips.py).
 
 ## Open threads / next steps (in priority order)
+0. **GTO floor — the #1 lever (now evidence-backed).** The distilled floor plateaus ~17% TV on SRP-flop-only
+   data. Real gains need, in order: (a) **coverage campaign** — broaden the solver cache (turns, rivers, 3-bet
+   pots, stack depths) with a wider TexasSolver tree (CPU); (b) finer **action buckets** (add overbets) +
+   EV-weighted loss + post-hoc calibration; (c) an **LBR (local best response) evaluator** for HONEST NLHE
+   exploitability (TV is only a proxy — a low TV can still be exploitable). Then wire `floor_net.pt` as the
+   policy floor (`cfr_policy.py`, see [INTEGRATION.md](INTEGRATION.md)). Methodology lab: validate CFR+ on the
+   self-contained Leduc Deep-CFR (`deep_cfr.py`, exact exploitability) before any NLHE self-play.
 1. Retrieve the Qwen LoRA from the pod, then **`python -m extraction.runpod_run --kill`** (stop billing).
 2. (Optional) On-pod eval LoRA vs base on held-out PokerBench (prove the gain) before killing.
 3. **Make `gto_baseline` c-bet texture-aware** (high on dry/high/rainbow, low on monotone/connected) and fix
