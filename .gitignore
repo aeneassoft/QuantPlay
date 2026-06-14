@@ -8,7 +8,8 @@
 data/
 tools/
 Information/
-models/                     # retrieved LoRA adapters / nets (large binaries; keep out of git)
+# retrieved LoRA adapters / nets (large binaries; keep out of git)
+models/
 *.pdf
 *.tgz
 *.zip
