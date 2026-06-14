@@ -74,8 +74,10 @@ def _made_tier(hole, board, made: str) -> str:
     return "weak"
 
 
-def _decide(obs: dict, k: Knobs, read: dict) -> dict:
-    """Core decision, parametrized by a profile `k` and live exploit deltas `read`."""
+def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None) -> dict:
+    """Core decision, parametrized by a profile `k` and live exploit deltas `read`. `aggressor` = does this
+    bot hold the preflop initiative (True=aggressor/c-bet role, False=caller/check-to-raiser, None=unknown).
+    Step 4c: role-awareness fixes the measured over-donk (OOP 52% vs GTO 22%) + under-c-bet (IP 61% vs 73%)."""
     hole, board = obs["hole"], obs["board"]
     bb, to_call, pot = obs["bb"], obs["to_call"], obs["pot"]
     can_check, can_raise = obs["can_check"], obs["can_raise"]
@@ -165,7 +167,18 @@ def _decide(obs: dict, k: Knobs, read: dict) -> dict:
 
     if not can_raise:
         return mk("check", None, "Check.")
-    if eq >= k.value_eq:
+    if aggressor is False:                      # caller w/o initiative: check to the raiser; donk ~GTO 22%
+        if eq >= 0.62 and rng.random() < 0.45:
+            to, _, _ = pf.pick_value_size(pot, fm, obs["street"], hero_committed, obs["my_stack"], eq)
+            return mk("raise", raise_to(to or obs["raise_min"]), f"Donk for value ({eq:.0%}). {made}.")
+        return mk("check", None, f"Check to the raiser ({eq:.0%}, {made}).")
+    if aggressor is True and len(board) == 3:   # aggressor flop: texture-conditioned c-bet to GTO frequency
+        f_cbet, size = pf.cbet_policy(board, ip=True)
+        if eq >= 0.72 or rng.random() < f_cbet:
+            return mk("raise", raise_to(round(size * pot) or obs["raise_min"]),
+                      f"C-bet (texture {int(f_cbet*100)}%, {eq:.0%}). {made}.")
+        return mk("check", None, f"Check back ({eq:.0%}, {made}).")
+    if eq >= k.value_eq:                         # turn/river aggressor, or unknown role: value + bluff
         to, _, sf = pf.pick_value_size(pot, fm, obs["street"], hero_committed, obs["my_stack"], eq)
         return mk("raise", raise_to(to or obs["raise_min"]), f"Value bet ({eq:.0%} vs {n_opp}). {made}.")
     bluff_freq = (0.25 if n_opp == 1 else 0.10) * k.bluff_mult * read.get("bluff_mult", 1.0)
@@ -216,6 +229,7 @@ class SixMaxBot:
     def _new_hand_state(self, seats):
         self.active = set(seats)
         self.cur_agg = None         # last aggressor on the current street (who we'd be facing)
+        self.pf_aggressor = None    # last seat to raise preflop = who holds postflop initiative
         self._street = "preflop"
         self._vpip_done = set()
         self._pfr_done = set()
@@ -228,6 +242,8 @@ class SixMaxBot:
 
     def observe(self, actor: int, street: str, action: str, to_call: int, preflop_raises: int):
         """Feed ONE public action (any seat). Only public info — no hole cards."""
+        if street == "preflop" and action == "raise":
+            self.pf_aggressor = actor       # postflop initiative = last preflop raiser (self or other)
         if actor == self.seat:
             if action in ("bet", "raise"):
                 self.cur_agg = actor
@@ -292,4 +308,5 @@ class SixMaxBot:
         return read
 
     def decide(self, obs: dict) -> dict:
-        return _decide(obs, self.k, self._read(obs))
+        aggr = (self.pf_aggressor == self.seat) if obs.get("board") else None
+        return _decide(obs, self.k, self._read(obs), aggressor=aggr)
