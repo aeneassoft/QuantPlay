@@ -233,21 +233,30 @@ class PokerBot:
             call_thresh = max(0.0, req + shade)
             r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call,
                       "call_threshold": round(call_thresh, 3), "villain_aggr": round(aggr_v, 2)})
+            eff = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
+            # Value-raise, but DON'T stack off (commit >half the effective stack) on merely-good equity vs
+            # a betting = strong range: that is the dominated-top-pair spew. Need near-nut eq to commit deep.
             if eq >= 0.72 and la["can_raise"]:
-                size = self._raise_to(la, state["current_bet"] + round(0.8 * (pot + to_call)))
-                return self._mk("raise", size, r, f"Raise for value: {eq:.0%} equity vs "
-                                f"{len(kept)} combos — build the pot with {made}.")
+                vr = self._raise_to(la, state["current_bet"] + round(0.8 * (pot + to_call)))
+                if eq >= 0.82 or (vr - hero_committed) <= 0.5 * eff:
+                    return self._mk("raise", vr, r, f"Raise for value: {eq:.0%} equity vs "
+                                    f"{len(kept)} combos — build the pot with {made}.")
+                # strong-ish but not near-nut and a big commitment -> just call, keep the pot controlled
             if eq >= call_thresh:
                 return self._mk("call", None, r, f"Call: {eq:.0%} >= MDF-defense threshold {call_thresh:.0%} "
                                 f"(pot odds {req:.0%}, shaded for villain bluffiness {aggr_v:.0%}, MDF {mdf:.0%}). {made}.")
-            if la["can_raise"] and eq < 0.33:   # bluff-raise only if the fold model makes it +EV
-                s = round(0.9 * (pot + to_call))
+            # A bluff-RAISE is a pure gamble that villain folds. The FLOOR (no confident read) NEVER does it
+            # — that unbounded raise-bluff was the -900 bb/100 stack-off leak. Fire ONLY with a confident
+            # over-fold read (learned model + conf) AND a non-committing size.
+            if la["can_raise"] and eq < 0.33 and learned and conf >= 0.5:
+                s = round(0.6 * (pot + to_call))
+                br = self._raise_to(la, state["current_bet"] + s)
                 Fr = fm.fold(street, s / max(pot, 1))
-                if pf.ev_bluff(s / max(pot, 1), Fr) > 0.06:
-                    size = self._raise_to(la, state["current_bet"] + s)
-                    return self._mk("raise", size, r, f"Bluff-raise: fold model F={Fr:.0%} at this "
-                                    f"size beats breakeven → +EV semi-bluff.")
-            return self._mk("fold", None, r, f"Fold: {eq:.0%} < MDF-defense threshold {call_thresh:.0%}.")
+                if pf.ev_bluff(s / max(pot, 1), Fr) > 0.10 and (br - hero_committed) <= 0.35 * eff:
+                    return self._mk("raise", br, r, f"Bluff-raise: confident over-fold read "
+                                    f"(F={Fr:.0%}, conf {conf:.0%}), non-committing size.")
+            return self._mk("fold", None, r, f"Fold: {eq:.0%} < threshold {call_thresh:.0%} "
+                            f"(floor: no stack-off raise-bluff without a read).")
 
         # ---- we can bet (checked to / first to act) ----
         if not la["can_raise"]:
