@@ -1,0 +1,67 @@
+[
+ {
+  "component": "Counterfactual Value Network (CFVnet) architecture",
+  "description": "A feedforward network with seven fully connected hidden layers of 500 nodes each, plus an external network enforcing that weighted output values for each player sum to zero. Input is a flattened array of length 2,001 encoding both players' bucketed probability distributions over private hands plus pot size as a fraction of starting chips; outputs are expected values for each of 1,000 buckets as a fraction of the pot.",
+  "application": "Use this exact zero-sum-constrained 7x500 MLP design with bucketed belief inputs and pot-relative value outputs as the leaf value function for our depth-limited self-play solver."
+ },
+ {
+  "component": "Belief-conditioned value function (CFVnet concept)",
+  "description": "Unlike perfect-information value functions, the value of a state must be conditioned on the probability distribution over which states each player might be in, because optimal play depends on all players' beliefs. The network outputs a value per possible hand rather than a single state value.",
+  "application": "Our leaf evaluator must take belief/range distributions over both players' hands as input, not just board state, to produce sound GTO subgame values."
+ },
+ {
+  "component": "Bucketing abstraction (card abstraction)",
+  "description": "To reduce function-approximation complexity, the 1,326 possible private-hand combinations are compressed into ~1,000 buckets for both network inputs and outputs rather than using per-hand probabilities directly.",
+  "application": "Apply card bucketing (e.g. via clustering) to compress the 1,326 hand combos into a tractable input/output vector for our value network."
+ },
+ {
+  "component": "Action abstraction",
+  "description": "The huge ~20,000-action branching factor is reduced to a small predefined set of bet sizes expressed as fractions of the pot (plus fold/call/all-in). Supremus uses a finer-grained set than DeepStack, e.g. first action F,C,0.33,0.5,0.75,1.0,1.25,2.0,A vs DeepStack's F,C,0.5,1.0,2.0,A.",
+  "application": "Define a small but fine-grained pot-fraction bet menu per decision; finer discretization measurably improved performance, so favor more bet sizes early in the tree."
+ },
+ {
+  "component": "DCFR+ equilibrium-finding algorithm",
+  "description": "A modification of Discounted CFR that delays tracking of the average policy (weight max{0,t-d}, d=100) and uses linear rather than quadratic averaging weights, yielding faster practical convergence while retaining the O(1/sqrt(T)) exploitability bound. When using CFVnets at leaf nodes, simultaneous regret updates for both players converged faster than alternating updates.",
+  "application": "Adopt DCFR+ as our core solver with delayed-start linear averaging and simultaneous updates when value nets are at the depth limit; it outperformed CFR+, DCFR, and DeepStack's variant."
+ },
+ {
+  "component": "Continual resolving / safe resolving (CFR-D)",
+  "description": "Repeatedly applies safe re-solving as play proceeds down the tree, constraining that the opponent's value for any state cannot improve relative to its pre-search estimate, which provably bounds exploitability. If an opponent picks an out-of-abstraction action, a new policy is resolved on the fly, eliminating action-translation error.",
+  "application": "Use CFR-D continual resolving at each decision so we respond soundly to any opponent bet size without exploitable action translation, at the cost of recomputing per action instead of a lookup table."
+ },
+ {
+  "component": "Depth-limited subgame solving with per-round value nets",
+  "description": "Supremus builds a lookahead tree only to the end of the current round and substitutes a value network at the leaves (every round except the river, which is solved to game end). Using value functions at the end of each round avoids the O(n^d) tree blowup and the large chance branching from revealed community cards.",
+  "application": "Limit our search tree to the current betting round and call a trained CFVnet at the round boundary to keep real-time solving tractable."
+ },
+ {
+  "component": "Recursive value-network training pipeline (self-play data generation)",
+  "description": "Networks are trained bottom-up by solving millions of randomly generated subgames rooted at the start of each round, using the next round's network for leaf values (river first, then turn, flop, preflop auxiliary). Each subgame is solved with 4,000 DCFR+ iterations per player; Supremus used 50M river, 20M turn, 5M flop, 10M preflop samples (far more than DeepStack).",
+  "application": "Generate training data via solver self-play on random subgames in bottom-up round order; more data and a dedicated river network drove lower validation error and stronger play."
+ },
+ {
+  "component": "Training setup and loss",
+  "description": "Networks trained with Adam optimizer and Huber loss; Supremus achieved lower validation Huber loss (e.g. flop 0.011, ~3x lower than DeepStack's 0.034; turn 0.010 vs 0.026).",
+  "application": "Use Adam + Huber loss for value-net regression; lower leaf-value error directly improves solving accuracy and head-to-head results."
+ },
+ {
+  "component": "GPU end-to-end implementation",
+  "description": "Supremus is implemented in CUDA/C++ to run the entire solve on-GPU, loading the tree once and avoiding host-device memory transfers. It runs 1,000 flop iterations in 0.8s (>6x faster than DeepStack) and reaches 3 mbb/g exploitability >5,000x faster on the same hardware.",
+  "application": "Implement the full CFR solve on GPU with custom kernels and no mid-solve memory movement to hit real-time speeds needed for many iterations and deeper convergence."
+ },
+ {
+  "component": "Exploitability / head-to-head results",
+  "description": "DeepStack reimplementation lost to Slumbot by 63±40 mbb/g, while Supremus beat Slumbot by 176±44 mbb/g (a 239 mbb/g improvement). Against a local best response (LBR), DeepStack won 428±87 mbb/g, the reimplementation 536±68, and Supremus 951±96 mbb/g.",
+  "application": "Use LBR exploitability and head-to-head mbb/g vs a strong benchmark (e.g. Slumbot) as our dual evaluation metrics; low LBR exploitability alone is insufficient, so always test head-to-head."
+ },
+ {
+  "component": "Lesson: low exploitability does not guarantee winning",
+  "description": "The DeepStack reimplementation was not exploitable by LBR yet still lost to the non-searching Slumbot, showing that being unexploitable is not the same as maximizing win rate against real opponents. Better convergence, finer action abstraction, lower net error, and more iterations together turned a loss into a large win.",
+  "application": "Don't optimize solely for static GTO unexploitability; closer equilibrium convergence plus richer abstraction yields real edge, and an exploit module is needed to maximize EV against weaker opponents beyond what unexploitable play captures."
+ },
+ {
+  "component": "Lesson: avoid assuming a fixed opponent policy (RPS example)",
+  "description": "If a searcher assumes the opponent plays a fixed (e.g. equilibrium) policy, the opponent can adapt to exploit that assumption; safe resolving avoids this by bounding opponent value rather than presuming their strategy.",
+  "application": "For our GTO baseline, use safe resolving to stay unexploitable; layer any exploit adjustments deliberately on top, aware that exploiting opens us to counter-exploitation."
+ }
+]

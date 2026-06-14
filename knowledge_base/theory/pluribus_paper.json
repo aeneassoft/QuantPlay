@@ -1,0 +1,72 @@
+[
+ {
+  "component": "Counterfactual Regret Minimization (CFR)",
+  "description": "CFR is the core self-play algorithm for computing approximate Nash equilibria in two-player zero-sum imperfect-information games. It traverses the game tree, accumulating counterfactual regret per information set, then uses regret matching to update strategies so the time-averaged strategy converges to an epsilon-Nash equilibrium.",
+  "application": "Forms the foundational solver for our self-play GTO bot; we compute cumulative counterfactual regrets per information set and average strategies over iterations to approximate equilibrium play."
+ },
+ {
+  "component": "Regret Matching / Strategy Update Rule",
+  "description": "At each iteration the probability of each action is set proportional to its non-negative cumulative counterfactual regret, defaulting to uniform when all regrets are non-positive. The returned strategy is the average over all iterations, which is the approximate Nash equilibrium.",
+  "application": "Implement this normalization rule as the per-info-set policy update in our self-play loop, and store/output the averaged strategy (not the final-iteration strategy) as the GTO blueprint."
+ },
+ {
+  "component": "Counterfactual Value / Regret formulation",
+  "description": "Counterfactual value weights terminal utilities by the opponent-and-chance reach probability times the player's reach from h to z; counterfactual regret of an action is the difference in counterfactual value when forcing that action vs the current strategy. Because the agent plays against itself, alternative-action values can be simulated exactly.",
+  "application": "Defines the exact regret/value targets our solver (and any value network) must compute; self-play against current and older copies lets us simulate counterfactuals to derive these regrets."
+ },
+ {
+  "component": "CFR+ (regret matching+ with weighted averaging)",
+  "description": "CFR+ replaces cumulative regret with regret-matching+ (flooring negative regrets to zero each step) and uses weighted averaging with weight max(T-d,0) for delay d, making the current strategy converge faster. Averaging can almost be skipped because the current strategy itself nearly converges.",
+  "application": "Adopt CFR+ as a faster-converging solver variant; use the linear/weighted-averaging weight schedule with an averaging delay to accelerate blueprint computation."
+ },
+ {
+  "component": "Monte Carlo CFR (MCCFR)",
+  "description": "MCCFR samples blocks of terminal histories each iteration instead of traversing the full tree, drastically reducing per-iteration cost. Variants differ by how histories are partitioned into sampled blocks.",
+  "application": "Use MCCFR sampling to make self-play tractable on large no-limit trees rather than vanilla full-tree traversal."
+ },
+ {
+  "component": "Chance-Sampled CFR (CSCFR)",
+  "description": "An MCCFR variant where each block groups terminal histories sharing the same chance outcomes, valid because chance probabilities are independent of player decisions in poker. Used for smaller subgames in real-time search.",
+  "application": "Apply CSCFR for sampling card/chance events efficiently, and as the solver for relatively small subgames during live search."
+ },
+ {
+  "component": "Outcome-Sampling and External-Sampling MCCFR",
+  "description": "Outcome-sampling samples a single terminal history per iteration and updates only info sets along it; external-sampling samples per opponent-and-chance strategy block. These trade variance and per-iteration speed differently.",
+  "application": "Offer alternative sampling schemes to tune variance vs. iteration cost in our self-play training depending on tree size and convergence behavior."
+ },
+ {
+  "component": "Action and Information (Card) Abstraction",
+  "description": "Action abstraction buckets near-identical bet sizes together (e.g., $200 vs $201), and information abstraction buckets strategically similar hands/boards together (e.g., 10-high vs 9-high straight). Both reduce the effective game complexity before solving.",
+  "application": "Use card abstraction to cluster hand/board states and action abstraction to discretize bet sizes when computing the offline blueprint, keeping the solve tractable."
+ },
+ {
+  "component": "Blueprint Strategy (offline self-play)",
+  "description": "Pluribus computes an offline blueprint strategy via MCCFR self-play, using Linear CFR to discount early near-random iterations and pruning to skip high-negative-regret actions in ~95% of iterations. Linear CFR is applied only early since its benefit fades over time.",
+  "application": "Build our base policy as an offline blueprint trained with discounted (Linear) CFR plus negative-regret pruning for compute efficiency, then refine it in real time."
+ },
+ {
+  "component": "Depth-Limited Real-Time Search / Subgame Re-solving",
+  "description": "During live play the bot starts from the blueprint and runs real-time search looking ahead until a depth limit, removing abstractions during search to fix abstraction weaknesses. Leaf values are evaluated by simulating the game with players choosing among k=4 continuation strategies (blueprint plus fold/call/raise-biased variants).",
+  "application": "Implement depth-limited subgame solving at decision time, using a small set of biased continuation strategies at leaf nodes to estimate values and refine the blueprint with unabstracted search."
+ },
+ {
+  "component": "Leaf-value continuation strategies (anti-exploitation)",
+  "description": "Evaluating leaves against k=4 continuation strategies (unbiased blueprint plus fold/call/raise biases) yields a strategy harder to exploit by opponents who switch strategies. Subgames are solved with Linear MCCFR if large, else Linear CSCFR.",
+  "application": "Adopt the multi-strategy leaf evaluation to harden our search against opponents who adapt, and pick the solver (MCCFR vs CSCFR) by subgame size."
+ },
+ {
+  "component": "Strategy review / unpredictability mechanism",
+  "description": "To stay unpredictable, the bot reconsiders what it would have done with every possible hand it could hold in the current situation and adjusts its strategy accordingly. This keeps its range balanced and avoids revealing its actual holding.",
+  "application": "Solve over the full range (all possible hands) at each decision rather than just the held hand, ensuring range balance and resistance to exploitation."
+ },
+ {
+  "component": "Exploitability / Performance Benchmarks",
+  "description": "Heads-up limit poker was essentially solved at 0.986 mbb/game exploitability; Libratus beat pros at HUNL but still had >70 mbb/game exploitability; Pluribus won 48 mbb/game over 10,000 hands vs pros in six-player NLHE. mbb/game and mb/hand are the standard units of strength and exploitability.",
+  "application": "Use mbb/game as our evaluation metric, targeting low exploitability for GTO play and positive win-rate vs opponents; calibrate expectations that strong play (Libratus-level) can still be far from truly unexploitable."
+ },
+ {
+  "component": "Lesson: GTO bounds vs practical exploitation",
+  "description": "In multiplayer (non-two-player-zero-sum) poker, Nash equilibrium guarantees do not hold and the algorithms used aren't even guaranteed to converge, yet they still consistently beat top humans. This suggests game-theoretic performance bounds may not fully measure practical playing strength.",
+  "application": "For multiway/exploit settings we should not rely solely on equilibrium guarantees; blueprint+search self-play can win in practice even without convergence proofs, justifying an exploit-oriented build beyond static GTO."
+ }
+]
