@@ -10,13 +10,14 @@ import os
 import torch
 from datasets import concatenate_datasets, get_dataset_config_names, load_dataset
 from peft import LoraConfig
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from trl import SFTConfig, SFTTrainer
 
 BASE = os.environ.get("BASE", "Qwen/Qwen3-8B")
 MAXN = int(os.environ.get("MAXN", "60000"))
 EPOCHS = float(os.environ.get("EPOCHS", "1"))
 BATCH = int(os.environ.get("BATCH", "16"))      # bigger batch -> more GPU util (B200 has headroom)
+QUANT4 = os.environ.get("QUANT4", "0") == "1"   # 4-bit QLoRA for consumer GPUs (e.g. a 24GB RTX 3090)
 OUT = "/root/qwen_poker_lora"
 
 
@@ -48,7 +49,14 @@ def main():
                 remove_columns=cols)
 
     tok = AutoTokenizer.from_pretrained(BASE)
-    model = AutoModelForCausalLM.from_pretrained(BASE, torch_dtype=torch.bfloat16, device_map="cuda")
+    if QUANT4:                                   # QLoRA: 4-bit base fits an 8B model on a 24GB GPU
+        from peft import prepare_model_for_kbit_training
+        qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True)
+        model = AutoModelForCausalLM.from_pretrained(BASE, quantization_config=qc, device_map="cuda")
+        model = prepare_model_for_kbit_training(model)
+    else:
+        model = AutoModelForCausalLM.from_pretrained(BASE, torch_dtype=torch.bfloat16, device_map="cuda")
     peft = LoraConfig(r=64, lora_alpha=128, lora_dropout=0.05, target_modules="all-linear",
                       task_type="CAUSAL_LM")
     cfg = SFTConfig(output_dir=OUT, per_device_train_batch_size=BATCH, gradient_accumulation_steps=2,
