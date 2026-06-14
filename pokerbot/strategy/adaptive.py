@@ -276,6 +276,10 @@ class AdaptiveExploiter:
             return max(lo, min(int(chips_total), hi))
 
         base = max(0.12, min(0.92, conf * self.prof.vpip() + (1 - conf) * 0.5))
+        if to_call > 0 and pot > to_call:                     # villain put money in -> TIGHTEN his range
+            rr = to_call / max(1.0, pot - to_call)            # (anti-spew: don't over-rate eq vs aggression,
+            sf = {"flop": 0.9, "turn": 0.78, "river": 0.62}.get(state["street"], 0.85)  # the root over-commit leak)
+            base = max(0.07, base * sf * (1 - 0.7 * min(1.5, rr)))
         if board:
             eq = equity_vs_class_range(hole, list(ps.range_top(base)), board, iters=self.iters, rng=self.rng)
         else:
@@ -286,8 +290,15 @@ class AdaptiveExploiter:
             req = to_call / (pot + to_call)
             agg = self.prof.aggression()
             delta = max(-0.15, min(0.15, (0.45 - agg) * conf)) if self.knobs.exploit_bluffcatch else 0.0
-            if eq >= 0.80 and can_raise:
-                return agg_label, raise_to(committed + to_call + int(0.9 * (pot + to_call)))
+            # PREFLOP a 4-bet+ means villain's range is premium: raw percentile over-rates marginal hands
+            # (it 5-bet/stacked-off 55 as if top-20% = ahead). Need a real premium to re-raise into that.
+            big_reraise = (not board) and to_call > 5 * bb
+            if eq >= 0.80 and can_raise and not (big_reraise and eq < 0.92):
+                eff = min(stack, state["players"][1 - self.hero].get("stack", stack))
+                vr = raise_to(committed + to_call + int(0.9 * (pot + to_call)))
+                if eq >= 0.88 or (vr - committed) <= 0.5 * eff:   # don't stack off a dominated made hand
+                    return agg_label, vr
+                # strong-ish but not near-nut + big commitment -> fall through to call (pot control)
             if eq >= req + delta:
                 return "call", None
             return ("check" if can_check else "fold"), None
@@ -297,12 +308,18 @@ class AdaptiveExploiter:
             return "check", None
 
         if eq >= self.VALUE_EQ:                                  # value
+            eff = min(stack, state["players"][1 - self.hero].get("stack", stack))
             raw_fold = self.prof.fold_at(0.8)
             foldiness = self.calib.adjust("fe_value", raw_fold) if self.calib else raw_fold
             s = (0.45 + 0.7 * (1 - foldiness)) if self.knobs.exploit_value else 0.66
+            if eq < 0.78:                                        # thin value: no overbet/stack-off (reverse implied odds)
+                s = min(s, 0.66)
+            amt = raise_to(committed + int(s * pot))
+            if eq < 0.78 and (amt - committed) > 0.55 * eff:     # cap thin-value commitment, keep the pot controlled
+                amt = raise_to(committed + int(0.55 * eff))
             if self.calib:
                 self._pending = ("fe_value", foldiness)
-            return agg_label, raise_to(committed + int(s * pot))
+            return agg_label, amt
 
         if self.knobs.exploit_bluff:                             # bluff (exploit fold curve)
             best_s, best_edge, best_fold = 0.6, -1.0, 0.5

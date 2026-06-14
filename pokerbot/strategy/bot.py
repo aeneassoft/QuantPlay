@@ -144,7 +144,7 @@ class PokerBot:
         realize = 0.82  # BB is OOP postflop
         r.update({"vs_range": "SB open", "equity": round(eq, 3),
                   "required_equity": round(req, 3), "realization": realize})
-        fold_to_3bet = self.opp.fold_to_bet_freq()
+        fold_to_bet = self.opp.fold_to_bet_freq()
         conf = self.opp.confidence() if self.exploit else 0.0
 
         # value 3bet
@@ -152,12 +152,13 @@ class PokerBot:
             size = self._raise_to(la, round(state["current_bet"] * 3.2))
             return self._mk("raise", size, r, f"3-bet for value: {hc} is in the top "
                             f"{int(R.BB_3BET_VALUE_FRAC*100)}% — re-raise to punish the wide SB open.")
-        # polarized 3bet bluff (more if villain folds to 3bets a lot)
-        bluff_p = 0.30 + conf * (fold_to_3bet - 0.5)
+        # polarized 3bet bluff (more if villain folds a lot; aggregate fold-to-bet is our best proxy
+        # here — we don't track a separate fold-to-3bet stat, so this slightly under-bluffs vs a folder)
+        bluff_p = 0.30 + conf * (fold_to_bet - 0.5)
         if hc in R.bluff_band() and self.rng.random() < max(0.0, bluff_p):
             size = self._raise_to(la, round(state["current_bet"] * 3.2))
             return self._mk("raise", size, r, f"3-bet bluff with {hc}: polarized re-raise; "
-                            f"villain folds to bets ~{fold_to_3bet:.0%}.")
+                            f"villain folds to bets ~{fold_to_bet:.0%}.")
         # call by pot odds / equity realization
         if eq * realize >= req or pct >= (1 - R.BB_DEFEND_FRAC):
             return self._mk("call", None, r, f"Call: {eq:.0%} equity (×{realize} realization OOP) "
@@ -249,10 +250,11 @@ class PokerBot:
             # — that unbounded raise-bluff was the -900 bb/100 stack-off leak. Fire ONLY with a confident
             # over-fold read (learned model + conf) AND a non-committing size.
             if la["can_raise"] and eq < 0.33 and learned and conf >= 0.5:
-                s = round(0.6 * (pot + to_call))
+                sfrac = 0.6                                   # raise-bluff sized at 60% of the post-call pot
+                s = round(sfrac * (pot + to_call))            # chips; risk/pot-won = s/(pot+to_call) = sfrac
                 br = self._raise_to(la, state["current_bet"] + s)
-                Fr = fm.fold(street, s / max(pot, 1))
-                if pf.ev_bluff(s / max(pot, 1), Fr) > 0.10 and (br - hero_committed) <= 0.35 * eff:
+                Fr = fm.fold(street, sfrac)
+                if pf.ev_bluff(sfrac, Fr) > 0.10 and (br - hero_committed) <= 0.35 * eff:
                     return self._mk("raise", br, r, f"Bluff-raise: confident over-fold read "
                                     f"(F={Fr:.0%}, conf {conf:.0%}), non-committing size.")
             return self._mk("fold", None, r, f"Fold: {eq:.0%} < threshold {call_thresh:.0%} "

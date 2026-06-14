@@ -157,7 +157,7 @@ def pick_bluff_size(pot: int, model, street: str, hero_committed: int, hero_stac
 
 
 def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stack: int, eq: float):
-    """Return (to_amount, score, size_frac) maximizing (1-F)*s*(2*e_call-1)."""
+    """Return (to_amount, score, size_frac) maximizing the exact value_score(s) (fold-win + showdown)."""
     best = (None, -1e9, 0.0)
     sizes = CANDIDATE_SIZES + [hero_stack / pot] if pot else CANDIDATE_SIZES
     for s in sizes:
