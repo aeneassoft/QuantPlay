@@ -107,7 +107,9 @@ class GTOBaseline:
                 return "check", None
             if aggr is True:                  # aggressor: texture-conditioned c-bet (openai_strategy table)
                 if len(board) == 3:           # flop: frequency + size by board class (range-bet)
-                    f_cbet, size = cbet_policy(board, ip=(self.hero == state["button"]))
+                    btn = state.get("button")  # exact IP from the button; fall back to initiative if absent
+                    ip = (self.hero == btn) if btn is not None else bool(state.get("aggressor", True))
+                    f_cbet, size = cbet_policy(board, ip=ip)
                     if eq >= self.p["cbet_eq"] or self.rng.random() < f_cbet:
                         return agg, rto(committed + int(size * pot))
                     return "check", None
