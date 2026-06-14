@@ -1,0 +1,477 @@
+[
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by deviating, given opponents' strategies. Fundamental solution concept in game theory for predicting rational agent behavior.",
+  "application": "GTO target for self-play learning: agents converge via regret minimization to Nash equilibrium, ensuring strategy robustness against any opponent strategy. For exploitation, deviations from NE indicate opponent weaknesses to exploit."
+ },
+ {
+  "name": "Correlated Equilibrium (CE)",
+  "concept": "A relaxation of Nash equilibrium where a mediator suggests action profiles and players follow recommendations. All players have no incentive to deviate given the correlated distribution over joint actions.",
+  "application": "Defines broader equilibrium class reachable by learning algorithms; relevant for information-asymmetric poker scenarios where agent recommendations correlate. Tractable alternative when computing Nash is hard."
+ },
+ {
+  "name": "Coarse-Correlated Equilibrium (CCE)",
+  "concept": "An even weaker equilibrium concept: players follow recommended actions without knowing others' recommendations. Equivalent to no-regret play where each player minimizes regret against recommended strategy.",
+  "application": "Directly connected to regret-minimizing algorithms: when all players use no-regret learners, empirical play converges to CCE. Ensures GTO convergence properties with lower computational overhead than Nash."
+ },
+ {
+  "name": "No-Regret Learning / Regret Minimization",
+  "concept": "Algorithm guarantees that cumulative regret grows sublinearly in time T. External regret: player compares to best fixed action in hindsight; swap regret: compares to best-response deviations. Key convergence: multiple regret-minimizers converge to correlated equilibrium.",
+  "application": "Core engine for self-play GTO training: both players run regret-minimizing algorithms (e.g., CFR) to asymptotically reach Nash/correlated equilibrium without explicit equilibrium computation. Convergence rate determines training efficiency."
+ },
+ {
+  "name": "Counterfactual Regret Minimization (CFR)",
+  "concept": "Algorithm for extensive-form games computing regret per information set via counterfactual values (value if reaching that state). Decomposes game tree regret minimization; proven to converge to Nash equilibrium in 2-player zero-sum games.",
+  "application": "Primary algorithm for poker AI self-play: CFR+ variants (regret matching+) provably reach GTO. Track action regrets at each decision node; agents converge to NE strategy via iterated regret updates over self-play iterations."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where players sequentially choose best-response strategies against current opponents' strategies. Not guaranteed to converge to equilibrium in general games but provides local optimization moves.",
+  "application": "Exploitation subroutine: compute best-response to opponent's empirical play distribution to maximize immediate payoff. Also used as heuristic within self-play (e.g., fictitious play variant) to detect opponent exploitability."
+ },
+ {
+  "name": "Fictitious Play",
+  "concept": "Learning algorithm where each player maintains empirical distribution of opponents' past play and best-responds to it in each round. Shown to converge to Nash equilibrium in 2-player zero-sum games and certain classes of games.",
+  "application": "Simple baseline for GTO learning via self-play: agents track empirical hand/strategy distribution opponent used historically and respond; convergence properties ensure movement toward equilibrium. Enables opponent exploitation as empirical distribution diverges from NE."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "Measure of how much value a strategy can be extracted by an optimal best-response opponent. A Nash equilibrium has zero exploitability; non-equilibrium strategies have positive exploitability.",
+  "application": "Evaluation metric for self-play convergence: track exploitability of learned strategy against computed best-response to monitor GTO quality. Also defines exploitation potential: higher opponent exploitability → larger gains from best-response tactics."
+ },
+ {
+  "name": "PPAD-Hardness of Nash Equilibrium",
+  "concept": "Finding a Nash equilibrium in general bimatrix games is PPAD-complete, implying no known polynomial-time algorithm likely exists. Motivates focus on approximate equilibrium and special game classes (e.g., 2-player zero-sum, graphical games).",
+  "application": "Justifies use of iterative learning (CFR, regret matching) over direct equilibrium computation: self-play with no-regret learners avoids intractable Nash computation. Explains why poker AI relies on approximation via self-play rather than closed-form solution."
+ },
+ {
+  "name": "Two-Player Zero-Sum vs. Multiplayer General-Sum Games",
+  "concept": "2-player zero-sum: Nash equilibrium is unique (up to support), maxmin value equals minmax, and regret minimization converges to NE with strong guarantees. Multiplayer general-sum: equilibria non-unique, no such guarantees, harder computationally and strategically.",
+  "application": "No-Limit Hold'em is approximable as 2-player zero-sum (heads-up) or multiplayer general-sum (full table). For 2-player: CFR directly yields GTO via convergence guarantees. For multiplayer: use no-regret learning but expect looser equilibrium guarantees; focus on exploitability against empirical opponents."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy vector where no player can unilaterally improve their payoff by deviating, given other players' strategies. Exists in mixed strategies for all finite games (Theorem 1.8). Central solution concept capturing stable play.",
+  "application": "Self-play convergence target: CFR and regret-minimization algorithms converge to Nash equilibrium in 2-player zero-sum games. Exploitation baseline: measure opponent exploitability relative to GTO (Nash) strategy."
+ },
+ {
+  "name": "Correlated Equilibrium (CE) & Coarse-Correlated Equilibrium (CCE)",
+  "concept": "A probability distribution over strategy vectors where players follow recommended strategies if incentive-compatible. Generalizes Nash (independent play) to allow external correlation device. Richer equilibrium set than pure Nash.",
+  "application": "Regret-minimization learning (e.g., regret matching) naturally converges to CCE/CE without explicit equilibrium computation. Provides tractable alternative to Nash for multi-player games; informs algorithm design when exact Nash is PPAD-hard."
+ },
+ {
+  "name": "Regret Minimization & No-Regret Learning",
+  "concept": "Online learning algorithms that minimize cumulative regret (difference from best-response in hindsight). Convergence guarantees: average play converges to Nash (2p zero-sum) or CCE (general-sum). Foundation for iterative equilibrium discovery.",
+  "application": "Core algorithmic mechanism for self-play GTO computation: regret matching, CFR, and gradient-based methods all minimize regret. Exploitability decreases with iterations. Enables scalable simultaneous self-play without centralized equilibrium solver."
+ },
+ {
+  "name": "Counterfactual Regret (CFR)",
+  "concept": "Decomposition of regret into per-information-set contributions; algorithm minimizes counterfactual regret at each decision point. Achieves O(T^{-1/2}) convergence to Nash in extensive-form games via self-play without explicit solving.",
+  "application": "Primary algorithm for GTO in imperfect-information games like NLHE: iteratively updates strategy via regret accumulation, reaches Nash through self-play. Exploitability bounds directly tied to regret; blueprint for modern poker solvers."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where players sequentially play best responses to observed opponent play. May not converge to Nash; convergence to NE guaranteed only in special games (e.g., potential games, 2p zero-sum with best-response averaging).",
+  "application": "Exploitation algorithm: compute best response to opponent's observed strategy distribution. Convergence in self-play: best-response averaging (with regret minimization) enables Nash approximation in 2p zero-sum; informs exploitative strategy updates."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "Maximum expected loss an agent incurs against an optimal opponent; measures distance from Nash equilibrium. Zero exploitability ⟺ Nash strategy. Quantifies how much a strategy can be profitably exploited.",
+  "application": "Primary metric for GTO evaluation: track exploitability during self-play convergence. Exploit mode: opponent exploitability guides counter-strategy computation. Trade-off: low exploitability (GTO) vs. high exploitation (vs. weak opponents)."
+ },
+ {
+  "name": "PPAD-Hardness of Nash",
+  "concept": "Computing a Nash equilibrium is PPAD-complete even for 2-player games in standard form; no known polynomial-time exact algorithm for general games. Hardness justifies approximate and iterative solution methods.",
+  "application": "Justifies preference for iterative self-play (CFR, regret-minimization) over direct equilibrium solving. Explains why NLHE bots use approximation algorithms rather than closed-form solutions. Motivates relaxations (CCE, sparse trees)."
+ },
+ {
+  "name": "Two-Player Zero-Sum Games",
+  "concept": "Special structure: sum of payoffs always zero. Nash equilibrium computable via linear programming (minimax duality). Mixed Nash equilibrium solvable efficiently; value = row-player's maximin = column-player's minimax.",
+  "application": "NLHE heads-up play modeled as 2p zero-sum → LP-solvable in simplified forms. Regret-minimization convergence fastest for zero-sum: both players' average regret → 0 implies joint convergence to NE. Exploitation easier: best-response directly computable."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by deviating, given other players' strategies. In mixed strategies, all strategies in a player's support must be best responses. Existence is guaranteed by Nash's theorem for finite games.",
+  "application": "Core solution concept for No-Limit Hold'em AI: self-play algorithms (CFR, no-regret learning) converge to Nash equilibrium in 2-player zero-sum games. Also defines the target equilibrium profile that GTO bots aim to approximate, and provides the benchmark against which exploitability is measured."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "A player's best response is the strategy maximizing utility given opponents' strategies. A mixed strategy is a best response iff all pure strategies in its support are best responses. Iterative best-response updates can oscillate or converge depending on game structure.",
+  "application": "Foundation for exploit bots: identify opponent deviations from equilibrium and construct counter-strategies that maximize payoff against the observed strategy. Guides construction of exploitative adjustments in mixed strategies based on detected opponent weaknesses."
+ },
+ {
+  "name": "Counterfactual Regret Minimization (CFR)",
+  "concept": "An iterative algorithm that minimizes regret (difference between actual payoff and best-response payoff) at each information set by computing regrets for counterfactual scenarios. Regret bounds guarantee convergence to Nash equilibrium in 2-player zero-sum games.",
+  "application": "Primary algorithm for self-play GTO learning in Hold'em: CFR and variants (CFR+, Linear CFR) are the dominant no-regret methods for computing equilibrium via repeated self-play. Directly applicable to imperfect-information extensive-form games like poker."
+ },
+ {
+  "name": "No-Regret Learning / Regret Minimization + Convergence Guarantees",
+  "concept": "Algorithms that minimize regret over time such that average regret per round → 0. In 2-player zero-sum games, if both players play no-regret algorithms, their empirical distributions converge to Nash equilibrium. Convergence rate depends on algorithm (e.g., O(1/√T) for many methods).",
+  "application": "Theoretical foundation for self-play convergence: guarantees that running CFR or similar no-regret learner in self-play provably drives both agents toward equilibrium. Provides convergence speed bounds critical for evaluating training efficiency and GTO approximation quality."
+ },
+ {
+  "name": "2-Player Zero-Sum Games",
+  "concept": "Games where one player's gain equals the other's loss (payoffs sum to zero). In such games, Nash equilibrium is unique (in 2-player case) and coincides with minimax strategies. No-regret learning converges to NE in these games with strong guarantees.",
+  "application": "Structural assumption underlying Hold'em AI design: heads-up (2-player) poker is zero-sum, enabling theoretical guarantees for no-regret self-play convergence to GTO. This justifies CFR-based training and provides principled foundation for equilibrium computation."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "A strategy profile's exploitability is the maximum additional payoff an opponent can gain by best-responding to it (vs. playing NE). Measures distance from equilibrium: exploitability = 0 iff strategy is a NE component. Lower exploitability indicates stronger GTO approximation.",
+  "application": "Primary metric for evaluating GTO bot quality: quantifies how much an opponent can exploit the bot's strategy. Self-play algorithms aim to minimize exploitability; used to benchmark convergence and assess whether approximate NE has been reached to sufficient precision for competitive play."
+ },
+ {
+  "name": "PPAD-Hardness of Nash Equilibrium",
+  "concept": "Computing Nash equilibrium in general 2-player games is PPAD-complete, meaning it is as hard as problems guaranteed to have solutions via parity argument on directed graphs (e.g., Brouwer fixpoint). Suggests polynomial-time computation may be intractable despite guaranteed existence.",
+  "application": "Justifies approximate algorithms: PPAD-hardness explains why exact polynomial algorithms are unlikely; motivates use of iterative no-regret learners (CFR) that approximate NE in reasonable time rather than seeking exact solutions. Explains why algorithmic game theory adopts approximate equilibrium as practical target."
+ },
+ {
+  "name": "Correlated Equilibrium (CE)",
+  "concept": "A probability distribution over strategy profiles such that no player wants to unilaterally deviate given the recommended strategy (conditioned on their private signal). CE is easier to compute than Nash (via linear program) and always exists. Every NE is a CE.",
+  "application": "Alternative target for self-play if NE computation is intractable: CE can be found in polynomial time via LP; however, for 2-player zero-sum poker, NE and CE coincide, so Nash-focused CFR remains preferred. Relevant if extending to multi-player or general-sum variants."
+ },
+ {
+  "name": "Nash equilibrium",
+  "concept": "A strategy profile where each player's strategy is a best response to the other players' strategies; the central solution concept in noncooperative game theory. Finding Nash equilibria is PPAD-complete even in 2-player games, making it computationally intractable in general.",
+  "application": "The target equilibrium state for self-play learning in GTO development; defines the exploitability baseline (0 exploitability at Nash). Self-play algorithms like CFR converge to Nash equilibrium. Exploitability is measured as distance from Nash."
+ },
+ {
+  "name": "Correlated equilibrium (CE)",
+  "concept": "A probability distribution over strategy profiles where each player, conditioned on receiving their recommended action, prefers to follow it assuming others do likewise. CEs generalize Nash equilibria (NE is a special case where recommendations are uncorrelated) and form a convex polytope that can be computed in polynomial time via linear programming.",
+  "application": "Provides tractable intermediate solution concept for multiplayer games; learning algorithms that reach CE (via regret minimization) are computationally efficient. Relevant for understanding convergence guarantees of no-regret learning in multiplayer poker variants; CEs can model correlated strategic play in self-play."
+ },
+ {
+  "name": "Coarse-correlated equilibrium (CCE)",
+  "concept": "A probability distribution over strategy profiles where each player, after observing only their own recommended action (not conditioning on others' actions), weakly prefers to follow the recommendation. CCEs are even more general than CEs; every CE is a CCE but not vice versa.",
+  "application": "CCE convergence is the standard guarantee for regret-minimizing algorithms in self-play; player's average utility converges to CCE payoffs as regret shrinks. Relevant for analyzing no-regret learning dynamics in No-Limit Hold'em self-play."
+ },
+ {
+  "name": "No-regret learning / Regret-minimization + convergence guarantees",
+  "concept": "Learning algorithms where each player repeatedly updates strategy to minimize regret (difference between actual payoff and best-response payoff in hindsight). Regret-minimizing players' empirical play converges to coarse-correlated equilibrium; sublinear regret bounds guarantee convergence.",
+  "application": "Core algorithmic engine for self-play GTO training: CFR and its variants are regret-minimizing algorithms; convergence guarantees prove that self-play reaches Nash equilibrium (in 2-player zero-sum) or CCE (multiplayer). Regret bounds determine iteration complexity needed to reach epsilon-Nash."
+ },
+ {
+  "name": "Counterfactual regret (CFR)",
+  "concept": "A decomposition of overall regret into regret for each decision point (information set), computed via recursive counterfactual values that estimate how much a player regrets not playing differently at that node. CFR and its variants (CFR+, Linear CFR) are the dominant no-regret algorithms for extensive-form games.",
+  "application": "The primary algorithm family for self-play GTO computation in poker: CFR+ reaches approximate Nash equilibrium in 2-player zero-sum games; scales to large imperfect-information games via abstraction. Used to compute both baseline GTO strategies and initial weights for exploitation fine-tuning."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "The maximum payoff an opponent can achieve against a given strategy (or strategy profile) by playing an optimal best response; measures how far a strategy is from Nash equilibrium. In 2-player zero-sum, exploitability = 0 iff the strategy is part of a Nash equilibrium.",
+  "application": "The primary metric for GTO quality: measures how much an opponent can exploit your current strategy. Self-play reaches GTO when exploitability converges to 0. Used to benchmark self-play convergence and to measure exploit-ability of a GTO baseline before applying opponent-exploitation fine-tuning."
+ },
+ {
+  "name": "PPAD-hardness of Nash",
+  "concept": "Finding a Nash equilibrium is PPAD-complete even in 2-player zero-sum games, meaning it is computationally intractable (no known polynomial-time algorithm); motivates the use of approximation and special structure (e.g., extensive-form games with perfect recall, abstraction).",
+  "application": "Justifies why self-play uses iterative approximation (CFR) rather than direct computation; explains why GTO training must exploit game structure (tree-based CFR, abstraction) rather than solving the full strategic form. Shows that reaching exact Nash is intractable; approximate Nash and CCE are practical targets."
+ },
+ {
+  "name": "2-player zero-sum vs multiplayer general-sum",
+  "concept": "In 2-player zero-sum games, Nash equilibrium is unique in value, every no-regret learner converges to Nash, and the game has a minimax value. In multiplayer general-sum games, equilibria may not be unique, no-regret learning converges only to CCE (not necessarily Nash), and computing Nash is harder.",
+  "application": "No-Limit Hold'em with 2 players is zero-sum, enabling convergence guarantees to Nash via no-regret self-play (CFR). Multiplayer scenarios require weaker CCE guarantees. Justifies focus on 2-player self-play for GTO; multiplayer requires different exploitability metrics."
+ },
+ {
+  "name": "Best-response dynamics",
+  "concept": "A sequential game-play or learning process where players repeatedly update their strategy to be a best response to the current empirical distribution of opponent play; may cycle or converge to equilibrium depending on game structure.",
+  "application": "Conceptual foundation for self-play: repeatedly computing best-response updates (via CFR regression) toward opponent's empirical play distribution. Explains why self-play learns to exploit weak spots in opponent strategies and why mutual convergence yields equilibrium."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by deviating, given others' strategies. Mathematically characterized via complementarity conditions (best-response polytopes and completely-labeled vertex pairs in bimatrix games).",
+  "application": "Target solution concept for GTO via self-play: both CFR and no-regret dynamics converge to Nash equilibrium in 2-player zero-sum games. Defines the 'solved' state when bot reaches equilibrium through iterative self-play learning."
+ },
+ {
+  "name": "Regret Minimization / No-Regret Learning",
+  "concept": "Learning algorithms that guarantee expected payoff approaching the best fixed action in hindsight, measured by cumulative regret bounded sublinearly in time. External regret bounds ensure near-optimal play against any opponent sequence.",
+  "application": "Core mechanism for self-play convergence to GTO: if all players minimize external regret, empirical play converges to Nash equilibrium (2p zero-sum) or approximate equilibrium. Enables bot to reach equilibrium through repeated self-play without explicit equilibrium computation."
+ },
+ {
+  "name": "Counterfactual Regret (CFR)",
+  "concept": "A regret-decomposition framework for extensive games that minimizes regret at each information set by tracking counterfactual values—the expected payoff if a different action were played at that decision point. Enables linear-size equilibrium computation in sequential games.",
+  "application": "Primary algorithm for No-Limit Hold'em GTO training: CFR+ and variants converge to Nash equilibrium in imperfect-information games without explicit game solving. Allows bot to learn GTO strategies via self-play by accumulating regrets across millions of hands; exploitability shrinks provably with iterations."
+ },
+ {
+  "name": "Coarse-Correlated Equilibrium (CCE)",
+  "concept": "A probability distribution over action profiles from which no player regrets following the recommended action, even knowing their own action but not others'. Weaker than correlated equilibrium; guaranteed as limit of external regret minimization by all players.",
+  "application": "Theoretical foundation for decentralized GTO: proves that independent no-regret learners (without communication) converge to play a CCE, which in 2p zero-sum games coincides with Nash equilibrium. Justifies self-play convergence when both bot instances minimize regret independently."
+ },
+ {
+  "name": "Correlated Equilibrium (CE)",
+  "concept": "A probability distribution over joint actions where, given a recommended action drawn from the distribution, no player wants to deviate unilaterally. Stronger than Nash (Nash is a special case); guaranteed as limit of internal regret minimization by all players.",
+  "application": "Convergence target for stronger learning: if bot minimizes swap/internal regret in self-play, empirical distribution converges to CE. Relevant for multi-player variants; in 2p zero-sum setting, all CEs are Nash, so internal regret learning also reaches GTO."
+ },
+ {
+  "name": "2-Player Zero-Sum vs Multiplayer General-Sum",
+  "concept": "Zero-sum games (B = -A) have unique minimax values and Nash equilibria characterized by linear programming; multiplayer general-sum games may have multiple equilibria with no polynomial-time guarantee. Regret minimization convergence properties differ: guaranteed Nash in zero-sum, only CCE in general-sum.",
+  "application": "No-Limit Hold'em is zero-sum (one player's gain = opponent's loss); self-play convergence to Nash equilibrium is guaranteed when both players minimize regret. For exploitation of non-GTO opponents, zero-sum structure ensures best-response computation remains tractable, and GTO learned via self-play remains optimal baseline."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where each player myopically plays a best response to opponents' current strategy; may cycle or converge depending on game structure. In zero-sum games, best-response cycles imply multiple equilibria; convergence is not guaranteed in general.",
+  "application": "Exploitation mechanism: compute best response to exploitable opponent strategy to maximize immediate payoff. Contrasts with regret minimization (which balances exploration and exploitation); used in bot's exploit-mode to dynamically adapt to deviations from GTO play."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "The expected payoff a worst-case opponent (best responder) can guarantee against a given strategy, measuring distance to Nash equilibrium. In 2p zero-sum, exploitability = minimax value minus strategy's guaranteed value; approaches 0 as strategy converges to Nash.",
+  "application": "Metric for GTO convergence: CFR exploitability shrinks with iterations, quantifying how close bot strategy is to equilibrium. Also used to evaluate opponent models: compute opponent's best response payoff to identify exploitable patterns, then blend GTO with exploitation to maximize value against that specific opponent."
+ },
+ {
+  "name": "PPAD-Hardness of Nash",
+  "concept": "Computing a Nash equilibrium of multiplayer general-sum games is PPAD-complete (as hard as finding fixed points); no polynomial-time algorithm known. Contrasts with 2p zero-sum (polynomial via LP) and bimatrix games with specific structure (LH algorithm often efficient in practice).",
+  "application": "Justifies CFR over brute-force equilibrium-finding in No-Limit Hold'em: poker is multiplayer (3+ players) general-sum in full form; direct Nash computation intractable. CFR via self-play avoids exponential algorithms and is empirically polynomial-time. For 2p heads-up, zero-sum structure allows both CFR and LP/LH; CFR is preferred for scalability."
+ },
+ {
+  "name": "External Regret Minimization",
+  "concept": "An online algorithm's loss compared to the best single fixed action in hindsight, measured as L_H - L_min. The goal is to achieve sublinear regret (e.g., O(√T log N)), so per-step loss approaches the best action's performance.",
+  "application": "Core to self-play GTO training: regret-minimizing algorithms (RWM, PW) converge to Nash equilibrium when both players minimize external regret in zero-sum games. In exploitation, track opponent's empirical strategy and play best-response via external regret minimization."
+ },
+ {
+  "name": "Swap Regret & Internal Regret",
+  "concept": "Swap regret compares to any function F mapping actions to actions; internal regret compares swapping one action for another. Both are stricter than external regret. If all players achieve sublinear swap regret, empirical action distribution converges to approximate correlated equilibrium.",
+  "application": "Self-play: ensures convergence to correlatedequilibrium, a refinement beyond Nash. Exploitation: minimizing swap regret prevents playing dominated actions frequently, useful for detecting and countering exploitable opponent strategies."
+ },
+ {
+  "name": "Regret Minimization & Convergence to Nash Equilibrium",
+  "concept": "In two-player zero-sum games, if both players use external regret-minimizing procedures with R = o(T), their average payoff approaches the game's minimax value. In general-sum games with swap regret, empirical joint-action distribution ε-converges to correlated equilibrium.",
+  "application": "Self-play GTO: both players running regret-minimizing algorithms (e.g., CFR) converge to Nash equilibrium in two-player zero-sum Hold'em. Validates correctness of no-regret learning for equilibrium computation."
+ },
+ {
+  "name": "Correlated Equilibrium (CCE) & ε-Correlated Equilibrium",
+  "concept": "A distribution over joint actions where no player has incentive to deviate from recommended action given others comply. An ε-CE allows ε incentive to deviate. Theorem 4.12: if all players maintain swap regret ≤ R over T steps, empirical distribution is (R/T)-CE.",
+  "application": "Self-play: swap-regret algorithms converge to CE, a solution concept that includes Nash but allows correlated randomization. Useful for understanding multi-agent learning dynamics; CCE often computationally easier than Nash."
+ },
+ {
+  "name": "Counterfactual Regret Minimization (CFR)",
+  "concept": "While not explicitly named in these pages, CFR is implicit in the regret-minimization framework applied to imperfect-information games via counterfactual values—computing regret for each information set separately to handle hidden information.",
+  "application": "Self-play GTO foundation: CFR applies regret minimization to Hold'em by decomposing into counterfactual regrets per information set, enabling self-play convergence to Nash without full game-tree enumeration. Industry standard for poker GTO training."
+ },
+ {
+  "name": "Regret Bounds & Convergence Guarantees",
+  "concept": "RWM achieves O(√T log N) external regret; PW achieves same with quadratic loss terms. Lower bounds show Ω(√T) is tight for N≥2. These bounds quantify rate of convergence to best action and, in games, rate of convergence to equilibrium.",
+  "application": "Self-play: bounds predict how many iterations to reach ε-Nash equilibrium (roughly (log N)/ε² iterations). Exploitation: opponent model converges to true strategy at rate √T; adjust exploration/exploitation balance accordingly."
+ },
+ {
+  "name": "Best-Response Dynamics & Dominated Strategy Avoidance",
+  "concept": "Theorem 4.13: if a player uses swap-regret procedure with R = o(T), time-averaged weight on ε-dominated actions is ≤ R/(εT) → 0. Low-regret play naturally avoids dominated actions without explicit elimination.",
+  "application": "Exploitation: identify if opponent plays dominated actions above baseline; if yes, exploit via best-response. Self-play: guarantees low-regret algorithms avoid clearly suboptimal play, supporting equilibrium convergence."
+ },
+ {
+  "name": "Fictitious Play (Implicit)",
+  "concept": "While not named explicitly, the empirical distribution of opponents' actions (tracked over self-play iterations) resembles fictitious play, where each player best-responds to the empirical mixed strategy of opponents.",
+  "application": "Self-play: maintain empirical history of opponent play; compute best-response to this history. Applicable to opponent exploitation once GTO strategy is learned—track their deviations and exploit systematically."
+ },
+ {
+  "name": "Zero-Sum vs. General-Sum Games",
+  "concept": "In two-player zero-sum games, regret minimization directly approaches minimax value (Theorem 4.9). In general-sum games, convergence is weaker—regret minimization leads to approximate correlated equilibrium, not necessarily Nash.",
+  "application": "Hold'em is two-player zero-sum, so external/swap regret algorithms provably converge to Nash. Exploitability measure (distance to Nash) applies directly. For multiplayer variants, weaker convergence guarantees apply."
+ },
+ {
+  "name": "Exploitability & Best-Response Value",
+  "concept": "Not explicitly defined in these pages, but implied: the regret of an equilibrium strategy is zero; regret > 0 signals exploitability. Exploitability = (best-response value) - (equilibrium strategy value).",
+  "application": "Self-play: track regret during training; regret → 0 = convergence to GTO. Exploitation: compute regret of opponent strategy vs. best-response; high regret = easy exploit target. Benchmarks GTO quality."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A mixed strategy profile where no player can unilaterally improve their expected payoff by deviating. For graphical games, NE can be computed efficiently in tree structures via the TreeNash algorithm, which exploits local payoff dependencies to avoid full exponential enumeration.",
+  "application": "Core solution concept for GTO via self-play: algorithms like TreeNash and NashProp converge to NE by propagating conditional equilibrium information locally across the game graph, enabling scalable equilibrium learning in structured games. Also defines exploitability: how far a strategy deviates from NE payoff."
+ },
+ {
+  "name": "Correlated Equilibrium (CE)",
+  "concept": "A distribution P(a) over joint actions where each player i is incentivized to play the action recommended by a trusted mediator, conditioned on observing only their own action. CE generalizes NE by allowing correlations between player actions via shared randomization.",
+  "application": "More permissive equilibrium target for self-play learning: CE can achieve higher social welfare than NE and are the natural convergence concept for no-regret learning algorithms. For Hold'em AI, CE enables shared randomization strategies (e.g., correlated bluffing/value-betting signals) that improve exploitability bounds while remaining incentive-compatible."
+ },
+ {
+  "name": "Graphical Games Structure (Local Neighborhoods)",
+  "concept": "Represents games where each player's payoff depends only on actions of a local neighborhood N(i) rather than all n players. This factorizes the game representation: payoff tables scale exponentially in local degree d, not global player count n.",
+  "application": "Enables scalable self-play by restricting game trees to relevant local interactions; permits polynomial-time approximate NE computation (ApproximateTreeNash) and compact CE representation via Markov networks, reducing memory/computation from exponential in n to exponential in d."
+ },
+ {
+  "name": "No-Regret Learning & Regret Minimization",
+  "concept": "Iterative algorithms (e.g., regret-matching) that converge to CE in self-play by having each player minimize cumulative regret—the sum of foregone payoffs from not playing best-responses. Regret bounds guarantee convergence as iterations grow.",
+  "application": "Foundational for GTO via self-play: CFR (Counterfactual Regret Minimization) extends regret minimization to extensive-form games like Hold'em, ensuring convergence to Nash equilibrium. Average strategy from self-play converges to NE in 2-player zero-sum games; exploitability = O(1/sqrt(T)) after T iterations."
+ },
+ {
+  "name": "Counterfactual Regret (CFR)",
+  "concept": "A regret minimization algorithm for extensive-form games that decomposes counterfactual value (expected payoff given reaching a node) and uses regret-matching to select actions. Converges to NE in polynomial time for bounded games.",
+  "application": "Direct algorithm for Hold'em GTO via self-play: CFR+ variants (linear regret weighting) reach poker NE; average strategy from self-play iterations is provably within exploitability bounds. Core technique in practical poker AI (e.g., Libratus, Pluribus)."
+ },
+ {
+  "name": "Approximate Nash Equilibrium",
+  "concept": "An ε-NE where no player can improve payoff by more than ε through unilateral deviation. ApproximateTreeNash discretizes strategies to τ-grid achieving ε-NE in polynomial time; exact NE requires exponential time.",
+  "application": "Practical alternative to exact NE for self-play when computational budget is limited. Discretization parameter τ can be tuned to trade off approximation error against convergence speed; enables faster convergence to near-GTO in large poker games."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "A measure of how much a player can gain by exploiting a given (possibly mixed) strategy profile via best-response. For NE, exploitability is zero; for approximate strategies, exploitability bounds the deviation from equilibrium play.",
+  "application": "Quantifies exploit objective: bot's exploitability against given opponent equals the opponent's maximal gain via best-response. Also measures self-play convergence: if self-play reaches exploitability ≤ ε, the resulting strategy is ε-NE and robust against any opponent."
+ },
+ {
+  "name": "Two-Player Zero-Sum vs. Multiplayer General-Sum",
+  "concept": "2-player zero-sum games (e.g., poker) have unique maxmin value; NE can be found via LP or regret minimization. Multiplayer general-sum games lack unique value and have multiple (Pareto-incomparable) NE; equilibrium selection and computation are harder.",
+  "application": "Hold'em typically modeled as 2-player zero-sum for GTO: regret minimization (CFR) provably converges to NE, yielding maxmin strategy. For multiplayer cash games (general-sum), GTO is ill-defined; exploit bot should best-respond to observed opponents rather than target NE."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where each player plays a best-response to others' current strategies. May not converge in general games, but in potential games and certain classes, reaches NE or stable cycles.",
+  "application": "Simple exploitative strategy: bot computes best-response to opponent's empirical strategy to maximize immediate payoff. Also used in no-regret learning: regret-minimizing algorithms implicitly play weighted best-responses, enabling convergence to NE when all players use them."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve its payoff by deviating, given others' strategies. Fundamental solution concept for characterizing stable outcomes in noncooperative games.",
+  "application": "Target equilibrium outcome for self-play convergence; defines the GTO solution your bot should approach via no-regret learning. Used to measure exploitability—distance from Nash indicates how much an opponent can profit against suboptimal strategies."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "The degree to which a strategy can be profitably exploited by an optimal adversary; quantified as the payoff loss relative to playing a Nash equilibrium. A strategy is unexploitable (GTO) when its exploitability equals zero.",
+  "application": "Direct metric for evaluating self-play convergence progress: tracks how close bot is to equilibrium. Guides bot toward GTO by minimizing exploitability; also measures opponent deviation from equilibrium to identify specific exploit vectors."
+ },
+ {
+  "name": "No-Regret / Regret-Minimization + Convergence Guarantees",
+  "concept": "An algorithm's average regret (difference between actual cumulative payoff and best fixed strategy in hindsight) converges to zero over time. Regret-minimizing dynamics in games converge to Nash equilibrium (or correlated equilibrium) in certain classes.",
+  "application": "Core algorithmic foundation for self-play: CFR and similar algorithms are regret-minimizers that provably converge to GTO via repeated play. Provides theoretical guarantees on convergence speed and final equilibrium quality."
+ },
+ {
+  "name": "Counterfactual Regret (CFR)",
+  "concept": "A decomposition of regret by information set that quantifies counterfactual value—the payoff a player would receive by playing a different action at a given decision point. CFR minimization via iterative updates converges to Nash equilibrium in imperfect-information games.",
+  "application": "Primary algorithm for building GTO poker bot: CFR+ and variants directly target minimization of counterfactual regrets at each decision point across all information sets, guaranteeing convergence to Nash equilibrium in self-play without opponent modeling."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "A learning process where each player iteratively plays a best response to opponents' current strategies. In general games, may not converge; in potential games and certain others, converges to equilibrium.",
+  "application": "Baseline exploitation strategy: compute best response to observed opponent strategy to maximize immediate payoff. Contrasts with GTO approach—useful for detecting exploitable patterns but does not guarantee convergence in two-player settings."
+ },
+ {
+  "name": "Nash equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by deviating. In potential games, pure Nash equilibria exist and can be found by minimizing the potential function.",
+  "application": "Foundation for defining stability of networks and equilibrium solutions in self-play learning. Guides the target solution concept when training via no-regret algorithms or best-response dynamics."
+ },
+ {
+  "name": "Best-response dynamics",
+  "concept": "A process where players iteratively update strategies to maximize their payoff given others' current strategies. In potential games, these dynamics converge to Nash equilibrium.",
+  "application": "Directly applicable to self-play training: players repeatedly best-respond to each other until convergence. Convergence guarantees imply self-play will reach GTO in potential game structures."
+ },
+ {
+  "name": "Potential games",
+  "concept": "Games admitting an exact potential function Φ where changes in payoff exactly mirror changes in Φ when any single player deviates. Pure Nash equilibria exist and best-response dynamics converge.",
+  "application": "If poker subgames can be modeled as potential games, guarantees convergence of self-play to equilibrium. Enables bounding solution quality via the potential function method."
+ },
+ {
+  "name": "Potential function method",
+  "concept": "Technique to bound price of stability by relating potential function Φ to social cost via bounds cost(S)/A ≤ Φ(S) ≤ B·cost(S), yielding PoS ≤ A/B. Applies to any potential game.",
+  "application": "After reaching equilibrium via self-play, quantifies how far the GTO solution deviates from social optimum. Useful for understanding upper bounds on exploitability of certain game structures."
+ },
+ {
+  "name": "Congestion games",
+  "concept": "Subclass of potential games where each player chooses a subset of resources with load-dependent costs. All congestion games are potential games with constructible potential functions.",
+  "application": "Poker with shared resources (e.g., stack sizes, position rotation) may have congestion game structure. Guarantees convergence properties for self-play in such settings."
+ },
+ {
+  "name": "Nash equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by changing their strategy, given others' strategies. In resource allocation games, Nash equilibrium characterizes the outcome when users strategically anticipate the effect of their actions on market prices.",
+  "application": "Foundation for analyzing price-anticipating behavior in self-play. The unique Nash equilibrium in proportional allocation mechanisms (Theorem 21.2) provides the benchmark against which to measure exploitability and GTO convergence in poker AI."
+ },
+ {
+  "name": "Price of anarchy",
+  "concept": "Quantifies the loss of efficiency (aggregate utility) at Nash equilibrium compared to the social optimum. Bounds the worst-case ratio of Nash aggregate utility to maximum aggregate utility.",
+  "application": "Directly measures exploitability of strategies. A low price of anarchy (ρ = 3/4 for proportional allocation) shows how much value is lost when opponents play Nash; informs design of robust bot strategies that minimize worst-case losses against optimal opponents."
+ },
+ {
+  "name": "Best-response dynamics",
+  "concept": "Iterative process where each player updates strategy to maximize payoff given current strategies of others. Convergence to Nash equilibrium is not always guaranteed (e.g., potential function does not exist for proportional allocation game).",
+  "application": "Guides self-play training: iterative best-response updates can approximate no-regret learning if convergence properties hold. Informs whether naive fictitious play will reach GTO in poker."
+ },
+ {
+  "name": "Competitive equilibrium",
+  "concept": "Strategy profile where players are price takers (do not anticipate effect on market price) and jointly optimize given exogenous price; characterized by first-order optimality conditions identical to social welfare maximization.",
+  "application": "Theoretical anchor for understanding when self-play without strategic anticipation reaches efficiency. Theorem 21.1 shows competitive equilibrium is fully efficient; contrast with Nash equilibrium efficiency loss motivates need for regret minimization that accounts for strategic adaptation."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by changing strategy. It is the fundamental solution concept in game theory representing a stable outcome where all players are playing mutual best responses.",
+  "application": "Nash equilibrium is the target solution concept for GTO bots. Self-play algorithms converge to Nash equilibrium through iterative best-response dynamics, and exploitability is measured as the expected loss against a Nash-equilibrium strategy. A GTO Hold'em bot aims to find the mixed-strategy Nash equilibrium of the game."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "The expected payoff an opponent can gain against a given strategy by playing an optimal counter-strategy (best response). A strategy is exploitable if an opponent can achieve positive expected value above the Nash value.",
+  "application": "Exploitability quantifies how far a strategy is from equilibrium and measures the quality of a GTO solution. Regret-minimization algorithms directly minimize exploitability. To build an exploitative bot, one computes best responses to opponent strategies; an exploit bot deliberately plays suboptimal GTO moves to punish opponent weaknesses identified through exploitability analysis."
+ },
+ {
+  "name": "Counterfactual Regret Minimization (CFR)",
+  "concept": "An algorithm that decomposes a game into information sets and minimizes regret at each decision point via counterfactual value updates. Players track the regret of not playing each action and use regret matching to converge to Nash equilibrium without requiring full game tree traversal.",
+  "application": "CFR and its variants (CFR+, Linear CFR) are the standard algorithmic engine for computing GTO strategies in poker via self-play. The algorithm tracks regret for each action at each information set, accumulates positive regrets to form the mixed strategy, and provably converges to approximate Nash equilibrium. Regret values also identify exploitable actions for building exploit strategies."
+ },
+ {
+  "name": "No-Regret Learning / Regret Minimization + Convergence Guarantees",
+  "concept": "Algorithms that minimize external regret (cumulative loss vs. the best fixed action in hindsight) across T iterations with guarantees of O(√T) or O(log T) regret. In two-player zero-sum games, if both players play no-regret algorithms, joint play converges to approximate Nash equilibrium.",
+  "application": "No-regret learning is the theoretical foundation of self-play GTO training. When both players in Hold'em apply regret minimization, their strategies converge to Nash equilibrium with quantified convergence rates. This justifies the self-play pipeline: initialize arbitrary strategies, apply CFR/no-regret updates repeatedly, and monitor regret to confirm GTO convergence. Exploit bots can leverage regret statistics to detect opponent weaknesses."
+ },
+ {
+  "name": "Two-Player Zero-Sum vs. Multiplayer General-Sum",
+  "concept": "Two-player zero-sum games have a unique mixed Nash equilibrium (by von Neumann) that can be found via linear programming; multiplayer or general-sum games may have multiple Nash equilibria, some Pareto-inefficient, complicating equilibrium selection and computation.",
+  "application": "Heads-up Hold'em is a two-player zero-sum game, so a unique (mixed) Nash equilibrium exists and is the canonical GTO target. Self-play CFR converges to this equilibrium. Multiplayer poker (3+ players, general-sum due to varying stack sizes) is harder: multiple equilibria exist, GTO is less well-defined, and exploitation strategies must account for collusion and mixed-motive scenarios. Most academic GTO work focuses on two-player zero-sum to leverage strong convergence guarantees."
+ },
+ {
+  "name": "Fictitious Play",
+  "concept": "A simple dynamic in which each player best-responds to the empirical frequency of opponent past actions. In two-player zero-sum games, fictitious play converges to Nash equilibrium (in some classes), and the empirical frequency of joint play converges to Nash play.",
+  "application": "Fictitious play is a conceptually simple self-play algorithm: players alternate best-responding to the opponent's empirical strategy. While slower than CFR, it provides a baseline for GTO convergence analysis. The algorithm's convergence in poker demonstrates that self-play dynamics without explicit regret tracking can still reach equilibrium. Tracking empirical frequencies enables exploitation: identify deviations from Nash empirical play in opponent behavior."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where players sequentially update to best responses against the current opponent strategy. In some games (potential games, dominance-solvable games), best-response dynamics converge to equilibrium; in others (e.g., cycling), they may not.",
+  "application": "Pure best-response dynamics form a baseline for analyzing self-play convergence but generally do not guarantee convergence in poker (non-potential game). However, hybrid approaches mix best-response with regret minimization to accelerate GTO convergence. Exploit bots explicitly compute best responses to estimated opponent strategies to maximize immediate punitive payoff, prioritizing exploitation over robustness."
+ },
+ {
+  "name": "Correlated Equilibrium (CE) and Coarse-Correlated Equilibrium (CCE)",
+  "concept": "CE allows a mediator to suggest correlated strategy recommendations that all players want to follow; CCE requires only that no player regrets following a recommendation ex-ante (weaker condition). Any Nash equilibrium is a CE, and any CE is a CCE.",
+  "application": "In self-play, if both players apply no-regret algorithms (e.g., CFR), empirical play converges to CCE, which contains Nash equilibrium. This provides a weaker but more computationally accessible convergence guarantee for GTO algorithms. In multiplayer Hold'em, CCE may be a more robust solution concept. Understanding CE helps design hybrid strategies that are correlated-equilibrium-safe while maintaining exploitability against non-equilibrium opponents."
+ },
+ {
+  "name": "PPAD-Hardness of Nash",
+  "concept": "Finding a mixed Nash equilibrium in a general bimatrix game is PPAD-complete, implying no known polynomial-time algorithm exists (and such an algorithm would imply P=NP). For restricted game classes, polynomial-time algorithms exist.",
+  "application": "PPAD-hardness underscores that exact GTO computation is intractable for arbitrary games. However, Hold'em has special structure: it is a finite, two-player, zero-sum extensive game, for which linear programming (simplex, interior-point) can compute Nash equilibrium in practice despite worst-case exponential behavior. CFR circumvents hardness by iteratively improving approximate solutions without solving an explicit LP. Understanding hardness motivates heuristic and approximation approaches (e.g., abstraction, regret minimization) for large poker variants."
+ },
+ {
+  "name": "Nash Equilibrium",
+  "concept": "A strategy profile where no player can unilaterally improve their payoff by deviating, given others' strategies. In two-player zero-sum games, Nash equilibrium can be found via linear programming; in general games, finding it is PPAD-complete.",
+  "application": "Target equilibrium for self-play: both players learn toward Nash via no-regret algorithms (regret minimization converges to correlated equilibrium, which includes Nash in two-player zero-sum). For exploitation: compute best-response to opponent's empirical strategy distribution."
+ },
+ {
+  "name": "Correlated Equilibrium (CE)",
+  "concept": "A probability distribution over strategy profiles where each player's strategy is a best-response to the distribution conditional on their information. Can be approximated via regret minimization; swap regret minimization converges to CE.",
+  "application": "Self-play convergence target: regret-minimizing algorithms converge to correlated equilibrium in two-player games. More permissive than Nash, enabling learning in complex games. Mediator can coordinate strategy recommendations without explicit coordination."
+ },
+ {
+  "name": "Coarse-Correlated Equilibrium (CCE)",
+  "concept": "A weaker notion where players play according to a recommended strategy from a common public signal without conditioning on private information. Equivalent to the set of strategy profiles reachable by no-regret learners.",
+  "application": "Characterizes convergence of no-regret self-play: if both players run external regret minimization, their empirical play converges to CCE. Validates that standard regret-minimizing algorithms naturally reach equilibrium."
+ },
+ {
+  "name": "No-Regret Learning and Regret Minimization",
+  "concept": "Algorithms that guarantee low cumulative regret (difference between algorithm payoff and best-response payoff in hindsight). External regret minimization via multiplicative weights or gradient-based methods; convergence to equilibrium is guaranteed in multi-agent settings.",
+  "application": "Core mechanism for GTO self-play: each agent runs no-regret algorithm (e.g., CFR, RWM). Over time, empirical play converges to Nash/correlated equilibrium. For exploitation: track opponent's empirical distribution and play best-response."
+ },
+ {
+  "name": "Counterfactual Regret (CFR) Minimization",
+  "concept": "A game-tree decomposition technique that computes regret for each information set separately. Players minimize counterfactual regret (regret weighted by probability of reaching that node) via iterative self-play; proven to converge to Nash equilibrium in two-player zero-sum games.",
+  "application": "Gold-standard algorithm for NLHE: CFR+ or variants compute approximate Nash via self-play without opponent model. Regret bounds guarantee convergence speed. Directly applicable to imperfect-information games like poker with action/information set abstractions."
+ },
+ {
+  "name": "Exploitability",
+  "concept": "A measure of how much value can be extracted from a strategy by a best-response opponent. A strategy is unexploitable (GTO) if exploitability is zero (no best-response exists). Quantifies distance from equilibrium.",
+  "application": "Self-play metric: track exploitability of learned strategy to measure convergence to GTO. For exploitation: compute opponent's exploitability and play best-response to extract maximal value; trade off GTO-ness for exploitation gains."
+ },
+ {
+  "name": "PPAD-Hardness of Nash Equilibrium",
+  "concept": "Computing a Nash equilibrium in general-sum games is PPAD-complete, meaning it is as hard as fixed-point problems. No known polynomial-time algorithm exists for general games; implies approximation or restriction to special cases (e.g., two-player zero-sum, graphical games).",
+  "application": "Justifies use of iterative learning (CFR, regret minimization) over direct computation: self-play avoids explicit equilibrium computation. For NLHE: exploit structure (two-player, zero-sum, imperfect information) and abstractions to enable tractable GTO learning."
+ },
+ {
+  "name": "Two-Player Zero-Sum Games vs. Multiplayer General-Sum",
+  "concept": "In two-player zero-sum games, Nash equilibrium is unique (value exists), computable via LP, and aligned with minimax. In multiplayer general-sum, multiple equilibria may exist, computation is harder (PPAD), and equilibria may be inefficient. NLHE is two-player zero-sum.",
+  "application": "Architectural choice: frame NLHE as two-player zero-sum (sum of payoffs = 0). Guarantees unique equilibrium value, enables CFR convergence guarantees, and simplifies learning. Multiplayer extensions require different algorithms (regret minimization still works but convergence weaker)."
+ },
+ {
+  "name": "Best-Response Dynamics",
+  "concept": "Iterative process where players update to best-response to others' current strategies. May not converge to Nash (e.g., in coordination games), but in potential games and two-player zero-sum settings, can exhibit convergence. Related to better-response and improvement dynamics.",
+  "application": "Exploitation strategy: learn opponent's empirical strategy and compute best-response. For GTO learning: best-response dynamics alone insufficient (may cycle); combine with regret minimization to guarantee convergence. Potential function method ensures convergence in certain game classes."
+ }
+]
