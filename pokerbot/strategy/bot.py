@@ -226,14 +226,20 @@ class PokerBot:
         if to_call > 0:  # ---- facing a bet/raise ----
             req = to_call / (pot + to_call)
             mdf = 1 - req
-            r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call})
+            # MDF-driven defense: call threshold = pot-odds equilibrium SHADED by villain bluffiness
+            # (rho_bluff proxy = bet/raise frequency): under-bluffer -> fold more; bluffy -> defend wider.
+            aggr_v = self.opp.aggression_freq()
+            shade = max(-0.12, min(0.12, (0.5 - aggr_v) * conf * 0.5))
+            call_thresh = max(0.0, req + shade)
+            r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call,
+                      "call_threshold": round(call_thresh, 3), "villain_aggr": round(aggr_v, 2)})
             if eq >= 0.72 and la["can_raise"]:
                 size = self._raise_to(la, state["current_bet"] + round(0.8 * (pot + to_call)))
                 return self._mk("raise", size, r, f"Raise for value: {eq:.0%} equity vs "
                                 f"{len(kept)} combos — build the pot with {made}.")
-            if eq >= req:
-                return self._mk("call", None, r, f"Call: {eq:.0%} equity beats the {req:.0%} "
-                                f"the pot lays (MDF {mdf:.0%}). {made}.")
+            if eq >= call_thresh:
+                return self._mk("call", None, r, f"Call: {eq:.0%} >= MDF-defense threshold {call_thresh:.0%} "
+                                f"(pot odds {req:.0%}, shaded for villain bluffiness {aggr_v:.0%}, MDF {mdf:.0%}). {made}.")
             if la["can_raise"] and eq < 0.33:   # bluff-raise only if the fold model makes it +EV
                 s = round(0.9 * (pot + to_call))
                 Fr = fm.fold(street, s / max(pot, 1))
@@ -241,7 +247,7 @@ class PokerBot:
                     size = self._raise_to(la, state["current_bet"] + s)
                     return self._mk("raise", size, r, f"Bluff-raise: fold model F={Fr:.0%} at this "
                                     f"size beats breakeven → +EV semi-bluff.")
-            return self._mk("fold", None, r, f"Fold: {eq:.0%} equity < {req:.0%} needed.")
+            return self._mk("fold", None, r, f"Fold: {eq:.0%} < MDF-defense threshold {call_thresh:.0%}.")
 
         # ---- we can bet (checked to / first to act) ----
         if not la["can_raise"]:
