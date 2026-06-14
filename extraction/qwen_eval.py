@@ -14,7 +14,7 @@ import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-from extraction.qwen_sft import load_pokerbench
+from datasets import concatenate_datasets, get_dataset_config_names, load_dataset
 
 BASE = "Qwen/Qwen3-8B"
 ADAPTER = r"C:\Users\hampe\Desktop\PokerB\models\qwen_poker_ckpt500"
@@ -31,12 +31,28 @@ def _action(text: str) -> str:
     return m.group(0) if m else ""
 
 
+def load_pokerbench():
+    name = "RZ412/PokerBench"
+    try:
+        cfgs = get_dataset_config_names(name)
+    except Exception:  # noqa: BLE001
+        cfgs = []
+    parts = []
+    for c in (cfgs or [None]):
+        d = load_dataset(name, c) if c else load_dataset(name)
+        for sp in d:
+            if "train" in sp.lower():
+                parts.append(d[sp])
+    return concatenate_datasets(parts) if len(parts) > 1 else parts[0]
+
+
 def _heldout(n):
     ds = load_pokerbench()
     cols = ds.column_names
     ins = "instruction" if "instruction" in cols else cols[0]
     out = "output" if "output" in cols else cols[-1]
-    ds = ds.shuffle(seed=12345).select(range(n))      # a slice independent of the (seed=0) training shuffle
+    lo = min(100000, max(0, len(ds) - n))             # rows AFTER the 100k training slice -> truly unseen
+    ds = ds.shuffle(seed=0).select(range(lo, lo + n))
     return [(str(r[ins]), str(r[out])) for r in ds]
 
 
