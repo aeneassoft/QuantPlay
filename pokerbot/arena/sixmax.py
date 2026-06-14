@@ -74,7 +74,11 @@ def _made_tier(hole, board, made: str) -> str:
     return "weak"
 
 
-def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None) -> dict:
+_RNG = random.Random()  # persistent module rng -> REAL mixing for stateless callers
+
+
+def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
+            rng: random.Random | None = None) -> dict:
     """Core decision, parametrized by a profile `k` and live exploit deltas `read`. `aggressor` = does this
     bot hold the preflop initiative (True=aggressor/c-bet role, False=caller/check-to-raiser, None=unknown).
     Step 4c: role-awareness fixes the measured over-donk (OOP 52% vs GTO 22%) + under-c-bet (IP 61% vs 73%)."""
@@ -85,7 +89,8 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None) -> d
     pct = ps.percentile(hc)
     eff = _eff_bb(obs)
     pos = obs["position"]
-    rng = random.Random(hash((tuple(hole), tuple(board), int(pot), int(to_call), pos)) & 0xFFFFFFFF)
+    if rng is None:          # per-spot reseed made every frequency deterministic per spot (fake mixing)
+        rng = _RNG
 
     def raise_to(amount):
         lo, hi = obs["raise_min"], obs["raise_max"]
@@ -223,6 +228,7 @@ class SixMaxBot:
     def __init__(self, seat: int, knobs: Knobs):
         self.seat = seat
         self.k = knobs
+        self.rng = random.Random()      # one persistent rng per seat -> real (non-deterministic) mixing
         self.opp: dict[int, OppModel] = defaultdict(OppModel)
         self._new_hand_state([])
 
@@ -309,4 +315,4 @@ class SixMaxBot:
 
     def decide(self, obs: dict) -> dict:
         aggr = (self.pf_aggressor == self.seat) if obs.get("board") else None
-        return _decide(obs, self.k, self._read(obs), aggressor=aggr)
+        return _decide(obs, self.k, self._read(obs), aggressor=aggr, rng=self.rng)

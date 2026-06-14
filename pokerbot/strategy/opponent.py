@@ -43,20 +43,16 @@ class OpponentModel:
         self.hands += 1
 
     # --- read-outs (with sane priors) ------------------------------------
-    def fold_to_bet_freq(self) -> float:
-        if self.faced_bet < 4:
-            return 0.5
-        return self.fold_to_bet / self.faced_bet
+    # Bayesian shrinkage toward the prior (pseudo-count k): at n=4 the raw rate has se~0.25, so blend
+    # toward the prior rather than a hard <4 gate that jumps prior->raw (matches adaptive._shrink).
+    def fold_to_bet_freq(self, k: int = 6) -> float:
+        return (self.fold_to_bet + 0.5 * k) / (self.faced_bet + k)
 
-    def aggression_freq(self) -> float:
-        if self.could_bet < 4:
-            return 0.5
-        return self.did_bet / self.could_bet
+    def aggression_freq(self, k: int = 6) -> float:
+        return (self.did_bet + 0.5 * k) / (self.could_bet + k)
 
-    def vpip(self) -> float:
-        if self.pf_actions < 4:
-            return 0.7  # HU baseline is loose
-        return self.pf_vpip / self.pf_actions
+    def vpip(self, k: int = 6) -> float:
+        return (self.pf_vpip + 0.7 * k) / (self.pf_actions + k)  # HU baseline is loose (prior 0.7)
 
     def confidence(self) -> float:
         """0..1 — how much to trust the reads (scales exploit strength)."""

@@ -103,6 +103,15 @@ class GTOBaseline:
             return "check", None
         if board:
             aggr = state.get("aggressor")     # True = I had initiative this hand; False = I'm the caller
+            if aggr is None:                  # LIVE: derive initiative from history (benchmarks set it explicitly).
+                pre = []                      # without this the calibrated c-bet branch below was dead in real play.
+                for h in state.get("history", []):
+                    if h.get("action") == "deal":
+                        break                 # stop at the flop deal -> `pre` = preflop actions only
+                    pre.append(h)
+                pfr = [h["player"] for h in pre if h.get("action") in ("raise", "bet", "allin")]
+                if pfr:
+                    aggr = (pfr[-1] == self.hero)   # last preflop raiser holds postflop initiative
             if aggr is False:                 # caller w/o initiative: check to the raiser; donk rarely
                 if eq >= self.p["donk_eq"] and self.rng.random() < self.p["donk_freq"]:
                     return agg, rto(committed + int(self.p["cbet_size"] * pot))
