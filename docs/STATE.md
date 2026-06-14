@@ -17,12 +17,14 @@ safely exploits each opponent's leaks (confidence-gated), built to handle oppone
 ## Honest status (what's real vs projected)
 - **Preflop**: GTO-grounded (verified Nash push/fold CFR blueprint + strength-model ranges deeper).
 - **Postflop**: equity + pot-odds/MDF + fold-equity-optimal sizing + an exploit layer — **not** a solver.
-- vs **Slumbot**: heuristic alone loses (~−170 bb/100); the data-driven fold-curve exploit flips it net
-  positive (combined ≈ +53 bb/100 / 1200 hands; high variance, **not yet conclusively proven**).
+- vs **Slumbot** (measured 2026-06-14, 300h): the old "heuristic alone ≈ −170" was a small-sample MYTH — the
+  no-exploit floor really lost **~−526 bb/100** (it **stacked off 200bb bluff-raising air**). A cheap anti-spew
+  fix → **~−46 bb/100** no-exploit (near break-even, +480 swing). Exploit-on re-bench pending.
 - vs **Pluribus** (from its 10k hands): it over-folds postflop → projected ~+4 bb/100 (ceiling ~6–8); small,
   real, safe (it never adapts).
-- Crushes weak/exploitable opponents locally (+400–500 bb/100).
-- The −100 vs near-GTO Slumbot **is our own exploitability**: we built an exploiter without a GTO floor.
+- Crushes weak/exploitable opponents locally (+300–700 bb/100).
+- The deficit vs near-GTO Slumbot WAS mostly a fixable SPEW (now fixed), not pure exploitability — the floor
+  still has cheap wins before a GTO net is strictly needed.
 
 ## Current workstream (2026-06-14): a strategic LLM + a GTO oracle + an exploit playbook
 Three resources were run in parallel (the clean split — see the memory note [[pod-run-validation]]):
@@ -50,6 +52,16 @@ Three resources were run in parallel (the clean split — see the memory note [[
   the `_OOP/_IP` ranges before acting on the absolute number; the texture-relative direction is fine).
 
 ## Shipped 2026-06-14
+- **★ Anti-spew floor fix + independent bot audit (the session's biggest MEASURED win).** Traced the no-exploit
+  floor's catastrophic loss vs strong opponents to ONE leak: it bluff-RAISED air (eq<0.33) at ~pot size =
+  effectively all-in on deeper/later streets, and value-raised dominated top pair, because `PriorFoldModel`
+  over-assumes folds. Fix (`bot.py`): the floor never raise-bluffs without a confident read; value-raise + SPR
+  commitment caps. **Measured: no-exploit vs GTOBaseline −912 → +207 bb/100; vs Slumbot −526 → −46.** Then an
+  independent `claude-opus-4-8` audit (`extraction/bot_audit.py`, every finding hand-vetted; it called the code
+  "mostly sound") found the SAME spew live in `adaptive.py` — root cause = no range-narrowing vs aggression →
+  over-rated marginal hands → over-committed. Fixed (range-narrowing ported from `gto_baseline` + commitment
+  caps + a preflop-4bet premium gate); 200bb stack-offs eliminated (worst hand −20000 → ~−7762). Phases 1.1–1.4
+  (EV-correct value sizing, texture c-bet, MDF defense, gated Pluribus fold-exploit) also shipped + committed.
 - **Self-calibrating fold-equity** ([pokerbot/strategy/calibration.py](../pokerbot/strategy/calibration.py)) —
   a prediction->measurement->calibration loop (ported from the Mycelium crypto bot's learning-engine), wired
   into `adaptive.py`: logs predicted-vs-observed folds in the spots we ACTUALLY bet (selection-aware), bias-

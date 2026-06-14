@@ -71,11 +71,18 @@ across several sessions — see the user memory for the full history.
 ## Honest status (what's real)
 - **Preflop** is GTO-grounded: CFR push/fold = verified Nash; deeper stacks use a strength-model range system.
 - **Postflop** is equity + pot-odds/MDF + **fold-equity-optimal bet sizing** + an exploit layer — *not* a solver.
-- vs **Slumbot**: heuristic alone loses (~−170 bb/100); the data-driven **fold-curve exploit** flips it net
-  positive (combined ≈ +53 bb/100 over 1200 hands; high variance, not yet conclusively proven).
+- vs **Slumbot** (measured 2026-06-14, 300h samples): the old "heuristic alone ≈ −170" was a small-sample
+  MYTH. The no-exploit floor actually lost **~−526 bb/100** because it **stacked off 200bb bluff-raising air**
+  (`PriorFoldModel` assumed a ~60% fold a near-GTO opponent never gives → `ev_bluff` looked +EV). A cheap
+  **anti-spew floor fix** (the floor never raise-bluffs without a confident read; value-raise/SPR commitment
+  caps) took the no-exploit floor to **~−46 bb/100** (near break-even, +480 bb/100 swing). Fold-curve exploit
+  on the fixed floor: re-bench pending. LESSON: the heuristic floor still hides cheap, huge wins.
 - vs **Pluribus** (from its 10k hands): it over-folds postflop heads-up to small/pot bets → exploit projects
   ~**+4 bb/100** (ceiling ~6–8); small but real & safe (it never adapts). See `knowledge_base/exploit/`.
-- Crushes weak/exploitable opponents locally (+400–500 bb/100).
+- Crushes weak/exploitable opponents locally (+300–700 bb/100).
+- **Bot cleanup (2026-06-14):** an independent `claude-opus-4-8` audit (`extraction/bot_audit.py`, hand-vetted)
+  found the SAME stack-off spew live in `adaptive.py`; root cause = it never tightened villain's range vs
+  aggression. Fixed (range-narrowing + commitment caps + preflop-4bet premium gate); 200bb stack-offs eliminated.
 - **GTO oracle says** (597 solved flops, `analyze_cache.py`): IP c-bet should be texture-conditioned (~77% on
   dry/high/rainbow vs ~58–60% monotone/connected) at a single ~⅔-pot size — the next `gto_baseline` change. An
   **exploit playbook** (Claude, bounded + benchmark-verifiable) seeds cold-start exploits for the adaptive engine.
