@@ -27,6 +27,20 @@ safely exploits each opponent's leaks (confidence-gated), built to handle oppone
 - The deficit vs near-GTO Slumbot WAS mostly a fixable SPEW (now fixed), not pure exploitability — the floor
   still has cheap wins before a GTO net is strictly needed.
 
+## Scorecard (2026-06-14, the first HONEST one — measured, not projected)
+Engine compare vs a diverse suite (`beat_them_all`-style, 250h/match) + Slumbot:
+- **`PokerBot(exploit=ON)` BEATS EVERYTHING** — worst case **+1 bb/100** (vs the strong peer); station +493,
+  maniac +757, sticky +393, trappy +161; and **≈−5 bb/100 vs Slumbot** (500h). This is the robust +
+  exploitative "universal" bot the project wanted — the anti-spew fix created it.
+- `PokerBot(exploit=off)`: most robust (worst +44) but crushes weak less.
+- `AdaptiveExploiter`: crushes weak HARDEST (+727/+1275) but **leaks −47 vs the strong peer** — it
+  over-specializes. Root (measured, knob-by-knob): adaptive's BASE decide() is weaker than PokerBot's
+  (−56 with all exploit knobs OFF), NOT a mis-tuned gate. So the real upside = port adaptive's SAFE extras
+  (calibration, playbook cold-start, LLM strategist) ONTO PokerBot's robust floor, not the reverse.
+- LBR v1 too loose to score the floor (loses −987 to it; nit-sanity +75 OK) → needs v2 for a hard number.
+- **Takeaway:** our strong main bot is `PokerBot(exploit=ON)`. Edge work = sharpen exploitation ON this
+  floor + validate at scale. The GTO net is deferred insurance (and now cheap via the GCP credit).
+
 ## Current workstream (2026-06-14): a strategic LLM + a GTO oracle + an exploit playbook
 Three resources were run in parallel (the clean split — see the memory note [[pod-run-validation]]):
 
