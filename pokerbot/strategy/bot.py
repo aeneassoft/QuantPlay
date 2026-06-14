@@ -28,6 +28,7 @@ class PokerBot:
         self.exploit = exploit
         self.opp = OpponentModel()
         self.fold_model = None   # set to a LearnedFoldModel to enable fold-equity-optimal sizing
+        self.value_raise_eq = 0.72   # facing-bet value-raise threshold (A/B-able via the duplicate gate)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -237,7 +238,7 @@ class PokerBot:
             eff = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
             # Value-raise, but DON'T stack off (commit >half the effective stack) on merely-good equity vs
             # a betting = strong range: that is the dominated-top-pair spew. Need near-nut eq to commit deep.
-            if eq >= 0.72 and la["can_raise"]:
+            if eq >= self.value_raise_eq and la["can_raise"]:
                 vr = self._raise_to(la, state["current_bet"] + round(0.8 * (pot + to_call)))
                 if eq >= 0.82 or (vr - hero_committed) <= 0.5 * eff:
                     return self._mk("raise", vr, r, f"Raise for value: {eq:.0%} equity vs "

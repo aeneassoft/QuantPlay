@@ -95,13 +95,14 @@ def gto(seed=1, **params):
     return make
 
 
-def pokerbot(exploit=False, seed=1):
+def pokerbot(exploit=False, seed=1, value_raise_eq=0.72):
     import pokerbot.strategy.bot as botmod
     botmod.EQUITY_ITERS = 120
     from pokerbot.strategy.bot import PokerBot
 
     def make(seat):
         pb = PokerBot(seat, seed=seed, exploit=exploit)
+        pb.value_raise_eq = value_raise_eq
         def d(st):
             pb.hero_idx = seat
             r = pb.decide(st)
