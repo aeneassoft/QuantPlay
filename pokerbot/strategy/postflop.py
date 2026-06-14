@@ -41,6 +41,41 @@ def classify_board(board: list[str]) -> dict:
             "connected": connected, "high": high, "dynamic": dynamic}
 
 
+# Flop c-bet (frequency, primary size as pot fraction) by board class, hero IN POSITION as the PFR.
+# From knowledge_base/postflop/openai_strategy.json ("Flop c-bet frequency & size"). Frequencies match our
+# solver cache (~80% dry/high vs ~55% monotone); sizes are small range-bets on dry, bigger on dynamic.
+FLOP_CBET = {
+    "High_dry":     (0.80, 0.33),
+    "Low_dry":      (0.65, 0.33),
+    "High_dynamic": (0.70, 0.50),
+    "Low_dynamic":  (0.55, 0.50),
+    "Paired":       (0.75, 0.33),
+    "Monotone":     (0.55, 0.50),
+}
+
+
+def flop_class(tex: dict) -> str:
+    """Map classify_board() flags to one of the 6 openai_strategy flop categories."""
+    if tex["monotone"]:
+        return "Monotone"
+    if tex["paired"]:
+        return "Paired"
+    drawy = tex["twotone"] or tex["connected"]
+    if drawy:
+        return "High_dynamic" if tex["high"] else "Low_dynamic"
+    return "High_dry" if tex["high"] else "Low_dry"
+
+
+def cbet_policy(board: list[str], ip: bool = True) -> tuple[float, float]:
+    """Texture-conditioned flop c-bet (frequency, size as pot fraction). OOP: ~15% less often, sized up.
+    Turn/river boards still classify, but callers should prefer street-specific logic there."""
+    f, s = FLOP_CBET[flop_class(classify_board(board))]
+    if not ip:
+        f = max(0.35, min(0.85, f - 0.15))
+        s = max(s, 0.50)
+    return f, s
+
+
 def ev_bluff(s: float, F: float) -> float:
     return F - s * (1.0 - F)
 

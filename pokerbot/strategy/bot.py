@@ -247,6 +247,8 @@ class PokerBot:
         if not la["can_raise"]:
             return self._mk("check", None, r, "Check (cannot bet).")
 
+        cb_s = pf.cbet_policy(board, hero_ip)[1] if street == "flop" else None  # texture c-bet size (flop)
+
         if eq >= pf.VALUE_EQ:   # value: size to get paid the most (e_call-aware)
             to, _, sf = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
             size = self._raise_to(la, to or la["raise_min"])
@@ -265,14 +267,14 @@ class PokerBot:
                 return self._mk("check", None, r, f"Check: no +EV bluff size in the data ({eq:.0%}).")
             # unknown opponent: controlled-frequency bluff at a modest size (no spew)
             if self.rng.random() < bluff_base:
-                size = self._raise_to(la, round(0.6 * pot) or la["raise_min"])
+                size = self._raise_to(la, round((cb_s or 0.6) * pot) or la["raise_min"])
                 return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                 f"Bluff ~60% pot ({eq:.0%}): controlled frequency, fold equity present.")
             return self._mk("check", None, r, f"Check: give up ({eq:.0%}, {made}).")
 
         # medium equity -> thin value IP on dynamic boards, else pot control
         if hero_ip and tex["dynamic"] and self.rng.random() < 0.5:
-            size = self._raise_to(la, hero_committed + round(0.5 * pot) or la["raise_min"])
+            size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
             return self._mk("bet" if la["is_bet"] else "raise", size, r,
                             f"Thin bet/protection IP ({eq:.0%}) on a "
                             f"{','.join(r['texture']) or 'dry'} board.")

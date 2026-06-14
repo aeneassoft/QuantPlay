@@ -20,7 +20,7 @@ from pokerbot.engine.cards import hand_class
 from pokerbot.engine.equity import equity_vs_class_range
 from pokerbot.engine.evaluator import best_five_name
 from pokerbot.strategy import preflop_strength as ps
-from pokerbot.strategy.postflop import classify_board
+from pokerbot.strategy.postflop import cbet_policy, classify_board
 
 
 class GTOBaseline:
@@ -105,7 +105,13 @@ class GTOBaseline:
                 if eq >= self.p["donk_eq"] and self.rng.random() < self.p["donk_freq"]:
                     return agg, rto(committed + int(self.p["cbet_size"] * pot))
                 return "check", None
-            if aggr is True:                  # aggressor: c-bet a WIDE merged range, small size
+            if aggr is True:                  # aggressor: texture-conditioned c-bet (openai_strategy table)
+                if len(board) == 3:           # flop: frequency + size by board class (range-bet)
+                    f_cbet, size = cbet_policy(board, ip=(self.hero == state["button"]))
+                    if eq >= self.p["cbet_eq"] or self.rng.random() < f_cbet:
+                        return agg, rto(committed + int(size * pot))
+                    return "check", None
+                # turn/river: merged c-bet (texture-aware barreling is a later step)
                 if eq >= self.p["cbet_eq"] or (eq <= self.BLUFF_EQ and self.rng.random() < self.p["cbet_bluff"]):
                     return agg, rto(committed + int(self.p["cbet_size"] * pot))
                 return "check", None
