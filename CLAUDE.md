@@ -31,11 +31,16 @@ across several sessions — see the user memory for the full history.
 - `pokerbot/web/` — FastAPI servers + `static/*.html` single-page UIs (`six.html` = 6-max, `index.html` = HU).
 - `pokerbot/benchmark/` — `slumbot.py` (play Slumbot's API, `--exploit`), `probe.py` (learn its fold curve),
   `internal.py` (local baselines), `pluribus_bench.py` (decision-alignment vs Pluribus) + `pluribus_leaks.py`
-  (mine its exploitable fold-curve), `beat_them_all.py` (the adaptive bot vs a diverse opponent suite).
+  (mine its exploitable fold-curve), `beat_them_all.py` (adaptive vs a diverse suite), `lbr.py` (LBR
+  exploitability lower bound), `llm_opponent.py` (our bot vs a frontier-LLM agent, GTO-Wizard-leaderboard-style).
 - `extraction/` — book-mining pipeline (PDF→text→Claude concepts/ranges + OpenAI math; `mathematics_of_poker.py`)
   PLUS heavy-compute: `mass_solve.py` (RAM-adaptive parallel TexasSolver → GTO cache), `analyze_cache.py`
   (cache → GTO patterns by texture), `exploit_playbook.py` (concurrent Claude → bounded exploit-directive grid),
   `qwen_sft.py` (Qwen LoRA fine-tune on PokerBench), `runpod_run.py` (pod lifecycle), `deep_cfr_nlhe.py`, `pod_run30.py`.
+  **Active learning (2026-06-14):** `grounded_blindspots.py` (solver-disagreement per spot = the RELIABLE
+  acquisition signal) + `blindspot_radar.py` (Claude-Haiku triage = cheap hypotheses, MUST be solver-verified);
+  `solvability_query.py` (OpenAI); `gcp_solve_setup.sh`/`gcp_solve_launch.sh` (GCP coverage-solve — free-tier
+  capped at 12 vCPU global, big run needs an account upgrade).
 - `knowledge_base/` — extracted artifacts: `concepts/`, `ranges/` (+ `cfr/preflop_pushfold.json`), `math/`
   (incl. `mathematics_of_poker.json`), `hand_histories/` (10k Pluribus hands), `exploit/` (`slumbot_fold.json`
   + `playbook.jsonl` = 11.5k Haiku exploit directives + `playbook_opus_coarse.jsonl` = 240 Opus).
@@ -84,6 +89,14 @@ across several sessions — see the user memory for the full history.
 - **Bot cleanup (2026-06-14):** an independent `claude-opus-4-8` audit (`extraction/bot_audit.py`, hand-vetted)
   found the SAME stack-off spew live in `adaptive.py`; root cause = it never tightened villain's range vs
   aggression. Fixed (range-narrowing + commitment caps + preflop-4bet premium gate); 200bb stack-offs eliminated.
+- **Benchmarks & the verify-everything lesson (2026-06-14):** the rigorous HU target is the **GTO Wizard
+  Benchmark** (`benchmark.gtowizard.com` — public API + leaderboard, HUNL 200bb, scored vs GTOW AI with
+  **AIVAT** variance reduction → 10× less data; request a key via their form, client = `gtowizard-ai/
+  researcher-api-client`, Python, `PokerAgent.act(GameServiceResponse)->ActRequest{f/k/c/b}`). On that board
+  EVERY LLM/agent LOSES (best ~−3 bb/100): you can't beat near-GTO, only minimize the loss. HARD LESSON:
+  candidate fixes from LLM triage AND single-rule raw-bb/100 A/B are too unreliable/noisy — only a GROUNDED
+  signal (solver TV-gap / AIVAT) or a deterministic check should gate a change (two plausible fixes — thin-value
+  and draw-c-bet — were REVERTED after measurement refuted them).
 - **GTO oracle says** (597 solved flops, `analyze_cache.py`): IP c-bet should be texture-conditioned (~77% on
   dry/high/rainbow vs ~58–60% monotone/connected) at a single ~⅔-pot size — the next `gto_baseline` change. An
   **exploit playbook** (Claude, bounded + benchmark-verifiable) seeds cold-start exploits for the adaptive engine.
@@ -95,6 +108,12 @@ robust low-exploitability baseline + an online opponent-model that detects each 
 exploits them safely, with a confidence-gated fallback — built to handle opponents *we haven't seen yet*.
 "Beat them all" requires adaptivity (the exploit that beats one bot loses to another). RunPod/Deep-CFR is
 an *optional* lever for a stronger baseline, not the edge. Stay honest about what's measured vs projected.
+**Solvability validation (gpt-5.1, 2026-06-14, `data/sessions/solvability_6max.md`):** 6-max NLHE is provably
+NOT "solvable" like heads-up — multiplayer general-sum ⇒ computing Nash is PPAD-hard & non-unique, no-regret
+(CFR) only reaches a CCE not Nash, and exploitability isn't a clean scalar. So this design *is* the only sound
+north star: a bounded-exploitability blueprint (floor) + an adaptive exploiter, judged by MEASURED
+exploitability (LBR/AIVAT) + realized bb/100 — never a "solve". The edge = exploiting each opponent's gap to
+GTO; vs near-GTO (GTO Wizard) the ceiling is ~break-even, vs the field it's huge.
 
 ## Tests
 `python -m tests.test_game` · `python -m tests.test_table` · `python -m tests.test_bot` ·
