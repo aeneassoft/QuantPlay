@@ -93,6 +93,16 @@ EXPLO_FOCUS = (
 )
 
 
+SOTA_FOCUS = (
+    "Extract from this poker-AI RESEARCH PAPER the architecture + techniques relevant to building our "
+    "self-play->GTO + exploit bot. For each return {component, description (1-3 sentences), application (how "
+    "it informs our build)}. Capture: value/policy network design (CFVnet / CFR value net); training method "
+    "(CFR/MCCFR/CFR+/DCFR+/Deep-CFR self-play); depth-limited solving / subgame re-solving / search; "
+    "abstraction (card + action); blueprint strategy; exploitability/results (bb/100, mbb/g); and any lesson "
+    "about exploitation vs static GTO play. Skip pure proofs / unrelated background."
+)
+
+
 def main():
     extract(config.ROOT / "algorithmic-game-theory.pdf",
             config.KNOWLEDGE_DIR / "theory" / "algorithmic_game_theory.json", AGT_FOCUS,
@@ -103,6 +113,10 @@ def main():
     extract(config.ROOT / "Exploitative Poker_ Learn to Play the Player_ Using Planned Betting Lines.pdf",
             config.KNOWLEDGE_DIR / "exploit" / "exploitative_poker.json", EXPLO_FOCUS,
             config.CLAUDE_MODEL)
+    for paper in ("Supremus.pdf", "Pluribus.pdf"):
+        extract(config.ROOT / "Scienctific Papers" / paper,
+                config.KNOWLEDGE_DIR / "theory" / (paper.replace(".pdf", "_paper.json").lower()),
+                SOTA_FOCUS, config.CLAUDE_MODEL)
 
 
 if __name__ == "__main__":
