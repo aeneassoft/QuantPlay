@@ -92,6 +92,24 @@ def launch(fast: bool = False) -> None:
     print("All GPU options failed — see errors above (no pod created, no cost).")
 
 
+def launch_cpu(flavor: str = "cpu5c", vcpu: int = 32, disk: int = 40) -> None:
+    """Launch a CPU pod (for the TexasSolver coverage campaign). cpu5c = high-freq Compute-Optimized."""
+    pub = open(PUBKEY_FILE, encoding="utf-8").read().strip()
+    body = {"name": "pokerb-cpu-solve", "imageName": IMAGE, "computeType": "CPU",
+            "cpuFlavorIds": [flavor], "vcpuCount": vcpu,
+            "containerDiskInGb": disk, "volumeInGb": 0, "ports": ["22/tcp"],
+            "env": {"PUBLIC_KEY": pub}}
+    code, resp = _req("POST", "/pods", body)
+    if code in (200, 201):
+        pid = resp.get("id")
+        SESSION.parent.mkdir(parents=True, exist_ok=True)
+        SESSION.write_text(json.dumps({"id": pid}), encoding="utf-8")
+        print(f"CREATED CPU pod {pid} [{flavor} x{vcpu}vCPU] (${resp.get('costPerHr')}/hr). Polling...")
+        status()
+        return
+    print(f"CPU launch failed: {code} {json.dumps(resp)[:500]}")
+
+
 def status() -> None:
     pid = json.loads(SESSION.read_text())["id"]
     code, resp = _req("GET", f"/pods/{pid}")
@@ -120,6 +138,9 @@ def main() -> None:
     ap.add_argument("--gpus", action="store_true", help="list GPU types + prices")
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--kill", action="store_true")
+    ap.add_argument("--cpu", action="store_true", help="launch a CPU pod (solver coverage campaign)")
+    ap.add_argument("--flavor", default="cpu5c", help="CPU flavor (cpu5c=high-freq compute-optimized)")
+    ap.add_argument("--vcpu", type=int, default=32)
     args = ap.parse_args()
     if args.kill:
         kill()
@@ -127,10 +148,12 @@ def main() -> None:
         status()
     elif args.gpus:
         gpus()
+    elif args.cpu:
+        launch_cpu(args.flavor, args.vcpu)
     elif args.launch:
         launch(fast=args.fast)
     else:
-        print("use --launch [--fast] / --gpus / --status / --kill")
+        print("use --launch [--fast] / --cpu [--flavor --vcpu] / --gpus / --status / --kill")
 
 
 if __name__ == "__main__":
