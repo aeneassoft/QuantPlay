@@ -103,11 +103,18 @@ class PriorFoldModel:
 
 
 class LearnedFoldModel:
-    """Per-(street, size) fold frequencies learned from observed responses (e.g. Slumbot)."""
+    """Per-(street, size) fold frequencies learned from observed responses (e.g. Slumbot).
 
-    def __init__(self, table: dict, min_n: int = 6):
+    With `max_dist` set, a learned rate is used ONLY when the queried size is within that distance of a
+    measured spot — otherwise it falls back to the GTO prior. This makes a SPARSE, spot-specific table
+    (e.g. the few significant Pluribus over-fold points) deviate from GTO *only where a leak was actually
+    measured* and play the indifference curve everywhere else, so the exploit is confined to proven spots
+    rather than generalized blindly. (A dense curve like Slumbot's leaves max_dist=None = nearest-always.)"""
+
+    def __init__(self, table: dict, min_n: int = 6, max_dist: float | None = None):
         self.table = table              # {street: [[size, fold_rate, n], ...]}
         self.min_n = min_n
+        self.max_dist = max_dist
         self.prior = PriorFoldModel()
 
     @classmethod
@@ -124,7 +131,7 @@ class LearnedFoldModel:
         for size, fr, n in rows:
             if n >= self.min_n and (best is None or abs(size - s) < abs(best[0] - s)):
                 best = (size, fr)
-        if best is not None:
+        if best is not None and (self.max_dist is None or abs(best[0] - s) <= self.max_dist):
             return max(0.02, min(0.98, best[1]))
         return self.prior.fold(street, s)
 
