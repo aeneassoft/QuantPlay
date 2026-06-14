@@ -75,8 +75,9 @@ across several sessions — see the user memory for the full history.
   MYTH. The no-exploit floor actually lost **~−526 bb/100** because it **stacked off 200bb bluff-raising air**
   (`PriorFoldModel` assumed a ~60% fold a near-GTO opponent never gives → `ev_bluff` looked +EV). A cheap
   **anti-spew floor fix** (the floor never raise-bluffs without a confident read; value-raise/SPR commitment
-  caps) took the no-exploit floor to **~−46 bb/100** (near break-even, +480 bb/100 swing). Fold-curve exploit
-  on the fixed floor: re-bench pending. LESSON: the heuristic floor still hides cheap, huge wins.
+  caps) took the no-exploit floor to **~−46 bb/100** (near break-even, +480 bb/100 swing). With the fold-curve
+  exploit on the fixed floor: **~−5.4 bb/100** (500h, ±113 — statistically ≈break-even; was −186 pre-fix, so
+  NOT yet conclusively break-even, needs 5–10k hands). LESSON: the heuristic floor still hides cheap, huge wins.
 - vs **Pluribus** (from its 10k hands): it over-folds postflop heads-up to small/pot bets → exploit projects
   ~**+4 bb/100** (ceiling ~6–8); small but real & safe (it never adapts). See `knowledge_base/exploit/`.
 - Crushes weak/exploitable opponents locally (+300–700 bb/100).

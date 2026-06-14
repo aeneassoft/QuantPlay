@@ -19,7 +19,8 @@ safely exploits each opponent's leaks (confidence-gated), built to handle oppone
 - **Postflop**: equity + pot-odds/MDF + fold-equity-optimal sizing + an exploit layer — **not** a solver.
 - vs **Slumbot** (measured 2026-06-14, 300h): the old "heuristic alone ≈ −170" was a small-sample MYTH — the
   no-exploit floor really lost **~−526 bb/100** (it **stacked off 200bb bluff-raising air**). A cheap anti-spew
-  fix → **~−46 bb/100** no-exploit (near break-even, +480 swing). Exploit-on re-bench pending.
+  fix → **~−46 bb/100** no-exploit (near break-even, +480 swing). WITH the fold-curve exploit on the fixed
+  floor: **~−5.4 bb/100** (500h, ±113 ≈break-even; was −186 pre-fix — not yet conclusive, needs 5–10k hands).
 - vs **Pluribus** (from its 10k hands): it over-folds postflop → projected ~+4 bb/100 (ceiling ~6–8); small,
   real, safe (it never adapts).
 - Crushes weak/exploitable opponents locally (+300–700 bb/100).
