@@ -17,6 +17,9 @@ def equity_vs_hand(hero: list[str], villain: list[str],
     dead = set(hero) | set(villain) | set(board)
     deck = [c for c in _FULL if c not in dead]
     need = 5 - len(board)
+    if need == 0:                       # river: one exact comparison, not `iters` identical samples
+        hs, vs = evaluate(board, hero), evaluate(board, villain)
+        return 1.0 if hs < vs else (0.5 if hs == vs else 0.0)
     win = tie = 0
     for _ in range(iters):
         draw = rng.sample(deck, need)
@@ -40,11 +43,25 @@ def equity_vs_range(hero: list[str], villain_combos: list[tuple[str, str]],
         return float("nan")
     need = 5 - len(board)
     win = tie = 0
+    # RIVER: the board is complete -> ENUMERATE the villain range EXACTLY. Zero variance, no sampling noise,
+    # and cheaper when len(vc) < iters. (MC here sampled a finite combo set WITH replacement = pure waste and
+    # flipped pot-odds decisions on noise.) Hero's 7-card rank is fixed across villain combos -> eval it once.
+    if need == 0:
+        hs = evaluate(board, hero)
+        for v in vc:
+            vs = evaluate(board, list(v))
+            if hs < vs:
+                win += 1
+            elif hs == vs:
+                tie += 1
+        return (win + tie / 2) / len(vc)
+    # turn/flop: Monte-Carlo over (villain combo, run-out). Hoist the base deck out of the loop (was rebuilt
+    # from all 52 every iteration); per-combo we only drop the 2 villain cards.
+    base_deck = [c for c in _FULL if c not in base_dead]
     n = 0
     for _ in range(iters):
         v = rng.choice(vc)
-        dead = base_dead | set(v)
-        deck = [c for c in _FULL if c not in dead]
+        deck = [c for c in base_deck if c not in v]
         draw = rng.sample(deck, need)
         full = board + draw
         hs, vs = evaluate(full, hero), evaluate(full, list(v))
