@@ -24,6 +24,7 @@ from pokerbot import config
 from pokerbot.engine.cards import hand_class
 from pokerbot.engine.equity import equity_vs_class_range
 from pokerbot.strategy import preflop_strength as ps
+from pokerbot.strategy.calibration import Calibrator
 
 BUCKETS = [(0.0, 0.45, "small"), (0.45, 0.8, "med"), (0.8, 1.3, "pot"), (1.3, 9.0, "over")]
 
@@ -175,7 +176,8 @@ class AdaptiveExploiter:
     BLUFF_EQ = 0.42
 
     def __init__(self, hero: int, seed: int = 0, iters: int = 300, knobs: Knobs | None = None,
-                 probe_budget_bb: float = 40.0, gate: bool = False, depth_aware: bool = False) -> None:
+                 probe_budget_bb: float = 40.0, gate: bool = False, depth_aware: bool = False,
+                 calibrate: bool = True, calib_name: str = "default") -> None:
         self.hero = hero
         self.rng = random.Random(seed)
         self.iters = iters
@@ -184,6 +186,10 @@ class AdaptiveExploiter:
         self.probe = ProbeController(budget_bb=probe_budget_bb, seed=seed + 1)
         self.gate = gate
         self._gate = TwoModelGate()
+        # prediction -> measurement -> calibration loop (self-correcting fold-equity). None-safe: with no
+        # data adjust() returns raw, so default behaviour is unchanged. Pass calibrate=False in hot loops.
+        self.calib = Calibrator(calib_name) if calibrate else None
+        self._pending = None     # (key, predicted_fold) awaiting the opponent's response to OUR bet
         self._depth_params = None
         if depth_aware:                          # load RunPod/local stack-depth-tuned parameters
             try:
@@ -195,10 +201,17 @@ class AdaptiveExploiter:
                 self._depth_params = None
 
     def observe_opponent(self, opp_state: dict, action: str) -> None:
-        self.prof.see_decision(opp_state.get("street", "preflop"), opp_state.get("legal") or {}, action)
+        la = opp_state.get("legal") or {}
+        self.prof.see_decision(opp_state.get("street", "preflop"), la, action)
+        # resolve a pending fold-equity prediction: opponent is now responding to OUR bet
+        if self.calib and self._pending and la.get("to_call", 0) > 0:
+            key, pred = self._pending
+            self.calib.record(key, pred, action == "fold")
+            self._pending = None
 
     def observe_hand_end(self) -> None:
         self.prof.end_hand()
+        self._pending = None     # drop any unresolved prediction at the hand boundary
 
     def decide(self, state: dict):
         la = state["legal"]
@@ -245,21 +258,28 @@ class AdaptiveExploiter:
             return "check", None
 
         if eq >= self.VALUE_EQ:                                  # value
-            foldiness = self.prof.fold_at(0.8)
+            raw_fold = self.prof.fold_at(0.8)
+            foldiness = self.calib.adjust("fe_value", raw_fold) if self.calib else raw_fold
             s = (0.45 + 0.7 * (1 - foldiness)) if self.knobs.exploit_value else 0.66
+            if self.calib:
+                self._pending = ("fe_value", foldiness)
             return agg_label, raise_to(committed + int(s * pot))
 
         if self.knobs.exploit_bluff:                             # bluff (exploit fold curve)
-            best_s, best_edge = 0.6, -1.0
+            best_s, best_edge, best_fold = 0.6, -1.0, 0.5
             for s in (0.33, 0.5, 0.75, 1.1):
-                edge = self.prof.fold_at(s) - s / (1 + s)
+                raw_fold = self.prof.fold_at(s)
+                fold = self.calib.adjust("fe_bluff", raw_fold) if self.calib else raw_fold
+                edge = fold - s / (1 + s)
                 if edge > best_edge:
-                    best_edge, best_s = edge, s
+                    best_edge, best_s, best_fold = edge, s, fold
             expl_freq = max(0.0, min(0.92, 0.33 + 1.6 * best_edge))
             p_bluff = (1 - conf) * 0.33 + conf * expl_freq
         else:
-            best_s, p_bluff = 0.6, 0.33                          # baseline (non-exploit) bluff rate
+            best_s, best_fold, p_bluff = 0.6, 0.5, 0.33          # baseline (non-exploit) bluff rate
         if eq <= self.BLUFF_EQ and self.rng.random() < p_bluff:
+            if self.calib:
+                self._pending = ("fe_bluff", best_fold)
             return agg_label, raise_to(committed + int(best_s * pot))
 
         # ---------- bounded exploratory probe (replaces a give-up check) ----------

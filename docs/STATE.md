@@ -49,6 +49,13 @@ Three resources were run in parallel (the clean split — see the memory note [[
 - **OOP donk**: 22% overall (likely **inflated by non-tuned ranges** — real BB-vs-BTN SRP donks <8%; validate
   the `_OOP/_IP` ranges before acting on the absolute number; the texture-relative direction is fine).
 
+## Shipped 2026-06-14
+- **Self-calibrating fold-equity** ([pokerbot/strategy/calibration.py](../pokerbot/strategy/calibration.py)) —
+  a prediction->measurement->calibration loop (ported from the Mycelium crypto bot's learning-engine), wired
+  into `adaptive.py`: logs predicted-vs-observed folds in the spots we ACTUALLY bet (selection-aware), bias-
+  corrects future fold-equity, exposes a data-driven confidence. None-safe (no data -> behaviour unchanged).
+  Tests: `python -m tests.test_calibration`. Persisted per opponent under `data/calibration/<name>.json`.
+
 ## Open threads / next steps (in priority order)
 1. Retrieve the Qwen LoRA from the pod, then **`python -m extraction.runpod_run --kill`** (stop billing).
 2. (Optional) On-pod eval LoRA vs base on held-out PokerBench (prove the gain) before killing.
@@ -58,12 +65,17 @@ Three resources were run in parallel (the clean split — see the memory note [[
    confidence-gated). → [pokerbot/strategy/adaptive.py](../pokerbot/strategy/adaptive.py)
 5. Serve the fine-tuned Qwen (vLLM) and point `meta_coach(provider="openai", base_url=…)` at it — the
    in-loop strategist. → [pokerbot/coach/meta_coach.py](../pokerbot/coach/meta_coach.py)
+6. (Tournament mode, future) **ICM / risk-premium** multiplier on short-stack stack-off thresholds in
+   `cfr_preflop`/`blueprint`: a tournament stack IS a bankroll with an absorbing barrier (ruin), so chips
+   have concave utility — decline +chipEV / −$EV gambles near pay jumps. This is the in-game home for the
+   Mycelium fractional-Kelly + CVaR lens (only relevant once we add tournament play; cash stays linear EV).
 
 ## Map (cross-references)
 - **Engine**: `pokerbot/engine/` (cards, treys eval, MC equity, HU `game.py`, N-player `table.py`).
 - **Strategy**: `pokerbot/strategy/` — `cfr_preflop.py`+`blueprint.py` (Nash push/fold), `postflop.py`,
   `gto_baseline.py` (analytic GTO, texture/aggressor-aware), `gto_oracle.py` (TexasSolver wrapper),
-  `adaptive.py` (exploit engine), `opponent.py`, `pluribus_exploit.py`, `bot.py`.
+  `adaptive.py` (exploit engine + self-calibrating fold-equity via `calibration.py`), `opponent.py`,
+  `pluribus_exploit.py`, `bot.py`.
 - **6-max brain**: [pokerbot/arena/sixmax.py](../pokerbot/arena/sixmax.py) (per-seat independent; the 3 fixed leaks).
 - **Coach / LLM**: `pokerbot/coach/` — `meta_coach.py` (engine-agnostic), `translate.py`.
 - **Benchmark**: `pokerbot/benchmark/` — `gto_benchmark.py` (scores us vs the solver cache), `slumbot.py`,
