@@ -25,6 +25,7 @@ from pokerbot.engine.cards import hand_class
 from pokerbot.engine.equity import equity_vs_class_range
 from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy.calibration import Calibrator
+from pokerbot.strategy.playbook import directive_to_nudge, shared as _shared_playbook
 
 BUCKETS = [(0.0, 0.45, "small"), (0.45, 0.8, "med"), (0.8, 1.3, "pot"), (1.3, 9.0, "over")]
 
@@ -177,7 +178,7 @@ class AdaptiveExploiter:
 
     def __init__(self, hero: int, seed: int = 0, iters: int = 300, knobs: Knobs | None = None,
                  probe_budget_bb: float = 40.0, gate: bool = False, depth_aware: bool = False,
-                 calibrate: bool = True, calib_name: str = "default") -> None:
+                 calibrate: bool = True, calib_name: str = "default", use_playbook: bool = True) -> None:
         self.hero = hero
         self.rng = random.Random(seed)
         self.iters = iters
@@ -190,6 +191,7 @@ class AdaptiveExploiter:
         # data adjust() returns raw, so default behaviour is unchanged. Pass calibrate=False in hot loops.
         self.calib = Calibrator(calib_name) if calibrate else None
         self._pending = None     # (key, predicted_fold) awaiting the opponent's response to OUR bet
+        self.playbook = _shared_playbook() if use_playbook else None   # LLM cold-start exploit prior
         self._depth_params = None
         if depth_aware:                          # load RunPod/local stack-depth-tuned parameters
             try:
@@ -229,6 +231,23 @@ class AdaptiveExploiter:
             dp = self._depth_params[min(self._depth_params, key=lambda d: abs(d - eff))]
             self.VALUE_EQ, self.BLUFF_EQ = dp["value_eq"], dp["bluff_eq"]
         agg_label = "bet" if is_bet else "raise"
+
+        # cold-start exploit prior from the LLM playbook: bounded, postflop-only, FADED by live confidence
+        # (w_pb -> 0 as reads accumulate). Same channel the live LLM strategist later writes into (INTEGRATION.md).
+        pb_nudge, w_pb = {}, max(0.0, 1.0 - conf)
+        if self.playbook and conf < 0.6 and board:
+            street = {3: "flop", 4: "turn", 5: "river"}.get(len(board))
+            if street:
+                aggr = self.prof.aggression()
+                opp = {"vpip": self.prof.vpip() * 100.0,
+                       "fold_to_cbet": _shrink(self.prof.folds, self.prof.faced, 0.5),
+                       "af": min(4.5, aggr / max(0.05, 1.0 - aggr))}
+                pb_nudge = directive_to_nudge(self.playbook.lookup(
+                    opp, street, "bet" if to_call > 0 else "check",
+                    stack_bb=(stack / bb if bb else None)))
+
+        def _pb(ch, cap=0.15):
+            return max(-cap, min(cap, w_pb * pb_nudge.get(ch, 0.0)))
 
         def raise_to(chips_total):
             lo, hi = la["raise_min"], la["raise_max"]
