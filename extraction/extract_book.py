@@ -20,17 +20,20 @@ def _pdf_pages(path):
     return [(p.extract_text() or "") for p in PdfReader(str(path)).pages]
 
 
-def _chunks(pages, n=20):
+def _chunks(pages, n=12):
     for i in range(0, len(pages), n):
         txt = "\n".join(pages[i:i + n]).strip()
         if len(txt) >= 200:
-            yield i, txt[:60000]
+            yield i, txt[:45000]
 
 
 def extract(pdf, out, focus, model):
     from anthropic import Anthropic
     client = Anthropic(api_key=config.ANTHROPIC_API_KEY)
     out.parent.mkdir(parents=True, exist_ok=True)
+    if out.exists() and out.stat().st_size > 50:
+        print(f"skip {out.name} (already extracted)", flush=True)
+        return
     try:
         pages = _pdf_pages(pdf)
     except Exception as e:  # noqa: BLE001
@@ -42,11 +45,14 @@ def extract(pdf, out, focus, model):
         prompt = (f"{focus}\n\nReturn ONLY a JSON array of objects (no prose, no markdown fences). "
                   f"If nothing relevant on these pages, return []. \n\nBOOK TEXT (from page ~{start}):\n{txt}")
         try:
-            r = client.messages.create(model=model, max_tokens=3000,
+            r = client.messages.create(model=model, max_tokens=8000,
                                        messages=[{"role": "user", "content": prompt}])
             t = "".join(b.text for b in r.content if getattr(b, "type", None) == "text")
             m = re.search(r"\[.*\]", t, re.S)
-            got = json.loads(m.group(0)) if m else []
+            try:
+                got = json.loads(m.group(0)) if m else []
+            except json.JSONDecodeError:          # truncated array -> salvage complete objects
+                got = [json.loads(o) for o in re.findall(r"\{[^{}]*\}", m.group(0))] if m else []
             items.extend(got)
             if got:
                 print(f"  page ~{start}: +{len(got)} (total {len(items)})", flush=True)
@@ -76,12 +82,26 @@ BGTO_FOCUS = (
 )
 
 
+EXPLO_FOCUS = (
+    "This book teaches EXPLOITATION via planned betting lines, organized by opponent TYPE (calling station, "
+    "weak-tight, LAG, maniac, nit, showdown-monkey, TAG, etc.). The text is largely NARRATIVE -- DISTILL "
+    "the concrete exploit rule from the prose; do NOT skip a chapter just because it is explanatory (that "
+    "IS the content). Extract GENEROUSLY: every distinct line/adjustment per opponent type. For each return "
+    "{opponent_type, trigger (read/stat), spot (street/position/node), line (planned multi-street betting "
+    "sequence, e.g. 'flop bet 75%, turn check, river overbet'), adjustment (deviation from GTO + WHY it "
+    "exploits), confidence (0..1)}. Return [] ONLY for truly contentless pages (cover/title/diagram-only)."
+)
+
+
 def main():
     extract(config.ROOT / "algorithmic-game-theory.pdf",
             config.KNOWLEDGE_DIR / "theory" / "algorithmic_game_theory.json", AGT_FOCUS,
             config.CLAUDE_HAIKU_MODEL)
     extract(config.ROOT / "Beyond GTO_ Poker Exploits Simplified (The Poker Solved Series).pdf",
             config.KNOWLEDGE_DIR / "exploit" / "beyond_gto.json", BGTO_FOCUS,
+            config.CLAUDE_MODEL)
+    extract(config.ROOT / "Exploitative Poker_ Learn to Play the Player_ Using Planned Betting Lines.pdf",
+            config.KNOWLEDGE_DIR / "exploit" / "exploitative_poker.json", EXPLO_FOCUS,
             config.CLAUDE_MODEL)
 
 
