@@ -23,6 +23,7 @@ from pokerbot.engine.cards import hand_class
 from pokerbot.engine.equity import equity_vs_class_range
 from pokerbot.engine.evaluator import best_five_name
 from pokerbot.strategy import postflop as pf
+from pokerbot.strategy import preflop_gto
 from pokerbot.strategy import preflop_strength as ps
 
 OPEN_FRAC = {"EP": 0.16, "MP": 0.20, "HJ": 0.22, "CO": 0.28, "BTN": 0.48, "SB": 0.45, "BB": 1.0}
@@ -98,6 +99,16 @@ def _decide(obs: dict, k: Knobs, read: dict) -> dict:
             frac = min(0.95, OPEN_FRAC.get(pos, 0.2) * k.open_mult)
             if eff <= 12 and pct >= 1 - frac * 0.8 and can_raise:
                 return mk("raise", raise_to(obs["raise_max"]), f"Short-stack open-shove {hc} from {pos}.")
+            rec = preflop_gto.rfi(pos, hc) if k.name == "tag" else None   # solver-distilled GTO open (deep)
+            if rec is not None:                # GTO table is the neutral floor's open strategy (Step 4a)
+                act = rec["action"]
+                if act == "raise" and can_raise:
+                    return mk("raise", raise_to(round(rec.get("raise_bb", 2.5) * bb)),
+                              f"GTO open {hc} from {pos} (solver table, n={rec['n']}).")
+                if act in ("fold", "check"):
+                    return mk("check" if can_check else "fold", None, f"GTO fold {hc} from {pos} (solver table).")
+                if act == "call" and obs.get("can_call"):
+                    return mk("call", None, f"GTO complete {hc} from {pos} (solver table).")
             if pct >= 1 - frac:
                 return mk("raise", raise_to(round(2.5 * bb)), f"Open {hc} from {pos} (top {int(frac*100)}%).")
             return mk("check" if can_check else "fold", None, f"{hc} below {pos} opening range.")
