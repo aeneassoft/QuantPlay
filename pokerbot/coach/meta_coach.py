@@ -55,21 +55,52 @@ _SYS_DIRECT = (
 
 
 class MetaCoach:
-    def __init__(self, provider: str = "anthropic", model: str | None = None,
-                 base_url: str | None = None, api_key: str | None = None) -> None:
+    def __init__(self, provider: str = "anthropic", model: str | None = None, base_url: str | None = None,
+                 api_key: str | None = None, adapter: str | None = None) -> None:
         self.provider = provider
+        self._lm = self._tok = None
         if provider == "anthropic":
             from anthropic import Anthropic
             self.model = model or config.CLAUDE_HAIKU_MODEL
             key = api_key or config.ANTHROPIC_API_KEY
             self.client = Anthropic(api_key=key) if key else None
+            self.available = self.client is not None
+        elif provider == "local":   # our fine-tuned Qwen LoRA via transformers (no vLLM); lazy-loaded
+            self.model = model or "Qwen/Qwen3-8B"
+            self._adapter = adapter or str(config.ROOT / "models" / "qwen_poker_ckpt500")
+            self.client = None
+            self.available = True
         else:  # openai-compatible: a SMALL vLLM-served model on the pod (7-14B) / Venice / etc.
             from openai import OpenAI
             self.model = model or "Qwen/Qwen2.5-7B-Instruct"
             self.client = OpenAI(api_key=api_key or "EMPTY", base_url=base_url) if base_url else None
-        self.available = self.client is not None
+            self.available = self.client is not None
+
+    def _ensure_local(self) -> None:
+        if self._lm is not None:
+            return
+        import torch
+        from peft import PeftModel
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+        self._tok = AutoTokenizer.from_pretrained(self.model)
+        qcfg = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16,
+                                  bnb_4bit_quant_type="nf4")
+        base = AutoModelForCausalLM.from_pretrained(self.model, quantization_config=qcfg, device_map="cuda")
+        self._lm = PeftModel.from_pretrained(base, self._adapter).eval()
 
     def _chat(self, system: str, user: str, max_tokens: int = 1500) -> str:
+        if self.provider == "local":
+            import torch
+            self._ensure_local()
+            msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+            enc = self._tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt",
+                                                return_dict=True, enable_thinking=False)
+            enc = {k: v.to(self._lm.device) for k, v in enc.items()}
+            n_in = enc["input_ids"].shape[1]
+            with torch.no_grad():
+                out = self._lm.generate(**enc, max_new_tokens=min(max_tokens, 320), do_sample=False,
+                                        pad_token_id=self._tok.pad_token_id or self._tok.eos_token_id)
+            return self._tok.decode(out[0][n_in:], skip_special_tokens=True)
         if self.provider == "anthropic":
             m = self.client.messages.create(model=self.model, max_tokens=max_tokens, system=system,
                                             messages=[{"role": "user", "content": user}])
@@ -107,6 +138,8 @@ class MetaCoach:
 
 
 def _parse_json(txt: str) -> dict:
+    if "</think>" in txt:                              # Qwen3 thinking block -> keep only the answer after it
+        txt = txt.rsplit("</think>", 1)[1].strip()
     if "```" in txt:                                   # strip code fences if present
         seg = txt.split("```")[1]
         txt = seg[4:].strip() if seg.lower().startswith("json") else seg.strip()

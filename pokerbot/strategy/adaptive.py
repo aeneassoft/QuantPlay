@@ -192,6 +192,7 @@ class AdaptiveExploiter:
         self.calib = Calibrator(calib_name) if calibrate else None
         self._pending = None     # (key, predicted_fold) awaiting the opponent's response to OUR bet
         self.playbook = _shared_playbook() if use_playbook else None   # LLM cold-start exploit prior
+        self.live_directive = None      # live LLM strategist proposal (set per session via refresh_llm_exploit)
         self._depth_params = None
         if depth_aware:                          # load RunPod/local stack-depth-tuned parameters
             try:
@@ -215,6 +216,23 @@ class AdaptiveExploiter:
         self.prof.end_hand()
         self._pending = None     # drop any unresolved prediction at the hand boundary
 
+    def set_live_directive(self, directive: dict | None) -> None:
+        """Install a live LLM exploit directive (bounded; applied via directive_to_nudge in decide)."""
+        self.live_directive = directive if (directive and directive.get("adjust")) else None
+
+    def refresh_llm_exploit(self, coach, context: dict | None = None):
+        """Ask the LLM strategist for a fresh exploit directive from the CURRENT reads. Call per SESSION
+        (not per hand) — the LLM proposes; bounded directive_to_nudge + caps keep it safe. (INTEGRATION.md)"""
+        if not coach or not getattr(coach, "available", False):
+            return None
+        aggr = self.prof.aggression()
+        opp = {"vpip": round(self.prof.vpip() * 100, 1),
+               "fold_to_cbet": round(_shrink(self.prof.folds, self.prof.faced, 0.5), 2),
+               "af": round(min(4.5, aggr / max(0.05, 1.0 - aggr)), 2), "hands": self.prof.hands}
+        d = coach.propose_exploit(opp, context or {})
+        self.set_live_directive(d if isinstance(d, dict) else None)
+        return self.live_directive
+
     def decide(self, state: dict):
         la = state["legal"]
         me = state["players"][self.hero]
@@ -235,7 +253,9 @@ class AdaptiveExploiter:
         # cold-start exploit prior from the LLM playbook: bounded, postflop-only, FADED by live confidence
         # (w_pb -> 0 as reads accumulate). Same channel the live LLM strategist later writes into (INTEGRATION.md).
         pb_nudge, w_pb = {}, max(0.0, 1.0 - conf)
-        if self.playbook and conf < 0.6 and board:
+        if self.live_directive:                          # live LLM strategist proposal (data-driven) wins
+            pb_nudge, w_pb = directive_to_nudge(self.live_directive), 1.0
+        elif self.playbook and conf < 0.6 and board:
             street = {3: "flop", 4: "turn", 5: "river"}.get(len(board))
             if street:
                 aggr = self.prof.aggression()

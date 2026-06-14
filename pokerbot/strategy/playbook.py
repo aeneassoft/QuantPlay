@@ -25,7 +25,7 @@ _MAP = {
     "value_bet_thinner": ("value", +1),
     "call_wider":        ("foldcatch", +1),   # facing a bet: call MORE
     "fold_more":         ("foldcatch", -1),   # facing a bet: call LESS (fold more)
-    "raise_more":        ("raise", +1),
+    "raise_more":        ("bluff", +1),   # raise/aggress more -> the (wired) bluff/aggression channel
 }
 
 
