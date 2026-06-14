@@ -265,38 +265,113 @@ def root_states():
     return out
 
 
-def br_value(s: State, br: int, pol, rng_enum=True) -> float:
-    """Best-response value for player `br` (max), opponent plays avg policy `pol`. Exact (enumerated)."""
+def _br_value(pol: dict, br: int, sweeps: int = 14) -> float:
+    """EXACT, INFOSET-CORRECT best-response utility for player `br` vs `pol`. (The old br_value did
+    `if p==br: max(...)` per fully-known-cards state = a CLAIRVOYANT BR that sees the opponent's card ->
+    it massively overstated exploitability and stayed ~constant, so NO CFR mode looked like it converged.)
+    Here: policy iteration — evaluate under the current BR policy, then set each br INFOSET's action to the
+    one maximizing its opponent-counterfactual-reach-weighted value; repeat to a fixed point. Leduc is tiny."""
+    brp: dict = {}
+    sign = 1.0 if br == 0 else -1.0
+    acc: dict = {}
+
+    def rec(s: State, cfr: float) -> float:           # player-0 EV under (opp=pol, br=brp); fills `acc`
+        if s.done:
+            return s.util0()
+        if s.need_public:                             # chance: average over public, fold pc into opp reach
+            used = [s.cards[0], s.cards[1]]
+            deck = [c for c in DECK]
+            for c in used:
+                deck.remove(c)
+            tot, ev = len(deck), 0.0
+            for c in set(deck):
+                pc = deck.count(c) / tot
+                ev += pc * rec(_with_public(s, c), cfr * pc)
+            return ev
+        p = s.to_act
+        legal = s.legal()
+        k = key(s, p)
+        if p == br:                                   # aggregate action values ACROSS the infoset (not per state)
+            qs = {a: rec(s.apply(a), cfr) for a in legal}
+            iset = acc.setdefault(k, {a: 0.0 for a in legal})
+            for a in legal:
+                iset[a] += cfr * qs[a]
+            return qs[brp.get(k, legal[0])]
+        pr = pol.get(k, {a: 1.0 / len(legal) for a in legal})   # opponent plays the fixed avg policy
+        return sum(pr.get(a, 0.0) * rec(s.apply(a), cfr * pr.get(a, 0.0)) for a in legal)
+
+    for _ in range(sweeps):
+        acc = {}
+        for s, w in root_states():
+            rec(s, w)                                 # fills acc (opp+chance+deal-reach-weighted q per infoset)
+        for k, av in acc.items():
+            brp[k] = max(av, key=lambda a: sign * av[a])
+    acc = {}
+    val = sum(w * rec(s, w) for s, w in root_states())   # final value under the converged BR policy
+    return sign * val
+
+
+def exploitability(pol) -> float:
+    """mbb/hand: total best-response gain over the game value (0 in symmetric Leduc). Infoset-correct BR."""
+    return 1000.0 * (_br_value(pol, 0) + _br_value(pol, 1)) / 2.0
+
+
+def _with_public(s: State, c: int) -> State:
+    ss = s.clone()
+    ss.public = c; ss.need_public = False; ss.rnd = 1
+    ss.bet_open = False; ss.raises = 0; ss.checks = 0; ss.to_act = 0
+    return ss
+
+
+def vanilla_cfr(s: State, t: int, r0: float, r1: float, rc: float, regret: dict, strat_sum: dict) -> float:
+    """Exact full-tree CFR (NO sampling) -> the rigorous self-play->Nash proof; Leduc is small enough to walk
+    the whole tree. Returns player-0 EV. rc = chance reach (private deal x public card). Regret is weighted by
+    (opponent reach x chance reach) = pi_{-i}; the average strategy by own reach pi_i (Zinkevich et al. 2007).
+    The committed `traverse` MCCFR plateaued ~1500 mbb -> this is the correct, deterministic check instead."""
     if s.done:
-        return s.util0() if br == 0 else -s.util0()
-    if s.need_public:
+        return s.util0()
+    if s.need_public:                                    # chance node: average over public cards
         used = [s.cards[0], s.cards[1]]
         deck = [c for c in DECK]
         for c in used:
             deck.remove(c)
-        # enumerate distinct public ranks weighted by remaining count
-        vals, tot = {}, len(deck)
-        ev = 0.0
+        tot, ev = len(deck), 0.0
         for c in set(deck):
-            ss = s.clone(); ss.public = c; ss.need_public = False; ss.rnd = 1
-            ss.bet_open = False; ss.raises = 0; ss.checks = 0; ss.to_act = 0
-            ev += (deck.count(c) / tot) * br_value(ss, br, pol)
+            pc = deck.count(c) / tot
+            ev += pc * vanilla_cfr(_with_public(s, c), t, r0, r1, rc * pc, regret, strat_sum)
         return ev
     p = s.to_act
     legal = s.legal()
-    if p == br:
-        return max(br_value(s.apply(a), br, pol) for a in legal)
     k = key(s, p)
-    pr = pol.get(k, {a: 1.0 / len(legal) for a in legal})
-    return sum(pr.get(a, 0.0) * br_value(s.apply(a), br, pol) for a in legal)
+    rs = regret.setdefault(k, np.zeros(NACT))
+    strat = regret_match(rs, legal)
+    own = r0 if p == 0 else r1
+    ssum = strat_sum.setdefault(k, [legal, np.zeros(NACT)])
+    for a in legal:
+        ssum[1][a] += t * own * strat[a]                 # avg strategy weighted by OWN reach (x t = linear CFR)
+    util = np.zeros(NACT)
+    node = 0.0
+    for a in legal:
+        if p == 0:
+            u = vanilla_cfr(s.apply(a), t, r0 * strat[a], r1, rc, regret, strat_sum)
+        else:
+            u = vanilla_cfr(s.apply(a), t, r0, r1 * strat[a], rc, regret, strat_sum)
+        util[a] = u
+        node += strat[a] * u
+    opp = (r1 if p == 0 else r0) * rc                    # pi_{-i} = opponent reach x chance reach
+    sign = 1.0 if p == 0 else -1.0                       # util[] is player-0 EV -> flip for player 1
+    for a in legal:
+        rs[a] += opp * sign * (util[a] - node)
+    np.maximum(rs, 0.0, out=rs)                          # CFR+: clamp cumulative regret >=0 (faster, monotone)
+    return node
 
 
-def exploitability(pol) -> float:
-    """mbb/hand: average best-response gain over the game value (0 in symmetric Leduc)."""
-    roots = root_states()
-    v0 = sum(w * br_value(s, 0, pol) for s, w in roots)   # BR0 value (player-0 utility), vs avg p1
-    v1 = sum(w * br_value(s, 1, pol) for s, w in roots)   # BR1 value (player-1 utility), vs avg p0
-    return 1000.0 * (v0 + v1) / 2.0                        # exploitability >= 0 at non-equilibrium
+def _avg(strat_sum: dict) -> dict:
+    pol = {}
+    for k, (legal, ssum) in strat_sum.items():
+        tot = sum(ssum[a] for a in legal)
+        pol[k] = {a: (ssum[a] / tot if tot > 1e-9 else 1.0 / len(legal)) for a in legal}
+    return pol
 
 
 def main():
@@ -305,7 +380,17 @@ def main():
     ap.add_argument("--trav", type=int, default=120, help="traversals per player per iteration")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--tabular", action="store_true", help="tabular CFR sanity check (no net)")
+    ap.add_argument("--vanilla", action="store_true", help="exact full-tree CFR (clean convergence proof)")
     args = ap.parse_args()
+    if args.vanilla:
+        print(f"Vanilla full-tree CFR on Leduc | {args.iters} iters (exact, no sampling)")
+        regret, strat_sum = {}, {}
+        for t in range(1, args.iters + 1):
+            for s, w in root_states():
+                vanilla_cfr(s, t, 1.0, 1.0, w, regret, strat_sum)
+            if t % 250 == 0 or t == args.iters:
+                print(f"  iter {t:5d} | exploitability {exploitability(_avg(strat_sum)):8.2f} mbb/hand")
+        return
     mode = "TABULAR sanity" if args.tabular else f"NEURAL device={args.device}"
     print(f"Deep CFR on Leduc | {mode} | {args.iters} iters x {args.trav} trav")
     cfr = DeepCFR(device=args.device, tabular=args.tabular)
