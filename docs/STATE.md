@@ -9,7 +9,7 @@ online opponent-exploiting layer, and tooling to measure our play against true G
 **universal adaptive exploiter** — a low-exploitability baseline + an online opponent model that detects and
 safely exploits each opponent's leaks (confidence-gated), built to handle opponents we haven't seen yet.
 
-## ★ Latest session — Consolidation & Unification (2026-06-14, supersedes older detail below)
+## ★ Latest session — Consolidation, Unification & Phase 1 (2026-06-14/15, supersedes older detail below)
 **Plan:** [docs/CONSOLIDATION_PLAN.md](CONSOLIDATION_PLAN.md) · **Architecture:** [docs/META_STRATEGY.md](META_STRATEGY.md)
 - **Exploit↔GTO unified (no mismatch):** ONE best-response engine — pointed at the opponent = exploit, pointed
   at itself (self-play) = converges to the floor (GTO/CCE). Live design = a GTO **floor** + a BOUNDED,
@@ -33,8 +33,16 @@ safely exploits each opponent's leaks (confidence-gated), built to handle oppone
   but a big build for an unmeasurable near-GTO gain — DEFERRED behind the cheap floor + the field-edge.
 - **Compute:** GCP 256-CPU/GPU quota requested (~business days); ≤12 vCPU adjustable now. → **RunPod-first**
   for GPU + 12-vCPU GCP for small CPU; high-leverage calcs only; spot + `--kill`/auto-stop.
-- **Next:** Phase 1 — wire `unified.json` as the bounded overlay (Build A) + re-test the edge (duplicate-gated)
-  → Phase 2 — the self-play→GTO net on RunPod (the Supremus/Pluribus recipe), warm-started by solver data.
+- **Phase 1 DONE (2026-06-15), all gated:** (a) live HU bot range-c-bets at the calibrated texture freq
+  (medium+air, 36→82% on dry boards, duplicate A/B +23); (b) the 62 rules wired into the exploit channel —
+  which was DEAD (`_pb` computed but never applied → the playbook + LLM-directive seam never ran) → REVIVED;
+  the rules help vs exploitable (station +308, maniac +262, no leak vs strong). **Simplify sidequest gold:**
+  river equity now ENUMERATED not Monte-Carlo'd (exact, 9× faster, killed a 3% pot-odds decision-flip noise
+  bug). All committed; full test suite green (test_web_client needs a LIVE HU server on :8000 — an in-process
+  TestClient smoke confirms the HU app is healthy). Phase-1 consult was done WITH gpt-5.1; gpt-5.5 is on the API.
+- **Next (awaiting user go):** **(c) self-play→GTO** — prove convergence on Leduc first, then warm-start from
+  solver caches, then RunPod GPU (high-leverage only). Remaining simplify Tier-A: turn-enum → suit-canonical
+  equity cache. Activate more live opponent stats to fire the gated-off unified rules (~27/62 fire now).
 
 ## Run it
 - 6-max vs 5 bots (main app): `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000
