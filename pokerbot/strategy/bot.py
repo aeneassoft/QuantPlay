@@ -284,7 +284,17 @@ class PokerBot:
                                     f"Bluff {sf:.0%} pot: learned F={Fs:.0%} > breakeven "
                                     f"{sf/(1+sf):.0%} → +EV (edge). ({eq:.0%}, {made}).")
                 return self._mk("check", None, r, f"Check: no +EV bluff size in the data ({eq:.0%}).")
-            # unknown opponent: controlled-frequency bluff at a modest size (no spew)
+            # FLOOR (no learned read): on the flop WITH initiative, range-c-bet air at the calibrated
+            # texture frequency + the SMALL cbet_policy size -- a cheap GTO range-bet (first to act, NOT a
+            # facing-bet raise), so it closes the under-c-bet gap without the stack-off spew the anti-spew fix killed.
+            if self.range_cbet and street == "flop" and self._has_initiative(state):
+                f_cbet, size_frac = pf.cbet_policy(board, hero_ip)
+                if self.rng.random() < f_cbet:
+                    size = self._raise_to(la, hero_committed + round(size_frac * pot) or la["raise_min"])
+                    return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                                    f"Range c-bet air ({int(f_cbet*100)}% texture freq, small size, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"Check back air ({eq:.0%}, {made}).")
+            # turn/river or no initiative: controlled-frequency bluff at a modest size (no spew)
             if self.rng.random() < bluff_base:
                 size = self._raise_to(la, round((cb_s or 0.6) * pot) or la["raise_min"])
                 return self._mk("bet" if la["is_bet"] else "raise", size, r,

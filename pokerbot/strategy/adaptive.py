@@ -26,6 +26,7 @@ from pokerbot.engine.equity import equity_vs_class_range
 from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy.calibration import Calibrator
 from pokerbot.strategy.playbook import directive_to_nudge, shared as _shared_playbook
+from pokerbot.strategy import unified_exploit
 
 BUCKETS = [(0.0, 0.45, "small"), (0.45, 0.8, "med"), (0.8, 1.3, "pot"), (1.3, 9.0, "over")]
 
@@ -178,7 +179,8 @@ class AdaptiveExploiter:
 
     def __init__(self, hero: int, seed: int = 0, iters: int = 300, knobs: Knobs | None = None,
                  probe_budget_bb: float = 40.0, gate: bool = False, depth_aware: bool = False,
-                 calibrate: bool = True, calib_name: str = "default", use_playbook: bool = True) -> None:
+                 calibrate: bool = True, calib_name: str = "default", use_playbook: bool = True,
+                 use_rules: bool = True) -> None:
         self.hero = hero
         self.rng = random.Random(seed)
         self.iters = iters
@@ -192,6 +194,7 @@ class AdaptiveExploiter:
         self.calib = Calibrator(calib_name) if calibrate else None
         self._pending = None     # (key, predicted_fold) awaiting the opponent's response to OUR bet
         self.playbook = _shared_playbook() if use_playbook else None   # LLM cold-start exploit prior
+        self.use_rules = use_rules                                     # unified book-exploit overlay (Phase 1)
         self.live_directive = None      # live LLM strategist proposal (set per session via refresh_llm_exploit)
         self._depth_params = None
         if depth_aware:                          # load RunPod/local stack-depth-tuned parameters
@@ -266,8 +269,16 @@ class AdaptiveExploiter:
                     opp, street, "bet" if to_call > 0 else "check",
                     stack_bb=(stack / bb if bb else None)))
 
+        # unified book-exploit rules (stat-keyed) -> the SAME channel, weighted by LIVE confidence: they fire
+        # on MEASURED stats, so they GROW as the cold-start playbook fades (w_pb = 1 - conf). Bounded + clamped.
+        _foldr = _shrink(self.prof.folds, self.prof.faced, 0.5)
+        ru_nudge = unified_exploit.nudge(
+            {"vpip": self.prof.vpip(), "aggression_freq": self.prof.aggression(),
+             "fold_to_bet": _foldr, "fold_to_cbet": _foldr},
+            postflop=bool(board)) if self.use_rules else {}
+
         def _pb(ch, cap=0.15):
-            return max(-cap, min(cap, w_pb * pb_nudge.get(ch, 0.0)))
+            return max(-cap, min(cap, w_pb * pb_nudge.get(ch, 0.0) + conf * ru_nudge.get(ch, 0.0)))
 
         def raise_to(chips_total):
             lo, hi = la["raise_min"], la["raise_max"]
@@ -299,7 +310,7 @@ class AdaptiveExploiter:
                 if eq >= 0.88 or (vr - committed) <= 0.5 * eff:   # don't stack off a dominated made hand
                     return agg_label, vr
                 # strong-ish but not near-nut + big commitment -> fall through to call (pot control)
-            if eq >= req + delta:
+            if eq >= req + delta - _pb("foldcatch"):     # overlay: +foldcatch = call wider, -foldcatch = fold more
                 return "call", None
             return ("check" if can_check else "fold"), None
 
@@ -307,7 +318,7 @@ class AdaptiveExploiter:
         if not can_raise:
             return "check", None
 
-        if eq >= self.VALUE_EQ:                                  # value
+        if eq >= self.VALUE_EQ - _pb("value"):                  # value (overlay: +value = thinner/more value)
             eff = min(stack, state["players"][1 - self.hero].get("stack", stack))
             raw_fold = self.prof.fold_at(0.8)
             foldiness = self.calib.adjust("fe_value", raw_fold) if self.calib else raw_fold
@@ -333,7 +344,7 @@ class AdaptiveExploiter:
             p_bluff = (1 - conf) * 0.33 + conf * expl_freq
         else:
             best_s, best_fold, p_bluff = 0.6, 0.5, 0.33          # baseline (non-exploit) bluff rate
-        if eq <= self.BLUFF_EQ and self.rng.random() < p_bluff:
+        if eq <= self.BLUFF_EQ and self.rng.random() < max(0.0, min(0.95, p_bluff + _pb("bluff"))):
             if self.calib:
                 self._pending = ("fe_bluff", best_fold)
             return agg_label, raise_to(committed + int(best_s * pot))
