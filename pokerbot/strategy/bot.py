@@ -29,6 +29,7 @@ class PokerBot:
         self.opp = OpponentModel()
         self.fold_model = None   # set to a LearnedFoldModel to enable fold-equity-optimal sizing
         self.value_raise_eq = 0.72   # facing-bet value-raise threshold (A/B-able via the duplicate gate)
+        self.range_cbet = True       # flop-c-bet medium hands at the solver-calibrated texture freq (A/B hook)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -290,13 +291,34 @@ class PokerBot:
                                 f"Bluff ~60% pot ({eq:.0%}): controlled frequency, fold equity present.")
             return self._mk("check", None, r, f"Check: give up ({eq:.0%}, {made}).")
 
-        # medium equity -> thin value IP on dynamic boards, else pot control
+        # medium equity: on the FLOP with initiative, range-c-bet at the solver-CALIBRATED texture frequency
+        # (the f_cbet that sixmax + GTOBaseline already use). The live bot previously only borrowed the c-bet
+        # SIZE and range-bet medium hands via a crude "IP + dynamic + 50%" rule -> it under-c-bet vs solver GTO.
+        if self.range_cbet and street == "flop" and self._has_initiative(state):
+            f_cbet, size_frac = pf.cbet_policy(board, hero_ip)
+            if self.rng.random() < f_cbet:
+                size = self._raise_to(la, hero_committed + round(size_frac * pot) or la["raise_min"])
+                return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                                f"Range c-bet ({int(f_cbet*100)}% texture freq, {eq:.0%}) — solver-calibrated. {made}.")
+            return self._mk("check", None, r, f"Check back this share ({eq:.0%}, {made}).")
+        # turn/river or no initiative: thin value IP on dynamic boards, else pot control
         if hero_ip and tex["dynamic"] and self.rng.random() < 0.5:
             size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
             return self._mk("bet" if la["is_bet"] else "raise", size, r,
                             f"Thin bet/protection IP ({eq:.0%}) on a "
                             f"{','.join(r['texture']) or 'dry'} board.")
         return self._mk("check", None, r, f"Check for pot control ({eq:.0%}, {made}).")
+
+    def _has_initiative(self, state: dict) -> bool:
+        """True if hero was the last preflop raiser (holds postflop c-bet initiative). Mirrors the
+        gto_baseline / sixmax initiative derivation from public history (pre-flop actions before the deal)."""
+        pre = []
+        for h in state.get("history", []):
+            if h.get("action") == "deal":
+                break
+            pre.append(h)
+        pfr = [h["player"] for h in pre if h.get("action") in ("raise", "bet", "allin")]
+        return bool(pfr) and pfr[-1] == self.hero_idx
 
     # ====================================================================== range estimation
     def _villain_range(self, state: dict) -> set[str]:
