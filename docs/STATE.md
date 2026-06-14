@@ -67,6 +67,23 @@ Three resources were run in parallel (the clean split — see the memory note [[
   the `_OOP/_IP` ranges before acting on the absolute number; the texture-relative direction is fine).
 
 ## Shipped 2026-06-14
+- **★ Duplicate-poker VERIFY GATE + net-vs-database verdict + LLM-match reality (the linchpin block).**
+  - `pokerbot/benchmark/duplicate.py` — mirror matching cancels card luck (null test: 0±0 vs naive ±132).
+    THE tool for reliably accepting/rejecting a bot change at small samples (no AIVAT needed). Use:
+    `duplicate_ab(make_a, make_b, gen_decks(n))`. Caveat: rare-but-large-swing changes still need many decks.
+  - **thin_value RESOLVED via the gate: NEUTRAL** (0.72 vs 0.78 → −7.1±9.7 @300 decks, +8.75±8.9 @1000;
+    straddle 0). The earlier revert was right; `bot.py` now exposes `self.value_raise_eq` (A/B hook, default
+    0.72 = unchanged).
+  - **NET vs DATABASE verdict (the strategic answer):** we do NOT need our own neural net yet. A net is just a
+    generalizer trained ON a database; measured bottleneck is DATA COVERAGE not model size; our heuristic floor
+    already generalizes + is ≈break-even; edge = exploitation not GTO. → the bigger solver DATABASE is the more
+    fundamental need, as the GROUNDED-VERIFY resource (not a lookup table, not yet net-training-data). Build a
+    net only if heuristics provably plateau below it (LBR/duplicate). Deep-CFR self-play = deferred.
+  - **RunPod 32-vCPU CPU coverage-solve RUNNING** (`extraction/runpod_solve_*.sh`, pod is6nj19spqb1f7, $1.12/h,
+    ~200 turn-boards/h; GCP free-tier capped at 12 vCPU). Pull cache + `runpod_run --kill` on completion.
+  - **LLM-match reality** (`pokerbot/benchmark/llm_opponent.py`, strong PokerSkill-style prompt + reasoning):
+    vs frontier LLM agents we are ROUGHLY EVEN at noisy 40-hand samples — Opus 4.8 +30, o3 +17 (the naive
+    gpt-5.1 +395 was a prompt-weakness + noise MIRAGE). Reliable opponent-strength needs AIVAT = the GTOW key.
 - **Active-learning toolkit + the verify-lesson + 6-max solvability (autonomous block).**
   - `extraction/blindspot_radar.py` — massive concurrent Claude-Haiku triage of bot decisions → ranked
     suspected blindspots. LESSON (hard-won): LLM triage is a HYPOTHESIS generator, not truth — it flagged
