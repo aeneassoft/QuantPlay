@@ -18,6 +18,7 @@ MAXN = int(os.environ.get("MAXN", "60000"))
 EPOCHS = float(os.environ.get("EPOCHS", "1"))
 BATCH = int(os.environ.get("BATCH", "16"))      # bigger batch -> more GPU util (B200 has headroom)
 QUANT4 = os.environ.get("QUANT4", "0") == "1"   # 4-bit QLoRA for consumer GPUs (e.g. a 24GB RTX 3090)
+ATTN = os.environ.get("ATTN", "sdpa")           # sdpa = torch's flash kernel on Hopper/Ampere (fast); B200 sm_100 lacked it
 OUT = "/root/qwen_poker_lora"
 
 
@@ -53,15 +54,17 @@ def main():
         from peft import prepare_model_for_kbit_training
         qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
                                 bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True)
-        model = AutoModelForCausalLM.from_pretrained(BASE, quantization_config=qc, device_map="cuda")
+        model = AutoModelForCausalLM.from_pretrained(BASE, quantization_config=qc, device_map="cuda",
+                                                     attn_implementation=ATTN)
         model = prepare_model_for_kbit_training(model)
     else:
-        model = AutoModelForCausalLM.from_pretrained(BASE, torch_dtype=torch.bfloat16, device_map="cuda")
+        model = AutoModelForCausalLM.from_pretrained(BASE, torch_dtype=torch.bfloat16, device_map="cuda",
+                                                     attn_implementation=ATTN)
     peft = LoraConfig(r=64, lora_alpha=128, lora_dropout=0.05, target_modules="all-linear",
                       task_type="CAUSAL_LM")
     cfg = SFTConfig(output_dir=OUT, per_device_train_batch_size=BATCH, gradient_accumulation_steps=2,
                     num_train_epochs=EPOCHS, learning_rate=2e-4, bf16=True, logging_steps=20,
-                    save_steps=500, max_length=1024, packing=True, warmup_ratio=0.03,
+                    save_steps=int(os.environ.get("SAVE_STEPS", "500")), max_length=1024, packing=True, warmup_ratio=0.03,
                     lr_scheduler_type="cosine", report_to="none")
     trainer = SFTTrainer(model=model, train_dataset=ds, peft_config=peft, args=cfg, processing_class=tok)
     trainer.train()

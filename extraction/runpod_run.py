@@ -22,10 +22,11 @@ GQL = "https://api.runpod.io/graphql"
 IMAGE = "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04"   # has sshd + python + pip
 GPUS = ["NVIDIA GeForce RTX 3090", "NVIDIA GeForce RTX 4090", "NVIDIA RTX A5000",
         "NVIDIA A100 80GB PCIe"]   # try cheap community GPUs in order
-# fastest-first (Blackwell -> Hopper -> Ampere); used by --fast (mostly SECURE cloud)
-FAST = ["NVIDIA B200", "NVIDIA B300", "NVIDIA H200", "NVIDIA H100 NVL", "NVIDIA H100 80GB HBM3",
-        "NVIDIA H100 PCIe", "NVIDIA A100 80GB PCIe", "NVIDIA GeForce RTX 5090",
-        "NVIDIA GeForce RTX 4090"]
+# Hopper/Ampere FIRST (mature, fast attention kernels). Blackwell B200/B300 LAST: their training
+# kernels are immature -- torch 2.11 SDPA fell back to the math path on sm_100 => ~10x slow (observed
+# 2026-06-14, 14B ran at ~25 s/it). Consumer 5090/4090 dropped (too little VRAM for 32B). Used by --fast.
+FAST = ["NVIDIA H200", "NVIDIA H100 NVL", "NVIDIA H100 80GB HBM3", "NVIDIA H100 PCIe",
+        "NVIDIA A100 80GB PCIe", "NVIDIA B200", "NVIDIA B300"]
 
 
 def _key() -> str:
@@ -69,7 +70,7 @@ def gpus() -> None:
               f"{str(lp.get('uninterruptablePrice')):>14} {str(lp.get('minimumBidPrice')):>10}")
 
 
-def launch(fast: bool = False) -> None:
+def launch(fast: bool = False, disk: int = 60) -> None:
     pub = open(PUBKEY_FILE, encoding="utf-8").read().strip()
     if fast:
         combos = [("SECURE", g) for g in FAST] + [("COMMUNITY", g) for g in FAST]
@@ -78,7 +79,7 @@ def launch(fast: bool = False) -> None:
     for cloud, gpu in combos:
         body = {"name": "pokerb-deepcfr", "imageName": IMAGE, "cloudType": cloud,
                 "computeType": "GPU", "gpuTypeIds": [gpu], "gpuCount": 1,
-                "containerDiskInGb": 60, "volumeInGb": 0, "ports": ["22/tcp"],
+                "containerDiskInGb": disk, "volumeInGb": 0, "ports": ["22/tcp"],
                 "env": {"PUBLIC_KEY": pub}}
         code, resp = _req("POST", "/pods", body)
         if code in (200, 201):
@@ -141,6 +142,7 @@ def main() -> None:
     ap.add_argument("--cpu", action="store_true", help="launch a CPU pod (solver coverage campaign)")
     ap.add_argument("--flavor", default="cpu5c", help="CPU flavor (cpu5c=high-freq compute-optimized)")
     ap.add_argument("--vcpu", type=int, default=32)
+    ap.add_argument("--disk", type=int, default=60, help="container disk GB (bump for big models, e.g. 200 for 32B)")
     args = ap.parse_args()
     if args.kill:
         kill()
@@ -151,7 +153,7 @@ def main() -> None:
     elif args.cpu:
         launch_cpu(args.flavor, args.vcpu)
     elif args.launch:
-        launch(fast=args.fast)
+        launch(fast=args.fast, disk=args.disk)
     else:
         print("use --launch [--fast] / --cpu [--flavor --vcpu] / --gpus / --status / --kill")
 
