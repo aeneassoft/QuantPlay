@@ -1,0 +1,27 @@
+# Secrets (real keys live OUTSIDE the repo in C:\Users\hampe\Desktop\Secret keys\)
+*.key
+*secret*
+.env
+.env.*
+
+# Large / transient / regenerable
+data/
+tools/
+Information/
+*.pdf
+*.tgz
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Editor / OS / Claude-local
+.claude/
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

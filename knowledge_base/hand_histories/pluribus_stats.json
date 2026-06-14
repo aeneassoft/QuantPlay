@@ -1,0 +1,47 @@
+{
+  "hands_catalogued": 10000,
+  "pluribus_player_instances": 10000,
+  "pluribus_net_bb_per_100": -7.09,
+  "by_position": {
+    "BTN": {
+      "hands": 1692,
+      "vpip_pct": 27.8,
+      "pfr_pct": 22.3,
+      "avg_open_bb": 3.14
+    },
+    "SB": {
+      "hands": 1638,
+      "vpip_pct": 29.7,
+      "pfr_pct": 13.9,
+      "avg_open_bb": 6.01
+    },
+    "BB": {
+      "hands": 1653,
+      "vpip_pct": 38.1,
+      "pfr_pct": 9.0,
+      "avg_open_bb": 10.18
+    },
+    "UTG": {
+      "hands": 1663,
+      "vpip_pct": 18.5,
+      "pfr_pct": 18.3,
+      "avg_open_bb": 2.17
+    },
+    "MP": {
+      "hands": 1672,
+      "vpip_pct": 20.9,
+      "pfr_pct": 20.3,
+      "avg_open_bb": 2.48
+    },
+    "CO": {
+      "hands": 1682,
+      "vpip_pct": 23.6,
+      "pfr_pct": 21.8,
+      "avg_open_bb": 2.68
+    }
+  },
+  "overall": {
+    "vpip_pct": 26.4,
+    "pfr_pct": 17.7
+  }
+}

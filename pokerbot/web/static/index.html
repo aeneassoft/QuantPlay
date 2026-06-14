@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PokerB — Heads-Up GTO Bot</title>
+<style>
+  :root{
+    --felt:#1f6b4a; --felt2:#185639; --gold:#e9c46a; --ink:#0d1b14;
+    --card:#fbfaf5; --red:#c1432b; --panel:#13241b; --muted:#9fb7a8; --accent:#2a9d8f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:#0b140f;color:#eafff3}
+  header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;
+    background:linear-gradient(90deg,#0d1b14,#16241c);border-bottom:1px solid #2a3f33}
+  header h1{font-size:18px;margin:0;letter-spacing:.5px}
+  header h1 span{color:var(--gold)}
+  .meta{font-size:13px;color:var(--muted)}
+  .wrap{display:grid;grid-template-columns:1fr 360px;gap:14px;padding:14px;max-width:1180px;margin:0 auto}
+  @media(max-width:920px){.wrap{grid-template-columns:1fr}}
+  .table{position:relative;background:radial-gradient(ellipse at center,var(--felt),var(--felt2));
+    border:10px solid #3b2a18;border-radius:120px;min-height:430px;padding:16px;
+    box-shadow:inset 0 0 60px rgba(0,0,0,.45)}
+  .seat{position:absolute;left:50%;transform:translateX(-50%);text-align:center;width:300px}
+  .seat.bot{top:14px}.seat.you{bottom:14px}
+  .seat .name{font-weight:600}
+  .seat .stack{font-size:13px;color:var(--gold)}
+  .badge{display:inline-block;font-size:11px;background:#000;color:var(--gold);border:1px solid var(--gold);
+    border-radius:10px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+  .turn{outline:2px solid var(--accent);border-radius:12px}
+  .cards{display:flex;gap:6px;justify-content:center;margin:6px 0}
+  .card{width:46px;height:64px;border-radius:6px;background:var(--card);color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;
+    box-shadow:0 2px 6px rgba(0,0,0,.4);font-size:20px}
+  .card.red{color:var(--red)} .card.back{background:repeating-linear-gradient(45deg,#234,#234 6px,#356 6px,#356 12px);color:transparent}
+  .card .suit{font-size:18px;line-height:1}
+  .board{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);text-align:center}
+  .pot{position:absolute;top:31%;left:50%;transform:translateX(-50%);background:#000a;padding:4px 12px;
+    border-radius:14px;color:var(--gold);font-weight:600;font-size:14px}
+  .bet{font-size:12px;color:#cfe;min-height:16px}
+  .controls{margin-top:14px;background:var(--panel);border:1px solid #28402f;border-radius:12px;padding:12px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}
+  button{cursor:pointer;border:none;border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px;color:#06120c;background:var(--gold)}
+  button.sec{background:#28402f;color:#dfffe9;border:1px solid #3a5a45}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button.danger{background:#b9453a;color:#fff}
+  input[type=range]{flex:1;min-width:120px}
+  .sizes button{padding:6px 9px;font-size:12px;background:#1c3326;color:#cfe;border:1px solid #3a5a45}
+  .amt{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;min-width:90px;text-align:right}
+  .panel{background:var(--panel);border:1px solid #28402f;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+  .panel h3{margin:0 0 4px;font-size:14px;color:var(--gold)}
+  .log{background:#0c160f;border-radius:8px;padding:8px;height:150px;overflow:auto;font-size:13px;line-height:1.45}
+  .log .b{color:#ffd98a}.log .y{color:#9fe7c4}.log .sys{color:var(--muted)}
+  .coachbox{background:#0c160f;border-radius:8px;padding:10px;font-size:13.5px;line-height:1.5;min-height:60px;white-space:pre-wrap}
+  .think{background:#0c160f;border-radius:8px;padding:8px;font-size:12.5px;color:#bfe;line-height:1.4}
+  textarea{width:100%;background:#0c160f;color:#eafff3;border:1px solid #2a3f33;border-radius:8px;padding:8px;font-family:inherit;resize:vertical}
+  .result{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#000c;border:1px solid var(--gold);
+    border-radius:12px;padding:14px 20px;text-align:center;display:none;min-width:240px}
+  .result.show{display:block}
+  .small{font-size:12px;color:var(--muted)}
+  .tag{font-size:11px;color:#06120c;background:var(--accent);border-radius:6px;padding:1px 6px;margin-left:6px}
+  a.link{color:var(--accent);cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <h1>♠ Poker<span>B</span> — Heads-Up GTO Bot</h1>
+  <div class="meta" id="meta">Bereit.</div>
+</header>
+
+<div class="wrap">
+  <div>
+    <div class="table" id="table">
+      <div class="seat bot" id="seat-bot">
+        <div class="name">Bot <span class="badge" id="btn-bot" style="display:none">BTN</span></div>
+        <div class="stack" id="stack-bot">—</div>
+        <div class="cards" id="hole-bot"></div>
+        <div class="bet" id="bet-bot"></div>
+      </div>
+      <div class="pot" id="pot">Pot: 0</div>
+      <div class="board cards" id="board"></div>
+      <div class="seat you" id="seat-you">
+        <div class="bet" id="bet-you"></div>
+        <div class="cards" id="hole-you"></div>
+        <div class="name">Du <span class="badge" id="btn-you" style="display:none">BTN</span></div>
+        <div class="stack" id="stack-you">—</div>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="controls" id="controls">
+      <div class="row" id="setup">
+        Start-Stack (bb): <input id="cfg-stack" type="number" value="100" style="width:70px"/>
+        <button id="btn-new">Neues Spiel</button>
+        <span class="small">Blinds 0.5 / 1 bb</span>
+      </div>
+      <div class="row" id="actions" style="display:none"></div>
+      <div class="row" id="sizing" style="display:none">
+        <input type="range" id="slider"/>
+        <span class="amt" id="amt">—</span>
+        <span class="sizes" id="sizes"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div>
+      <h3>🧠 Coach <span class="small" id="coach-state"></span></h3>
+      <div class="row">
+        <button class="sec" id="c-explain">Bot-Zug erklären</button>
+        <button class="sec" id="c-review">Meinen Zug bewerten</button>
+      </div>
+      <div class="coachbox" id="coachbox">Spiele eine Hand und lass dir vom Coach (Claude, gegroundet in deinen 3 Büchern) Tipps geben.</div>
+      <div class="row">
+        <textarea id="ask" rows="2" placeholder="Frag den Coach etwas (z.B. 'Wie verteidige ich die BB?')"></textarea>
+      </div>
+      <div class="row"><button class="sec" id="c-ask">Fragen</button></div>
+    </div>
+    <div>
+      <h3>⚙ Bot-Denkprozess</h3>
+      <div class="think" id="think">—</div>
+    </div>
+    <div>
+      <h3>📜 Verlauf</h3>
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let view = null;            // last view from server
+const SUIT = {s:'♠',h:'♥',d:'♦',c:'♣'};
+const RED = {h:1,d:1};
+let bb = 100;
+
+function cardEl(c){
+  const d = document.createElement('div');
+  if(c==='??'){ d.className='card back'; d.textContent='🂠'; return d; }
+  const r=c[0], s=c[1];
+  d.className='card'+(RED[s]?' red':'');
+  d.innerHTML = `<div>${r==='T'?'10':r}</div><div class="suit">${SUIT[s]||s}</div>`;
+  return d;
+}
+function setCards(el, arr){ el.innerHTML=''; (arr||[]).forEach(c=>el.appendChild(cardEl(c))); }
+function bbs(x){ return (x/bb).toFixed(x%bb? 1:0); }
+
+function logLine(html, cls){ const l=$('log'); const d=document.createElement('div'); d.className=cls||''; d.innerHTML=html; l.appendChild(d); l.scrollTop=l.scrollHeight; }
+
+function render(v){
+  view = v; const s=v.state; bb=s.bb;
+  $('meta').textContent = `Hand #${s.hand_no} · ${s.street} · Pot ${bbs(s.pot)}bb`;
+  $('coach-state').textContent = v.coach_available ? '(Claude bereit)' : '(kein Key)';
+  const you=s.players[v.human_idx], bot=s.players[v.bot_idx];
+  $('stack-you').textContent = `Stack: ${bbs(you.stack)}bb` + (you.committed_street?`  (im Pot: ${bbs(you.committed_street)}bb)`:'');
+  $('stack-bot').textContent = `Stack: ${bbs(bot.stack)}bb` + (bot.committed_street?`  (im Pot: ${bbs(bot.committed_street)}bb)`:'');
+  setCards($('hole-you'), you.hole);
+  setCards($('hole-bot'), bot.hole);
+  setCards($('board'), s.board);
+  $('pot').textContent = `Pot: ${bbs(s.pot)}bb`;
+  $('btn-you').style.display = you.is_button?'inline-block':'none';
+  $('btn-bot').style.display = bot.is_button?'inline-block':'none';
+  $('bet-you').textContent = you.committed_street? `${bbs(you.committed_street)}bb`:'';
+  $('bet-bot').textContent = bot.committed_street? `${bbs(bot.committed_street)}bb`:'';
+  $('seat-you').classList.toggle('turn', s.to_act===v.human_idx && !s.hand_over);
+  $('seat-bot').classList.toggle('turn', s.to_act===v.bot_idx && !s.hand_over);
+
+  // bot events -> log + think box
+  (v.bot_events||[]).forEach(e=>{
+    const amt = e.amount? ` ${bbs(e.amount)}bb`:'';
+    logLine(`<span class="b">Bot</span>: ${e.action}${amt} <span class="small">(${e.street})</span>`, 'b');
+    $('think').textContent = (e.rationale && e.rationale.reasoning) ? e.rationale.reasoning : '—';
+  });
+
+  renderControls(v);
+  renderResult(v);
+}
+
+function renderResult(v){
+  const s=v.state, r=$('result');
+  if(!s.hand_over){ r.classList.remove('show'); return; }
+  const res=s.result||{};
+  let html='';
+  if(res.reason==='fold'){
+    const w=s.players[res.winner].name;
+    html=`<b>${w} gewinnt ${bbs(res.pot)}bb</b><br><span class="small">(Fold)</span>`;
+  } else if(res.reason==='showdown'){
+    const w = res.winner===null? 'Split' : s.players[res.winner].name+' gewinnt';
+    html=`<b>${w} — ${bbs(res.pot)}bb</b><br>`;
+    (res.hands||[]).forEach(h=> html+=`<div class="small">${h.name}: ${h.hole.join(' ')} — ${h.rank}</div>`);
+  }
+  if(v.match_over) html+=`<br><b style="color:#e9c46a">Match vorbei!</b><br><button id="btn-rematch">Neues Match</button>`;
+  else html+=`<br><button id="btn-next">Nächste Hand ▸</button>`;
+  r.innerHTML=html; r.classList.add('show');
+  if($('btn-next')) $('btn-next').onclick=nextHand;
+  if($('btn-rematch')) $('btn-rematch').onclick=newGame;
+}
+
+function renderControls(v){
+  const s=v.state, L=s.legal||{};
+  const act=$('actions'), siz=$('sizing');
+  act.innerHTML='';
+  const myTurn = !s.hand_over && s.to_act===v.human_idx;
+  act.style.display = myTurn?'flex':'none';
+  siz.style.display = (myTurn && L.can_raise)?'flex':'none';
+  if(!myTurn) return;
+
+  if(L.can_fold){ const b=mkBtn('Fold','danger',()=>send('fold')); act.appendChild(b); }
+  if(L.can_check){ act.appendChild(mkBtn('Check','sec',()=>send('check'))); }
+  if(L.can_call){ act.appendChild(mkBtn(`Call ${bbs(L.call_amount)}bb`,'',()=>send('call'))); }
+
+  if(L.can_raise){
+    const sl=$('slider'); sl.min=L.raise_min; sl.max=L.raise_max; sl.step=Math.max(1,Math.round(bb/4));
+    sl.value=L.raise_min; updateAmt();
+    sl.oninput=updateAmt;
+    const label = L.is_bet?'Bet':'Raise';
+    act.appendChild(mkBtn(label+' ▸','',()=>send(L.is_bet?'bet':'raise', parseInt($('slider').value))));
+    act.appendChild(mkBtn('All-in','sec',()=>send('allin')));
+    // quick sizes
+    const sizes=$('sizes'); sizes.innerHTML='';
+    const pot=s.pot, call=L.to_call||0, cur=s.current_bet||0, base=s.players[v.human_idx].committed_street;
+    const mk=(lbl,to)=>{ const b=document.createElement('button'); b.textContent=lbl;
+      b.onclick=()=>{ $('slider').value=clamp(to,L.raise_min,L.raise_max); updateAmt(); }; sizes.appendChild(b); };
+    mk('Min',L.raise_min);
+    mk('½ Pot', Math.round(cur + 0.5*(pot+call)));
+    mk('¾ Pot', Math.round(cur + 0.75*(pot+call)));
+    mk('Pot',   Math.round(cur + 1.0*(pot+call)));
+  }
+}
+function clamp(x,a,b){ return Math.max(a,Math.min(Math.round(x),b)); }
+function updateAmt(){ $('amt').textContent = bbs(parseInt($('slider').value))+'bb'; }
+function mkBtn(t,cls,fn){ const b=document.createElement('button'); b.textContent=t; if(cls)b.className=cls; b.onclick=fn; return b; }
+
+async function api(path, body){
+  const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+  return r.json();
+}
+async function newGame(){
+  const stackBb=parseInt($('cfg-stack').value)||100;
+  $('log').innerHTML=''; $('think').textContent='—';
+  const v=await api('/api/new_game',{stack:stackBb*100, sb:50, bb:100});
+  logLine('— Neues Spiel —','sys'); render(v);
+}
+async function nextHand(){ const v=await api('/api/next_hand',{}); logLine('— Nächste Hand —','sys'); render(v); }
+async function send(action, amount){
+  const v=await api('/api/action',{action,amount});
+  if(v.error){ logLine('Fehler: '+v.error,'sys'); return; }
+  const amt = amount? ' '+bbs(amount)+'bb':'';
+  logLine(`<span class="y">Du</span>: ${action}${amt}`,'y');
+  render(v);
+}
+async function coach(path){
+  $('coachbox').textContent='… Coach denkt nach …';
+  const v=await api(path,{}); $('coachbox').textContent=v.text||'(keine Antwort)';
+}
+async function ask(){
+  const q=$('ask').value.trim(); if(!q) return;
+  $('coachbox').textContent='… Coach denkt nach …';
+  const v=await api('/api/coach/ask',{question:q}); $('coachbox').textContent=v.text||'(keine Antwort)';
+}
+
+$('btn-new').onclick=newGame;
+$('c-explain').onclick=()=>coach('/api/coach/explain');
+$('c-review').onclick=()=>coach('/api/coach/review');
+$('c-ask').onclick=ask;
+</script>
+</body>
+</html>

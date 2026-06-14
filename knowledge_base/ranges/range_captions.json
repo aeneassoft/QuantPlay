@@ -1,0 +1,6218 @@
+[
+  {
+    "id": "1",
+    "page": 12,
+    "label": ") is a graphical representation of a range. It contains all 169 possible pre-flop hands: 13 pocket pairs",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "(",
+        "freq": 5.88
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "The hand grid (Hand Range 1) is a graphical representation of a range. It contains all 169 possible pre-flop hands: 13 pocket pairs (5.88% of all hands) that"
+  },
+  {
+    "id": "2",
+    "page": 13,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "In total, these hands make up 7% of all possible hands (Hand Range 2)."
+  },
+  {
+    "id": "3",
+    "page": 13,
+    "label": "), are all medium strength hands that this particular Villain may",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "ATo, A9s-A2s, KQo, KJo, 88-66, KJs, KTs, QJs, QTs, JTs, T9s, 98s (Hand Range 3), are all medium strength hands that this particular Villain may"
+  },
+  {
+    "id": "4",
+    "page": 15,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "more difficult to read. This is a solid strategy that will work well from early position (Hand Range 4)."
+  },
+  {
+    "id": "5",
+    "page": 17,
+    "label": "is a",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Start by giving HJ a standard HJ opening range of 23% hands. You will rarely know Villain’s exact range, so you have to estimate. Hand Range 5 is a"
+  },
+  {
+    "id": "6",
+    "page": 26,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "him a tighter range than you would assign a standard or loose player (Hand Range 6)."
+  },
+  {
+    "id": "7",
+    "page": 27,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "defends vs CO with the following strategy (Hand Range 7)."
+  },
+  {
+    "id": "8",
+    "page": 27,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "You opened a standard CO range of about 31.2% hands (Hand Range 8)."
+  },
+  {
+    "id": "9",
+    "page": 29,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Villain is a regular, so you can assign them a standard 20% rejamming range (Hand Range 9)."
+  },
+  {
+    "id": "10",
+    "page": 32,
+    "label": ") and calling the BB all-in with",
+    "hero": "BB",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 28.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "You estimate Villain is opening ~60% hands on the BN (Hand Range 10) and calling the BB all-in with 28.8% hands (Hand Range 11)."
+  },
+  {
+    "id": "11",
+    "page": 34,
+    "label": "BN Open vs BB Rejam (15bb)",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": 15,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 11: BN Open vs BB Rejam (15bb)"
+  },
+  {
+    "id": "12",
+    "page": 34,
+    "label": ") that can easily defend vs 3-bets, so 3-bet bluffing with 9♣5♦",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "As UTG is a regular, you assume they are opening a standard 16% range (Hand Range 12) that can easily defend vs 3-bets, so 3-bet bluffing with 9♣5♦"
+  },
+  {
+    "id": "13",
+    "page": 41,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "A linear range is composed of the highest equity hands without gaps in between. Here is an example (Hand Range 13)."
+  },
+  {
+    "id": "14",
+    "page": 41,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "bluffs, with no hands in between. Here is an example (Hand Range 14)."
+  },
+  {
+    "id": "15",
+    "page": 43,
+    "label": ".",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "example is seen in Hand Range 15."
+  },
+  {
+    "id": "16",
+    "page": 43,
+    "label": ") lacks all nut hands such as straights (KQ), sets (AA, JJ, TT), and most two pairs (AJ-AT), so this",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "On the A♥J♦T♠ flop, the BB range (Hand Range 16) lacks all nut hands such as straights (KQ), sets (AA, JJ, TT), and most two pairs (AJ-AT), so this"
+  },
+  {
+    "id": "17",
+    "page": 43,
+    "label": ") is uncapped because it has all of those hands in its range.",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "range is said to be capped. Conversely the BN range (Hand Range 17) is uncapped because it has all of those hands in its range."
+  },
+  {
+    "id": "18",
+    "page": 47,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "BB can call all hands that have at least 45% equity vs Villain’s range, so BB’s MES vs BN is to call 66.21% hands and fold 33.79% (Hand Range 18)."
+  },
+  {
+    "id": "19",
+    "page": 48,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "15 chip pot, this being 92% of the pot (Hand Range 19)."
+  },
+  {
+    "id": "20",
+    "page": 50,
+    "label": "Aggregate EV of BN’s Exploitative Strategy",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 20: Aggregate EV of BN’s Exploitative Strategy"
+  },
+  {
+    "id": "21",
+    "page": 50,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Second Iteration: BN counter exploit is to shove 46.61% of hands and fold 53.39% of hands (Hand Range 21)."
+  },
+  {
+    "id": "22",
+    "page": 50,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Third Iteration: BB best response is to call 30.3% of hands and fold 69.7% of hands (Hand Range 22)."
+  },
+  {
+    "id": "23",
+    "page": 53,
+    "label": "BN Nash Equilibrium",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 23: BN Nash Equilibrium"
+  },
+  {
+    "id": "24",
+    "page": 54,
+    "label": "BB Nash Equilibrium",
+    "hero": "BB",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 24: BB Nash Equilibrium"
+  },
+  {
+    "id": "25",
+    "page": 63,
+    "label": "). You have to determine if you can profitably attempt to steal the blinds with your weak hand.",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(Hand Range 25). You have to determine if you can profitably attempt to steal the blinds with your weak hand."
+  },
+  {
+    "id": "26",
+    "page": 64,
+    "label": ") which, for",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "The BB’s minimum defense frequency is 57% hands, but the BB’s GTO solution in this spot is to defend 82.1% hands (Hand Range 26) which, for"
+  },
+  {
+    "id": "27",
+    "page": 86,
+    "label": ".",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "A typical online 6-max Cash EP-RFI range can be seen in Hand Range 27."
+  },
+  {
+    "id": "28",
+    "page": 90,
+    "label": "Heads-up BN GTO strategy (No Rake)",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 28: Heads-up BN GTO strategy (No Rake)"
+  },
+  {
+    "id": "29",
+    "page": 90,
+    "label": "Heads-up BN GTO strategy (Rake Adjusted)",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 29: Heads-up BN GTO strategy (Rake Adjusted)"
+  },
+  {
+    "id": "30",
+    "page": 91,
+    "label": "Heads-up BB vs BN 2.5x Open GTO strategy (No Rake)",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 30: Heads-up BB vs BN 2.5x Open GTO strategy (No Rake)"
+  },
+  {
+    "id": "31",
+    "page": 91,
+    "label": "Heads-up BB vs BN 2.5x Open GTO strategy (Rake Adjusted)",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 31: Heads-up BB vs BN 2.5x Open GTO strategy (Rake Adjusted)"
+  },
+  {
+    "id": "32",
+    "page": 97,
+    "label": "SB RFI",
+    "hero": "SB",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 32: SB RFI"
+  },
+  {
+    "id": "33",
+    "page": 97,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(100%), JJ (32%), TT (64%), 99 (6%) and A5s (78%) (Hand Range 33)."
+  },
+  {
+    "id": "34",
+    "page": 97,
+    "label": "). Your stacking off range vs a 5-bet push is 66+, AKo, AQs+.",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "board coverage in case Villain decides to flat the 4-bet (Hand Range 34). Your stacking off range vs a 5-bet push is 66+, AKo, AQs+."
+  },
+  {
+    "id": "35",
+    "page": 98,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "When the action folds to you on the BN, you play a raise or fold strategy (Hand Range 35)."
+  },
+  {
+    "id": "36",
+    "page": 99,
+    "label": "BN vs SB 3-bet",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 36: BN vs SB 3-bet"
+  },
+  {
+    "id": "37",
+    "page": 100,
+    "label": "BN vs BB 3-bet",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 37: BN vs BB 3-bet"
+  },
+  {
+    "id": "38",
+    "page": 100,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "as K2s, Q5s-Q2s, J6s-J4s, A7o-A2o, offsuit connectors and suited gappers are not strong enough to enter the pot (Hand Range 38)."
+  },
+  {
+    "id": "39",
+    "page": 100,
+    "label": "). Playing out of position post-flop makes realizing your hand’s equity much more difficult, so you are forced to call less and",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "advantage (Hand Range 39). Playing out of position post-flop makes realizing your hand’s equity much more difficult, so you are forced to call less and"
+  },
+  {
+    "id": "40",
+    "page": 102,
+    "label": "CO vs SB 3-bet",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 40: CO vs SB 3-bet"
+  },
+  {
+    "id": "41",
+    "page": 102,
+    "label": "CO vs BB 3-bet",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 41: CO vs BB 3-bet"
+  },
+  {
+    "id": "42",
+    "page": 102,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "suited Kx and Qx (Hand Range 42)."
+  },
+  {
+    "id": "43",
+    "page": 104,
+    "label": "HJ vs CO 3-bet",
+    "hero": "HJ",
+    "villain": "CO",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 43: HJ vs CO 3-bet"
+  },
+  {
+    "id": "44",
+    "page": 105,
+    "label": "HJ vs BN 3-bet",
+    "hero": "HJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 44: HJ vs BN 3-bet"
+  },
+  {
+    "id": "45",
+    "page": 105,
+    "label": "HJ vs SB 3-bet",
+    "hero": "HJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 45: HJ vs SB 3-bet"
+  },
+  {
+    "id": "46",
+    "page": 106,
+    "label": "HJ vs BB 3-bet",
+    "hero": "HJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 46: HJ vs BB 3-bet"
+  },
+  {
+    "id": "47",
+    "page": 106,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "with really good blockers and a small portion of suited connectors and small pairs for the purposes of board coverage (Hand Range 47)."
+  },
+  {
+    "id": "48",
+    "page": 107,
+    "label": "LJ vs HJ 3-bet",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 48: LJ vs HJ 3-bet"
+  },
+  {
+    "id": "49",
+    "page": 108,
+    "label": "LJ vs CO 3-bet",
+    "hero": "LJ",
+    "villain": "CO",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 49: LJ vs CO 3-bet"
+  },
+  {
+    "id": "50",
+    "page": 108,
+    "label": "LJ vs BN 3-bet",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 50: LJ vs BN 3-bet"
+  },
+  {
+    "id": "51",
+    "page": 109,
+    "label": "LJ vs SB 3-bet",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 51: LJ vs SB 3-bet"
+  },
+  {
+    "id": "52",
+    "page": 109,
+    "label": "LJ vs BB 3-bet",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 52: LJ vs BB 3-bet"
+  },
+  {
+    "id": "53",
+    "page": 111,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "hands vs wide ranges (Hand Range 53)."
+  },
+  {
+    "id": "54",
+    "page": 112,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "estimate they may be opening approximately 76% hands (Hand Range 54)."
+  },
+  {
+    "id": "55",
+    "page": 114,
+    "label": "SB Defense vs BB (350 combos) [Fishy Player] • Defended",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 34.5
+      },
+      {
+        "action": "• Folded",
+        "freq": 65.5
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 55: SB Defense vs BB (350 combos) [Fishy Player] • Defended 34.5% / • Folded 65.5%"
+  },
+  {
+    "id": "56",
+    "page": 114,
+    "label": "). From this position the maximum number of hands",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "The HJ plays a 3-bet/fold strategy with no calling range when facing the LJ’s raise (Hand Range 56). From this position the maximum number of hands"
+  },
+  {
+    "id": "57",
+    "page": 114,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "connectors, AKo (46%), AQs, AJs, KQs and a small fraction of A5s-A4s (Hand Range 57)."
+  },
+  {
+    "id": "58",
+    "page": 115,
+    "label": "). Still,",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "The CO 3-betting range vs LJ open is slightly wider than the HJ vs LJ one because now there is one fewer Villain to worry about (Hand Range 58). Still,"
+  },
+  {
+    "id": "59",
+    "page": 115,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "time, and AKo gets called 46% of the time. A5s calls 39% and A4s calls 30% (Hand Range 59)."
+  },
+  {
+    "id": "61",
+    "page": 116,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(100%), ATs (24%), and KTs (21%) (Hand Range 61)."
+  },
+  {
+    "id": "60",
+    "page": 117,
+    "label": "CO vs HJ Open",
+    "hero": "CO",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 60: CO vs HJ Open"
+  },
+  {
+    "id": "62",
+    "page": 118,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(30%), AJs (37%), ATs (71%), KQs (65%), KJs (67%), KTs (30%) and QJs (41%) (Hand Range 62)."
+  },
+  {
+    "id": "63",
+    "page": 118,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "have good equity vs LJ 4-betting range (Hand Range 63)."
+  },
+  {
+    "id": "65",
+    "page": 119,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(96%), A4s (40%), A3s (17%), and 54s (Hand Range 65)."
+  },
+  {
+    "id": "64",
+    "page": 119,
+    "label": "BN vs HJ Open",
+    "hero": "BN",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 64: BN vs HJ Open"
+  },
+  {
+    "id": "66",
+    "page": 120,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "offsuit broadways, focusing more on high card value (Hand Range 66)."
+  },
+  {
+    "id": "67",
+    "page": 120,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "JJ (40%) and increase the 4-betting frequency of hands such as AKo (96%), and QQ (66%) (Hand Range 67)."
+  },
+  {
+    "id": "68",
+    "page": 121,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "combined with the effect of the rake, makes calling from the SB a losing proposition (Hand Range 68)."
+  },
+  {
+    "id": "69",
+    "page": 121,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "because they unblock Villain’s bluffs even if they have less raw equity (Hand Range 69)."
+  },
+  {
+    "id": "70",
+    "page": 122,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "weight to the threshold hands (Hand Range 70)."
+  },
+  {
+    "id": "71",
+    "page": 122,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "some calls with hands such as AQo (5%), KQs (48%), KJs (54%), and KTs (28%) (Hand Range 71)."
+  },
+  {
+    "id": "72",
+    "page": 123,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "weight to the threshold hands (Hand Range 72)."
+  },
+  {
+    "id": "73",
+    "page": 123,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "starts to improve the EV of jamming these blocker-type hands. ATs and A5s are the highest equity bluff hands against very strong ranges (Hand Range 73)."
+  },
+  {
+    "id": "74",
+    "page": 124,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(86%) as well as giving more weight to the threshold hands (Hand Range 74)."
+  },
+  {
+    "id": "75",
+    "page": 125,
+    "label": "SB vs BN 4-bet",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 75: SB vs BN 4-bet"
+  },
+  {
+    "id": "76",
+    "page": 126,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "that are not 3-bet (Hand Range 76)."
+  },
+  {
+    "id": "77",
+    "page": 126,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(75%), T9s-65s, and 54s (64%) (Hand Range 77)."
+  },
+  {
+    "id": "79",
+    "page": 127,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "approach these common spots (Hand Range 79)."
+  },
+  {
+    "id": "78",
+    "page": 127,
+    "label": "BB vs HJ Open",
+    "hero": "BB",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 78: BB vs HJ Open"
+  },
+  {
+    "id": "80",
+    "page": 127,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "connectivity struggle to realize equity post-flop OOP, especially with deep stacks (Hand Range 80)."
+  },
+  {
+    "id": "81",
+    "page": 128,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(86%) (Hand Range 81)."
+  },
+  {
+    "id": "82",
+    "page": 128,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "downgraded due to the strong hands being diluted (Hand Range 82)."
+  },
+  {
+    "id": "83",
+    "page": 129,
+    "label": "BB vs BN 4-bet",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 83: BB vs BN 4-bet"
+  },
+  {
+    "id": "84",
+    "page": 129,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "folding range is made up of the absolute worst hands that really get punished by rake, making it impossible to profit with them (Hand Range 84)."
+  },
+  {
+    "id": "85",
+    "page": 130,
+    "label": "BB vs SB 4-bet",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 85: BB vs SB 4-bet"
+  },
+  {
+    "id": "86",
+    "page": 130,
+    "label": "-87).",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "about 7% of hands, mixing up strong hands such as TT+, AK and some Ax and Kx blocker-type hands (Hand Range 86-87)."
+  },
+  {
+    "id": "87",
+    "page": 131,
+    "label": "BB vs SB L/R",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 87: BB vs SB L/R"
+  },
+  {
+    "id": "88",
+    "page": 155,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 88:"
+  },
+  {
+    "id": "89",
+    "page": 155,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 89:"
+  },
+  {
+    "id": "90",
+    "page": 156,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 90:"
+  },
+  {
+    "id": "91",
+    "page": 156,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 91:"
+  },
+  {
+    "id": "92",
+    "page": 157,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 92:"
+  },
+  {
+    "id": "93",
+    "page": 157,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 93:"
+  },
+  {
+    "id": "94",
+    "page": 158,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 94:"
+  },
+  {
+    "id": "95",
+    "page": 158,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 95:"
+  },
+  {
+    "id": "96",
+    "page": 160,
+    "label": "SB vs BB (15bb)",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": 15,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 96: SB vs BB (15bb)"
+  },
+  {
+    "id": "97",
+    "page": 160,
+    "label": "SB vs BB 15bb (Limp vs All-in)",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 97: SB vs BB 15bb (Limp vs All-in)"
+  },
+  {
+    "id": "98",
+    "page": 160,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 98:"
+  },
+  {
+    "id": "99",
+    "page": 161,
+    "label": "SB vs BB (25bb)",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": 25,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 99: SB vs BB (25bb)"
+  },
+  {
+    "id": "100",
+    "page": 161,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 100:"
+  },
+  {
+    "id": "101",
+    "page": 162,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 101:"
+  },
+  {
+    "id": "102",
+    "page": 162,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 102:"
+  },
+  {
+    "id": "103",
+    "page": 163,
+    "label": "SB vs BB (40bb)",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": 40,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 103: SB vs BB (40bb)"
+  },
+  {
+    "id": "104",
+    "page": 163,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 104:"
+  },
+  {
+    "id": "105",
+    "page": 164,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 105:"
+  },
+  {
+    "id": "106",
+    "page": 164,
+    "label": "SB vs BB (60bb)",
+    "hero": "SB",
+    "villain": "BB",
+    "stack_bb": 60,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 106: SB vs BB (60bb)"
+  },
+  {
+    "id": "108",
+    "page": 165,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "disconnected hands to the 3-bet (Hand Range 108)."
+  },
+  {
+    "id": "107",
+    "page": 165,
+    "label": ":",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 107:"
+  },
+  {
+    "id": "109",
+    "page": 166,
+    "label": "BN 12bb (Limp)",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 109: BN 12bb (Limp)"
+  },
+  {
+    "id": "110",
+    "page": 167,
+    "label": "BN 20bb (Limp)",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 110: BN 20bb (Limp)"
+  },
+  {
+    "id": "111",
+    "page": 167,
+    "label": "BN 30bb (Limp)",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": true,
+    "raw": "Hand Range 111: BN 30bb (Limp)"
+  },
+  {
+    "id": "112",
+    "page": 168,
+    "label": "). There is still the same pattern as before with",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "With 15bb, the BN splits their range almost 50/50 between going all-in and min-raising (Hand Range 112). There is still the same pattern as before with"
+  },
+  {
+    "id": "113",
+    "page": 169,
+    "label": "BN 25bb",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 113: BN 25bb"
+  },
+  {
+    "id": "114",
+    "page": 170,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "more post-flop play, which benefits the BN’s post-flop equity realization (Hand Range 114)."
+  },
+  {
+    "id": "115",
+    "page": 170,
+    "label": "BN 60bb",
+    "hero": "BN",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 115: BN 60bb"
+  },
+  {
+    "id": "116",
+    "page": 171,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "rejam (Hand Range 116)."
+  },
+  {
+    "id": "117",
+    "page": 172,
+    "label": "CO 25bb",
+    "hero": "CO",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 117: CO 25bb"
+  },
+  {
+    "id": "118",
+    "page": 172,
+    "label": "). At 60bb the CO plays a very similar range (Hand Range 119).",
+    "hero": "CO",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "and 22, plus a few extra suited hands such as K2s, Q4s, T6s and 96s (Hand Range 118). At 60bb the CO plays a very similar range (Hand Range 119)."
+  },
+  {
+    "id": "119",
+    "page": 173,
+    "label": "CO 60bb",
+    "hero": "CO",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 119: CO 60bb"
+  },
+  {
+    "id": "120",
+    "page": 173,
+    "label": "). At 17bb, the all-in option starts to disappear, with raise/fold becoming the only viable strategy",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "range, which becomes dominant at 15bb (Hand Range 120). At 17bb, the all-in option starts to disappear, with raise/fold becoming the only viable strategy"
+  },
+  {
+    "id": "121",
+    "page": 173,
+    "label": "). The minraising range focuses on high card value with hands that can make strong top pairs or",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "With 25bb, there is no all-in range (Hand Range 121). The minraising range focuses on high card value with hands that can make strong top pairs or"
+  },
+  {
+    "id": "122",
+    "page": 174,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "change too much from 25bb to 40bb (Hand Range 122)."
+  },
+  {
+    "id": "123",
+    "page": 174,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "connectors (Hand Range 123)."
+  },
+  {
+    "id": "124",
+    "page": 176,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "realizing their 100% of their equity, such as 77-55, AQo, AJo, A9s, A8s and JTs+ (Hand Range 124)."
+  },
+  {
+    "id": "125",
+    "page": 177,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "such as J8s, T8s and 98s, start opening, but 44 and 33 are folded due to being too deep to open jam them (Hand Range 125)."
+  },
+  {
+    "id": "126",
+    "page": 178,
+    "label": "LJ 40bb",
+    "hero": "LJ",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 126: LJ 40bb"
+  },
+  {
+    "id": "127",
+    "page": 178,
+    "label": "LJ 60bb",
+    "hero": "LJ",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 127: LJ 60bb"
+  },
+  {
+    "id": "128",
+    "page": 179,
+    "label": "). At 17bb the all-in range disappears completely.",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "a min-raise (Hand Range 128). At 17bb the all-in range disappears completely."
+  },
+  {
+    "id": "129",
+    "page": 179,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "With 25bb, the baby Ax hands and the strongest suited connectors can be raised (Hand Range 129)."
+  },
+  {
+    "id": "130",
+    "page": 179,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "With 40bb, offsuit broadways start to lose value and small suited connectors start to become more relevant (Hand Range 130)."
+  },
+  {
+    "id": "131",
+    "page": 179,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "play post-flop (Hand Range 131)."
+  },
+  {
+    "id": "132",
+    "page": 181,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "At 15bb, stacks are too deep to jam, so only a raise/fold strategy is used (Hand Range 132)."
+  },
+  {
+    "id": "133",
+    "page": 181,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "At 25bb, A4s, A3s and the strongest suited connectors are added (Hand Range 133)."
+  },
+  {
+    "id": "135",
+    "page": 182,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "towards raw high equity and good blocker type hands (Hand Range 135)."
+  },
+  {
+    "id": "134",
+    "page": 183,
+    "label": "UTG+1 40bb",
+    "hero": "UTG+1",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 134: UTG+1 40bb"
+  },
+  {
+    "id": "136",
+    "page": 184,
+    "label": "UTG 15bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 136: UTG 15bb"
+  },
+  {
+    "id": "137",
+    "page": 185,
+    "label": "UTG 25bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 137: UTG 25bb"
+  },
+  {
+    "id": "138",
+    "page": 185,
+    "label": "UTG 40bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 138: UTG 40bb"
+  },
+  {
+    "id": "139",
+    "page": 186,
+    "label": "UTG 60bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 139: UTG 60bb"
+  },
+  {
+    "id": "141",
+    "page": 189,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "and QJo (QJo has more equity vs SB equilibrium push range than KJo) (Hand Range 141)."
+  },
+  {
+    "id": "140",
+    "page": 189,
+    "label": "BB vs SB Push (15bb) • Call",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 28.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 71.1
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 140: BB vs SB Push (15bb) • Call 28.9% / • Fold 71.1%"
+  },
+  {
+    "id": "142",
+    "page": 190,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "made of high equity hands that have poor post-flop playability, such as small pairs 77-22 and offsuit Ax (Hand Range 142)."
+  },
+  {
+    "id": "143",
+    "page": 190,
+    "label": "). Against an all-in 4-bet, the BB calls off with 66+, AJs+ and ATo+ (Hand Range 144).",
+    "hero": "BB",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "98o (Hand Range 143). Against an all-in 4-bet, the BB calls off with 66+, AJs+ and ATo+ (Hand Range 144)."
+  },
+  {
+    "id": "145",
+    "page": 190,
+    "label": "). Against a 2.6x 4-",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "betting a smaller frequency of individual hands to include a wider variety of combos, providing better board coverage (Hand Range 145). Against a 2.6x 4-"
+  },
+  {
+    "id": "146",
+    "page": 190,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "(Hand Range 146)."
+  },
+  {
+    "id": "144",
+    "page": 192,
+    "label": "BB vs SB 4Bet (40bb) • Call",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 46.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 54.0
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 144: BB vs SB 4Bet (40bb) • Call 46% / • Fold 54%"
+  },
+  {
+    "id": "147",
+    "page": 194,
+    "label": "BB vs SB Limp (15bb) • All-in",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.2
+      },
+      {
+        "action": "• Raise 3x",
+        "freq": 33.7
+      },
+      {
+        "action": "• Check",
+        "freq": 58.1
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 147: BB vs SB Limp (15bb) • All-in 8.2% / • Raise 3x 33.7% / • Check 58.1%"
+  },
+  {
+    "id": "148",
+    "page": 194,
+    "label": "BB vs SB Limp/Push (15bb) • Call",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 43.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 56.6
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 148: BB vs SB Limp/Push (15bb) • Call 43.4% / • Fold 56.6%"
+  },
+  {
+    "id": "149",
+    "page": 195,
+    "label": "BB vs SB Limp (25bb) • All-in",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.4
+      },
+      {
+        "action": "• Raise 3.3x",
+        "freq": 37.8
+      },
+      {
+        "action": "• Check",
+        "freq": 57.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 149: BB vs SB Limp (25bb) • All-in 4.4% / • Raise 3.3x 37.8% / • Check 57.8%"
+  },
+  {
+    "id": "150",
+    "page": 195,
+    "label": "BB vs SB Limp-Push (25bb) • Call",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 29.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 70.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 150: BB vs SB Limp-Push (25bb) • Call 29.8% / • Fold 70.2%"
+  },
+  {
+    "id": "151",
+    "page": 196,
+    "label": "BB vs SB Limp (40bb) • Raise 3.5x",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 44.0
+      },
+      {
+        "action": "• Check",
+        "freq": 56.0
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 151: BB vs SB Limp (40bb) • Raise 3.5x 44% / • Check 56%"
+  },
+  {
+    "id": "152",
+    "page": 196,
+    "label": "BB vs SB Limp-Raise (40bb) • All-in",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.1
+      },
+      {
+        "action": "• Call",
+        "freq": 39.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.6
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 152: BB vs SB Limp-Raise (40bb) • All-in 11.1% / • Call 39.3% / • Fold 49.6%"
+  },
+  {
+    "id": "153",
+    "page": 197,
+    "label": "BB vs SB Limp (60bb) • Raise 3.5x",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 43.8
+      },
+      {
+        "action": "• Check",
+        "freq": 56.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 153: BB vs SB Limp (60bb) • Raise 3.5x 43.8% / • Check 56.2%"
+  },
+  {
+    "id": "154",
+    "page": 197,
+    "label": "BB vs SB Limp-Raise (60bb) • All-in",
+    "hero": "BB",
+    "villain": "SB",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.1
+      },
+      {
+        "action": "• 4-bet 2.2x",
+        "freq": 1.4
+      },
+      {
+        "action": "• Call",
+        "freq": 41.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.0
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 154: BB vs SB Limp-Raise (60bb) • All-in 4.1% / • 4-bet 2.2x 1.4% / • Call 41.5% / • Fold 53%"
+  },
+  {
+    "id": "155",
+    "page": 198,
+    "label": "BB vs BN (15bb) • All-in",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 18.0
+      },
+      {
+        "action": "• Call",
+        "freq": 58.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 23.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 155: BB vs BN (15bb) • All-in 18% / • Call 58.2% / • Fold 23.8%"
+  },
+  {
+    "id": "156",
+    "page": 199,
+    "label": "BB vs CO (15bb) • All-in",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 16.4
+      },
+      {
+        "action": "• Call",
+        "freq": 60.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 23.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 156: BB vs CO (15bb) • All-in 16.4% / • Call 60.4% / • Fold 23.2%"
+  },
+  {
+    "id": "157",
+    "page": 199,
+    "label": "BB vs LJ (15bb) • All-in",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.0
+      },
+      {
+        "action": "• Call",
+        "freq": 66.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 23.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 157: BB vs LJ (15bb) • All-in 11% / • Call 66.7% / • Fold 23.3%"
+  },
+  {
+    "id": "158",
+    "page": 200,
+    "label": "BB vs UTG (15bb) • All-in",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.4
+      },
+      {
+        "action": "• Call",
+        "freq": 70.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 22.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 158: BB vs UTG (15bb) • All-in 7.4% / • Call 70.6% / • Fold 22%"
+  },
+  {
+    "id": "159",
+    "page": 201,
+    "label": "BB vs BN (25bb) • All-in",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.4
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 8.2
+      },
+      {
+        "action": "• Call",
+        "freq": 65.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 14.6
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 159: BB vs BN (25bb) • All-in 11.4% / • 3-bet 8.2% / • Call 65.9% / • Fold 14.6%"
+  },
+  {
+    "id": "160",
+    "page": 201,
+    "label": "BB vs BN 4-bet (25bb) • Call",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 56.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 43.9
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 160: BB vs BN 4-bet (25bb) • Call 56.1% / • Fold 43.9%"
+  },
+  {
+    "id": "161",
+    "page": 202,
+    "label": "BB vs CO (25bb) • All-in",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.8
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 5.5
+      },
+      {
+        "action": "• Call",
+        "freq": 67.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 18.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 161: BB vs CO (25bb) • All-in 8.8% / • 3-bet 5.5% / • Call 67.1% / • Fold 18.6%"
+  },
+  {
+    "id": "162",
+    "page": 202,
+    "label": "BB vs CO 4-bet (25bb) • Call",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 55.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 44.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 162: BB vs CO 4-bet (25bb) • Call 55.9% / • Fold 44.1%"
+  },
+  {
+    "id": "163",
+    "page": 203,
+    "label": "BB vs LJ (25bb) • All-in",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.1
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 5.0
+      },
+      {
+        "action": "• Call",
+        "freq": 66.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 23.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 163: BB vs LJ (25bb) • All-in 5.1% / • 3-bet 5% / • Call 66.8% / • Fold 23.2%"
+  },
+  {
+    "id": "164",
+    "page": 203,
+    "label": "BB vs LJ 4-bet (25bb) • Call",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 60.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 39.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 164: BB vs LJ 4-bet (25bb) • Call 60.5% / • Fold 39.5%"
+  },
+  {
+    "id": "165",
+    "page": 204,
+    "label": "BB vs UTG (25bb) • All-in",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.1
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 4.7
+      },
+      {
+        "action": "• Call",
+        "freq": 66.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 27.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 165: BB vs UTG (25bb) • All-in 2.1% / • 3-bet 4.7% / • Call 66% / • Fold 27.2%"
+  },
+  {
+    "id": "166",
+    "page": 204,
+    "label": "BB vs UTG 4-bet (25bb) • Call",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 57.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 166: BB vs UTG 4-bet (25bb) • Call 57.8% / • Fold 42.2%"
+  },
+  {
+    "id": "167",
+    "page": 205,
+    "label": "BB vs BN (40bb) • All-in",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 3.0
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 14.1
+      },
+      {
+        "action": "• Call",
+        "freq": 58.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 24.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 167: BB vs BN (40bb) • All-in 3% / • 3-bet 14.1% / • Call 58.6% / • Fold 24.2%"
+  },
+  {
+    "id": "168",
+    "page": 206,
+    "label": "BB vs BN 4-bet (40bb) • Call",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 47.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 52.5
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 168: BB vs BN 4-bet (40bb) • Call 47.5% / • Fold 52.5%"
+  },
+  {
+    "id": "169",
+    "page": 206,
+    "label": "BB vs CO (40bb) • All-in",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.3
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 11.5
+      },
+      {
+        "action": "• Call",
+        "freq": 56.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 31.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 169: BB vs CO (40bb) • All-in 1.3% / • 3-bet 11.5% / • Call 56.2% / • Fold 31%"
+  },
+  {
+    "id": "170",
+    "page": 207,
+    "label": "BB vs CO 4-bet (40bb) • Call",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 46.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 170: BB vs CO 4-bet (40bb) • Call 46.6% / • Fold 53.4%"
+  },
+  {
+    "id": "171",
+    "page": 207,
+    "label": "BB vs LJ (40bb) • All-in",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 0.2
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 7.8
+      },
+      {
+        "action": "• Call",
+        "freq": 54.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 171: BB vs LJ (40bb) • All-in 0.2% / • 3-bet 7.8% / • Call 54.2% / • Fold 37.8%"
+  },
+  {
+    "id": "172",
+    "page": 208,
+    "label": "BB vs LJ 4-bet (40bb) • Call",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 48.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 51.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 172: BB vs LJ 4-bet (40bb) • Call 48.8% / • Fold 51.2%"
+  },
+  {
+    "id": "173",
+    "page": 208,
+    "label": "BB vs UTG (40bb) • 3-bet",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.8
+      },
+      {
+        "action": "• Call",
+        "freq": 49.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 45.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 173: BB vs UTG (40bb) • 3-bet 5.8% / • Call 49.1% / • Fold 45%"
+  },
+  {
+    "id": "174",
+    "page": 209,
+    "label": "BB vs UTG 4-bet (40bb) • Call",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 174: BB vs UTG 4-bet (40bb) • Call 50.1% / • Fold 49.9%"
+  },
+  {
+    "id": "175",
+    "page": 210,
+    "label": "BB vs BN (60bb) • 3-bet",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 16.8
+      },
+      {
+        "action": "• Call",
+        "freq": 65.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 18.1
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 175: BB vs BN (60bb) • 3-bet 16.8% / • Call 65.1% / • Fold 18.10%"
+  },
+  {
+    "id": "176",
+    "page": 210,
+    "label": "BB vs BN 4-bet (60bb) • All-in",
+    "hero": "BB",
+    "villain": "BN",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 24.2
+      },
+      {
+        "action": "• Call",
+        "freq": 40.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 176: BB vs BN 4-bet (60bb) • All-in 24.2% / • Call 40.5% / • Fold 35.2%"
+  },
+  {
+    "id": "177",
+    "page": 211,
+    "label": "BB vs CO (60bb) • 3-bet",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.7
+      },
+      {
+        "action": "• Call",
+        "freq": 63.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 25.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 177: BB vs CO (60bb) • 3-bet 11.7% / • Call 63.1% / • Fold 25.20%"
+  },
+  {
+    "id": "178",
+    "page": 211,
+    "label": "BB vs CO 4-bet (60bb) • All-in",
+    "hero": "BB",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 27.9
+      },
+      {
+        "action": "• Call",
+        "freq": 36.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 178: BB vs CO 4-bet (60bb) • All-in 27.9% / • Call 36.5% / • Fold 35.6%"
+  },
+  {
+    "id": "179",
+    "page": 212,
+    "label": "BB vs LJ (60bb) • 3-bet",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.4
+      },
+      {
+        "action": "• Call",
+        "freq": 56.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 179: BB vs LJ (60bb) • 3-bet 7.4% / • Call 56.5% / • Fold 36%"
+  },
+  {
+    "id": "180",
+    "page": 212,
+    "label": "BB vs LJ 4-bet (60bb) • All-in",
+    "hero": "BB",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 36.6
+      },
+      {
+        "action": "• Call",
+        "freq": 13.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 180: BB vs LJ 4-bet (60bb) • All-in 36.6% / • Call 13.1% / • Fold 50.4%"
+  },
+  {
+    "id": "181",
+    "page": 213,
+    "label": "BB vs UTG (60bb) • 3-bet",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.3
+      },
+      {
+        "action": "• Call",
+        "freq": 50.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 44.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 181: BB vs UTG (60bb) • 3-bet 5.3% / • Call 50.6% / • Fold 44.1%"
+  },
+  {
+    "id": "182",
+    "page": 213,
+    "label": "BB vs UTG 4-bet (60bb) • All-in",
+    "hero": "BB",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 40.3
+      },
+      {
+        "action": "• Call",
+        "freq": 6.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 182: BB vs UTG 4-bet (60bb) • All-in 40.3% / • Call 6.1% / • Fold 53.7%"
+  },
+  {
+    "id": "183",
+    "page": 214,
+    "label": "SB vs BN (15bb) • All-in",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 28.2
+      },
+      {
+        "action": "• Call",
+        "freq": 0.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 71.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 183: SB vs BN (15bb) • All-in 28.2% / • Call 0.0% / • Fold 71.8%"
+  },
+  {
+    "id": "184",
+    "page": 215,
+    "label": "SB vs CO (15bb) • All-in",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 22.5
+      },
+      {
+        "action": "• Call",
+        "freq": 0.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 77.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 184: SB vs CO (15bb) • All-in 22.5% / • Call 0.1% / • Fold 77.4%"
+  },
+  {
+    "id": "185",
+    "page": 215,
+    "label": "SB vs LJ (15bb) • All-in",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 14.7
+      },
+      {
+        "action": "• Call",
+        "freq": 5.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 79.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 185: SB vs LJ (15bb) • All-in 14.7% / • Call 5.4% / • Fold 79.9%"
+  },
+  {
+    "id": "186",
+    "page": 216,
+    "label": "SB vs UTG (15bb) • All-in",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 9.4
+      },
+      {
+        "action": "• Call",
+        "freq": 11.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 79.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 186: SB vs UTG (15bb) • All-in 9.4% / • Call 11.6% / • Fold 79%"
+  },
+  {
+    "id": "187",
+    "page": 217,
+    "label": "SB vs BN (25bb) • All-in",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 14.2
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 6.5
+      },
+      {
+        "action": "• Call",
+        "freq": 6.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 73.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 187: SB vs BN (25bb) • All-in 14.2% / • 3-bet 6.5% / • Call 6% / • Fold 73.2%"
+  },
+  {
+    "id": "188",
+    "page": 217,
+    "label": "SB vs BN 4-bet (25bb) • Call",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 58.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 41.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 188: SB vs BN 4-bet (25bb) • Call 58.2% / • Fold 41.8%"
+  },
+  {
+    "id": "189",
+    "page": 218,
+    "label": "SB vs CO (25bb) • All-in",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.2
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 5.5
+      },
+      {
+        "action": "• Call",
+        "freq": 9.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 73.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 189: SB vs CO (25bb) • All-in 11.2% / • 3-bet 5.5% / • Call 9.9% / • Fold 73.3%"
+  },
+  {
+    "id": "190",
+    "page": 218,
+    "label": "SB vs CO 4-bet (25bb) • Call",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 57.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 190: SB vs CO 4-bet (25bb) • Call 57.9% / • Fold 42.1%"
+  },
+  {
+    "id": "191",
+    "page": 219,
+    "label": "SB vs LJ (25bb) • All-in",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 6.4
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 5.3
+      },
+      {
+        "action": "• Call",
+        "freq": 12.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 75.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 191: SB vs LJ (25bb) • All-in 6.4% / • 3-bet 5.3% / • Call 12.6% / • Fold 75.7%"
+  },
+  {
+    "id": "192",
+    "page": 219,
+    "label": "SB vs LJ 4-bet (25bb) • Call",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 192: SB vs LJ 4-bet (25bb) • Call 59.1% / • Fold 40.9%"
+  },
+  {
+    "id": "193",
+    "page": 220,
+    "label": "SB vs UTG (25bb) • All-in",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 3.5
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 4.8
+      },
+      {
+        "action": "• Call",
+        "freq": 14.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 77.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 193: SB vs UTG (25bb) • All-in 3.5% / • 3-bet 4.8% / • Call 14.2% / • Fold 77.5%"
+  },
+  {
+    "id": "194",
+    "page": 220,
+    "label": "SB vs UTG 4-bet (25bb) • Call",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 52.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 47.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 194: SB vs UTG 4-bet (25bb) • Call 52.8% / • Fold 47.2%"
+  },
+  {
+    "id": "195",
+    "page": 221,
+    "label": "SB vs BN (40bb) • All-in",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.3
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 14.1
+      },
+      {
+        "action": "• Call",
+        "freq": 11.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 71.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 195: SB vs BN (40bb) • All-in 2.3% / • 3-bet 14.1% / • Call 11.7% / • Fold 71.8%"
+  },
+  {
+    "id": "196",
+    "page": 222,
+    "label": "SB vs BN 4-bet (40bb) • Call",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 52.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 47.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 196: SB vs BN 4-bet (40bb) • Call 52.8% / • Fold 47.2%"
+  },
+  {
+    "id": "197",
+    "page": 222,
+    "label": "SB vs CO (40bb) • All-in",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.0
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 12.1
+      },
+      {
+        "action": "• Call",
+        "freq": 12.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 74.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 197: SB vs CO (40bb) • All-in 1% / • 3-bet 12.1% / • Call 12.7% / • Fold 74.2%"
+  },
+  {
+    "id": "198",
+    "page": 223,
+    "label": "SB vs CO 4-bet (40bb) • Call",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 49.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 198: SB vs CO 4-bet (40bb) • Call 49.1% / • Fold 50.9%"
+  },
+  {
+    "id": "199",
+    "page": 223,
+    "label": "SB vs LJ (40bb) • All-in",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.0
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 8.0
+      },
+      {
+        "action": "• Call",
+        "freq": 12.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 78.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 199: SB vs LJ (40bb) • All-in 1% / • 3-bet 8% / • Call 12.2% / • Fold 78.8%"
+  },
+  {
+    "id": "200",
+    "page": 224,
+    "label": "SB vs LJ 4-bet (40bb) • Call",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 200: SB vs LJ 4-bet (40bb) • Call 50.8% / • Fold 49.2%"
+  },
+  {
+    "id": "201",
+    "page": 224,
+    "label": "SB vs UTG (40bb) • 3-bet",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 6.6
+      },
+      {
+        "action": "• Call",
+        "freq": 12.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 80.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 201: SB vs UTG (40bb) • 3-bet 6.6% / • Call 12.7% / • Fold 80.7%"
+  },
+  {
+    "id": "202",
+    "page": 225,
+    "label": "SB vs UTG 4-bet (40bb) • Call",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 49.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 202: SB vs UTG 4-bet (40bb) • Call 49.2% / • Fold 50.8%"
+  },
+  {
+    "id": "203",
+    "page": 226,
+    "label": "SB vs BN (60bb) • 3-bet",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 16.2
+      },
+      {
+        "action": "• Call",
+        "freq": 17.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 66.6
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 203: SB vs BN (60bb) • 3-bet 16.2% / • Call 17.2% / • Fold 66.6%"
+  },
+  {
+    "id": "204",
+    "page": 226,
+    "label": "SB vs BN 4-bet (60bb) • All-in",
+    "hero": "SB",
+    "villain": "BN",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 19.3
+      },
+      {
+        "action": "• Call",
+        "freq": 53.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 26.9
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 204: SB vs BN 4-bet (60bb) • All-in 19.3% / • Call 53.8% / • Fold 26.9%"
+  },
+  {
+    "id": "205",
+    "page": 227,
+    "label": "SB vs CO (60bb) • 3-bet",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 12.3
+      },
+      {
+        "action": "• Call",
+        "freq": 15.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 72.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 205: SB vs CO (60bb) • 3-bet 12.3% / • Call 15.6% / • Fold 72.2%"
+  },
+  {
+    "id": "206",
+    "page": 227,
+    "label": "SB vs CO 4-bet (60bb) • All-in",
+    "hero": "SB",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 20.6
+      },
+      {
+        "action": "• Call",
+        "freq": 41.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 206: SB vs CO 4-bet (60bb) • All-in 20.6% / • Call 41.8% / • Fold 37.6%"
+  },
+  {
+    "id": "207",
+    "page": 228,
+    "label": "SB vs LJ (60bb) • 3-bet",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.1
+      },
+      {
+        "action": "• Call",
+        "freq": 13.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 78.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 207: SB vs LJ (60bb) • 3-bet 8.1% / • Call 13.9% / • Fold 78.1%"
+  },
+  {
+    "id": "208",
+    "page": 228,
+    "label": "SB vs LJ 4-bet (60bb) • All-in",
+    "hero": "SB",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 36.5
+      },
+      {
+        "action": "• Call",
+        "freq": 22.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 41.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 208: SB vs LJ 4-bet (60bb) • All-in 36.5% / • Call 22.1% / • Fold 41.4%"
+  },
+  {
+    "id": "209",
+    "page": 229,
+    "label": "SB vs UTG (60bb) • 3-bet",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.6
+      },
+      {
+        "action": "• Call",
+        "freq": 13.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 80.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 209: SB vs UTG (60bb) • 3-bet 5.6% / • Call 13.8% / • Fold 80.6%"
+  },
+  {
+    "id": "210",
+    "page": 229,
+    "label": "SB vs UTG 4-bet (60bb) • All-in",
+    "hero": "SB",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 38.5
+      },
+      {
+        "action": "• Call",
+        "freq": 13.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 47.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 210: SB vs UTG 4-bet (60bb) • All-in 38.5% / • Call 13.9% / • Fold 47.6%"
+  },
+  {
+    "id": "211",
+    "page": 230,
+    "label": "BN vs CO (15bb) • All-in",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 14.3
+      },
+      {
+        "action": "• Call",
+        "freq": 4.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 81.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 211: BN vs CO (15bb) • All-in 14.3% / • Call 4.1% / • Fold 81.6%"
+  },
+  {
+    "id": "212",
+    "page": 231,
+    "label": "BN vs LJ (15bb) • All-in",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 10.6
+      },
+      {
+        "action": "• Call",
+        "freq": 4.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 85.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 212: BN vs LJ (15bb) • All-in 10.6% / • Call 4% / • Fold 85.4%"
+  },
+  {
+    "id": "213",
+    "page": 231,
+    "label": "BN vs UTG (15bb) • All-in",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 10.6
+      },
+      {
+        "action": "• Call",
+        "freq": 4.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 85.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 213: BN vs UTG (15bb) • All-in 10.6% / • Call 4% / • Fold 85.4%"
+  },
+  {
+    "id": "214",
+    "page": 232,
+    "label": "BN vs CO (25bb) • All-in",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.9
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 3.0
+      },
+      {
+        "action": "• Call",
+        "freq": 13.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 77.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 214: BN vs CO (25bb) • All-in 5.9% / • 3-bet 3% / • Call 13.5% / • Fold 77.5%"
+  },
+  {
+    "id": "215",
+    "page": 233,
+    "label": "BN vs CO 4-bet (25bb) • Call",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 58.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 41.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 215: BN vs CO 4-bet (25bb) • Call 58.9% / • Fold 41.1%"
+  },
+  {
+    "id": "216",
+    "page": 233,
+    "label": "BN vs LJ (25bb) • All-in",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 3.5
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 3.5
+      },
+      {
+        "action": "• Call",
+        "freq": 13.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 79.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 216: BN vs LJ (25bb) • All-in 3.5% / • 3-bet 3.5% / • Call 13.8% / • Fold 79.3%"
+  },
+  {
+    "id": "217",
+    "page": 234,
+    "label": "BN vs LJ 4-bet (25bb) • Call",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 56.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 43.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 217: BN vs LJ 4-bet (25bb) • Call 56.3% / • Fold 43.7%"
+  },
+  {
+    "id": "218",
+    "page": 234,
+    "label": "BN vs UTG (25bb) • All-in",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.2
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 3.7
+      },
+      {
+        "action": "• Call",
+        "freq": 14.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 80.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 218: BN vs UTG (25bb) • All-in 1.2% / • 3-bet 3.7% / • Call 14.6% / • Fold 80.5%"
+  },
+  {
+    "id": "219",
+    "page": 235,
+    "label": "BN vs UTG 4-bet (25bb) • Call",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 219: BN vs UTG 4-bet (25bb) • Call 59.3% / • Fold 40.7%"
+  },
+  {
+    "id": "220",
+    "page": 236,
+    "label": "BN vs CO (40bb) • 3-bet",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.5
+      },
+      {
+        "action": "• Call",
+        "freq": 19.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 72.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 220: BN vs CO (40bb) • 3-bet 7.5% / • Call 19.6% / • Fold 72.9%"
+  },
+  {
+    "id": "221",
+    "page": 236,
+    "label": "BN vs CO 4-bet (40bb) • Call",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 221: BN vs CO 4-bet (40bb) • Call 50.1% / • Fold 49.9%"
+  },
+  {
+    "id": "222",
+    "page": 237,
+    "label": "BN vs LJ (40bb) • 3-bet",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 6.9
+      },
+      {
+        "action": "• Call",
+        "freq": 16.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 76.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 222: BN vs LJ (40bb) • 3-bet 6.9% / • Call 16.9% / • Fold 76.3%"
+  },
+  {
+    "id": "223",
+    "page": 237,
+    "label": "BN vs LJ 4-bet (40bb) • Call",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 223: BN vs LJ 4-bet (40bb) • Call 50.3% / • Fold 49.7%"
+  },
+  {
+    "id": "224",
+    "page": 238,
+    "label": "BN vs UTG (40bb) • 3-bet",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.2
+      },
+      {
+        "action": "• Call",
+        "freq": 15.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 78.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 224: BN vs UTG (40bb) • 3-bet 5.2% / • Call 15.9% / • Fold 78.9%"
+  },
+  {
+    "id": "225",
+    "page": 238,
+    "label": "BN vs UTG 4-bet (40bb) • Call",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 49.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 225: BN vs UTG 4-bet (40bb) • Call 49.6% / • Fold 50.4%"
+  },
+  {
+    "id": "226",
+    "page": 239,
+    "label": "BN vs CO (60bb) • 3-bet",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.5
+      },
+      {
+        "action": "• Call",
+        "freq": 16.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 71.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 226: BN vs CO (60bb) • 3-bet 11.5% / • Call 16.9% / • Fold 71.6%"
+  },
+  {
+    "id": "227",
+    "page": 240,
+    "label": "BN vs CO 4-bet (60bb) • All-in",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 31.1
+      },
+      {
+        "action": "• Call",
+        "freq": 18.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 227: BN vs CO 4-bet (60bb) • All-in 31.1% / • Call 18.7% / • Fold 50.3%"
+  },
+  {
+    "id": "228",
+    "page": 240,
+    "label": "BN vs LJ (60bb) • 3-bet",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.6
+      },
+      {
+        "action": "• Call",
+        "freq": 15.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 75.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 228: BN vs LJ (60bb) • 3-bet 8.6% / • Call 15.6% / • Fold 75.8%"
+  },
+  {
+    "id": "229",
+    "page": 241,
+    "label": "BN vs LJ 4-bet (60bb) • All-in",
+    "hero": "BN",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 33.5
+      },
+      {
+        "action": "• Call",
+        "freq": 16.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 229: BN vs LJ 4-bet (60bb) • All-in 33.5% / • Call 16.5% / • Fold 50.1%"
+  },
+  {
+    "id": "230",
+    "page": 241,
+    "label": "BN vs UTG (60bb) • 3-bet",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.5
+      },
+      {
+        "action": "• Call",
+        "freq": 16.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 78.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 230: BN vs UTG (60bb) • 3-bet 5.5% / • Call 16.3% / • Fold 78.3%"
+  },
+  {
+    "id": "231",
+    "page": 242,
+    "label": "BN vs UTG 4-bet (60bb) • All-in",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 35.8
+      },
+      {
+        "action": "• Call",
+        "freq": 11.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 52.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 231: BN vs UTG 4-bet (60bb) • All-in 35.8% / • Call 11.7% / • Fold 52.4%"
+  },
+  {
+    "id": "232",
+    "page": 243,
+    "label": "CO vs LJ (15bb) • All-in",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 11.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 88.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 232: CO vs LJ (15bb) • All-in 11.7% / • Fold 88.3%"
+  },
+  {
+    "id": "233",
+    "page": 243,
+    "label": "CO vs UTG (15bb) • All-in",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 88.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 233: CO vs UTG (15bb) • All-in 8.3% / • Fold 88.7%"
+  },
+  {
+    "id": "234",
+    "page": 244,
+    "label": "CO vs LJ (25bb) • All-in",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.8
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 3.8
+      },
+      {
+        "action": "• Call",
+        "freq": 10.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 83.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 234: CO vs LJ (25bb) • All-in 2.8% / • 3-bet 3.8% / • Call 10% / • Fold 83.4%"
+  },
+  {
+    "id": "235",
+    "page": 245,
+    "label": "CO vs LJ 4-bet (25bb) • Call",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 235: CO vs LJ 4-bet (25bb) • Call 59.7% / • Fold 40.3%"
+  },
+  {
+    "id": "236",
+    "page": 245,
+    "label": "CO vs UTG (25bb) • All-in",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.2
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 4.2
+      },
+      {
+        "action": "• Call",
+        "freq": 9.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 85.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 236: CO vs UTG (25bb) • All-in 1.2% / • 3-bet 4.2% / • Call 9.7% / • Fold 85%"
+  },
+  {
+    "id": "237",
+    "page": 246,
+    "label": "CO vs UTG 4-bet (25bb) • Call",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 57.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 237: CO vs UTG 4-bet (25bb) • Call 57.2% / • Fold 42.8%"
+  },
+  {
+    "id": "238",
+    "page": 247,
+    "label": "CO vs LJ (40bb) • 3-bet",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 6.2
+      },
+      {
+        "action": "• Call",
+        "freq": 12.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 81.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 238: CO vs LJ (40bb) • 3-bet 6.2% / • Call 12.3% / • Fold 81.5%"
+  },
+  {
+    "id": "239",
+    "page": 247,
+    "label": "CO vs LJ 4-bet (40bb) • Call",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 239: CO vs LJ 4-bet (40bb) • Call 50.9% / • Fold 49.1%"
+  },
+  {
+    "id": "240",
+    "page": 248,
+    "label": "CO vs UTG (40bb) • 3-bet",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.9
+      },
+      {
+        "action": "• Call",
+        "freq": 12.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 82.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 240: CO vs UTG (40bb) • 3-bet 4.9% / • Call 12.8% / • Fold 82.3%"
+  },
+  {
+    "id": "241",
+    "page": 248,
+    "label": "CO vs UTG 4-bet (40bb) • Call",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 49.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 241: CO vs UTG 4-bet (40bb) • Call 49.9% / • Fold 50.8%"
+  },
+  {
+    "id": "242",
+    "page": 249,
+    "label": "CO vs LJ (60bb) • 3-bet",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.5
+      },
+      {
+        "action": "• Call",
+        "freq": 11.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 80.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 242: CO vs LJ (60bb) • 3-bet 7.5% / • Call 11.7% / • Fold 80.8%"
+  },
+  {
+    "id": "243",
+    "page": 250,
+    "label": "CO vs LJ 4-bet (60bb) • All-in",
+    "hero": "CO",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 29.3
+      },
+      {
+        "action": "• Call",
+        "freq": 22.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 48.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 243: CO vs LJ 4-bet (60bb) • All-in 29.3% / • Call 22.2% / • Fold 48.5%"
+  },
+  {
+    "id": "244",
+    "page": 250,
+    "label": "CO vs UTG (60bb) • 3-bet",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.2
+      },
+      {
+        "action": "• Call",
+        "freq": 13.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 81.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 244: CO vs UTG (60bb) • 3-bet 5.2% / • Call 13.0% / • Fold 81.8%"
+  },
+  {
+    "id": "245",
+    "page": 251,
+    "label": "CO vs UTG 4-bet (60bb) • All-in",
+    "hero": "CO",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 39.1
+      },
+      {
+        "action": "• Call",
+        "freq": 7.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 245: CO vs UTG 4-bet (60bb) • All-in 39.1% / • Call 7.7% / • Fold 53.2%"
+  },
+  {
+    "id": "246",
+    "page": 252,
+    "label": "HJ vs LJ (15bb) • All-in",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 10.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 89.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 246: HJ vs LJ (15bb) • All-in 10.4% / • Fold 89.6%"
+  },
+  {
+    "id": "247",
+    "page": 252,
+    "label": "HJ vs UTG (15bb) • All-in",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 91.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 247: HJ vs UTG (15bb) • All-in 8.5% / • Fold 91.5%"
+  },
+  {
+    "id": "248",
+    "page": 253,
+    "label": "HJ vs LJ (25bb) • All-in",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.8
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 4.5
+      },
+      {
+        "action": "• Call",
+        "freq": 7.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 86.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 248: HJ vs LJ (25bb) • All-in 1.8% / • 3-bet 4.5% / • Call 7.3% / • Fold 86.4%"
+  },
+  {
+    "id": "249",
+    "page": 253,
+    "label": "HJ vs LJ 4-bet (25bb) • Call",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 249: HJ vs LJ 4-bet (25bb) • Call 59.4% / • Fold 40.6%"
+  },
+  {
+    "id": "250",
+    "page": 254,
+    "label": "HJ vs UTG (25bb) • All-in",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.1
+      },
+      {
+        "action": "• 3-bet",
+        "freq": 3.9
+      },
+      {
+        "action": "• Call",
+        "freq": 8.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 87.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 250: HJ vs UTG (25bb) • All-in 1.1% / • 3-bet 3.9% / • Call 8% / • Fold 87%"
+  },
+  {
+    "id": "251",
+    "page": 254,
+    "label": "HJ vs UTG 4-bet (25bb) • Call",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 62.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 251: HJ vs UTG 4-bet (25bb) • Call 62.9% / • Fold 37.1%"
+  },
+  {
+    "id": "252",
+    "page": 255,
+    "label": "HJ vs LJ (40bb) • 3-bet",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 6.1
+      },
+      {
+        "action": "• Call",
+        "freq": 9.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 84.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 252: HJ vs LJ (40bb) • 3-bet 6.1% / • Call 9.2% / • Fold 84.7%"
+  },
+  {
+    "id": "253",
+    "page": 256,
+    "label": "HJ vs LJ 4-bet (40bb) • Call",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 51.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 253: HJ vs LJ 4-bet (40bb) • Call 51% / • Fold 49%"
+  },
+  {
+    "id": "254",
+    "page": 256,
+    "label": "HJ vs UTG (40bb) • 3-bet",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.9
+      },
+      {
+        "action": "• Call",
+        "freq": 8.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 86.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 254: HJ vs UTG (40bb) • 3-bet 4.9% / • Call 8.9% / • Fold 86.3%"
+  },
+  {
+    "id": "255",
+    "page": 257,
+    "label": "HJ vs UTG 4-bet (40bb) • Call",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 49.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 50.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 255: HJ vs UTG 4-bet (40bb) • Call 49.2% / • Fold 50.8%"
+  },
+  {
+    "id": "256",
+    "page": 258,
+    "label": "HJ vs LJ (60bb) • 3-bet",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.4
+      },
+      {
+        "action": "• Call",
+        "freq": 8.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 83.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 256: HJ vs LJ (60bb) • 3-bet 7.4% / • Call 8.8% / • Fold 83.8%"
+  },
+  {
+    "id": "257",
+    "page": 258,
+    "label": "HJ vs LJ 4-bet (60bb) • All-in",
+    "hero": "HJ",
+    "villain": "LJ",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 28.2
+      },
+      {
+        "action": "• Call",
+        "freq": 24.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 47.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 257: HJ vs LJ 4-bet (60bb) • All-in 28.2% / • Call 24.5% / • Fold 47.3%"
+  },
+  {
+    "id": "258",
+    "page": 259,
+    "label": "HJ vs UTG (60bb) • 3-bet",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.2
+      },
+      {
+        "action": "• Call",
+        "freq": 9.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 85.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 258: HJ vs UTG (60bb) • 3-bet 5.2% / • Call 9.3% / • Fold 85.5%"
+  },
+  {
+    "id": "259",
+    "page": 259,
+    "label": "HJ vs UTG 4-bet (60bb) • All-in",
+    "hero": "HJ",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 39.2
+      },
+      {
+        "action": "• Call",
+        "freq": 6.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 259: HJ vs UTG 4-bet (60bb) • All-in 39.2% / • Call 6.9% / • Fold 53.9%"
+  },
+  {
+    "id": "260",
+    "page": 260,
+    "label": "UTG+1 vs UTG (15bb) • All-in",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 15,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 92.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 260: UTG+1 vs UTG (15bb) • All-in 7.1% / • Fold 92.8%"
+  },
+  {
+    "id": "261",
+    "page": 261,
+    "label": "UTG+1 vs UTG (25bb) • 3-bet",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.1
+      },
+      {
+        "action": "• Call",
+        "freq": 3.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 91.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 261: UTG+1 vs UTG (25bb) • 3-bet 5.1% / • Call 3.6% / • Fold 91.2%"
+  },
+  {
+    "id": "262",
+    "page": 261,
+    "label": "UTG+1 vs UTG 4-bet (25bb) • Call",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 25,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 262: UTG+1 vs UTG 4-bet (25bb) • Call 59.7% / • Fold 40.3%"
+  },
+  {
+    "id": "263",
+    "page": 262,
+    "label": "UTG+1 vs UTG (40bb) • 3-bet",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.8
+      },
+      {
+        "action": "• Call",
+        "freq": 4.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 91.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 263: UTG+1 vs UTG (40bb) • 3-bet 4.8% / • Call 4% / • Fold 91.2%"
+  },
+  {
+    "id": "264",
+    "page": 262,
+    "label": "UTG+1 vs UTG 4-bet (40bb) • Call",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 40,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 59.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 264: UTG+1 vs UTG 4-bet (40bb) • Call 59.7% / • Fold 40.3%"
+  },
+  {
+    "id": "265",
+    "page": 263,
+    "label": "UTG+1 vs UTG (60bb) • 3-bet",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.7
+      },
+      {
+        "action": "• Call",
+        "freq": 2.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 91.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 265: UTG+1 vs UTG (60bb) • 3-bet 5.7% / • Call 2.9% / • Fold 91.4%"
+  },
+  {
+    "id": "266",
+    "page": 263,
+    "label": "UTG+1 vs UTG 4-bet (60bb) • All-in",
+    "hero": "UTG+1",
+    "villain": "UTG",
+    "stack_bb": 60,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 40.5
+      },
+      {
+        "action": "• Call",
+        "freq": 4.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 55.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 266: UTG+1 vs UTG 4-bet (60bb) • All-in 40.5% / • Call 4.4% / • Fold 55.1%"
+  },
+  {
+    "id": "267",
+    "page": 266,
+    "label": "BN 15bb (2x vs BB All-in) • Call All-in",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 42.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 57.4
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 267: BN 15bb (2x vs BB All-in) • Call All-in 42.6% / • Fold 57.4%"
+  },
+  {
+    "id": "268",
+    "page": 266,
+    "label": "BN 15bb (2x vs SB All-in) • Call All-in",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 44.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 55.1
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 268: BN 15bb (2x vs SB All-in) • Call All-in 44.9% / • Fold 55.1%"
+  },
+  {
+    "id": "269",
+    "page": 267,
+    "label": "BN 25bb (2x vs BB All-in) • Call All-in",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 29.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 70.5
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 269: BN 25bb (2x vs BB All-in) • Call All-in 29.5% / • Fold 70.5%"
+  },
+  {
+    "id": "270",
+    "page": 267,
+    "label": "BN 25bb (2x vs SB All-in) • Call All-in",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 31.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 68.4
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 270: BN 25bb (2x vs SB All-in) • Call All-in 31.6% / • Fold 68.4%"
+  },
+  {
+    "id": "271",
+    "page": 268,
+    "label": "CO 15bb (2x vs BB All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 45.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 54.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 271: CO 15bb (2x vs BB All-in) • Call All-in 45.1% / • Fold 54.9%"
+  },
+  {
+    "id": "272",
+    "page": 268,
+    "label": "CO 15bb (2x vs SB All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 272: CO 15bb (2x vs SB All-in) • Call All-in 50.2% / • Fold 49.8%"
+  },
+  {
+    "id": "273",
+    "page": 269,
+    "label": "CO 15bb (2x vs BN All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 43.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 56.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 273: CO 15bb (2x vs BN All-in) • Call All-in 43.8% / • Fold 56.2%"
+  },
+  {
+    "id": "274",
+    "page": 269,
+    "label": "CO 25bb (2x vs BB All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 31.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 69.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 274: CO 25bb (2x vs BB All-in) • Call All-in 31% / • Fold 69%"
+  },
+  {
+    "id": "275",
+    "page": 270,
+    "label": "CO 25bb (2x vs SB All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 31.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 68.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 275: CO 25bb (2x vs SB All-in) • Call All-in 31.3% / • Fold 68.7%"
+  },
+  {
+    "id": "276",
+    "page": 270,
+    "label": "CO 25bb (2x vs BN All-in) • Call All-in",
+    "hero": "CO",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 31.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 68.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 276: CO 25bb (2x vs BN All-in) • Call All-in 31.6% / • Fold 68.4%"
+  },
+  {
+    "id": "277",
+    "page": 271,
+    "label": "LJ 15bb (2x vs BB All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 47.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 52.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 277: LJ 15bb (2x vs BB All-in) • Call All-in 47.9% / • Fold 52.1%"
+  },
+  {
+    "id": "278",
+    "page": 271,
+    "label": "LJ 15bb (2x vs SB All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 51.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 48.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 278: LJ 15bb (2x vs SB All-in) • Call All-in 51.3% / • Fold 48.7%"
+  },
+  {
+    "id": "279",
+    "page": 272,
+    "label": "LJ 15bb (2x vs BN All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 51.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 279: LJ 15bb (2x vs BN All-in) • Call All-in 51% / • Fold 49%"
+  },
+  {
+    "id": "280",
+    "page": 272,
+    "label": "LJ 15bb (2x vs HJ All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 46.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 53.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 280: LJ 15bb (2x vs HJ All-in) • Call All-in 46.2% / • Fold 53.8%"
+  },
+  {
+    "id": "281",
+    "page": 273,
+    "label": "LJ 25bb (2x vs BB All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 32.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 67.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 281: LJ 25bb (2x vs BB All-in) • Call All-in 32.5% / • Fold 67.5%"
+  },
+  {
+    "id": "282",
+    "page": 273,
+    "label": "LJ 25bb (2x vs SB All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 33.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 66.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 282: LJ 25bb (2x vs SB All-in) • Call All-in 33.9% / • Fold 66.1%"
+  },
+  {
+    "id": "283",
+    "page": 274,
+    "label": "LJ 25bb (2x vs BN All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 29.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 70.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 283: LJ 25bb (2x vs BN All-in) • Call All-in 29.4% / • Fold 70.6%"
+  },
+  {
+    "id": "284",
+    "page": 274,
+    "label": "LJ 25bb (2x vs HJ All-in) • Call All-in",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 27.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 72.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 284: LJ 25bb (2x vs HJ All-in) • Call All-in 27.2% / • Fold 72.8%"
+  },
+  {
+    "id": "285",
+    "page": 275,
+    "label": "UTG 15bb (2x vs BB All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 50.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 285: UTG 15bb (2x vs BB All-in) • Call All-in 50.3% / • Fold 49.7%"
+  },
+  {
+    "id": "286",
+    "page": 275,
+    "label": "UTG 15bb (2x vs SB All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 52.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 47.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 286: UTG 15bb (2x vs SB All-in) • Call All-in 52.9% / • Fold 47.1%"
+  },
+  {
+    "id": "287",
+    "page": 276,
+    "label": "UTG 15bb (2x vs BN All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 51.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 48.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 287: UTG 15bb (2x vs BN All-in) • Call All-in 51.1% / • Fold 48.9%"
+  },
+  {
+    "id": "288",
+    "page": 276,
+    "label": "UTG 15bb (2x vs HJ All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 45.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 54.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 288: UTG 15bb (2x vs HJ All-in) • Call All-in 45.7% / • Fold 54.3%"
+  },
+  {
+    "id": "289",
+    "page": 277,
+    "label": "UTG 15bb (2x vs UTG+1 All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "UTG+1",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 41.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 59.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 289: UTG 15bb (2x vs UTG+1 All-in) • Call All-in 41% / • Fold 59%"
+  },
+  {
+    "id": "290",
+    "page": 277,
+    "label": "UTG 25bb (2x vs BB All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 30.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 69.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 290: UTG 25bb (2x vs BB All-in) • Call All-in 30.5% / • Fold 69.5%"
+  },
+  {
+    "id": "291",
+    "page": 278,
+    "label": "UTG 25bb (2x vs SB All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 34.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 65.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 291: UTG 25bb (2x vs SB All-in) • Call All-in 34.5% / • Fold 65.5%"
+  },
+  {
+    "id": "292",
+    "page": 278,
+    "label": "UTG 25bb (2x vs BN All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 33.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 66.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 292: UTG 25bb (2x vs BN All-in) • Call All-in 33.9% / • Fold 66.1%"
+  },
+  {
+    "id": "293",
+    "page": 279,
+    "label": "UTG 25bb (2x vs HJ All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 30.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 69.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 293: UTG 25bb (2x vs HJ All-in) • Call All-in 30.6% / • Fold 69.4%"
+  },
+  {
+    "id": "294",
+    "page": 279,
+    "label": "UTG 25bb (2x vs UTG+1 All-in) • Call All-in",
+    "hero": "UTG",
+    "villain": "UTG+1",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 27.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 72.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 294: UTG 25bb (2x vs UTG+1 All-in) • Call All-in 27.9% / • Fold 72.1%"
+  },
+  {
+    "id": "295",
+    "page": 281,
+    "label": "BN 25bb (2x vs BB 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 12.4
+      },
+      {
+        "action": "• Call",
+        "freq": 45.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 295: BN 25bb (2x vs BB 3-bet) • All-in 12.4% / • Call 45.4% / • Fold 42.2%"
+  },
+  {
+    "id": "296",
+    "page": 281,
+    "label": "BN 25bb (2x vs SB 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 21.1
+      },
+      {
+        "action": "• Call",
+        "freq": 33.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 45.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 296: BN 25bb (2x vs SB 3-bet) • All-in 21.1% / • Call 33.1% / • Fold 45.8%"
+  },
+  {
+    "id": "297",
+    "page": 282,
+    "label": "BN 40bb (2.3x vs BB 3.5x 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 8.8
+      },
+      {
+        "action": "• Call",
+        "freq": 45.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 45.7
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 297: BN 40bb (2.3x vs BB 3.5x 3-bet) • All-in 8.8% / • Call 45.4% / • Fold 45.7%"
+  },
+  {
+    "id": "298",
+    "page": 282,
+    "label": "BN 40bb (2.3x vs SB 3.3x 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 10.4
+      },
+      {
+        "action": "• Call",
+        "freq": 52.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.5
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 298: BN 40bb (2.3x vs SB 3.3x 3-bet) • All-in 10.4% / • Call 52.1% / • Fold 37.5%"
+  },
+  {
+    "id": "299",
+    "page": 283,
+    "label": "CO 25bb (2x vs BB 3.25x 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 12.2
+      },
+      {
+        "action": "• Call",
+        "freq": 49.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 38.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 299: CO 25bb (2x vs BB 3.25x 3-bet) • All-in 12.2% / • Call 49.6% / • Fold 38.2%"
+  },
+  {
+    "id": "300",
+    "page": 283,
+    "label": "CO 25bb (2x vs SB 3x 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 19.7
+      },
+      {
+        "action": "• Call",
+        "freq": 39.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 300: CO 25bb (2x vs SB 3x 3-bet) • All-in 19.7% / • Call 39.5% / • Fold 40.8%"
+  },
+  {
+    "id": "301",
+    "page": 284,
+    "label": "CO 25bb (2x vs BN 2.75x 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 22.9
+      },
+      {
+        "action": "• Call",
+        "freq": 38.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 38.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 301: CO 25bb (2x vs BN 2.75x 3-bet) • All-in 22.9% / • Call 38.3% / • Fold 38.8%"
+  },
+  {
+    "id": "302",
+    "page": 284,
+    "label": "CO 40bb vs BB 3.5x 3-bet • All-in",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 9.6
+      },
+      {
+        "action": "• Call",
+        "freq": 46.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 43.6
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 302: CO 40bb vs BB 3.5x 3-bet • All-in 9.6% / • Call 46.8% / • Fold 43.6%"
+  },
+  {
+    "id": "303",
+    "page": 285,
+    "label": "CO 40bb vs SB 3.3x 3-bet • All-in",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 12.7
+      },
+      {
+        "action": "• Call",
+        "freq": 45.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 303: CO 40bb vs SB 3.3x 3-bet • All-in 12.7% / • Call 45.2% / • Fold 42.1%"
+  },
+  {
+    "id": "304",
+    "page": 285,
+    "label": "CO 40bb vs BN 3.25x 3-bet • All-in",
+    "hero": "CO",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 18.0
+      },
+      {
+        "action": "• Call",
+        "freq": 30.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 51.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 304: CO 40bb vs BN 3.25x 3-bet • All-in 18% / • Call 30.9% / • Fold 51%"
+  },
+  {
+    "id": "305",
+    "page": 286,
+    "label": "LJ 25bb (2x vs BB 3.25x 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 13.2
+      },
+      {
+        "action": "• Call",
+        "freq": 49.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 305: LJ 25bb (2x vs BB 3.25x 3-bet) • All-in 13.2% / • Call 49% / • Fold 37.8%"
+  },
+  {
+    "id": "306",
+    "page": 286,
+    "label": "LJ 25bb (2x vs SB 3x 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 18.6
+      },
+      {
+        "action": "• Call",
+        "freq": 44.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 306: LJ 25bb (2x vs SB 3x 3-bet) • All-in 18.6% / • Call 44.6% / • Fold 36.8%"
+  },
+  {
+    "id": "307",
+    "page": 287,
+    "label": "LJ 25bb (2x vs BN 2.75x 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 23.7
+      },
+      {
+        "action": "• Call",
+        "freq": 44.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 31.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 307: LJ 25bb (2x vs BN 2.75x 3-bet) • All-in 23.7% / • Call 44.7% / • Fold 31.7%"
+  },
+  {
+    "id": "308",
+    "page": 287,
+    "label": "LJ 25bb (2x vs HJ 2.75x 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 21.8
+      },
+      {
+        "action": "• Call",
+        "freq": 42.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 308: LJ 25bb (2x vs HJ 2.75x 3-bet) • All-in 21.8% / • Call 42.7% / • Fold 35.5%"
+  },
+  {
+    "id": "309",
+    "page": 288,
+    "label": "LJ 40bb vs BB 3.5x 3-bet • All-in",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.8
+      },
+      {
+        "action": "• Call",
+        "freq": 56.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 309: LJ 40bb vs BB 3.5x 3-bet • All-in 7.8% / • Call 56.2% / • Fold 36%"
+  },
+  {
+    "id": "310",
+    "page": 288,
+    "label": "LJ 40bb vs SB 3.3x 3-bet • All-in",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 9.2
+      },
+      {
+        "action": "• Call",
+        "freq": 58.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 32.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 310: LJ 40bb vs SB 3.3x 3-bet • All-in 9.2% / • Call 58.7% / • Fold 32.1%"
+  },
+  {
+    "id": "311",
+    "page": 289,
+    "label": "LJ 40bb vs BN 3.25x 3-bet • All-in",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 21.8
+      },
+      {
+        "action": "• Call",
+        "freq": 27.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 51.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 311: LJ 40bb vs BN 3.25x 3-bet • All-in 21.8% / • Call 27.2% / • Fold 51%"
+  },
+  {
+    "id": "312",
+    "page": 289,
+    "label": "LJ 40bb vs HJ 3.25x 3-bet • All-in",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 19.3
+      },
+      {
+        "action": "• Call",
+        "freq": 24.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 56.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 312: LJ 40bb vs HJ 3.25x 3-bet • All-in 19.3% / • Call 24.7% / • Fold 56%"
+  },
+  {
+    "id": "313",
+    "page": 290,
+    "label": "UTG 25bb (2x vs BB 3.25x 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 17.2
+      },
+      {
+        "action": "• Call",
+        "freq": 44.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 38.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 313: UTG 25bb (2x vs BB 3.25x 3-bet) • All-in 17.2% / • Call 44.5% / • Fold 38.3%"
+  },
+  {
+    "id": "314",
+    "page": 290,
+    "label": "UTG 25bb (2x vs SB 3x 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 21.5
+      },
+      {
+        "action": "• Call",
+        "freq": 42.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 314: UTG 25bb (2x vs SB 3x 3-bet) • All-in 21.5% / • Call 42.2% / • Fold 36.3%"
+  },
+  {
+    "id": "315",
+    "page": 291,
+    "label": "UTG 25bb (2x vs BN 2.75x 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 22.4
+      },
+      {
+        "action": "• Call",
+        "freq": 47.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 30.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 315: UTG 25bb (2x vs BN 2.75x 3-bet) • All-in 22.4% / • Call 47.4% / • Fold 30.3%"
+  },
+  {
+    "id": "316",
+    "page": 291,
+    "label": "UTG 25bb (2x vs HJ 2.75x 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 24.4
+      },
+      {
+        "action": "• Call",
+        "freq": 40.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 316: UTG 25bb (2x vs HJ 2.75x 3-bet) • All-in 24.4% / • Call 40.5% / • Fold 35.1%"
+  },
+  {
+    "id": "317",
+    "page": 292,
+    "label": "UTG 25bb (2x vs UTG+1 2.75x 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "UTG+1",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 22.5
+      },
+      {
+        "action": "• Call",
+        "freq": 37.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 39.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 317: UTG 25bb (2x vs UTG+1 2.75x 3-bet) • All-in 22.5% / • Call 37.8% / • Fold 39.7%"
+  },
+  {
+    "id": "318",
+    "page": 292,
+    "label": "UTG 40bb vs BB 3.5x 3-bet • All-in",
+    "hero": "UTG",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 10.0
+      },
+      {
+        "action": "• Call",
+        "freq": 49.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 318: UTG 40bb vs BB 3.5x 3-bet • All-in 10% / • Call 49.5% / • Fold 40.5%"
+  },
+  {
+    "id": "319",
+    "page": 293,
+    "label": "UTG 40bb vs SB 3.3x 3-bet • All-in",
+    "hero": "UTG",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 12.5
+      },
+      {
+        "action": "• Call",
+        "freq": 50.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 319: UTG 40bb vs SB 3.3x 3-bet • All-in 12.5% / • Call 50.8% / • Fold 36.7%"
+  },
+  {
+    "id": "320",
+    "page": 293,
+    "label": "UTG 40bb vs BN 3.25x 3-bet • All-in",
+    "hero": "UTG",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 24.3
+      },
+      {
+        "action": "• Call",
+        "freq": 26.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 49.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 320: UTG 40bb vs BN 3.25x 3-bet • All-in 24.3% / • Call 26.3% / • Fold 49.4%"
+  },
+  {
+    "id": "321",
+    "page": 294,
+    "label": "UTG 40bb vs HJ 3.25x 3-bet • All-in",
+    "hero": "UTG",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 25.4
+      },
+      {
+        "action": "• Call",
+        "freq": 18.9
+      },
+      {
+        "action": "• Fold",
+        "freq": 55.7
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 321: UTG 40bb vs HJ 3.25x 3-bet • All-in 25.4% / • Call 18.9% / • Fold 55.7%"
+  },
+  {
+    "id": "322",
+    "page": 294,
+    "label": "UTG 40bb vs UTG+1 3.25x 3-bet • All-in",
+    "hero": "UTG",
+    "villain": "UTG+1",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 26.1
+      },
+      {
+        "action": "• Call",
+        "freq": 9.7
+      },
+      {
+        "action": "• Fold",
+        "freq": 64.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 322: UTG 40bb vs UTG+1 3.25x 3-bet • All-in 26.1% / • Call 9.7% / • Fold 64.2%"
+  },
+  {
+    "id": "323",
+    "page": 296,
+    "label": "BN 60bb (2.3x vs BB 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 3.5
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 3.9
+      },
+      {
+        "action": "• Call",
+        "freq": 52.4
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.2
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 323: BN 60bb (2.3x vs BB 3-bet) • All-in 3.5% / • 4-bet 3.9% / • Call 52.4% / • Fold 40.2%"
+  },
+  {
+    "id": "324",
+    "page": 296,
+    "label": "BN 60bb (2.3x vs SB 3-bet) • All-in",
+    "hero": "BN",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.4
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 6.0
+      },
+      {
+        "action": "• Call",
+        "freq": 55.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.8
+      }
+    ],
+    "hu_relevant": true,
+    "raw": "Hand Range 324: BN 60bb (2.3x vs SB 3-bet) • All-in 2.4% / • 4-bet 6% / • Call 55.8% / • Fold 35.8%"
+  },
+  {
+    "id": "325",
+    "page": 297,
+    "label": "CO 60bb (2.3x vs BB 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.6
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 7.1
+      },
+      {
+        "action": "• Call",
+        "freq": 52.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 39.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 325: CO 60bb (2.3x vs BB 3-bet) • All-in 1.6% / • 4-bet 7.1% / • Call 52.2% / • Fold 39.1%"
+  },
+  {
+    "id": "326",
+    "page": 297,
+    "label": "CO 60bb (2.3x vs SB 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 1.4
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 8.7
+      },
+      {
+        "action": "• Call",
+        "freq": 58.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 31.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 326: CO 60bb (2.3x vs SB 3-bet) • All-in 1.4% / • 4-bet 8.7% / • Call 58.6% / • Fold 31.3%"
+  },
+  {
+    "id": "327",
+    "page": 298,
+    "label": "CO 60bb (2.3x vs BN 3-bet) • All-in",
+    "hero": "CO",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.8
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 15.5
+      },
+      {
+        "action": "• Call",
+        "freq": 39.0
+      },
+      {
+        "action": "• Fold",
+        "freq": 42.8
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 327: CO 60bb (2.3x vs BN 3-bet) • All-in 2.8% / • 4-bet 15.5% / • Call 39% / • Fold 42.8%"
+  },
+  {
+    "id": "328",
+    "page": 298,
+    "label": "LJ 60bb (2.3x vs BB 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 0.0
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 6.8
+      },
+      {
+        "action": "• Call",
+        "freq": 56.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 37.1
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 328: LJ 60bb (2.3x vs BB 3-bet) • All-in 0% / • 4-bet 6.8% / • Call 56.1% / • Fold 37.1%"
+  },
+  {
+    "id": "329",
+    "page": 299,
+    "label": "LJ 60bb (2.3x vs SB 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 0.0
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 8.0
+      },
+      {
+        "action": "• Call",
+        "freq": 64.1
+      },
+      {
+        "action": "• Fold",
+        "freq": 27.9
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 329: LJ 60bb (2.3x vs SB 3-bet) • All-in 0% / • 4-bet 8% / • Call 64.1% / • Fold 27.9%"
+  },
+  {
+    "id": "330",
+    "page": 299,
+    "label": "LJ 60bb (2.3x vs BN 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 0.0
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 19.2
+      },
+      {
+        "action": "• Call",
+        "freq": 42.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 38.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 330: LJ 60bb (2.3x vs BN 3-bet) • All-in 0% / • 4-bet 19.2% / • Call 42.3% / • Fold 38.5%"
+  },
+  {
+    "id": "331",
+    "page": 300,
+    "label": "LJ 60bb (2.3x vs HJ 3-bet) • All-in",
+    "hero": "LJ",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.5
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 16.9
+      },
+      {
+        "action": "• Call",
+        "freq": 34.3
+      },
+      {
+        "action": "• Fold",
+        "freq": 44.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 331: LJ 60bb (2.3x vs HJ 3-bet) • All-in 4.5% / • 4-bet 16.9% / • Call 34.3% / • Fold 44.3%"
+  },
+  {
+    "id": "332",
+    "page": 300,
+    "label": "UTG 60bb (2.3x vs BB 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "BB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.7
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 1.6
+      },
+      {
+        "action": "• Call",
+        "freq": 59.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 36.2
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 332: UTG 60bb (2.3x vs BB 3-bet) • All-in 2.7% / • 4-bet 1.6% / • Call 59.5% / • Fold 36.2%"
+  },
+  {
+    "id": "333",
+    "page": 301,
+    "label": "UTG 60bb (2.3x vs SB 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "SB",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.5
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 6.3
+      },
+      {
+        "action": "• Call",
+        "freq": 64.8
+      },
+      {
+        "action": "• Fold",
+        "freq": 26.3
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 333: UTG 60bb (2.3x vs SB 3-bet) • All-in 2.5% / • 4-bet 6.3% / • Call 64.8% / • Fold 26.3%"
+  },
+  {
+    "id": "334",
+    "page": 301,
+    "label": "UTG 60bb (2.3x vs BN 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "BN",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 4.8
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 16.0
+      },
+      {
+        "action": "• Call",
+        "freq": 43.6
+      },
+      {
+        "action": "• Fold",
+        "freq": 35.5
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 334: UTG 60bb (2.3x vs BN 3-bet) • All-in 4.8% / • 4-bet 16.0% / • Call 43.6% / • Fold 35.5%"
+  },
+  {
+    "id": "335",
+    "page": 302,
+    "label": "UTG 60bb (2.3x vs HJ 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "HJ",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 2.1
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 19.0
+      },
+      {
+        "action": "• Call",
+        "freq": 38.5
+      },
+      {
+        "action": "• Fold",
+        "freq": 40.4
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 335: UTG 60bb (2.3x vs HJ 3-bet) • All-in 2.1% / • 4-bet 19.0% / • Call 38.5% / • Fold 40.4%"
+  },
+  {
+    "id": "336",
+    "page": 302,
+    "label": "UTG 60bb (2.3x vs UTG+1 3-bet) • All-in",
+    "hero": "UTG",
+    "villain": "UTG+1",
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 5.0
+      },
+      {
+        "action": "• 4-bet",
+        "freq": 15.8
+      },
+      {
+        "action": "• Call",
+        "freq": 28.2
+      },
+      {
+        "action": "• Fold",
+        "freq": 51.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 336: UTG 60bb (2.3x vs UTG+1 3-bet) • All-in 5% / • 4-bet 15.8% / • Call 28.2% / • Fold 51%"
+  },
+  {
+    "id": "337",
+    "page": 309,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "against that distribution, for example AA, KK and some bluffs. This will allow the Villains to pick up extra EV (Hand Range 337)."
+  },
+  {
+    "id": "338",
+    "page": 309,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "So, Hero immediately adjusts to never use that bet-size and QQ will shift entirely to the 2/3-pot bet-size (Hand Range 338)."
+  },
+  {
+    "id": "339",
+    "page": 310,
+    "label": ").",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "pot-size bet, shrinking the value range to KK+ and checking back QQ-66 (Hand Range 339)."
+  },
+  {
+    "id": "340",
+    "page": 311,
+    "label": "IP All-in allowed (2x Pot) • Bet All-in",
+    "hero": null,
+    "villain": null,
+    "stack_bb": null,
+    "actions": [
+      {
+        "action": "?",
+        "freq": 7.0
+      },
+      {
+        "action": "• Bet Pot",
+        "freq": 24.0
+      },
+      {
+        "action": "• Check",
+        "freq": 69.0
+      }
+    ],
+    "hu_relevant": false,
+    "raw": "Hand Range 340: IP All-in allowed (2x Pot) • Bet All-in 7% / • Bet Pot 24% / • Check 69%"
+  },
+  {
+    "id": "341",
+    "page": 363,
+    "label": "CO RFI 40bb",
+    "hero": "CO",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 341: CO RFI 40bb"
+  },
+  {
+    "id": "342",
+    "page": 364,
+    "label": "BN vs CO 40bb",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 342: BN vs CO 40bb"
+  },
+  {
+    "id": "343",
+    "page": 364,
+    "label": "UTG RFI 40bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 343: UTG RFI 40bb"
+  },
+  {
+    "id": "344",
+    "page": 365,
+    "label": "BN vs UTG 40bb",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 344: BN vs UTG 40bb"
+  },
+  {
+    "id": "345",
+    "page": 365,
+    "label": "CO RFI 20bb",
+    "hero": "CO",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 345: CO RFI 20bb"
+  },
+  {
+    "id": "346",
+    "page": 366,
+    "label": "BN vs CO 20bb",
+    "hero": "BN",
+    "villain": "CO",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 346: BN vs CO 20bb"
+  },
+  {
+    "id": "347",
+    "page": 366,
+    "label": "UTG RFI 20bb",
+    "hero": "UTG",
+    "villain": null,
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 347: UTG RFI 20bb"
+  },
+  {
+    "id": "348",
+    "page": 367,
+    "label": "BN vs UTG 20bb",
+    "hero": "BN",
+    "villain": "UTG",
+    "stack_bb": null,
+    "actions": [],
+    "hu_relevant": false,
+    "raw": "Hand Range 348: BN vs UTG 20bb"
+  }
+]

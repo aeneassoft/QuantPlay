@@ -1,0 +1,19 @@
+# Poker bot — dependencies
+anthropic>=0.107
+openai>=1.0
+# PDF extraction
+PyMuPDF>=1.27
+pdfplumber>=0.11
+pypdf>=6.0
+# Poker math / evaluation
+treys>=0.1.8
+phevaluator>=0.5
+numpy>=2.0
+# Tokenization / cost estimation
+tiktoken>=0.7
+# Web app
+fastapi>=0.110
+uvicorn[standard]>=0.27
+jinja2>=3.1
+python-multipart>=0.0.9
+websockets>=12.0

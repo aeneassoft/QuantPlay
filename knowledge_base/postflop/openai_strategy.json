@@ -1,0 +1,201 @@
+{
+  "summary": "A directly implementable heads-up NLHE postflop system that (1) classifies boards, (2) sets default frequencies and sizes, (3) computes fold-equity EV for each size, and (4) adaptively exploits a static, near-GTO opponent by learning its fold curve F(s) and picking EV-maximizing sizes for value and bluffs. All thresholds and formulas are concrete and numeric so they can be coded immediately.",
+  "rules": [
+    {
+      "area": "Board classification",
+      "condition": "Given board (flop, turn, river) with ranks r1≤r2≤r3 and suits",
+      "action": "Compute texture flags: paired, trips, monotone, 2-tone, rainbow, connectedness, highness, dynamic vs static",
+      "size_pct_pot": 0,
+      "formula": "Let ranks be r1,r2,r3 (2–14). 1) paired = (r1==r2 OR r2==r3). 2) trips = (r1==r2 AND r2==r3). 3) suits s1,s2,s3. monotone = (s1==s2 AND s2==s3). 4) two_tone = (NOT monotone) AND (s1==s2 OR s2==s3 OR s1==s3). 5) rainbow = NOT (monotone OR two_tone). 6) gaps (sorted ranks): g1=r2-r1, g2=r3-r2. straight_possible = (r3-r1<=4) OR (special wheel case A-5). connected = (g1<=3 AND g2<=3). ultra_connected = (g1<=2 AND g2<=2). 7) high_board = (r3>=11 OR (r2>=10)). low_board = (r3<=9). 8) dynamic_flop = (two_tone OR ultra_connected OR (paired AND NOT trips)). static_flop = NOT dynamic_flop.",
+      "rationale": "We need deterministic, discrete texture classes to index into sizing and frequency tables and to infer range interaction and future-card volatility."
+    },
+    {
+      "area": "Flop c-bet frequency & size (IP and OOP, 100bb)",
+      "condition": "Hero is PFR, flop SPR≈4–6. Board texture category derived from classification. Use position flag hero_IP (1 if IP, 0 if OOP).",
+      "action": "Set default baseline c-bet frequency f_cbet and primary size s_main (pot fraction). Optionally mix in secondary size s_alt with freq w_alt. These are adjusted later via EV maximization vs F(s), but provide initial prior strategy.",
+      "size_pct_pot": 0,
+      "formula": "Define 6 flop categories (C): 1) High_dry: high_board AND rainbow AND NOT connected AND NOT paired. 2) Low_dry: low_board AND rainbow AND NOT connected AND NOT paired. 3) High_dynamic: high_board AND dynamic_flop. 4) Low_dynamic: low_board AND dynamic_flop. 5) Paired: paired AND NOT monotone. 6) Monotone: monotone.\nDefault IP c-bet params (hero is raiser, in position):\n- if C==High_dry: f_cbet=0.80, s_main=0.33, s_alt=0.80, w_alt=0.25\n- if C==Low_dry: f_cbet=0.65, s_main=0.33, s_alt=0.66, w_alt=0.25\n- if C==High_dynamic: f_cbet=0.70, s_main=0.50, s_alt=0.90, w_alt=0.20\n- if C==Low_dynamic: f_cbet=0.55, s_main=0.50, s_alt=0.75, w_alt=0.20\n- if C==Paired: f_cbet=0.75, s_main=0.33, s_alt=0.75, w_alt=0.25\n- if C==Monotone: f_cbet=0.55, s_main=0.50, s_alt=1.00, w_alt=0.20\nDefault OOP c-bet (hero raiser, out of position): reduce frequency ~15% and size up a step:\n- if hero_OOP: f_cbet_OOP = f_cbet - 0.15 (clip to [0.35,0.85]); s_main_OOP = max(s_main,0.50); s_alt_OOP = max(s_alt,0.90).",
+      "rationale": "High-dry boards are heavily range-advantage for raiser, favoring frequent small c-bets. Dynamic and monotone boards shift equity and future nuts to caller, requiring larger sizes and lower frequencies. OOP needs fewer, larger bets to deny equity and prevent IP from realizing too cheaply."
+    },
+    {
+      "area": "Flop continuation decision by hand class",
+      "condition": "Hero has hand H at flop; classify vs current board and hero’s preflop range. Use hand strength bucket B in {nut, strong, medium, weak-showdown, draw-strong, draw-weak, air}.",
+      "action": "Decide bet/check with approximate frequencies and size choice. Later, actual size chosen via EV-maximizing algorithm per candidate sizes [0.25,0.33,0.5,0.66,0.75,1.0,1.25,1.5,2.0].",
+      "size_pct_pot": 0,
+      "formula": "Hand bucketing on flop:\nInputs: hero equity vs villain range E (estimate via precomputed table or Monte Carlo), draw flags (NFD, FD, OESD, GS, BDFD, BDSD), made-hand rank (top_pair+, etc.).\n- nut: (E>=0.70) OR (current nuts or near-nuts: sets+, nut straights, strong flushes).\n- strong: (0.60<=E<0.70) OR (overpair, top two, top pair+NFD, 2nd nut flush, strong combo draws with ≥12 outs).\n- medium: (0.48<=E<0.60) AND showdown value: top pair weak kicker, middle pair good kicker, underpair to top but >50% vs range.\n- weak-showdown: (0.35<=E<0.48) and has realistic SDV: bottom pair, A-high on some textures.\n- draw-strong: (E<0.60) AND (clean outs≥8: NFD, OESD, combo draws).\n- draw-weak: (4<=clean outs<=7): weak FD, gutshot with overcards, BDFD+overs.\n- air: else.\nDefault IP flop actions by bucket (vs a single caller):\n- nut: bet with freq=0.90; choose size set S={s_main,s_alt}. Weight alt with w_alt from board table.\n- strong: bet freq=0.80; same sizes as nut.\n- medium: bet freq=0.55 on High_dry/Paired, 0.40 otherwise. Size = s_main.\n- weak-showdown: bet freq=0.35 on High_dry/Paired (mainly protection), 0.20 otherwise. Size = s_main (small).\n- draw-strong: bet freq=0.80; size = max(s_main,0.50). Add overbet candidate (1.25) on dynamic boards.\n- draw-weak: bet freq=0.55 on High_dynamic/Low_dynamic, 0.40 otherwise; size = s_main.\n- air: bet freq=baseline bluff fraction: if board high_dry or paired: 0.45; else 0.30. Size = s_main.\nOOP reduce bluff and marginal value frequencies by factor 0.8 and size up to s_main_OOP / s_alt_OOP.",
+      "rationale": "Hand buckets give a coarse but implementable mapping from equity/draw strength to betting frequencies. These are starting points before applying the EV-based size optimization vs opponent’s fold curve."
+    },
+    {
+      "area": "Turn barrel frequency & size",
+      "condition": "Flop was bet by hero and called. Turn card T dealt; recompute texture and range advantage. Use flags: hero_range_advantage (HRA), hero_nut_advantage (HNA).",
+      "action": "Choose whether to barrel and at what size based on (HRA,HNA) and card type (blank, draws complete, overcard, pairing, 3-flush, 4-straight).",
+      "size_pct_pot": 0,
+      "formula": "Approximate turn SPR ~2–3. Evaluate:\n- HRA=1 if hero’s range equity vs villain≥0.53 (precomputed by flop+turn category).\n- HNA=1 if hero holds ≥60% of combos of nut region (top 5% of river-equity distribution), else 0.\nClassify turn card:\n- completing_flush = board now has 3/4 of a suit and that suit was already present on flop.\n- completing_straight = 4-to-straight or straight completed where 3-to-straight existed on flop.\n- overcard_to_top = new rank > flop r3.\n- pairing_board = turn matches any board rank.\n- blank = none of the above, and does not add new strong draws.\nDefault barrel frequencies (IP, after flop bet called):\nFor hand bucket B in {nut,strong,medium,weak-showdown,draw-strong,draw-weak,air}:\nIf card_type=blank:\n- nut: barrel freq=0.95; size=0.66 pot.\n- strong: 0.80; size=0.66.\n- medium: if HRA=1 then 0.60 else 0.40; size=0.50.\n- weak-showdown: if HRA=1 then 0.40 else 0.25; size=0.50.\n- draw-strong: 0.80; size=0.66.\n- draw-weak: 0.55; size=0.50.\n- air: if HRA=1 then 0.40 else 0.25; size=0.50.\nIf card_type=completing_flush OR completing_straight (bad for our perceived range): decrease frequencies by 0.15 across board except nuts; nuts stay at 0.95.\nIf card_type=overcard_to_top and good for PFR (e.g. A,K on low board and hero PFR): increase barrel freq for medium by +0.15, weak-showdown by +0.10, air by +0.10; cap at 0.75. Keep size 0.66.\nAdd overbet candidate on turns where HNA=1 AND dynamic_flop=1: consider size 1.25 pot for buckets nut,strong,draw-strong with probability 0.40 each instead of regular 0.66.\nOOP: use same but reduce frequencies for non-nut by factor 0.85 and increase base size to 0.75 pot on dynamic cards.",
+      "rationale": "Turn decisions require heavier weighting of range and nut advantage; overbets are introduced mainly on turns that polarize equities and favor hero’s range."
+    },
+    {
+      "area": "River betting frequency & size",
+      "condition": "River after hero bet bet/call sequence or check/call, SPR≈1–2. Have bucket B but now use nut ranking more discretely: {nuts, thin_value, bluff-candidate, give-up}.",
+      "action": "Compute whether hand is value or bluff and run size EV optimization vs learned F(s).",
+      "size_pct_pot": 0,
+      "formula": "Classify river hand:\n- nuts: hand rank in top 5% of hero’s range on river (compute by equity vs villain’s range ≥0.75).\n- thin_value: equity in [0.55,0.75] vs villain’s range and can get called by worse.\n- bluff-candidate: equity <0.50, but with good blockers (see bluff rule) or showdown value <0.25.\n- give-up: equity <0.50 but has moderate SDV (0.25–0.50) and poor blockers.\nDefault frequencies (before EV selection, IP):\n- nuts: bet 0.95.\n- thin_value: bet 0.65.\n- bluff-candidate: bluff 0.55 if bluff/value ratio constraint allows (see MDF section).\n- give-up: bet 0.10 (mainly to keep balance), otherwise check.\nSizes provided as candidates S={0.5,0.75,1.0,1.25,1.5,2.0}. Final size chosen using size EV algorithm vs F(s) (see fold_equity). OOP: same frequencies but disallow >1.5x overbet if SPR<1 (clip sizes).",
+      "rationale": "River is where fold-curve exploitation is maximal. We parametrize initial betting frequencies but let the EV-optimizing size routine pick exact bet sizes vs the static bot."
+    },
+    {
+      "area": "Fold-equity math: breakeven alpha and EV of bluff/value",
+      "condition": "Given current pot P, bet size fraction s (bet = s*P), opponent fold probability F(s) (vs that size in this line/spot), and for value-bets villain’s call-range equity e_call (hero’s equity when called).",
+      "action": "Compute breakeven fold frequency, EV of bluff, EV of value-bet as functions of s and F(s).",
+      "size_pct_pot": 0,
+      "formula": "Let B = s*P.\nBreakeven fold frequency alpha(s): alpha = s/(1+s).\nBluff EV(s): EV_bluff(s)= F(s)*P + (1-F(s))*(-B) = P*(F(s) - s*(1-F(s))).\nAlternative normalized: EV_bluff(s)/P = F(s) - s*(1-F(s)).\nValue EV(s): assume when called hero’s equity vs villain call-range is e_call in [0,1]. Pot after call = P+2B = P*(1+2s). So:\nEV_value(s) = F(s)*P + (1-F(s))*(e_call*(P+2B) - (1-e_call)*(B))\n= F(s)*P + (1-F(s))*(e_call*P*(1+2s) - (1-e_call)*s*P)\nSimplify if desired in implementation. Normalized: EV_value(s)/P = F(s) + (1-F(s))*(e_call*(1+2s) - (1-e_call)*s).",
+      "rationale": "These closed-form EV functions allow direct computation of the best size given any fold curve F(s) and call equity e_call."
+    },
+    {
+      "area": "Size selection algorithm: bluffs",
+      "condition": "We are in a bluffing state (hand classified bluff-candidate, equity vs calling range <0.30). Have discrete candidate size set S_list and empirical/estimated F(s) for each candidate.",
+      "action": "Pick size s* that maximizes EV_bluff(s).",
+      "size_pct_pot": 0,
+      "formula": "Inputs: P, S_list={0.25,0.33,0.5,0.66,0.75,1.0,1.25,1.5,2.0}, F_hat(s) from model. For each s in S_list where B=s*P<=stack:\n1) Compute EV_bluff(s) using EV_bluff formula.\n2) If EV_bluff(s)<=0, mark as non-profitable; retain best (max) including possibly negative (if forced to bluff per strategy).\n3) Choose s_bluff* = argmax_s EV_bluff(s).\nExploit bias: if multiple sizes within δ_bluff of the maximum (δ_bluff = 0.02*P), choose larger size among them to increase variance and future value; else choose s_bluff*.\nReturn s_bluff*.",
+      "rationale": "Given a static F(s), we simply maximize EV pointwise over discrete sizes. The δ tie-breaker nudges toward larger sizes when EV is similar."
+    },
+    {
+      "area": "Size selection algorithm: value",
+      "condition": "We are in a value-betting state (nuts or thin_value). We have estimated hero equity when called e_call(s) for each candidate size (villain’s call-range tightening with size).",
+      "action": "Pick size s* that maximizes EV_value(s).",
+      "size_pct_pot": 0,
+      "formula": "Inputs: P, S_list (same as for bluff), F_hat(s), and e_call_hat(s) from range model.\nFor each s in S_list:\n1) Estimate e_call_hat(s): hero_equity_vs(villain_call_range_given_size(s)). This can be pre-tabulated by line/board.\n2) Compute EV_value(s) via EV_value formula.\n3) Choose s_value* = argmax_s EV_value(s).\nExploit priority: if s_large > s_small both within δ_value=0.02*P of maximum EV and s_large>=1.0, choose s_large to exploit under-folding to big bets; otherwise pick EV-maximizer.\nReturn s_value*.",
+      "rationale": "Value EV depends both on fold and call segments of villain’s response. The algorithm explores tradeoffs: larger sizes with fewer but worse calls vs smaller sizes with more calls from dominated hands."
+    },
+    {
+      "area": "Learning F(s): online estimation",
+      "condition": "During play vs a static opponent, we observe for each situation type K (line/texture/position/bet-sequence) the responses to bets of size s. We want an updatable estimate F_hat_K(s)=Pr[fold|size s, context K].",
+      "action": "Maintain per-context statistics and fit a logistic fold-curve in s; use Bayesian smoothing to avoid overfitting. Update after every showdown decision.",
+      "size_pct_pot": 0,
+      "formula": "Define context key K=(street, hero_position, pot_type, board_class, line_type), e.g. (river,IP,sr_pot,High_dry,bet-bet).\nFor each candidate size s in S_list, maintain counts per K:\n- N_total[K][s]\n- N_fold[K][s]\n- N_call[K][s]\n- N_raise[K][s]\nDefine raw frequencies:\n- F_raw[K][s]=(N_fold+0.5)/(N_total+1.0)  (Laplace smoothing).\nAlso define call frequency C_raw[K][s]=(N_call+0.5)/(N_total+1.0).\nTo get smooth F_hat_K(s) as a function of s, fit logistic model per K:\nLet x = ln(1+s) (to compress large sizes). Model:\nF_hat_K(s) = 1/(1+exp(-(a_K + b_K*x))).\nUpdate a_K,b_K every M=200 observations via online logistic regression or simpler: fit by least-squares to current pairs (x_i, y_i=F_raw[K][s_i]) with weights w_i=N_total[K][s_i]. If insufficient data (ΣN_total< N_min=50), fall back to generic prior model F_prior_s (e.g. from solved GTO sim) and then linearly blend:\nF_hat_K(s) = λ*F_raw[K][s] + (1-λ)*F_prior_s where λ = min(1, ΣN_total/200).\nStore also discrete table F_tab[K][s]=F_hat_K(s) for direct lookup in EV computation.",
+      "rationale": "A per-context logistic curve uses data efficiently while retaining smooth monotonicity in s. Blending with a prior prevents wild early exploits until enough data is collected."
+    },
+    {
+      "area": "Exploiting over-/under-folding at particular sizes",
+      "condition": "Given F_hat_K(s) and GTO baseline F_gto_K(s) (from offline solver data), compute deviation ΔF(s)=F_hat_F - F_gto_F. Use it to bias bot towards sizes where opponent deviates most.",
+      "action": "Detect overfold/underfold regimes and adjust action frequencies and size candidate set weights accordingly.",
+      "size_pct_pot": 0,
+      "formula": "Compute for each K,s:\nΔF_K(s) = F_hat_K(s) - F_gto_K(s).\nThresholds:\n- Overfold(s): ΔF_K(s) >= θ_over, with θ_over = 0.08 (8 percentage points).\n- Underfold(s): ΔF_K(s) <= -θ_under, θ_under=0.08.\nExploitation adjustments:\n1) If Overfold(s) and we are bluffing:\n   - Multiply bluff frequency for that node by factor f_over= min(1.5, 1 + |ΔF_K(s)|/0.10).\n   - Favor s in selection: add bonus EV term EV_bonus = β_over * |ΔF_K(s)|*P, with β_over=0.3, in EV_bluff computation when comparing sizes.\n2) If Underfold(s) and we are value-betting:\n   - Expand value range: lower threshold for value-betting equity from 0.55 to 0.50 when s is in underfold region.\n   - Add EV bonus EV_bonus_value = β_under*|ΔF_K(s)|*P, β_under=0.3, when selecting sizes for nuts/strong.\n3) If Overfold(s) and hand has poor equity when called (air/weak draw), permit pure exploit bluffs even if balanced strategy would check, by adding minimal bluff freq floor f_min_exploit=0.20 whenever EV_bluff(s)>0.\nImplementation: define Adjusted_EV_bluff(s)=EV_bluff(s)+I_overfold(s)*β_over*|ΔF_K(s)|*P; similarly for value. Use Adjusted_EV in argmax. Also, maintain target bluff:value ratio per node; allow up to 2×GTO bluffing when overfolding detected.",
+      "rationale": "Explicitly pulling the size-choice toward s where opponent deviates maximizes gain. Adjusting bluff/value frequencies ensures we exploit fold-pattern anomalies while respecting basic strategic soundness."
+    },
+    {
+      "area": "Bluff selection: blockers and equity",
+      "condition": "We are in a candidate bluff node (turn/river) with multiple possible bluff combos available. Need to rank hands to choose which to bluff more often.",
+      "action": "Score each hand by blocker_score and equity_score, then convert to bluff frequency. Hands with best blockers and some equity bluff more often; hands with poor blockers or high SDV bluff less or never.",
+      "size_pct_pot": 0,
+      "formula": "For each candidate bluff hand h:\n1) Compute blocker_score(h) in [0,1]:\n- Start at 0.5.\n- If h contains card that blocks villain’s strongest continues (e.g., suits/ranks that make his value hands):\n  a) Blocks nut flush: +0.25.\n  b) Blocks top set or overpairs (e.g., holding A or K on A/K-high board where villain’s value = top pair+): +0.20.\n  c) Blocks straights (holding key ranks) when villain’s value range heavily straight-weighted: +0.15.\n- If h blocks villain’s folds (e.g., shares low ranks on low disconnected board where folds are bottom pairs and trash): -0.20.\nClip blocker_score to [0,1].\n2) Equity_score(h):\n- equity e vs calling range.\n- If e>=0.25: equity_score=0.2.\n- If 0.10<=e<0.25: equity_score=0.1.\n- If e<0.10: equity_score=0.\n3) SDV_penalty(h):\n- If equity vs range when checked down e_SDV>=0.35: SDV_penalty= -0.3.\n- If 0.20<=e_SDV<0.35: SDV_penalty= -0.1.\n- Else 0.\n4) Total bluff desirability D(h) = blocker_score + equity_score + SDV_penalty.\nCompute per-node bluffing fraction F_target (from MDF/balance and exploit modifiers). Sort candidate bluff hands by D(h) descending; assign betting frequencies s.t. highest D get bluff freq up to 1.0, descending until total bluff combos ≈ F_target * (#value_combos).\nTie-breaking: prefer suited/connected bluffs with more clean outs when D equal.",
+      "rationale": "This quantitative scheme encodes modern GTO blocker logic: prefer holding cards that remove villain’s continues and retain equity, avoid bluffing medium SDV hands."
+    },
+    {
+      "area": "Defense vs bets: MDF baseline",
+      "condition": "Villain bets size s into pot P, we are deciding defend frequency with our range. We approximate villain is balanced or near-GTO; we want to not over-fold, then deviate exploitatively when F_hat suggests villain underbluffs.",
+      "action": "Use Minimum Defense Frequency (MDF) to set baseline calling threshold on each street, adjusting for perceived bluff frequency and exploit data.",
+      "size_pct_pot": 0,
+      "formula": "Given bet size fraction s = B/P.\nMDF(s) = 1/(1+s).\nBaseline rule: Our total defend fraction f_defend_total (calls + raises) vs villain’s bet should be ≥ MDF(s), unless we have evidence villain is under-bluffing.\nImplementation steps:\n1) Estimate villain bluff ratio ρ_bluff = bluff_combos/value_combos at this node from historical showdown data or heuristic (if insufficient data, assume ρ_bluff≈GTO_prior).\n2) Compute equilibrium call frequency f_eq from MDF or from more detailed range/villain model.\n3) If ρ_bluff < ρ_threshold_low (=0.5×GTO_bluff_ratio): exploit by overfolding: set target f_defend_total = max(0.5*MDF(s), MDF(s)*(ρ_bluff/GTO_bluff_ratio)).\n4) If ρ_bluff > ρ_threshold_high (=1.5×GTO_bluff_ratio): exploit by over-defending: set f_defend_total = min(1.2*MDF(s),1.0).\n5) Map hand equities to decisions: compute each hand’s equity vs villain’s betting range, order by equity descending, and defend (call/raise) top f_defend_total fraction of combos. Partition into raise (top R_frac=0.15) and call remainder.\nSpecial adjustments:\n- With strong bluff-catchers (blockers to value, unblock bluffs), move them up by Δequiv=+0.05 equity for ordering.\n- With dominated SDV, move down by Δequiv=-0.05.\nRiver: if villain strongly underbluffing (ρ_bluff very low), allow f_defend_total = min(MDF(s)*ρ_bluff/GTO_bluff_ratio, 0.3).",
+      "rationale": "MDF prevents autopilot over-folding vs GTO; explicit adjustments based on observed bluff ratios let the bot exploit static strategies that under/over-bluff."
+    },
+    {
+      "area": "Turn/river raising vs bets",
+      "condition": "Villain bets some size s, we consider raising with polar range (value+bluff).",
+      "action": "Raise rarely but with clear criteria: strong value and best bluff-blockers, and use size selected by same EV-maximizing size engine versus villain’s fold curve to raises.",
+      "size_pct_pot": 0,
+      "formula": "Value raises:\n- Only with hands in top 3% (nuts) or top 8% (very strong) if villain overcalls.\n- Choose raise size r as fraction of pot P': for raise, treat villian bet B as part of pot: P' = P + B. Candidate raise sizes R_list={0.75,1.0,1.25,1.5} w.r.t P'. Compute F_hat_raise(r) from context K=(street,raise_vs_bet_size_category,board_class). Use same EV_value formula with s=r and P=P'. Pick r* = argmax EV_value.\nBluff raises:\n- Limit bluff:value raise ratio to at most 1.2:1 default. Increase to 2:1 if villain overfolds to raises (ΔF>=0.10 at chosen r*).\n- Choose bluff candidates via blockers: same D(h) score scheme but stronger threshold: only bluff with D(h)>=0.7.\n- EV for bluff-raise uses EV_bluff with B=r*P'.\nFrequency: only raise with bluffs if EV_bluff(r*)>0 AND D(h)>=0.7 AND we have at least one value combo in raising range.\nElse flat-call or fold per MDF rules.",
+      "rationale": "Raising is high leverage; we keep ranges polar and sized with same EV-optimization logic, but with stricter entry conditions."
+    },
+    {
+      "area": "Deep-stack (200bb) adjustments: sizing & bluffing",
+      "condition": "Effective stack >=200bb at start of hand, SPR≥8 on flop. Deeper stacks amplify implied odds and change optimal sizings, especially on turn/river.",
+      "action": "Shift sizings downward on flop/turn but introduce larger polar overbets on later streets in polarized spots. Increase emphasis on blockers in river bluffs.",
+      "size_pct_pot": 0,
+      "formula": "Changes relative to 100bb defaults:\nFlop (200bb):\n- Reduce main c-bet size by 0.05 pot (min 0.25) on all textures.\n- Reduce f_cbet by 0.05 on dynamic boards to keep pot smaller with marginal hands.\n- Add small flop overbet candidate only in ultra_connected or monotone boards when hero has HNA=1: allow s_candidate=1.25 with freq 0.15 for nuts/draw-strong.\nTurn (200bb):\n- Default size=0.50 instead of 0.66 in non-polarized spots, keep 0.66 in polarized (nuts vs capped range).\n- Overbet candidate sizes: {1.25,1.5} instead of just 1.25, but only if hero_NA=1 and SPR_turn>=4.\nRiver (200bb):\n- Increase overbet size options S_list_river={0.75,1.0,1.25,1.5,2.0,2.5}.\n- For nuts, allow 2.0–2.5x in spots where villain’s stack / pot ratio ≥4 and we hold top 2% of range.\nBluff selection deeper:\n- Require stronger blockers: for river bluffs at ≥1.5x pot, D(h) threshold=0.8 instead of 0.6.\n- Reduce bluff frequency multiplier for overfold detection f_over from 1.5 to 1.3 at stacks ≥200bb (risk-averse against big swings when model error might be larger).\nDefense deep:\n- When facing huge overbets (s>=1.5) and our model shows villain underbluffs (ρ_bluff<0.5*GTO), allow f_defend_total down to 0.4*MDF(s).",
+      "rationale": "Big stacks increase future-street leverage; we open more polar large bets where we have nut edge but avoid bloating pots unnecessarily with medium strength. Bluffing deep requires extra care with blockers and villain’s tendencies."
+    },
+    {
+      "area": "Turn and river check-raise strategy (OOP)",
+      "condition": "Hero OOP checks, villain bets. Need to decide when to check-raise as bluff/value.",
+      "action": "Use polarized ranges and exploit fold tendencies to raises via F_hat for raise sizes.",
+      "size_pct_pot": 0,
+      "formula": "Let P be pot before villain bet B; define effective pot P' = P+B for raise sizing. Candidate raise fractions R_list={0.75,1.0,1.25,1.5} w.r.t P'.\nValue check-raises:\n- Turn: use top 5% of range (sets+, strong draws as semi-bluffs where e>=0.60). Frequency: 0.50 for these combos when villain likely to over-call or overbet-bluff.\n- River: use top 3% (nuts). Frequency: 0.75.\nBluff check-raises:\n- Use D(h)>=0.75 threshold.\n- Limit bluff:value ratio ≤1.0 on turn, ≤0.7 on river unless F_hat_raise shows heavy overfolding (ΔF>=0.10) where you can go up to 1.5.\nRaise-size selection:\n- For each candidate r in R_list, estimate F_hat_raise(r) from context (street,board, facing_bet_size_bin). Compute EV_value(r) or EV_bluff(r) and choose argmax r* as in other size selection rules.\nCheck-calls vs check-raises chosen so that total defense frequency ≥MDF(s_bet), raising a small polar subset, calling remainder of defend range.\n",
+      "rationale": "Check-raises are particularly effective exploit levers vs static bots that miscalibrate raise-fold frequencies, but must remain polar and sized by the same EV principles."
+    }
+  ],
+  "fold_equity": {
+    "alpha_formula": "alpha(s) = s/(1+s), where s = bet_size / pot_size (before betting).",
+    "ev_bluff_formula": "EV_bluff(s) = F(s)*P + (1-F(s))*(-s*P) = P*(F(s) - s*(1-F(s))).",
+    "ev_value_formula": "EV_value(s) = F(s)*P + (1-F(s))*(e_call*(P+2sP) - (1-e_call)*sP) = P*[ F(s) + (1-F(s))*(e_call*(1+2s) - (1-e_call)*s ) ].",
+    "pick_bluff_size_algorithm": "Algorithm PickBluffSize(P, K, S_list, model):\n1) For each s in S_list where s*P <= effective_stack:\n   a) Query F_hat = model.get_fold_prob(K,s).\n   b) Compute EV = P*(F_hat - s*(1-F_hat)).\n   c) If exploitation enabled: compute ΔF = F_hat - F_gto(K,s); if ΔF >= θ_over then EV += β_over*ΔF*P.\n2) Select s_max with highest EV. If several within δ_bluff*P of max, choose largest s among them.\n3) Return s_max.",
+    "pick_value_size_algorithm": "Algorithm PickValueSize(P, K, S_list, model, e_call_hat_func):\n1) For each s in S_list with s*P <= stack:\n   a) F_hat = model.get_fold_prob(K,s).\n   b) e_call_hat = e_call_hat_func(K,s) (precomputed equity vs call range tightening with size).\n   c) EV = P*[ F_hat + (1-F_hat)*(e_call_hat*(1+2s) - (1-e_call_hat)*s ) ].\n   d) If exploitation enabled and ΔF(K,s) <= -θ_under (underfold): EV += β_under*|ΔF(K,s)|*P.\n2) Choose s_max = argmax_s EV. If multiple within δ_value*P of max and any s>=1.0 among them, pick largest such s.\n3) Return s_max.",
+    "exploit_static_bot_algorithm": "1) Initialize F_hat(K,s) with GTO_prior F_gto(K,s).\n2) During play, record all responses vs each size and context, update F_hat every N_update hands.\n3) For each K,s, compute ΔF(K,s)=F_hat - F_gto.\n4) Tag sizes: Overfold if ΔF>=θ_over; Underfold if ΔF<=-θ_under.\n5) In decision-making:\n   - When bluffing, prioritize sizes with Overfold tags via EV bonuses and possibly increased bluff frequencies up to 2xGTO.\n   - When value-betting, prioritize Underfold-tagged sizes via EV bonuses and expanding value range threshold.\n6) Periodically recompute approximate EV gain from exploitation by summing (EV_exploit - EV_GTO_choice) over visited nodes.\n7) Maintain safety cap: total exploit adjustment factor at a node not more than 2x baseline bluff:value ratio and not less than 0.5x on defense frequencies.",
+    "estimate_fold_curve_algorithm": "Data structure: For each context K and each discrete size s in S_list, store N_total, N_fold counts.\nProcedure UpdateFhat(K,s,result):\n1) Increment N_total[K][s].\n2) If result in {fold_to_bet, fold_to_raise}: N_fold[K][s]++.\n3) Compute F_raw = (N_fold+0.5)/(N_total+1.0).\n4) If Σ_s N_total[K][s] >= N_min (50):\n   - Construct dataset D_K = {(x_i=ln(1+s_i), y_i=F_raw[K][s_i], w_i=N_total[K][s_i])}.\n   - Fit logistic model F_logistic(x)=1/(1+exp(-(a_K+b_K*x))) minimizing weighted squared error Σ w_i*(F_logistic(x_i)-y_i)^2 or via incremental gradient descent.\n   - For each s in S_list, set F_hat[K][s]=F_logistic(ln(1+s)).\n   - Blend with prior: λ = min(1, ΣN_total/200); F_hat[K][s] = λ*F_hat[K][s] + (1-λ)*F_gto(K,s).\nElse (insufficient data): F_hat[K][s] = λ*F_raw + (1-λ)*F_gto(K,s) where λ = ΣN_total/200.\nAt query time, model.get_fold_prob(K,s) returns F_hat[K][s]."
+  },
+  "parameters": [
+    {
+      "name": "θ_over",
+      "value": 0.08,
+      "meaning": "Minimum overfold deviation (8 percentage points above GTO fold frequency) to trigger exploit adjustments toward more bluffs at that size."
+    },
+    {
+      "name": "θ_under",
+      "value": 0.08,
+      "meaning": "Minimum underfold deviation (8 percentage points below GTO fold frequency) to trigger exploit adjustments toward more/thicker value at that size."
+    },
+    {
+      "name": "β_over",
+      "value": 0.3,
+      "meaning": "Weight for adding EV bonus for bluff sizes where opponent overfolds; multiplies |ΔF|*P in adjusted EV."
+    },
+    {
+      "name": "β_under",
+      "value": 0.3,
+      "meaning": "Weight for adding EV bonus for value sizes where opponent underfolds; multiplies |ΔF|*P in adjusted EV."
+    },
+    {
+      "name": "δ_bluff",
+      "value": 0.02,
+      "meaning": "Fraction of pot used as tie tolerance when choosing among bluff sizes with similar EV; larger sizes preferred within this band."
+    },
+    {
+      "name": "δ_value",
+      "value": 0.02,
+      "meaning": "Fraction of pot used as tie tolerance when choosing among value sizes with similar EV; larger sizes preferred when s>=1.0."
+    },
+    {
+      "name": "N_min",
+      "value": 50,
+      "meaning": "Minimum total observations per context K needed before fitting logistic fold curve F_hat(K,s) instead of relying mostly on prior."
+    },
+    {
+      "name": "N_update",
+      "value": 100,
+      "meaning": "Number of new observations before refitting fold logistic per context K to avoid excessive recomputation."
+    },
+    {
+      "name": "f_over",
+      "value": 1.5,
+      "meaning": "Maximum multiplicative increase of bluff frequency in a node where overfolding is detected; used to cap exploitiveness (1.5× baseline)."
+    },
+    {
+      "name": "f_min_exploit",
+      "value": 0.2,
+      "meaning": "Minimum bluffing frequency allowed in strongly overfolded nodes when EV_bluff>0, even if baseline strategy would rarely bluff."
+    },
+    {
+      "name": "ρ_threshold_low",
+      "value": 0.5,
+      "meaning": "Lower ratio threshold of observed bluffing frequency relative to GTO baseline at which we start overfolding vs villain."
+    },
+    {
+      "name": "ρ_threshold_high",
+      "value": 1.5,
+      "meaning": "Upper ratio threshold of observed bluffing frequency relative to GTO baseline at which we start over-defending vs villain."
+    },
+    {
+      "name": "R_frac",
+      "value": 0.15,
+      "meaning": "Fraction of our defend range allocated to raises (vs calls) when facing a bet, in default MDF defense mapping."
+    }
+  ]
+}
