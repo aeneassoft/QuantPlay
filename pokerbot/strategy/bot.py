@@ -548,5 +548,29 @@ class PokerBot:
     def observe_opponent(self, street: str, action: str, facing_bet: bool) -> None:
         self.opp.record(street, action, facing_bet)
 
-    def observe_hand_end(self) -> None:
+    def observe_hand_end(self, final_state=None) -> None:
         self.opp.end_hand()
+        # LIVE-LEARNING (#49): feed villain's response to each of OUR river bets into the Dirichlet model so it
+        # sharpens per-node during play (vs clinging to the thin seed). Defensive: any mismatch -> skip (the
+        # mismatch-count guard + try/except mean a parse error can never corrupt the model).
+        if final_state is None or not self._river_keys:
+            return
+        try:
+            hist = final_state.get("history", []) or []
+            v = 1 - self.hero_idx
+            responses = []
+            for i, h in enumerate(hist):
+                if h.get("street") == "river" and h.get("player") == self.hero_idx and h.get("action") in ("bet", "raise"):
+                    resp = None
+                    for hj in hist[i + 1:]:
+                        if hj.get("player") == v:
+                            a = hj.get("action")
+                            resp = "fold" if a == "fold" else ("raise" if a == "raise" else "call")
+                            break
+                    responses.append(resp)
+            if len(responses) == len(self._river_keys):       # only pair when counts match (avoid mispairing)
+                for key, resp in zip(self._river_keys, responses):
+                    if key and resp:
+                        self.opp_model.observe(key, resp)
+        except Exception:  # noqa: BLE001
+            pass

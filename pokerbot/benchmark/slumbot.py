@@ -168,13 +168,23 @@ def play_hand(bot: PokerBot, token: str | None, verbose: bool = False) -> tuple[
     # The SB/button acts first preflop: that's us iff no action has happened yet.
     button = client_pos if first_action == "" else 1 - client_pos
     guard = 0
+    last_hole, last_board, last_cpos = [], [], client_pos
     while True:
         if "error_msg" in resp and resp["error_msg"]:
             if verbose:
                 print("  ERROR:", resp["error_msg"], "| action:", resp.get("action"))
             return 0, token
         if resp.get("winnings") is not None:
+            try:                                       # LIVE-LEARNING: feed the completed hand to the opp model
+                if hasattr(bot, "observe_hand_end"):
+                    bot.observe_hand_end(build_state(last_hole, resp.get("board", last_board),
+                                                     resp.get("action", ""), last_cpos, button))
+            except Exception:  # noqa: BLE001
+                pass
             return resp["winnings"], token
+        last_hole = resp["hole_cards"]
+        last_board = resp.get("board", last_board) or last_board
+        last_cpos = resp["client_pos"]
         st = build_state(resp["hole_cards"], resp.get("board", []),
                          resp.get("action", ""), resp["client_pos"], button)
         if st is None:  # not our turn / hand resolving
@@ -236,6 +246,11 @@ def main() -> None:
     print(f"\n=== RESULT vs Slumbot ===")
     print(f"hands={n} | total={total:+d} chips | win-rate {bb100:+.1f} bb/100 "
           f"(±{stderr:.1f} stderr)")
+    if args.exploit_primary:
+        obs = sum(sum(c) for c in bot.opp_model.counts.values())
+        print(f"opp_model: {obs:.0f} total counts across {len(bot.opp_model.counts)} buckets "
+              f"(seed ~2880; live-learning grew it by ~{obs-2880:.0f})")
+        bot.opp_model.save(config.DATA_DIR / "opp_model_slumbot.json")
 
 
 if __name__ == "__main__":
