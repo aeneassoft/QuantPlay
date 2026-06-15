@@ -1,11 +1,17 @@
 # CLAUDE.md — PokerB
 
-A Heads-Up **and** 6-max No-Limit Hold'em bot grounded in three poker books, with a browser app
+A Heads-Up **and** 6-max No-Limit Hold'em bot grounded in five poker books, with a browser app
 to play against it, an opponent-exploiting layer, and tooling to analyze your own play. Built
 across several sessions — see the user memory for the full history.
 
 > **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — live state, current workstream,
 > artifacts, and next steps with cross-references. This file = stable conventions; `STATE.md` = what's happening now.
+>
+> **Current phase (2026-06-15): CONSOLIDATION & PRUNING.** Not adding features — we MESH/fit the EXISTING parts
+> so the engine runs cleanly, ERADICATE dead code + statistical leaks, and improve the floor via a grounded
+> iterative loop (held-out solver EV-gap gate; see [`docs/ORCHESTRATION_PLAN.md`](docs/ORCHESTRATION_PLAN.md)).
+> A neural net enters ONLY as a confidence-gated supervised *advisor* (glue over existing data), never a
+> from-scratch build. Bias toward deleting/unifying over adding (see [`docs/CONSOLIDATION_PLAN.md`](docs/CONSOLIDATION_PLAN.md)).
 
 ## Run / play
 - **6-max vs 5 bots (the main app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000
