@@ -200,18 +200,22 @@ def main() -> None:
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--iters", type=int, default=600, help="equity MC iters (speed)")
     ap.add_argument("--exploit", action="store_true", help="load the learned Slumbot fold model")
+    ap.add_argument("--exploit-primary", dest="exploit_primary", action="store_true",
+                    help="EXPLOIT-PRIMARY (#49): exploit=ON + seed the Dirichlet model from slumbot_fold.json")
     args = ap.parse_args()
     botmod.EQUITY_ITERS = args.iters
 
-    bot = PokerBot(0, seed=7, exploit=False)   # pure GTO baseline vs a near-GTO bot
-    if args.exploit:
+    bot = PokerBot(0, seed=7, exploit=bool(args.exploit_primary))   # exploit-primary turns the river EV engine ON
+    if args.exploit or args.exploit_primary:
         from pokerbot.strategy.postflop import LearnedFoldModel
         fm = LearnedFoldModel.load(config.KNOWLEDGE_DIR / "exploit" / "slumbot_fold.json")
         if fm:
             bot.fold_model = fm
             print("Loaded learned Slumbot fold model -> fold-equity-optimal sizing ON")
-        else:
-            print("No learned fold model found; run probe first.")
+    if args.exploit_primary:
+        from pokerbot.strategy.opp_model import seed_from_fold_curve
+        n = seed_from_fold_curve(bot.opp_model)
+        print(f"EXPLOIT-PRIMARY: seeded {n} river buckets from slumbot_fold.json -> river EV engine ON")
     token = None
     winnings: list[int] = []
     t0 = time.time()
