@@ -319,6 +319,24 @@ class PokerBot:
                                     f"Floor advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
                 return self._mk("check", None, r, f"Floor advisor check ({pb:.0%} GTO, {role}). {made}.")
 
+        # GTO-floor ADVISOR TURN (#41): same per-hand bet-vs-check on the TURN (barrel if IP / lead if OOP),
+        # from the turn-trained solver-advisor. Bluff size = 75% pot (the solver's turn size); value via the
+        # heuristic value-sizer. Falls through to the heuristic for the river or if the turn advisor is absent.
+        if street == "turn" and pf_advisor.available("turn"):
+            role = "IP" if self._has_initiative(state) else "OOP"
+            pb = pf_advisor.p_bet(hole, board, role, "turn")
+            if pb is not None:
+                r["advisor_pbet_turn"] = round(pb, 2)
+                if self.rng.random() < pb:
+                    if eq >= pf.VALUE_EQ:
+                        to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                        size = self._raise_to(la, to or la["raise_min"])
+                    else:
+                        size = self._raise_to(la, hero_committed + round(0.75 * pot) or la["raise_min"])
+                    return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                                    f"Turn advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"Turn advisor check ({pb:.0%} GTO, {role}). {made}.")
+
         # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
         # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting
         # every strong hand here. Donk only value, frequency-capped; everything else checks (no air spew-donk).

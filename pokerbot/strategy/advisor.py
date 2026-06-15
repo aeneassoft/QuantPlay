@@ -1,7 +1,8 @@
-"""GTO-floor advisor (#39): loads the trained MLP (data/advisor.pt, from extraction/train_advisor.py) and
-predicts the solver's P(bet) for a hand at the FLOP donk/c-bet node, from blocker/potential features. bot.py
-uses it for the flop bet decision (frequency AND hand-selection). Pure glue over EXISTING data; falls back to
-None (-> heuristic floor) if torch or the model is absent. Trained on flops only -> valid on the flop only.
+"""GTO-floor advisor (#39 flop, #41 turn): loads the trained MLPs (advisor.pt = flop donk/c-bet,
+turn_advisor.pt = turn lead/barrel; from extraction/train_advisor.py + train_turn_advisor.py) and predicts the
+solver's P(bet) for a hand at that node, from blocker/potential features. bot.py uses it for the per-hand bet
+decision (frequency AND hand-selection). Pure glue over EXISTING solver data; falls back to None (-> heuristic
+floor) if torch or the model is absent. Each net is street-specific (flop net valid on the flop, turn on the turn).
 """
 from __future__ import annotations
 
@@ -12,7 +13,8 @@ from pokerbot.strategy.features import RANKS, hand_features
 TIERS = ["air", "medium", "strong"]
 TEX = ["high", "low", "connected", "monotone", "paired"]
 BOOLS = ["flush_draw", "backdoor_flush", "nut_flush_blocker", "made_straight", "oesd", "gutshot", "has_draw"]
-_NET = None
+_FILES = {"flop": "advisor.pt", "turn": "turn_advisor.pt"}
+_NETS: dict = {}
 _TORCH = None
 
 
@@ -38,32 +40,34 @@ def _vector(f, role, tex, strength) -> list:
     return v
 
 
-def _load():
-    global _NET, _TORCH
-    if _NET is None:
+def _load(street: str = "flop"):
+    """Load (and cache) the street's advisor MLP; False if torch / the model file is unavailable."""
+    global _TORCH
+    if street not in _NETS:
         try:
             import torch
             import torch.nn as nn
             _TORCH = torch
-            ck = torch.load(config.KNOWLEDGE_DIR / "postflop" / "advisor.pt", map_location="cpu")
+            ck = torch.load(config.KNOWLEDGE_DIR / "postflop" / _FILES[street], map_location="cpu")
             d = ck["dims"]
             net = nn.Sequential(nn.Linear(d, 64), nn.ReLU(), nn.Linear(64, 64), nn.ReLU(),
                                 nn.Linear(64, 1), nn.Sigmoid())
             net.load_state_dict(ck["state"])
             net.eval()
-            _NET = net
+            _NETS[street] = net
         except Exception:  # noqa: BLE001
-            _NET = False
-    return _NET
+            _NETS[street] = False
+    return _NETS[street]
 
 
-def available() -> bool:
-    return bool(_load())
+def available(street: str = "flop") -> bool:
+    return bool(_load(street))
 
 
-def p_bet(hole, board, role) -> float | None:
-    """Advisor P(bet) for this hand at the flop donk (role='OOP') / c-bet (role='IP') node; None -> fall back."""
-    net = _load()
+def p_bet(hole, board, role, street: str = "flop") -> float | None:
+    """Advisor P(bet) for this hand at the flop (role OOP=donk / IP=c-bet) or turn (OOP=lead / IP=barrel)
+    node; None -> caller falls back to the heuristic floor."""
+    net = _load(street)
     if not net:
         return None
     f = hand_features(hole, board)
