@@ -59,6 +59,18 @@ conclusive + grow it: (1) wire **live-learning** (`observe_hand_end` from the fu
 model sharpens per-node during play instead of clinging to the thin n=8–39 seed); (2) run **2000–5000 hands** to
 beat the ±noise. Re-probing Slumbot for a sharper fold-curve would also strengthen the seed.
 
+## Exploit-primary LOUD proof (2026-06-15) — the engine's edge is per-SIZE / off-tree structure (PROVEN)
+`pokerbot/benchmark/exploit_proof.py` (hero vs a parametric river over-folder, PAIRED decks, 1500 hands):
+- vs a **FLAT** 70% over-folder: exploit-primary **+9 ±13** over the floor (NOT significant) — the heuristic floor
+  already handles a flat leak.
+- vs a **SIZE-CLIFF** folder (folds 20% to 0.5pot but 82% to overbets): exploit-primary **+28 ±11 (~2.5σ)**. The
+  floor bets a FIXED heuristic size and cannot target the cliff; the engine LEARNS the per-size fold-curve and
+  picks the max-fold (overbet) size.
+**=> The engine's UNIQUE value is exploiting SIZE-STRUCTURE / off-tree mis-defense the floor's fixed-size heuristic
+misses = the "killer cutoff" attack.** Slumbot's seed-curve already shows a rough cliff (0.66→54.5%, 2.0→62.5% vs
+1.0→37.5%) = its abstraction artifacts → the engine should capture similar structure live. NEXT systematic step:
+an ACTIVE off-tree size-sweep probe to map Slumbot's per-size cliffs finer than the 6-point seed, then hammer.
+
 ## Move A result (LBR falsification, 2026-06-15) — v1 eval unreliable; the paired A/B is the usable win
 `pokerbot/benchmark/lbr_falsify.py` (300 hands, paired/duplicate) PROVED the v1 LBR is NOT a trustworthy
 ABSOLUTE exploitability gate:
