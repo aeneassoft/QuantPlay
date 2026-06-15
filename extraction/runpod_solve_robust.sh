@@ -13,10 +13,13 @@ echo "TEXASSOLVER_DIR=$TS_DIR | HOURS=$HOURS | cores=$(nproc)"
 
 nohup bash -c '
   cd ~/PokerB
+  echo $$ > ~/solve.pid
   END=$(( $(date +%s) + '"$HOURS"' * 3600 ))
   i=0
   while [ $(date +%s) -lt $END ]; do
     i=$((i+1))
+    USED=$(df -BG --output=used ~/PokerB/data | tail -1 | tr -dc 0-9)
+    if [ "${USED:-0}" -ge 28 ]; then echo "[disk guard: ${USED}G used >= 28G -> stop cleanly]" >> ~/solve.log; break; fi
     echo "[chunk $i START $(date -u)] cache=$(ls data/_gto_bench_cache 2>/dev/null | wc -l)" >> ~/solve.log
     env TEXASSOLVER_DIR="'"$TS_DIR"'" PYTHONPATH=. STACKS=50,100,200 DUMP=2 \
         python3 -m extraction.mass_solve 55 14 2 >> ~/solve.log 2>&1

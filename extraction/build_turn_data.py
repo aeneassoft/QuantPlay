@@ -77,6 +77,10 @@ def main() -> None:
             if turn_ip:
                 _extract(turn_ip, "IP", board4, tex, rows)             # IP turn barrel (after OOP check)
             nturn += 1
+    if len(rows) > 4_000_000:                      # keep the jsonl compact (train subsamples to 2M anyway)
+        import random as _rng
+        rows = _rng.Random(7).sample(rows, 4_000_000)
+        print("subsampled to 4,000,000 rows for a compact jsonl")
     out = config.DATA_DIR / "turn_data.jsonl"
     out.write_text("\n".join(json.dumps(r) for r in rows), encoding="utf-8")
     oop = [r["y_bet"] for r in rows if r["role"] == "OOP"]
