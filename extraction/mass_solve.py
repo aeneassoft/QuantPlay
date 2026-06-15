@@ -33,7 +33,8 @@ MIN_FREE = float(sys.argv[4]) if len(sys.argv) > 4 else 1500  # keep this many M
 PER_SOLVE = float(sys.argv[5]) if len(sys.argv) > 5 else 550  # est. peak MB per concurrent solve
 STACKS = [int(x) for x in os.environ.get("STACKS", "100").split(",")]   # stack depths -> SPR coverage
 DUMP = int(os.environ.get("DUMP", "1"))                                 # 1=flop only, 2=+turn (broader coverage)
-CACHE = config.DATA_DIR / "_gto_bench_cache"
+STREET = int(os.environ.get("STREET", "3"))                             # 3=flop board (default), 5=river subgame
+CACHE = config.DATA_DIR / ("_gto_river_cache" if STREET == 5 else "_gto_bench_cache")
 CACHE.mkdir(parents=True, exist_ok=True)
 
 
@@ -62,7 +63,7 @@ def fit_workers() -> int:
 
 
 def solve_one(_):
-    b = random.sample(CARDS, 3)
+    b = random.sample(CARDS, STREET)                  # STREET=5 -> a river subgame (1 betting round), tiny + fast
     stack = random.choice(STACKS)
     name = "".join(b) + (f"_{stack}" if len(STACKS) > 1 else "") + ".json"
     cf = CACHE / name
@@ -70,7 +71,7 @@ def solve_one(_):
         return 0
     try:
         node = O.solve(b, _OOP, _IP, pot=20, eff_stack=stack, accuracy=0.5, max_iter=30,
-                       threads=THREADS, bets=SMALL_BETS, dump_rounds=DUMP, timeout=400,
+                       threads=THREADS, bets=SMALL_BETS, dump_rounds=(1 if STREET == 5 else DUMP), timeout=400,
                        tag="ms" + uuid.uuid4().hex[:8])
         tmp = cf.with_name(cf.name + f".{uuid.uuid4().hex[:6]}.tmp")
         tmp.write_text(json.dumps(node))
