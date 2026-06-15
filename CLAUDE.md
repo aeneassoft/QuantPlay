@@ -12,6 +12,9 @@ across several sessions — see the user memory for the full history.
 > iterative loop (held-out solver EV-gap gate; see [`docs/ORCHESTRATION_PLAN.md`](docs/ORCHESTRATION_PLAN.md)).
 > A neural net enters ONLY as a confidence-gated supervised *advisor* (glue over existing data), never a
 > from-scratch build. Bias toward deleting/unifying over adding (see [`docs/CONSOLIDATION_PLAN.md`](docs/CONSOLIDATION_PLAN.md)).
+>
+> **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — in-repo log of approximations we ship now and
+> should compute exactly later (e.g. exact GTO donk/c-bet frequencies by texture). Add an entry when you ship a heuristic.
 
 ## Run / play
 - **6-max vs 5 bots (the main app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000

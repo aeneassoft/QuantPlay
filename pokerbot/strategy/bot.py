@@ -30,6 +30,7 @@ class PokerBot:
         self.fold_model = None   # set to a LearnedFoldModel to enable fold-equity-optimal sizing
         self.value_raise_eq = 0.72   # facing-bet value-raise threshold (A/B-able via the duplicate gate)
         self.range_cbet = True       # flop-c-bet medium hands at the solver-calibrated texture freq (A/B hook)
+        self.oop_donk_freq = 0.5     # OOP-caller donk-frequency cap (was over-donking 52% vs GTO ~20%; A/B hook, NOTES.md)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -267,6 +268,17 @@ class PokerBot:
             return self._mk("check", None, r, "Check (cannot bet).")
 
         cb_s = pf.cbet_policy(board, hero_ip)[1] if street == "flop" else None  # texture c-bet size (flop)
+
+        # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
+        # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting
+        # every strong hand here. Donk only value, frequency-capped; everything else checks (no air spew-donk).
+        # Exact per-texture donk frequencies are a deferred refinement (NOTES.md).
+        if street == "flop" and not self._has_initiative(state):
+            if eq >= pf.VALUE_EQ and self.rng.random() < self.oop_donk_freq:
+                to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                return self._mk("bet" if la["is_bet"] else "raise", self._raise_to(la, to or la["raise_min"]),
+                                r, f"Donk for value OOP ({eq:.0%}), capped frequency. {made}.")
+            return self._mk("check", None, r, f"Check to the aggressor OOP ({eq:.0%}, {made}).")
 
         if eq >= pf.VALUE_EQ:   # value: size to get paid the most (e_call-aware)
             to, _, sf = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
