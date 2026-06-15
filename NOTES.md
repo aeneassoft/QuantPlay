@@ -48,6 +48,17 @@ EV-gap audit, Move C = river calibration, Move E = sizing/MDF audit). Do NOT fix
    audit needed (Move B).
 8. **6-max independent-seat** — structural vs Pluribus-style joint reasoning; PARKED (not HU; consolidation phase).
 
+## Exploit-primary crush-test #1 (2026-06-15) — right direction, NOT yet proven
+First Slumbot crush-test of the exploit-primary river engine (`--exploit-primary`, seeded from slumbot_fold.json,
+500 hands each, NO live-learning yet): **FLOOR −41.6 ±75.5 vs EXPLOIT-PRIMARY −26.4 ±79.4 bb/100, delta +15.2**
+(in the predicted +8–15 corridor) — the engine fires + loses 15 bb/100 LESS than the floor. BUT: (a) both still
+LOSE absolutely (Slumbot is near-GTO → ceiling ~break-even, no "crush"); (b) NOT significant — the unpaired delta
+is ±~109 over 500 hands, and the floor alone swung −14.6 → −41.6 across runs (pure ±~80 variance). Encouraging,
+unproven. Mechanism validated (safe-by-construction, fires correctly); the EDGE needs data. NEXT to make it
+conclusive + grow it: (1) wire **live-learning** (`observe_hand_end` from the full hand history → the Dirichlet
+model sharpens per-node during play instead of clinging to the thin n=8–39 seed); (2) run **2000–5000 hands** to
+beat the ±noise. Re-probing Slumbot for a sharper fold-curve would also strengthen the seed.
+
 ## Move A result (LBR falsification, 2026-06-15) — v1 eval unreliable; the paired A/B is the usable win
 `pokerbot/benchmark/lbr_falsify.py` (300 hands, paired/duplicate) PROVED the v1 LBR is NOT a trustworthy
 ABSOLUTE exploitability gate:
