@@ -14,6 +14,8 @@ from pokerbot.engine.evaluator import best_five_name, evaluate
 from pokerbot.strategy import blueprint
 from pokerbot.strategy import postflop as pf
 from pokerbot.strategy import advisor as pf_advisor
+from pokerbot.strategy import exploit_engine as pf_ee
+from pokerbot.strategy.opp_model import OppModel, node_key
 from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy import ranges as R
 from pokerbot.strategy.opponent import OpponentModel
@@ -62,6 +64,8 @@ class PokerBot:
         self.value_raise_eq = 0.72   # facing-bet value-raise threshold (A/B-able via the duplicate gate)
         self.range_cbet = True       # flop-c-bet medium hands at the solver-calibrated texture freq (A/B hook)
         self.oop_donk_freq = 0.5     # OOP-caller donk-frequency cap (was over-donking 52% vs GTO ~20%; A/B hook, NOTES.md)
+        self.opp_model = OppModel()  # EXPLOIT-PRIMARY (#49): Dirichlet per-node villain response model
+        self._river_keys: list = []  # river-bet node keys this hand (recorded for post-hand observation)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -71,6 +75,7 @@ class PokerBot:
         hero = state["players"][self.hero_idx]
         hole = hero["hole"]
         if state["street"] == "preflop":
+            self._river_keys = []                    # new hand -> reset the river-bet log
             return self._preflop(state, hole)
         return self._postflop(state, hole)
 
@@ -304,6 +309,13 @@ class PokerBot:
 
         cb_s = pf.cbet_policy(board, hero_ip)[1] if street == "flop" else None  # texture c-bet size (flop)
 
+        # EXPLOIT-PRIMARY river (#49): when the opponent model has CONFIDENT data at this node, play the max-EV
+        # river action gated by an LCB (safe-exploit). Cold-start / thin data -> None -> falls through to the floor.
+        if street == "river" and self.exploit:
+            ex = self._river_exploit(state, hole, board, eq, pot, la, hero_committed, r)
+            if ex is not None:
+                return ex
+
         # GTO-floor ADVISOR (#39): on the FLOP, the trained solver-advisor picks bet-vs-check PER HAND (frequency
         # AND selection, from blocker/potential features) -> matches the solver's per-hand mix. Size from the
         # heuristic. Falls back to the heuristic floor below for turn/river or if the advisor is unavailable.
@@ -474,6 +486,44 @@ class PokerBot:
         vf = (val_b / val_t) if val_t else 0.0
         af = (air_b / air_t) if air_t else 0.0
         return max(-1.0, min(1.0, vf - af))
+
+    def _board_class(self, board) -> str:
+        t = pf.classify_board(board)
+        if t.get("paired"):
+            return "paired"
+        if t.get("monotone"):
+            return "mono"
+        if t.get("connected") or t.get("flush_draw"):
+            return "wet"
+        return "dry"
+
+    def _river_exploit(self, state, hole, board, eq, pot, la, hero_committed, r):
+        """EXPLOIT-PRIMARY river (#49): max-EV bet-vs-check vs the Dirichlet opponent model, LCB-gated. Returns a
+        _mk bet when the model is confident the bet beats checking (exploit/mix fires); else None (cold-start /
+        thin data / floor wins -> caller plays the heuristic floor). eq = our equity vs the narrowed villain
+        range (proxy for the call range). Safe-by-construction: no data -> wide LCB -> None -> floor."""
+        if not la.get("can_raise"):
+            return None
+        role = "IP" if self.hero_idx == state["button"] else "OOP"
+        bclass = self._board_class(board)
+        cands = [("check", 0.0, None, 1e9)]
+        keys = [None]
+        for sf in (0.5, 0.66, 1.0, 2.0):             # aligned to the measured fold-curve buckets; incl. overbet
+            k = node_key("river", role, "all", bclass, sf)
+            resp, n = self.opp_model.posterior(k)
+            cands.append(("bet", sf, resp, n))
+            keys.append(k)
+        idx, mode, lam, evs = pf_ee.choose_river(cands, 0, eq, pot)
+        if mode == "floor" or idx == 0 or self.rng.random() >= lam:
+            return None
+        sf = cands[idx][1]
+        self._river_keys.append(keys[idx])
+        r["exploit_river"] = {"size": sf, "mode": mode, "lam": round(lam, 2),
+                              "model_n": round(cands[idx][3]), "ev": round(evs[idx], 1)}
+        size = self._raise_to(la, hero_committed + round(sf * pot) or la["raise_min"])
+        return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                        f"Exploit-primary river bet {sf:.0%} pot ({mode} λ{lam:.2f}, "
+                        f"model n={cands[idx][3]:.0f}, eq {eq:.0%}).")
 
     # ====================================================================== helpers
     def _eff_stack(self, state: dict) -> int:
