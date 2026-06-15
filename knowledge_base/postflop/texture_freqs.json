@@ -1,0 +1,18 @@
+{
+ "IP": {
+  "ALL": 0.741,
+  "connected": 0.609,
+  "high": 0.785,
+  "low": 0.73,
+  "monotone": 0.576,
+  "paired": 0.781
+ },
+ "OOP": {
+  "ALL": 0.224,
+  "connected": 0.26,
+  "high": 0.214,
+  "low": 0.233,
+  "monotone": 0.11,
+  "paired": 0.26
+ }
+}

@@ -6,12 +6,12 @@ entry whenever we ship a heuristic/approximation that should later be replaced b
 Referenced from `CLAUDE.md`.
 
 ## Deferred precision (compute exactly later)
-- **[2026-06-15] Exact GTO donk + c-bet FREQUENCIES by texture (and SPR / position).** Run 2 caps the OOP donk
-  with a single `PokerBot.oop_donk_freq` constant (to pull the over-donk 52% → ~GTO 20%) and the IP c-bet uses
-  `postflop.cbet_policy`'s coarse texture frequency. These are APPROXIMATIONS. LATER: compute the EXACT
-  per-texture (and per-SPR/position) donk + c-bet frequencies from the TexasSolver caches
-  (`extraction/analyze_cache.py` over `data/_gto_bench_cache`) and wire them as a small lookup table, instead of
-  the single heuristic constants. Gate/verify with `pokerbot/benchmark/floor_map.py` (the floor error map).
+- **[2026-06-15 ✅ table + OOP wired] GTO donk + c-bet frequencies by texture.** EXTRACTED to
+  `knowledge_base/postflop/texture_freqs.json` (`extraction/texture_freqs.py`, 1340 boards). OOP donk now wired
+  PER-TEXTURE in `bot.py` (`_texture_freq`): monotone 12%≈GTO 14%, ALL 22%≈21% on the floor map. REMAINING:
+  (a) the IP c-bet is still ~87% vs GTO 74% (value-always-bets); (b) the per-texture donk/c-bet HAND-SELECTION
+  (which hands, not just the frequency) + SPR/position split. Both handled holistically by the supervised
+  advisor (#36–41), which learns frequency AND selection from the same caches.
 
 ## Open questions
 - **[2026-06-15] Run 2 duplicate watch.** The OOP-donk cap (`oop_donk_freq`) improved the solver-gap (the

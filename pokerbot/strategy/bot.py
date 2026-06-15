@@ -17,8 +17,38 @@ from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy import ranges as R
 from pokerbot.strategy.opponent import OpponentModel
 from pokerbot.strategy.postflop import LearnedFoldModel, PriorFoldModel
+import json
+from pokerbot import config
 
 EQUITY_ITERS = 1500
+
+_TEX_FREQS = None
+
+
+def _texture_freq(board, role):
+    """Per-texture GTO bet frequency from the solver cache (knowledge_base/postflop/texture_freqs.json,
+    built by extraction/texture_freqs.py). role = 'OOP' (donk node) or 'IP' (c-bet node)."""
+    global _TEX_FREQS
+    if _TEX_FREQS is None:
+        try:
+            _TEX_FREQS = json.loads(
+                (config.KNOWLEDGE_DIR / "postflop" / "texture_freqs.json").read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            _TEX_FREQS = {}
+    t = pf.classify_board(board)
+    order = "23456789TJQKA"
+    if t.get("paired"):
+        tex = "paired"
+    elif t.get("monotone"):
+        tex = "monotone"
+    elif t.get("connected"):
+        tex = "connected"
+    elif board and max(order.index(c[0]) for c in board) >= order.index("T"):
+        tex = "high"
+    else:
+        tex = "low"
+    d = _TEX_FREQS.get(role, {})
+    return d.get(tex, d.get("ALL", 0.22 if role == "OOP" else 0.74))
 
 
 class PokerBot:
@@ -274,7 +304,8 @@ class PokerBot:
         # every strong hand here. Donk only value, frequency-capped; everything else checks (no air spew-donk).
         # Exact per-texture donk frequencies are a deferred refinement (NOTES.md).
         if street == "flop" and not self._has_initiative(state):
-            if eq >= pf.VALUE_EQ and self.rng.random() < self.oop_donk_freq:
+            donk_rate = min(1.0, self.oop_donk_freq * 4.0 * _texture_freq(board, "OOP"))  # per-texture GTO donk freq
+            if eq >= pf.VALUE_EQ and self.rng.random() < donk_rate:
                 to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
                 return self._mk("bet" if la["is_bet"] else "raise", self._raise_to(la, to or la["raise_min"]),
                                 r, f"Donk for value OOP ({eq:.0%}), capped frequency. {made}.")
