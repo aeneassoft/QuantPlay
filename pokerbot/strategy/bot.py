@@ -13,6 +13,7 @@ from pokerbot.engine.equity import equity_vs_range
 from pokerbot.engine.evaluator import best_five_name, evaluate
 from pokerbot.strategy import blueprint
 from pokerbot.strategy import postflop as pf
+from pokerbot.strategy import advisor as pf_advisor
 from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy import ranges as R
 from pokerbot.strategy.opponent import OpponentModel
@@ -298,6 +299,25 @@ class PokerBot:
             return self._mk("check", None, r, "Check (cannot bet).")
 
         cb_s = pf.cbet_policy(board, hero_ip)[1] if street == "flop" else None  # texture c-bet size (flop)
+
+        # GTO-floor ADVISOR (#39): on the FLOP, the trained solver-advisor picks bet-vs-check PER HAND (frequency
+        # AND selection, from blocker/potential features) -> matches the solver's per-hand mix. Size from the
+        # heuristic. Falls back to the heuristic floor below for turn/river or if the advisor is unavailable.
+        # The bounded exploit overlay still applies on top of this floor.
+        if street == "flop" and pf_advisor.available():
+            role = "IP" if self._has_initiative(state) else "OOP"
+            pb = pf_advisor.p_bet(hole, board, role)
+            if pb is not None:
+                r["advisor_pbet"] = round(pb, 2)
+                if self.rng.random() < pb:
+                    if eq >= pf.VALUE_EQ:
+                        to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                        size = self._raise_to(la, to or la["raise_min"])
+                    else:
+                        size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
+                    return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                                    f"Floor advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"Floor advisor check ({pb:.0%} GTO, {role}). {made}.")
 
         # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
         # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting
