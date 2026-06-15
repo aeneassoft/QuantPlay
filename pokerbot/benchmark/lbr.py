@@ -120,12 +120,15 @@ def _rollout_ev(game, lbr_idx, action, amount, rollout_bot, K, rng):
 
 def lbr_bb100(make_bot, hands=120, K=8, start=10000, sb=50, bb=100, seed=7, iters=80):
     botmod.EQUITY_ITERS = iters
-    rng = random.Random(seed)
     g = HeadsUpGame(names=("Bot", "LBR"), starting_stack=start, sb=sb, bb=bb, seed=seed)
     measured = make_bot(0)              # the bot under test (seat 0); stationary -> not fed LBR reads
     rollout_bot = make_bot(0)           # reused across rollouts (same stationary policy)
     net = []
-    for _ in range(hands):
+    for _hi in range(hands):
+        # Per-hand reseed -> PAIRED / duplicate eval: hand index _hi deals identical cards and uses identical
+        # rollout randomness across runs, regardless of decisions, so leak-free hands cancel in an A/B delta.
+        g.rng = random.Random(f"deck-{seed}-{_hi}")
+        rng = random.Random(f"roll-{seed}-{_hi}")
         g.players[0].stack = g.players[1].stack = start
         g.start_hand()
         guard = 0
@@ -153,7 +156,7 @@ def lbr_bb100(make_bot, hands=120, K=8, start=10000, sb=50, bb=100, seed=7, iter
         net.append(g.players[1].stack - start)     # LBR's winnings = exploitability (in chips; bb=100)
     mean = sum(net) / len(net)
     se = statistics.pstdev(net) / (len(net) ** 0.5) if len(net) > 1 else 0.0
-    return mean, se
+    return mean, se, net
 
 
 def main():
@@ -174,7 +177,7 @@ def main():
             return PokerBot(seat, seed=0, exploit=args.exploit)
         label = "exploit-ON" if args.exploit else "baseline floor"
     print(f"LBR exploitability ({label}) | {args.hands} hands x {args.rollouts} rollouts ...", flush=True)
-    mean, se = lbr_bb100(make_bot, hands=args.hands, K=args.rollouts, iters=args.iters)
+    mean, se, _ = lbr_bb100(make_bot, hands=args.hands, K=args.rollouts, iters=args.iters)
     print(f"  LBR wins {mean:+.0f} +/- {se:.0f} bb/100  (lower bound on exploitability; lower=more robust)")
 
 

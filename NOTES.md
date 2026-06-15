@@ -29,3 +29,35 @@ Referenced from `CLAUDE.md`.
   Verify at scale (≥600 decks), AND check whether checking-more-OOP exposes a DOWNSTREAM leak vs the aggressor's
   c-bet (the flop-only solver-gap can't see that) — i.e. is our facing-c-bet defense after checking OOP sound?
   Knob: `PokerBot.oop_donk_freq` (currently 0.5 → ~25% donk; lower to approach GTO 20%).
+
+## Suspected leaks to review (ASSUMED, not yet measured — from the 2026-06-15 GTO-frontier consult)
+These are hypothesized real leaks the consult (gpt-5.5 + o3, Claude-vetted) flagged. They are ASSUMED, not
+measured — review each via the reach-weighted SOLVER EV-GAP once Move A makes the LBR trustworthy (Move B = the
+EV-gap audit, Move C = river calibration, Move E = sizing/MDF audit). Do NOT fix on assumption; measure first.
+1. **History-free floor averages incompatible info-sets** — the advisor conditions on board+hand features only,
+   not line / SPR / position / range-asymmetry (K72r in BTN-vs-BB SRP ≠ in a 3-bet pot). Structural; the FIX
+   (range/line-conditioned model) is the "add complexity" trap → MEASURE the cost (Move B), don't rebuild now.
+2. **"Fold-equity-optimal sizing" ≠ EV-optimal** — max(folds) ≠ max(EV). Audit per-size solver-EV (Move E).
+3. **MDF-shading may not be EV-grounded** — MDF is the wrong model vs underbluffers; is our bluffiness-shade
+   EV-justified or a hand-wave? Verify, don't assume.
+4. **River is heuristic, not solver-calibrated** (#40) — the most exactly-solvable street; calibrate (Move C).
+5. **Advisor trained on P(bet)/action-match, not EV-gap** — can match frequency while bleeding on rare
+   high-EV-gap nodes; the gate should be reach-weighted EV-gap, not MSE (Move B).
+6. **Confidence-gated blend not provably globally safe** — local confidence ⇏ global low exploitability.
+7. **Preflop 88.6% action-match** — the missing 11.4% could be low-EV indifference OR high-EV blunders; EV-gap
+   audit needed (Move B).
+8. **6-max independent-seat** — structural vs Pluribus-style joint reasoning; PARKED (not HU; consolidation phase).
+
+## Move A result (LBR falsification, 2026-06-15) — v1 eval unreliable; the paired A/B is the usable win
+`pokerbot/benchmark/lbr_falsify.py` (300 hands, paired/duplicate) PROVED the v1 LBR is NOT a trustworthy
+ABSOLUTE exploitability gate:
+- **Range-blind** (uniform card re-sampling): injected c-bet-air / river-overbluff → paired-delta +123 / −31
+  bb/100 (~0) despite firing 99/95 of 300 — the LBR can't see the corrupted RANGE.
+- **Under-exploits** (passive-after-move): even an EXTREME over-folder is only +289 ±175 (fold-any-bet) /
+  +323 ±175 (overfold-50) — directionally right (fold-response > range) but NOT 3σ at 300 hands.
+- clean LBR +141 ±298 (was −487 pre-reseed; still within noise).
+**Usable byproduct:** `lbr_bb100` now reseeds `g.rng` + the rollout RNG PER HAND → a PAIRED/DUPLICATE A/B
+harness (same decks across bot versions → leak-free hands cancel) = a low-variance gate for a change's EFFECT.
+**Use this as the change-gate now.** LBR v2 (Bayesian action-consistent range + multi-street best-response) is
+the real ABSOLUTE-exploitability fix — DEFER until a change needs an absolute number (on consolidation phase,
+don't build speculatively).
