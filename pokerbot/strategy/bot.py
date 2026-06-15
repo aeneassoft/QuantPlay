@@ -266,6 +266,10 @@ class PokerBot:
             aggr_v = self.opp.aggression_freq()
             shade = max(-0.12, min(0.12, (0.5 - aggr_v) * conf * 0.5))
             call_thresh = max(0.0, req + shade)
+            if street == "river":                            # blocker-aware bluffcatch (#40): block value -> call wider
+                rblk = self._river_blocker_signal(hole, board, vrange)
+                call_thresh = max(0.0, call_thresh - 0.06 * rblk)
+                r["river_blocker"] = round(rblk, 2)
             r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call,
                       "call_threshold": round(call_thresh, 3), "villain_aggr": round(aggr_v, 2)})
             eff = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
@@ -375,11 +379,18 @@ class PokerBot:
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                     f"Range c-bet air ({int(f_cbet*100)}% texture freq, small size, {eq:.0%}). {made}.")
                 return self._mk("check", None, r, f"Check back air ({eq:.0%}, {made}).")
-            # turn/river or no initiative: controlled-frequency bluff at a modest size (no spew)
-            if self.rng.random() < bluff_base:
+            # turn/river or no initiative: controlled-frequency bluff at a modest size (no spew). On the RIVER,
+            # bias the SELECTION toward blockers (#40) at ~constant frequency: bluff hands that remove villain's
+            # value/continues -> strictly better fold equity, no extra spew.
+            bf = bluff_base
+            if street == "river":
+                rblk = self._river_blocker_signal(hole, board, vrange)
+                bf = max(0.0, min(0.95, bluff_base * (1.0 + 0.6 * rblk)))
+            if self.rng.random() < bf:
                 size = self._raise_to(la, round((cb_s or 0.6) * pot) or la["raise_min"])
                 return self._mk("bet" if la["is_bet"] else "raise", size, r,
-                                f"Bluff ~60% pot ({eq:.0%}): controlled frequency, fold equity present.")
+                                f"Bluff ~60% pot ({eq:.0%}): controlled frequency"
+                                f"{', blocker-selected' if street == 'river' else ''}, fold equity present.")
             return self._mk("check", None, r, f"Check: give up ({eq:.0%}, {made}).")
 
         # medium equity: on the FLOP with initiative, range-c-bet at the solver-CALIBRATED texture frequency
@@ -442,6 +453,27 @@ class PokerBot:
         ranked = sorted(combos, key=lambda c: evaluate(board, list(c)))  # lower=better
         n = max(1, int(len(ranked) * keep_frac))
         return ranked[:n]
+
+    def _river_blocker_signal(self, hole, board, vrange) -> float:
+        """River blocker signal in [-1,1]: how much MORE hero's two cards block villain's VALUE combos than
+        villain's WEAK combos. + => hero removes value -> good to BLUFF (fewer continues) and to BLUFFCATCH
+        (villain's bets skew bluffier). Grounded in blocker theory; magnitudes deliberately small and the bluff
+        side is frequency-preserving (biases selection, not amount). River-solver calibration deferred (NOTES.md)."""
+        combos = R.combos_for_classes(vrange, list(board))   # exclude board only -> hero-blocking is measurable
+        if not combos:
+            return 0.0
+        hole_s = set(hole)
+        val_t = val_b = air_t = air_b = 0
+        for c in combos:
+            strong = evaluate(board, list(c)) <= 3500        # ~two-pair+ / strong top pair = value-bet range
+            blocked = bool(hole_s & set(c))
+            if strong:
+                val_t += 1; val_b += int(blocked)
+            else:
+                air_t += 1; air_b += int(blocked)
+        vf = (val_b / val_t) if val_t else 0.0
+        af = (air_b / air_t) if air_t else 0.0
+        return max(-1.0, min(1.0, vf - af))
 
     # ====================================================================== helpers
     def _eff_stack(self, state: dict) -> int:

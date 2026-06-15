@@ -12,6 +12,16 @@ Referenced from `CLAUDE.md`.
   (a) the IP c-bet is still ~87% vs GTO 74% (value-always-bets); (b) the per-texture donk/c-bet HAND-SELECTION
   (which hands, not just the frequency) + SPR/position split. Both handled holistically by the supervised
   advisor (#36–41), which learns frequency AND selection from the same caches.
+- **[2026-06-15 ⏳ solving] Turn advisor (#41) full coverage.** `turn_advisor.pt` is PRELIMINARY (turn nodes of
+  only 46 flop files; +23% vs freq baseline, held out over 2189 turn boards). A robust 8h RunPod turn-coverage
+  solve (DUMP=2, pod szx1z9in3g1rve, ~350 boards/h) is running. WHEN DONE: rerun `extraction.build_turn_data`
+  then `extraction.train_turn_advisor` on the pod, pull `turn_advisor.pt`, then `runpod_run --kill`. See the
+  auto-memory `active-runpod-turn-solve`.
+- **[2026-06-15 ⚠ theory-only] River blocker nudges (#40).** `bot.py:_river_blocker_signal` biases river bluff
+  SELECTION (frequency-preserving) + nudges the bluffcatch threshold ±6% by how much hero blocks villain's VALUE
+  vs AIR combos. The DIRECTION is GTO-canonical (blocker theory) but the magnitudes (0.06 thresh, 0.6 freq factor,
+  the 3500 "value" rank bar) are NOT solver-calibrated — there is no river (DUMP=3) cache yet. Calibrate against a
+  targeted DUMP=3 river batch later; safe-by-construction until then (selection bias + tiny nudge can't spew).
 
 ## Open questions
 - **[2026-06-15] Run 2 duplicate watch.** The OOP-donk cap (`oop_donk_freq`) improved the solver-gap (the
