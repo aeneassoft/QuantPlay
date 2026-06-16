@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-06-15T15:42:21",
+  "git_sha": "53690a7",
+  "agent": "PokerBot(exploit=True) -- the unified MVP",
+  "config": {
+    "mode": "quick",
+    "hands": 500,
+    "decks": 250,
+    "iters": 80
+  },
+  "axes": {
+    "gto_gap": {
+      "target": "least-loss",
+      "grade": "decision (deterministic, flop-only)",
+      "buckets": {
+        "ALL": {
+          "gto_gap": 0.314,
+          "gto_bet": 0.471,
+          "our_bet": 0.474,
+          "n": 63455
+        },
+        "OOP:ALL": {
+          "gto_gap": 0.309,
+          "gto_bet": 0.223,
+          "our_bet": 0.224,
+          "n": 32984
+        },
+        "IP:ALL": {
+          "gto_gap": 0.32,
+          "gto_bet": 0.74,
+          "our_bet": 0.745,
+          "n": 30471
+        }
+      },
+      "seconds": 295.0
+    },
+    "duplicate": {
+      "target": "least-loss",
+      "grade": "decision (paired, deterministic)",
+      "decks": 250,
+      "null_floor_vs_floor": {
+        "bb100": 0.0,
+        "se": 0.0
+      },
+      "floor_vs_gtobaseline": {
+        "bb100": -22.3,
+        "se": 64.4
+      },
+      "mvp_vs_gtobaseline": {
+        "bb100": -17.6,
+        "se": 64.4
+      },
+      "seconds": 24.4
+    },
+    "exploit_proof": {
+      "target": "exploit-edge",
+      "grade": "paired, synthetic size-cliff adversary",
+      "floor_bb100": 163.2,
+      "exploit_bb100": 196.1,
+      "paired_delta": 33.0,
+      "delta_se": 42.4,
+      "n": 500,
+      "seconds": 20.4
+    },
+    "internal": {
+      "target": "exploit-edge",
+      "grade": "directional (unpaired, noise~40.2)",
+      "vs": {
+        "station": {
+          "bb100": 108.6,
+          "se": 58.3,
+          "n": 500
+        },
+        "maniac": {
+          "bb100": 223.6,
+          "se": 125.8,
+          "n": 500
+        },
+        "nit": {
+          "bb100": 58.2,
+          "se": 2.0,
+          "n": 500
+        }
+      },
+      "seconds": 18.6
+    },
+    "field": {
+      "target": "exploit-edge",
+      "grade": "directional (unpaired, noise~56.9)",
+      "worst": -53.4,
+      "beats_all": false,
+      "vs": {
+        "station": {
+          "bb100": 40.1,
+          "se": 92.2,
+          "n": 250
+        },
+        "maniac": {
+          "bb100": 512.4,
+          "se": 211.2,
+          "n": 250
+        },
+        "nit": {
+          "bb100": 64.2,
+          "se": 2.5,
+          "n": 250
+        },
+        "foldy": {
+          "bb100": 78.2,
+          "se": 10.7,
+          "n": 250
+        },
+        "sticky": {
+          "bb100": 134.7,
+          "se": 107.8,
+          "n": 250
+        },
+        "trappy": {
+          "bb100": 41.7,
+          "se": 89.5,
+          "n": 250
+        },
+        "pokerbot": {
+          "bb100": -53.4,
+          "se": 59.5,
+          "n": 250
+        }
+      },
+      "seconds": 19.1
+    }
+  },
+  "errors": {}
+}

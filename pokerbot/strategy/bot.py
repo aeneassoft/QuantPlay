@@ -66,6 +66,27 @@ class PokerBot:
         self.oop_donk_freq = 0.5     # OOP-caller donk-frequency cap (was over-donking 52% vs GTO ~20%; A/B hook, NOTES.md)
         self.opp_model = OppModel()  # EXPLOIT-PRIMARY (#49): Dirichlet per-node villain response model
         self._river_keys: list = []  # river-bet node keys this hand (recorded for post-hand observation)
+        # ---- floor-ablation A/B toggles (default True = current behavior; flipped only by floor_ablate.py) ----
+        self.use_turn_advisor = True   # gate the #41 turn advisor (regression suspect vs near-GTO)
+        self.use_river_blocker = True  # gate the #40 river-blocker nudge (bluffcatch + bluff-selection)
+        self.use_fe_sizing = True      # fold-model value sizing (False -> fixed 0.66-pot; isolates NOTES leak #2)
+        self.use_mdf_shade = True      # MDF bluffiness shade (False -> call_thresh = pot-odds req; NOTES leak #3)
+        self.use_river_advisor = True  # WS2 river advisor (False -> #40 river heuristic; ablation/A-B hook)
+        self.use_commit_cap = False    # anti-spew: FOLD (not call off) a big stack commitment with a weak made hand
+        self.commit_frac = 0.45        # "big commitment" = call > this fraction of the effective stack
+        self.commit_eq = 0.70          # below this equity, that big commitment is a light stack-off -> fold
+        self.use_deepcfr = False       # use the from-scratch HUNL Deep CFR policy net as the decision core
+        self._deepcfr_policy = None    # lazy-loaded LoadedPolicy
+        # WS3 unify: bounded, PREDICTION-GATED off-tree size probing (port of the AdaptiveExploiter idea). Maps
+        # under-sampled larger river sizes ONLY when an over-fold is already observed at a sampled size, so it
+        # never blind-probes a non-folder. Worst-case cost reserved vs a session budget -> can never run away.
+        self.use_probe = True
+        self._probe_budget_bb = 120.0
+        self._probe_spent_bb = 0.0
+        self._probe_freq = 0.15
+        self.use_resolver = False    # MVP#2 P1: real-time RIVER re-solving (opt-in; the GTO Wizard A/B enables it)
+        self.use_turn_resolver = False  # MVP#2 P2: real-time TURN re-solving (turn->river to terminal; opt-in)
+        self.use_defense_advisor = True  # MVP C2: facing-bet DEFENSE advisor (the #1-leak fix; flop coverage, gated)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -74,10 +95,42 @@ class PokerBot:
             raise ValueError("Not the bot's turn.")
         hero = state["players"][self.hero_idx]
         hole = hero["hole"]
+        if self.use_deepcfr:                          # our from-scratch HUNL Deep CFR net IS the strategy
+            return self._deepcfr(state, hole)
         if state["street"] == "preflop":
             self._river_keys = []                    # new hand -> reset the river-bet log
             return self._preflop(state, hole)
         return self._postflop(state, hole)
+
+    def _deepcfr(self, state: dict, hole: list[str]) -> dict:
+        """Decide via the from-scratch HUNL Deep CFR policy net (deep_cfr_hunl) — the self-play GTO core.
+        Reconstructs the trainer's infoset features (verified identical) -> samples the net's mixed fcpa
+        strategy -> maps to the engine's (action, amount)."""
+        from pokerbot.strategy import deepcfr_adapter as dca
+        if self._deepcfr_policy is None:
+            from pokerbot import config
+            self._deepcfr_policy = dca.LoadedPolicy(
+                str(config.KNOWLEDGE_DIR / "postflop" / "deepcfr_hunl.pt"), device="cpu")
+        la = state["legal"]
+        feat, _p = dca.live_features(state, self.hero_idx)
+        legal = dca.legal_fcpa(la)
+        probs = self._deepcfr_policy.strategy(feat, legal)
+        acts = list(probs)
+        a = self.rng.choices(acts, weights=[probs[x] for x in acts])[0]      # sample the mixed GTO strategy
+        to_call = la.get("to_call", 0)
+        r = {"phase": "deepcfr", "hand": " ".join(hole), "street": state["street"],
+             "probs": {dca.dc._ANAME[k]: round(v, 3) for k, v in probs.items()}}
+        if a == dca.dc.FOLD:
+            return self._mk("fold", None, r, f"Deep-CFR net: fold ({r['probs']}).")
+        if a == dca.dc.CALL:
+            if la.get("can_check"):
+                return self._mk("check", None, r, f"Deep-CFR net: check ({r['probs']}).")
+            return self._mk("call", None, r, f"Deep-CFR net: call ({r['probs']}).")
+        if a == dca.dc.ALLIN:
+            return self._mk("raise", self._raise_to(la, 10 ** 9), r, f"Deep-CFR net: all-in ({r['probs']}).")
+        target = state.get("current_bet", 0) + state["pot"] + to_call       # POT = pot-size bet/raise
+        return self._mk("raise" if to_call > 0 else "bet", self._raise_to(la, target), r,
+                        f"Deep-CFR net: pot-bet ({r['probs']}).")
 
     # ====================================================================== preflop
     def _preflop(self, state: dict, hole: list[str]) -> dict:
@@ -245,6 +298,15 @@ class PokerBot:
         made = best_five_name(board, hole)
         street = state["street"]
 
+        if street == "river" and self.use_resolver:        # MVP#2 P1: real-time river re-solve (situation-specific GTO)
+            rr = self._river_resolve(state, hole, board, pot, la, hero, hero_stack)
+            if rr is not None:
+                return rr
+        if street == "turn" and self.use_turn_resolver:     # MVP#2 P2: real-time turn re-solve (turn->river terminal)
+            tr = self._turn_resolve(state, hole, board, pot, la, hero, hero_stack)
+            if tr is not None:
+                return tr
+
         vrange = self._villain_range(state)
         aggression = self._villain_postflop_aggression(state)
         kept = self._narrow(vrange, board, hole, aggression)
@@ -265,13 +327,32 @@ class PokerBot:
 
         if to_call > 0:  # ---- facing a bet/raise ----
             req = to_call / (pot + to_call)
+            # ---- DEFENSE ADVISOR (MVP C2): solver (fold/call/raise) per hand = the #1-leak fix. Gated to its
+            # coverage (flop, where it was trained); samples the GTO mix; raise keeps the anti-spew commitment cap.
+            if self.use_defense_advisor and street == "flop" and pf_advisor.defense_available():  # flop-only: river defense MEASURED -14 vs GTO Wizard (reverted)
+                size_faced = to_call / max(1.0, pot - to_call)        # bet as a fraction of the pot it hit
+                pd = pf_advisor.p_defense(hole, board, "IP" if hero_ip else "OOP", size_faced, street=street)
+                if pd is not None:
+                    pf_, pc_, pr_ = pd
+                    r.update({"defense_advisor": [round(pf_, 2), round(pc_, 2), round(pr_, 2)],
+                              "size_faced": round(size_faced, 2), "required_equity": round(req, 3)})
+                    u = self.rng.random()
+                    if u < pf_ and eq < 0.80:     # follow the GTO fold — but NEVER fold a near-nut hand (advisor over-fold safety)
+                        return self._mk("fold", None, r, f"Defense advisor: GTO fold {pf_:.0%} vs {size_faced:.0%}-pot. {made}.")
+                    if u >= pf_ + pc_ and la["can_raise"]:            # raise (value / semi-bluff); anti-spew cap
+                        eff_d = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
+                        vr = self._raise_to(la, state["current_bet"] + round(0.8 * (pot + to_call)))
+                        if eq >= 0.82 or (vr - hero_committed) <= 0.5 * eff_d:
+                            return self._mk("raise", vr, r, f"Defense advisor: GTO raise {pr_:.0%} ({made}).")
+                        # would over-commit a weak hand -> downgrade to call (safe-by-construction)
+                    return self._mk("call", None, r, f"Defense advisor: GTO call {pc_:.0%} vs {size_faced:.0%}-pot. {made}.")
             mdf = 1 - req
             # MDF-driven defense: call threshold = pot-odds equilibrium SHADED by villain bluffiness
             # (rho_bluff proxy = bet/raise frequency): under-bluffer -> fold more; bluffy -> defend wider.
             aggr_v = self.opp.aggression_freq()
-            shade = max(-0.12, min(0.12, (0.5 - aggr_v) * conf * 0.5))
+            shade = max(-0.12, min(0.12, (0.5 - aggr_v) * conf * 0.5)) if self.use_mdf_shade else 0.0
             call_thresh = max(0.0, req + shade)
-            if street == "river":                            # blocker-aware bluffcatch (#40): block value -> call wider
+            if street == "river" and self.use_river_blocker:  # blocker-aware bluffcatch (#40): block value -> call wider
                 rblk = self._river_blocker_signal(hole, board, vrange)
                 call_thresh = max(0.0, call_thresh - 0.06 * rblk)
                 r["river_blocker"] = round(rblk, 2)
@@ -286,6 +367,13 @@ class PokerBot:
                     return self._mk("raise", vr, r, f"Raise for value: {eq:.0%} equity vs "
                                     f"{len(kept)} combos — build the pot with {made}.")
                 # strong-ish but not near-nut and a big commitment -> just call, keep the pot controlled
+            # ANTI-SPEW calling commit-cap: the CALL path (unlike the raise path above) had NO commitment guard,
+            # so it called off any amount once eq >= the MDF threshold. But eq is computed vs the history-free
+            # range, which over-rates a bare made hand facing a big bet -> the big-pot light stack-off (the gtow
+            # river -130 bb / -100bb spew). Don't commit a big chunk of stack without a strong hand; fold instead.
+            if self.use_commit_cap and to_call > self.commit_frac * eff and eq < self.commit_eq:
+                return self._mk("fold", None, r, f"Anti-spew commit-cap: won't call {to_call} (>{self.commit_frac:.0%} "
+                                f"eff stack) at {eq:.0%} equity — light stack-off vs a big bet. {made}.")
             if eq >= call_thresh:
                 return self._mk("call", None, r, f"Call: {eq:.0%} >= MDF-defense threshold {call_thresh:.0%} "
                                 f"(pot odds {req:.0%}, shaded for villain bluffiness {aggr_v:.0%}, MDF {mdf:.0%}). {made}.")
@@ -312,7 +400,7 @@ class PokerBot:
         # EXPLOIT-PRIMARY river (#49): when the opponent model has CONFIDENT data at this node, play the max-EV
         # river action gated by an LCB (safe-exploit). Cold-start / thin data -> None -> falls through to the floor.
         if street == "river" and self.exploit:
-            ex = self._river_exploit(state, hole, board, eq, pot, la, hero_committed, r)
+            ex = self._river_exploit(state, hole, board, eq, pot, la, hero_committed, hero_stack, fm, r)
             if ex is not None:
                 return ex
 
@@ -327,7 +415,7 @@ class PokerBot:
                 r["advisor_pbet"] = round(pb, 2)
                 if self.rng.random() < pb:
                     if eq >= pf.VALUE_EQ:
-                        to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                        to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
                     else:
                         size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
@@ -338,20 +426,39 @@ class PokerBot:
         # GTO-floor ADVISOR TURN (#41): same per-hand bet-vs-check on the TURN (barrel if IP / lead if OOP),
         # from the turn-trained solver-advisor. Bluff size = 75% pot (the solver's turn size); value via the
         # heuristic value-sizer. Falls through to the heuristic for the river or if the turn advisor is absent.
-        if street == "turn" and pf_advisor.available("turn"):
+        if street == "turn" and self.use_turn_advisor and pf_advisor.available("turn"):
             role = "IP" if self._has_initiative(state) else "OOP"
             pb = pf_advisor.p_bet(hole, board, role, "turn")
             if pb is not None:
                 r["advisor_pbet_turn"] = round(pb, 2)
                 if self.rng.random() < pb:
                     if eq >= pf.VALUE_EQ:
-                        to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                        to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
                     else:
                         size = self._raise_to(la, hero_committed + round(0.75 * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                     f"Turn advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
                 return self._mk("check", None, r, f"Turn advisor check ({pb:.0%} GTO, {role}). {made}.")
+
+        # GTO-floor ADVISOR RIVER (WS2): per-hand bet-vs-check on the RIVER from the river-trained solver advisor
+        # (+51% vs the freq baseline). OOP=lead / IP=bet-after-check. Bluff size 66% pot (value via the fe-sizer).
+        # Runs AFTER the exploit-primary river engine (so the exploit fires first) and supersedes the #40 bluff-
+        # SELECTION heuristic when present; the #40 bluffcatch (facing a bet) is a disjoint node and stays active.
+        if street == "river" and self.use_river_advisor and pf_advisor.available("river"):
+            role = "IP" if self._has_initiative(state) else "OOP"
+            pb = pf_advisor.p_bet(hole, board, role, "river")
+            if pb is not None:
+                r["advisor_pbet_river"] = round(pb, 2)
+                if self.rng.random() < pb:
+                    if eq >= pf.VALUE_EQ:
+                        to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
+                        size = self._raise_to(la, to or la["raise_min"])
+                    else:
+                        size = self._raise_to(la, hero_committed + round(0.66 * pot) or la["raise_min"])
+                    return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                                    f"River advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"River advisor check ({pb:.0%} GTO, {role}). {made}.")
 
         # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
         # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting
@@ -360,13 +467,13 @@ class PokerBot:
         if street == "flop" and not self._has_initiative(state):
             donk_rate = min(1.0, self.oop_donk_freq * 4.0 * _texture_freq(board, "OOP"))  # per-texture GTO donk freq
             if eq >= pf.VALUE_EQ and self.rng.random() < donk_rate:
-                to, _, _ = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+                to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                 return self._mk("bet" if la["is_bet"] else "raise", self._raise_to(la, to or la["raise_min"]),
                                 r, f"Donk for value OOP ({eq:.0%}), capped frequency. {made}.")
             return self._mk("check", None, r, f"Check to the aggressor OOP ({eq:.0%}, {made}).")
 
         if eq >= pf.VALUE_EQ:   # value: size to get paid the most (e_call-aware)
-            to, _, sf = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+            to, sf = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
             size = self._raise_to(la, to or la["raise_min"])
             return self._mk("bet" if la["is_bet"] else "raise", size, r,
                             f"Value bet {sf:.0%} pot ({eq:.0%} equity): size maximizes chips paid off. {made}.")
@@ -395,7 +502,7 @@ class PokerBot:
             # bias the SELECTION toward blockers (#40) at ~constant frequency: bluff hands that remove villain's
             # value/continues -> strictly better fold equity, no extra spew.
             bf = bluff_base
-            if street == "river":
+            if street == "river" and self.use_river_blocker:
                 rblk = self._river_blocker_signal(hole, board, vrange)
                 bf = max(0.0, min(0.95, bluff_base * (1.0 + 0.6 * rblk)))
             if self.rng.random() < bf:
@@ -487,6 +594,60 @@ class PokerBot:
         af = (air_b / air_t) if air_t else 0.0
         return max(-1.0, min(1.0, vf - af))
 
+    def _river_resolve(self, state, hole, board, pot, la, hero, hero_stack):
+        """MVP#2 P1: solve the ACTUAL river public state (line-aware tracked ranges) + sample our GTO action;
+        returns a _mk action or None (-> caller plays the floor). Situation-specific GTO for the river leak."""
+        if not la.get("can_raise") and not (la.get("to_call", 0) > 0 and la.get("can_call")):
+            return None
+        from pokerbot.strategy import resolver as _rsv
+        from pokerbot.strategy.range_tracker import weighted_ranges, CONF_THRESHOLD
+        vill = state["players"][1 - self.hero_idx]
+        h_cs = hero.get("committed_street", 0) or 0
+        v_cs = vill.get("committed_street", 0) or 0
+        start_pot = max(2.0, pot - h_cs - v_cs)                 # pot at the START of the river (pre river-betting)
+        eff = min(hero_stack + h_cs, (vill.get("stack", hero_stack) or hero_stack) + v_cs)
+        # P0 v2: line-aware per-combo TRACKED ranges (not the preflop-only stub). CONFIDENCE GATE (consult):
+        # a low-confidence reconstruction is distrusted -> return None -> the floor plays (never a bad solve).
+        oop_str, ip_str, rconf = weighted_ranges(state)
+        if rconf < CONF_THRESHOLD or not oop_str or not ip_str:
+            return None
+        res = _rsv.river_resolve(state, hole, board, start_pot, eff, oop_str, ip_str, la, self.rng)
+        if res is None:
+            return None
+        action, amount = res
+        if action in ("bet", "raise") and amount is not None:
+            amount = self._raise_to(la, amount)
+        r = {"phase": "postflop", "street": "river", "hand": " ".join(hole), "range_conf": round(rconf, 2),
+             "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
+        return self._mk(action, amount, r, "MVP#2 river resolver: real-time GTO re-solve of the public state.")
+
+    def _turn_resolve(self, state, hole, board, pot, la, hero, hero_stack):
+        """MVP#2 P2: solve the ACTUAL turn public state (turn->river to terminal, line-aware tracked ranges) +
+        sample our GTO turn action; returns a _mk action or None (-> caller plays the floor). Situation-specific
+        GTO for the turn barrel/check + check-raise + facing-bet leak (the #2 EV bleed per the consults)."""
+        if not la.get("can_raise") and not (la.get("to_call", 0) > 0 and la.get("can_call")):
+            return None
+        from pokerbot.strategy import resolver as _rsv
+        from pokerbot.strategy.range_tracker import weighted_ranges, CONF_THRESHOLD
+        vill = state["players"][1 - self.hero_idx]
+        h_cs = hero.get("committed_street", 0) or 0
+        v_cs = vill.get("committed_street", 0) or 0
+        start_pot = max(2.0, pot - h_cs - v_cs)                 # pot at the START of the turn (pre turn-betting)
+        eff = min(hero_stack + h_cs, (vill.get("stack", hero_stack) or hero_stack) + v_cs)
+        # P0 v2: line-aware per-combo TRACKED ranges + the same confidence gate as the river resolver.
+        oop_str, ip_str, rconf = weighted_ranges(state)
+        if rconf < CONF_THRESHOLD or not oop_str or not ip_str:
+            return None
+        res = _rsv.turn_resolve(state, hole, board, start_pot, eff, oop_str, ip_str, la, self.rng)
+        if res is None:
+            return None
+        action, amount = res
+        if action in ("bet", "raise") and amount is not None:
+            amount = self._raise_to(la, amount)
+        r = {"phase": "postflop", "street": "turn", "hand": " ".join(hole), "range_conf": round(rconf, 2),
+             "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
+        return self._mk(action, amount, r, "MVP#2 turn resolver: real-time GTO re-solve (turn->river) of the public state.")
+
     def _board_class(self, board) -> str:
         t = pf.classify_board(board)
         if t.get("paired"):
@@ -497,33 +658,100 @@ class PokerBot:
             return "wet"
         return "dry"
 
-    def _river_exploit(self, state, hole, board, eq, pot, la, hero_committed, r):
-        """EXPLOIT-PRIMARY river (#49): max-EV bet-vs-check vs the Dirichlet opponent model, LCB-gated. Returns a
-        _mk bet when the model is confident the bet beats checking (exploit/mix fires); else None (cold-start /
-        thin data / floor wins -> caller plays the heuristic floor). eq = our equity vs the narrowed villain
-        range (proxy for the call range). Safe-by-construction: no data -> wide LCB -> None -> floor."""
+    def _river_floor_kind(self, hole, board, eq, role, fm, pot, hero_committed, hero_stack):
+        """The floor's intended river action (kind, size_frac) = the exploit engine's BASELINE. Advisor-driven
+        (modal bet-vs-check at the value/bluff size) when available, else the heuristic; a CHECK baseline for
+        marginal/air so the exploit can still ADD fold-equity bets where the floor gives up (without ever
+        overriding a good floor bet with a worse size -- safe-by-construction)."""
+        if self.use_river_advisor and pf_advisor.available("river"):
+            pb = pf_advisor.p_bet(hole, board, role, "river")
+            if pb is None or pb < 0.5:
+                return "check", 0.0
+            if eq >= pf.VALUE_EQ:
+                _, sf = self._value_to(pot, fm, "river", hero_committed, hero_stack, eq)
+                return "bet", (sf or 0.66)
+            return "bet", 0.66
+        if eq >= pf.VALUE_EQ:                              # heuristic floor: value bets; marginal/air baseline = check
+            _, sf = self._value_to(pot, fm, "river", hero_committed, hero_stack, eq)
+            return "bet", (sf or 0.66)
+        return "check", 0.0
+
+    def _river_exploit(self, state, hole, board, eq, pot, la, hero_committed, hero_stack, fm, r):
+        """EXPLOIT-PRIMARY river (#49): consider DEVIATING from the floor's river action to a higher-EV size vs
+        the Dirichlet opponent model, LCB-gated. The BASELINE is the floor's OWN action (advisor bet at its size,
+        or check) -- NOT a bare check -- so the exploit can never override a good floor bet with a worse one. It
+        still upsizes (e.g. the overbet cliff) when that beats the floor action vs a confident over-folder, and
+        adds bets where the floor checks. Cold-start / thin data -> wide LCB -> None -> floor. Returns a _mk bet
+        or None."""
         if not la.get("can_raise"):
             return None
         role = "IP" if self.hero_idx == state["button"] else "OOP"
         bclass = self._board_class(board)
-        cands = [("check", 0.0, None, 1e9)]
-        keys = [None]
-        for sf in (0.5, 0.66, 1.0, 2.0):             # aligned to the measured fold-curve buckets; incl. overbet
+        fkind, fsf = self._river_floor_kind(hole, board, eq, role, fm, pot, hero_committed, hero_stack)
+        if fkind == "bet":                                 # baseline candidate = the floor's bet at its own size
+            kf = node_key("river", role, "all", bclass, fsf)
+            respf, nf = self.opp_model.posterior(kf)
+            cands, keys = [("bet", fsf, respf, nf)], [kf]
+        else:                                              # baseline = check (the floor checks this hand)
+            cands, keys = [("check", 0.0, None, 1e9)], [None]
+        for sf in (0.5, 0.66, 1.0, 2.0):                   # candidate deviation sizes (incl. the overbet cliff)
+            if fkind == "bet" and abs(sf - fsf) < 0.02:
+                continue                                   # the floor size is already the baseline candidate
             k = node_key("river", role, "all", bclass, sf)
             resp, n = self.opp_model.posterior(k)
             cands.append(("bet", sf, resp, n))
             keys.append(k)
         idx, mode, lam, evs = pf_ee.choose_river(cands, 0, eq, pot)
-        if mode == "floor" or idx == 0 or self.rng.random() >= lam:
+        if mode != "floor" and idx != 0 and self.rng.random() < lam:
+            sf = cands[idx][1]
+            self._river_keys.append(keys[idx])
+            r["exploit_river"] = {"size": sf, "mode": mode, "lam": round(lam, 2), "vs_floor": fkind,
+                                  "model_n": round(cands[idx][3]), "ev": round(evs[idx], 1)}
+            size = self._raise_to(la, hero_committed + round(sf * pot) or la["raise_min"])
+            return self._mk("bet" if la["is_bet"] else "raise", size, r,
+                            f"Exploit-primary river bet {sf:.0%} pot vs floor-{fkind} "
+                            f"(lam {lam:.2f}, model n={cands[idx][3]:.0f}, eq {eq:.0%}).")
+        # the LCB gate declined -> consider a bounded, prediction-gated off-tree probe (map the fold-curve further out)
+        return self._river_probe(fkind, eq, role, bclass, pot, la, hero_committed, state, r)
+
+    def _river_probe(self, fkind, eq, role, bclass, pot, la, hero_committed, state, r):
+        """Bounded, PREDICTION-GATED off-tree probe (WS3 unify): when the floor gives up an air hand AND the
+        opponent model ALREADY shows an over-fold at a sampled size, occasionally bet an UNDER-SAMPLED LARGER size
+        to map the fold-curve further out (discover a size-cliff the LCB gate would otherwise never explore --
+        the cold-start deadlock: can't learn a size without betting it). Three safety rails: prediction gate (never
+        blind-probes a non-folder) + size cap + a session risk budget (worst-case cost reserved up front -> can
+        never run away). The probe's response is fed back via observe_hand_end so the model sharpens."""
+        if not self.use_probe or fkind != "check" or eq > pf.BLUFF_EQ:
             return None
-        sf = cands[idx][1]
-        self._river_keys.append(keys[idx])
-        r["exploit_river"] = {"size": sf, "mode": mode, "lam": round(lam, 2),
-                              "model_n": round(cands[idx][3]), "ev": round(evs[idx], 1)}
-        size = self._raise_to(la, hero_committed + round(sf * pot) or la["raise_min"])
-        return self._mk("bet" if la["is_bet"] else "raise", size, r,
-                        f"Exploit-primary river bet {sf:.0%} pot ({mode} λ{lam:.2f}, "
-                        f"model n={cands[idx][3]:.0f}, eq {eq:.0%}).")
+        if self.rng.random() >= self._probe_freq:
+            return None
+        # PREDICTION GATE: require an observed over-fold (fold prob > pot-odds breakeven) at some SAMPLED size,
+        # so we never blind-probe a non-folder.
+        overfold_seen = False
+        for ssf in (0.5, 0.66, 1.0):
+            resp, n = self.opp_model.posterior(node_key("river", role, "all", bclass, ssf))
+            if n >= 3 and resp[0] > ssf / (1.0 + ssf) + 0.05:
+                overfold_seen = True
+                break
+        if not overfold_seen:
+            return None
+        bb = state.get("bb", 100) or 100
+        pot_bb = pot / bb
+        for psf in (2.0, 1.0):                                  # map further-out sizes (incl. the overbet cliff)
+            k = node_key("river", role, "all", bclass, psf)
+            _, n = self.opp_model.posterior(k)
+            if n >= 6:                                          # already sampled enough -> nothing to learn
+                continue
+            cost_bb = psf * max(0.0, pot_bb)                    # worst case: lose the whole probe bet
+            if cost_bb > max(0.0, self._probe_budget_bb - self._probe_spent_bb):
+                continue
+            self._probe_spent_bb += cost_bb
+            self._river_keys.append(k)
+            r["river_probe"] = {"size": psf, "n": round(n), "spent_bb": round(self._probe_spent_bb)}
+            return self._mk("bet" if la["is_bet"] else "raise",
+                            self._raise_to(la, hero_committed + round(psf * pot) or la["raise_min"]), r,
+                            f"Off-tree river probe {psf:.0%} pot (over-fold predicted; map the cliff; n={n:.0f}).")
+        return None
 
     # ====================================================================== helpers
     def _eff_stack(self, state: dict) -> int:
@@ -538,6 +766,14 @@ class PokerBot:
         if lo is None:
             return hi
         return max(lo, min(int(desired), hi))
+
+    def _value_to(self, pot, fm, street, hero_committed, hero_stack, eq):
+        """Value-bet target (chips) + size_frac. fe-sizing = e_call-aware pick_value_size, unless toggled
+        off (floor-ablate) -> fixed 0.66-pot. Isolates whether the adaptive value sizing is a leak vs near-GTO."""
+        if self.use_fe_sizing:
+            to, _, sf = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
+            return to, sf
+        return hero_committed + round(0.66 * pot), 0.66
 
     def _mk(self, action: str, amount, rationale: dict, reasoning: str) -> dict:
         rationale = dict(rationale)

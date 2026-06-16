@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import random
+import statistics
 
 import pokerbot.strategy.bot as botmod
 from pokerbot.engine.game import HeadsUpGame
@@ -72,9 +73,10 @@ def run(opp: str, hands: int, start=10000, sb=50, bb=100, seed=1) -> float:
         bot.observe_hand_end()
         net.append(g.players[0].stack - start)
     bb100 = sum(net) / len(net)   # bb/100 (bb=100 chips)
-    print(f"  vs {opp:8s}: {hands} hands | bot net {sum(net):+d} chips | {bb100:+.0f} bb/100 "
+    se = statistics.pstdev(net) / (len(net) ** 0.5) if len(net) > 1 else 0.0   # same bb/100 units (bb=100)
+    print(f"  vs {opp:8s}: {hands} hands | bot net {sum(net):+d} chips | {bb100:+.0f} +/- {se:.0f} bb/100 "
           f"| read={bot.opp.summary()}")
-    return bb100
+    return bb100, se, net
 
 
 def main() -> None:

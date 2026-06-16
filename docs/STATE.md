@@ -1,13 +1,142 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) for conventions. Last updated **2026-06-14**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) for conventions. Last updated **2026-06-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★ CURRENT (2026-06-16) — NEURAL SELF-PLAY GTO CORE. SUPERSEDES every number below.
+> ⟳ LIVE source of truth. Per the CLAUDE.md standing rule, update THIS top section before ending any turn that
+> moves the headline, lands a build, or shifts priorities.
+
+**The pivot:** the solver-IMITATION floor is a MEASURED ceiling — decision-grade **~−72 bb/100 vs GTO Wizard AIVAT**
+(n≥2500; BROAD postflop loss, not a fixable leak; run-to-run noise ±8). The river resolver fed too-wide ranges also
+HURTS (−72…−76 < Always-Fold −64.6); the range-tracker keystone did NOT recover it. So we are building our OWN
+**from-scratch neural Deep CFR self-play GTO core** — pure self-play, NO imitation (AlphaGo-Zero logic).
+
+**Built + proven this session:**
+- `strategy/deep_cfr.py` — from-scratch Deep CFR on Leduc with EXACT exploitability + a `vanilla_cfr` ground truth
+  (converges to Nash). **DCFR+ added + validated: neural Leduc 445→338 mbb (LinearCFR plateaued ~445), still falling.**
+- `strategy/deep_cfr_hunl.py` — self-contained cloneable HUNL game (fcpa, treys showdown; self-test passes) +
+  external-sampling MCCFR + dual nets (advantage + policy). The first HUNL net BEATS call-station/always-fold/random.
+- `strategy/deepcfr_adapter.py` + `bot.py:use_deepcfr` + `gtowizard.py:POKERB_DEEPCFR` — net→bot wired, feature
+  reconstruction VERIFIED (0 mismatches). **GTOW baseline of the first fcpa net PENDING.**
+
+**Next run — [NEXT_RUN_TODO.md](NEXT_RUN_TODO.md)** (4 sources converge — MoP theory, the AAAI-26 DCFR+ paper, GPT-5.5,
+Supremus): finer bet abstraction (`0.33/0.5/0.75/1/1.25/2/allin`) + richer features (card occupancy + hand-class/draw/
+texture, ideally OpenSpiel's info-state tensor) + the DCFR+ port, gated by a paired GTOW A/B. Honest plateau priors:
+fcpa −50…−80 · fine-abstraction −20…−45 · value-net+resolving −15…−30 · mature Supremus −5…−15. Policy-net-only
+plausibly beats −72; *matching* GTOW likely needs real-time resolving.
+
+**Clean boundary (HARD rule):** external assets (books/papers/PokerBench/Pluribus/OpenSpiel/the LLM) = validation /
+design / exploit-overlay ONLY, NEVER a training label (imitation IS the −72 ceiling). Validation gates: Leduc exact
+exploitability + the clairvoyance toy-game (α=1/3, MDF=1/2 at pot, river-only — `docs/math_theory_net_connection.md`).
+Compute: the Python MCCFR traverse is the bottleneck (NOT the GPU) → no B200 until a GPU-native job (OpenSpiel C++
+traverse / the value-net pipeline). **vs the field we still crush: Slumbot +31, weak bots +300–700.**
+
+---
+
+## History (2026-06-15, superseded by the neural pivot) — MVP#2: real-time resolving + range tracker
+> ⟳ This is the LIVE source of truth. Per the CLAUDE.md standing rule: after any measurement that moves the
+> headline, any build that lands, or a priority shift, update THIS section *before ending the turn*.
+
+**Thesis (exploit-primary):** GTO = floor/insurance; the edge = exploiting each opponent's gap to GTO. vs the
+exploitable field we WIN big; vs true near-GTO we minimize loss (can't beat it).
+
+**Live headline — GTO Wizard AI, the #1 benchmark (key ACTIVATED; AIVAT, ~10× variance-cut):**
+- **DECISION-GRADE (n≈2500, ±~6): the integrated bot is ~−71 vs GTO Wizard, resolver ON or OFF.** Floor (resolver
+  OFF) **−70.73 ±5.83** ≈ resolver+v1 **−72.06 ±6.70** — statistically IDENTICAL → the resolver is NEUTRAL (not a
+  spew source); the FLOOR ITSELF is −71. BOTH the MVP#1 −33 (n=30) and the resolver −13 (n=150) were LUCKY
+  small-sample MIRAGES. **−71 < Always-Fold (−64.6)** ⇒ the integrated bot actively loses chips to near-GTO. Honest
+  truth (= the user's diagnosis, now MEASURED): **many parts, NO coherent working MVP yet.** vs the exploitable
+  field it still wins (Slumbot +31) — the thesis holds, but the near-GTO floor is far worse than small samples
+  suggested. **→ PLAN: [docs/MVP_UNIFY_PLAN.md](MVP_UNIFY_PLAN.md).** Catalog DONE ([BOT_PARTS_CATALOG.md](BOT_PARTS_CATALOG.md);
+  §0 = the fragmentation map: two playing brains, an orphaned exploit cluster, dead files). Path: **Phase A** unify
+  into ONE core ($0; wire `preflop_gto` into HU bot, reliability-gate the resolver by confidence+pot-size, delete
+  dead code) + measure @ n≥2500; **then the ONE sure compute** = solve facing-bet nodes → a **facing-bet DEFENSE
+  advisor** (the #1 leak + it unblocks the range tracker's call-narrowing), local-pilot-first then scaled on **≥3
+  parallel best-CPU pods, saturated, fast**. ONLY in-repo assets. LESSON, hard: n≤150 AIVAT lies.
+- vs **Slumbot** (exploitable): current MVP **+31** (was −102 pre-fix) — crushes the exploitable field.
+
+**Built this session (MVP#2 = supervised blueprint + real-time re-solving + range tracker, the Pluribus/DeepStack
+pattern):** `strategy/range_tracker.py` (P0 line-aware ranges) · `strategy/resolver.py` (P1 river + P2 turn: live
+TexasSolver re-solve of the actual public state to terminal, sample our hand, floor-fallback) · `bot.py`
+`use_resolver`/`use_turn_resolver` · `benchmark/gtowizard.py` adapter + `tools/gtow_run.py`. The GTO Wizard
+Benchmark paper (arXiv 2603.23660) VALIDATES this (GTO Wizard AI = real-time-solving + value-net + balanced ranges).
+
+**★ THE keystone — BUILT + integrated + unit-tested (2026-06-15, "Goldbach" session); EV-gate PENDING.** The
+quadruple-triangulated #1 (code-review + Opus 4.6 + GPT-5.5 + our notes) = a **Bayesian action-consistent postflop
+range tracker** → `strategy/range_tracker.py` v2 (`RangeTracker` + `weighted_ranges`): per-combo Bayes (advisor
+`P(bet)` for bet/check; o3-safe **legality-only** for silent call/raise/size — never zeros a live combo),
+class-level weighted emit (TexasSolver v0.2.0 CAN'T take per-combo strings — verified, matches our own finding),
+confidence-gate → floor. Wired into `_river_resolve`/`_turn_resolve` (builds on the turn resolver, no clobber);
+`test_range_tracker` 4/4 + `smoke_weighted_resolve` green. **OPEN — the decision: the P1 EV-gate** = does
+resolver+v2-tracker recover the river resolver's **−72**? Three-way vs GTO Wizard: floor baseline · resolver+v1
+ranges (−72) · resolver+v2 tracker (one session at a time). **HONEST caveat (verified at the emit):** calls are
+legality-only (safe, but no narrowing) → flop-called air stays in the range (96o weighted top on A-K-7-2-9) →
+ranges still WIDE → may only PARTIALLY recover; if so the next lever = a facing-bet **defense model** so calls
+filter. Cheap win still open: wire `preflop_gto.py` (88.6%) into HU `bot.py` (verified NOT wired). Docs:
+[GTO_GAP_REVIEW](GTO_GAP_REVIEW_2026-06-15.md) · [GTO_P0_RANGE_TRACKER](GTO_P0_RANGE_TRACKER_2026-06-15.md).
+
+**Plan / spend:** [MVP2_RUNPOD_PLAN.md](MVP2_RUNPOD_PLAN.md) — closer-to-GTO sequenced by ROI. The $140 RunPod run
+is the LAST mile (CFV value-net → flop resolving); **start small/local first** (user directive). Consults:
+`runpod_gto_gpt55.md`, `runpod_gto_opus46.md`, `situational_*`. Honest ceiling vs GTO Wizard: **−20…−15 near-term**
+(GPT-5.5); ≈0/−3 is NOT a near-term/$140 outcome.
+
+**★ Update (late 2026-06-15) — defense outcome + SHORT-DECK pivot.** Defense advisor (the #1-leak fix, $0 from
+existing caches): flop-defense floor −70.7 → **−66.4** (+4.3, marginal/not-sig); adding RIVER defense → **−80.6
+(HURTS −14, reverted to flop-only)** — frequency-match-but-lose AGAIN (river = big pots, the +19%-MSE advisor still
+loses bb/100). NLHE is the working baseline (crush field / least-loss vs GTO Wizard); we STOP grinding it.
+**New direction (DECIDED + GPT-5.5-refined → `docs/shortdeck_consult_gpt55.md`): exploit-vs-field 60% [the only
+MEASURED +EV path, the core] / HU-short-deck-postflop near-GTO DEMO 25% [the buildable, measurable artifact —
+driving now] / NLHE-defense 15% [leak-patch].** Short-deck = solver-NATIVE (`gto_oracle.solve(mode="shortdeck")`,
+Gate.1 re-verified), rule-LOCKED (bundled dict = **trips>straight** variant — flagged for any Triton product);
+`engine/sd_eval.py` evaluator built+verified (flush>boat, trips>straight, 7-card, no 2-5; dict keys = ASCII sort).
+Cache pilot: 120 flops (`extraction/mass_solve_shortdeck.py`). **Honest claim = "near-TexasSolver HU short-deck
+postflop", NOT "6+ solved"; measure via EV-gap + matched-tree BR/LBR, NOT MSE.** Tasks #78–80. Origin: the Goldbach
+Movie-Factory run (`SD_6PLUS_GATE_LOG.md`).
+
+> The ★★/★ sections below are MVP#1 + earlier — correct as history, but their headline framings (the −526/−160 and
+> "GTO Wizard key 401") are SUPERSEDED by this section. Read them for detail, not for the current state.
+
+---
 
 ## What this is
 A Heads-Up **and** 6-max No-Limit Hold'em bot grounded in three poker books, a browser app to play it, an
 online opponent-exploiting layer, and tooling to measure our play against true GTO. North star: a
 **universal adaptive exploiter** — a low-exploitability baseline + an online opponent model that detects and
 safely exploits each opponent's leaks (confidence-gated), built to handle opponents we haven't seen yet.
+
+## ★★ Final MVP build + DEFINITIVE scorecard (2026-06-15, supersedes below)
+**Plan:** `.claude/plans/adaptive-rolling-fog.md` · **Scorecard:** `pokerbot/benchmark/scorecard.py` → `knowledge_base/scorecard.json`
+The exploit-primary pivot is now a SHIPPED MVP: ONE `PokerBot(exploit=True)` = solver-grounded floor (flop/turn/
+**river** advisors) + a safe river EV-exploit engine + a bounded prediction-gated off-tree size probe. A/B toggles:
+`use_turn_advisor/use_river_blocker/use_fe_sizing/use_mdf_shade/use_river_advisor/use_probe`. Measured KEY-FREE:
+- **Least-loss vs near-GTO (decision-grade):** flop GTO-gap **31%** (floor frequencies MATCH the solver — bet 47.4%
+  vs 47.1%, OOP 22/22, IP 75/74); floor vs GTOBaseline (paired) **−22 ±64 ≈ break-even**. Competitive vs near-GTO.
+- **Exploit edge (the thesis, DELIVERED):** crushes the exploitable field — station +109, maniac +224, nit +58,
+  foldy +78, sticky +135, trappy +42 bb/100; mechanism **+33 vs a steep size-cliff**. Ties its own strong mirror
+  (PokerBot vs PokerBot −53 ±60 = noise). → huge edge vs the exploitable, ~break-even vs near-GTO = exactly the thesis.
+- **WS1 floor-bleed RESOLVED:** the −102 vs Slumbot was variance/Slumbot-specific, NOT a leak (`floor_ablate.py`:
+  no toggle moves the floor >2σ vs GTOBaseline; #40 river-blocker 0 effect, #41 turn-advisor +8 sub-1σ). #40/#41 kept.
+- **WS2 river advisor (the win):** `build_river_data.py`+`train_river_advisor.py` (1308 caches) → `river_advisor.pt`
+  **+51%** vs freq baseline → **+38.6 ±15.6** paired floor improvement (closes the last un-grounded street, NOTES #4).
+- **WS3 unify:** AdaptiveExploiter kept as a labelled reference; the probe re-enables the off-tree edge; the Dirichlet
+  per-node model is the calibration. **WS5 GTO Wizard harness READY-TO-FIRE** (`benchmark/gtowizard.py`, offline-tested).
+- **⚠ [SUPERSEDED — the key was ACTIVATED later the same day; see ★★★ CURRENT at top. Below = pre-activation state.] The GTO Wizard key was tested LIVE (2026-06-15) and returned `401 Unauthorized`** — the 32-char string in the
+  file is a placeholder / not-yet-granted (verified UP TO AUTH: cloned + uv-synced 3.13, `gtowizard.py` adapter
+  rebuilt vs the real schema + offline-tested, `tools/gtow_run.py` connects; blocked ONLY on a VALID key). Once a
+  valid key exists, going live
+  (user's call — outward-facing, spends the 100k/mo quota) = the DEFINITIVE measure vs the true opponent: clone
+  `gtowizard-ai/researcher-api-client` under `tools/gtow_client/` (Py3.13/uv), confirm the adapter's CONFIRM-ON-CLONE
+  items, run `--num-hands 200` then ≥2500 (AIVAT) + leaderboard.
+- **vs TexasSolver (2026-06-15, both built):** (A) deterministic GTO-gap (`floor_map` flop+turn+river) = **flop 31% /
+  river 29%, FREQUENCY-FAITHFUL** to the solver (our-bet 47/47, 30/31; turn locally unmeasurable — local cache is
+  DUMP=1, the DUMP=2 turn subtrees were on the killed pod); (B) head-to-head bb/100 (`benchmark/gto_oracle_match.py`,
+  MVP vs a live-solver-driven oracle, 40bb) = **+185 ±133** vs an APPROXIMATE oracle (full SRP ranges, no
+  continuation-narrowing → our bot exploits the wrong turn/river ranges; NOT beating true GTO; ~1.4σ noisy). The gap
+  (frequency-match) is the trustworthy GTO-closeness signal. (tombos21 = Tom Boshoff, GTOW head coach; r/pokertheory
+  validates the simplified-grounded approach.)
+- **Next:** (1) user decides the GTO Wizard live run; (2) confirmatory large-N Slumbot run to close the −102;
+  (3) optional: extend the GTO-gap to turn+river, port the TwoModelGate/Calibrator if the field shows it's needed.
 
 ## ★ Latest session — Consolidation, Unification & Phase 1 (2026-06-14/15, supersedes older detail below)
 **Plan:** [docs/CONSOLIDATION_PLAN.md](CONSOLIDATION_PLAN.md) · **Architecture:** [docs/META_STRATEGY.md](META_STRATEGY.md)

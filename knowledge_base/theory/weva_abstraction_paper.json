@@ -1,0 +1,44 @@
+[
+ {
+  "component": "Core premise: WEVA replaces hand-crafted info abstraction with k-means on warm-up CFR per-hand EVs",
+  "description": "WEVA clusters root information sets into K buckets using per-hand EV features extracted from a short (W=10..500 iter) tabular CFR warm-up on the FULL unabstracted game, then solves the abstracted game tabularly. It is an info-abstraction-for-tabular-CFR method, not a neural Deep CFR method.",
+  "application_to_our_net": "Architecturally orthogonal to our build. We use a NEURAL Deep CFR net that learns over raw features end-to-end \u2014 there is no explicit bucket mapping to replace. Our 20-dim strength-bucketed feature is a *feature representation*, not a CFR info-abstraction in WEVA's sense. WEVA cannot be dropped into deep_cfr_hunl.py as-is. Conceptually interesting only as motivation to reduce reliance on hand-crafted equity buckets.",
+  "relevance": "low"
+ },
+ {
+  "component": "Key empirical claim: EV rank-ordering stabilizes after ~W=10 CFR iterations (Spearman \u03c1>0.996) long before strategy converges",
+  "description": "The ordinal ranking of per-hand EVs converges orders of magnitude faster than exploitability. This is what makes cheap warm-up features viable.",
+  "application_to_our_net": "Mildly relevant intuition: early-iteration advantage-net EV estimates already carry most of the *ordinal* hand-strength signal even before our nets converge. Could justify using cheap early-iter EV signals to seed/augment features. But our broad -72 bb/100 postflop loss is a strategy-quality problem, not a bucket-ordering problem, so this insight does not address our actual gap.",
+  "relevance": "low"
+ },
+ {
+  "component": "ev-nd: depth-weighted multi-node EV feature vector vs single root EV (equity-like)",
+  "description": "Instead of one root EV (\u2248equity), build a vector of EVs at multiple downstream decision nodes with exponentially decaying depth weights (5.0, 1.0, 0.5, 0.25, ...). This captures blocker effects and non-monotonic strength that scalar equity misses \u2014 exactly where 1D equity buckets are blunt.",
+  "application_to_our_net": "This is the one transferable idea, but only as a feature-engineering hint. Our 20-dim feature collapses hand strength into a scalar treys-normalized bucket plus crude hole-card flags \u2014 it is structurally an 'equity/rank' style feature and will miss blocker/board-interaction effects the paper shows matter. We could ADD per-node or per-action conditional EV-style features (or richer board-interaction features) to give the net signal beyond scalar strength. However the paper provides these via expensive tabular full-game CFR, which is infeasible for full HUNL (they themselves note WEVA can't be applied to full HUNL).",
+  "relevance": "med"
+ },
+ {
+  "component": "Scope limitation explicitly stated: WEVA requires the full unabstracted game to fit in memory; cannot be applied to full HUNL",
+  "description": "Appendix C: warm-up runs tabular CFR on the FULL game, requiring full info-set space in memory. Authors state for HUNL 'WEVA cannot be applied to the entire game tree directly.' It only works on river endgames / small subgames.",
+  "application_to_our_net": "Decisive disqualifier for direct use. Our target is full multi-street HUNL solved by neural self-play precisely BECAUSE tabular full-game CFR is intractable. WEVA's mechanism is the thing our entire architecture exists to avoid. Confirms this paper is not a path to fixing our floor.",
+  "relevance": "low"
+ },
+ {
+  "component": "Suggested future work: WEVA as online abstraction inside belief-based depth-limited subgame resolving (DeepStack/Supremus lineage)",
+  "description": "Authors propose computing WEVA buckets on-the-fly per subgame at runtime, as the abstraction layer inside continual re-solving with CFV value nets.",
+  "application_to_our_net": "Only relevant to a FUTURE version of our bot that adds real-time resolving + CFV value nets (a known SOTA gap). Until we have a resolving stack (which we explicitly do not \u2014 bot samples policy net directly), there is nothing to plug WEVA into. Note for the roadmap, not actionable now.",
+  "relevance": "low"
+ },
+ {
+  "component": "DCFR hyperparameters used as solver baseline (\u03b1=1.5, \u03b2=0, \u03b3=2)",
+  "description": "Appendix D reports DCFR settings; paper uses PCFR+ and DCFR as the underlying solvers, confirming DCFR/PCFR+ as standard strong tabular baselines.",
+  "application_to_our_net": "Tangential corroboration of our DCFR+ direction (we use \u03b1=2, \u03b3=2). Their \u03b1=1.5,\u03b2=0 differs; no strong reason to change ours since our Leduc exploitability is already improving under our settings. Could try \u03b2=0 ablation, but low priority vs the bottlenecks (no variance reduction, crude betting, slow Python traverse).",
+  "relevance": "low"
+ },
+ {
+  "component": "Validation methodology: exact exploitability on small games + Spearman \u03c1 vs near-oracle EV from 50k iters",
+  "description": "Uses exact exploitability as ground truth on small/endgame benchmarks and Spearman rank correlation against a 50k-iter near-oracle to measure feature quality.",
+  "application_to_our_net": "Marginally reinforces our existing Leduc exact-exploitability validation harness. The Spearman-vs-oracle diagnostic could be a cheap sanity check: compare our advantage-net's per-hand EV ranking against a long tabular Leduc solve to detect if the net learns correct hand ordering early. A minor optional diagnostic, not a fix.",
+  "relevance": "low"
+ }
+]

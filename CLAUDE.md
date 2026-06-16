@@ -4,17 +4,31 @@ A Heads-Up **and** 6-max No-Limit Hold'em bot grounded in five poker books, with
 to play against it, an opponent-exploiting layer, and tooling to analyze your own play. Built
 across several sessions — see the user memory for the full history.
 
-> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — live state, current workstream,
-> artifacts, and next steps with cross-references. This file = stable conventions; `STATE.md` = what's happening now.
+> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth: current state,
+> headline number, workstream, next build. This file = stable conventions; `STATE.md` = what's happening now.
 >
-> **Current phase (2026-06-15): CONSOLIDATION & PRUNING.** Not adding features — we MESH/fit the EXISTING parts
-> so the engine runs cleanly, ERADICATE dead code + statistical leaks, and improve the floor via a grounded
-> iterative loop (held-out solver EV-gap gate; see [`docs/ORCHESTRATION_PLAN.md`](docs/ORCHESTRATION_PLAN.md)).
-> A neural net enters ONLY as a confidence-gated supervised *advisor* (glue over existing data), never a
-> from-scratch build. Bias toward deleting/unifying over adding (see [`docs/CONSOLIDATION_PLAN.md`](docs/CONSOLIDATION_PLAN.md)).
+> **⟳ KEEP STATE.md CURRENT — standing rule (do this every session).** STATE.md must reflect the LIVE state, not
+> history. After any turn that moves a headline number (a measurement), lands a build, or shifts priorities,
+> UPDATE STATE.md's top CURRENT section *before ending the turn* — lead with the current frontier, demote
+> superseded numbers to a one-line "history" pointer. A fresh context (a human OR Claude after a context summary)
+> must start from the truth, never a stale framing. *(This rule exists because a stale doc once led a code-reviewer
+> onto an outdated "it's just a heuristic / −160 bb/100" trail — don't let that recur. Same for THIS file's "Honest
+> status" below.)*
+>
+> **Current phase (2026-06-16): NEURAL SELF-PLAY GTO CORE.** The solver-imitation floor is a MEASURED ceiling —
+> decision-grade **~−72 bb/100 vs GTO Wizard AIVAT** (n≥2500; the loss is BROAD postflop quality, not a fixable leak;
+> run-to-run noise ±8). The resolver fed too-wide ranges also hurts (−72…−76 < Always-Fold −64.6). So we PIVOTED to
+> building our OWN **from-scratch neural Deep CFR self-play net** — pure self-play, NO imitation (AlphaGo-Zero logic):
+> `strategy/deep_cfr.py` (Leduc-proven via EXACT exploitability), `deep_cfr_hunl.py` (the HUNL game + dual-net
+> trainer), `deepcfr_adapter.py` (net→bot, features verified). DCFR+ is the convergence engine (validated: Leduc
+> neural 445→338 mbb, still falling). Next run scoped in [`docs/NEXT_RUN_TODO.md`](docs/NEXT_RUN_TODO.md): finer bet
+> abstraction + richer features, gated by a paired GTOW A/B. Every other asset (books, CFR papers, PokerBench/Pluribus,
+> OpenSpiel, the LLM) connects at the **CLEAN BOUNDARY** — validation/design/exploit, NEVER a training label. vs the
+> field we still crush (+31 Slumbot, +300–700 weak). (Resolver/range-tracker = HISTORY now; see STATE.md + NOTES.md.)
 >
 > **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — in-repo log of approximations we ship now and
-> should compute exactly later (e.g. exact GTO donk/c-bet frequencies by texture). Add an entry when you ship a heuristic.
+> should compute exactly later. Add an entry when you ship a heuristic. (NOT a primary onboarding doc — it's a
+> caveat list; the live state is STATE.md.)
 
 ## Run / play
 - **6-max vs 5 bots (the main app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000
@@ -31,6 +45,13 @@ across several sessions — see the user memory for the full history.
   (`gto_baseline.py`, texture/aggressor-aware) measured against the **TexasSolver GTO oracle** (`gto_oracle.py`),
   online `opponent.py` model, the **adaptive exploitation engine** (`adaptive.py`), per-opponent exploit models
   (`pluribus_exploit.py`, the Slumbot `LearnedFoldModel`), the HU `bot.py`.
+  **MVP#2 — real-time GTO:** `resolver.py` (live TexasSolver river/turn re-solve to terminal, the situation-specific
+  GTO path) + `range_tracker.py` (line-aware ranges into the resolver) + `advisor.py` (flop/turn/river solver-
+  imitation MLPs = the floor) + `exploit_engine.py`/`opp_model.py` (LCB-gated safe exploit + Dirichlet opponent
+  model). The HU benchmark adapter is `benchmark/gtowizard.py` (+ `tools/gtow_run.py`).
+  **★ Neural self-play GTO core (current frontier):** `deep_cfr.py` (from-scratch Deep CFR + DCFR+, with the
+  `vanilla_cfr` Leduc EXACT-exploitability ground truth), `deep_cfr_hunl.py` (self-contained HUNL game + dual-net
+  trainer), `deepcfr_adapter.py` (policy net → bot via `use_deepcfr` / `POKERB_DEEPCFR`).
 - `pokerbot/arena/` — `sixmax.py` (6-max decision brain), `openpoker.py` (Open Poker WebSocket client).
 - `pokerbot/coach/` — Claude-backed coaching (HU app); `meta_coach.py` (engine-agnostic in-loop meta-coach /
   exploit-hypothesis / run-director — Anthropic or an OpenAI-compatible vLLM endpoint), `translate.py`
@@ -83,32 +104,40 @@ across several sessions — see the user memory for the full history.
   mass-solve LOCALLY (separate boxes). SSH key `C:\Users\hampe\.ssh\pokerb_runpod`; fresh pods get a NEW ssh port.
 
 ## Honest status (what's real)
-- **Preflop** is GTO-grounded: CFR push/fold = verified Nash; deeper stacks use a strength-model range system.
-- **Postflop** is equity + pot-odds/MDF + **fold-equity-optimal bet sizing** + an exploit layer — *not* a solver.
-- vs **Slumbot** (measured 2026-06-14, 300h samples): the old "heuristic alone ≈ −170" was a small-sample
-  MYTH. The no-exploit floor actually lost **~−526 bb/100** because it **stacked off 200bb bluff-raising air**
-  (`PriorFoldModel` assumed a ~60% fold a near-GTO opponent never gives → `ev_bluff` looked +EV). A cheap
-  **anti-spew floor fix** (the floor never raise-bluffs without a confident read; value-raise/SPR commitment
-  caps) took the no-exploit floor to **~−46 bb/100** (near break-even, +480 bb/100 swing). With the fold-curve
-  exploit on the fixed floor: **~−5.4 bb/100** (500h, ±113 — statistically ≈break-even; was −186 pre-fix, so
-  NOT yet conclusively break-even, needs 5–10k hands). LESSON: the heuristic floor still hides cheap, huge wins.
-- vs **Pluribus** (from its 10k hands): it over-folds postflop heads-up to small/pot bets → exploit projects
-  ~**+4 bb/100** (ceiling ~6–8); small but real & safe (it never adapts). See `knowledge_base/exploit/`.
-- Crushes weak/exploitable opponents locally (+300–700 bb/100).
-- **Bot cleanup (2026-06-14):** an independent `claude-opus-4-8` audit (`extraction/bot_audit.py`, hand-vetted)
-  found the SAME stack-off spew live in `adaptive.py`; root cause = it never tightened villain's range vs
-  aggression. Fixed (range-narrowing + commitment caps + preflop-4bet premium gate); 200bb stack-offs eliminated.
-- **Benchmarks & the verify-everything lesson (2026-06-14):** the rigorous HU target is the **GTO Wizard
-  Benchmark** (`benchmark.gtowizard.com` — public API + leaderboard, HUNL 200bb, scored vs GTOW AI with
-  **AIVAT** variance reduction → 10× less data; request a key via their form, client = `gtowizard-ai/
-  researcher-api-client`, Python, `PokerAgent.act(GameServiceResponse)->ActRequest{f/k/c/b}`). On that board
-  EVERY LLM/agent LOSES (best ~−3 bb/100): you can't beat near-GTO, only minimize the loss. HARD LESSON:
-  candidate fixes from LLM triage AND single-rule raw-bb/100 A/B are too unreliable/noisy — only a GROUNDED
-  signal (solver TV-gap / AIVAT) or a deterministic check should gate a change (two plausible fixes — thin-value
-  and draw-c-bet — were REVERTED after measurement refuted them).
-- **GTO oracle says** (597 solved flops, `analyze_cache.py`): IP c-bet should be texture-conditioned (~77% on
-  dry/high/rainbow vs ~58–60% monotone/connected) at a single ~⅔-pot size — the next `gto_baseline` change. An
-  **exploit playbook** (Claude, bounded + benchmark-verifiable) seeds cold-start exploits for the adaptive engine.
+*Lead with the LIVE numbers; older numbers are HISTORY (one-liners at the end). #1 benchmark = the GTO Wizard AIVAT board.*
+- **★ CURRENT FRONTIER (2026-06-16) — from-scratch neural Deep CFR self-play GTO core** (`strategy/deep_cfr*.py`),
+  built to ESCAPE the imitation ceiling (the floor below is what it replaces). Proven on Leduc (exact exploitability;
+  DCFR+ took the neural run 445→338 mbb, still falling); the first HUNL net beats call-station/always-fold/random; the
+  GTOW number is pending. PURE self-play — external knowledge (books/papers/PokerBench/Pluribus/OpenSpiel/the LLM) is
+  validation/design/exploit ONLY, **never a training label** (that imitation IS the −72 ceiling). Plan: `docs/NEXT_RUN_TODO.md`.
+- **What the bot IS:** an **exploit-primary** engine — a solver-grounded **floor** (flop/turn/river solver-imitation
+  advisors + analytic defense/sizing) + **real-time TexasSolver re-solving** at high-leverage nodes (`resolver.py`:
+  river built+measured, turn built) + a **range tracker** + an **LCB-gated exploit overlay** (fires only on a
+  measured, safe leak → floor vs near-GTO). Honest: the floor MATCHES solver bet/check FREQUENCIES but is
+  context-collapsed (heuristic + advisors, **not** a solver); the resolver is the path to situation-specific GTO.
+- **vs GTO Wizard AI — the #1 benchmark (key ACTIVATED 2026-06-15; AIVAT ~10× variance-cut):** the river resolver,
+  measured DECISION-GRADE, is **−72.06 ±6.70** (n=2498) — the earlier −12.9 (n=150) was a LUCKY small sample (the
+  small-samples-lie lesson, again). −72 is worse than Always-Fold (−64.6): fed too-wide ranges, the resolver
+  confidently plays the WRONG equilibrium in big pots. MVP#1 floor was −33 ±11 but only n=30 (also unreliable); a
+  floor baseline at n=2500 is running. **Implication: the range-tracker keystone is a PREREQUISITE — without
+  correct ranges the resolver HURTS, it doesn't help.** You can't beat near-GTO regardless; least-loss is the goal.
+- **vs Slumbot (exploitable near-GTO):** current MVP **+31 ±46** (2000h) — the floor-fix + exploit + live-learning
+  turned the old −102 into a crush. **The thesis in one line: vs the exploitable field we WIN big; vs true near-GTO
+  we minimize loss.** The edge = exploiting each opponent's gap to GTO, not out-GTO-ing anyone. Crushes weak
+  opponents locally (+300–700 bb/100).
+- **★ THE keystone next build (quadruple-triangulated — an external code-review + Opus 4.6 + GPT-5.5 + our own
+  notes ALL independently name it #1):** a **Bayesian action-consistent postflop range tracker**. Today's
+  `_villain_range`/`_narrow` is "top X% by absolute board strength" (no bluffs/draws/lineage) → poisons the floor's
+  facing-bet/bluffcatch math; and `range_tracker` is preflop-line-only → the resolver solves the right board with
+  too-wide ranges. Fixing ranges fixes BOTH. Cheap win alongside: wire `preflop_gto.py` (the 88.6% PokerBench
+  table) into the HU `bot.py` — verified NOT wired (only 6-max RFI uses it).
+- **Measurement discipline (hard-won):** only a GROUNDED signal (solver gap / AIVAT) or a deterministic check
+  gates a change — LLM triage + single-rule raw-bb/100 A/B are too noisy (plausible fixes were REVERTED after
+  measurement). Paired/duplicate eval cancels card luck; the GTO Wizard board uses AIVAT.
+- **History (superseded; context only):** the 2026-06-14 Slumbot **anti-spew saga** (no-exploit floor −526 → −46 →
+  −5.4 with the fold-curve exploit) and the **−160 paired vs-TexasSolver-oracle** head-to-head are PRE-GTO-Wizard,
+  PRE-resolver numbers (the −160 oracle shared an abstraction + used too-wide ranges → not true GTO). The live truth
+  is the GTO Wizard AIVAT line above. Preflop push/fold ≤~10bb = verified Nash; deeper preflop is still heuristic.
 
 ## Direction (not a rulebook — current thinking, expected to evolve)
 No bot plays **true GTO** yet, so every opponent (Pluribus, Slumbot, GTO Wizard, humans) is an exploitable

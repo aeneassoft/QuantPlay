@@ -1,0 +1,44 @@
+[
+ {
+  "component": "MLP with 2-3 hidden layers, 64-128 neurons, ReLU",
+  "description": "Paper recommends a small feedforward MLP with 2-3 hidden layers and 64-128 units per layer using ReLU activations for tabular classification on tiny UCI-style datasets.",
+  "application_to_our_net": "Our advantage/policy nets are also small MLPs over a 20-dim hand-crafted feature vector, so a 2-3 layer / 64-256 unit ReLU body is a sane default sizing reference. But this is common knowledge already standard in Deep CFR implementations; the paper adds nothing specific (no residuals, no normalization tricks that matter at our scale). The -72 bb/100 floor is from abstraction/features/no-resolving, not from MLP width.",
+  "relevance": "low"
+ },
+ {
+  "component": "Adam optimizer + lr=0.001",
+  "description": "Adam with learning rate 0.001 used for training stability and faster convergence.",
+  "application_to_our_net": "We already train the regression nets with a gradient optimizer; Adam at ~1e-3 is the conventional starting point and we likely use it. No new information \u2014 and DCFR weighting/loss matters far more for our exploitability than the optimizer choice.",
+  "relevance": "low"
+ },
+ {
+  "component": "Dropout + L2 regularization for generalization",
+  "description": "Applies dropout and L2 weight penalty to reduce overfitting on small datasets.",
+  "application_to_our_net": "Mild relevance: Deep CFR advantage nets are trained on noisy, non-stationary regression targets from a replay buffer and CAN overfit late-iteration samples. A small amount of L2 / dropout could marginally stabilize the advantage net. However, in CFR the standard remedy is reservoir sampling + retraining from scratch each iteration, not classification-style dropout; over-regularizing a regression target can hurt. Worth a quick ablation at best.",
+  "relevance": "low"
+ },
+ {
+  "component": "Min-Max feature normalization / scaling",
+  "description": "Normalizes input features to a consistent range to speed convergence.",
+  "application_to_our_net": "We already use ratio-based and bucketed features (pot/owe/remaining ratios, treys-normalized strength) that are roughly bounded. Confirming all 20 features are scaled to a consistent range is good hygiene, but we appear to already do this (verified 0 feature-reconstruction mismatches). No new technique.",
+  "relevance": "low"
+ },
+ {
+  "component": "Classification metrics (accuracy/precision/recall/F1/AUC) + softmax + cross-entropy",
+  "description": "Entire evaluation and loss framework is built around multi-class classification with softmax outputs and cross-entropy loss.",
+  "application_to_our_net": "Not applicable. Our core nets do regression (advantage values) and a strategy distribution trained toward time-averaged regret-matching, evaluated by exploitability (Leduc) and AIVAT bb/100 (HUNL) \u2014 not by accuracy/F1/AUC. The paper's metric and loss apparatus does not transfer to a CFR value net.",
+  "relevance": "low"
+ },
+ {
+  "component": "NAS / evolutionary architecture search (literature survey only)",
+  "description": "Reviews Neural Architecture Search, genetic/PSO/differential-evolution methods for discovering layer configs.",
+  "application_to_our_net": "Not actionable: NAS is wildly over-engineered for a 20-input MLP and is only cited, not implemented, in this paper. Our bottleneck is the Python traverse (1.9 s/iter) and the abstraction/feature ceiling, not architecture micro-optimization. Skip.",
+  "relevance": "low"
+ },
+ {
+  "component": "Overall framework (UCI-tabular classification pipeline)",
+  "description": "End-to-end pipeline: data acquisition, cleaning, normalization, feature selection, train/val/test split, MLP training, classification-metric evaluation on Iris/Wine/Breast-Cancer/PIMA/Heart datasets.",
+  "application_to_our_net": "Fundamentally mismatched to a self-play Deep CFR setting. There is no fixed labeled dataset, no train/val/test split, no static distribution \u2014 targets are generated on-the-fly by MCCFR traversal and shift every iteration. None of the paper's pipeline, datasets, or claimed 97% accuracy results inform a from-scratch HUNL CFV/strategy net. Honest verdict: this paper is generic and not relevant to our build.",
+  "relevance": "low"
+ }
+]

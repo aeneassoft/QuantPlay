@@ -44,14 +44,20 @@ def available() -> bool:
 def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: float = 100.0,
           bets=None, accuracy: float = 0.5, max_iter: int = 150, threads: int = 8,
           allin_threshold: float = 0.67, dump_rounds: int = 2, timeout: int = 180,
-          keep_files: bool = False, tag=None) -> dict:
+          keep_files: bool = False, tag=None, mode: str = "holdem") -> dict:
     """Solve one postflop spot; return the root (first-to-act) node dict from the dumped JSON.
 
     board: list like ['Qs','Jh','2h'] (flop) up to 5 cards (river).
     oop_range / ip_range: TexasSolver range strings (e.g. 'AA,KK,AKs,AQs:0.5,...').
+    mode: 'holdem' (52-card, default) or 'shortdeck' (36-card 6+ Hold'em). TexasSolver v0.2.0 ships short-deck
+        natively (correct rankings: flush > full house, A-6-7-8-9 wheel; dict card5_dic_sorted_shortdeck.txt =
+        C(36,5)). For short-deck pass mode='shortdeck' AND short-deck range strings (6-A ranks only). Verified
+        2026-06-15 (movie-factory run): solve converges + the dump parses through strategy_for unchanged.
     """
     if not EXE.exists():
         raise FileNotFoundError(f"TexasSolver console binary not found at {EXE}")
+    if mode not in ("holdem", "shortdeck"):
+        raise ValueError(f"mode must be 'holdem' or 'shortdeck', got {mode!r}")
     tag = tag if tag is not None else os.getpid()
     inp = SOLVER_DIR / f"_oracle_in_{tag}.txt"
     out = SOLVER_DIR / f"_oracle_out_{tag}.json"
@@ -69,8 +75,11 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
         f"set_dump_rounds {dump_rounds}", f"dump_result {out.name}",
     ]
     inp.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    cmd = [str(EXE), "-i", inp.name]
+    if mode != "holdem":                      # short-deck (6+) is a CLI flag; the input grammar is identical
+        cmd += ["--mode", mode]
     try:
-        subprocess.run([str(EXE), "-i", inp.name], cwd=str(SOLVER_DIR),
+        subprocess.run(cmd, cwd=str(SOLVER_DIR),
                        capture_output=True, text=True, timeout=timeout)
         data = json.loads(out.read_text(encoding="utf-8"))
     finally:
@@ -84,8 +93,12 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
 
 
 def _key(node: dict) -> dict:
-    """{frozenset({c1,c2}): [probs]} for order-insensitive combo lookup."""
-    strat = node.get("strategy", {}).get("strategy", {})
+    """{frozenset({c1,c2}): [probs]} for order-insensitive combo lookup.
+    NULL-SAFE: TexasSolver dumps the per-combo `strategy` ONLY for the dumped ROOT node; deeper nodes
+    (e.g. IP after an OOP check) carry `"strategy": null`. `(x or {})` guards both a missing key and an
+    explicit null so a caller navigating to such a node gets {} (-> strategy_for None -> floor) instead of
+    an AttributeError crash. (Bug found via the P0 end-to-end smoke, 2026-06-15.)"""
+    strat = (node.get("strategy") or {}).get("strategy") or {}
     out = {}
     for combo, probs in strat.items():
         out[frozenset((combo[:2], combo[2:4]))] = probs
@@ -93,8 +106,8 @@ def _key(node: dict) -> dict:
 
 
 def strategy_for(node: dict, c1: str, c2: str) -> dict | None:
-    """GTO action->probability for a specific hand at this node, or None if not in range."""
-    actions = node.get("strategy", {}).get("actions", [])
+    """GTO action->probability for a specific hand at this node, or None if not in range / not dumped."""
+    actions = (node.get("strategy") or {}).get("actions", [])
     probs = _key(node).get(frozenset((c1, c2)))
     if probs is None:
         return None

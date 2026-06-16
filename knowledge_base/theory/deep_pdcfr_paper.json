@@ -1,0 +1,62 @@
+[
+ {
+  "component": "Cumulative-advantage bootstrapping (single-iteration buffer + bootstrap from prev-iter net)",
+  "description": "Instead of a giant replay buffer holding samples from all iterations (DeepCFR style), they clear the advantage buffer each iteration, fit instantaneous advantages from current-iter samples only, and bootstrap cumulative advantages from the previous iteration's network: target = max(R_{t-1},0)*disc + r_t. This is the mechanism that lets neural nets approximate DCFR+/PDCFR+ (which depend on prev-iter cumulative regrets).",
+  "application_to_our_net": "You say you already applied 'DCFR+ 1+2 + bootstrap of cumulative ADVANTAGES'. This paper IS the formal recipe behind that \u2014 confirms your design is correct and gives the exact loss L(theta_t)=E[(max(R_{t-1},0)*(t-1)^a/((t-1)^a+1) + r_bar - R_t)^2]. Worth double-checking your discount/clip ORDERING matches theirs (they note the clip-then-discount sequence is adjusted specifically to make sampling-based expectation of r_bar unbiased). A subtle ordering bug here would silently bias your advantages.",
+  "relevance": "high"
+ },
+ {
+  "component": "Corrected sampled counterfactual value (drop opponent reach, target the ADVANTAGE not the regret)",
+  "description": "Theorem 1 vs Theorem 2: naive OS targets r_t/pi^xi(I) (scaled by sampling reach, varies wildly across infosets and orders of magnitude \u2014 hard for nets). They redefine the sampled value as v_check = pi^sigma(z[I]a,z)*u/pi^xi(z[I],z) so the network's expected target equals the true advantage A_i(I,a)=r_t/pi^xi_{-i}(I). Advantages are normalized and net-friendly.",
+  "application_to_our_net": "You use external-sampling MCCFR (not outcome sampling), so the exact importance-weighting math differs \u2014 but the PRINCIPLE applies: make your net regress a quantity whose target magnitude is stable across infosets (advantages, not opponent-reach-weighted CFVs). Confirm your ES advantage targets aren't carrying a residual reach-probability scale that the net must fight across magnitudes. Low-effort sanity check, potentially high payoff for training stability.",
+  "relevance": "med"
+ },
+ {
+  "component": "DREAM-style history value network as variance-reduction baseline",
+  "description": "An auxiliary network Q(h,a|w) predicts player-1 action values at history nodes, trained off-policy via a TD-style bootstrap loss (target = u_hat + sum_a' sigma_{t+1}(I',a')Q(h',a')). The baseline-adjusted sampled value applies the standard control-variate: v_bar = Q + (v_child - Q)/xi for the sampled action, Q otherwise. Yields unbiased, lower-variance advantage estimates. Trained off-policy so no extra episode sampling needed.",
+  "application_to_our_net": "This is your single biggest OPEN gap ('NO variance-reduction baseline yet'). This is the directly-applicable component. Caveat: DREAM/this baseline is derived for OUTCOME sampling (single action sampled, hence the 1/xi correction). You run EXTERNAL sampling, where the updating player already explores all actions and variance comes only from opponent/chance sampling \u2014 so the control-variate form must be re-derived for ES (baseline applied at chance/opponent nodes), and the variance win is smaller than in OS. Still worth it, but don't copy the OS formula verbatim. Expect modest, not dramatic, reduction of your +/-8 bb/100 noise.",
+  "relevance": "high"
+ },
+ {
+  "component": "Direct strategy as sampled strategy (avoid IS in average-strategy buffer)",
+  "description": "Rather than storing pi_i(I)/pi^xi(z)-weighted sampled strategies (high variance), they store sigma_t(I,a) directly for the non-acting player; the natural pi^xi_i(I) weighting becomes the implicit averaging weight. Reduces variance in the average/policy network training.",
+  "application_to_our_net": "You maintain a separate time-averaged policy net. Under ES your averaging weights differ from OS, but the takeaway \u2014 store clean sigma_t plus an explicit iteration/reach weight rather than IS-scaled strategies \u2014 could stabilize your policy-net training. Minor; your policy net isn't flagged as the bottleneck.",
+  "relevance": "med"
+ },
+ {
+  "component": "DCFR+/PDCFR+ averaging discount (t/T)^gamma in the average-strategy loss",
+  "description": "Average strategy network trained with weight (t/T)^gamma per sample: L=E[(t/T)^gamma * sum_a (sigma_t - Pi)^2]. gamma=2 used for DeepDCFR+. This is how the gamma=2 cumulative-strategy discounting is realized in the neural average net.",
+  "application_to_our_net": "You report 'gamma=2 averaging' already. This confirms the exact loss-weighting form. If your policy net currently weights samples by t^gamma rather than (t/T)^gamma, the normalization-by-T detail keeps targets bounded \u2014 a tiny but worthwhile alignment.",
+  "relevance": "med"
+ },
+ {
+  "component": "PDCFR+ predictive extension (instantaneous-advantage net to predict next-iter cumulative advantage)",
+  "description": "Adds a second per-player net r(I,a|phi) fitting current instantaneous advantages, used to PREDICT next iteration's cumulative advantage: max(R_t,0)*t^a/(t^a+1) + r_pred, fed to regret-matching for the next strategy. alpha=2.3,gamma=2. Gives a further convergence bump in non-poker games; in FHP it tied DeepDCFR+ (11.3 vs 11.6 chips).",
+  "application_to_our_net": "Optional next step AFTER variance reduction. Notably, in the paper's actual POKER experiment (FHP) PDCFR+ did NOT beat DCFR+ (11.3 vs 11.6, within noise) \u2014 the predictive trick mainly helps non-poker IIGs (Battleship, Goofspiel, Liar's Dice). So for your HUNL target, adding the third net is low expected value vs cost. Defer/skip.",
+  "relevance": "low"
+ },
+ {
+  "component": "Empirical evidence on FHP (Flop Hold'em Poker, a real poker game)",
+  "description": "VR-DeepDCFR+ reached +11.6 chips/hand vs rule-based agents where OS-DeepCFR got -7.8 and DREAM -2.0 (5 chips/hand is a 'significant skill gap' per DeepStack). Demonstrates the full stack (bootstrap + DCFR+ + VR baseline) materially beats vanilla/Linear neural CFR ON A POKER GAME.",
+  "application_to_our_net": "Most relevant data point: it's the only poker result and it confirms the combo you're building (DCFR+ bootstrap + VR baseline) is the right direction for poker specifically. BUT: their eval is vs hand-crafted rule-based bots, NOT exploitability and NOT vs a strong GTO baseline like GTO Wizard \u2014 so it does NOT predict your bb/100 vs GTO Wizard AI. Treats your -72 bb/100 problem (broad postflop quality) as orthogonal; this paper accelerates CONVERGENCE, it does nothing for your crude fcpa abstraction or hand-crafted features, which are the more likely root causes of postflop weakness.",
+  "relevance": "med"
+ },
+ {
+  "component": "Bootstrap-not-retrain training efficiency claim",
+  "description": "Because each iteration bootstraps from the previous net rather than refitting from scratch on a full all-iterations buffer, fewer total training steps are needed and per-iter cost is ~equal to DREAM.",
+  "application_to_our_net": "Directly relevant given your bottleneck is the ~1.9s/iter Python traverse (CPU), not the net. Bootstrapping means smaller per-iter buffers and fewer SGD steps \u2014 helps wall-clock if you warm-start the advantage net from prev-iter weights instead of re-initializing. Won't fix the traverse bottleneck, but reduces GPU-side cost so you can spend more on traversals.",
+  "relevance": "med"
+ },
+ {
+  "component": "ESCHER comparison / rejection rationale",
+  "description": "They considered ESCHER (history value net to compute regrets directly, no importance sampling) but rejected it: it needs accurate value estimation and incurs significant training time. They chose DREAM's baseline approach instead.",
+  "application_to_our_net": "Useful design-decision context: if you later want to kill importance sampling entirely you'd look at ESCHER, but the paper's experience says it's expensive/finicky. For now stick with the DREAM baseline route. Informational only.",
+  "relevance": "low"
+ },
+ {
+  "component": "Network architecture / hyperparameters used",
+  "description": "All methods: 3 hidden layers, 64 neurons (128 for FHP). Utilities normalized to [-1,1]. alpha=2,gamma=2 (DCFR+); alpha=2.3,gamma=2 (PDCFR+). Buffer 1e6 for history value net (1e7 for FHP), 1e8 episodes for FHP.",
+  "application_to_our_net": "Mostly a sanity reference. Two concrete takeaways: (1) normalize utilities to [-1,1] before the net (your chip frame is 20000-scale \u2014 confirm you scale targets, else advantages span huge magnitudes the paper explicitly warns nets handle poorly); (2) your alpha=2/gamma=2 matches their DCFR+ exactly. Their tiny 64-128 nets are for smaller games \u2014 don't read net SIZE guidance into your HUNL build.",
+  "relevance": "med"
+ }
+]

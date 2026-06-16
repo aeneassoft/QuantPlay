@@ -52,8 +52,9 @@ def _play_hand(g: HeadsUpGame, d0, d1, start) -> int:
     return g.players[0].stack - start       # seat-0 strategy's net (zero-sum: seat1 = -this)
 
 
-def duplicate_ab(make_a, make_b, decks, start=20000, sb=50, bb=100):
-    """A's card-luck-cancelled edge over B (bb/100) + stderr. Each deck: A=seat0 vs B, then B=seat0 vs A."""
+def duplicate_ab(make_a, make_b, decks, start=20000, sb=50, bb=100, return_edges=False):
+    """A's card-luck-cancelled edge over B (bb/100) + stderr. Each deck: A=seat0 vs B, then B=seat0 vs A.
+    return_edges=True also returns the per-deck chip edges (for PAIRED deltas across configs on the same decks)."""
     g = HeadsUpGame(names=("S0", "S1"), starting_stack=start, sb=sb, bb=bb, seed=0)
     edges = []
     for h0, h1, board in decks:
@@ -67,6 +68,8 @@ def duplicate_ab(make_a, make_b, decks, start=20000, sb=50, bb=100):
     var = sum((e - mean) ** 2 for e in edges) / max(1, n - 1)
     bb100 = mean / 2 / bb * 100                              # 2 hands per deck
     se = (var ** 0.5 / n ** 0.5) / 2 / bb * 100
+    if return_edges:
+        return bb100, se, edges
     return bb100, se
 
 
@@ -95,7 +98,7 @@ def gto(seed=1, **params):
     return make
 
 
-def pokerbot(exploit=False, seed=1, value_raise_eq=0.72):
+def pokerbot(exploit=False, seed=1, value_raise_eq=0.72, **flags):
     import pokerbot.strategy.bot as botmod
     botmod.EQUITY_ITERS = 120
     from pokerbot.strategy.bot import PokerBot
@@ -103,6 +106,8 @@ def pokerbot(exploit=False, seed=1, value_raise_eq=0.72):
     def make(seat):
         pb = PokerBot(seat, seed=seed, exploit=exploit)
         pb.value_raise_eq = value_raise_eq
+        for k, v in flags.items():          # floor-ablation toggles (use_turn_advisor/use_river_blocker/...)
+            setattr(pb, k, v)
         def d(st):
             pb.hero_idx = seat
             r = pb.decide(st)

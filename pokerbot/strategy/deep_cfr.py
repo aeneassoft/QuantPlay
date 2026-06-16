@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import random
+from collections import deque
 
 import numpy as np
 import torch
@@ -28,6 +29,7 @@ BET = [2, 4]
 MAX_RAISES = 2
 NACT = 3
 F, C, R = 0, 1, 2
+MEM_CAP = 400_000        # advantage-memory reservoir per player (Deep CFR spec: bounded, recency via t-weight)
 
 
 class State:
@@ -175,10 +177,15 @@ def regret_match(adv: np.ndarray, legal) -> np.ndarray:
 
 # ---------------- Deep CFR ----------------
 class DeepCFR:
-    def __init__(self, device="cpu", seed=0, tabular=False):
+    def __init__(self, device="cpu", seed=0, tabular=False, dcfrplus=False):
         self.dev = torch.device(device)
+        self.dcfrplus = dcfrplus             # DCFR+ (discount+clip+bootstrap advantages); else old LinearCFR fit
+        self.alpha = 2.0                     # DCFR+ regret-discount exponent (paper: alpha=2)
+        self.gamma = 2.0 if dcfrplus else 1.0  # avg-strategy weight t**gamma (DCFR gamma=2 vs LinearCFR t^1)
         self.adv = [Net().to(self.dev), Net().to(self.dev)]
-        self.mem = [[], []]                  # advantage memory per player: (feat, regrets, t)
+        # advantage memory per player: (feat, regrets, t). Bounded reservoir (deque) -> keeps the most recent
+        # samples, which the t=linear weighting already favours, and keeps train_adv tractable as trav scales up.
+        self.mem = [deque(maxlen=MEM_CAP), deque(maxlen=MEM_CAP)]
         self.strat_sum = {}                  # infoset key -> [legal, weighted strat sum]
         self.rng = random.Random(seed)
         self.tabular = tabular
@@ -205,7 +212,7 @@ class DeepCFR:
         if p == trav:
             k = key(s, p)
             rec = self.strat_sum.setdefault(k, [legal, np.zeros(NACT)])
-            rec[1] += t * reach * strat               # reach-weighted avg strategy (traverser nodes)
+            rec[1] += (t ** self.gamma) * reach * strat   # reach-weighted avg strategy (DCFR gamma weighting)
             util = np.zeros(NACT)
             node = 0.0
             for a in legal:
@@ -223,12 +230,31 @@ class DeepCFR:
         a = self.rng.choices(legal, weights=[strat[x] for x in legal])[0]
         return self.traverse(s.apply(a), trav, t, reach)
 
-    def train_adv(self, p: int, epochs=40, bs=512):
+    def train_adv(self, p: int, t: int, epochs=20, bs=1024):
         if not self.mem[p]:
             return
-        self.adv[p] = Net().to(self.dev)        # reinit (Deep CFR spec)
         X = torch.tensor(np.array([m[0] for m in self.mem[p]]), device=self.dev)
-        Y = torch.tensor(np.array([m[1] for m in self.mem[p]]), device=self.dev)
+        Y = torch.tensor(np.array([m[1] for m in self.mem[p]]), device=self.dev)   # advantages
+        if self.dcfrplus:
+            # DCFR+ bootstrap (AAAI-26 VR-DeepDCFR+): R_t = max(R_{t-1},0)*disc(t) + advantage. Warm-start the
+            # SAME net (it IS the running cumulative-advantage estimate); the buffer holds only this iter's samples.
+            with torch.no_grad():
+                prev = torch.clamp(self.adv[p](X), min=0.0)
+            disc = ((t - 1) ** self.alpha) / ((t - 1) ** self.alpha + 1.0) if t > 1 else 0.0
+            target = prev * disc + Y
+            opt = torch.optim.Adam(self.adv[p].parameters(), lr=1e-3)
+            n = X.shape[0]
+            for _ in range(epochs):
+                idx = torch.randperm(n, device=self.dev)
+                for i in range(0, n, bs):
+                    b = idx[i:i + bs]
+                    opt.zero_grad()
+                    loss = ((self.adv[p](X[b]) - target[b]) ** 2).mean()
+                    loss.backward()
+                    opt.step()
+            return
+        # ---- LinearCFR (original): reinit + fit ALL retained samples weighted by t ----
+        self.adv[p] = Net().to(self.dev)
         W = torch.tensor(np.array([m[2] for m in self.mem[p]], dtype=np.float32),
                          device=self.dev).unsqueeze(1)
         opt = torch.optim.Adam(self.adv[p].parameters(), lr=1e-3)
@@ -238,8 +264,7 @@ class DeepCFR:
             for i in range(0, n, bs):
                 b = idx[i:i + bs]
                 opt.zero_grad()
-                pred = self.adv[p](X[b])
-                loss = (W[b] * (pred - Y[b]) ** 2).mean()
+                loss = (W[b] * (self.adv[p](X[b]) - Y[b]) ** 2).mean()
                 loss.backward()
                 opt.step()
 
@@ -380,6 +405,7 @@ def main():
     ap.add_argument("--trav", type=int, default=120, help="traversals per player per iteration")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--tabular", action="store_true", help="tabular CFR sanity check (no net)")
+    ap.add_argument("--dcfrplus", action="store_true", help="DCFR+ (discount+clip+bootstrap advantages; AAAI-26)")
     ap.add_argument("--vanilla", action="store_true", help="exact full-tree CFR (clean convergence proof)")
     args = ap.parse_args()
     if args.vanilla:
@@ -391,18 +417,20 @@ def main():
             if t % 250 == 0 or t == args.iters:
                 print(f"  iter {t:5d} | exploitability {exploitability(_avg(strat_sum)):8.2f} mbb/hand")
         return
-    mode = "TABULAR sanity" if args.tabular else f"NEURAL device={args.device}"
+    mode = "TABULAR sanity" if args.tabular else f"NEURAL {'DCFR+' if args.dcfrplus else 'Linear'} device={args.device}"
     print(f"Deep CFR on Leduc | {mode} | {args.iters} iters x {args.trav} trav")
-    cfr = DeepCFR(device=args.device, tabular=args.tabular)
+    cfr = DeepCFR(device=args.device, tabular=args.tabular, dcfrplus=args.dcfrplus)
     for t in range(1, args.iters + 1):
         for trav in (0, 1):
+            if cfr.dcfrplus:
+                cfr.mem[trav].clear()        # DCFR+: buffer holds only the current iteration's advantages
             for _ in range(args.trav):
                 s = State()
                 cards = random.sample(range(len(DECK)), 2)
                 s.cards = [DECK[cards[0]], DECK[cards[1]]]
                 cfr.traverse(s, trav, t)
             if not args.tabular:
-                cfr.train_adv(trav)
+                cfr.train_adv(trav, t)
         if t % 25 == 0 or t == args.iters:
             expl = exploitability(cfr.avg_policy())
             print(f"  iter {t:4d} | exploitability {expl:8.1f} mbb/hand")

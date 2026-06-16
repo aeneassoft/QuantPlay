@@ -41,6 +41,11 @@ def _read_key(path: Path) -> str | None:
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY") or _read_key(_CLAUDE_KEY_FILE)
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") or _read_key(_OPENAI_KEY_FILE)
+# GTO Wizard AI Benchmark (researcher API). Key file lives in the Secret keys ROOT (not the AI subdir). The key
+# was requested but is assumed possibly-never-arriving -> this is None until the txt is filled / env is set;
+# the WS5 harness is built ready-to-fire and stays dormant while this is falsy. Never hardcode/commit the key.
+_GTOW_KEY_FILE = _SECRET_DIR.parent / "GTO Wizard API Key!.txt"
+GTOWIZARD_API_KEY = os.environ.get("GTOWIZARD_API_KEY") or _read_key(_GTOW_KEY_FILE)
 
 # --- Models ----------------------------------------------------------------
 # Claude: user chose Opus 4.8 for the book analysis.

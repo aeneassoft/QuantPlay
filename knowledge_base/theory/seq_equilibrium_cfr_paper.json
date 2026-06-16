@@ -1,0 +1,38 @@
+[
+ {
+  "component": "Sequential equilibrium refinement via decreasing local perturbation (SPCFR)",
+  "description": "Replaces the fixed-epsilon perturbed game of perturbed-CFR with a per-infoset local perturbation delta_T(I) = 1/(a + b*Q_T(I)) that decays as cumulative reach probability grows. Converges (under assumptions) to a Nash refinement (SE/EFPE) that plays sensibly at off-equilibrium infosets a plain NE solver leaves arbitrary.",
+  "application_to_our_net": "Conceptually attractive for our stated goal: beating GTO Wizard AI is a NE-vs-NE benchmark, but exploiting humans/weak bots happens in off-path infosets where pure NE is arbitrary. SPCFR would make those branches non-arbitrary. BUT this is mostly orthogonal to our -72 bb/100 problem, which is broad postflop QUALITY on the equilibrium path, not weird off-path play. Refinement won't move AIVAT vs a near-optimal opponent much. Treat as a later polish, not a fix.",
+  "relevance": "low"
+ },
+ {
+  "component": "Perturbed regret matching mixed with uniform: sigma_T = (1-delta_T)*beta_T + delta_T/|A|",
+  "description": "At each infoset the played strategy is a convex blend of the regret-matching strategy and uniform random, with blend weight delta_T decaying over iterations. Guarantees every action keeps positive probability while delta shrinks so asymptotic convergence is not bottlenecked (Theorem 1: regret O(T^max{0.5, alpha+1})).",
+  "application_to_our_net": "Tabular formulation; in Deep CFR the strategy comes from a regret/advantage net, not explicit regret matching per infoset, so the exact mechanism doesn't drop in. The transferable idea is forced exploration: blending a small uniform floor into the sampled traversal policy could improve coverage of rarely-visited postflop infosets, which our 80-traversal CPU-bottlenecked sampler under-explores. That MIGHT marginally help our broad-quality problem. Low-effort experiment, uncertain payoff.",
+  "relevance": "med"
+ },
+ {
+  "component": "Local vs global perturbation argument (Theorem 2)",
+  "description": "Proves a single global perturbation delta_T forces each depth-h node to reach probability >= delta_T^h, requiring delta_T = o(T^{-1/H}); convergence then collapses with tree depth H. Per-infoset local perturbation tied to cumulative reach avoids this. The condition is cumulative reach of every node -> infinity.",
+  "application_to_our_net": "HUNL is deep (4 streets, capped raises), so the depth-decay warning is directly relevant IF we ever add perturbation. It tells us not to use a naive global exploration epsilon and instead scale exploration per-infoset by visit count. Useful design caveat but again only matters once we decide to pursue refinement/exploration at all.",
+  "relevance": "low"
+ },
+ {
+  "component": "Adding perturbation to DCFR rather than CFR+ (their experimental choice)",
+  "description": "The authors note they layered the decreasing perturbation on top of Discounted CFR instead of CFR+, and SPCFR stays competitive with the best CFR variant on exploitability while also reducing max-infoset regret.",
+  "application_to_our_net": "We already run DCFR+ (alpha=2, clip, bootstrap, gamma=2 averaging) with Leduc neural exploitability dropping 445->338, so the DCFR base is compatible in principle. Evidence that perturbation does NOT degrade exploitability is reassuring but the paper only validates tabular Kuhn/Leduc/Goofspiel, not neural or HUNL-scale. No demonstrated benefit at our scale.",
+  "relevance": "low"
+ },
+ {
+  "component": "Evaluation metric: maximum information-set regret as an EFPE/SE proxy",
+  "description": "Beyond exploitability, they track the worst-case per-infoset regret to measure how close a strategy is to the refinement (since no direct SE metric exists). Plain CFR variants plateau on this metric while exploitability still drops.",
+  "application_to_our_net": "We already have exact Leduc exploitability as a correctness proof; max-infoset regret is computable there too and could expose whether our DCFR+ leaves bad off-path actions. Cheap diagnostic on Leduc, but does not transfer to neural HUNL (no tabular regrets) and is not our bottleneck.",
+  "relevance": "low"
+ },
+ {
+  "component": "Claim that NE plays suboptimally at unreachable infosets vs irrational opponents",
+  "description": "Core motivation: against humans/weak bots who drift off-path, a pure NE has no incentive to play well at infosets unreachable in equilibrium, leaving exploitative value on the table.",
+  "application_to_our_net": "Diagnostically useful framing but does NOT explain our -72 bb/100. GTO Wizard AI is near-optimal, so the relevant infosets ARE on-path; our loss is on-path postflop quality. This paper addresses a different failure mode (exploiting weak opponents) than the one we are measuring. Honest verdict: not a lever for the current benchmark.",
+  "relevance": "low"
+ }
+]

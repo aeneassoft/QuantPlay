@@ -13,7 +13,8 @@ from pokerbot.strategy.features import RANKS, hand_features
 TIERS = ["air", "medium", "strong"]
 TEX = ["high", "low", "connected", "monotone", "paired"]
 BOOLS = ["flush_draw", "backdoor_flush", "nut_flush_blocker", "made_straight", "oesd", "gutshot", "has_draw"]
-_FILES = {"flop": "advisor.pt", "turn": "turn_advisor.pt"}
+_STREETS = ["flop", "turn", "river"]   # defense-advisor street one-hot (matches train_defense_advisor.feat)
+_FILES = {"flop": "advisor.pt", "turn": "turn_advisor.pt", "river": "river_advisor.pt"}
 _NETS: dict = {}
 _TORCH = None
 
@@ -75,3 +76,55 @@ def p_bet(hole, board, role, street: str = "flop") -> float | None:
                       dtype=_TORCH.float32)
     with _TORCH.no_grad():
         return float(net(x)[0, 0].item())
+
+
+# ---- MVP C2: facing-bet DEFENSE advisor (3-output fold/call/raise; trained by extraction/train_defense_advisor) ----
+_DEF: dict = {}
+
+
+def _load_defense():
+    """Load (and cache) the facing-bet defense advisor MLP (3-output fold/call/raise); False if torch/file absent."""
+    global _TORCH
+    if "net" not in _DEF:
+        try:
+            import torch
+            import torch.nn as nn
+            _TORCH = torch
+            ck = torch.load(config.KNOWLEDGE_DIR / "postflop" / "defense_advisor.pt", map_location="cpu")
+            net = nn.Sequential(nn.Linear(ck["dims"], 64), nn.ReLU(), nn.Linear(64, 64), nn.ReLU(),
+                                nn.Linear(64, 3))
+            net.load_state_dict(ck["state"])
+            net.eval()
+            _DEF["net"] = net
+        except Exception:  # noqa: BLE001
+            _DEF["net"] = False
+    return _DEF["net"]
+
+
+def defense_available() -> bool:
+    return bool(_load_defense())
+
+
+def p_defense(hole, board, role, size_faced: float, street: str = "flop"):
+    """Solver (P_fold, P_call, P_raise) for this hand facing a bet of size_faced (× the pot it was bet into) on
+    `street`, or None -> caller uses the heuristic. Trained on the flop+river caches -> the caller gates to those
+    streets. Feature vector EXACTLY matches extraction/train_defense_advisor.feat: tier, texture(flop), STREET,
+    role, bools, overcards, strength, size_faced. Texture is keyed on the flop (board[:3]) as in build_defense_data."""
+    net = _load_defense()
+    if not net:
+        return None
+    f = hand_features(hole, board)
+    tex = _texture(board[:3])
+    strength = 1.0 - evaluate(board, hole) / 7462.0
+    v = [1.0 if f["tier"] == t else 0.0 for t in TIERS]
+    v += [1.0 if tex == t else 0.0 for t in TEX]
+    v += [1.0 if street == s else 0.0 for s in _STREETS]
+    v.append(1.0 if role == "IP" else 0.0)
+    v += [1.0 if f[k] else 0.0 for k in BOOLS]
+    v.append(f["overcards"] / 2.0)
+    v.append(float(strength))
+    v.append(float(size_faced))
+    x = _TORCH.tensor([v], dtype=_TORCH.float32)
+    with _TORCH.no_grad():
+        p = _TORCH.softmax(net(x), dim=1)[0]
+    return float(p[0]), float(p[1]), float(p[2])

@@ -113,7 +113,7 @@ class PokerBotHero:
 
 
 # ---------------- match loop ----------------
-def play(hero, opp_decide, hands, seed=7, start=10000, sb=50, bb=100) -> float:
+def play(hero, opp_decide, hands, seed=7, start=10000, sb=50, bb=100, return_net=False):
     g = HeadsUpGame(names=("Hero", "Opp"), starting_stack=start, sb=sb, bb=bb, seed=seed)
     net = []
     for _ in range(hands):
@@ -136,6 +136,8 @@ def play(hero, opp_decide, hands, seed=7, start=10000, sb=50, bb=100) -> float:
         if hasattr(hero, "observe_hand_end"):
             hero.observe_hand_end()
         net.append(g.players[0].stack - start)
+    if return_net:
+        return net
     return sum(net) / len(net)
 
 

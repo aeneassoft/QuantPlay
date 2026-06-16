@@ -1,120 +1,96 @@
-# PokerB — Heads-Up GTO + Exploitative Poker Bot
+# PokerB — a Heads-Up & 6-max No-Limit Hold'em GTO + exploit bot
 
-A No-Limit Hold'em bot (Heads-Up proof-of-concept, built to extend to 6-max) whose strategy is
-grounded in three classic poker books. The books were mined automatically:
+A No-Limit Hold'em bot grounded in five poker books and modern CFR research, with a browser app to play
+against it, an opponent-exploiting layer, a Claude-backed coach, and a measurement harness against the
+strongest public benchmarks (Slumbot, GTO Wizard AI). The current frontier is **building our own from-scratch
+neural Deep CFR self-play GTO core** to escape the ceiling of solver imitation.
 
-- **Claude (Opus 4.8)** read the books and extracted strategy **concepts/heuristics** and the
-  **GTO preflop range grids** (vision on the 13×13 charts).
-- **OpenAI (gpt-5.1)** formalized and **verified the poker math** (pot odds, EV, MDF, bluff/value
-  ratios, implied odds, SPR, combinatorics, …) into runnable, tested Python.
-
-You play against the bot in the browser and a **Claude-backed coach** explains the bot's moves,
-reviews yours, and answers questions — all citing the principles pulled from your books.
+> **New here? Read [`docs/STATE.md`](docs/STATE.md) first** — the LIVE source of truth (current frontier, the
+> headline number, the next build). `CLAUDE.md` = stable conventions; this README = the durable overview;
+> `STATE.md` = what's happening now. `NOTES.md` = the deferred-precision / open-questions log.
 
 ---
 
-## Quick start
+## Run it
 
-**Easiest:** double-click **`PokerB spielen.bat`** on the Desktop — it starts the server and
-opens the browser automatically.
+| What | Command | Launcher |
+|---|---|---|
+| **6-max vs 5 bots** (the main app) | `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 | `PokerB 6max spielen.bat` |
+| **Heads-Up + live Claude coach** | `python -m pokerbot.web.server --open` | `PokerB spielen.bat` |
 
-Manual:
-```powershell
-# 1. (once) install deps
-python -m pip install -r requirements.txt
-
-# 2. play in the browser
-python -m pokerbot.web.server --open
-#   -> http://127.0.0.1:8000
-```
-
-Click **Neues Spiel**, then act with the Fold / Check / Call / Bet-Raise (slider + ½/¾/Pot quick
-sizes) / All-in buttons. Use the **Coach** panel to get tips.
-
-> The bot decisions are local, instant, and free. Only the **Coach** calls the Claude API
-> (on demand). API keys are read from your existing key files under `…/Secret keys/AI/`.
+Windows / PowerShell, Python 3.12. `pip install -r requirements.txt`. Run from the project root as
+`python -m <module>`. Bot decisions are local, instant, and free; only the **Coach** calls an LLM (on demand).
 
 ---
 
-## How strong is it / what is "GTO" here?
+## What it is (honest)
 
-Honest framing:
+An **exploit-primary** engine — the thesis: *no public bot plays true GTO, so the edge is exploiting each
+opponent's gap to GTO, not out-GTO-ing anyone.*
 
-- **Preflop** play is genuinely GTO-grounded: a combo-weighted hand-strength model (all-in equity
-  vs a random hand for all 169 classes) drives position/spot ranges tuned to HU GTO frequencies,
-  plus a Nash-style push/fold zone short-stacked. The book's actual grids are extracted and used by
-  the coach as reference.
-- **Postflop** play is **equity + math driven**, not a full solver: the bot estimates the
-  opponent's range (from preflop action, then narrows it by board texture and aggression), computes
-  its equity by Monte-Carlo, and decides via pot odds / MDF / EV with sensible bet-sizing — then
-  layers **exploitative** adjustments from an opponent model (over-folders get bluffed more,
-  calling stations get value-bet thinner, etc.). This plays strong, principled poker; it is not a
-  GTO solver's exact equilibrium postflop.
-- **Coaching** is where the books speak directly: the extracted principles + verified math are fed
-  to Claude so explanations cite real concepts ("MDF", "polarized 3-bet", "equity realization", …).
+- **The floor** (insurance/least-loss vs near-GTO): solver-imitation advisors (flop/turn/river MLPs that predict
+  the solver's bet/check frequency) + analytic defense (pot-odds/MDF) + fold-equity sizing + a CFR push/fold
+  blueprint (verified Nash ≤~10bb). Plus real-time **TexasSolver re-solving** at high-leverage river/turn nodes.
+- **The exploit overlay**: a Dirichlet per-node opponent model + an LCB-gated safe-exploit engine that fires only
+  on a *measured* leak (so it can't hurt vs near-GTO; it just falls back to the floor).
+- **The new direction** (the real path to GTO): a **from-scratch neural Deep CFR self-play net** that learns the
+  equilibrium with no external knowledge — the floor matches solver *frequencies* but is history-free
+  (context-collapsed), which is why it plateaus; self-play is how we escape it.
 
-**Measured strength:** vs weak/exploitable opponents the bot wins huge (calling station +469,
-maniac +524, nit +58 bb/100 — `python -m pokerbot.benchmark.internal`). Vs **Slumbot** (near-GTO,
-200bb) it loses about **−170 bb/100** over 400 hands (±81) — expected for heuristic deep-stack
-postflop; the next milestone (postflop CFR) targets exactly this gap.
+### Measured strength (the honest numbers; see `STATE.md` for the live frontier)
+- **vs the field — we crush:** weak bots **+300…+700 bb/100**; **Slumbot +31 ±46** (exploit-primary, after the
+  floor-fix + live-learning turned an old −102 into a win).
+- **vs GTO Wizard AI (the #1 benchmark, AIVAT, decision-grade n≥2500) — least-loss:** the floor/resolver is
+  **~−72 bb/100**. You cannot beat near-GTO with a history-free imitation floor; minimizing loss is the goal,
+  and the neural self-play net is the build aimed at actually closing this gap.
+- **Neural core proof:** our from-scratch Deep CFR converges on Leduc (exact exploitability; DCFR+ took the
+  neural run 445→338 mbb and still falling); the first HUNL net beats call-station/always-fold/random.
 
 ---
 
-## Architecture / file map
+## The neural-net direction (current frontier)
 
-```
-Information/                     the 3 source PDFs
-extraction/                      Phase 1 — mine the books
-  extract_text.py                PDF -> per-page text + rendered range-chart images
-  chunk.py                       token-bounded chunks
-  extract_concepts.py            Claude Opus 4.8 -> strategy concepts (structured)
-  parse_ranges.py                regex -> all 348 range captions (frequencies), free
-  extract_ranges_vision.py       Claude vision -> the HU 13x13 grids (which hands do what)
-  extract_math.py                OpenAI gpt-5.1 -> verified math formulas + Python
-  llm.py                         shared Claude/OpenAI helpers (caching, retries, checkpoints)
-knowledge_base/                  OUTPUT of Phase 1
-  concepts/concepts.json         extracted strategy concepts/heuristics
-  ranges/range_captions.json     all range captions (position/vs/stack/action-frequencies)
-  ranges/ranges_grids.json       vision-parsed per-hand HU grids
-  math/math.json + formulas.py   verified poker math
-pokerbot/
-  config.py                      paths, API keys, model ids
-  engine/                        cards, treys evaluator, Monte-Carlo equity, HU NLHE game
-  strategy/                      preflop strength, ranges, opponent model, the Bot brain
-    cfr_preflop.py               MCCFR solver for HU push/fold (true Nash) — Pluribus's core algo
-    blueprint.py                 loads the CFR push/fold blueprint into the bot
-  coach/                         Claude-backed coach (grounded in knowledge_base)
-  web/                           FastAPI server + single-page browser UI
-  benchmark/slumbot.py           play vs Slumbot's API, measure strength in bb/100
-knowledge_base/cfr/              CFR output (preflop_pushfold.json)
-docs/pluribus_and_benchmarking.md   Pluribus research + what we reused + benchmarking notes
-"PokerB spielen.bat"  (on Desktop)  double-click launcher
-tests/                           engine stress test, bot integration, coach + web smoke tests
-```
+Solver imitation is a ceiling (it re-learns the −72 floor). So we build a **pure self-play GTO core** —
+Deep CFR (Brown 2019) + DCFR+ (the AAAI-26 convergence engine) — that derives superior strategy from regret
+minimization, exactly like AlphaGo **Zero** beat the human-bootstrapped AlphaGo. External knowledge stays at the
+clean boundary — **never a training label:**
 
-## Re-running the extraction
+- **Books / Mathematics of Poker** → a **validation suite** (the toy games have exact GTO the net must
+  rediscover: clairvoyance α=1/3, MDF=1/2 at a pot bet) + design bounds. (`docs/math_theory_net_connection.md`)
+- **CFR papers** (DCFR+, Supremus, WEVA, Sequential-Equilibrium) → the algorithm + abstraction.
+  (`knowledge_base/theory/`, `docs/cfr_papers_digest.md`)
+- **PokerBench / Pluribus data** → validation + the exploit overlay (not the GTO core).
+- **OpenSpiel** → the information-state-tensor feature representation + the fast-traverse pod path.
+- **The trained LLM (Qwen)** → the exploit overlay, not the GTO core.
 
-```powershell
-python -m extraction.extract_text
-python -m extraction.chunk
-python -m extraction.parse_ranges
-python -m extraction.extract_concepts          # Claude Opus 4.8  (~$6)
-python -m extraction.extract_ranges_vision     # Claude vision    (~$8)
-python -m extraction.extract_math              # OpenAI gpt-5.1
-```
-All are **checkpointed** — re-running resumes and skips finished items.
+The next run is scoped in [`docs/NEXT_RUN_TODO.md`](docs/NEXT_RUN_TODO.md): finer bet abstraction
+(`0.33/0.5/0.75/1/1.25/2/allin`) + richer features, gated by a paired A/B vs GTO Wizard.
+
+---
+
+## Repository map
+
+| Dir | What | README |
+|---|---|---|
+| `pokerbot/` | the bot: engine, strategy, neural CFR, coach, web apps, benchmarks, arena | [pokerbot/README.md](pokerbot/README.md) |
+| `extraction/` | book-mining + heavy-compute + neural-net training + LLM/OpenAI consults | [extraction/README.md](extraction/README.md) |
+| `knowledge_base/` | extracted artifacts: concepts, ranges, math, CFR, theory, postflop nets | [knowledge_base/README.md](knowledge_base/README.md) |
+| `docs/` | `STATE.md` (live) + plans, consults, the next-run to-do | [docs/README.md](docs/README.md) |
+| `tests/` | engine stress + bot/web smoke tests | [tests/README.md](tests/README.md) |
+| `books/`, `Information/` | source PDFs (gitignored — copyrighted) | — |
+| `tools/` | external clients (the GTO Wizard researcher client) — gitignored | — |
 
 ## Tests
-
 ```powershell
-python -m tests.test_game        # 300 random hands: chip-conservation + legality
-python -m tests.test_bot         # bot-vs-bot legality + AA/72o spot checks
-python -m tests.test_coach       # live coach smoke test (calls Claude)
+python -m tests.test_game        # engine: random hands, chip-conservation + legality
+python -m tests.test_table       # N-player side pots
+python -m tests.test_bot         # bot legality + spot checks
+python -m pokerbot.strategy.cfr_preflop --quick   # CFR push/fold sanity
+python -m pokerbot.strategy.deep_cfr --vanilla --iters 1500   # Leduc CFR convergence proof
 ```
 
-## Extending to 6-max (next step)
-
-The engine's betting/showdown core and the range/equity/decision modules are written to generalize.
-Going to 6-max mainly needs: multi-seat seating/blinds + side-pots in `engine/game.py`, the full
-position set (already in the extracted MPT ranges), and per-position opening ranges in
-`strategy/ranges.py`.
+## Config & security
+- `pokerbot/config.py`: paths, models (`claude-opus-4-8`, OpenAI auto-resolves to `gpt-5.1`/`gpt-5.5`), API keys.
+- **Keys live OUTSIDE the repo** in `C:\Users\hampe\Desktop\Secret keys\` (env-var override). **Never hardcode
+  or commit keys.** The `.gitignore` keeps out secrets, `*.pt` nets, `*.pdf` books, `data/`, `tools/`, `models/`.
+- Heavy compute (RunPod): `extraction/runpod_run.py` — **always `--kill` when done**.

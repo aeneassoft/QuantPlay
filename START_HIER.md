@@ -1,5 +1,10 @@
 # PokerB — Was du bekommen hast & wie du loslegst
 
+> ⚠️ **Historisches Onboarding (erste Version).** Aktueller Stand: [README.md](README.md) + [docs/STATE.md](docs/STATE.md).
+> Der Bot ist seither weit fortgeschritten — Exploit-MVP, 6-max, GTO-Wizard-Benchmark, und jetzt ein **eigenes
+> neuronales Self-Play-Netz** (Deep CFR). Die Zahlen unten (−170 vs Slumbot etc.) sind ÜBERHOLT. Unten = wie es
+> ursprünglich ausgeliefert wurde, als Referenz.
+
 ## 🎮 Sofort spielen
 **Doppelklick auf `PokerB spielen.bat`** (liegt auf dem Desktop). Der Server startet und der
 Browser öffnet sich automatisch auf http://127.0.0.1:8000 — dann „Neues Spiel" klicken.

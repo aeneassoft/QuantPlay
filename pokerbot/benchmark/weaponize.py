@@ -85,15 +85,17 @@ def make_calibrated_opp(prof, rng):
 
 
 def _battle(arg):
-    """One matchup: our flagship bot vs an opponent spec. Returns (label, bb/100)."""
-    label, kind, spec, hands, iters = arg
+    """One matchup: our hero vs an opponent spec. Returns (label, bb/100). hero_kind='mvp' = the unified
+    PokerBot exploit-primary (the MVP we measure everywhere); 'adaptive' = the legacy AdaptiveExploiter (reference)."""
+    label, kind, spec, hands, iters, hero_kind = arg
     rng = random.Random(hash(label) & 0xFFFF)
     if kind == "calibrated":
         opp = make_calibrated_opp(spec, rng)
     else:  # synthetic random
         fp, ap_, sz = spec
         opp = bta.opp_synthetic(rng, fold_p=fp, aggr_p=ap_, size=sz)
-    hero = AdaptiveExploiter(0, seed=7, iters=iters, gate=True, depth_aware=True)
+    hero = (bta.PokerBotHero(exploit=True, seed=7) if hero_kind == "mvp"
+            else AdaptiveExploiter(0, seed=7, iters=iters, gate=True, depth_aware=True))
     return label, bta.play(hero, opp, hands)
 
 
@@ -103,6 +105,8 @@ def main() -> None:
     ap.add_argument("--pop", type=int, default=200, help="extra random 'unknown' opponents")
     ap.add_argument("--iters", type=int, default=120)
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--hero", choices=("mvp", "adaptive"), default="mvp",
+                    help="mvp = the unified PokerBot exploit-primary (default); adaptive = legacy AdaptiveExploiter")
     args = ap.parse_args()
 
     print("Deriving calibrated opponents from real data sources...")
@@ -112,14 +116,14 @@ def main() -> None:
         profiles[name] = p
         print(f"  {name:18s}: fold={p['fold']} aggr={p['aggr']} vpip={p['vpip']} (n_faced={p['n_faced']})")
 
-    tasks = [(name, "calibrated", profiles[name], args.hands, args.iters)
+    tasks = [(name, "calibrated", profiles[name], args.hands, args.iters, args.hero)
              for name in SOURCES if profiles[name]["n_faced"] >= 30]
     rng = random.Random(123)
     for i in range(args.pop):
         tasks.append((f"unknown#{i}", "synthetic",
-                      (rng.random(), rng.random() * 0.7, 0.3 + rng.random() * 1.2), args.hands, args.iters))
+                      (rng.random(), rng.random() * 0.7, 0.3 + rng.random() * 1.2), args.hands, args.iters, args.hero))
 
-    print(f"\nBattling our bot (adaptive+gate+depth) in {len(tasks)} matchups "
+    print(f"\nBattling our bot (hero={args.hero}) in {len(tasks)} matchups "
           f"({args.hands} hands each, {args.workers} workers)...")
     if args.workers > 1:
         with mp.Pool(args.workers) as pool:
@@ -137,7 +141,7 @@ def main() -> None:
         print(f"\n  vs {len(synth)} random unknown opponents: beaten {beaten}/{len(synth)} "
               f"({100*beaten/len(synth):.0f}%) | mean {statistics.mean(synth):+.0f} | min {min(synth):+.0f}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps({"profiles": profiles, "real_bb100": real,
+    OUT.write_text(json.dumps({"hero": args.hero, "profiles": profiles, "real_bb100": real,
                                "synth_beaten_pct": (100 * sum(1 for b in synth if b > 0) / len(synth)) if synth else None,
                                "synth_mean": statistics.mean(synth) if synth else None}, indent=2), encoding="utf-8")
     print(f"\nSaved -> {OUT}")
