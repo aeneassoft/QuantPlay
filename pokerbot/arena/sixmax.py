@@ -51,6 +51,10 @@ PROFILES = {
     "lag":     Knobs("lag",     open_mult=1.35, tb_pct=0.87, fb_pct=0.92, flat_hi=0.40, cont_lo=0.26, bluff_mult=1.7, call_delta=-0.03),
     "station": Knobs("station", open_mult=1.10, tb_pct=0.96, fb_pct=0.98, flat_hi=0.52, cont_lo=0.30, bluff_mult=0.4, call_delta=-0.10),
     "maniac":  Knobs("maniac",  open_mult=1.65, tb_pct=0.82, fb_pct=0.88, flat_hi=0.34, cont_lo=0.30, bluff_mult=2.4, call_delta=-0.05),
+    # ---- HELD-OUT variants (distinct types the RL policy never trains against; the robustness eval league) ----
+    "rock":    Knobs("rock",    open_mult=0.55, tb_pct=0.97, fb_pct=0.98, flat_hi=0.18, cont_lo=0.12, bluff_mult=0.2, call_delta=0.10),
+    "whale":   Knobs("whale",   open_mult=1.20, tb_pct=0.97, fb_pct=0.98, flat_hi=0.65, cont_lo=0.35, bluff_mult=0.3, call_delta=-0.15),
+    "shark":   Knobs("shark",   open_mult=1.15, tb_pct=0.89, fb_pct=0.93, flat_hi=0.36, cont_lo=0.24, bluff_mult=1.3, call_delta=-0.02),
 }
 
 

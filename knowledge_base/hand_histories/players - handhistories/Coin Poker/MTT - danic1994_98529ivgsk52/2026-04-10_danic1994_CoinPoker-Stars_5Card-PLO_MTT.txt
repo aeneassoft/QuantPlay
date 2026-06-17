@@ -1,0 +1,4614 @@
+PokerStars Hand #2395650031: Tournament #45759, $109 Kickoff Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:44:44 GMT
+Table '239565' 7-max Seat #5 is the button
+Seat 1: hQQpe (10314.50 in chips)
+Seat 2: Stefan24 (20660 in chips)
+Seat 3: churlz (18906 in chips)
+Seat 4: Discipline01 (15998.57 in chips)
+Seat 5: cryptonuktus (71435.72 in chips)
+Seat 6: DaniC1994 (15262.52 in chips)
+hQQpe: posts the ante 75
+Stefan24: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+DaniC1994: posts small blind 250
+hQQpe: posts big blind 500
+*** HOLE CARDS ***
+Stefan24: raises 500 to 1000
+churlz: raises 17831 to 18831 and is all-in
+Discipline01: calls 15923.57 and is all-in
+cryptonuktus: folds
+DaniC1994: folds
+hQQpe: folds
+Stefan24: calls 17831
+*** FLOP *** [4h As 3c]
+*** TURN *** [4h As 3c] [Th]
+*** RIVER *** [4h As 3c Th] [9c]
+Stefan24: shows [Ah Js] ()
+churlz: shows [Ac Kd] (Pair: Pair of A)
+Discipline01: shows [9h 9s] (Three of a kind: Triplet of 9)
+Discipline01 collected 48970.71
+churlz collected 5814.86
+*** SUMMARY ***
+Total pot 54785.57 | Rake 0
+Board [ 4h As 3c Th 9c ]
+Game ended: 2026/04/10 17:45:25 GMT
+Seat 1: hQQpe (small blind) folded before the flop
+Seat 2: Stefan24 showed [ Ah Js ] and lost with 
+Seat 3: churlz showed [ Ac Kd ] and won (5814.86) with Pair: Pair of A
+Seat 4: Discipline01 showed [ 9h 9s ] and won (48970.71) with Three of a kind: Triplet of 9
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2394150099: Tournament #45791, $55 CoinHunter PKO Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:45:00 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (86788.94 in chips)
+Seat 2: ntglty (39593.41 in chips)
+Seat 3: seijurohiko (15614.92 in chips)
+Seat 4: DaniC1994 (22025 in chips)
+Seat 5: Trifecta2025 (40217.28 in chips)
+Seat 6: royalflushy (47272.30 in chips)
+Seat 7: JusticeIsServed (19925 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+Trifecta2025: posts small blind 300
+royalflushy: posts big blind 600
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: raises 660 to 1260
+Trifecta2025: folds
+royalflushy: calls 660
+*** FLOP *** [Qs Th 6d]
+royalflushy: checks
+DaniC1994: bets 836
+royalflushy: raises 1736 to 2572
+DaniC1994: folds
+Uncalled bet (1736) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 5017
+*** SUMMARY ***
+Total pot 5017 | Rake 0
+Board [ Qs Th 6d ]
+Game ended: 2026/04/10 18:46:07 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded on the Flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy (small blind) collected (5017)
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150096: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:42:44 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (87013.94 in chips)
+Seat 2: ntglty (40118.41 in chips)
+Seat 3: seijurohiko (18539.92 in chips)
+Seat 4: DaniC1994 (20000 in chips)
+Seat 5: Trifecta2025 (44053.28 in chips)
+Seat 6: royalflushy (41711.30 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+ntglty: posts small blind 300
+seijurohiko: posts big blind 600
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: raises 1200 to 1800
+royalflushy: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+Uncalled bet (1200) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 1950
+*** SUMMARY ***
+Total pot 1950 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 18:43:12 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: seijurohiko (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (1950)
+Seat 6: royalflushy folded before the flop
+
+
+PokerStars Hand #2394150097: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:43:12 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (86938.94 in chips)
+Seat 2: ntglty (39743.41 in chips)
+Seat 3: seijurohiko (17864.92 in chips)
+Seat 4: DaniC1994 (19925 in chips)
+Seat 5: Trifecta2025 (45328.28 in chips)
+Seat 6: royalflushy (41636.30 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+seijurohiko: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+Trifecta2025: folds
+royalflushy: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: calls 300
+DaniC1994: raises 1500 to 2100
+seijurohiko: calls 1500
+*** FLOP *** [2d Qs As]
+seijurohiko: checks
+DaniC1994: bets 1162.50
+seijurohiko: folds
+Uncalled bet (1162.50) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 4650
+*** SUMMARY ***
+Total pot 4650 | Rake 0
+Board [ 2d Qs As ]
+Game ended: 2026/04/10 18:44:11 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko (small blind) folded on the Flop
+Seat 4: DaniC1994 (small blind) collected (4650)
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+
+
+PokerStars Hand #2394150098: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:44:12 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (86863.94 in chips)
+Seat 2: ntglty (39668.41 in chips)
+Seat 3: seijurohiko (15689.92 in chips)
+Seat 4: DaniC1994 (22400 in chips)
+Seat 5: Trifecta2025 (45253.28 in chips)
+Seat 6: royalflushy (41561.30 in chips)
+Seat 7: JusticeIsServed (20000 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+DaniC1994: posts small blind 300
+Trifecta2025: posts big blind 600
+*** HOLE CARDS ***
+royalflushy: raises 600 to 1200
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: calls 600
+*** FLOP *** [3c Td 4s]
+Trifecta2025: checks
+royalflushy: bets 1612
+Trifecta2025: calls 1612
+*** TURN *** [3c Td 4s] [7c]
+Trifecta2025: checks
+royalflushy: bets 2149
+Trifecta2025: calls 2149
+*** RIVER *** [3c Td 4s 7c] [As]
+Trifecta2025: checks
+royalflushy: checks
+Trifecta2025: shows [9c 8c] ()
+royalflushy: shows [Th Qc] (Pair: Pair of T)
+royalflushy collected 10747
+*** SUMMARY ***
+Total pot 10747 | Rake 0
+Board [ 3c Td 4s 7c As ]
+Game ended: 2026/04/10 18:44:59 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) showed [ 9c 8c ] and lost with 
+Seat 6: royalflushy showed [ Th Qc ] and won (10747) with Pair: Pair of T
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150100: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:46:08 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (86713.94 in chips)
+Seat 2: ntglty (39518.41 in chips)
+Seat 3: seijurohiko (15539.92 in chips)
+Seat 4: DaniC1994 (19854 in chips)
+Seat 5: Trifecta2025 (39842.28 in chips)
+Seat 6: royalflushy (50118.30 in chips)
+Seat 7: JusticeIsServed (19850 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+royalflushy: posts small blind 300
+JusticeIsServed: posts big blind 600
+*** HOLE CARDS ***
+NorthMan11: calls 600
+ntglty: folds
+seijurohiko: folds
+DaniC1994: calls 600
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: checks
+*** FLOP *** [Js 9d 5s]
+JusticeIsServed: checks
+NorthMan11: bets 866.25
+DaniC1994: raises 1732.75 to 2599
+JusticeIsServed: folds
+NorthMan11: calls 1732.75
+*** TURN *** [Js 9d 5s] [Kc]
+NorthMan11: checks
+DaniC1994: checks
+*** RIVER *** [Js 9d 5s Kc] [3h]
+NorthMan11: bets 5867.25
+DaniC1994: calls 5867.25
+NorthMan11: shows [Kh Jh] (Two Pair: Pair of K and J)
+DaniC1994: mucks hand
+NorthMan11 collected 19557.50
+*** SUMMARY ***
+Total pot 19557.50 | Rake 0
+Board [ Js 9d 5s Kc 3h ]
+Game ended: 2026/04/10 18:47:37 GMT
+Seat 1: NorthMan11 showed [ Kh Jh ] and won (19557.50) with Two Pair: Pair of K and J
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 mucked
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded on the Flop
+
+
+PokerStars Hand #2394150101: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:47:37 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (97130.19 in chips)
+Seat 2: ntglty (39443.41 in chips)
+Seat 3: seijurohiko (15464.92 in chips)
+Seat 4: DaniC1994 (10712.75 in chips)
+Seat 5: Trifecta2025 (39767.28 in chips)
+Seat 6: royalflushy (49743.30 in chips)
+Seat 7: JusticeIsServed (19175 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+JusticeIsServed: posts small blind 300
+NorthMan11: posts big blind 600
+*** HOLE CARDS ***
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: raises 600 to 1200
+JusticeIsServed: folds
+NorthMan11: calls 600
+*** FLOP *** [Ac Ts 2s]
+NorthMan11: checks
+royalflushy: bets 1612
+NorthMan11: folds
+Uncalled bet (1612) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 3225
+*** SUMMARY ***
+Total pot 3225 | Rake 0
+Board [ Ac Ts 2s ]
+Game ended: 2026/04/10 18:48:25 GMT
+Seat 1: NorthMan11 (small blind) folded on the Flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy collected (3225)
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150102: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:48:26 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (95855.19 in chips)
+Seat 2: ntglty (39368.41 in chips)
+Seat 3: seijurohiko (15389.92 in chips)
+Seat 4: DaniC1994 (10637.75 in chips)
+Seat 5: Trifecta2025 (39692.28 in chips)
+Seat 6: royalflushy (51693.30 in chips)
+Seat 7: JusticeIsServed (18800 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+NorthMan11: posts small blind 300
+ntglty: posts big blind 600
+*** HOLE CARDS ***
+seijurohiko: raises 600 to 1200
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 600
+*** FLOP *** [Kd Jd As]
+ntglty: checks
+seijurohiko: bets 1935
+ntglty: folds
+Uncalled bet (1935) returned to seijurohiko
+seijurohiko: doesn't show hand
+seijurohiko collected 3225
+*** SUMMARY ***
+Total pot 3225 | Rake 0
+Board [ Kd Jd As ]
+Game ended: 2026/04/10 18:49:06 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded on the Flop
+Seat 3: seijurohiko collected (3225)
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150103: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:49:07 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (95480.19 in chips)
+Seat 2: ntglty (38093.41 in chips)
+Seat 3: seijurohiko (17339.92 in chips)
+Seat 4: DaniC1994 (10562.75 in chips)
+Seat 5: Trifecta2025 (39617.28 in chips)
+Seat 6: royalflushy (51618.30 in chips)
+Seat 7: JusticeIsServed (18725 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+ntglty: posts small blind 300
+seijurohiko: posts big blind 600
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: raises 600 to 1200
+NorthMan11: folds
+ntglty: calls 900
+seijurohiko: calls 600
+*** FLOP *** [3h 9h Ah]
+ntglty: checks
+seijurohiko: checks
+JusticeIsServed: bets 1031.25
+ntglty: folds
+seijurohiko: calls 1031.25
+*** TURN *** [3h 9h Ah] [2h]
+seijurohiko: checks
+JusticeIsServed: checks
+*** RIVER *** [3h 9h Ah 2h] [Jd]
+seijurohiko: bets 2041.87
+JusticeIsServed: folds
+Uncalled bet (2041.87) returned to seijurohiko
+seijurohiko: doesn't show hand
+seijurohiko collected 6187.50
+*** SUMMARY ***
+Total pot 6187.50 | Rake 0
+Board [ 3h 9h Ah 2h Jd ]
+Game ended: 2026/04/10 18:50:08 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) folded on the Flop
+Seat 3: seijurohiko (small blind) collected (6187.50)
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded on the River
+
+
+PokerStars Hand #2394150104: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:50:09 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (95405.19 in chips)
+Seat 2: ntglty (36818.41 in chips)
+Seat 3: seijurohiko (21221.17 in chips)
+Seat 4: DaniC1994 (10487.75 in chips)
+Seat 5: Trifecta2025 (39542.28 in chips)
+Seat 6: royalflushy (51543.30 in chips)
+Seat 7: JusticeIsServed (16418.75 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+seijurohiko: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: raises 600 to 1200
+seijurohiko: raises 19946.17 to 21146.17 and is all-in
+DaniC1994: folds
+ntglty: folds
+Uncalled bet (19946.17) returned to seijurohiko
+seijurohiko: doesn't show hand
+seijurohiko collected 3525
+*** SUMMARY ***
+Total pot 3525 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 18:50:55 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko (small blind) collected (3525)
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150106: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/10 18:51:55 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (95255.19 in chips)
+Seat 2: ntglty (40388.41 in chips)
+Seat 3: seijurohiko (19901.17 in chips)
+Seat 4: DaniC1994 (9437.75 in chips)
+Seat 5: Trifecta2025 (38792.28 in chips)
+Seat 6: royalflushy (51393.30 in chips)
+Seat 7: JusticeIsServed (16268.75 in chips)
+NorthMan11: posts the ante 75
+ntglty: posts the ante 75
+seijurohiko: posts the ante 75
+DaniC1994: posts the ante 75
+Trifecta2025: posts the ante 75
+royalflushy: posts the ante 75
+JusticeIsServed: posts the ante 75
+Trifecta2025: posts small blind 300
+royalflushy: posts big blind 600
+*** HOLE CARDS ***
+JusticeIsServed: raises 600 to 1200
+NorthMan11: folds
+ntglty: folds
+seijurohiko: raises 1800 to 3000
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: folds
+Uncalled bet (1800) returned to seijurohiko
+seijurohiko: doesn't show hand
+seijurohiko collected 3825
+*** SUMMARY ***
+Total pot 3825 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 18:52:30 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko collected (3825)
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150107: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 18:52:31 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (95180.19 in chips)
+Seat 2: ntglty (40313.41 in chips)
+Seat 3: seijurohiko (22451.17 in chips) is sitting out
+Seat 4: DaniC1994 (9362.75 in chips)
+Seat 5: Trifecta2025 (38417.28 in chips)
+Seat 6: royalflushy (50718.30 in chips)
+Seat 7: JusticeIsServed (14993.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+royalflushy: posts small blind 350
+JusticeIsServed: posts big blind 700
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+DaniC1994: folds
+Trifecta2025: raises 700 to 1400
+royalflushy: folds
+JusticeIsServed: calls 700
+*** FLOP *** [Ad 9d 6s]
+JusticeIsServed: checks
+Trifecta2025: checks
+*** TURN *** [Ad 9d 6s] [9s]
+JusticeIsServed: checks
+Trifecta2025: bets 2824.50
+JusticeIsServed: folds
+Uncalled bet (2824.50) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 3766
+*** SUMMARY ***
+Total pot 3766 | Rake 0
+Board [ Ad 9d 6s 9s ]
+Game ended: 2026/04/10 18:53:38 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko mucked
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (3766)
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded on the Turn
+
+
+PokerStars Hand #2394150108: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 18:53:38 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (95092.19 in chips)
+Seat 2: ntglty (40225.41 in chips)
+Seat 3: seijurohiko (22363.17 in chips)
+Seat 4: DaniC1994 (9274.75 in chips)
+Seat 5: Trifecta2025 (40695.28 in chips)
+Seat 6: royalflushy (50280.30 in chips)
+Seat 7: JusticeIsServed (13505.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+JusticeIsServed: posts small blind 350
+NorthMan11: posts big blind 700
+*** HOLE CARDS ***
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: raises 700 to 1400
+JusticeIsServed: folds
+NorthMan11: folds
+Uncalled bet (700) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 18:54:05 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy collected (2366)
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150111: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:02:52 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (84767.44 in chips)
+Seat 2: ntglty (36328.41 in chips)
+Seat 3: seijurohiko (21399.17 in chips)
+Seat 4: DaniC1994 (21157.50 in chips)
+Seat 5: Trifecta2025 (43210.28 in chips)
+Seat 6: royalflushy (51682.30 in chips)
+Seat 7: JusticeIsServed (12891.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+seijurohiko: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+Trifecta2025: raises 700 to 1400
+royalflushy: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Uncalled bet (700) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:03:18 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 collected (2366)
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150112: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:03:19 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (84679.44 in chips)
+Seat 2: ntglty (36240.41 in chips)
+Seat 3: seijurohiko (20961.17 in chips)
+Seat 4: DaniC1994 (20369.50 in chips)
+Seat 5: Trifecta2025 (44788.28 in chips)
+Seat 6: royalflushy (51594.30 in chips)
+Seat 7: JusticeIsServed (12803.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+DaniC1994: posts small blind 350
+Trifecta2025: posts big blind 700
+*** HOLE CARDS ***
+royalflushy: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: raises 700 to 1400
+DaniC1994: folds
+Trifecta2025: folds
+Uncalled bet (700) returned to seijurohiko
+seijurohiko: doesn't show hand
+seijurohiko collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:04:01 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko collected (2366)
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150113: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:04:02 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (84591.44 in chips)
+Seat 2: ntglty (36152.41 in chips)
+Seat 3: seijurohiko (22539.17 in chips)
+Seat 4: DaniC1994 (19931.50 in chips)
+Seat 5: Trifecta2025 (44000.28 in chips)
+Seat 6: royalflushy (51506.30 in chips)
+Seat 7: JusticeIsServed (12715.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+Trifecta2025: posts small blind 350
+royalflushy: posts big blind 700
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: raises 1050 to 1750
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+Uncalled bet (1050) returned to NorthMan11
+NorthMan11: doesn't show hand
+NorthMan11 collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:04:52 GMT
+Seat 1: NorthMan11 collected (2366)
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150114: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:04:53 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (86169.44 in chips)
+Seat 2: ntglty (36064.41 in chips)
+Seat 3: seijurohiko (22451.17 in chips)
+Seat 4: DaniC1994 (19843.50 in chips)
+Seat 5: Trifecta2025 (43562.28 in chips)
+Seat 6: royalflushy (50718.30 in chips)
+Seat 7: JusticeIsServed (12627.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+royalflushy: posts small blind 350
+JusticeIsServed: posts big blind 700
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: raises 700 to 1400
+JusticeIsServed: raises 2100 to 3500
+royalflushy: folds
+Uncalled bet (2100) returned to JusticeIsServed
+JusticeIsServed: doesn't show hand
+JusticeIsServed collected 3416
+*** SUMMARY ***
+Total pot 3416 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:05:34 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) collected (3416)
+
+
+PokerStars Hand #2394150115: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:05:35 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (86081.44 in chips)
+Seat 2: ntglty (35976.41 in chips)
+Seat 3: seijurohiko (22363.17 in chips)
+Seat 4: DaniC1994 (19755.50 in chips)
+Seat 5: Trifecta2025 (43474.28 in chips)
+Seat 6: royalflushy (49230.30 in chips)
+Seat 7: JusticeIsServed (14555.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+JusticeIsServed: posts small blind 350
+NorthMan11: posts big blind 700
+*** HOLE CARDS ***
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: raises 700 to 1400
+JusticeIsServed: folds
+NorthMan11: folds
+Uncalled bet (700) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:05:56 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy collected (2366)
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150116: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:05:56 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (85293.44 in chips)
+Seat 2: ntglty (35888.41 in chips)
+Seat 3: seijurohiko (22275.17 in chips)
+Seat 4: DaniC1994 (19667.50 in chips)
+Seat 5: Trifecta2025 (43386.28 in chips)
+Seat 6: royalflushy (50808.30 in chips)
+Seat 7: JusticeIsServed (14117.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+NorthMan11: posts small blind 350
+ntglty: posts big blind 700
+*** HOLE CARDS ***
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: raises 700 to 1400
+NorthMan11: folds
+ntglty: calls 700
+*** FLOP *** [9s 6s 7h]
+ntglty: checks
+JusticeIsServed: bets 1883
+ntglty: folds
+Uncalled bet (1883) returned to JusticeIsServed
+JusticeIsServed: doesn't show hand
+JusticeIsServed collected 3766
+*** SUMMARY ***
+Total pot 3766 | Rake 0
+Board [ 9s 6s 7h ]
+Game ended: 2026/04/10 19:06:56 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded on the Flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed collected (3766)
+
+
+PokerStars Hand #2394150117: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:06:56 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (84855.44 in chips)
+Seat 2: ntglty (34400.41 in chips)
+Seat 3: seijurohiko (22187.17 in chips)
+Seat 4: DaniC1994 (19579.50 in chips)
+Seat 5: Trifecta2025 (43298.28 in chips)
+Seat 6: royalflushy (50720.30 in chips)
+Seat 7: JusticeIsServed (16395.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+ntglty: posts small blind 350
+seijurohiko: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: raises 700 to 1400
+NorthMan11: folds
+ntglty: calls 1050
+seijurohiko: folds
+*** FLOP *** [5h 4h 2s]
+ntglty: checks
+JusticeIsServed: bets 1029
+ntglty: raises 2079 to 3108
+JusticeIsServed: folds
+Uncalled bet (2079) returned to ntglty
+ntglty: doesn't show hand
+ntglty collected 6174
+*** SUMMARY ***
+Total pot 6174 | Rake 0
+Board [ 5h 4h 2s ]
+Game ended: 2026/04/10 19:08:01 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) collected (6174)
+Seat 3: seijurohiko (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded on the Flop
+
+
+PokerStars Hand #2394150118: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:08:01 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (84767.44 in chips)
+Seat 2: ntglty (38057.41 in chips)
+Seat 3: seijurohiko (21399.17 in chips)
+Seat 4: DaniC1994 (19491.50 in chips)
+Seat 5: Trifecta2025 (43210.28 in chips)
+Seat 6: royalflushy (50632.30 in chips)
+Seat 7: JusticeIsServed (13878.75 in chips) is sitting out
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+seijurohiko: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+Trifecta2025: folds
+royalflushy: raises 700 to 1400
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Uncalled bet (700) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 2366
+*** SUMMARY ***
+Total pot 2366 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:08:29 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy collected (2366)
+Seat 7: JusticeIsServed mucked
+
+
+PokerStars Hand #2394150119: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/10 19:08:29 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (84679.44 in chips)
+Seat 2: ntglty (37969.41 in chips)
+Seat 3: seijurohiko (20961.17 in chips)
+Seat 4: DaniC1994 (18703.50 in chips)
+Seat 5: Trifecta2025 (43122.28 in chips)
+Seat 6: royalflushy (52210.30 in chips)
+Seat 7: JusticeIsServed (13790.75 in chips)
+NorthMan11: posts the ante 88
+ntglty: posts the ante 88
+seijurohiko: posts the ante 88
+DaniC1994: posts the ante 88
+Trifecta2025: posts the ante 88
+royalflushy: posts the ante 88
+JusticeIsServed: posts the ante 88
+DaniC1994: posts small blind 350
+Trifecta2025: posts big blind 700
+*** HOLE CARDS ***
+royalflushy: folds
+JusticeIsServed: folds
+NorthMan11: raises 700 to 1400
+ntglty: raises 3150 to 4550
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+NorthMan11: calls 3150
+*** FLOP *** [4c Jc 4h]
+NorthMan11: checks
+ntglty: bets 2691.50
+NorthMan11: calls 2691.50
+*** TURN *** [4c Jc 4h] [5c]
+NorthMan11: checks
+ntglty: checks
+*** RIVER *** [4c Jc 4h 5c] [4d]
+NorthMan11: checks
+ntglty: checks
+NorthMan11: shows [Ac 9c] (Flush: A high)
+ntglty: mucks hand
+NorthMan11 collected 16149
+*** SUMMARY ***
+Total pot 16149 | Rake 0
+Board [ 4c Jc 4h 5c 4d ]
+Game ended: 2026/04/10 19:09:57 GMT
+Seat 1: NorthMan11 showed [ Ac 9c ] and won (16149) with Flush: A high
+Seat 2: ntglty mucked
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150122: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:11:16 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (93298.94 in chips)
+Seat 2: ntglty (30439.91 in chips)
+Seat 3: seijurohiko (22573.17 in chips)
+Seat 4: DaniC1994 (18065.50 in chips)
+Seat 5: Trifecta2025 (41734.28 in chips)
+Seat 6: royalflushy (50722.30 in chips)
+Seat 7: JusticeIsServed (14602.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+seijurohiko: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+JusticeIsServed: posts small blind 400
+NorthMan11: posts big blind 800
+*** HOLE CARDS ***
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: folds
+Uncalled bet (400) returned to NorthMan11
+NorthMan11: doesn't show hand
+NorthMan11 collected 1500
+*** SUMMARY ***
+Total pot 1500 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:11:49 GMT
+Seat 1: NorthMan11 (small blind) collected (1500)
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150124: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:12:35 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (93798.94 in chips)
+Seat 2: ntglty (28559.91 in chips)
+Seat 3: seijurohiko (22373.17 in chips)
+Seat 4: DaniC1994 (20645.50 in chips)
+Seat 5: Trifecta2025 (41534.28 in chips)
+Seat 6: royalflushy (50522.30 in chips)
+Seat 7: JusticeIsServed (14002.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+seijurohiko: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+ntglty: posts small blind 400
+seijurohiko: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: raises 800 to 1600
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+Uncalled bet (800) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 2700
+*** SUMMARY ***
+Total pot 2700 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:13:18 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: seijurohiko (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy collected (2700)
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150126: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:15:17 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (93598.94 in chips)
+Seat 2: ntglty (27959.91 in chips)
+Seat 3: seijurohiko (927.67 in chips)
+Seat 4: DaniC1994 (41591 in chips)
+Seat 5: Trifecta2025 (41334.28 in chips)
+Seat 6: royalflushy (52222.30 in chips)
+Seat 7: JusticeIsServed (13802.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+seijurohiko: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+DaniC1994: posts small blind 400
+Trifecta2025: posts big blind 800
+*** HOLE CARDS ***
+royalflushy: raises 800 to 1600
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+seijurohiko: calls 827.67 and is all-in
+DaniC1994: folds
+Trifecta2025: calls 800
+*** FLOP *** [3h Th 8s]
+Trifecta2025: bets 2563.83
+royalflushy: folds
+Uncalled bet (2563.83) returned to Trifecta2025
+*** TURN *** [3h Th 8s] [5c]
+*** RIVER *** [3h Th 8s 5c] [Qd]
+Trifecta2025: shows [8c 7d] (Pair: Pair of 8)
+seijurohiko: shows [6s 9s] ()
+Trifecta2025 collected 5127.67
+*** SUMMARY ***
+Total pot 5127.67 | Rake 0
+Board [ 3h Th 8s 5c Qd ]
+Game ended: 2026/04/10 19:16:06 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko showed [ 6s 9s ] and lost with 
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) showed [ 8c 7d ] and won (5127.67) with Pair: Pair of 8
+Seat 6: royalflushy folded on the Flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150128: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:18:08 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (89488.94 in chips)
+Seat 2: ntglty (27759.91 in chips)
+Seat 3: costakopp (71204.22 in chips)
+Seat 4: DaniC1994 (55472.50 in chips)
+Seat 5: Trifecta2025 (36290.45 in chips)
+Seat 6: royalflushy (48822.30 in chips)
+Seat 7: JusticeIsServed (13602.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+costakopp: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+royalflushy: posts small blind 400
+JusticeIsServed: posts big blind 800
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+costakopp: raises 800 to 1600
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+JusticeIsServed: calls 800
+*** FLOP *** [Kd 7d Kh]
+JusticeIsServed: checks
+costakopp: bets 1019
+JusticeIsServed: folds
+Uncalled bet (1019) returned to costakopp
+costakopp: doesn't show hand
+costakopp collected 4300
+*** SUMMARY ***
+Total pot 4300 | Rake 0
+Board [ Kd 7d Kh ]
+Game ended: 2026/04/10 19:19:25 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp collected (4300)
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded on the Flop
+
+
+PokerStars Hand #2394150130: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:20:30 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (88263.94 in chips)
+Seat 2: ntglty (27534.91 in chips)
+Seat 3: costakopp (73679.22 in chips)
+Seat 4: DaniC1994 (55247.50 in chips)
+Seat 5: Trifecta2025 (34065.45 in chips)
+Seat 6: royalflushy (52572.30 in chips)
+Seat 7: JusticeIsServed (11277.75 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+royalflushy: posts the ante 125
+JusticeIsServed: posts the ante 125
+NorthMan11: posts small blind 500
+ntglty: posts big blind 1000
+*** HOLE CARDS ***
+costakopp: raises 1000 to 2000
+DaniC1994: raises 45122.50 to 55122.50 and is all-in
+Trifecta2025: calls 2000
+royalflushy: raises 8000 to 10000
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+Trifecta2025: folds
+royalflushy: calls 42447.30 and is all-in
+Uncalled bet (2675.20) returned to DaniC1994
+*** FLOP *** [Ks 2c 4d]
+*** TURN *** [Ks 2c 4d] [Qd]
+*** RIVER *** [Ks 2c 4d Qd] [9d]
+DaniC1994: shows [Qc Qh] (Three of a kind: Triplet of Q)
+royalflushy: shows [Qc Qh Ah Kc] ()
+DaniC1994 collected 111269.60
+*** SUMMARY ***
+Total pot 111269.60 | Rake 0
+Board [ Ks 2c 4d Qd 9d ]
+Game ended: 2026/04/10 19:21:56 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 showed [ Qc Qh ] and won (111269.60) with Three of a kind: Triplet of Q
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: royalflushy showed [ Qc Qh Ah Kc ] and lost with 
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150131: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:21:56 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (87638.94 in chips)
+Seat 2: ntglty (26409.91 in chips)
+Seat 3: costakopp (71554.22 in chips)
+Seat 4: DaniC1994 (113944.80 in chips)
+Seat 5: Trifecta2025 (31940.45 in chips)
+Seat 7: JusticeIsServed (11152.75 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+JusticeIsServed: posts the ante 125
+ntglty: posts small blind 500
+costakopp: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 500
+costakopp: checks
+*** FLOP *** [Jh Qh Jd]
+ntglty: checks
+costakopp: checks
+*** TURN *** [Jh Qh Jd] [7c]
+ntglty: bets 1600
+costakopp: folds
+Uncalled bet (1600) returned to ntglty
+ntglty: doesn't show hand
+ntglty collected 2750
+*** SUMMARY ***
+Total pot 2750 | Rake 0
+Board [ Jh Qh Jd 7c ]
+Game ended: 2026/04/10 19:22:52 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) collected (2750)
+Seat 3: costakopp (small blind) folded on the Turn
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150133: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:23:39 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (87388.94 in chips)
+Seat 2: ntglty (27909.91 in chips)
+Seat 3: costakopp (69304.22 in chips)
+Seat 4: DaniC1994 (115444.80 in chips)
+Seat 5: Trifecta2025 (31690.45 in chips)
+Seat 6: GambleditALL (20000 in chips)
+Seat 7: JusticeIsServed (10902.75 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+GambleditALL: posts the ante 125
+JusticeIsServed: posts the ante 125
+DaniC1994: posts small blind 500
+Trifecta2025: posts big blind 1000
+*** HOLE CARDS ***
+GambleditALL: raises 1000 to 2000
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 2000
+costakopp: raises 4750 to 6750
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: raises 13125 to 19875 and is all-in
+ntglty: folds
+costakopp: calls 13125
+*** FLOP *** [Ah Kd Jc]
+*** TURN *** [Ah Kd Jc] [Js]
+*** RIVER *** [Ah Kd Jc Js] [5h]
+GambleditALL: shows [Ks Kc 4s 4d] ()
+costakopp: shows [Ks Kc] (Full House: Triplet of K and Pair  of J)
+costakopp collected 44125
+*** SUMMARY ***
+Total pot 44125 | Rake 0
+Board [ Ah Kd Jc Js 5h ]
+Game ended: 2026/04/10 19:24:30 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp showed [ Ks Kc ] and won (44125) with Full House: Triplet of K and Pair  of J
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: GambleditALL showed [ Ks Kc 4s 4d ] and lost with 
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150134: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:24:34 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (87263.94 in chips)
+Seat 2: ntglty (25784.91 in chips)
+Seat 3: costakopp (93429.22 in chips)
+Seat 4: DaniC1994 (114819.80 in chips)
+Seat 5: Trifecta2025 (30565.45 in chips)
+Seat 6: GambleditALL (20000 in chips)
+Seat 7: JusticeIsServed (10777.75 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+GambleditALL: posts the ante 125
+JusticeIsServed: posts the ante 125
+Trifecta2025: posts small blind 500
+GambleditALL: posts big blind 1000
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: calls 500
+GambleditALL: checks
+*** FLOP *** [Qs Qc 9s]
+Trifecta2025: bets 1000
+GambleditALL: folds
+Uncalled bet (1000) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 2875
+*** SUMMARY ***
+Total pot 2875 | Rake 0
+Board [ Qs Qc 9s ]
+Game ended: 2026/04/10 19:25:00 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) collected (2875)
+Seat 6: GambleditALL (small blind) folded on the Flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150137: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:26:17 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (77486.19 in chips)
+Seat 2: ntglty (25409.91 in chips)
+Seat 3: costakopp (91054.22 in chips)
+Seat 4: DaniC1994 (114444.80 in chips)
+Seat 5: Trifecta2025 (22662.70 in chips)
+Seat 6: GambleditALL (22500 in chips)
+Seat 7: JusticeIsServed (29083.25 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+GambleditALL: posts the ante 125
+JusticeIsServed: posts the ante 125
+NorthMan11: posts small blind 500
+ntglty: posts big blind 1000
+*** HOLE CARDS ***
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1000 to 2000
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 1000
+*** FLOP *** [Tc Jc 4c]
+ntglty: checks
+Trifecta2025: bets 1000
+ntglty: folds
+Uncalled bet (1000) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 5375
+*** SUMMARY ***
+Total pot 5375 | Rake 0
+Board [ Tc Jc 4c ]
+Game ended: 2026/04/10 19:26:58 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded on the Flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (5375)
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150138: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:26:58 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (76861.19 in chips)
+Seat 2: ntglty (23284.91 in chips)
+Seat 3: costakopp (90929.22 in chips)
+Seat 4: DaniC1994 (114319.80 in chips)
+Seat 5: Trifecta2025 (25912.70 in chips)
+Seat 6: GambleditALL (22375 in chips)
+Seat 7: JusticeIsServed (28958.25 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+GambleditALL: posts the ante 125
+JusticeIsServed: posts the ante 125
+ntglty: posts small blind 500
+costakopp: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: raises 1000 to 2000
+NorthMan11: folds
+ntglty: calls 1500
+costakopp: folds
+*** FLOP *** [9d 7s 7h]
+ntglty: checks
+JusticeIsServed: bets 1468.75
+ntglty: calls 1468.75
+*** TURN *** [9d 7s 7h] [Ts]
+ntglty: checks
+JusticeIsServed: checks
+*** RIVER *** [9d 7s 7h Ts] [Td]
+ntglty: bets 6316.25
+JusticeIsServed: folds
+Uncalled bet (6316.25) returned to ntglty
+ntglty: doesn't show hand
+ntglty collected 8812.50
+*** SUMMARY ***
+Total pot 8812.50 | Rake 0
+Board [ 9d 7s 7h Ts Td ]
+Game ended: 2026/04/10 19:28:21 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) collected (8812.50)
+Seat 3: costakopp (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded on the River
+
+
+PokerStars Hand #2394150139: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:28:21 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (76736.19 in chips)
+Seat 2: ntglty (28503.66 in chips)
+Seat 3: costakopp (89804.22 in chips)
+Seat 4: DaniC1994 (114194.80 in chips)
+Seat 5: Trifecta2025 (25787.70 in chips)
+Seat 6: GambleditALL (22250 in chips)
+Seat 7: JusticeIsServed (25364.50 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+GambleditALL: posts the ante 125
+JusticeIsServed: posts the ante 125
+costakopp: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: calls 500
+DaniC1994: raises 2500 to 3500
+costakopp: calls 2500
+*** FLOP *** [2c 2d Td]
+costakopp: checks
+DaniC1994: bets 1969
+costakopp: calls 1969
+*** TURN *** [2c 2d Td] [Th]
+costakopp: checks
+DaniC1994: checks
+*** RIVER *** [2c 2d Td Th] [Ks]
+costakopp: checks
+DaniC1994: checks
+costakopp: doesn't show hand
+DaniC1994: doesn't show hand
+costakopp collected 11813
+DaniC1994 collected 11813
+*** SUMMARY ***
+Total pot 11813 | Rake 0
+Board [ 2c 2d Td Th Ks ]
+Game ended: 2026/04/10 19:29:49 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp (small blind) collected (11813)
+Seat 4: DaniC1994 (small blind) collected (11813)
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150141: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:30:48 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (76461.19 in chips)
+Seat 2: ntglty (25708.66 in chips)
+Seat 3: costakopp (89966.72 in chips)
+Seat 4: DaniC1994 (113757.30 in chips)
+Seat 5: Trifecta2025 (29682.70 in chips)
+Seat 6: GambleditALL (21975 in chips)
+Seat 7: JusticeIsServed (25089.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+Trifecta2025: posts small blind 600
+GambleditALL: posts big blind 1200
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1200 to 2400
+GambleditALL: calls 1200
+*** FLOP *** [9d 2c Ac]
+Trifecta2025: bets 1930.50
+GambleditALL: folds
+Uncalled bet (1930.50) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 5850
+*** SUMMARY ***
+Total pot 5850 | Rake 0
+Board [ 9d 2c Ac ]
+Game ended: 2026/04/10 19:31:36 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) collected (5850)
+Seat 6: GambleditALL (small blind) folded on the Flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150142: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:31:37 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (76311.19 in chips)
+Seat 2: ntglty (25558.66 in chips)
+Seat 3: costakopp (89816.72 in chips)
+Seat 4: DaniC1994 (113607.30 in chips)
+Seat 5: Trifecta2025 (32982.70 in chips)
+Seat 6: GambleditALL (19425 in chips)
+Seat 7: JusticeIsServed (24939.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+GambleditALL: posts small blind 600
+JusticeIsServed: posts big blind 1200
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+costakopp: raises 1200 to 2400
+DaniC1994: raises 4800 to 7200
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+costakopp: calls 4800
+*** FLOP *** [9h Qc Ah]
+costakopp: checks
+DaniC1994: checks
+*** TURN *** [9h Qc Ah] [Ks]
+costakopp: checks
+DaniC1994: checks
+*** RIVER *** [9h Qc Ah Ks] [Js]
+costakopp: bets 12937.50
+DaniC1994: calls 12937.50
+costakopp: shows [7s 6s] ()
+DaniC1994: shows [Qd Jh] (Two Pair: Pair of Q and J)
+DaniC1994 collected 43125
+*** SUMMARY ***
+Total pot 43125 | Rake 0
+Board [ 9h Qc Ah Ks Js ]
+Game ended: 2026/04/10 19:32:42 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp showed [ 7s 6s ] and lost with 
+Seat 4: DaniC1994 showed [ Qd Jh ] and won (43125) with Two Pair: Pair of Q and J
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150143: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:32:43 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (76161.19 in chips)
+Seat 2: ntglty (25408.66 in chips)
+Seat 3: costakopp (69529.22 in chips)
+Seat 4: DaniC1994 (136444.80 in chips)
+Seat 5: Trifecta2025 (32832.70 in chips)
+Seat 6: GambleditALL (18675 in chips)
+Seat 7: JusticeIsServed (23589.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+JusticeIsServed: posts small blind 600
+NorthMan11: posts big blind 1200
+*** HOLE CARDS ***
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: raises 17325 to 18525 and is all-in
+JusticeIsServed: folds
+NorthMan11: folds
+Uncalled bet (17325) returned to GambleditALL
+GambleditALL: doesn't show hand
+GambleditALL collected 4050
+*** SUMMARY ***
+Total pot 4050 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:33:14 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL collected (4050)
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150144: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:33:15 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (74811.19 in chips)
+Seat 2: ntglty (25258.66 in chips)
+Seat 3: costakopp (69379.22 in chips)
+Seat 4: DaniC1994 (136294.80 in chips)
+Seat 5: Trifecta2025 (32682.70 in chips)
+Seat 6: GambleditALL (21375 in chips)
+Seat 7: JusticeIsServed (22839.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+NorthMan11: posts small blind 600
+ntglty: posts big blind 1200
+*** HOLE CARDS ***
+costakopp: raises 1200 to 2400
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 1200
+*** FLOP *** [Qh Kh 3h]
+ntglty: checks
+costakopp: bets 1528.50
+ntglty: calls 1528.50
+*** TURN *** [Qh Kh 3h] [Ks]
+ntglty: checks
+costakopp: checks
+*** RIVER *** [Qh Kh 3h Ks] [Kd]
+ntglty: checks
+costakopp: checks
+ntglty: shows [4h 5d] ()
+costakopp: shows [Ac] (Three of a kind: Triplet of K)
+costakopp collected 9507
+*** SUMMARY ***
+Total pot 9507 | Rake 0
+Board [ Qh Kh 3h Ks Kd ]
+Game ended: 2026/04/10 19:34:37 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) showed [ 4h 5d ] and lost with 
+Seat 3: costakopp showed [ Ac ] and won (9507) with Three of a kind: Triplet of K
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150145: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:34:38 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (74061.19 in chips)
+Seat 2: ntglty (21180.16 in chips)
+Seat 3: costakopp (74807.72 in chips)
+Seat 4: DaniC1994 (136144.80 in chips)
+Seat 5: Trifecta2025 (32532.70 in chips)
+Seat 6: GambleditALL (21225 in chips)
+Seat 7: JusticeIsServed (22689.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+ntglty: posts small blind 600
+costakopp: posts big blind 1200
+*** HOLE CARDS ***
+DaniC1994: raises 1320 to 2520
+Trifecta2025: calls 2520
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: calls 2520
+ntglty: folds
+costakopp: folds
+*** FLOP *** [3c 4d 3h]
+DaniC1994: checks
+Trifecta2025: checks
+NorthMan11: bets 3435.30
+DaniC1994: folds
+Trifecta2025: calls 3435.30
+*** TURN *** [3c 4d 3h] [6s]
+Trifecta2025: checks
+NorthMan11: bets 8640.30
+Trifecta2025: calls 8640.30
+*** RIVER *** [3c 4d 3h 6s] [6c]
+Trifecta2025: checks
+NorthMan11: checks
+Trifecta2025: shows [As Ac Ad 9d] ()
+NorthMan11: shows [As Ac] (Two Pair: Pair of A and 6)
+NorthMan11 collected 34561.20
+*** SUMMARY ***
+Total pot 34561.20 | Rake 0
+Board [ 3c 4d 3h 6s 6c ]
+Game ended: 2026/04/10 19:35:57 GMT
+Seat 1: NorthMan11 showed [ As Ac ] and won (34561.20) with Two Pair: Pair of A and 6
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: costakopp (small blind) folded before the flop
+Seat 4: DaniC1994 folded on the Flop
+Seat 5: Trifecta2025 showed [ As Ac Ad 9d ] and lost with 
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150147: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:37:02 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (93726.79 in chips)
+Seat 2: ntglty (20280.16 in chips)
+Seat 3: costakopp (72707.72 in chips)
+Seat 4: DaniC1994 (140599.80 in chips)
+Seat 5: Trifecta2025 (12012.10 in chips)
+Seat 6: GambleditALL (20925 in chips)
+Seat 7: JusticeIsServed (22389.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+DaniC1994: posts small blind 600
+Trifecta2025: posts big blind 1200
+*** HOLE CARDS ***
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: raises 1200 to 2400
+DaniC1994: calls 1800
+Trifecta2025: calls 1200
+*** FLOP *** [Jd 3d 2h]
+DaniC1994: checks
+Trifecta2025: checks
+costakopp: checks
+*** TURN *** [Jd 3d 2h] [5d]
+DaniC1994: checks
+Trifecta2025: checks
+costakopp: bets 2722.50
+DaniC1994: folds
+Trifecta2025: folds
+Uncalled bet (2722.50) returned to costakopp
+costakopp: doesn't show hand
+costakopp collected 8250
+*** SUMMARY ***
+Total pot 8250 | Rake 0
+Board [ Jd 3d 2h 5d ]
+Game ended: 2026/04/10 19:38:14 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp collected (8250)
+Seat 4: DaniC1994 (small blind) folded on the Turn
+Seat 5: Trifecta2025 (small blind) folded on the Turn
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150148: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:38:15 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (93576.79 in chips)
+Seat 2: ntglty (20130.16 in chips)
+Seat 3: costakopp (78407.72 in chips)
+Seat 4: DaniC1994 (138049.80 in chips)
+Seat 5: Trifecta2025 (9462.10 in chips)
+Seat 6: GambleditALL (20775 in chips)
+Seat 7: JusticeIsServed (22239.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+Trifecta2025: posts small blind 600
+GambleditALL: posts big blind 1200
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: raises 1200 to 2400
+DaniC1994: calls 2400
+Trifecta2025: raises 6912.10 to 9312.10 and is all-in
+GambleditALL: folds
+costakopp: raises 6912.10 to 16224.20
+DaniC1994: folds
+Uncalled bet (6912.10) returned to costakopp
+*** FLOP *** [9s 2h 4c]
+*** TURN *** [9s 2h 4c] [Qd]
+*** RIVER *** [9s 2h 4c Qd] [9h]
+Trifecta2025: shows [9d Kd] (Three of a kind: Triplet of 9)
+costakopp: shows [Kc Jh] ()
+Trifecta2025 collected 23274.20
+*** SUMMARY ***
+Total pot 23274.20 | Rake 0
+Board [ 9s 2h 4c Qd 9h ]
+Game ended: 2026/04/10 19:39:28 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp showed [ Kc Jh ] and lost with 
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) showed [ 9d Kd ] and won (23274.20) with Three of a kind: Triplet of 9
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150149: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:39:29 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (93426.79 in chips)
+Seat 2: ntglty (19980.16 in chips)
+Seat 3: costakopp (68945.62 in chips)
+Seat 4: DaniC1994 (135499.80 in chips)
+Seat 5: Trifecta2025 (23274.20 in chips)
+Seat 6: GambleditALL (19425 in chips)
+Seat 7: JusticeIsServed (22089.50 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+GambleditALL: posts small blind 700
+JusticeIsServed: posts big blind 1400
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1400 to 2800
+GambleditALL: folds
+JusticeIsServed: folds
+Uncalled bet (1400) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:39:52 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (4725)
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150150: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:39:52 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (93251.79 in chips)
+Seat 2: ntglty (19805.16 in chips)
+Seat 3: costakopp (68770.62 in chips)
+Seat 4: DaniC1994 (135324.80 in chips)
+Seat 5: Trifecta2025 (26424.20 in chips)
+Seat 6: GambleditALL (18550 in chips)
+Seat 7: JusticeIsServed (20514.50 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+JusticeIsServed: posts small blind 700
+NorthMan11: posts big blind 1400
+*** HOLE CARDS ***
+ntglty: folds
+costakopp: folds
+DaniC1994: raises 1540 to 2940
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: calls 1540
+*** FLOP *** [Qc 6d 7c]
+NorthMan11: checks
+DaniC1994: bets 2651.25
+NorthMan11: calls 2651.25
+*** TURN *** [Qc 6d 7c] [Th]
+NorthMan11: checks
+DaniC1994: bets 10879.22
+NorthMan11: folds
+Uncalled bet (10879.22) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 13107.50
+*** SUMMARY ***
+Total pot 13107.50 | Rake 0
+Board [ Qc 6d 7c Th ]
+Game ended: 2026/04/10 19:40:58 GMT
+Seat 1: NorthMan11 (small blind) folded on the Turn
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 collected (13107.50)
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150151: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:40:59 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (87485.54 in chips)
+Seat 2: ntglty (19630.16 in chips)
+Seat 3: costakopp (68595.62 in chips)
+Seat 4: DaniC1994 (142666.05 in chips)
+Seat 5: Trifecta2025 (26249.20 in chips)
+Seat 6: GambleditALL (18375 in chips)
+Seat 7: JusticeIsServed (19639.50 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+NorthMan11: posts small blind 700
+ntglty: posts big blind 1400
+*** HOLE CARDS ***
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: raises 16800 to 18200 and is all-in
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+Uncalled bet (16800) returned to GambleditALL
+GambleditALL: doesn't show hand
+GambleditALL collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:41:26 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL collected (4725)
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150152: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:41:27 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (86610.54 in chips)
+Seat 2: ntglty (18055.16 in chips)
+Seat 3: costakopp (68420.62 in chips)
+Seat 4: DaniC1994 (142491.05 in chips)
+Seat 5: Trifecta2025 (26074.20 in chips)
+Seat 6: GambleditALL (21525 in chips)
+Seat 7: JusticeIsServed (19464.50 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+ntglty: posts small blind 700
+costakopp: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: raises 17889.50 to 19289.50 and is all-in
+NorthMan11: folds
+ntglty: folds
+costakopp: calls 17889.50
+*** FLOP *** [9d 8d 8c]
+*** TURN *** [9d 8d 8c] [5s]
+*** RIVER *** [9d 8d 8c 5s] [3c]
+costakopp: shows [Kd Qh] ()
+JusticeIsServed: shows [5d Ad] (Two Pair: Pair of 8 and 5)
+JusticeIsServed collected 40504
+*** SUMMARY ***
+Total pot 40504 | Rake 0
+Board [ 9d 8d 8c 5s 3c ]
+Game ended: 2026/04/10 19:42:09 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: costakopp (small blind) showed [ Kd Qh ] and lost with 
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed showed [ 5d Ad ] and won (40504) with Two Pair: Pair of 8 and 5
+
+
+PokerStars Hand #2394150153: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:42:10 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (86435.54 in chips)
+Seat 2: ntglty (17180.16 in chips)
+Seat 3: costakopp (48956.12 in chips)
+Seat 4: DaniC1994 (142316.05 in chips)
+Seat 5: Trifecta2025 (25899.20 in chips)
+Seat 6: GambleditALL (21350 in chips)
+Seat 7: JusticeIsServed (40504 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+costakopp: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: raises 2100 to 3500
+ntglty: folds
+costakopp: folds
+DaniC1994: calls 2100
+*** FLOP *** [6d 7s 3d]
+DaniC1994: checks
+NorthMan11: checks
+*** TURN *** [6d 7s 3d] [9s]
+DaniC1994: bets 7407.75
+NorthMan11: folds
+Uncalled bet (7407.75) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 8925
+*** SUMMARY ***
+Total pot 8925 | Rake 0
+Board [ 6d 7s 3d 9s ]
+Game ended: 2026/04/10 19:43:08 GMT
+Seat 1: NorthMan11 folded on the Turn
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) collected (8925)
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150154: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:43:08 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (82760.54 in chips)
+Seat 2: ntglty (17005.16 in chips)
+Seat 3: costakopp (48081.12 in chips)
+Seat 4: DaniC1994 (147566.05 in chips)
+Seat 5: Trifecta2025 (25724.20 in chips)
+Seat 6: GambleditALL (21175 in chips)
+Seat 7: JusticeIsServed (40329 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+DaniC1994: posts small blind 700
+Trifecta2025: posts big blind 1400
+*** HOLE CARDS ***
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: calls 1400
+ntglty: raises 15430.16 to 16830.16 and is all-in
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+NorthMan11: calls 15430.16
+*** FLOP *** [3d Ts 4d]
+*** TURN *** [3d Ts 4d] [8h]
+*** RIVER *** [3d Ts 4d 8h] [9c]
+NorthMan11: shows [Ks 6s] ()
+ntglty: shows [Kd Qd] (High Card: K high)
+ntglty collected 36985.32
+*** SUMMARY ***
+Total pot 36985.32 | Rake 0
+Board [ 3d Ts 4d 8h 9c ]
+Game ended: 2026/04/10 19:44:07 GMT
+Seat 1: NorthMan11 showed [ Ks 6s ] and lost with 
+Seat 2: ntglty showed [ Kd Qd ] and won (36985.32) with High Card: K high
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150156: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:45:38 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: NorthMan11 (18778.77 in chips)
+Seat 2: ntglty (36810.32 in chips)
+Seat 3: costakopp (97857.73 in chips)
+Seat 4: DaniC1994 (146516.05 in chips)
+Seat 5: Trifecta2025 (23274.20 in chips)
+Seat 6: GambleditALL (19425 in chips)
+Seat 7: JusticeIsServed (39979 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+GambleditALL: posts small blind 700
+JusticeIsServed: posts big blind 1400
+*** HOLE CARDS ***
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: raises 1540 to 2940
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: calls 1540
+*** FLOP *** [5d 6c Td]
+JusticeIsServed: checks
+DaniC1994: checks
+*** TURN *** [5d 6c Td] [Ts]
+JusticeIsServed: checks
+DaniC1994: checks
+*** RIVER *** [5d 6c Td Ts] [5h]
+JusticeIsServed: bets 1951.25
+DaniC1994: calls 1951.25
+JusticeIsServed: shows [As] (Two Pair: Pair of T and 5)
+DaniC1994: mucks hand
+JusticeIsServed collected 11707.50
+*** SUMMARY ***
+Total pot 11707.50 | Rake 0
+Board [ 5d 6c Td Ts 5h ]
+Game ended: 2026/04/10 19:46:37 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 mucked
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) showed [ As ] and won (11707.50) with Two Pair: Pair of T and 5
+
+
+PokerStars Hand #2394150157: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:46:38 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (18603.77 in chips)
+Seat 2: ntglty (36635.32 in chips)
+Seat 3: costakopp (97682.73 in chips)
+Seat 4: DaniC1994 (141449.80 in chips)
+Seat 5: Trifecta2025 (23099.20 in chips)
+Seat 6: GambleditALL (18550 in chips)
+Seat 7: JusticeIsServed (46620.25 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+JusticeIsServed: posts small blind 700
+NorthMan11: posts big blind 1400
+*** HOLE CARDS ***
+ntglty: raises 1400 to 2800
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+Uncalled bet (1400) returned to ntglty
+ntglty: doesn't show hand
+ntglty collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:47:04 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty collected (4725)
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150158: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:47:04 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: NorthMan11 (17028.77 in chips)
+Seat 2: ntglty (39785.32 in chips)
+Seat 3: costakopp (97507.73 in chips)
+Seat 4: DaniC1994 (141274.80 in chips)
+Seat 5: Trifecta2025 (22924.20 in chips)
+Seat 6: GambleditALL (18375 in chips)
+Seat 7: JusticeIsServed (45745.25 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+NorthMan11: posts small blind 700
+ntglty: posts big blind 1400
+*** HOLE CARDS ***
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1400 to 2800
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: calls 1400
+*** FLOP *** [3h 6d Jh]
+ntglty: checks
+Trifecta2025: bets 2483.25
+ntglty: folds
+Uncalled bet (2483.25) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 7525
+*** SUMMARY ***
+Total pot 7525 | Rake 0
+Board [ 3h 6d Jh ]
+Game ended: 2026/04/10 19:47:38 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty (small blind) folded on the Flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (7525)
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150159: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:47:39 GMT
+Table '239415' 7-max Seat #1 is the button
+Seat 1: NorthMan11 (16153.77 in chips)
+Seat 2: ntglty (36810.32 in chips)
+Seat 3: costakopp (97332.73 in chips)
+Seat 4: DaniC1994 (141099.80 in chips)
+Seat 5: Trifecta2025 (27474.20 in chips)
+Seat 6: GambleditALL (18200 in chips)
+Seat 7: JusticeIsServed (45570.25 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+ntglty: posts small blind 700
+costakopp: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+Trifecta2025: raises 1400 to 2800
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: calls 2800
+ntglty: folds
+costakopp: calls 1400
+*** FLOP *** [Ts 6c Kc]
+costakopp: checks
+Trifecta2025: bets 3407.25
+NorthMan11: folds
+costakopp: folds
+Uncalled bet (3407.25) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 10325
+*** SUMMARY ***
+Total pot 10325 | Rake 0
+Board [ Ts 6c Kc ]
+Game ended: 2026/04/10 19:48:23 GMT
+Seat 1: NorthMan11 folded on the Flop
+Seat 2: ntglty (small blind) folded before the flop
+Seat 3: costakopp (small blind) folded on the Flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (10325)
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150160: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 19:48:24 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (13178.77 in chips)
+Seat 2: ntglty (35935.32 in chips)
+Seat 3: costakopp (94357.73 in chips)
+Seat 4: DaniC1994 (140924.80 in chips)
+Seat 5: Trifecta2025 (34824.20 in chips)
+Seat 6: GambleditALL (18025 in chips)
+Seat 7: JusticeIsServed (45395.25 in chips)
+NorthMan11: posts the ante 175
+ntglty: posts the ante 175
+costakopp: posts the ante 175
+DaniC1994: posts the ante 175
+Trifecta2025: posts the ante 175
+GambleditALL: posts the ante 175
+JusticeIsServed: posts the ante 175
+costakopp: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+Trifecta2025: folds
+GambleditALL: raises 16450 to 17850 and is all-in
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: calls 16450
+*** FLOP *** [8d 9s 8s]
+*** TURN *** [8d 9s 8s] [5h]
+*** RIVER *** [8d 9s 8s 5h] [Kh]
+DaniC1994: shows [Th Ac] ()
+GambleditALL: shows [7s 7h] (Two Pair: Pair of 8 and 7)
+GambleditALL collected 37625
+*** SUMMARY ***
+Total pot 37625 | Rake 0
+Board [ 8d 9s 8s 5h Kh ]
+Game ended: 2026/04/10 19:48:56 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) showed [ Th Ac ] and lost with 
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL showed [ 7s 7h ] and won (37625) with Two Pair: Pair of 8 and 7
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150161: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:48:56 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (13003.77 in chips)
+Seat 2: ntglty (35760.32 in chips)
+Seat 3: costakopp (93482.73 in chips)
+Seat 4: DaniC1994 (122899.80 in chips)
+Seat 5: Trifecta2025 (34649.20 in chips)
+Seat 6: GambleditALL (37625 in chips)
+Seat 7: JusticeIsServed (45220.25 in chips)
+NorthMan11: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+DaniC1994: posts small blind 800
+Trifecta2025: posts big blind 1600
+*** HOLE CARDS ***
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: raises 1600 to 3200
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: calls 1600
+*** FLOP *** [Ks 4c Kc]
+Trifecta2025: checks
+NorthMan11: bets 4300
+Trifecta2025: folds
+Uncalled bet (4300) returned to NorthMan11
+NorthMan11: doesn't show hand
+NorthMan11 collected 8600
+*** SUMMARY ***
+Total pot 8600 | Rake 0
+Board [ Ks 4c Kc ]
+Game ended: 2026/04/10 19:49:29 GMT
+Seat 1: NorthMan11 collected (8600)
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) folded on the Flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150162: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:49:29 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (18203.77 in chips)
+Seat 2: ntglty (35560.32 in chips)
+Seat 3: costakopp (93282.73 in chips)
+Seat 4: DaniC1994 (121899.80 in chips)
+Seat 5: Trifecta2025 (31249.20 in chips)
+Seat 6: GambleditALL (37425 in chips)
+Seat 7: JusticeIsServed (45020.25 in chips)
+NorthMan11: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+Trifecta2025: posts small blind 800
+GambleditALL: posts big blind 1600
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: raises 3200 to 4800
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: raises 32425 to 37225 and is all-in
+NorthMan11: calls 13203.77 and is all-in
+Uncalled bet (19221.23) returned to GambleditALL
+*** FLOP *** [9h As 5s]
+*** TURN *** [9h As 5s] [9s]
+*** RIVER *** [9h As 5s 9s] [Qh]
+GambleditALL: shows [Ad Kd] (Two Pair: Pair of A and 9)
+NorthMan11: shows [Jh Jc] ()
+GambleditALL collected 38207.54
+*** SUMMARY ***
+Total pot 38207.54 | Rake 0
+Board [ 9h As 5s 9s Qh ]
+Game ended: 2026/04/10 19:50:22 GMT
+Seat 1: NorthMan11 showed [ Jh Jc ] and lost with 
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: GambleditALL (small blind) showed [ Ad Kd ] and won (38207.54) with Two Pair: Pair of A and 9
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150163: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:50:22 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 2: ntglty (35360.32 in chips)
+Seat 3: costakopp (93082.73 in chips)
+Seat 4: DaniC1994 (121699.80 in chips)
+Seat 5: Trifecta2025 (30249.20 in chips)
+Seat 6: GambleditALL (57428.77 in chips)
+Seat 7: JusticeIsServed (44820.25 in chips)
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+GambleditALL: posts small blind 800
+JusticeIsServed: posts big blind 1600
+*** HOLE CARDS ***
+ntglty: folds
+costakopp: raises 1600 to 3200
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: calls 1600
+*** FLOP *** [Qs Ac 6s]
+JusticeIsServed: checks
+costakopp: bets 1972
+JusticeIsServed: folds
+Uncalled bet (1972) returned to costakopp
+costakopp: doesn't show hand
+costakopp collected 8400
+*** SUMMARY ***
+Total pot 8400 | Rake 0
+Board [ Qs Ac 6s ]
+Game ended: 2026/04/10 19:50:57 GMT
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp collected (8400)
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) folded on the Flop
+
+
+PokerStars Hand #2394150164: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:50:58 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: Discipline01 (75090.72 in chips)
+Seat 2: ntglty (35160.32 in chips)
+Seat 3: costakopp (98082.73 in chips)
+Seat 4: DaniC1994 (121499.80 in chips)
+Seat 5: Trifecta2025 (30049.20 in chips)
+Seat 6: GambleditALL (56428.77 in chips)
+Seat 7: JusticeIsServed (41420.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+JusticeIsServed: posts small blind 800
+Discipline01: posts big blind 1600
+*** HOLE CARDS ***
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1600 to 3200
+GambleditALL: folds
+JusticeIsServed: folds
+Discipline01: folds
+Uncalled bet (1600) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 5400
+*** SUMMARY ***
+Total pot 5400 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:51:46 GMT
+Seat 1: Discipline01 (small blind) folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 collected (5400)
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150165: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:51:46 GMT
+Table '239415' 7-max Seat #7 is the button
+Seat 1: Discipline01 (73290.72 in chips)
+Seat 2: ntglty (34960.32 in chips)
+Seat 3: costakopp (97882.73 in chips)
+Seat 4: DaniC1994 (121299.80 in chips)
+Seat 5: Trifecta2025 (33649.20 in chips)
+Seat 6: GambleditALL (56228.77 in chips)
+Seat 7: JusticeIsServed (40420.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+Discipline01: posts small blind 800
+ntglty: posts big blind 1600
+*** HOLE CARDS ***
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+Discipline01: raises 3520 to 5120
+ntglty: raises 29640.32 to 34760.32 and is all-in
+Discipline01: folds
+Uncalled bet (29640.32) returned to ntglty
+ntglty: doesn't show hand
+ntglty collected 11640
+*** SUMMARY ***
+Total pot 11640 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:52:27 GMT
+Seat 1: Discipline01 (small blind) folded before the flop
+Seat 2: ntglty (small blind) collected (11640)
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150167: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:53:28 GMT
+Table '239415' 7-max Seat #2 is the button
+Seat 1: Discipline01 (67770.72 in chips)
+Seat 2: ntglty (36840.32 in chips)
+Seat 3: costakopp (103122.73 in chips)
+Seat 4: DaniC1994 (120899.80 in chips)
+Seat 5: Trifecta2025 (33249.20 in chips)
+Seat 6: GambleditALL (55828.77 in chips)
+Seat 7: JusticeIsServed (40020.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+costakopp: posts small blind 800
+DaniC1994: posts big blind 1600
+*** HOLE CARDS ***
+Trifecta2025: folds
+GambleditALL: folds
+JusticeIsServed: folds
+Discipline01: folds
+ntglty: folds
+costakopp: calls 800
+DaniC1994: raises 4000 to 5600
+costakopp: calls 4000
+*** FLOP *** [4s 6s 9s]
+costakopp: checks
+DaniC1994: checks
+*** TURN *** [4s 6s 9s] [2d]
+costakopp: bets 12650
+DaniC1994: calls 12650
+*** RIVER *** [4s 6s 9s 2d] [2c]
+costakopp: bets 37225
+DaniC1994: calls 37225
+costakopp: shows [5c 3c] (Straight: 6 high)
+DaniC1994: mucks hand
+costakopp collected 112350
+*** SUMMARY ***
+Total pot 112350 | Rake 0
+Board [ 4s 6s 9s 2d 2c ]
+Game ended: 2026/04/10 19:54:39 GMT
+Seat 1: Discipline01 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp (small blind) showed [ 5c 3c ] and won (112350) with Straight: 6 high
+Seat 4: DaniC1994 (small blind) mucked
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150168: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 19:54:40 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: Discipline01 (67570.72 in chips)
+Seat 2: ntglty (36640.32 in chips)
+Seat 3: costakopp (159797.73 in chips)
+Seat 4: DaniC1994 (65224.80 in chips)
+Seat 5: Trifecta2025 (33049.20 in chips)
+Seat 6: GambleditALL (55628.77 in chips)
+Seat 7: JusticeIsServed (39820.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+DaniC1994: posts small blind 800
+Trifecta2025: posts big blind 1600
+*** HOLE CARDS ***
+GambleditALL: folds
+JusticeIsServed: folds
+Discipline01: folds
+ntglty: folds
+costakopp: raises 1600 to 3200
+DaniC1994: raises 9600 to 12800
+Trifecta2025: raises 20049.20 to 32849.20 and is all-in
+costakopp: folds
+DaniC1994: calls 20049.20
+*** FLOP *** [5d Kh Tc]
+*** TURN *** [5d Kh Tc] [As]
+*** RIVER *** [5d Kh Tc As] [5s]
+DaniC1994: shows [8d 8h] ()
+Trifecta2025: shows [Ac Kc] (Two Pair: Pair of A and K)
+Trifecta2025 collected 70298.40
+*** SUMMARY ***
+Total pot 70298.40 | Rake 0
+Board [ 5d Kh Tc As 5s ]
+Game ended: 2026/04/10 19:55:31 GMT
+Seat 1: Discipline01 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 (small blind) showed [ 8d 8h ] and lost with 
+Seat 5: Trifecta2025 (small blind) showed [ Ac Kc ] and won (70298.40) with Two Pair: Pair of A and K
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150169: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 20:01:02 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: Discipline01 (67370.72 in chips)
+Seat 2: ntglty (36440.32 in chips)
+Seat 3: costakopp (156397.73 in chips)
+Seat 4: DaniC1994 (32175.60 in chips)
+Seat 5: Trifecta2025 (70298.40 in chips)
+Seat 6: GambleditALL (55428.77 in chips)
+Seat 7: JusticeIsServed (39620.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+Trifecta2025: posts small blind 800
+GambleditALL: posts big blind 1600
+*** HOLE CARDS ***
+JusticeIsServed: folds
+Discipline01: folds
+ntglty: folds
+costakopp: raises 1600 to 3200
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: calls 1600
+*** FLOP *** [6d 8h Js]
+GambleditALL: checks
+costakopp: checks
+*** TURN *** [6d 8h Js] [Kd]
+GambleditALL: checks
+costakopp: checks
+*** RIVER *** [6d 8h Js Kd] [Td]
+GambleditALL: checks
+costakopp: checks
+GambleditALL: shows [4s 4c Ac 9c] ()
+costakopp: shows [4s 4c] (Pair: Pair of 4)
+costakopp collected 8600
+*** SUMMARY ***
+Total pot 8600 | Rake 0
+Board [ 6d 8h Js Kd Td ]
+Game ended: 2026/04/10 20:02:18 GMT
+Seat 1: Discipline01 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp showed [ 4s 4c ] and won (8600) with Pair: Pair of 4
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: GambleditALL (small blind) showed [ 4s 4c Ac 9c ] and lost with 
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150170: Tournament #45828, $109 CoinMasters - SHIBA Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/10 20:02:19 GMT
+Table '239415' 7-max Seat #5 is the button
+Seat 1: Discipline01 (67170.72 in chips)
+Seat 2: ntglty (36240.32 in chips)
+Seat 3: costakopp (161597.73 in chips)
+Seat 4: DaniC1994 (31975.60 in chips)
+Seat 5: Trifecta2025 (69298.40 in chips)
+Seat 6: GambleditALL (52028.77 in chips)
+Seat 7: JusticeIsServed (39420.25 in chips)
+Discipline01: posts the ante 200
+ntglty: posts the ante 200
+costakopp: posts the ante 200
+DaniC1994: posts the ante 200
+Trifecta2025: posts the ante 200
+GambleditALL: posts the ante 200
+JusticeIsServed: posts the ante 200
+GambleditALL: posts small blind 800
+JusticeIsServed: posts big blind 1600
+*** HOLE CARDS ***
+Discipline01: folds
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: folds
+GambleditALL: folds
+Uncalled bet (800) returned to JusticeIsServed
+JusticeIsServed: doesn't show hand
+JusticeIsServed collected 3000
+*** SUMMARY ***
+Total pot 3000 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:02:35 GMT
+Seat 1: Discipline01 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded before the flop
+Seat 6: GambleditALL (small blind) folded before the flop
+Seat 7: JusticeIsServed (small blind) collected (3000)
+
+
+PokerStars Hand #2394150120: Tournament #45726, $55 Friday Main Event Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:09:58 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (93498.94 in chips)
+Seat 2: ntglty (30639.91 in chips)
+Seat 3: seijurohiko (20873.17 in chips)
+Seat 4: DaniC1994 (18265.50 in chips)
+Seat 5: Trifecta2025 (42334.28 in chips)
+Seat 6: royalflushy (52122.30 in chips)
+Seat 7: JusticeIsServed (13702.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+seijurohiko: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+Trifecta2025: posts small blind 400
+royalflushy: posts big blind 800
+*** HOLE CARDS ***
+JusticeIsServed: raises 800 to 1600
+NorthMan11: folds
+ntglty: folds
+seijurohiko: folds
+DaniC1994: folds
+Trifecta2025: folds
+royalflushy: folds
+Uncalled bet (800) returned to JusticeIsServed
+JusticeIsServed: doesn't show hand
+JusticeIsServed collected 2700
+*** SUMMARY ***
+Total pot 2700 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:10:52 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: seijurohiko folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 (small blind) folded before the flop
+Seat 6: royalflushy (small blind) folded before the flop
+Seat 7: JusticeIsServed collected (2700)
+
+
+PokerStars Hand #2394150127: Tournament #45726, $55 Friday Main Event Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/10 19:16:16 GMT
+Table '239415' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (93498.94 in chips)
+Seat 2: ntglty (27859.91 in chips)
+Seat 4: DaniC1994 (41091 in chips)
+Seat 5: Trifecta2025 (44761.95 in chips)
+Seat 6: royalflushy (50522.30 in chips)
+Seat 7: JusticeIsServed (13702.75 in chips)
+NorthMan11: posts the ante 100
+ntglty: posts the ante 100
+DaniC1994: posts the ante 100
+Trifecta2025: posts the ante 100
+royalflushy: posts the ante 100
+JusticeIsServed: posts the ante 100
+Trifecta2025: posts small blind 400
+royalflushy: posts big blind 800
+*** HOLE CARDS ***
+JusticeIsServed: folds
+NorthMan11: raises 800 to 1600
+ntglty: folds
+DaniC1994: calls 1600
+Trifecta2025: calls 1200
+royalflushy: calls 800
+*** FLOP *** [Ac 6s 4d]
+Trifecta2025: checks
+royalflushy: checks
+NorthMan11: bets 2310
+DaniC1994: calls 2310
+Trifecta2025: calls 2310
+royalflushy: folds
+*** TURN *** [Ac 6s 4d] [9s]
+Trifecta2025: checks
+NorthMan11: checks
+DaniC1994: bets 4461.50
+Trifecta2025: calls 4461.50
+NorthMan11: folds
+*** RIVER *** [Ac 6s 4d 9s] [7s]
+Trifecta2025: checks
+DaniC1994: bets 32619.50 and is all-in
+Trifecta2025: folds
+Uncalled bet (32619.50) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 22853
+*** SUMMARY ***
+Total pot 22853 | Rake 0
+Board [ Ac 6s 4d 9s 7s ]
+Game ended: 2026/04/10 19:18:07 GMT
+Seat 1: NorthMan11 folded on the Turn
+Seat 2: ntglty folded before the flop
+Seat 4: DaniC1994 collected (22853)
+Seat 5: Trifecta2025 (small blind) folded on the River
+Seat 6: royalflushy (small blind) folded on the Flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2394150129: Tournament #45726, $55 Friday Main Event Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 19:19:25 GMT
+Table '239415' 7-max Seat #6 is the button
+Seat 1: NorthMan11 (89388.94 in chips)
+Seat 2: ntglty (27659.91 in chips)
+Seat 3: costakopp (73804.22 in chips)
+Seat 4: DaniC1994 (55372.50 in chips)
+Seat 5: Trifecta2025 (36190.45 in chips)
+Seat 6: royalflushy (48322.30 in chips)
+Seat 7: JusticeIsServed (11902.75 in chips)
+NorthMan11: posts the ante 125
+ntglty: posts the ante 125
+costakopp: posts the ante 125
+DaniC1994: posts the ante 125
+Trifecta2025: posts the ante 125
+royalflushy: posts the ante 125
+JusticeIsServed: posts the ante 125
+JusticeIsServed: posts small blind 500
+NorthMan11: posts big blind 1000
+*** HOLE CARDS ***
+ntglty: folds
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 1000 to 2000
+royalflushy: calls 2000
+JusticeIsServed: folds
+NorthMan11: folds
+*** FLOP *** [2d 7d Td]
+Trifecta2025: checks
+royalflushy: bets 2125
+Trifecta2025: folds
+Uncalled bet (2125) returned to royalflushy
+royalflushy: doesn't show hand
+royalflushy collected 6375
+*** SUMMARY ***
+Total pot 6375 | Rake 0
+Board [ 2d 7d Td ]
+Game ended: 2026/04/10 19:20:29 GMT
+Seat 1: NorthMan11 (small blind) folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Trifecta2025 folded on the Flop
+Seat 6: royalflushy collected (6375)
+Seat 7: JusticeIsServed (small blind) folded before the flop
+
+
+PokerStars Hand #2394150140: Tournament #45726, $55 Friday Main Event Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 19:29:50 GMT
+Table '239415' 7-max Seat #3 is the button
+Seat 1: NorthMan11 (76611.19 in chips)
+Seat 2: ntglty (28378.66 in chips)
+Seat 3: costakopp (90116.72 in chips)
+Seat 4: DaniC1994 (114507.30 in chips)
+Seat 5: Trifecta2025 (25662.70 in chips)
+Seat 6: GambleditALL (22125 in chips)
+Seat 7: JusticeIsServed (25239.50 in chips)
+NorthMan11: posts the ante 150
+ntglty: posts the ante 150
+costakopp: posts the ante 150
+DaniC1994: posts the ante 150
+Trifecta2025: posts the ante 150
+GambleditALL: posts the ante 150
+JusticeIsServed: posts the ante 150
+DaniC1994: posts small blind 600
+Trifecta2025: posts big blind 1200
+*** HOLE CARDS ***
+GambleditALL: folds
+JusticeIsServed: folds
+NorthMan11: folds
+ntglty: raises 1320 to 2520
+costakopp: folds
+DaniC1994: folds
+Trifecta2025: raises 4800 to 7320
+ntglty: folds
+Uncalled bet (4800) returned to Trifecta2025
+Trifecta2025: doesn't show hand
+Trifecta2025 collected 6690
+*** SUMMARY ***
+Total pot 6690 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 19:30:47 GMT
+Seat 1: NorthMan11 folded before the flop
+Seat 2: ntglty folded before the flop
+Seat 3: costakopp folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Trifecta2025 (small blind) collected (6690)
+Seat 6: GambleditALL folded before the flop
+Seat 7: JusticeIsServed folded before the flop
+
+
+PokerStars Hand #2406590039: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/10 20:41:35 GMT
+Table '240659' 7-max Seat #2 is the button
+Seat 1: NorthMan11 (15875 in chips)
+Seat 2: Ray81 (74350.54 in chips)
+Seat 3: petted293 (87070.43 in chips)
+Seat 4: YungKili2310 (13099.56 in chips)
+Seat 5: 8020is5050 (60548.57 in chips)
+Seat 6: DaniC1994 (20000 in chips)
+Seat 7: zeromd (99199.07 in chips)
+NorthMan11: posts the ante 125
+Ray81: posts the ante 125
+petted293: posts the ante 125
+YungKili2310: posts the ante 125
+8020is5050: posts the ante 125
+DaniC1994: posts the ante 125
+zeromd: posts the ante 125
+petted293: posts small blind 500
+YungKili2310: posts big blind 1000
+*** HOLE CARDS ***
+8020is5050: folds
+DaniC1994: folds
+zeromd: folds
+NorthMan11: raises 1500 to 2500
+Ray81: folds
+petted293: raises 3960 to 6460
+YungKili2310: raises 6514.56 to 12974.56 and is all-in
+NorthMan11: raises 2775.44 to 15750 and is all-in
+petted293: calls 9290
+*** FLOP *** [Td Qs 2d]
+*** TURN *** [Td Qs 2d] [5s]
+*** RIVER *** [Td Qs 2d 5s] [9c]
+petted293: shows [Kh Kc Ad Qh] ()
+YungKili2310: shows [As Ah] (Pair: Pair of A)
+NorthMan11: shows [Kh Kc] (Pair: Pair of K)
+NorthMan11 collected 5550.88
+YungKili2310 collected 39798.68
+*** SUMMARY ***
+Total pot 45349.56 | Rake 0
+Board [ Td Qs 2d 5s 9c ]
+Game ended: 2026/04/10 20:42:42 GMT
+Seat 1: NorthMan11 showed [ Kh Kc ] and won (5550.88) with Pair: Pair of K
+Seat 2: Ray81 folded before the flop
+Seat 3: petted293 (small blind) showed [ Kh Kc Ad Qh ] and lost with 
+Seat 4: YungKili2310 (small blind) showed [ As Ah ] and won (39798.68) with Pair: Pair of A
+Seat 5: 8020is5050 folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590041: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:43:03 GMT
+Table '240659' 7-max Seat #4 is the button
+Seat 1: NorthMan11 (5400.88 in chips)
+Seat 2: Ray81 (74075.54 in chips)
+Seat 3: petted293 (71045.43 in chips)
+Seat 4: YungKili2310 (39048.68 in chips)
+Seat 5: 8020is5050 (61923.57 in chips)
+Seat 6: DaniC1994 (19725 in chips)
+Seat 7: zeromd (98924.07 in chips)
+NorthMan11: posts the ante 150
+Ray81: posts the ante 150
+petted293: posts the ante 150
+YungKili2310: posts the ante 150
+8020is5050: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+8020is5050: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+zeromd: folds
+NorthMan11: raises 4050.88 to 5250.88 and is all-in
+Ray81: folds
+petted293: raises 4050.88 to 9301.76
+YungKili2310: folds
+8020is5050: folds
+DaniC1994: folds
+Uncalled bet (4050.88) returned to petted293
+*** FLOP *** [2s Kh Js]
+*** TURN *** [2s Kh Js] [4s]
+*** RIVER *** [2s Kh Js 4s] [Jc]
+NorthMan11: shows [Ah 2c] ()
+petted293: shows [Qd Qh] (Two Pair: Pair of Q and J)
+petted293 collected 13351.76
+*** SUMMARY ***
+Total pot 13351.76 | Rake 0
+Board [ 2s Kh Js 4s Jc ]
+Game ended: 2026/04/10 20:43:51 GMT
+Seat 1: NorthMan11 showed [ Ah 2c ] and lost with 
+Seat 2: Ray81 folded before the flop
+Seat 3: petted293 showed [ Qd Qh ] and won (13351.76) with Two Pair: Pair of Q and J
+Seat 4: YungKili2310 folded before the flop
+Seat 5: 8020is5050 (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590042: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:43:51 GMT
+Table '240659' 7-max Seat #5 is the button
+Seat 2: Ray81 (73925.54 in chips)
+Seat 3: petted293 (78996.31 in chips)
+Seat 4: YungKili2310 (38898.68 in chips)
+Seat 5: 8020is5050 (61173.57 in chips)
+Seat 6: DaniC1994 (18375 in chips)
+Seat 7: zeromd (98774.07 in chips)
+Ray81: posts the ante 150
+petted293: posts the ante 150
+YungKili2310: posts the ante 150
+8020is5050: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+DaniC1994: posts small blind 600
+zeromd: posts big blind 1200
+*** HOLE CARDS ***
+Ray81: folds
+petted293: raises 1200 to 2400
+YungKili2310: folds
+8020is5050: raises 6600 to 9000
+DaniC1994: folds
+zeromd: folds
+petted293: raises 12888 to 21888
+8020is5050: raises 39135.57 to 61023.57 and is all-in
+petted293: calls 39135.57
+*** FLOP *** [7d Th Qd]
+*** TURN *** [7d Th Qd] [4c]
+*** RIVER *** [7d Th Qd 4c] [8h]
+petted293: shows [Jc Js] (Pair: Pair of J)
+8020is5050: shows [Jc Js Ac Kh] ()
+petted293 collected 124747.14
+*** SUMMARY ***
+Total pot 124747.14 | Rake 0
+Board [ 7d Th Qd 4c 8h ]
+Game ended: 2026/04/10 20:44:41 GMT
+Seat 2: Ray81 folded before the flop
+Seat 3: petted293 showed [ Jc Js ] and won (124747.14) with Pair: Pair of J
+Seat 4: YungKili2310 folded before the flop
+Seat 5: 8020is5050 showed [ Jc Js Ac Kh ] and lost with 
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd (small blind) folded before the flop
+
+
+PokerStars Hand #2406590043: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:44:41 GMT
+Table '240659' 7-max Seat #6 is the button
+Seat 1: Godseongho (20000 in chips)
+Seat 2: Ray81 (73775.54 in chips)
+Seat 3: petted293 (142569.88 in chips)
+Seat 4: YungKili2310 (38748.68 in chips)
+Seat 6: DaniC1994 (17625 in chips)
+Seat 7: zeromd (97424.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+petted293: posts the ante 150
+YungKili2310: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+zeromd: posts small blind 600
+Godseongho: posts big blind 1200
+*** HOLE CARDS ***
+Ray81: calls 1200
+petted293: folds
+YungKili2310: folds
+DaniC1994: folds
+zeromd: folds
+Godseongho: raises 1200 to 2400
+Ray81: calls 1200
+*** FLOP *** [Ah 3h As]
+Godseongho: bets 3150
+Ray81: calls 3150
+*** TURN *** [Ah 3h As] [3d]
+Godseongho: bets 3600
+Ray81: raises 3600 to 7200
+Godseongho: folds
+Uncalled bet (3600) returned to Ray81
+Ray81: doesn't show hand
+Ray81 collected 19800
+*** SUMMARY ***
+Total pot 19800 | Rake 0
+Board [ Ah 3h As 3d ]
+Game ended: 2026/04/10 20:45:55 GMT
+Seat 1: Godseongho (small blind) folded on the Turn
+Seat 2: Ray81 collected (19800)
+Seat 3: petted293 folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd (small blind) folded before the flop
+
+
+PokerStars Hand #2406590044: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:45:55 GMT
+Table '240659' 7-max Seat #7 is the button
+Seat 1: Godseongho (10700 in chips)
+Seat 2: Ray81 (84275.54 in chips)
+Seat 3: petted293 (142419.88 in chips)
+Seat 4: YungKili2310 (38598.68 in chips)
+Seat 5: OGCrook (6045.49 in chips)
+Seat 6: DaniC1994 (17475 in chips)
+Seat 7: zeromd (96674.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+petted293: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+Godseongho: posts small blind 600
+Ray81: posts big blind 1200
+*** HOLE CARDS ***
+petted293: folds
+YungKili2310: folds
+OGCrook: folds
+DaniC1994: folds
+zeromd: raises 1800 to 3000
+Godseongho: folds
+Ray81: folds
+Uncalled bet (1800) returned to zeromd
+zeromd: doesn't show hand
+zeromd collected 4050
+*** SUMMARY ***
+Total pot 4050 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:46:31 GMT
+Seat 1: Godseongho (small blind) folded before the flop
+Seat 2: Ray81 (small blind) folded before the flop
+Seat 3: petted293 folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: OGCrook folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd collected (4050)
+
+
+PokerStars Hand #2406590045: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:46:31 GMT
+Table '240659' 7-max Seat #1 is the button
+Seat 1: Godseongho (9950 in chips)
+Seat 2: Ray81 (82925.54 in chips)
+Seat 4: YungKili2310 (38448.68 in chips)
+Seat 5: OGCrook (5895.49 in chips)
+Seat 6: DaniC1994 (17325 in chips)
+Seat 7: zeromd (99374.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+Ray81: posts small blind 600
+YungKili2310: posts big blind 1200
+*** HOLE CARDS ***
+OGCrook: folds
+DaniC1994: raises 1320 to 2520
+zeromd: folds
+Godseongho: folds
+Ray81: folds
+YungKili2310: folds
+Uncalled bet (1320) returned to DaniC1994
+DaniC1994: mucks hand
+DaniC1994 collected 0
+*** SUMMARY ***
+Total pot 3900 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:47:06 GMT
+Seat 1: Godseongho folded before the flop
+Seat 2: Ray81 (small blind) folded before the flop
+Seat 4: YungKili2310 (small blind) folded before the flop
+Seat 5: OGCrook folded before the flop
+Seat 6: DaniC1994 collected (3900)
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590046: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:47:07 GMT
+Table '240659' 7-max Seat #2 is the button
+Seat 1: Godseongho (9800 in chips)
+Seat 2: Ray81 (82175.54 in chips)
+Seat 4: YungKili2310 (37098.68 in chips)
+Seat 5: OGCrook (5745.49 in chips)
+Seat 6: DaniC1994 (19875 in chips)
+Seat 7: zeromd (99224.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+YungKili2310: posts small blind 600
+OGCrook: posts big blind 1200
+*** HOLE CARDS ***
+DaniC1994: folds
+zeromd: folds
+Godseongho: folds
+Ray81: raises 2400 to 3600
+YungKili2310: folds
+OGCrook: folds
+Uncalled bet (2400) returned to Ray81
+Ray81: doesn't show hand
+Ray81 collected 3900
+*** SUMMARY ***
+Total pot 3900 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:47:27 GMT
+Seat 1: Godseongho folded before the flop
+Seat 2: Ray81 collected (3900)
+Seat 4: YungKili2310 (small blind) folded before the flop
+Seat 5: OGCrook (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590047: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:47:28 GMT
+Table '240659' 7-max Seat #4 is the button
+Seat 1: Godseongho (9650 in chips)
+Seat 2: Ray81 (84725.54 in chips)
+Seat 3: h8money (20000 in chips)
+Seat 4: YungKili2310 (36348.68 in chips)
+Seat 5: OGCrook (4395.49 in chips)
+Seat 6: DaniC1994 (19725 in chips)
+Seat 7: zeromd (99074.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+OGCrook: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+zeromd: folds
+Godseongho: folds
+Ray81: folds
+h8money: raises 1800 to 3000
+YungKili2310: raises 33198.68 to 36198.68 and is all-in
+OGCrook: folds
+DaniC1994: folds
+h8money: folds
+Uncalled bet (33198.68) returned to YungKili2310
+YungKili2310: doesn't show hand
+YungKili2310 collected 8850
+*** SUMMARY ***
+Total pot 8850 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:48:11 GMT
+Seat 1: Godseongho folded before the flop
+Seat 2: Ray81 folded before the flop
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 collected (8850)
+Seat 5: OGCrook (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590048: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:48:12 GMT
+Table '240659' 7-max Seat #5 is the button
+Seat 1: Godseongho (9500 in chips)
+Seat 2: Ray81 (84575.54 in chips)
+Seat 3: h8money (16850 in chips)
+Seat 4: YungKili2310 (42048.68 in chips)
+Seat 5: OGCrook (3645.49 in chips)
+Seat 6: DaniC1994 (18375 in chips)
+Seat 7: zeromd (98924.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+DaniC1994: posts small blind 600
+zeromd: posts big blind 1200
+*** HOLE CARDS ***
+Godseongho: folds
+Ray81: folds
+h8money: raises 1200 to 2400
+YungKili2310: folds
+OGCrook: folds
+DaniC1994: folds
+zeromd: folds
+Uncalled bet (1200) returned to h8money
+h8money: mucks hand
+h8money collected 0
+*** SUMMARY ***
+Total pot 4050 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:48:36 GMT
+Seat 1: Godseongho folded before the flop
+Seat 2: Ray81 folded before the flop
+Seat 3: h8money collected (4050)
+Seat 4: YungKili2310 folded before the flop
+Seat 5: OGCrook folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd (small blind) folded before the flop
+
+
+PokerStars Hand #2406590049: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:48:36 GMT
+Table '240659' 7-max Seat #6 is the button
+Seat 1: Godseongho (9350 in chips)
+Seat 2: Ray81 (84425.54 in chips)
+Seat 3: h8money (19550 in chips)
+Seat 4: YungKili2310 (41898.68 in chips)
+Seat 5: OGCrook (3495.49 in chips)
+Seat 6: DaniC1994 (17625 in chips)
+Seat 7: zeromd (97574.07 in chips)
+Godseongho: posts the ante 150
+Ray81: posts the ante 150
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+zeromd: posts small blind 600
+Godseongho: posts big blind 1200
+*** HOLE CARDS ***
+Ray81: folds
+h8money: folds
+YungKili2310: folds
+OGCrook: folds
+DaniC1994: folds
+zeromd: raises 9600 to 10800
+Godseongho: folds
+Uncalled bet (9600) returned to zeromd
+zeromd: doesn't show hand
+zeromd collected 3450
+*** SUMMARY ***
+Total pot 3450 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:49:19 GMT
+Seat 1: Godseongho (small blind) folded before the flop
+Seat 2: Ray81 folded before the flop
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: OGCrook folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd (small blind) collected (3450)
+
+
+PokerStars Hand #2406590050: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:49:19 GMT
+Table '240659' 7-max Seat #7 is the button
+Seat 1: Godseongho (8000 in chips)
+Seat 3: h8money (19400 in chips)
+Seat 4: YungKili2310 (41748.68 in chips)
+Seat 5: OGCrook (3345.49 in chips)
+Seat 6: DaniC1994 (17475 in chips)
+Seat 7: zeromd (99674.07 in chips)
+Godseongho: posts the ante 150
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+Godseongho: posts small blind 600
+h8money: posts big blind 1200
+*** HOLE CARDS ***
+YungKili2310: raises 1200 to 2400
+OGCrook: folds
+DaniC1994: folds
+zeromd: folds
+Godseongho: raises 1200 to 3600
+h8money: calls 2400
+YungKili2310: raises 26400 to 30000
+Godseongho: calls 4250 and is all-in
+h8money: folds
+Uncalled bet (22150) returned to YungKili2310
+*** FLOP *** [5c 3d 5h]
+*** TURN *** [5c 3d 5h] [6s]
+*** RIVER *** [5c 3d 5h 6s] [3c]
+Godseongho: shows [Ks 8h] ()
+YungKili2310: shows [Ah] (Two Pair: Pair of 5 and 3)
+YungKili2310 collected 20200
+*** SUMMARY ***
+Total pot 20200 | Rake 0
+Board [ 5c 3d 5h 6s 3c ]
+Game ended: 2026/04/10 20:50:07 GMT
+Seat 1: Godseongho (small blind) showed [ Ks 8h ] and lost with 
+Seat 3: h8money (small blind) folded before the flop
+Seat 4: YungKili2310 showed [ Ah ] and won (20200) with Two Pair: Pair of 5 and 3
+Seat 5: OGCrook folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590051: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:50:08 GMT
+Table '240659' 7-max Seat #3 is the button
+Seat 3: h8money (15650 in chips)
+Seat 4: YungKili2310 (53948.68 in chips)
+Seat 5: OGCrook (3195.49 in chips)
+Seat 6: DaniC1994 (17325 in chips)
+Seat 7: zeromd (99524.07 in chips) is sitting out
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+YungKili2310: posts small blind 600
+OGCrook: posts big blind 1200
+*** HOLE CARDS ***
+DaniC1994: folds
+h8money: folds
+YungKili2310: raises 2400 to 3600
+OGCrook: folds
+Uncalled bet (2400) returned to YungKili2310
+YungKili2310: doesn't show hand
+YungKili2310 collected 3150
+*** SUMMARY ***
+Total pot 3150 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:50:25 GMT
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 (small blind) collected (3150)
+Seat 5: OGCrook (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd mucked
+
+
+PokerStars Hand #2406590052: Tournament #45853, $215 Friday Special Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/10 20:50:25 GMT
+Table '240659' 7-max Seat #4 is the button
+Seat 1: JgS (20000 in chips)
+Seat 2: MakeMoneyStayAlive (20000 in chips)
+Seat 3: h8money (15500 in chips)
+Seat 4: YungKili2310 (55748.68 in chips)
+Seat 5: OGCrook (1845.49 in chips)
+Seat 6: DaniC1994 (17175 in chips)
+Seat 7: zeromd (99374.07 in chips)
+JgS: posts the ante 150
+MakeMoneyStayAlive: posts the ante 150
+h8money: posts the ante 150
+YungKili2310: posts the ante 150
+OGCrook: posts the ante 150
+DaniC1994: posts the ante 150
+zeromd: posts the ante 150
+OGCrook: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+zeromd: folds
+JgS: raises 1200 to 2400
+MakeMoneyStayAlive: raises 17450 to 19850 and is all-in
+h8money: folds
+YungKili2310: raises 17450 to 37300
+OGCrook: calls 1095.49 and is all-in
+DaniC1994: folds
+JgS: folds
+Uncalled bet (17450) returned to YungKili2310
+*** FLOP *** [Kc 5s Kh]
+*** TURN *** [Kc 5s Kh] [7d]
+*** RIVER *** [Kc 5s Kh 7d] [8c]
+OGCrook: shows [8h 8d Ac Jd Jh 3c] ()
+MakeMoneyStayAlive: shows [8h 8d] (Full House: Triplet of 8 and Pair  of K)
+YungKili2310: shows [8h 8d Ac Jd] ()
+MakeMoneyStayAlive collected 46045.49
+*** SUMMARY ***
+Total pot 46045.49 | Rake 0
+Board [ Kc 5s Kh 7d 8c ]
+Game ended: 2026/04/10 20:51:34 GMT
+Seat 1: JgS folded before the flop
+Seat 2: MakeMoneyStayAlive showed [ 8h 8d ] and won (46045.49) with Full House: Triplet of 8 and Pair  of K
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 showed [ 8h 8d Ac Jd ] and lost with 
+Seat 5: OGCrook (small blind) showed [ 8h 8d Ac Jd Jh 3c ] and lost with 
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590053: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:51:34 GMT
+Table '240659' 7-max Seat #6 is the button
+Seat 1: JgS (17450 in chips)
+Seat 2: MakeMoneyStayAlive (46045.49 in chips)
+Seat 3: h8money (15350 in chips)
+Seat 4: YungKili2310 (35748.68 in chips)
+Seat 6: DaniC1994 (15825 in chips)
+Seat 7: zeromd (99224.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+zeromd: posts small blind 700
+JgS: posts big blind 1400
+*** HOLE CARDS ***
+MakeMoneyStayAlive: folds
+h8money: folds
+YungKili2310: folds
+DaniC1994: raises 14250 to 15650 and is all-in
+zeromd: folds
+JgS: folds
+Uncalled bet (14250) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 4550
+*** SUMMARY ***
+Total pot 4550 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:51:51 GMT
+Seat 1: JgS (small blind) folded before the flop
+Seat 2: MakeMoneyStayAlive folded before the flop
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 6: DaniC1994 collected (4550)
+Seat 7: zeromd (small blind) folded before the flop
+
+
+PokerStars Hand #2406590054: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:51:51 GMT
+Table '240659' 7-max Seat #7 is the button
+Seat 1: JgS (15875 in chips)
+Seat 2: MakeMoneyStayAlive (45870.49 in chips)
+Seat 3: h8money (15175 in chips)
+Seat 4: YungKili2310 (35573.68 in chips)
+Seat 6: DaniC1994 (18800 in chips)
+Seat 7: zeromd (98349.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+JgS: posts small blind 700
+MakeMoneyStayAlive: posts big blind 1400
+*** HOLE CARDS ***
+h8money: folds
+YungKili2310: folds
+DaniC1994: folds
+zeromd: folds
+JgS: raises 14300 to 15700 and is all-in
+MakeMoneyStayAlive: calls 14300
+*** FLOP *** [Jc 5d 4d]
+*** TURN *** [Jc 5d 4d] [Kc]
+*** RIVER *** [Jc 5d 4d Kc] [Ad]
+JgS: shows [Ah 6h] (Pair: Pair of A)
+MakeMoneyStayAlive: shows [Ac 6s] (Pair: Pair of A)
+JgS collected 32450
+MakeMoneyStayAlive collected 32450
+*** SUMMARY ***
+Total pot 32450 | Rake 0
+Board [ Jc 5d 4d Kc Ad ]
+Game ended: 2026/04/10 20:52:31 GMT
+Seat 1: JgS (small blind) showed [ Ah 6h ] and won (32450) with Pair: Pair of A
+Seat 2: MakeMoneyStayAlive (small blind) showed [ Ac 6s ] and won (32450) with Pair: Pair of A
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590055: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:52:32 GMT
+Table '240659' 7-max Seat #1 is the button
+Seat 1: JgS (16225 in chips)
+Seat 2: MakeMoneyStayAlive (46220.49 in chips)
+Seat 3: h8money (15000 in chips)
+Seat 4: YungKili2310 (35398.68 in chips)
+Seat 6: DaniC1994 (18625 in chips)
+Seat 7: zeromd (98174.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+MakeMoneyStayAlive: posts small blind 700
+h8money: posts big blind 1400
+*** HOLE CARDS ***
+YungKili2310: folds
+DaniC1994: folds
+zeromd: raises 1400 to 2800
+JgS: raises 13250 to 16050 and is all-in
+MakeMoneyStayAlive: folds
+h8money: calls 13425 and is all-in
+zeromd: folds
+Uncalled bet (1225) returned to JgS
+*** FLOP *** [Jc 6d 3h]
+*** TURN *** [Jc 6d 3h] [Ts]
+*** RIVER *** [Jc 6d 3h Ts] [Td]
+h8money: shows [9s 9d] (Two Pair: Pair of T and 9)
+JgS: shows [Ks Qs] ()
+h8money collected 34200
+*** SUMMARY ***
+Total pot 34200 | Rake 0
+Board [ Jc 6d 3h Ts Td ]
+Game ended: 2026/04/10 20:53:13 GMT
+Seat 1: JgS showed [ Ks Qs ] and lost with 
+Seat 2: MakeMoneyStayAlive (small blind) folded before the flop
+Seat 3: h8money (small blind) showed [ 9s 9d ] and won (34200) with Two Pair: Pair of T and 9
+Seat 4: YungKili2310 folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590056: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:53:14 GMT
+Table '240659' 7-max Seat #2 is the button
+Seat 1: JgS (1225 in chips)
+Seat 2: MakeMoneyStayAlive (45345.49 in chips)
+Seat 3: h8money (34200 in chips)
+Seat 4: YungKili2310 (35223.68 in chips)
+Seat 6: DaniC1994 (18450 in chips)
+Seat 7: zeromd (95199.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+h8money: posts small blind 700
+YungKili2310: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+zeromd: raises 1400 to 2800
+JgS: folds
+MakeMoneyStayAlive: folds
+h8money: folds
+YungKili2310: folds
+Uncalled bet (1400) returned to zeromd
+zeromd: doesn't show hand
+zeromd collected 4550
+*** SUMMARY ***
+Total pot 4550 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:54:07 GMT
+Seat 1: JgS folded before the flop
+Seat 2: MakeMoneyStayAlive folded before the flop
+Seat 3: h8money (small blind) folded before the flop
+Seat 4: YungKili2310 (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd collected (4550)
+
+
+PokerStars Hand #2406590057: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:54:08 GMT
+Table '240659' 7-max Seat #3 is the button
+Seat 1: JgS (1050 in chips)
+Seat 2: MakeMoneyStayAlive (45170.49 in chips)
+Seat 3: h8money (33325 in chips)
+Seat 4: YungKili2310 (33648.68 in chips)
+Seat 5: Habenixwillnix (41082.50 in chips)
+Seat 6: DaniC1994 (18275 in chips)
+Seat 7: zeromd (98174.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+YungKili2310: posts small blind 700
+Habenixwillnix: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+zeromd: raises 1400 to 2800
+JgS: calls 875 and is all-in
+MakeMoneyStayAlive: folds
+h8money: folds
+YungKili2310: folds
+Habenixwillnix: folds
+Uncalled bet (1400) returned to zeromd
+*** FLOP *** [Qh 8s Ac]
+*** TURN *** [Qh 8s Ac] [2s]
+*** RIVER *** [Qh 8s Ac 2s] [Jd]
+zeromd: shows [9h Th Qs Jh] ()
+JgS: shows [Th 9h] (Straight: Q high)
+zeromd collected 1050
+JgS collected 4550
+*** SUMMARY ***
+Total pot 5600 | Rake 0
+Board [ Qh 8s Ac 2s Jd ]
+Game ended: 2026/04/10 20:54:57 GMT
+Seat 1: JgS showed [ Th 9h ] and won (4550) with Straight: Q high
+Seat 2: MakeMoneyStayAlive folded before the flop
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 (small blind) folded before the flop
+Seat 5: Habenixwillnix (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd showed [ 9h Th Qs Jh ] and won (1050) with 
+
+
+PokerStars Hand #2406590058: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 20:54:58 GMT
+Table '240659' 7-max Seat #4 is the button
+Seat 1: JgS (4550 in chips)
+Seat 2: MakeMoneyStayAlive (44995.49 in chips)
+Seat 3: h8money (33150 in chips)
+Seat 4: YungKili2310 (32773.68 in chips)
+Seat 5: Habenixwillnix (39507.50 in chips)
+Seat 6: DaniC1994 (18100 in chips)
+Seat 7: zeromd (97649.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+Habenixwillnix: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+zeromd: folds
+JgS: folds
+MakeMoneyStayAlive: raises 1400 to 2800
+h8money: folds
+YungKili2310: folds
+Habenixwillnix: folds
+DaniC1994: folds
+Uncalled bet (1400) returned to MakeMoneyStayAlive
+MakeMoneyStayAlive: doesn't show hand
+MakeMoneyStayAlive collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 20:55:25 GMT
+Seat 1: JgS folded before the flop
+Seat 2: MakeMoneyStayAlive collected (4725)
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: Habenixwillnix (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590059: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 21:01:05 GMT
+Table '240659' 7-max Seat #5 is the button
+Seat 1: JgS (4375 in chips)
+Seat 2: MakeMoneyStayAlive (48145.49 in chips)
+Seat 3: h8money (32975 in chips)
+Seat 4: YungKili2310 (32598.68 in chips)
+Seat 5: Habenixwillnix (38632.50 in chips)
+Seat 6: DaniC1994 (16525 in chips)
+Seat 7: zeromd (97474.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+DaniC1994: posts small blind 700
+zeromd: posts big blind 1400
+*** HOLE CARDS ***
+JgS: raises 2100 to 3500
+MakeMoneyStayAlive: folds
+h8money: folds
+YungKili2310: folds
+Habenixwillnix: folds
+DaniC1994: raises 12850 to 16350 and is all-in
+zeromd: folds
+JgS: calls 700 and is all-in
+Uncalled bet (12150) returned to DaniC1994
+*** RIVER *** [As 8s 6s Kd] [6h]
+DaniC1994: shows [5s Ks Ah Qs] ()
+JgS: shows [Ks 5s] (Flush: A high)
+JgS collected 11025
+*** SUMMARY ***
+Total pot 11025 | Rake 0
+Board [ As 8s 6s Kd 6h ]
+Game ended: 2026/04/10 21:01:58 GMT
+Seat 1: JgS showed [ Ks 5s ] and won (11025) with Flush: A high
+Seat 2: MakeMoneyStayAlive folded before the flop
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: Habenixwillnix folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ 5s Ks Ah Qs ] and lost with 
+Seat 7: zeromd (small blind) folded before the flop
+
+
+PokerStars Hand #2406590061: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 21:02:44 GMT
+Table '240659' 7-max Seat #7 is the button
+Seat 1: JgS (22925 in chips)
+Seat 2: MakeMoneyStayAlive (47795.49 in chips)
+Seat 3: h8money (32625 in chips)
+Seat 4: YungKili2310 (32248.68 in chips)
+Seat 5: Habenixwillnix (38282.50 in chips)
+Seat 6: DaniC1994 (11975 in chips)
+Seat 7: zeromd (84874.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+JgS: posts small blind 700
+MakeMoneyStayAlive: posts big blind 1400
+*** HOLE CARDS ***
+h8money: folds
+YungKili2310: folds
+Habenixwillnix: folds
+DaniC1994: folds
+zeromd: raises 1400 to 2800
+JgS: folds
+MakeMoneyStayAlive: raises 44820.49 to 47620.49 and is all-in
+zeromd: folds
+Uncalled bet (44820.49) returned to MakeMoneyStayAlive
+MakeMoneyStayAlive: doesn't show hand
+MakeMoneyStayAlive collected 7525
+*** SUMMARY ***
+Total pot 7525 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 21:03:46 GMT
+Seat 1: JgS (small blind) folded before the flop
+Seat 2: MakeMoneyStayAlive (small blind) collected (7525)
+Seat 3: h8money folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: Habenixwillnix folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590062: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 21:03:46 GMT
+Table '240659' 7-max Seat #1 is the button
+Seat 1: JgS (22050 in chips)
+Seat 2: MakeMoneyStayAlive (52345.49 in chips)
+Seat 3: h8money (32450 in chips)
+Seat 4: YungKili2310 (32073.68 in chips)
+Seat 5: Habenixwillnix (38107.50 in chips)
+Seat 6: DaniC1994 (11800 in chips)
+Seat 7: zeromd (81899.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+MakeMoneyStayAlive: posts small blind 700
+h8money: posts big blind 1400
+*** HOLE CARDS ***
+YungKili2310: folds
+Habenixwillnix: raises 1400 to 2800
+DaniC1994: folds
+zeromd: folds
+JgS: folds
+MakeMoneyStayAlive: folds
+h8money: folds
+Uncalled bet (1400) returned to Habenixwillnix
+Habenixwillnix: doesn't show hand
+Habenixwillnix collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 21:04:44 GMT
+Seat 1: JgS folded before the flop
+Seat 2: MakeMoneyStayAlive (small blind) folded before the flop
+Seat 3: h8money (small blind) folded before the flop
+Seat 4: YungKili2310 folded before the flop
+Seat 5: Habenixwillnix collected (4725)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd folded before the flop
+
+
+PokerStars Hand #2406590063: Tournament #45853, $215 Friday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/10 21:04:45 GMT
+Table '240659' 7-max Seat #2 is the button
+Seat 1: JgS (21875 in chips)
+Seat 2: MakeMoneyStayAlive (51470.49 in chips)
+Seat 3: h8money (30875 in chips)
+Seat 4: YungKili2310 (31898.68 in chips)
+Seat 5: Habenixwillnix (41257.50 in chips)
+Seat 6: DaniC1994 (11625 in chips)
+Seat 7: zeromd (81724.07 in chips)
+JgS: posts the ante 175
+MakeMoneyStayAlive: posts the ante 175
+h8money: posts the ante 175
+YungKili2310: posts the ante 175
+Habenixwillnix: posts the ante 175
+DaniC1994: posts the ante 175
+zeromd: posts the ante 175
+h8money: posts small blind 700
+YungKili2310: posts big blind 1400
+*** HOLE CARDS ***
+Habenixwillnix: folds
+DaniC1994: folds
+zeromd: raises 1400 to 2800
+JgS: folds
+MakeMoneyStayAlive: folds
+h8money: folds
+YungKili2310: folds
+Uncalled bet (1400) returned to zeromd
+zeromd: doesn't show hand
+zeromd collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 21:05:29 GMT
+Seat 1: JgS folded before the flop
+Seat 2: MakeMoneyStayAlive folded before the flop
+Seat 3: h8money (small blind) folded before the flop
+Seat 4: YungKili2310 (small blind) folded before the flop
+Seat 5: Habenixwillnix folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: zeromd collected (4725)
+
+
+PokerStars Hand #2395650028: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:42:21 GMT
+Table '239565' 7-max Seat #1 is the button
+Seat 1: hQQpe (13852 in chips)
+Seat 3: churlz (26911 in chips)
+Seat 4: Discipline01 (13536.07 in chips)
+Seat 5: cryptonuktus (72410.72 in chips)
+Seat 6: DaniC1994 (15987.52 in chips)
+hQQpe: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+churlz: posts small blind 250
+Discipline01: posts big blind 500
+*** HOLE CARDS ***
+cryptonuktus: folds
+DaniC1994: folds
+hQQpe: raises 500 to 1000
+churlz: folds
+Discipline01: calls 500
+*** FLOP *** [Qs 3s Qd]
+Discipline01: checks
+hQQpe: checks
+*** TURN *** [Qs 3s Qd] [Td]
+Discipline01: checks
+hQQpe: checks
+*** RIVER *** [Qs 3s Qd Td] [5s]
+Discipline01: bets 1312.50
+hQQpe: calls 1312.50
+Discipline01: shows [7s 4s] (Flush: Q high)
+hQQpe: mucks hand
+Discipline01 collected 5250
+*** SUMMARY ***
+Total pot 5250 | Rake 0
+Board [ Qs 3s Qd Td 5s ]
+Game ended: 2026/04/10 17:43:20 GMT
+Seat 1: hQQpe mucked
+Seat 3: churlz (small blind) folded before the flop
+Seat 4: Discipline01 (small blind) showed [ 7s 4s ] and won (5250) with Flush: Q high
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2395650029: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:43:20 GMT
+Table '239565' 7-max Seat #3 is the button
+Seat 1: hQQpe (11464.50 in chips)
+Seat 2: Stefan24 (9880 in chips)
+Seat 3: churlz (26586 in chips)
+Seat 4: Discipline01 (16398.57 in chips)
+Seat 5: cryptonuktus (72335.72 in chips)
+Seat 6: DaniC1994 (15912.52 in chips)
+hQQpe: posts the ante 75
+Stefan24: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+Discipline01: posts small blind 250
+cryptonuktus: posts big blind 500
+*** HOLE CARDS ***
+DaniC1994: folds
+hQQpe: raises 500 to 1000
+Stefan24: folds
+churlz: raises 2000 to 3000
+Discipline01: folds
+cryptonuktus: folds
+hQQpe: folds
+Uncalled bet (2000) returned to churlz
+churlz: doesn't show hand
+churlz collected 3200
+*** SUMMARY ***
+Total pot 3200 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 17:43:51 GMT
+Seat 1: hQQpe folded before the flop
+Seat 2: Stefan24 folded before the flop
+Seat 3: churlz collected (3200)
+Seat 4: Discipline01 (small blind) folded before the flop
+Seat 5: cryptonuktus (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2395650030: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:43:52 GMT
+Table '239565' 7-max Seat #4 is the button
+Seat 1: hQQpe (10389.50 in chips)
+Seat 2: Stefan24 (9805 in chips)
+Seat 3: churlz (28711 in chips)
+Seat 4: Discipline01 (16073.57 in chips)
+Seat 5: cryptonuktus (71760.72 in chips)
+Seat 6: DaniC1994 (15837.52 in chips)
+hQQpe: posts the ante 75
+Stefan24: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+cryptonuktus: posts small blind 250
+DaniC1994: posts big blind 500
+*** HOLE CARDS ***
+hQQpe: folds
+Stefan24: raises 9230 to 9730 and is all-in
+churlz: raises 18906 to 28636 and is all-in
+Discipline01: folds
+cryptonuktus: folds
+DaniC1994: folds
+Uncalled bet (18906) returned to churlz
+*** FLOP *** [Td Ah Kd]
+*** TURN *** [Td Ah Kd] [Kc]
+*** RIVER *** [Td Ah Kd Kc] [8h]
+Stefan24: shows [Ad] (Two Pair: Pair of A and K)
+churlz: shows [Ad 6h 7s 6s] ()
+Stefan24 collected 20660
+*** SUMMARY ***
+Total pot 20660 | Rake 0
+Board [ Td Ah Kd Kc 8h ]
+Game ended: 2026/04/10 17:44:43 GMT
+Seat 1: hQQpe folded before the flop
+Seat 2: Stefan24 showed [ Ad ] and won (20660) with Two Pair: Pair of A and K
+Seat 3: churlz showed [ Ad 6h 7s 6s ] and lost with 
+Seat 4: Discipline01 folded before the flop
+Seat 5: cryptonuktus (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2395650032: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:45:25 GMT
+Table '239565' 7-max Seat #6 is the button
+Seat 1: hQQpe (9739.50 in chips)
+Seat 2: Stefan24 (1754 in chips)
+Seat 3: churlz (5814.86 in chips)
+Seat 4: Discipline01 (48970.71 in chips)
+Seat 5: cryptonuktus (71360.72 in chips)
+Seat 6: DaniC1994 (14937.52 in chips)
+hQQpe: posts the ante 75
+Stefan24: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+hQQpe: posts small blind 250
+Stefan24: posts big blind 500
+*** HOLE CARDS ***
+churlz: raises 5239.86 to 5739.86 and is all-in
+Discipline01: calls 5739.86
+cryptonuktus: folds
+DaniC1994: folds
+hQQpe: folds
+Stefan24: calls 1179 and is all-in
+*** FLOP *** [4d 3h 8d]
+*** TURN *** [4d 3h 8d] [2s]
+*** RIVER *** [4d 3h 8d 2s] [8s]
+Stefan24: shows [As 7d] ()
+churlz: shows [9h 9d] (Two Pair: Pair of 9 and 8)
+Discipline01: shows [As 7d 9h 9d 6c Tc] ()
+churlz collected 13858.72
+*** SUMMARY ***
+Total pot 13858.72 | Rake 0
+Board [ 4d 3h 8d 2s 8s ]
+Game ended: 2026/04/10 17:46:04 GMT
+Seat 1: hQQpe (small blind) folded before the flop
+Seat 2: Stefan24 (small blind) showed [ As 7d ] and lost with 
+Seat 3: churlz showed [ 9h 9d ] and won (13858.72) with Two Pair: Pair of 9 and 8
+Seat 4: Discipline01 showed [ As 7d 9h 9d 6c Tc ] and lost with 
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2395650034: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:46:47 GMT
+Table '239565' 7-max Seat #3 is the button
+Seat 2: RustCohle (11617.96 in chips)
+Seat 3: churlz (13533.72 in chips)
+Seat 4: Discipline01 (42580.85 in chips)
+Seat 5: cryptonuktus (81675.22 in chips)
+Seat 6: DaniC1994 (14787.52 in chips)
+RustCohle: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+Discipline01: posts small blind 250
+cryptonuktus: posts big blind 500
+*** HOLE CARDS ***
+DaniC1994: folds
+RustCohle: raises 540 to 1040
+churlz: folds
+Discipline01: folds
+cryptonuktus: calls 540
+*** FLOP *** [8h Kd Tc]
+cryptonuktus: checks
+RustCohle: bets 892.65
+cryptonuktus: folds
+Uncalled bet (892.65) returned to RustCohle
+RustCohle: doesn't show hand
+RustCohle collected 2705
+*** SUMMARY ***
+Total pot 2705 | Rake 0
+Board [ 8h Kd Tc ]
+Game ended: 2026/04/10 17:47:25 GMT
+Seat 2: RustCohle collected (2705)
+Seat 3: churlz folded before the flop
+Seat 4: Discipline01 (small blind) folded before the flop
+Seat 5: cryptonuktus (small blind) folded on the Flop
+Seat 6: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2395650035: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:47:26 GMT
+Table '239565' 7-max Seat #4 is the button
+Seat 1: KurwaSlimak (32865.16 in chips)
+Seat 2: RustCohle (13207.96 in chips)
+Seat 3: churlz (13458.72 in chips)
+Seat 4: Discipline01 (42255.85 in chips)
+Seat 5: cryptonuktus (80560.22 in chips)
+Seat 6: DaniC1994 (14712.52 in chips)
+KurwaSlimak: posts the ante 75
+RustCohle: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+cryptonuktus: posts small blind 250
+DaniC1994: posts big blind 500
+*** HOLE CARDS ***
+KurwaSlimak: raises 500 to 1000
+RustCohle: folds
+churlz: raises 12383.72 to 13383.72 and is all-in
+Discipline01: folds
+cryptonuktus: folds
+DaniC1994: folds
+KurwaSlimak: calls 12383.72
+*** FLOP *** [2h Jd 4h]
+*** TURN *** [2h Jd 4h] [3c]
+*** RIVER *** [2h Jd 4h 3c] [5c]
+KurwaSlimak: shows [8s 8c] ()
+churlz: shows [6s] (Straight: 6 high)
+churlz collected 27967.44
+*** SUMMARY ***
+Total pot 27967.44 | Rake 0
+Board [ 2h Jd 4h 3c 5c ]
+Game ended: 2026/04/10 17:48:10 GMT
+Seat 1: KurwaSlimak showed [ 8s 8c ] and lost with 
+Seat 2: RustCohle folded before the flop
+Seat 3: churlz showed [ 6s ] and won (27967.44) with Straight: 6 high
+Seat 4: Discipline01 folded before the flop
+Seat 5: cryptonuktus (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2395650036: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:48:10 GMT
+Table '239565' 7-max Seat #5 is the button
+Seat 1: KurwaSlimak (19406.44 in chips)
+Seat 2: RustCohle (13132.96 in chips)
+Seat 3: churlz (27967.44 in chips)
+Seat 4: Discipline01 (42180.85 in chips)
+Seat 5: cryptonuktus (80235.22 in chips)
+Seat 6: DaniC1994 (14137.52 in chips)
+KurwaSlimak: posts the ante 75
+RustCohle: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+DaniC1994: posts small blind 250
+KurwaSlimak: posts big blind 500
+*** HOLE CARDS ***
+RustCohle: folds
+churlz: raises 550 to 1050
+Discipline01: folds
+cryptonuktus: calls 1050
+DaniC1994: folds
+KurwaSlimak: calls 550
+*** FLOP *** [Jd Th 8c]
+KurwaSlimak: checks
+churlz: bets 1540
+cryptonuktus: folds
+KurwaSlimak: calls 1540
+*** TURN *** [Jd Th 8c] [Jh]
+KurwaSlimak: checks
+churlz: checks
+*** RIVER *** [Jd Th 8c Jh] [4h]
+KurwaSlimak: bets 6697.50
+churlz: folds
+Uncalled bet (6697.50) returned to KurwaSlimak
+KurwaSlimak: doesn't show hand
+KurwaSlimak collected 6930
+*** SUMMARY ***
+Total pot 6930 | Rake 0
+Board [ Jd Th 8c Jh 4h ]
+Game ended: 2026/04/10 17:49:50 GMT
+Seat 1: KurwaSlimak (small blind) collected (6930)
+Seat 2: RustCohle folded before the flop
+Seat 3: churlz folded on the River
+Seat 4: Discipline01 folded before the flop
+Seat 5: cryptonuktus folded on the Flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2395650037: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:49:50 GMT
+Table '239565' 7-max Seat #6 is the button
+Seat 1: KurwaSlimak (23671.44 in chips)
+Seat 2: RustCohle (13057.96 in chips)
+Seat 3: churlz (25302.44 in chips)
+Seat 4: Discipline01 (42105.85 in chips)
+Seat 5: cryptonuktus (79110.22 in chips)
+Seat 6: DaniC1994 (13812.52 in chips)
+KurwaSlimak: posts the ante 75
+RustCohle: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+KurwaSlimak: posts small blind 250
+RustCohle: posts big blind 500
+*** HOLE CARDS ***
+churlz: raises 550 to 1050
+Discipline01: folds
+cryptonuktus: folds
+DaniC1994: folds
+KurwaSlimak: folds
+RustCohle: calls 550
+*** FLOP *** [9h 8c Kh]
+RustCohle: checks
+churlz: bets 2240
+RustCohle: folds
+Uncalled bet (2240) returned to churlz
+churlz: doesn't show hand
+churlz collected 2800
+*** SUMMARY ***
+Total pot 2800 | Rake 0
+Board [ 9h 8c Kh ]
+Game ended: 2026/04/10 17:50:40 GMT
+Seat 1: KurwaSlimak (small blind) folded before the flop
+Seat 2: RustCohle (small blind) folded on the Flop
+Seat 3: churlz collected (2800)
+Seat 4: Discipline01 folded before the flop
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2395650038: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (250/500 - Ante 75) - 2026/04/10 17:50:41 GMT
+Table '239565' 7-max Seat #1 is the button
+Seat 1: KurwaSlimak (23346.44 in chips)
+Seat 2: RustCohle (11932.96 in chips)
+Seat 3: churlz (26977.44 in chips)
+Seat 4: Discipline01 (42030.85 in chips)
+Seat 5: cryptonuktus (79035.22 in chips)
+Seat 6: DaniC1994 (13737.52 in chips)
+Seat 7: ArcticDegen (39638.08 in chips)
+KurwaSlimak: posts the ante 75
+RustCohle: posts the ante 75
+churlz: posts the ante 75
+Discipline01: posts the ante 75
+cryptonuktus: posts the ante 75
+DaniC1994: posts the ante 75
+ArcticDegen: posts the ante 75
+RustCohle: posts small blind 250
+churlz: posts big blind 500
+*** HOLE CARDS ***
+Discipline01: folds
+cryptonuktus: folds
+DaniC1994: folds
+ArcticDegen: folds
+KurwaSlimak: raises 500 to 1000
+RustCohle: calls 750
+churlz: raises 25902.44 to 26902.44 and is all-in
+KurwaSlimak: folds
+RustCohle: folds
+Uncalled bet (25902.44) returned to churlz
+churlz: doesn't show hand
+churlz collected 3525
+*** SUMMARY ***
+Total pot 3525 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 17:51:11 GMT
+Seat 1: KurwaSlimak folded before the flop
+Seat 2: RustCohle (small blind) folded before the flop
+Seat 3: churlz (small blind) collected (3525)
+Seat 4: Discipline01 folded before the flop
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: ArcticDegen folded before the flop
+
+
+PokerStars Hand #2395650039: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (300/600 - Ante 90) - 2026/04/10 17:51:12 GMT
+Table '239565' 7-max Seat #2 is the button
+Seat 1: KurwaSlimak (22271.44 in chips)
+Seat 2: RustCohle (10857.96 in chips)
+Seat 3: churlz (29427.44 in chips)
+Seat 4: Discipline01 (41955.85 in chips)
+Seat 5: cryptonuktus (78960.22 in chips)
+Seat 6: DaniC1994 (13662.52 in chips)
+Seat 7: ArcticDegen (39563.08 in chips)
+KurwaSlimak: posts the ante 90
+RustCohle: posts the ante 90
+churlz: posts the ante 90
+Discipline01: posts the ante 90
+cryptonuktus: posts the ante 90
+DaniC1994: posts the ante 90
+ArcticDegen: posts the ante 90
+churlz: posts small blind 300
+Discipline01: posts big blind 600
+*** HOLE CARDS ***
+cryptonuktus: folds
+DaniC1994: folds
+ArcticDegen: raises 600 to 1200
+KurwaSlimak: calls 1200
+RustCohle: folds
+churlz: folds
+Discipline01: calls 600
+*** FLOP *** [7d 3d 9d]
+Discipline01: checks
+ArcticDegen: checks
+KurwaSlimak: checks
+*** TURN *** [7d 3d 9d] [2h]
+Discipline01: checks
+ArcticDegen: bets 3000
+KurwaSlimak: calls 3000
+Discipline01: folds
+*** RIVER *** [7d 3d 9d 2h] [4s]
+ArcticDegen: bets 2700
+KurwaSlimak: calls 2700
+ArcticDegen: shows [8d 8h As 7c] ()
+KurwaSlimak: shows [8d 8h] (Pair: Pair of 8)
+KurwaSlimak collected 15930
+*** SUMMARY ***
+Total pot 15930 | Rake 0
+Board [ 7d 3d 9d 2h 4s ]
+Game ended: 2026/04/10 17:53:18 GMT
+Seat 1: KurwaSlimak showed [ 8d 8h ] and won (15930) with Pair: Pair of 8
+Seat 2: RustCohle folded before the flop
+Seat 3: churlz (small blind) folded before the flop
+Seat 4: Discipline01 (small blind) folded on the Turn
+Seat 5: cryptonuktus folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: ArcticDegen showed [ 8d 8h As 7c ] and lost with 
+
+
+PokerStars Hand #2395650040: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (300/600 - Ante 90) - 2026/04/10 17:53:18 GMT
+Table '239565' 7-max Seat #3 is the button
+Seat 1: KurwaSlimak (31211.44 in chips)
+Seat 2: RustCohle (10767.96 in chips)
+Seat 3: churlz (29037.44 in chips)
+Seat 4: Discipline01 (40665.85 in chips)
+Seat 5: cryptonuktus (78870.22 in chips)
+Seat 6: DaniC1994 (13572.52 in chips)
+Seat 7: ArcticDegen (32573.08 in chips)
+KurwaSlimak: posts the ante 90
+RustCohle: posts the ante 90
+churlz: posts the ante 90
+Discipline01: posts the ante 90
+cryptonuktus: posts the ante 90
+DaniC1994: posts the ante 90
+ArcticDegen: posts the ante 90
+Discipline01: posts small blind 300
+cryptonuktus: posts big blind 600
+*** HOLE CARDS ***
+DaniC1994: raises 660 to 1260
+ArcticDegen: folds
+KurwaSlimak: folds
+RustCohle: folds
+churlz: folds
+Discipline01: calls 960
+cryptonuktus: calls 660
+*** FLOP *** [Td 6d 6s]
+Discipline01: checks
+cryptonuktus: checks
+DaniC1994: bets 1103
+Discipline01: raises 2303 to 3406
+cryptonuktus: folds
+DaniC1994: calls 2303
+*** TURN *** [Td 6d 6s] [2c]
+Discipline01: bets 35909.85 and is all-in
+DaniC1994: folds
+Uncalled bet (35909.85) returned to Discipline01
+Discipline01: mucks hand
+Discipline01 collected 0
+*** SUMMARY ***
+Total pot 11222 | Rake 0
+Board [ Td 6d 6s 2c ]
+Game ended: 2026/04/10 17:54:41 GMT
+Seat 1: KurwaSlimak folded before the flop
+Seat 2: RustCohle folded before the flop
+Seat 3: churlz folded before the flop
+Seat 4: Discipline01 (small blind) collected (11222)
+Seat 5: cryptonuktus (small blind) folded on the Flop
+Seat 6: DaniC1994 folded on the Turn
+Seat 7: ArcticDegen folded before the flop
+
+
+PokerStars Hand #2389710063: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (200/400 - Ante 60) - 2026/04/10 17:34:40 GMT
+Table '238971' 7-max Seat #5 is the button
+Seat 1: ChipChamp (9270.03 in chips)
+Seat 2: DaniC1994 (14387.52 in chips)
+Seat 3: loveiswhat (31528.53 in chips)
+Seat 4: Avalanche77 (19854.26 in chips)
+Seat 5: DomT1738 (31452.48 in chips)
+Seat 6: razman (34693.46 in chips)
+Seat 7: gusma (7833.96 in chips)
+ChipChamp: posts the ante 60
+DaniC1994: posts the ante 60
+loveiswhat: posts the ante 60
+Avalanche77: posts the ante 60
+DomT1738: posts the ante 60
+razman: posts the ante 60
+gusma: posts the ante 60
+razman: posts small blind 200
+gusma: posts big blind 400
+*** HOLE CARDS ***
+ChipChamp: folds
+DaniC1994: raises 440 to 840
+loveiswhat: calls 840
+Avalanche77: folds
+DomT1738: folds
+razman: calls 640
+gusma: folds
+*** FLOP *** [8h 9h Qs]
+razman: checks
+DaniC1994: checks
+loveiswhat: checks
+*** TURN *** [8h 9h Qs] [Kc]
+razman: checks
+DaniC1994: bets 1837
+loveiswhat: folds
+razman: folds
+Uncalled bet (1837) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 3340
+*** SUMMARY ***
+Total pot 3340 | Rake 0
+Board [ 8h 9h Qs Kc ]
+Game ended: 2026/04/10 17:36:22 GMT
+Seat 1: ChipChamp folded before the flop
+Seat 2: DaniC1994 collected (3340)
+Seat 3: loveiswhat folded on the Turn
+Seat 4: Avalanche77 folded before the flop
+Seat 5: DomT1738 folded before the flop
+Seat 6: razman (small blind) folded on the Turn
+Seat 7: gusma (small blind) folded before the flop
+
+
+PokerStars Hand #2389710064: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (200/400 - Ante 60) - 2026/04/10 17:36:23 GMT
+Table '238971' 7-max Seat #6 is the button
+Seat 2: DaniC1994 (16827.52 in chips)
+Seat 3: loveiswhat (30628.53 in chips)
+Seat 4: Avalanche77 (19794.26 in chips)
+Seat 5: DomT1738 (31392.48 in chips)
+Seat 6: razman (33793.46 in chips)
+Seat 7: gusma (7373.96 in chips)
+DaniC1994: posts the ante 60
+loveiswhat: posts the ante 60
+Avalanche77: posts the ante 60
+DomT1738: posts the ante 60
+razman: posts the ante 60
+gusma: posts the ante 60
+gusma: posts small blind 200
+DaniC1994: posts big blind 400
+*** HOLE CARDS ***
+loveiswhat: folds
+Avalanche77: folds
+DomT1738: calls 400
+razman: folds
+gusma: raises 6913.96 to 7313.96 and is all-in
+DaniC1994: folds
+DomT1738: folds
+Uncalled bet (6913.96) returned to gusma
+gusma: doesn't show hand
+gusma collected 1560
+*** SUMMARY ***
+Total pot 1560 | Rake 0
+Board [  ]
+Game ended: 2026/04/10 17:37:14 GMT
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 3: loveiswhat folded before the flop
+Seat 4: Avalanche77 folded before the flop
+Seat 5: DomT1738 folded before the flop
+Seat 6: razman folded before the flop
+Seat 7: gusma (small blind) collected (1560)
+
+
+PokerStars Hand #2389710066: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (200/400 - Ante 60) - 2026/04/10 17:38:37 GMT
+Table '238971' 7-max Seat #2 is the button
+Seat 1: Stefan24 (10000 in chips)
+Seat 2: DaniC1994 (16107.52 in chips) is sitting out
+Seat 3: loveiswhat (30108.53 in chips)
+Seat 4: Avalanche77 (19674.26 in chips)
+Seat 5: DomT1738 (34032.48 in chips)
+Seat 6: razman (31473.46 in chips)
+Seat 7: gusma (8413.96 in chips)
+Stefan24: posts the ante 60
+DaniC1994: posts the ante 60
+loveiswhat: posts the ante 60
+Avalanche77: posts the ante 60
+DomT1738: posts the ante 60
+razman: posts the ante 60
+gusma: posts the ante 60
+loveiswhat: posts small blind 200
+Avalanche77: posts big blind 400
+*** HOLE CARDS ***
+DomT1738: raises 600 to 1000
+razman: raises 2000 to 3000
+gusma: folds
+Stefan24: folds
+loveiswhat: folds
+Avalanche77: folds
+DomT1738: calls 2000
+*** FLOP *** [8d 8h 6s]
+DomT1738: checks
+razman: bets 1755
+DomT1738: calls 1755
+*** TURN *** [8d 8h 6s] [5h]
+DomT1738: bets 5265
+razman: calls 5265
+*** RIVER *** [8d 8h 6s 5h] [Th]
+DomT1738: folds
+razman: bets 21193.46
+Uncalled bet (21193.46) returned to razman
+razman: doesn't show hand
+razman collected 21060
+*** SUMMARY ***
+Total pot 21060 | Rake 0
+Board [ 8d 8h 6s 5h Th ]
+Game ended: 2026/04/10 17:41:00 GMT
+Seat 1: Stefan24 folded before the flop
+Seat 2: DaniC1994 mucked
+Seat 3: loveiswhat (small blind) folded before the flop
+Seat 4: Avalanche77 (small blind) folded before the flop
+Seat 5: DomT1738 folded on the River
+Seat 6: razman collected (21060)
+Seat 7: gusma folded before the flop
+
+
+PokerStars Hand #2389710067: Tournament #45793, $215 CoinHunter HR PKO Hold'em No Limit - Level I (200/400 - Ante 60) - 2026/04/10 17:41:01 GMT
+Table '238971' 7-max Seat #3 is the button
+Seat 1: Stefan24 (9940 in chips)
+Seat 2: DaniC1994 (16047.52 in chips)
+Seat 3: loveiswhat (29848.53 in chips)
+Seat 4: Avalanche77 (19214.26 in chips)
+Seat 5: DomT1738 (23952.48 in chips)
+Seat 6: razman (42453.46 in chips)
+Seat 7: gusma (8353.96 in chips)
+Stefan24: posts the ante 60
+DaniC1994: posts the ante 60
+loveiswhat: posts the ante 60
+Avalanche77: posts the ante 60
+DomT1738: posts the ante 60
+razman: posts the ante 60
+gusma: posts the ante 60
+Avalanche77: posts small blind 200
+DomT1738: posts big blind 400
+*** HOLE CARDS ***
+razman: folds
+gusma: folds
+Stefan24: folds
+DaniC1994: folds
+loveiswhat: raises 600 to 1000
+Avalanche77: folds
+DomT1738: calls 600
+*** FLOP *** [6s 4c Ks]
+DomT1738: checks
+loveiswhat: bets 1310
+DomT1738: folds
+Uncalled bet (1310) returned to loveiswhat
+loveiswhat: doesn't show hand
+loveiswhat collected 2620
+*** SUMMARY ***
+Total pot 2620 | Rake 0
+Board [ 6s 4c Ks ]
+Game ended: 2026/04/10 17:42:17 GMT
+Seat 1: Stefan24 folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: loveiswhat collected (2620)
+Seat 4: Avalanche77 (small blind) folded before the flop
+Seat 5: DomT1738 (small blind) folded on the Flop
+Seat 6: razman folded before the flop
+Seat 7: gusma folded before the flop
+
+

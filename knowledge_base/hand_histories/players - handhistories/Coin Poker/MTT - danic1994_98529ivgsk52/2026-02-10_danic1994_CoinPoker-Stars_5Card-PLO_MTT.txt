@@ -1,0 +1,3969 @@
+PokerStars Hand #381691453: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/10 17:30:12 GMT
+Table '4' 7-max Seat #3 is the button
+Seat 1: JamesPSullivan (21328 in chips, 12500 bounty)
+Seat 2: Bombaklat (16718 in chips, 18750 bounty)
+Seat 3: BomberCrypto (4168 in chips, 12500 bounty)
+Seat 4: MikelArteta (31862 in chips, 18750 bounty)
+Seat 5: DaniC1994 (11431 in chips, 12500 bounty)
+Seat 6: BernieNJets (9962 in chips, 12500 bounty)
+Seat 7: KimE1 (37356 in chips, 25000 bounty)
+JamesPSullivan: posts the ante 38
+Bombaklat: posts the ante 38
+BomberCrypto: posts the ante 38
+MikelArteta: posts the ante 38
+DaniC1994: posts the ante 38
+BernieNJets: posts the ante 38
+KimE1: posts the ante 38
+MikelArteta: posts small blind 125
+DaniC1994: posts big blind 250
+*** HOLE CARDS ***
+BernieNJets: folds
+KimE1: folds
+JamesPSullivan: raises 250 to 500
+Bombaklat: folds
+BomberCrypto: folds
+MikelArteta: folds
+DaniC1994: calls 250
+*** FLOP *** [7c Kd Ad]
+DaniC1994: checks
+JamesPSullivan: bets 459
+DaniC1994: folds
+Uncalled bet (459) returned to JamesPSullivan
+JamesPSullivan collected 1391 from pot
+JamesPSullivan: doesn't show hand
+*** SUMMARY ***
+Total pot 1391 | Rake 0
+Board [ 7c Kd Ad ]
+Game ended: 2026/02/10 17:31:09 GMT
+Seat 1: JamesPSullivan collected (1391)
+Seat 2: Bombaklat folded before Flop
+Seat 3: BomberCrypto (button) folded before Flop
+Seat 4: MikelArteta (small blind) folded before Flop
+Seat 5: DaniC1994 (big blind) folded on the Flop
+Seat 6: BernieNJets folded before Flop
+Seat 7: KimE1 folded before Flop
+
+
+PokerStars Hand #381691754: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/10 17:31:11 GMT
+Table '4' 7-max Seat #4 is the button
+Seat 1: JamesPSullivan (22181 in chips, 12500 bounty)
+Seat 2: Bombaklat (16680 in chips, 18750 bounty)
+Seat 3: BomberCrypto (4130 in chips, 12500 bounty)
+Seat 4: MikelArteta (31699 in chips, 18750 bounty)
+Seat 5: DaniC1994 (10893 in chips, 12500 bounty)
+Seat 6: BernieNJets (9924 in chips, 12500 bounty)
+Seat 7: KimE1 (37318 in chips, 25000 bounty)
+JamesPSullivan: posts the ante 38
+Bombaklat: posts the ante 38
+BomberCrypto: posts the ante 38
+MikelArteta: posts the ante 38
+DaniC1994: posts the ante 38
+BernieNJets: posts the ante 38
+KimE1: posts the ante 38
+DaniC1994: posts small blind 125
+BernieNJets: posts big blind 250
+*** HOLE CARDS ***
+KimE1: calls 250
+JamesPSullivan: folds
+Bombaklat: folds
+BomberCrypto: folds
+MikelArteta: folds
+DaniC1994: calls 125
+BernieNJets: checks
+*** FLOP *** [Kd Kh Ks]
+DaniC1994: checks
+BernieNJets: checks
+KimE1: bets 750
+DaniC1994: calls 750
+BernieNJets: folds
+*** TURN *** [Kd Kh Ks] [Ah]
+DaniC1994: checks
+KimE1: bets 2516
+DaniC1994: calls 2516
+*** RIVER *** [Kd Kh Ks Ah] [9c]
+DaniC1994: checks
+KimE1: bets 33764 and is all-in
+DaniC1994: calls 7339 and is all-in
+Uncalled bet (26425) returned to KimE1
+*** SHOW DOWN ***
+KimE1: shows [Qh 7h] (three of kind, Kings)
+DaniC1994: shows [4s Kc] (four of a kind, Kings)
+DaniC1994 collected 22226 from pot
+*** SUMMARY ***
+Total pot 22226 | Rake 0
+Board [ Kd Kh Ks Ah 9c ]
+Game ended: 2026/02/10 17:32:38 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: Bombaklat folded before Flop
+Seat 3: BomberCrypto folded before Flop
+Seat 4: MikelArteta (button) folded before Flop
+Seat 5: DaniC1994 (small blind) showed [4s Kc] and won (22226) with four of a kind, Kings
+Seat 6: BernieNJets (big blind) folded on the Flop
+Seat 7: KimE1 showed [Qh 7h]
+
+
+PokerStars Hand #381691985: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/10 17:32:40 GMT
+Table '4' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (22143 in chips, 12500 bounty)
+Seat 2: Bombaklat (16642 in chips, 18750 bounty)
+Seat 3: BomberCrypto (4092 in chips, 12500 bounty)
+Seat 4: MikelArteta (31661 in chips, 18750 bounty)
+Seat 5: DaniC1994 (22226 in chips, 12500 bounty)
+Seat 6: BernieNJets (9636 in chips, 12500 bounty)
+Seat 7: KimE1 (26425 in chips, 25000 bounty)
+JamesPSullivan: posts the ante 38
+Bombaklat: posts the ante 38
+BomberCrypto: posts the ante 38
+MikelArteta: posts the ante 38
+DaniC1994: posts the ante 38
+BernieNJets: posts the ante 38
+KimE1: posts the ante 38
+BernieNJets: posts small blind 125
+KimE1: posts big blind 250
+*** HOLE CARDS ***
+JamesPSullivan: raises 250 to 500
+Bombaklat: folds
+BomberCrypto: raises 4054 to 4054 and is all-in
+MikelArteta: folds
+DaniC1994: calls 4054
+BernieNJets: raises 9348 to 9598 and is all-in
+KimE1: calls 9348
+JamesPSullivan: folds
+DaniC1994: raises 14080 to 22188 and is all-in
+KimE1: calls 12590
+*** FLOP *** [4d Jd Jc]
+*** TURN *** [4d Jd Jc] [Qd]
+*** RIVER *** [4d Jd Jc Qd] [6c]
+*** SHOW DOWN ***
+DaniC1994: shows [5c 5h] (two pairs, Jacks and Fives)
+KimE1: shows [8d Th] (a pair of Jacks)
+DaniC1994 collected 25180 from side-pot 2
+BernieNJets: shows [9d 9c] (two pairs, Jacks and Nines)
+BernieNJets collected 16632 from side-pot 1
+BomberCrypto: shows [Kd Ks] (two pairs, Kings and Jacks)
+BomberCrypto collected 16982 from pot
+*** SUMMARY ***
+Total pot 58794 | Rake 0
+Board [ 4d Jd Jc Qd 6c ]
+Game ended: 2026/02/10 17:33:46 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: Bombaklat folded before Flop
+Seat 3: BomberCrypto showed [Kd Ks] and won (16982) with two pairs, Kings and Jacks
+Seat 4: MikelArteta folded before Flop
+Seat 5: DaniC1994 (button) showed [5c 5h] and won (25180) with two pairs, Jacks and Fives
+Seat 6: BernieNJets (small blind) showed [9d 9c] and won (16632) with two pairs, Jacks and Nines
+Seat 7: KimE1 (big blind) showed [8d Th]
+
+
+PokerStars Hand #381708638: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:00:58 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (30775 in chips, 12500 bounty)
+Seat 2: EmillionS00n (50716 in chips, 18750 bounty)
+Seat 3: Hemingway (4113 in chips, 12500 bounty)
+Seat 5: tonytorsy (13524 in chips, 12500 bounty)
+Seat 6: BernieNJets (13369 in chips, 12500 bounty)
+Seat 7: DaniC1994 (18710 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+EmillionS00n: posts the ante 60
+Hemingway: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+BernieNJets: posts small blind 200
+DaniC1994: posts big blind 400
+*** HOLE CARDS ***
+JamesPSullivan: folds
+EmillionS00n: folds
+Hemingway has timed out
+Hemingway activated time-bank (60 seconds)
+Hemingway: folds
+tonytorsy: raises 400 to 800
+BernieNJets: raises 12909 to 13309 and is all-in
+DaniC1994: folds
+tonytorsy: folds
+Uncalled bet (12509) returned to BernieNJets
+BernieNJets collected 2360 from pot
+BernieNJets: doesn't show hand
+*** SUMMARY ***
+Total pot 2360 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:02:21 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: EmillionS00n folded before Flop
+Seat 3: Hemingway folded before Flop
+Seat 5: tonytorsy (button) folded before Flop
+Seat 6: BernieNJets (small blind) collected (2360)
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381713973: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:02:22 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: JamesPSullivan (30715 in chips, 12500 bounty)
+Seat 2: EmillionS00n (50656 in chips, 18750 bounty)
+Seat 3: Hemingway (4053 in chips, 12500 bounty)
+Seat 5: tonytorsy (12664 in chips, 12500 bounty)
+Seat 6: BernieNJets (14869 in chips, 12500 bounty)
+Seat 7: DaniC1994 (18250 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+EmillionS00n: posts the ante 60
+Hemingway: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+DaniC1994: posts small blind 200
+JamesPSullivan: posts big blind 400
+*** HOLE CARDS ***
+EmillionS00n: folds
+Hemingway: raises 3993 to 3993 and is all-in
+tonytorsy: folds
+BernieNJets: folds
+DaniC1994: folds
+JamesPSullivan: calls 3593
+*** FLOP *** [8s Th 5d]
+*** TURN *** [8s Th 5d] [2h]
+*** RIVER *** [8s Th 5d 2h] [Ac]
+*** SHOW DOWN ***
+Hemingway: shows [Qh Kc] (Ace high)
+JamesPSullivan: shows [5c Jc] (a pair of Fives)
+JamesPSullivan collected 8546 from pot
+*** SUMMARY ***
+Total pot 8546 | Rake 0
+Board [ 8s Th 5d 2h Ac ]
+Game ended: 2026/02/10 18:02:58 GMT
+Seat 1: JamesPSullivan (big blind) showed [5c Jc] and won (8546) with a pair of Fives
+Seat 2: EmillionS00n folded before Flop
+Seat 3: Hemingway showed [Qh Kc]
+Seat 5: tonytorsy folded before Flop
+Seat 6: BernieNJets (button) folded before Flop
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381714005: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:02:59 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: JamesPSullivan (35208 in chips, 18750 bounty)
+Seat 2: EmillionS00n (50596 in chips, 18750 bounty)
+Seat 5: tonytorsy (12604 in chips, 12500 bounty)
+Seat 6: BernieNJets (14809 in chips, 12500 bounty)
+Seat 7: DaniC1994 (17990 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+EmillionS00n: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+JamesPSullivan: posts small blind 200
+EmillionS00n: posts big blind 400
+*** HOLE CARDS ***
+tonytorsy: folds
+BernieNJets: raises 400 to 800
+DaniC1994: calls 800
+JamesPSullivan: folds
+EmillionS00n has timed out
+EmillionS00n activated time-bank (50 seconds)
+EmillionS00n: folds
+*** FLOP *** [8d 2s 6h]
+BernieNJets: checks
+DaniC1994: checks
+*** TURN *** [8d 2s 6h] [Ah]
+BernieNJets: checks
+DaniC1994: checks
+*** RIVER *** [8d 2s 6h Ah] [5h]
+BernieNJets: checks
+DaniC1994: checks
+*** SHOW DOWN ***
+BernieNJets: shows [5c As] (two pairs, Aces and Fives)
+DaniC1994: mucks hand
+BernieNJets collected 2500 from pot
+*** SUMMARY ***
+Total pot 2500 | Rake 0
+Board [ 8d 2s 6h Ah 5h ]
+Game ended: 2026/02/10 18:04:06 GMT
+Seat 1: JamesPSullivan (small blind) folded before Flop
+Seat 2: EmillionS00n (big blind) folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: BernieNJets showed [5c As] and won (2500) with two pairs, Aces and Fives
+Seat 7: DaniC1994 (button) mucked
+
+
+PokerStars Hand #381714632: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:04:07 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: JamesPSullivan (34948 in chips, 18750 bounty)
+Seat 2: EmillionS00n (50136 in chips, 18750 bounty)
+Seat 3: LucaM (41813 in chips, 61719 bounty)
+Seat 4: Chocolate31 (22184 in chips, 25000 bounty)
+Seat 5: tonytorsy (12544 in chips, 12500 bounty)
+Seat 6: BernieNJets (16449 in chips, 12500 bounty)
+Seat 7: DaniC1994 (17130 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+EmillionS00n: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+EmillionS00n: posts small blind 200
+LucaM: posts big blind 400
+*** HOLE CARDS ***
+Chocolate31: raises 400 to 800
+tonytorsy: folds
+BernieNJets: folds
+DaniC1994: folds
+JamesPSullivan: folds
+EmillionS00n: folds
+LucaM: calls 400
+*** FLOP *** [4d 2d 2h]
+LucaM: checks
+Chocolate31: checks
+*** TURN *** [4d 2d 2h] [Jh]
+LucaM: checks
+Chocolate31: bets 600
+LucaM: calls 600
+*** RIVER *** [4d 2d 2h Jh] [Ad]
+LucaM: checks
+Chocolate31: checks
+*** SHOW DOWN ***
+LucaM: shows [5d Ts] (a pair of Twos)
+Chocolate31: shows [Qs Js] (two pairs, Jacks and Twos)
+Chocolate31 collected 3420 from pot
+*** SUMMARY ***
+Total pot 3420 | Rake 0
+Board [ 4d 2d 2h Jh Ad ]
+Game ended: 2026/02/10 18:04:49 GMT
+Seat 1: JamesPSullivan (button) folded before Flop
+Seat 2: EmillionS00n (small blind) folded before Flop
+Seat 3: LucaM (big blind) showed [5d Ts]
+Seat 4: Chocolate31 showed [Qs Js] and won (3420) with two pairs, Jacks and Twos
+Seat 5: tonytorsy folded before Flop
+Seat 6: BernieNJets folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381715023: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:04:51 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: JamesPSullivan (34888 in chips, 18750 bounty)
+Seat 2: EmillionS00n (49876 in chips, 18750 bounty)
+Seat 3: LucaM (40353 in chips, 61719 bounty)
+Seat 4: Chocolate31 (24144 in chips, 25000 bounty)
+Seat 5: tonytorsy (12484 in chips, 12500 bounty)
+Seat 6: BernieNJets (16389 in chips, 12500 bounty)
+Seat 7: DaniC1994 (17070 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+EmillionS00n: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+LucaM: posts small blind 200
+Chocolate31: posts big blind 400
+*** HOLE CARDS ***
+tonytorsy: raises 400 to 800
+BernieNJets: folds
+DaniC1994: folds
+JamesPSullivan: raises 1200 to 2000
+EmillionS00n: folds
+LucaM: folds
+Chocolate31: folds
+tonytorsy: calls 1200
+*** FLOP *** [5d Js 7d]
+tonytorsy: checks
+JamesPSullivan: bets 1656
+tonytorsy has timed out
+tonytorsy activated time-bank (50 seconds)
+tonytorsy: calls 1656
+*** TURN *** [5d Js 7d] [4d]
+tonytorsy: checks
+JamesPSullivan: bets 2083
+tonytorsy: calls 2083
+*** RIVER *** [5d Js 7d 4d] [Ks]
+tonytorsy: checks
+JamesPSullivan: checks
+*** SHOW DOWN ***
+tonytorsy: shows [Jc Ad] (a pair of Jacks)
+JamesPSullivan: shows [2h Kh] (a pair of Kings)
+JamesPSullivan collected 12498 from pot
+*** SUMMARY ***
+Total pot 12498 | Rake 0
+Board [ 5d Js 7d 4d Ks ]
+Game ended: 2026/02/10 18:06:26 GMT
+Seat 1: JamesPSullivan showed [2h Kh] and won (12498) with a pair of Kings
+Seat 2: EmillionS00n (button) folded before Flop
+Seat 3: LucaM (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 5: tonytorsy showed [Jc Ad]
+Seat 6: BernieNJets folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381716095: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:06:27 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: JamesPSullivan (41587 in chips, 18750 bounty)
+Seat 3: LucaM (40093 in chips, 61719 bounty)
+Seat 4: Chocolate31 (23684 in chips, 25000 bounty)
+Seat 5: tonytorsy (6685 in chips, 12500 bounty)
+Seat 6: BernieNJets (16329 in chips, 12500 bounty)
+Seat 7: DaniC1994 (17010 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+Chocolate31: posts small blind 200
+tonytorsy: posts big blind 400
+*** HOLE CARDS ***
+BernieNJets: raises 400 to 800
+KimE1 has reconnected
+DaniC1994: folds
+JamesPSullivan: folds
+LucaM: calls 800
+Chocolate31: calls 600
+tonytorsy: folds
+*** FLOP *** [Td 6d Jc]
+Chocolate31: checks
+BernieNJets: bets 1000
+LucaM: calls 1000
+Chocolate31: folds
+*** TURN *** [Td 6d Jc] [6h]
+BernieNJets: checks
+LucaM: checks
+*** RIVER *** [Td 6d Jc 6h] [5h]
+BernieNJets: checks
+LucaM: checks
+*** SHOW DOWN ***
+BernieNJets: shows [Ad Kh] (a pair of Sixes)
+LucaM: mucks hand
+BernieNJets collected 5160 from pot
+*** SUMMARY ***
+Total pot 5160 | Rake 0
+Board [ Td 6d Jc 6h 5h ]
+Game ended: 2026/02/10 18:07:17 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 3: LucaM (button) mucked
+Seat 4: Chocolate31 (small blind) folded on the Flop
+Seat 5: tonytorsy (big blind) folded before Flop
+Seat 6: BernieNJets showed [Ad Kh] and won (5160) with a pair of Sixes
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381716670: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:07:18 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: JamesPSullivan (41527 in chips, 18750 bounty)
+Seat 2: KimE1 (10000 in chips, 12500 bounty)
+Seat 3: LucaM (38233 in chips, 61719 bounty)
+Seat 4: Chocolate31 (22824 in chips, 25000 bounty)
+Seat 5: tonytorsy (6225 in chips, 12500 bounty)
+Seat 6: BernieNJets (19629 in chips, 12500 bounty)
+Seat 7: DaniC1994 (16950 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+KimE1: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+tonytorsy: posts small blind 200
+BernieNJets: posts big blind 400
+*** HOLE CARDS ***
+DaniC1994: folds
+JamesPSullivan: folds
+KimE1: calls 400
+LucaM: raises 1200 to 1600
+Chocolate31: calls 1600
+tonytorsy: folds
+BernieNJets: folds
+KimE1: folds
+*** FLOP *** [Jh Jc 4s]
+LucaM: checks
+Chocolate31: bets 1200
+LucaM: calls 1200
+*** TURN *** [Jh Jc 4s] [2d]
+LucaM: checks
+Chocolate31: bets 3600
+LucaM: calls 3600
+*** RIVER *** [Jh Jc 4s 2d] [6c]
+LucaM: checks
+Chocolate31: bets 16364 and is all-in
+LucaM: calls 16364
+*** SHOW DOWN ***
+Chocolate31: shows [Jd Ks] (three of kind, Jacks)
+LucaM: shows [6s 2h] (two pairs, Jacks and Sixes)
+Chocolate31 collected 46948 from pot
+*** SUMMARY ***
+Total pot 46948 | Rake 0
+Board [ Jh Jc 4s 2d 6c ]
+Game ended: 2026/02/10 18:08:14 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: KimE1 folded before Flop
+Seat 3: LucaM showed [6s 2h]
+Seat 4: Chocolate31 (button) showed [Jd Ks] and won (46948) with three of kind, Jacks
+Seat 5: tonytorsy (small blind) folded before Flop
+Seat 6: BernieNJets (big blind) folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381717364: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:08:15 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (41467 in chips, 18750 bounty)
+Seat 2: KimE1 (9540 in chips, 12500 bounty)
+Seat 3: LucaM (15409 in chips, 61719 bounty)
+Seat 4: Chocolate31 (46948 in chips, 25000 bounty)
+Seat 5: tonytorsy (5965 in chips, 12500 bounty)
+Seat 6: BernieNJets (19169 in chips, 12500 bounty)
+Seat 7: DaniC1994 (16890 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+KimE1: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+BernieNJets: posts small blind 200
+DaniC1994: posts big blind 400
+*** HOLE CARDS ***
+JamesPSullivan: folds
+KimE1: raises 800 to 1200
+LucaM: calls 1200
+Chocolate31: calls 1200
+tonytorsy: folds
+BernieNJets: folds
+DaniC1994: folds
+*** FLOP *** [Js 3h 5d]
+KimE1: bets 1600
+LucaM: calls 1600
+Chocolate31: calls 1600
+*** TURN *** [Js 3h 5d] [Kc]
+KimE1: bets 6680 and is all-in
+LucaM: folds
+Chocolate31: calls 6680
+*** RIVER *** [Js 3h 5d Kc] [5h]
+*** SHOW DOWN ***
+KimE1: shows [Qh Jc] (two pairs, Jacks and Fives)
+Chocolate31: shows [Td Kd] (two pairs, Kings and Fives)
+Chocolate31 collected 22780 from pot
+*** SUMMARY ***
+Total pot 22780 | Rake 0
+Board [ Js 3h 5d Kc 5h ]
+Game ended: 2026/02/10 18:09:05 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: KimE1 showed [Qh Jc]
+Seat 3: LucaM folded on the Turn
+Seat 4: Chocolate31 showed [Td Kd] and won (22780) with two pairs, Kings and Fives
+Seat 5: tonytorsy (button) folded before Flop
+Seat 6: BernieNJets (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381717918: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (200/400) - 2026/02/10 18:09:06 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: JamesPSullivan (41407 in chips, 18750 bounty)
+Seat 3: LucaM (12549 in chips, 61719 bounty)
+Seat 4: Chocolate31 (60188 in chips, 31250 bounty)
+Seat 5: tonytorsy (5905 in chips, 12500 bounty)
+Seat 6: BernieNJets (18909 in chips, 12500 bounty)
+Seat 7: DaniC1994 (16430 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 60
+LucaM: posts the ante 60
+Chocolate31: posts the ante 60
+tonytorsy: posts the ante 60
+BernieNJets: posts the ante 60
+DaniC1994: posts the ante 60
+DaniC1994: posts small blind 200
+JamesPSullivan: posts big blind 400
+*** HOLE CARDS ***
+KimE1 has reconnected
+LucaM: folds
+Chocolate31: folds
+tonytorsy: folds
+BernieNJets: raises 400 to 800
+DaniC1994: calls 600
+JamesPSullivan: folds
+*** FLOP *** [Ac Tc 8s]
+DaniC1994: checks
+BernieNJets: checks
+*** TURN *** [Ac Tc 8s] [6s]
+DaniC1994: bets 1958
+BernieNJets: calls 1958
+*** RIVER *** [Ac Tc 8s 6s] [As]
+DaniC1994: checks
+BernieNJets: checks
+*** SHOW DOWN ***
+DaniC1994: shows [4c Kc] (a pair of Aces)
+BernieNJets: shows [8c Kd] (two pairs, Aces and Eights)
+BernieNJets collected 6276 from pot
+*** SUMMARY ***
+Total pot 6276 | Rake 0
+Board [ Ac Tc 8s 6s As ]
+Game ended: 2026/02/10 18:10:14 GMT
+Seat 1: JamesPSullivan (big blind) folded before Flop
+Seat 3: LucaM folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: BernieNJets (button) showed [8c Kd] and won (6276) with two pairs, Aces and Eights
+Seat 7: DaniC1994 (small blind) showed [4c Kc]
+
+
+PokerStars Hand #381718720: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:10:20 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: JamesPSullivan (40947 in chips, 18750 bounty)
+Seat 2: KimE1 (10000 in chips, 12500 bounty)
+Seat 3: LucaM (12489 in chips, 61719 bounty)
+Seat 4: Chocolate31 (60128 in chips, 31250 bounty)
+Seat 5: tonytorsy (5845 in chips, 12500 bounty)
+Seat 7: DaniC1994 (13612 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+LucaM: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+DaniC1994: posts the ante 75
+JamesPSullivan: posts small blind 250
+KimE1: posts big blind 500
+*** HOLE CARDS ***
+LucaM: calls 500
+Chocolate31: calls 500
+tonytorsy: folds
+DaniC1994: folds
+JamesPSullivan: calls 250
+KimE1: checks
+*** FLOP *** [Js Jc 4c]
+JamesPSullivan: checks
+KimE1: bets 1500
+LucaM: calls 1500
+Chocolate31: folds
+JamesPSullivan: folds
+*** TURN *** [Js Jc 4c] [2h]
+KimE1: bets 2500
+LucaM: folds
+Uncalled bet (2500) returned to KimE1
+KimE1 collected 5450 from pot
+KimE1: doesn't show hand
+*** SUMMARY ***
+Total pot 5450 | Rake 0
+Board [ Js Jc 4c 2h ]
+Game ended: 2026/02/10 18:11:13 GMT
+Seat 1: JamesPSullivan (small blind) folded on the Flop
+Seat 2: KimE1 (big blind) collected (5450)
+Seat 3: LucaM folded on the Turn
+Seat 4: Chocolate31 folded on the Flop
+Seat 5: tonytorsy folded before Flop
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381719271: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:11:14 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: JamesPSullivan (40372 in chips, 18750 bounty)
+Seat 2: KimE1 (13375 in chips, 12500 bounty)
+Seat 3: LucaM (10414 in chips, 61719 bounty)
+Seat 4: Chocolate31 (59553 in chips, 31250 bounty)
+Seat 5: tonytorsy (5770 in chips, 12500 bounty)
+Seat 7: DaniC1994 (13537 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+LucaM: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+DaniC1994: posts the ante 75
+KimE1: posts small blind 250
+LucaM: posts big blind 500
+*** HOLE CARDS ***
+Chocolate31: raises 500 to 1000
+tonytorsy: raises 5695 to 5695 and is all-in
+DaniC1994: folds
+JamesPSullivan: folds
+KimE1: folds
+LucaM: folds
+Chocolate31: calls 4695
+*** FLOP *** [6s 6c 2h]
+*** TURN *** [6s 6c 2h] [2s]
+*** RIVER *** [6s 6c 2h 2s] [Th]
+*** SHOW DOWN ***
+tonytorsy: shows [8h 8s] (two pairs, Eights and Sixes)
+Chocolate31: shows [3c 3d] (two pairs, Sixes and Threes)
+tonytorsy collected 12590 from pot
+*** SUMMARY ***
+Total pot 12590 | Rake 0
+Board [ 6s 6c 2h 2s Th ]
+Game ended: 2026/02/10 18:11:46 GMT
+Seat 1: JamesPSullivan (button) folded before Flop
+Seat 2: KimE1 (small blind) folded before Flop
+Seat 3: LucaM (big blind) folded before Flop
+Seat 4: Chocolate31 showed [3c 3d]
+Seat 5: tonytorsy showed [8h 8s] and won (12590) with two pairs, Eights and Sixes
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381730048: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:27:49 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: JamesPSullivan (44030 in chips, 18750 bounty)
+Seat 2: FFogNINI (16407 in chips, 18750 bounty)
+Seat 3: dariotoma (22070 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48214 in chips, 31250 bounty)
+Seat 5: tonytorsy (4015 in chips, 12500 bounty)
+Seat 6: siema (123633 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24820 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+dariotoma: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+DaniC1994: posts small blind 300
+JamesPSullivan: posts big blind 600
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: raises 660 to 1260
+Chocolate31: folds
+tonytorsy: folds
+siema: calls 1260
+DaniC1994: folds
+JamesPSullivan: folds
+*** FLOP *** [3d Jh Ah]
+dariotoma: bets 1215
+siema: calls 1215
+*** TURN *** [3d Jh Ah] [6s]
+dariotoma: checks
+siema: bets 4860
+dariotoma: calls 4860
+*** RIVER *** [3d Jh Ah 6s] [9d]
+dariotoma: checks
+siema: checks
+*** SHOW DOWN ***
+dariotoma: shows [As Ac] (three of kind, Aces)
+siema: mucks hand
+dariotoma collected 16200 from pot
+*** SUMMARY ***
+Total pot 16200 | Rake 0
+Board [ 3d Jh Ah 6s 9d ]
+Game ended: 2026/02/10 18:28:57 GMT
+Seat 1: JamesPSullivan (big blind) folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma showed [As Ac] and won (16200) with three of kind, Aces
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema (button) mucked
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381730770: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:28:59 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: JamesPSullivan (43340 in chips, 18750 bounty)
+Seat 2: FFogNINI (16317 in chips, 18750 bounty)
+Seat 3: dariotoma (30845 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48124 in chips, 31250 bounty)
+Seat 5: tonytorsy (3925 in chips, 12500 bounty)
+Seat 6: siema (116208 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24430 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+dariotoma: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+JamesPSullivan: posts small blind 300
+FFogNINI: posts big blind 600
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+tonytorsy: raises 3835 to 3835 and is all-in
+siema: folds
+DaniC1994: folds
+JamesPSullivan: raises 42650 to 43250 and is all-in
+FFogNINI: folds
+Uncalled bet (39415) returned to JamesPSullivan
+*** FLOP *** [9c 2s 3h]
+*** TURN *** [9c 2s 3h] [Js]
+*** RIVER *** [9c 2s 3h Js] [Ad]
+*** SHOW DOWN ***
+JamesPSullivan: shows [Ac 6c] (a pair of Aces)
+tonytorsy: shows [9s As] (two pairs, Aces and Nines)
+tonytorsy collected 8900 from pot
+*** SUMMARY ***
+Total pot 8900 | Rake 0
+Board [ 9c 2s 3h Js Ad ]
+Game ended: 2026/02/10 18:29:43 GMT
+Seat 1: JamesPSullivan (small blind) showed [Ac 6c]
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy showed [9s As] and won (8900) with two pairs, Aces and Nines
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381731342: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:29:44 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: JamesPSullivan (39415 in chips, 18750 bounty)
+Seat 2: FFogNINI (15627 in chips, 18750 bounty)
+Seat 3: dariotoma (30755 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48034 in chips, 31250 bounty)
+Seat 5: tonytorsy (8900 in chips, 12500 bounty)
+Seat 6: siema (116118 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24340 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+dariotoma: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+FFogNINI: posts small blind 300
+dariotoma: posts big blind 600
+*** HOLE CARDS ***
+Chocolate31: folds
+tonytorsy: folds
+siema: raises 600 to 1200
+DaniC1994: folds
+JamesPSullivan: raises 2395 to 3595
+FFogNINI: folds
+dariotoma: folds
+siema: calls 2395
+*** FLOP *** [Kd 6s Ts]
+siema: checks
+JamesPSullivan: bets 2877
+siema: folds
+Uncalled bet (2877) returned to JamesPSullivan
+JamesPSullivan collected 8720 from pot
+JamesPSullivan: doesn't show hand
+*** SUMMARY ***
+Total pot 8720 | Rake 0
+Board [ Kd 6s Ts ]
+Game ended: 2026/02/10 18:30:32 GMT
+Seat 1: JamesPSullivan (button) collected (8720)
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema folded on the Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381731807: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:30:38 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 2: FFogNINI (15237 in chips, 18750 bounty)
+Seat 3: dariotoma (30065 in chips, 12500 bounty)
+Seat 4: Chocolate31 (47944 in chips, 31250 bounty)
+Seat 5: tonytorsy (8810 in chips, 12500 bounty)
+Seat 6: siema (112433 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24250 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+tonytorsy: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+dariotoma: posts small blind 350
+Chocolate31: posts big blind 700
+*** HOLE CARDS ***
+tonytorsy: raises 700 to 1400
+siema: folds
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: raises 2800 to 4200
+Chocolate31: folds
+tonytorsy: folds
+Uncalled bet (2800) returned to dariotoma
+dariotoma collected 4130 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 4130 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:31:02 GMT
+Seat 2: FFogNINI (button) folded before Flop
+Seat 3: dariotoma (small blind) collected (4130)
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381732571: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:31:38 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 2: FFogNINI (15027 in chips, 18750 bounty)
+Seat 3: dariotoma (32585 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48364 in chips, 31250 bounty)
+Seat 5: tonytorsy (6500 in chips, 12500 bounty)
+Seat 6: siema (112223 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24040 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+tonytorsy: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+tonytorsy: posts small blind 350
+siema: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+tonytorsy: raises 5695 to 6395 and is all-in
+siema: calls 5695
+*** FLOP *** [5h Qh 8c]
+*** TURN *** [5h Qh 8c] [Qd]
+*** RIVER *** [5h Qh 8c Qd] [Ah]
+*** SHOW DOWN ***
+tonytorsy: shows [7h Ks] (a pair of Queens)
+siema: shows [8s 9s] (two pairs, Queens and Eights)
+siema collected 13420 from pot
+*** SUMMARY ***
+Total pot 13420 | Rake 0
+Board [ 5h Qh 8c Qd Ah ]
+Game ended: 2026/02/10 18:32:06 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 5: tonytorsy (small blind) showed [7h Ks]
+Seat 6: siema (big blind) showed [8s 9s] and won (13420) with two pairs, Queens and Eights
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381732858: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:32:07 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 2: FFogNINI (14922 in chips, 18750 bounty)
+Seat 3: dariotoma (32480 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48259 in chips, 31250 bounty)
+Seat 6: siema (119143 in chips, 74805 bounty)
+Seat 7: DaniC1994 (23935 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+siema: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: calls 350
+DaniC1994: raises 1750 to 2450
+siema: folds
+Uncalled bet (1750) returned to DaniC1994
+DaniC1994 collected 1925 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 1925 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:32:28 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) collected (1925)
+
+
+PokerStars Hand #381733034: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:32:29 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 2: FFogNINI (14817 in chips, 18750 bounty)
+Seat 3: dariotoma (32375 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48154 in chips, 31250 bounty)
+Seat 6: siema (118338 in chips, 74805 bounty)
+Seat 7: DaniC1994 (25055 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+DaniC1994: posts small blind 350
+FFogNINI: posts big blind 700
+*** HOLE CARDS ***
+dariotoma: raises 700 to 1400
+Chocolate31: folds
+siema: folds
+DaniC1994: calls 1050
+FFogNINI: calls 700
+*** FLOP *** [4s 6d 6c]
+DaniC1994: checks
+FFogNINI: checks
+dariotoma: bets 1559
+DaniC1994: calls 1559
+FFogNINI: folds
+*** TURN *** [4s 6d 6c] [Kd]
+DaniC1994: checks
+dariotoma: bets 4935
+DaniC1994: folds
+Uncalled bet (4935) returned to dariotoma
+dariotoma collected 7843 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 7843 | Rake 0
+Board [ 4s 6d 6c Kd ]
+Game ended: 2026/02/10 18:33:33 GMT
+Seat 2: FFogNINI (big blind) folded on the Flop
+Seat 3: dariotoma collected (7843)
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (button) folded before Flop
+Seat 7: DaniC1994 (small blind) folded on the Turn
+
+
+PokerStars Hand #381733655: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:33:34 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: MikelArteta (38276 in chips, 34375 bounty) out of hand
+Seat 2: FFogNINI (13312 in chips, 18750 bounty)
+Seat 3: dariotoma (37154 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48049 in chips, 31250 bounty)
+Seat 6: siema (118233 in chips, 74805 bounty)
+Seat 7: DaniC1994 (21991 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+FFogNINI: posts small blind 350
+dariotoma: posts big blind 700
+*** HOLE CARDS ***
+Chocolate31: folds
+siema: folds
+DaniC1994: raises 770 to 1470
+FFogNINI: folds
+dariotoma: folds
+Uncalled bet (770) returned to DaniC1994
+DaniC1994 collected 2275 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 2275 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:33:53 GMT
+Seat 1: MikelArteta folded before Flop (didn't bet)
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) collected (2275)
+
+
+PokerStars Hand #381733874: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:33:54 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: MikelArteta (38276 in chips, 34375 bounty)
+Seat 2: FFogNINI (12857 in chips, 18750 bounty)
+Seat 3: dariotoma (36349 in chips, 12500 bounty)
+Seat 4: Chocolate31 (47944 in chips, 31250 bounty)
+Seat 6: siema (118128 in chips, 74805 bounty)
+Seat 7: DaniC1994 (23461 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+dariotoma: posts small blind 350
+Chocolate31: posts big blind 700
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: raises 700 to 1400
+dariotoma: folds
+Chocolate31: calls 700
+*** FLOP *** [Ks 2s 8s]
+Chocolate31: checks
+FFogNINI: bets 945
+Chocolate31: folds
+Uncalled bet (945) returned to FFogNINI
+FFogNINI collected 3780 from pot
+FFogNINI: doesn't show hand
+*** SUMMARY ***
+Total pot 3780 | Rake 0
+Board [ Ks 2s 8s ]
+Game ended: 2026/02/10 18:34:55 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI (button) collected (3780)
+Seat 3: dariotoma (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded on the Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381720698: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:13:22 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: JamesPSullivan (39222 in chips, 18750 bounty)
+Seat 2: KimE1 (25189 in chips, 43360 bounty)
+Seat 4: Chocolate31 (52708 in chips, 31250 bounty)
+Seat 5: tonytorsy (12515 in chips, 12500 bounty)
+Seat 6: siema (114871 in chips, 46875 bounty)
+Seat 7: DaniC1994 (13387 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+Chocolate31: posts small blind 250
+tonytorsy: posts big blind 500
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+JamesPSullivan: raises 500 to 1000
+KimE1: raises 25114 to 25114 and is all-in
+Chocolate31: folds
+tonytorsy: folds
+JamesPSullivan: folds
+Uncalled bet (24114) returned to KimE1
+KimE1 collected 3200 from pot
+KimE1: doesn't show hand
+*** SUMMARY ***
+Total pot 3200 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:13:58 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: KimE1 collected (3200)
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 5: tonytorsy (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381734744: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:34:56 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: MikelArteta (38171 in chips, 34375 bounty)
+Seat 2: FFogNINI (15132 in chips, 18750 bounty)
+Seat 3: dariotoma (35894 in chips, 12500 bounty)
+Seat 4: Chocolate31 (46439 in chips, 31250 bounty)
+Seat 6: siema (118023 in chips, 74805 bounty)
+Seat 7: DaniC1994 (23356 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+Chocolate31: posts small blind 350
+siema: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: raises 770 to 1470
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: calls 770
+*** FLOP *** [Jc 4d 2c]
+siema: checks
+DaniC1994: bets 2156
+siema: calls 2156
+*** TURN *** [Jc 4d 2c] [5h]
+siema: checks
+DaniC1994: checks
+*** RIVER *** [Jc 4d 2c 5h] [Ad]
+siema: bets 2058
+DaniC1994 has timed out
+DaniC1994 activated time-bank (60 seconds)
+DaniC1994: folds
+Uncalled bet (2058) returned to siema
+siema collected 8232 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 8232 | Rake 0
+Board [ Jc 4d 2c 5h Ad ]
+Game ended: 2026/02/10 18:36:21 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) collected (8232)
+Seat 7: DaniC1994 folded on the River
+
+
+PokerStars Hand #381721088: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:13:59 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: JamesPSullivan (38147 in chips, 18750 bounty)
+Seat 2: KimE1 (27314 in chips, 43360 bounty)
+Seat 4: Chocolate31 (52383 in chips, 31250 bounty)
+Seat 5: tonytorsy (11940 in chips, 12500 bounty)
+Seat 6: siema (114796 in chips, 46875 bounty)
+Seat 7: DaniC1994 (13312 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+tonytorsy: posts small blind 250
+siema: posts big blind 500
+*** HOLE CARDS ***
+DaniC1994: folds
+JamesPSullivan: raises 500 to 1000
+KimE1: calls 1000
+Chocolate31 has timed out
+Chocolate31 activated time-bank (60 seconds)
+Chocolate31: folds
+tonytorsy: folds
+siema: folds
+*** FLOP *** [3c 9h Ks]
+JamesPSullivan: bets 1056
+KimE1: calls 1056
+*** TURN *** [3c 9h Ks] [As]
+JamesPSullivan: bets 7995
+KimE1: calls 7995
+*** RIVER *** [3c 9h Ks As] [8c]
+JamesPSullivan: bets 28021 and is all-in
+KimE1: folds
+Uncalled bet (28021) returned to JamesPSullivan
+JamesPSullivan collected 21302 from pot
+JamesPSullivan: doesn't show hand
+*** SUMMARY ***
+Total pot 21302 | Rake 0
+Board [ 3c 9h Ks As 8c ]
+Game ended: 2026/02/10 18:15:24 GMT
+Seat 1: JamesPSullivan collected (21302)
+Seat 2: KimE1 folded on the River
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 5: tonytorsy (small blind) folded before Flop
+Seat 6: siema (big blind) folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381722159: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:15:25 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (49323 in chips, 18750 bounty)
+Seat 2: KimE1 (17188 in chips, 43360 bounty)
+Seat 4: Chocolate31 (52308 in chips, 31250 bounty)
+Seat 5: tonytorsy (11615 in chips, 12500 bounty)
+Seat 6: siema (114221 in chips, 46875 bounty)
+Seat 7: DaniC1994 (13237 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+siema: posts small blind 250
+DaniC1994: posts big blind 500
+*** HOLE CARDS ***
+JamesPSullivan: folds
+KimE1: folds
+Chocolate31: raises 500 to 1000
+tonytorsy: folds
+siema: folds
+DaniC1994: calls 500
+*** FLOP *** [3d 8c 7c]
+DaniC1994: checks
+Chocolate31: bets 750
+DaniC1994: folds
+Uncalled bet (750) returned to Chocolate31
+Chocolate31 collected 2700 from pot
+Chocolate31: doesn't show hand
+*** SUMMARY ***
+Total pot 2700 | Rake 0
+Board [ 3d 8c 7c ]
+Game ended: 2026/02/10 18:16:12 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: KimE1 folded before Flop
+Seat 4: Chocolate31 collected (2700)
+Seat 5: tonytorsy (button) folded before Flop
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) folded on the Flop
+
+
+PokerStars Hand #381722947: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:16:13 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: JamesPSullivan (49248 in chips, 18750 bounty)
+Seat 2: KimE1 (17113 in chips, 43360 bounty)
+Seat 4: Chocolate31 (53933 in chips, 31250 bounty)
+Seat 5: tonytorsy (11540 in chips, 12500 bounty)
+Seat 6: siema (113896 in chips, 46875 bounty)
+Seat 7: DaniC1994 (12162 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+DaniC1994: posts small blind 250
+JamesPSullivan: posts big blind 500
+*** HOLE CARDS ***
+KimE1: raises 500 to 1000
+Chocolate31: folds
+tonytorsy: folds
+siema: calls 1000
+DaniC1994: folds
+JamesPSullivan: folds
+*** FLOP *** [9s 4s 7h]
+KimE1: checks
+siema: checks
+*** TURN *** [9s 4s 7h] [Jh]
+KimE1: checks
+siema: bets 2400
+KimE1: calls 2400
+*** RIVER *** [9s 4s 7h Jh] [Jd]
+KimE1: checks
+siema: checks
+*** SHOW DOWN ***
+KimE1: shows [Qh Th] (a pair of Jacks)
+siema: shows [Ah 5h] (a pair of Jacks)
+siema collected 8000 from pot
+*** SUMMARY ***
+Total pot 8000 | Rake 0
+Board [ 9s 4s 7h Jh Jd ]
+Game ended: 2026/02/10 18:17:04 GMT
+Seat 1: JamesPSullivan (big blind) folded before Flop
+Seat 2: KimE1 showed [Qh Th]
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema (button) showed [Ah 5h] and won (8000) with a pair of Jacks
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381723573: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:17:05 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: JamesPSullivan (48673 in chips, 18750 bounty)
+Seat 2: KimE1 (13638 in chips, 43360 bounty)
+Seat 4: Chocolate31 (53858 in chips, 31250 bounty)
+Seat 5: tonytorsy (11465 in chips, 12500 bounty)
+Seat 6: siema (118421 in chips, 46875 bounty)
+Seat 7: DaniC1994 (11837 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+JamesPSullivan: posts small blind 250
+KimE1: posts big blind 500
+*** HOLE CARDS ***
+Chocolate31: folds
+tonytorsy: raises 500 to 1000
+siema: folds
+DaniC1994: raises 11762 to 11762 and is all-in
+JamesPSullivan: folds
+KimE1: calls 11262
+tonytorsy: folds
+*** FLOP *** [8c Kh 2s]
+*** TURN *** [8c Kh 2s] [7c]
+*** RIVER *** [8c Kh 2s 7c] [Td]
+*** SHOW DOWN ***
+DaniC1994: shows [Kd Jd] (a pair of Kings)
+KimE1: shows [3h Jh] (King high)
+DaniC1994 collected 25224 from pot
+*** SUMMARY ***
+Total pot 25224 | Rake 0
+Board [ 8c Kh 2s 7c Td ]
+Game ended: 2026/02/10 18:17:52 GMT
+Seat 1: JamesPSullivan (small blind) folded before Flop
+Seat 2: KimE1 (big blind) showed [3h Jh]
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) showed [Kd Jd] and won (25224) with a pair of Kings
+
+
+PokerStars Hand #381724196: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:17:53 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: JamesPSullivan (48348 in chips, 18750 bounty)
+Seat 2: KimE1 (1801 in chips, 43360 bounty)
+Seat 4: Chocolate31 (53783 in chips, 31250 bounty)
+Seat 5: tonytorsy (10390 in chips, 12500 bounty)
+Seat 6: siema (118346 in chips, 46875 bounty)
+Seat 7: DaniC1994 (25224 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+KimE1: posts small blind 250
+Chocolate31: posts big blind 500
+*** HOLE CARDS ***
+tonytorsy: folds
+siema: calls 500
+DaniC1994: calls 500
+JamesPSullivan: folds
+KimE1: raises 1226 to 1726 and is all-in
+Chocolate31: calls 1226
+siema: calls 1226
+DaniC1994: calls 1226
+*** FLOP *** [Kc Jh 9h]
+Chocolate31: checks
+siema: bets 1838
+DaniC1994: calls 1838
+Chocolate31: calls 1838
+*** TURN *** [Kc Jh 9h] [7c]
+Chocolate31: checks
+siema: bets 5147
+DaniC1994: folds
+Chocolate31: folds
+Uncalled bet (5147) returned to siema
+siema collected 5514 from side-pot 1
+*** RIVER *** [Kc Jh 9h 7c] [5s]
+*** SHOW DOWN ***
+KimE1: shows [Ac Th] (Ace high)
+siema collected 7354 from pot
+*** SUMMARY ***
+Total pot 12868 | Rake 0
+Board [ Kc Jh 9h 7c 5s ]
+Game ended: 2026/02/10 18:19:12 GMT
+Seat 1: JamesPSullivan (button) folded before Flop
+Seat 2: KimE1 (small blind) showed [Ac Th]
+Seat 4: Chocolate31 (big blind) folded on the Turn
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema showed [3h 7h] and won (12868) with a pair of Sevens
+Seat 7: DaniC1994 folded on the Turn
+
+
+PokerStars Hand #381724879: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:19:13 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: JamesPSullivan (48273 in chips, 18750 bounty)
+Seat 4: Chocolate31 (50144 in chips, 31250 bounty)
+Seat 5: tonytorsy (10315 in chips, 12500 bounty)
+Seat 6: siema (127575 in chips, 68555 bounty)
+Seat 7: DaniC1994 (21585 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+Chocolate31: posts small blind 250
+tonytorsy: posts big blind 500
+*** HOLE CARDS ***
+siema: raises 500 to 1000
+DaniC1994: folds
+JamesPSullivan: folds
+Chocolate31: folds
+tonytorsy: calls 500
+*** FLOP *** [9c 3s 6d]
+tonytorsy: checks
+siema: bets 1300
+tonytorsy: calls 1300
+*** TURN *** [9c 3s 6d] [Jd]
+tonytorsy: checks
+siema: bets 2090
+tonytorsy: folds
+Uncalled bet (2090) returned to siema
+siema collected 5225 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 5225 | Rake 0
+Board [ 9c 3s 6d Jd ]
+Game ended: 2026/02/10 18:19:52 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 5: tonytorsy (big blind) folded on the Turn
+Seat 6: siema collected (5225)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381725362: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:19:53 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: JamesPSullivan (48198 in chips, 18750 bounty)
+Seat 4: Chocolate31 (49819 in chips, 31250 bounty)
+Seat 5: tonytorsy (7940 in chips, 12500 bounty)
+Seat 6: siema (130425 in chips, 68555 bounty)
+Seat 7: DaniC1994 (21510 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+siema: posts the ante 75
+DaniC1994: posts the ante 75
+tonytorsy: posts small blind 250
+siema: posts big blind 500
+*** HOLE CARDS ***
+DaniC1994: raises 550 to 1050
+JamesPSullivan: folds
+Chocolate31: folds
+tonytorsy has timed out
+tonytorsy activated time-bank (60 seconds)
+tonytorsy: folds
+siema: calls 550
+*** FLOP *** [6c Qh 5c]
+siema: checks
+DaniC1994: bets 590
+siema: folds
+Uncalled bet (590) returned to DaniC1994
+DaniC1994 collected 2725 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 2725 | Rake 0
+Board [ 6c Qh 5c ]
+Game ended: 2026/02/10 18:20:37 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 5: tonytorsy (small blind) folded before Flop
+Seat 6: siema (big blind) folded on the Flop
+Seat 7: DaniC1994 collected (2725)
+
+
+PokerStars Hand #381725838: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:20:42 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (48123 in chips, 18750 bounty)
+Seat 2: FFogNINI (15297 in chips, 18750 bounty)
+Seat 4: Chocolate31 (49744 in chips, 31250 bounty)
+Seat 5: tonytorsy (7615 in chips, 12500 bounty)
+Seat 6: siema (129300 in chips, 68555 bounty)
+Seat 7: DaniC1994 (23110 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+siema: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+JamesPSullivan: folds
+FFogNINI: folds
+Chocolate31: folds
+tonytorsy: raises 7525 to 7525 and is all-in
+siema: folds
+DaniC1994: folds
+Uncalled bet (6925) returned to tonytorsy
+tonytorsy collected 2040 from pot
+tonytorsy: doesn't show hand
+*** SUMMARY ***
+Total pot 2040 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:21:20 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy (button) collected (2040)
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381726157: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:21:21 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: JamesPSullivan (48033 in chips, 18750 bounty)
+Seat 2: FFogNINI (15207 in chips, 18750 bounty)
+Seat 4: Chocolate31 (49654 in chips, 31250 bounty)
+Seat 5: tonytorsy (8965 in chips, 12500 bounty)
+Seat 6: siema (128910 in chips, 68555 bounty)
+Seat 7: DaniC1994 (22420 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+DaniC1994: posts small blind 300
+JamesPSullivan: posts big blind 600
+*** HOLE CARDS ***
+FFogNINI: folds
+Chocolate31: folds
+tonytorsy: folds
+siema: raises 600 to 1200
+DaniC1994: folds
+JamesPSullivan: calls 600
+*** FLOP *** [3d 9h Kd]
+JamesPSullivan: checks
+siema: bets 810
+JamesPSullivan: raises 1595 to 2405
+siema: raises 2405 to 4810
+JamesPSullivan: calls 2405
+*** TURN *** [3d 9h Kd] [5h]
+JamesPSullivan: checks
+siema: checks
+*** RIVER *** [3d 9h Kd 5h] [8c]
+JamesPSullivan: bets 4243
+siema: calls 4243
+*** SHOW DOWN ***
+JamesPSullivan: shows [Td Ad] (Ace high)
+siema: shows [8d 7s] (a pair of Eights)
+siema collected 21346 from pot
+*** SUMMARY ***
+Total pot 21346 | Rake 0
+Board [ 3d 9h Kd 5h 8c ]
+Game ended: 2026/02/10 18:22:44 GMT
+Seat 1: JamesPSullivan (big blind) showed [Td Ad]
+Seat 2: FFogNINI folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema (button) showed [8d 7s] and won (21346) with a pair of Eights
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381727155: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:22:45 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: JamesPSullivan (37690 in chips, 18750 bounty)
+Seat 2: FFogNINI (15117 in chips, 18750 bounty)
+Seat 4: Chocolate31 (49564 in chips, 31250 bounty)
+Seat 5: tonytorsy (8875 in chips, 12500 bounty)
+Seat 6: siema (139913 in chips, 68555 bounty)
+Seat 7: DaniC1994 (22030 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+JamesPSullivan: posts small blind 300
+FFogNINI: posts big blind 600
+*** HOLE CARDS ***
+Chocolate31: folds
+tonytorsy: raises 600 to 1200
+siema: calls 1200
+DaniC1994: raises 21940 to 21940 and is all-in
+JamesPSullivan: folds
+FFogNINI: folds
+tonytorsy has timed out
+tonytorsy activated time-bank (53 seconds)
+tonytorsy: folds
+siema: folds
+Uncalled bet (20740) returned to DaniC1994
+DaniC1994 collected 5040 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 5040 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:23:42 GMT
+Seat 1: JamesPSullivan (small blind) folded before Flop
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) collected (5040)
+
+
+PokerStars Hand #381727597: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:23:43 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: JamesPSullivan (37300 in chips, 18750 bounty)
+Seat 2: FFogNINI (14427 in chips, 18750 bounty)
+Seat 4: Chocolate31 (49474 in chips, 31250 bounty)
+Seat 5: tonytorsy (7585 in chips, 12500 bounty)
+Seat 6: siema (138623 in chips, 68555 bounty)
+Seat 7: DaniC1994 (25780 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+FFogNINI: posts small blind 300
+Chocolate31: posts big blind 600
+*** HOLE CARDS ***
+tonytorsy: folds
+siema: raises 600 to 1200
+DaniC1994: folds
+JamesPSullivan: folds
+FFogNINI: raises 13737 to 14337 and is all-in
+Chocolate31: folds
+siema: folds
+Uncalled bet (13137) returned to FFogNINI
+FFogNINI collected 3540 from pot
+FFogNINI: doesn't show hand
+*** SUMMARY ***
+Total pot 3540 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:24:09 GMT
+Seat 1: JamesPSullivan (button) folded before Flop
+Seat 2: FFogNINI (small blind) collected (3540)
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 5: tonytorsy folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381727995: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:24:11 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: JamesPSullivan (37210 in chips, 18750 bounty)
+Seat 2: FFogNINI (16677 in chips, 18750 bounty)
+Seat 4: Chocolate31 (48784 in chips, 31250 bounty)
+Seat 5: tonytorsy (7495 in chips, 12500 bounty)
+Seat 6: siema (137333 in chips, 68555 bounty)
+Seat 7: DaniC1994 (25690 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+Chocolate31: posts small blind 300
+tonytorsy: posts big blind 600
+*** HOLE CARDS ***
+siema: raises 600 to 1200
+DaniC1994: folds
+dariotoma has reconnected
+JamesPSullivan: folds
+FFogNINI: folds
+Chocolate31: folds
+tonytorsy: calls 600
+*** FLOP *** [Ah 8s 9h]
+tonytorsy: checks
+siema: bets 600
+tonytorsy: calls 600
+*** TURN *** [Ah 8s 9h] [Qd]
+tonytorsy: checks
+siema: checks
+*** RIVER *** [Ah 8s 9h Qd] [Qc]
+tonytorsy has timed out
+tonytorsy activated time-bank (49 seconds)
+tonytorsy: checks
+siema: bets 1110
+tonytorsy: calls 1110
+*** SHOW DOWN ***
+siema: shows [4d Ac] (two pairs, Aces and Queens)
+tonytorsy: mucks hand
+siema collected 6660 from pot
+*** SUMMARY ***
+Total pot 6660 | Rake 0
+Board [ Ah 8s 9h Qd Qc ]
+Game ended: 2026/02/10 18:25:44 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: FFogNINI (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 5: tonytorsy (big blind) mucked
+Seat 6: siema showed [4d Ac] and won (6660) with two pairs, Aces and Queens
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381729017: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:25:45 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: JamesPSullivan (37120 in chips, 18750 bounty)
+Seat 2: FFogNINI (16587 in chips, 18750 bounty)
+Seat 3: dariotoma (10000 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48394 in chips, 31250 bounty)
+Seat 5: tonytorsy (4495 in chips, 12500 bounty)
+Seat 6: siema (140993 in chips, 68555 bounty)
+Seat 7: DaniC1994 (25600 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+dariotoma: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+tonytorsy: posts small blind 300
+siema: posts big blind 600
+*** HOLE CARDS ***
+DaniC1994: folds
+JamesPSullivan: raises 600 to 1200
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+tonytorsy: folds
+siema: calls 600
+*** FLOP *** [Ts Ac Js]
+siema: checks
+JamesPSullivan: bets 2245
+siema: calls 2245
+*** TURN *** [Ts Ac Js] [5s]
+siema: checks
+JamesPSullivan: bets 3915
+siema: calls 3915
+*** RIVER *** [Ts Ac Js 5s] [Ad]
+siema: checks
+JamesPSullivan: bets 29670 and is all-in
+siema: folds
+Uncalled bet (29670) returned to JamesPSullivan
+JamesPSullivan collected 15650 from pot
+JamesPSullivan: doesn't show hand
+*** SUMMARY ***
+Total pot 15650 | Rake 0
+Board [ Ts Ac Js 5s Ad ]
+Game ended: 2026/02/10 18:27:01 GMT
+Seat 1: JamesPSullivan collected (15650)
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 5: tonytorsy (small blind) folded before Flop
+Seat 6: siema (big blind) folded on the River
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381729702: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (300/600) - 2026/02/10 18:27:02 GMT
+Table '9' 7-max Seat #5 is the button
+Seat 1: JamesPSullivan (45320 in chips, 18750 bounty)
+Seat 2: FFogNINI (16497 in chips, 18750 bounty)
+Seat 3: dariotoma (9910 in chips, 12500 bounty)
+Seat 4: Chocolate31 (48304 in chips, 31250 bounty)
+Seat 5: tonytorsy (4105 in chips, 12500 bounty)
+Seat 6: siema (133543 in chips, 68555 bounty)
+Seat 7: DaniC1994 (25510 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 90
+FFogNINI: posts the ante 90
+dariotoma: posts the ante 90
+Chocolate31: posts the ante 90
+tonytorsy: posts the ante 90
+siema: posts the ante 90
+DaniC1994: posts the ante 90
+siema: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+JamesPSullivan: raises 600 to 1200
+FFogNINI: folds
+dariotoma: raises 9820 to 9820 and is all-in
+Chocolate31: folds
+tonytorsy: folds
+siema: calls 9520
+DaniC1994: folds
+JamesPSullivan: folds
+*** FLOP *** [8c Jh 4h]
+*** TURN *** [8c Jh 4h] [6d]
+*** RIVER *** [8c Jh 4h 6d] [6c]
+*** SHOW DOWN ***
+dariotoma: shows [Ad As] (two pairs, Aces and Sixes)
+siema: shows [Qd Ac] (a pair of Sixes)
+dariotoma collected 22070 from pot
+*** SUMMARY ***
+Total pot 22070 | Rake 0
+Board [ 8c Jh 4h 6d 6c ]
+Game ended: 2026/02/10 18:27:48 GMT
+Seat 1: JamesPSullivan folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma showed [Ad As] and won (22070) with two pairs, Aces and Sixes
+Seat 4: Chocolate31 folded before Flop
+Seat 5: tonytorsy (button) folded before Flop
+Seat 6: siema (small blind) showed [Qd Ac]
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381719680: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (250/500) - 2026/02/10 18:11:47 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: JamesPSullivan (40297 in chips, 18750 bounty)
+Seat 2: KimE1 (13050 in chips, 12500 bounty)
+Seat 3: LucaM (9839 in chips, 61719 bounty)
+Seat 4: Chocolate31 (53783 in chips, 31250 bounty)
+Seat 5: tonytorsy (12590 in chips, 12500 bounty)
+Seat 7: DaniC1994 (13462 in chips, 12500 bounty)
+JamesPSullivan: posts the ante 75
+KimE1: posts the ante 75
+LucaM: posts the ante 75
+Chocolate31: posts the ante 75
+tonytorsy: posts the ante 75
+DaniC1994: posts the ante 75
+LucaM: posts small blind 250
+Chocolate31: posts big blind 500
+*** HOLE CARDS ***
+tonytorsy: folds
+DaniC1994: folds
+JamesPSullivan: raises 500 to 1000
+KimE1: calls 1000
+LucaM: calls 750
+Chocolate31: calls 500
+*** FLOP *** [3h Js 7h]
+LucaM: checks
+Chocolate31: checks
+JamesPSullivan: checks
+KimE1: checks
+*** TURN *** [3h Js 7h] [Ks]
+LucaM: checks
+Chocolate31: folds
+JamesPSullivan: checks
+KimE1: checks
+*** RIVER *** [3h Js 7h Ks] [Ad]
+LucaM: bets 2000
+JamesPSullivan: folds
+KimE1: raises 2000 to 4000
+LucaM: raises 4764 to 8764 and is all-in
+KimE1: calls 4764
+*** SHOW DOWN ***
+LucaM: shows [Td 2c] (Ace high)
+KimE1: shows [8h Qh] (Ace high)
+KimE1 collected 21978 from pot
+*** SUMMARY ***
+Total pot 21978 | Rake 0
+Board [ 3h Js 7h Ks Ad ]
+Game ended: 2026/02/10 18:13:21 GMT
+Seat 1: JamesPSullivan folded on the River
+Seat 2: KimE1 (button) showed [8h Qh] and won (21978) with Ace high
+Seat 3: LucaM (small blind) showed [Td 2c]
+Seat 4: Chocolate31 (big blind) folded on the Turn
+Seat 5: tonytorsy folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381736183: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:37:05 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: MikelArteta (37961 in chips, 34375 bounty)
+Seat 2: FFogNINI (14922 in chips, 18750 bounty)
+Seat 3: dariotoma (38064 in chips, 12500 bounty)
+Seat 4: Chocolate31 (45879 in chips, 31250 bounty)
+Seat 6: siema (122069 in chips, 74805 bounty)
+Seat 7: DaniC1994 (18120 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+DaniC1994: posts small blind 350
+MikelArteta: posts big blind 700
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma has timed out
+dariotoma activated time-bank (60 seconds)
+dariotoma: raises 700 to 1400
+Chocolate31: calls 1400
+siema: folds
+DaniC1994: raises 17315 to 18015 and is all-in
+MikelArteta: folds
+dariotoma: raises 35159 to 37959 and is all-in
+Chocolate31: folds
+Uncalled bet (19944) returned to dariotoma
+*** FLOP *** [Td As 3d]
+*** TURN *** [Td As 3d] [4s]
+*** RIVER *** [Td As 3d 4s] [Qh]
+*** SHOW DOWN ***
+dariotoma: shows [9h 9c] (a pair of Nines)
+DaniC1994: shows [Ad Kh] (a pair of Aces)
+DaniC1994 collected 38760 from pot
+*** SUMMARY ***
+Total pot 38760 | Rake 0
+Board [ Td As 3d 4s Qh ]
+Game ended: 2026/02/10 18:38:09 GMT
+Seat 1: MikelArteta (big blind) folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma showed [9h 9c]
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (button) folded before Flop
+Seat 7: DaniC1994 (small blind) showed [Ad Kh] and won (38760) with a pair of Aces
+
+
+PokerStars Hand #381736829: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:38:10 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: MikelArteta (37156 in chips, 34375 bounty)
+Seat 2: FFogNINI (14817 in chips, 18750 bounty)
+Seat 3: dariotoma (19944 in chips, 12500 bounty)
+Seat 4: Chocolate31 (44374 in chips, 31250 bounty)
+Seat 6: siema (121964 in chips, 74805 bounty)
+Seat 7: DaniC1994 (38760 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+MikelArteta: posts small blind 350
+FFogNINI: posts big blind 700
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+siema: raises 700 to 1400
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: calls 700
+*** FLOP *** [Ah As 2s]
+FFogNINI: checks
+siema: bets 945
+FFogNINI: folds
+Uncalled bet (945) returned to siema
+siema collected 3780 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 3780 | Rake 0
+Board [ Ah As 2s ]
+Game ended: 2026/02/10 18:39:07 GMT
+Seat 1: MikelArteta (small blind) folded before Flop
+Seat 2: FFogNINI (big blind) folded on the Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema collected (3780)
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381737521: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:39:08 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: MikelArteta (36701 in chips, 34375 bounty)
+Seat 2: FFogNINI (13312 in chips, 18750 bounty)
+Seat 3: dariotoma (19839 in chips, 12500 bounty)
+Seat 4: Chocolate31 (44269 in chips, 31250 bounty)
+Seat 6: siema (124239 in chips, 74805 bounty)
+Seat 7: DaniC1994 (38655 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+FFogNINI: posts small blind 350
+dariotoma: posts big blind 700
+*** HOLE CARDS ***
+Chocolate31: folds
+siema: raises 700 to 1400
+DaniC1994: folds
+MikelArteta: calls 1400
+FFogNINI: raises 12507 to 13207 and is all-in
+dariotoma: folds
+siema: folds
+MikelArteta: folds
+Uncalled bet (11807) returned to FFogNINI
+FFogNINI collected 5530 from pot
+FFogNINI: doesn't show hand
+*** SUMMARY ***
+Total pot 5530 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:39:40 GMT
+Seat 1: MikelArteta (button) folded before Flop
+Seat 2: FFogNINI (small blind) collected (5530)
+Seat 3: dariotoma (big blind) folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381737981: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:39:40 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: MikelArteta (35196 in chips, 34375 bounty)
+Seat 2: FFogNINI (17337 in chips, 18750 bounty)
+Seat 3: dariotoma (19034 in chips, 12500 bounty)
+Seat 4: Chocolate31 (44164 in chips, 31250 bounty)
+Seat 6: siema (122734 in chips, 74805 bounty)
+Seat 7: DaniC1994 (38550 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+dariotoma: posts small blind 350
+Chocolate31: posts big blind 700
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: raises 700 to 1400
+dariotoma: raises 3500 to 4900
+Chocolate31 has timed out
+Chocolate31 activated time-bank (60 seconds)
+Chocolate31: folds
+FFogNINI: folds
+Uncalled bet (3500) returned to dariotoma
+dariotoma collected 4130 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 4130 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:40:31 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI (button) folded before Flop
+Seat 3: dariotoma (small blind) collected (4130)
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381738677: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:40:35 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: MikelArteta (35091 in chips, 34375 bounty)
+Seat 2: FFogNINI (15832 in chips, 18750 bounty)
+Seat 3: dariotoma (21659 in chips, 12500 bounty)
+Seat 4: Chocolate31 (43359 in chips, 31250 bounty)
+Seat 6: siema (122629 in chips, 74805 bounty)
+Seat 7: DaniC1994 (38445 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+Chocolate31: posts small blind 400
+siema: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: raises 800 to 1600
+Chocolate31: folds
+siema: calls 800
+*** FLOP *** [2h 4d Qc]
+siema: checks
+dariotoma: bets 993
+siema: calls 993
+*** TURN *** [2h 4d Qc] [8d]
+siema: checks
+dariotoma: checks
+*** RIVER *** [2h 4d Qc 8d] [4h]
+siema: bets 7200
+dariotoma: folds
+Uncalled bet (7200) returned to siema
+siema collected 6306 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 6306 | Rake 0
+Board [ 2h 4d Qc 8d 4h ]
+Game ended: 2026/02/10 18:41:39 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded on the River
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) collected (6306)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381739762: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:41:40 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: MikelArteta (34971 in chips, 34375 bounty)
+Seat 2: FFogNINI (15712 in chips, 18750 bounty)
+Seat 3: dariotoma (18946 in chips, 12500 bounty)
+Seat 4: Chocolate31 (42839 in chips, 31250 bounty)
+Seat 6: siema (126222 in chips, 74805 bounty)
+Seat 7: DaniC1994 (38325 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+siema: posts small blind 400
+DaniC1994: posts big blind 800
+*** HOLE CARDS ***
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: raises 2400 to 3200
+DaniC1994: folds
+Uncalled bet (2400) returned to siema
+siema collected 2320 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 2320 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:42:09 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) collected (2320)
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381740151: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:42:10 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: MikelArteta (34851 in chips, 34375 bounty)
+Seat 2: FFogNINI (15592 in chips, 18750 bounty)
+Seat 3: dariotoma (18826 in chips, 12500 bounty)
+Seat 4: Chocolate31 (42719 in chips, 31250 bounty)
+Seat 6: siema (127622 in chips, 74805 bounty)
+Seat 7: DaniC1994 (37405 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+DaniC1994: posts small blind 400
+MikelArteta: posts big blind 800
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: raises 800 to 1600
+DaniC1994: folds
+MikelArteta: calls 800
+*** FLOP *** [Qd 7d Th]
+MikelArteta: checks
+siema: bets 1080
+MikelArteta: folds
+Uncalled bet (1080) returned to siema
+siema collected 4320 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 4320 | Rake 0
+Board [ Qd 7d Th ]
+Game ended: 2026/02/10 18:42:51 GMT
+Seat 1: MikelArteta (big blind) folded on the Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (button) collected (4320)
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381732191: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:31:04 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 2: FFogNINI (15132 in chips, 18750 bounty)
+Seat 3: dariotoma (32690 in chips, 12500 bounty)
+Seat 4: Chocolate31 (47139 in chips, 31250 bounty)
+Seat 5: tonytorsy (7305 in chips, 12500 bounty)
+Seat 6: siema (112328 in chips, 68555 bounty)
+Seat 7: DaniC1994 (24145 in chips, 12500 bounty)
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+tonytorsy: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+Chocolate31: posts small blind 350
+tonytorsy: posts big blind 700
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: raises 46334 to 47034 and is all-in
+tonytorsy: folds
+Uncalled bet (46334) returned to Chocolate31
+Chocolate31 collected 2030 from pot
+Chocolate31: doesn't show hand
+*** SUMMARY ***
+Total pot 2030 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:31:37 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) collected (2030)
+Seat 5: tonytorsy (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381735710: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (350/700) - 2026/02/10 18:36:22 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: MikelArteta (38066 in chips, 34375 bounty)
+Seat 2: FFogNINI (15027 in chips, 18750 bounty)
+Seat 3: dariotoma (35789 in chips, 12500 bounty)
+Seat 4: Chocolate31 (45984 in chips, 31250 bounty)
+Seat 6: siema (122524 in chips, 74805 bounty)
+Seat 7: DaniC1994 (19625 in chips, 12500 bounty)
+MikelArteta: posts the ante 105
+FFogNINI: posts the ante 105
+dariotoma: posts the ante 105
+Chocolate31: posts the ante 105
+siema: posts the ante 105
+DaniC1994: posts the ante 105
+siema: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: raises 700 to 1400
+Chocolate31: folds
+siema: folds
+DaniC1994: calls 700
+*** FLOP *** [3s Ac Jc]
+DaniC1994: checks
+dariotoma: bets 1134
+DaniC1994: folds
+Uncalled bet (1134) returned to dariotoma
+dariotoma collected 3780 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 3780 | Rake 0
+Board [ 3s Ac Jc ]
+Game ended: 2026/02/10 18:37:04 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma collected (3780)
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) folded on the Flop
+
+
+PokerStars Hand #381741864: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:44:43 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: MikelArteta (24851 in chips, 34375 bounty)
+Seat 2: FFogNINI (14032 in chips, 18750 bounty)
+Seat 3: dariotoma (22946 in chips, 12500 bounty)
+Seat 4: Chocolate31 (42359 in chips, 31250 bounty)
+Seat 6: siema (137862 in chips, 74805 bounty)
+Seat 7: DaniC1994 (34965 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+dariotoma: posts small blind 400
+Chocolate31: posts big blind 800
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: raises 880 to 1680
+MikelArteta: folds
+FFogNINI: folds
+dariotoma has timed out
+dariotoma activated time-bank (56 seconds)
+dariotoma: folds
+Chocolate31: folds
+Uncalled bet (880) returned to DaniC1994
+DaniC1994 collected 2720 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 2720 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:45:32 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI (button) folded before Flop
+Seat 3: dariotoma (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 collected (2720)
+
+
+PokerStars Hand #381742330: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:45:33 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: MikelArteta (24731 in chips, 34375 bounty)
+Seat 2: FFogNINI (13912 in chips, 18750 bounty)
+Seat 3: dariotoma (22426 in chips, 12500 bounty)
+Seat 4: Chocolate31 (41439 in chips, 31250 bounty)
+Seat 6: siema (137742 in chips, 74805 bounty)
+Seat 7: DaniC1994 (36765 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+Chocolate31: posts small blind 400
+siema: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: raises 880 to 1680
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: raises 5280 to 6960
+DaniC1994 has timed out
+DaniC1994 activated time-bank (51 seconds)
+DaniC1994: folds
+Uncalled bet (5280) returned to siema
+siema collected 4480 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 4480 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:46:12 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) collected (4480)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381742852: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:46:13 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: MikelArteta (24611 in chips, 34375 bounty)
+Seat 2: FFogNINI (13792 in chips, 18750 bounty)
+Seat 3: dariotoma (22306 in chips, 12500 bounty)
+Seat 4: Chocolate31 (40919 in chips, 31250 bounty)
+Seat 6: siema (140422 in chips, 74805 bounty)
+Seat 7: DaniC1994 (34965 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+siema: posts small blind 400
+DaniC1994: posts big blind 800
+*** HOLE CARDS ***
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: raises 2000 to 2800
+DaniC1994: calls 2000
+*** FLOP *** [9c Ah 6s]
+siema: bets 1580
+DaniC1994: calls 1580
+*** TURN *** [9c Ah 6s] [9s]
+siema: bets 2370
+DaniC1994: calls 2370
+*** RIVER *** [9c Ah 6s 9s] [8h]
+siema: checks
+DaniC1994: checks
+*** SHOW DOWN ***
+siema: shows [8d Td] (two pairs, Nines and Eights)
+DaniC1994: mucks hand
+siema collected 14220 from pot
+*** SUMMARY ***
+Total pot 14220 | Rake 0
+Board [ 9c Ah 6s 9s 8h ]
+Game ended: 2026/02/10 18:47:36 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) showed [8d Td] and won (14220) with two pairs, Nines and Eights
+Seat 7: DaniC1994 (big blind) mucked
+
+
+PokerStars Hand #381743633: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:47:37 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: MikelArteta (24491 in chips, 34375 bounty)
+Seat 2: FFogNINI (13672 in chips, 18750 bounty)
+Seat 3: dariotoma (22186 in chips, 12500 bounty)
+Seat 4: Chocolate31 (40799 in chips, 31250 bounty)
+Seat 6: siema (147772 in chips, 74805 bounty)
+Seat 7: DaniC1994 (28095 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+DaniC1994: posts small blind 400
+MikelArteta: posts big blind 800
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: raises 800 to 1600
+DaniC1994: folds
+MikelArteta: calls 800
+*** FLOP *** [As 9c Kd]
+MikelArteta: checks
+siema: bets 1728
+MikelArteta: folds
+Uncalled bet (1728) returned to siema
+siema collected 4320 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 4320 | Rake 0
+Board [ As 9c Kd ]
+Game ended: 2026/02/10 18:48:05 GMT
+Seat 1: MikelArteta (big blind) folded on the Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (button) collected (4320)
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381740548: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:42:51 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: MikelArteta (33131 in chips, 34375 bounty)
+Seat 2: FFogNINI (15472 in chips, 18750 bounty)
+Seat 3: dariotoma (18706 in chips, 12500 bounty)
+Seat 4: Chocolate31 (42599 in chips, 31250 bounty)
+Seat 6: siema (130222 in chips, 74805 bounty)
+Seat 7: DaniC1994 (36885 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+MikelArteta: posts small blind 400
+FFogNINI: posts big blind 800
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+siema: raises 800 to 1600
+DaniC1994: folds
+MikelArteta: calls 1200
+FFogNINI: folds
+*** FLOP *** [5h 8d 4h]
+MikelArteta: bets 1180
+siema: raises 3580 to 4760
+MikelArteta: calls 3580
+*** TURN *** [5h 8d 4h] [Qc]
+MikelArteta: checks
+siema: bets 7296
+MikelArteta has timed out
+MikelArteta activated time-bank (60 seconds)
+MikelArteta: folds
+Uncalled bet (7296) returned to siema
+siema collected 14240 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 14240 | Rake 0
+Board [ 5h 8d 4h Qc ]
+Game ended: 2026/02/10 18:44:08 GMT
+Seat 1: MikelArteta (small blind) folded on the Turn
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema collected (14240)
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381744040: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:48:06 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: MikelArteta (22771 in chips, 34375 bounty)
+Seat 2: FFogNINI (13552 in chips, 18750 bounty)
+Seat 3: dariotoma (22066 in chips, 12500 bounty)
+Seat 4: Chocolate31 (40679 in chips, 31250 bounty)
+Seat 6: siema (150372 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27575 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+MikelArteta: posts small blind 400
+FFogNINI: posts big blind 800
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+siema: raises 800 to 1600
+DaniC1994 has timed out
+DaniC1994 activated time-bank (48 seconds)
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: calls 800
+*** FLOP *** [6d 7c 5s]
+FFogNINI: checks
+siema: bets 1080
+FFogNINI: folds
+Uncalled bet (1080) returned to siema
+siema collected 4320 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 4320 | Rake 0
+Board [ 6d 7c 5s ]
+Game ended: 2026/02/10 18:48:49 GMT
+Seat 1: MikelArteta (small blind) folded before Flop
+Seat 2: FFogNINI (big blind) folded on the Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema collected (4320)
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381744677: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:48:50 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: MikelArteta (22251 in chips, 34375 bounty)
+Seat 2: FFogNINI (11832 in chips, 18750 bounty)
+Seat 3: dariotoma (21946 in chips, 12500 bounty)
+Seat 4: Chocolate31 (40559 in chips, 31250 bounty)
+Seat 6: siema (152972 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27455 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+FFogNINI: posts small blind 400
+dariotoma: posts big blind 800
+*** HOLE CARDS ***
+Chocolate31: raises 800 to 1600
+siema: folds
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: calls 800
+*** FLOP *** [Kh 3c Jc]
+dariotoma: checks
+Chocolate31: bets 1600
+dariotoma has timed out
+dariotoma activated time-bank (45 seconds)
+dariotoma: calls 1600
+*** TURN *** [Kh 3c Jc] [Qd]
+dariotoma: checks
+Chocolate31: checks
+*** RIVER *** [Kh 3c Jc Qd] [5s]
+dariotoma: bets 800
+Chocolate31: folds
+Uncalled bet (800) returned to dariotoma
+dariotoma collected 7520 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 7520 | Rake 0
+Board [ Kh 3c Jc Qd 5s ]
+Game ended: 2026/02/10 18:50:19 GMT
+Seat 1: MikelArteta (button) folded before Flop
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) collected (7520)
+Seat 4: Chocolate31 folded on the River
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381746008: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:50:24 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 1: MikelArteta (22131 in chips, 34375 bounty)
+Seat 2: FFogNINI (11312 in chips, 18750 bounty)
+Seat 3: dariotoma (26146 in chips, 12500 bounty)
+Seat 4: Chocolate31 (37239 in chips, 31250 bounty)
+Seat 6: siema (152852 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27335 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+dariotoma: posts small blind 500
+Chocolate31: posts big blind 1000
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: raises 24996 to 25996 and is all-in
+Chocolate31: folds
+Uncalled bet (24996) returned to dariotoma
+dariotoma collected 2900 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 2900 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:50:56 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI (button) folded before Flop
+Seat 3: dariotoma (small blind) collected (2900)
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381746121: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:50:56 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 1: MikelArteta (21981 in chips, 34375 bounty)
+Seat 2: FFogNINI (11162 in chips, 18750 bounty)
+Seat 3: dariotoma (27896 in chips, 12500 bounty)
+Seat 4: Chocolate31 (36089 in chips, 31250 bounty)
+Seat 6: siema (152702 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27185 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+Chocolate31: posts small blind 500
+siema: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+Uncalled bet (500) returned to siema
+siema collected 1900 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 1900 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:51:16 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) collected (1900)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381746513: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:51:18 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 1: MikelArteta (21831 in chips, 34375 bounty)
+Seat 2: FFogNINI (11012 in chips, 18750 bounty)
+Seat 3: dariotoma (27746 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35439 in chips, 31250 bounty)
+Seat 6: siema (153952 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27035 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+siema: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+MikelArteta: folds
+FFogNINI: raises 10862 to 10862 and is all-in
+dariotoma: folds
+Chocolate31: folds
+siema: folds
+DaniC1994 has timed out
+DaniC1994 activated time-bank (47 seconds)
+DaniC1994: folds
+Uncalled bet (9862) returned to FFogNINI
+FFogNINI collected 3400 from pot
+FFogNINI: doesn't show hand
+*** SUMMARY ***
+Total pot 3400 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:51:50 GMT
+Seat 1: MikelArteta folded before Flop
+Seat 2: FFogNINI collected (3400)
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381746758: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:51:50 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 1: MikelArteta (21681 in chips, 34375 bounty)
+Seat 2: FFogNINI (13262 in chips, 18750 bounty)
+Seat 3: dariotoma (27596 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35289 in chips, 31250 bounty)
+Seat 6: siema (153302 in chips, 74805 bounty)
+Seat 7: DaniC1994 (25885 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+DaniC1994: posts small blind 500
+MikelArteta: posts big blind 1000
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: raises 1000 to 2000
+siema: calls 2000
+DaniC1994: folds
+MikelArteta: calls 1000
+*** FLOP *** [2s Ac 3d]
+MikelArteta: checks
+Chocolate31: checks
+siema: bets 1000
+MikelArteta: folds
+Chocolate31: calls 1000
+*** TURN *** [2s Ac 3d] [3c]
+Chocolate31: checks
+siema: bets 7050
+Chocolate31: folds
+Uncalled bet (7050) returned to siema
+siema collected 9400 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 9400 | Rake 0
+Board [ 2s Ac 3d 3c ]
+Game ended: 2026/02/10 18:52:34 GMT
+Seat 1: MikelArteta (big blind) folded on the Flop
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded on the Turn
+Seat 6: siema (button) collected (9400)
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381747205: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:52:35 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 1: MikelArteta (19531 in chips, 34375 bounty)
+Seat 2: FFogNINI (13112 in chips, 18750 bounty)
+Seat 3: dariotoma (27446 in chips, 12500 bounty)
+Seat 4: Chocolate31 (32139 in chips, 31250 bounty)
+Seat 6: siema (159552 in chips, 74805 bounty)
+Seat 7: DaniC1994 (25235 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+MikelArteta: posts small blind 500
+FFogNINI: posts big blind 1000
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+siema: folds
+DaniC1994: folds
+MikelArteta: raises 18381 to 19381 and is all-in
+FFogNINI: folds
+Uncalled bet (18381) returned to MikelArteta
+MikelArteta collected 2900 from pot
+MikelArteta: doesn't show hand
+*** SUMMARY ***
+Total pot 2900 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:53:08 GMT
+Seat 1: MikelArteta (small blind) collected (2900)
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381747651: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:53:08 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: MikelArteta (21281 in chips, 34375 bounty)
+Seat 2: FFogNINI (11962 in chips, 18750 bounty)
+Seat 3: dariotoma (27296 in chips, 12500 bounty)
+Seat 4: Chocolate31 (31989 in chips, 31250 bounty)
+Seat 6: siema (159402 in chips, 74805 bounty)
+Seat 7: DaniC1994 (25085 in chips, 12500 bounty)
+MikelArteta: posts the ante 150
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+FFogNINI: posts small blind 500
+dariotoma: posts big blind 1000
+*** HOLE CARDS ***
+Chocolate31: raises 1000 to 2000
+siema: calls 2000
+DaniC1994: folds
+MikelArteta: folds
+FFogNINI: folds
+dariotoma: folds
+*** FLOP *** [4c 5h Td]
+Chocolate31: checks
+siema: bets 1600
+Chocolate31: calls 1600
+*** TURN *** [4c 5h Td] [Js]
+Chocolate31: checks
+siema: checks
+*** RIVER *** [4c 5h Td Js] [Qc]
+Chocolate31: bets 3000
+siema: folds
+Uncalled bet (3000) returned to Chocolate31
+Chocolate31 collected 9600 from pot
+Chocolate31: doesn't show hand
+*** SUMMARY ***
+Total pot 9600 | Rake 0
+Board [ 4c 5h Td Js Qc ]
+Game ended: 2026/02/10 18:53:57 GMT
+Seat 1: MikelArteta (button) folded before Flop
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) folded before Flop
+Seat 4: Chocolate31 collected (9600)
+Seat 6: siema folded on the River
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381748114: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:53:57 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 2: FFogNINI (11312 in chips, 18750 bounty)
+Seat 3: dariotoma (26146 in chips, 12500 bounty)
+Seat 4: Chocolate31 (37839 in chips, 31250 bounty)
+Seat 6: siema (155652 in chips, 74805 bounty)
+Seat 7: DaniC1994 (24935 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+dariotoma: posts small blind 500
+Chocolate31: posts big blind 1000
+*** HOLE CARDS ***
+siema: raises 1000 to 2000
+DaniC1994: folds
+FFogNINI: raises 11162 to 11162 and is all-in
+dariotoma: folds
+Chocolate31: folds
+siema: calls 9162
+*** FLOP *** [9h 4c 4h]
+*** TURN *** [9h 4c 4h] [Ts]
+*** RIVER *** [9h 4c 4h Ts] [Kh]
+*** SHOW DOWN ***
+FFogNINI: shows [As 5s] (a pair of Fours)
+siema: shows [7d Qd] (a pair of Fours)
+FFogNINI collected 24574 from pot
+*** SUMMARY ***
+Total pot 24574 | Rake 0
+Board [ 9h 4c 4h Ts Kh ]
+Game ended: 2026/02/10 18:54:43 GMT
+Seat 2: FFogNINI (button) showed [As 5s] and won (24574) with a pair of Fours
+Seat 3: dariotoma (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema showed [7d Qd]
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381748505: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 18:54:44 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 2: FFogNINI (24574 in chips, 18750 bounty)
+Seat 3: dariotoma (25496 in chips, 12500 bounty)
+Seat 4: Chocolate31 (36689 in chips, 31250 bounty)
+Seat 6: siema (144340 in chips, 74805 bounty)
+Seat 7: DaniC1994 (24785 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+Chocolate31: posts small blind 500
+siema: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: raises 1100 to 2100
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: folds
+Uncalled bet (1100) returned to DaniC1994
+DaniC1994 collected 3250 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 3250 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:55:07 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) folded before Flop
+Seat 7: DaniC1994 collected (3250)
+
+
+PokerStars Hand #381741388: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (400/800) - 2026/02/10 18:44:08 GMT
+Table '9' 7-max Seat #1 is the button
+Seat 1: MikelArteta (26651 in chips, 34375 bounty)
+Seat 2: FFogNINI (14552 in chips, 18750 bounty)
+Seat 3: dariotoma (18586 in chips, 12500 bounty)
+Seat 4: Chocolate31 (42479 in chips, 31250 bounty)
+Seat 6: siema (137982 in chips, 74805 bounty)
+Seat 7: DaniC1994 (36765 in chips, 12500 bounty)
+MikelArteta: posts the ante 120
+FFogNINI: posts the ante 120
+dariotoma: posts the ante 120
+Chocolate31: posts the ante 120
+siema: posts the ante 120
+DaniC1994: posts the ante 120
+FFogNINI: posts small blind 400
+dariotoma: posts big blind 800
+*** HOLE CARDS ***
+Chocolate31: folds
+siema: folds
+DaniC1994: raises 880 to 1680
+MikelArteta: calls 1680
+FFogNINI: folds
+dariotoma: raises 16386 to 18066
+DaniC1994: folds
+MikelArteta: folds
+Uncalled bet (16386) returned to dariotoma
+dariotoma collected 6160 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 6160 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:44:42 GMT
+Seat 1: MikelArteta (button) folded before Flop
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) collected (6160)
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381748769: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:00:21 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 2: FFogNINI (24424 in chips, 18750 bounty)
+Seat 3: dariotoma (25346 in chips, 12500 bounty)
+Seat 4: Chocolate31 (36039 in chips, 31250 bounty)
+Seat 6: siema (143190 in chips, 74805 bounty)
+Seat 7: DaniC1994 (26885 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+siema: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+siema: folds
+Uncalled bet (500) returned to DaniC1994
+DaniC1994 collected 1750 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 1750 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:00:39 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) folded before Flop
+Seat 7: DaniC1994 (big blind) collected (1750)
+
+
+PokerStars Hand #381748807: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:00:40 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 2: FFogNINI (24274 in chips, 18750 bounty)
+Seat 3: dariotoma (25196 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35889 in chips, 31250 bounty)
+Seat 6: siema (142540 in chips, 74805 bounty)
+Seat 7: DaniC1994 (27985 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+DaniC1994: posts small blind 500
+FFogNINI: posts big blind 1000
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: folds
+siema: raises 1000 to 2000
+DaniC1994: raises 26835 to 27835 and is all-in
+FFogNINI: folds
+siema: folds
+Uncalled bet (25835) returned to DaniC1994
+DaniC1994 collected 5750 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 5750 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:01:33 GMT
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema (button) folded before Flop
+Seat 7: DaniC1994 (small blind) collected (5750)
+
+
+PokerStars Hand #381749481: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:01:34 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 2: FFogNINI (23124 in chips, 18750 bounty)
+Seat 3: dariotoma (25046 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35739 in chips, 31250 bounty)
+Seat 6: siema (140390 in chips, 74805 bounty)
+Seat 7: DaniC1994 (31585 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+FFogNINI: posts small blind 500
+dariotoma: posts big blind 1000
+*** HOLE CARDS ***
+Chocolate31: folds
+siema: folds
+DaniC1994: raises 1100 to 2100
+FFogNINI: folds
+dariotoma: raises 22896 to 24896 and is all-in
+DaniC1994: calls 22796
+*** FLOP *** [5c 3c 5s]
+*** TURN *** [5c 3c 5s] [As]
+*** RIVER *** [5c 3c 5s As] [Qh]
+*** SHOW DOWN ***
+dariotoma: shows [2s Ah] (two pairs, Aces and Fives)
+DaniC1994: shows [9h 9c] (two pairs, Nines and Fives)
+dariotoma collected 51042 from pot
+*** SUMMARY ***
+Total pot 51042 | Rake 0
+Board [ 5c 3c 5s As Qh ]
+Game ended: 2026/02/10 19:02:10 GMT
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) showed [2s Ah] and won (51042) with two pairs, Aces and Fives
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 (button) showed [9h 9c]
+
+
+PokerStars Hand #381749885: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:02:11 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 2: FFogNINI (22474 in chips, 18750 bounty)
+Seat 3: dariotoma (51042 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35589 in chips, 31250 bounty)
+Seat 6: siema (140240 in chips, 74805 bounty)
+Seat 7: DaniC1994 (6539 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+dariotoma: posts small blind 500
+Chocolate31: posts big blind 1000
+*** HOLE CARDS ***
+siema: folds
+DaniC1994: folds
+FFogNINI: raises 1000 to 2000
+dariotoma: folds
+Chocolate31: folds
+Uncalled bet (1000) returned to FFogNINI
+FFogNINI collected 3250 from pot
+FFogNINI: doesn't show hand
+*** SUMMARY ***
+Total pot 3250 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:02:41 GMT
+Seat 2: FFogNINI (button) collected (3250)
+Seat 3: dariotoma (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema folded before Flop
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381750030: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:02:42 GMT
+Table '9' 7-max Seat #3 is the button
+Seat 2: FFogNINI (24574 in chips, 18750 bounty)
+Seat 3: dariotoma (50392 in chips, 12500 bounty)
+Seat 4: Chocolate31 (34439 in chips, 31250 bounty)
+Seat 6: siema (140090 in chips, 74805 bounty)
+Seat 7: DaniC1994 (6389 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+Chocolate31: posts small blind 500
+siema: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+Uncalled bet (500) returned to siema
+siema collected 1750 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 1750 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:03:06 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma (button) folded before Flop
+Seat 4: Chocolate31 (small blind) folded before Flop
+Seat 6: siema (big blind) collected (1750)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381750382: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:03:06 GMT
+Table '9' 7-max Seat #4 is the button
+Seat 2: FFogNINI (24424 in chips, 18750 bounty)
+Seat 3: dariotoma (50242 in chips, 12500 bounty)
+Seat 4: Chocolate31 (33789 in chips, 31250 bounty)
+Seat 6: siema (141190 in chips, 74805 bounty)
+Seat 7: DaniC1994 (6239 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+siema: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+FFogNINI: raises 1000 to 2000
+dariotoma: folds
+Chocolate31: folds
+siema: raises 140040 to 141040 and is all-in
+DaniC1994: folds
+FFogNINI: folds
+Uncalled bet (139040) returned to siema
+siema collected 5750 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 5750 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:03:54 GMT
+Seat 2: FFogNINI folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 (button) folded before Flop
+Seat 6: siema (small blind) collected (5750)
+Seat 7: DaniC1994 (big blind) folded before Flop
+
+
+PokerStars Hand #381751168: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:03:55 GMT
+Table '9' 7-max Seat #6 is the button
+Seat 2: FFogNINI (22274 in chips, 18750 bounty)
+Seat 3: dariotoma (50092 in chips, 12500 bounty)
+Seat 4: Chocolate31 (33639 in chips, 31250 bounty)
+Seat 6: siema (144790 in chips, 74805 bounty)
+Seat 7: DaniC1994 (5089 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+DaniC1994: posts small blind 500
+FFogNINI: posts big blind 1000
+*** HOLE CARDS ***
+dariotoma: folds
+Chocolate31: raises 1000 to 2000
+siema: folds
+DaniC1994 has timed out
+DaniC1994 activated time-bank (45 seconds)
+DaniC1994: folds
+FFogNINI: folds
+Uncalled bet (1000) returned to Chocolate31
+Chocolate31 collected 3250 from pot
+Chocolate31: doesn't show hand
+*** SUMMARY ***
+Total pot 3250 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:04:22 GMT
+Seat 2: FFogNINI (big blind) folded before Flop
+Seat 3: dariotoma folded before Flop
+Seat 4: Chocolate31 collected (3250)
+Seat 6: siema (button) folded before Flop
+Seat 7: DaniC1994 (small blind) folded before Flop
+
+
+PokerStars Hand #381751637: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (500/1000) - 2026/02/10 19:04:23 GMT
+Table '9' 7-max Seat #7 is the button
+Seat 2: FFogNINI (21124 in chips, 18750 bounty)
+Seat 3: dariotoma (49942 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35739 in chips, 31250 bounty)
+Seat 6: siema (144640 in chips, 74805 bounty)
+Seat 7: DaniC1994 (4439 in chips, 12500 bounty)
+FFogNINI: posts the ante 150
+dariotoma: posts the ante 150
+Chocolate31: posts the ante 150
+siema: posts the ante 150
+DaniC1994: posts the ante 150
+FFogNINI: posts small blind 500
+dariotoma: posts big blind 1000
+*** HOLE CARDS ***
+Chocolate31: folds
+siema: raises 1000 to 2000
+DaniC1994 has timed out
+DaniC1994 activated time-bank (43 seconds)
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: calls 1000
+*** FLOP *** [8d As 8h]
+dariotoma: checks
+siema: bets 1000
+dariotoma: raises 3392 to 4392
+siema: folds
+Uncalled bet (3392) returned to dariotoma
+dariotoma collected 7250 from pot
+dariotoma: doesn't show hand
+*** SUMMARY ***
+Total pot 7250 | Rake 0
+Board [ 8d As 8h ]
+Game ended: 2026/02/10 19:05:28 GMT
+Seat 2: FFogNINI (small blind) folded before Flop
+Seat 3: dariotoma (big blind) collected (7250)
+Seat 4: Chocolate31 folded before Flop
+Seat 6: siema folded on the Flop
+Seat 7: DaniC1994 (button) folded before Flop
+
+
+PokerStars Hand #381752373: Tournament #1444404, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (600/1200) - 2026/02/10 19:05:33 GMT
+Table '9' 7-max Seat #2 is the button
+Seat 2: FFogNINI (20474 in chips, 18750 bounty)
+Seat 3: dariotoma (54042 in chips, 12500 bounty)
+Seat 4: Chocolate31 (35589 in chips, 31250 bounty)
+Seat 6: siema (141490 in chips, 74805 bounty)
+Seat 7: DaniC1994 (4289 in chips, 12500 bounty)
+FFogNINI: posts the ante 180
+dariotoma: posts the ante 180
+Chocolate31: posts the ante 180
+siema: posts the ante 180
+DaniC1994: posts the ante 180
+dariotoma: posts small blind 600
+Chocolate31: posts big blind 1200
+*** HOLE CARDS ***
+siema: raises 1200 to 2400
+DaniC1994: folds
+FFogNINI: folds
+dariotoma: folds
+Chocolate31: folds
+Uncalled bet (1200) returned to siema
+siema collected 3900 from pot
+siema: doesn't show hand
+*** SUMMARY ***
+Total pot 3900 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 19:06:03 GMT
+Seat 2: FFogNINI (button) folded before Flop
+Seat 3: dariotoma (small blind) folded before Flop
+Seat 4: Chocolate31 (big blind) folded before Flop
+Seat 6: siema collected (3900)
+Seat 7: DaniC1994 folded before Flop
+
+
+PokerStars Hand #381706594: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (80/160) - 2026/02/10 18:05:29 GMT
+Table '1' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (6196 in chips, 5000 bounty)
+Seat 2: manny0calavera (9246 in chips, 5000 bounty)
+Seat 3: FlushFury (14397 in chips, 5000 bounty)
+Seat 4: Avalanche77 (9331 in chips, 5000 bounty)
+Seat 6: Ya3 (9658 in chips, 5000 bounty)
+Seat 7: legia1111 (10425 in chips, 5000 bounty)
+DaniC1994: posts the ante 24
+manny0calavera: posts the ante 24
+FlushFury: posts the ante 24
+Avalanche77: posts the ante 24
+Ya3: posts the ante 24
+legia1111: posts the ante 24
+FlushFury: posts small blind 80
+Avalanche77: posts big blind 160
+*** HOLE CARDS ***
+Ya3: folds
+legia1111: raises 176 to 336
+DaniC1994: folds
+manny0calavera: calls 336
+FlushFury: folds
+Avalanche77: folds
+*** FLOP *** [7d 5c 4s]
+legia1111: checks
+manny0calavera: checks
+*** TURN *** [7d 5c 4s] [3c]
+legia1111: checks
+manny0calavera: checks
+*** RIVER *** [7d 5c 4s 3c] [8s]
+legia1111: checks
+manny0calavera: checks
+*** SHOW DOWN ***
+legia1111: shows [Ac Qd] (Ace high)
+manny0calavera: mucks hand
+legia1111 collected 1056 from pot
+*** SUMMARY ***
+Total pot 1056 | Rake 0
+Board [ 7d 5c 4s 3c 8s ]
+Game ended: 2026/02/10 18:06:38 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera (button) mucked
+Seat 3: FlushFury (small blind) folded before Flop
+Seat 4: Avalanche77 (big blind) folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 showed [Ac Qd] and won (1056) with Ace high
+
+
+PokerStars Hand #381707330: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (80/160) - 2026/02/10 18:06:39 GMT
+Table '1' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (6172 in chips, 5000 bounty)
+Seat 2: manny0calavera (8886 in chips, 5000 bounty)
+Seat 3: FlushFury (14293 in chips, 5000 bounty)
+Seat 4: Avalanche77 (9147 in chips, 5000 bounty)
+Seat 6: Ya3 (9634 in chips, 5000 bounty)
+Seat 7: legia1111 (11121 in chips, 5000 bounty)
+DaniC1994: posts the ante 24
+manny0calavera: posts the ante 24
+FlushFury: posts the ante 24
+Avalanche77: posts the ante 24
+Ya3: posts the ante 24
+legia1111: posts the ante 24
+Avalanche77: posts small blind 80
+Ya3: posts big blind 160
+*** HOLE CARDS ***
+legia1111: folds
+DaniC1994: folds
+manny0calavera: folds
+FlushFury: folds
+Avalanche77: calls 80
+Ya3: raises 400 to 560
+Avalanche77: folds
+Uncalled bet (400) returned to Ya3
+Ya3 collected 464 from pot
+Ya3: doesn't show hand
+*** SUMMARY ***
+Total pot 464 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:07:15 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury (button) folded before Flop
+Seat 4: Avalanche77 (small blind) folded before Flop
+Seat 6: Ya3 (big blind) collected (464)
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381721012: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:19:55 GMT
+Table '1' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (5806 in chips, 5000 bounty)
+Seat 2: manny0calavera (8418 in chips, 5000 bounty)
+Seat 3: FlushFury (14207 in chips, 5000 bounty)
+Seat 4: Avalanche77 (14307 in chips, 5000 bounty)
+Seat 5: sevebozz (6932 in chips, 5000 bounty)
+Seat 6: Ya3 (12014 in chips, 5000 bounty)
+Seat 7: legia1111 (7569 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+FlushFury: posts small blind 100
+Avalanche77: posts big blind 200
+*** HOLE CARDS ***
+sevebozz has reconnected
+sevebozz: folds
+Ya3: raises 200 to 400
+legia1111: folds
+sevebozz is disconnected
+DaniC1994: folds
+manny0calavera: folds
+FlushFury: raises 1000 to 1400
+Avalanche77: folds
+Ya3: folds
+Uncalled bet (1000) returned to FlushFury
+FlushFury collected 1210 from pot
+FlushFury: doesn't show hand
+*** SUMMARY ***
+Total pot 1210 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:20:39 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera (button) folded before Flop
+Seat 3: FlushFury (small blind) collected (1210)
+Seat 4: Avalanche77 (big blind) folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381708019: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (80/160) - 2026/02/10 18:07:16 GMT
+Table '1' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (6148 in chips, 5000 bounty)
+Seat 2: manny0calavera (8862 in chips, 5000 bounty)
+Seat 3: FlushFury (14269 in chips, 5000 bounty)
+Seat 4: Avalanche77 (8963 in chips, 5000 bounty)
+Seat 6: Ya3 (9914 in chips, 5000 bounty)
+Seat 7: legia1111 (11097 in chips, 5000 bounty)
+DaniC1994: posts the ante 24
+manny0calavera: posts the ante 24
+FlushFury: posts the ante 24
+Avalanche77: posts the ante 24
+Ya3: posts the ante 24
+legia1111: posts the ante 24
+Ya3: posts small blind 80
+legia1111: posts big blind 160
+*** HOLE CARDS ***
+DaniC1994: folds
+manny0calavera: folds
+FlushFury: folds
+Avalanche77 has timed out
+Avalanche77 activated time-bank (58 seconds)
+Avalanche77: raises 160 to 320
+Ya3: folds
+legia1111: calls 160
+*** FLOP *** [Jd Qd 6c]
+legia1111: checks
+Avalanche77: bets 240
+legia1111: raises 777 to 1017
+Avalanche77 has timed out
+Avalanche77 activated time-bank (53 seconds)
+Avalanche77: calls 777
+*** TURN *** [Jd Qd 6c] [Qs]
+legia1111: checks
+Avalanche77: bets 2009
+legia1111: calls 2009
+*** RIVER *** [Jd Qd 6c Qs] [2c]
+sevebozz has reconnected
+legia1111: checks
+Avalanche77: checks
+*** SHOW DOWN ***
+legia1111: shows [9h Td] (a pair of Queens)
+Avalanche77: shows [Js 2s] (two pairs, Queens and Jacks)
+Avalanche77 collected 6916 from pot
+*** SUMMARY ***
+Total pot 6916 | Rake 0
+Board [ Jd Qd 6c Qs 2c ]
+Game ended: 2026/02/10 18:09:44 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 (button) showed [Js 2s] and won (6916) with two pairs, Queens and Jacks
+Seat 6: Ya3 (small blind) folded before Flop
+Seat 7: legia1111 (big blind) showed [9h Td]
+
+
+PokerStars Hand #381709928: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (80/160) - 2026/02/10 18:09:45 GMT
+Table '1' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (6124 in chips, 5000 bounty)
+Seat 2: manny0calavera (8838 in chips, 5000 bounty)
+Seat 3: FlushFury (14245 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12509 in chips, 5000 bounty)
+Seat 5: sevebozz (10000 in chips, 5000 bounty)
+Seat 6: Ya3 (9810 in chips, 5000 bounty)
+Seat 7: legia1111 (7727 in chips, 5000 bounty)
+DaniC1994: posts the ante 24
+manny0calavera: posts the ante 24
+FlushFury: posts the ante 24
+Avalanche77: posts the ante 24
+sevebozz: posts the ante 24
+Ya3: posts the ante 24
+legia1111: posts the ante 24
+legia1111: posts small blind 80
+DaniC1994: posts big blind 160
+*** HOLE CARDS ***
+manny0calavera: folds
+FlushFury: folds
+Avalanche77: raises 160 to 320
+sevebozz: folds
+Ya3: folds
+legia1111: folds
+DaniC1994: folds
+Uncalled bet (160) returned to Avalanche77
+Avalanche77 collected 568 from pot
+Avalanche77: doesn't show hand
+*** SUMMARY ***
+Total pot 568 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:10:17 GMT
+Seat 1: DaniC1994 (big blind) folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 collected (568)
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 (button) folded before Flop
+Seat 7: legia1111 (small blind) folded before Flop
+
+
+PokerStars Hand #381710349: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (80/160) - 2026/02/10 18:10:18 GMT
+Table '1' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (5940 in chips, 5000 bounty)
+Seat 2: manny0calavera (8814 in chips, 5000 bounty)
+Seat 3: FlushFury (14221 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12893 in chips, 5000 bounty)
+Seat 5: sevebozz (9976 in chips, 5000 bounty)
+Seat 6: Ya3 (9786 in chips, 5000 bounty)
+Seat 7: legia1111 (7623 in chips, 5000 bounty)
+DaniC1994: posts the ante 24
+manny0calavera: posts the ante 24
+FlushFury: posts the ante 24
+Avalanche77: posts the ante 24
+sevebozz: posts the ante 24
+Ya3: posts the ante 24
+legia1111: posts the ante 24
+DaniC1994: posts small blind 80
+manny0calavera: posts big blind 160
+*** HOLE CARDS ***
+FlushFury: folds
+Avalanche77: folds
+sevebozz: folds
+Ya3: raises 160 to 320
+legia1111: folds
+legia1111 is disconnected
+DaniC1994: folds
+legia1111 has reconnected
+manny0calavera: calls 160
+*** FLOP *** [Kc 8h 7d]
+manny0calavera: bets 266
+Ya3: folds
+Uncalled bet (266) returned to manny0calavera
+manny0calavera collected 888 from pot
+manny0calavera: doesn't show hand
+*** SUMMARY ***
+Total pot 888 | Rake 0
+Board [ Kc 8h 7d ]
+Game ended: 2026/02/10 18:11:05 GMT
+Seat 1: DaniC1994 (small blind) folded before Flop
+Seat 2: manny0calavera (big blind) collected (888)
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 folded on the Flop
+Seat 7: legia1111 (button) folded before Flop
+
+
+PokerStars Hand #381711545: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:11:10 GMT
+Table '1' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (5836 in chips, 5000 bounty)
+Seat 2: manny0calavera (9358 in chips, 5000 bounty)
+Seat 3: FlushFury (14197 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12869 in chips, 5000 bounty)
+Seat 5: sevebozz (9952 in chips, 5000 bounty)
+Seat 6: Ya3 (9442 in chips, 5000 bounty)
+Seat 7: legia1111 (7599 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+manny0calavera: posts small blind 100
+FlushFury: posts big blind 200
+*** HOLE CARDS ***
+Avalanche77: folds
+sevebozz: folds
+Ya3: folds
+legia1111: folds
+DaniC1994: folds
+manny0calavera: raises 240 to 440
+FlushFury: folds
+Uncalled bet (240) returned to manny0calavera
+manny0calavera collected 610 from pot
+manny0calavera: doesn't show hand
+*** SUMMARY ***
+Total pot 610 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:11:42 GMT
+Seat 1: DaniC1994 (button) folded before Flop
+Seat 2: manny0calavera (small blind) collected (610)
+Seat 3: FlushFury (big blind) folded before Flop
+Seat 4: Avalanche77 folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381712234: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:11:43 GMT
+Table '1' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (5806 in chips, 5000 bounty)
+Seat 2: manny0calavera (9738 in chips, 5000 bounty)
+Seat 3: FlushFury (13967 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12839 in chips, 5000 bounty)
+Seat 5: sevebozz (9922 in chips, 5000 bounty)
+Seat 6: Ya3 (9412 in chips, 5000 bounty)
+Seat 7: legia1111 (7569 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+FlushFury: posts small blind 100
+Avalanche77: posts big blind 200
+*** HOLE CARDS ***
+sevebozz: folds
+Ya3: raises 200 to 400
+legia1111: folds
+DaniC1994: folds
+manny0calavera: raises 880 to 1280
+FlushFury: folds
+Avalanche77: folds
+Ya3: folds
+Uncalled bet (880) returned to manny0calavera
+manny0calavera collected 1310 from pot
+manny0calavera: doesn't show hand
+*** SUMMARY ***
+Total pot 1310 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:12:20 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera (button) collected (1310)
+Seat 3: FlushFury (small blind) folded before Flop
+Seat 4: Avalanche77 (big blind) folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381712840: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:12:21 GMT
+Table '1' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (5776 in chips, 5000 bounty)
+Seat 2: manny0calavera (10618 in chips, 5000 bounty)
+Seat 3: FlushFury (13837 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12609 in chips, 5000 bounty)
+Seat 5: sevebozz (9892 in chips, 5000 bounty)
+Seat 6: Ya3 (8982 in chips, 5000 bounty)
+Seat 7: legia1111 (7539 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+Avalanche77: posts small blind 100
+sevebozz: posts big blind 200
+*** HOLE CARDS ***
+Ya3: folds
+legia1111: folds
+DaniC1994: folds
+manny0calavera: raises 240 to 440
+FlushFury: raises 960 to 1400
+Avalanche77: folds
+sevebozz: folds
+manny0calavera: folds
+Uncalled bet (960) returned to FlushFury
+FlushFury collected 1390 from pot
+FlushFury: doesn't show hand
+*** SUMMARY ***
+Total pot 1390 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:13:02 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury (button) collected (1390)
+Seat 4: Avalanche77 (small blind) folded before Flop
+Seat 5: sevebozz (big blind) folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381714860: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:13:03 GMT
+Table '1' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (5746 in chips, 5000 bounty)
+Seat 2: manny0calavera (10148 in chips, 5000 bounty)
+Seat 3: FlushFury (14757 in chips, 5000 bounty)
+Seat 4: Avalanche77 (12479 in chips, 5000 bounty)
+Seat 5: sevebozz (9662 in chips, 5000 bounty)
+Seat 6: Ya3 (8952 in chips, 5000 bounty)
+Seat 7: legia1111 (7509 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+sevebozz: posts small blind 100
+Ya3: posts big blind 200
+*** HOLE CARDS ***
+legia1111: folds
+DaniC1994: folds
+manny0calavera: raises 240 to 440
+FlushFury: folds
+Avalanche77: raises 840 to 1280
+sevebozz: calls 1180
+Ya3: folds
+manny0calavera: calls 840
+*** FLOP *** [Ts 9h 9c]
+sevebozz: checks
+manny0calavera: checks
+Avalanche77: bets 1300
+sevebozz: calls 1300
+manny0calavera: folds
+*** TURN *** [Ts 9h 9c] [Qc]
+sevebozz is disconnected
+sevebozz has reconnected
+sevebozz: checks
+Avalanche77: checks
+*** RIVER *** [Ts 9h 9c Qc] [Ac]
+sevebozz: checks
+Avalanche77: bets 7750
+sevebozz: folds
+Uncalled bet (7750) returned to Avalanche77
+Avalanche77 collected 6850 from pot
+Avalanche77: doesn't show hand
+*** SUMMARY ***
+Total pot 6850 | Rake 0
+Board [ Ts 9h 9c Qc Ac ]
+Game ended: 2026/02/10 18:15:10 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera folded on the Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 (button) collected (6850)
+Seat 5: sevebozz (small blind) folded on the River
+Seat 6: Ya3 (big blind) folded before Flop
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381717217: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:15:11 GMT
+Table '1' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (5716 in chips, 5000 bounty)
+Seat 2: manny0calavera (8838 in chips, 5000 bounty)
+Seat 3: FlushFury (14727 in chips, 5000 bounty)
+Seat 4: Avalanche77 (16719 in chips, 5000 bounty)
+Seat 5: sevebozz (7052 in chips, 5000 bounty)
+Seat 6: Ya3 (8722 in chips, 5000 bounty)
+Seat 7: legia1111 (7479 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+Ya3: posts small blind 100
+legia1111: posts big blind 200
+*** HOLE CARDS ***
+DaniC1994: folds
+manny0calavera has timed out
+manny0calavera activated time-bank (41 seconds)
+manny0calavera: folds
+FlushFury: folds
+Avalanche77: folds
+sevebozz: folds
+Ya3: folds
+Uncalled bet (100) returned to legia1111
+legia1111 collected 410 from pot
+legia1111: doesn't show hand
+*** SUMMARY ***
+Total pot 410 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 18:15:52 GMT
+Seat 1: DaniC1994 folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 folded before Flop
+Seat 5: sevebozz (button) folded before Flop
+Seat 6: Ya3 (small blind) folded before Flop
+Seat 7: legia1111 (big blind) collected (410)
+
+
+PokerStars Hand #381717909: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:15:55 GMT
+Table '1' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (5686 in chips, 5000 bounty)
+Seat 2: manny0calavera (8808 in chips, 5000 bounty)
+Seat 3: FlushFury (14697 in chips, 5000 bounty)
+Seat 4: Avalanche77 (16689 in chips, 5000 bounty)
+Seat 5: sevebozz (7022 in chips, 5000 bounty)
+Seat 6: Ya3 (8592 in chips, 5000 bounty)
+Seat 7: legia1111 (7759 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+legia1111: posts small blind 100
+DaniC1994: posts big blind 200
+*** HOLE CARDS ***
+sevebozz is disconnected
+manny0calavera: folds
+FlushFury: folds
+sevebozz has reconnected
+Avalanche77: raises 200 to 400
+sevebozz: folds
+Ya3 has timed out
+Ya3 activated time-bank (39 seconds)
+Ya3: raises 1000 to 1400
+legia1111: folds
+DaniC1994: folds
+Avalanche77: calls 1000
+*** FLOP *** [Ks 7c 9c]
+Avalanche77 has timed out
+Avalanche77 activated time-bank (48 seconds)
+Avalanche77: checks
+Ya3: bets 892
+Avalanche77: calls 892
+*** TURN *** [Ks 7c 9c] [8c]
+Avalanche77: checks
+Ya3: checks
+*** RIVER *** [Ks 7c 9c 8c] [7d]
+Avalanche77: checks
+Ya3: bets 6170
+Avalanche77 has timed out
+Avalanche77 activated time-bank (46 seconds)
+Avalanche77: folds
+Uncalled bet (6170) returned to Ya3
+Ya3 collected 5094 from pot
+Ya3: doesn't show hand
+*** SUMMARY ***
+Total pot 5094 | Rake 0
+Board [ Ks 7c 9c 8c 7d ]
+Game ended: 2026/02/10 18:18:30 GMT
+Seat 1: DaniC1994 (big blind) folded before Flop
+Seat 2: manny0calavera folded before Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 folded on the River
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 (button) collected (5094)
+Seat 7: legia1111 (small blind) folded before Flop
+
+
+PokerStars Hand #381720095: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:18:31 GMT
+Table '1' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (5456 in chips, 5000 bounty)
+Seat 2: manny0calavera (8778 in chips, 5000 bounty)
+Seat 3: FlushFury (14667 in chips, 5000 bounty)
+Seat 4: Avalanche77 (14367 in chips, 5000 bounty)
+Seat 5: sevebozz (6992 in chips, 5000 bounty)
+Seat 6: Ya3 (11364 in chips, 5000 bounty)
+Seat 7: legia1111 (7629 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+DaniC1994: posts small blind 100
+manny0calavera: posts big blind 200
+*** HOLE CARDS ***
+FlushFury: folds
+Avalanche77: folds
+sevebozz: folds
+Ya3: folds
+legia1111: folds
+DaniC1994: calls 100
+manny0calavera: checks
+*** FLOP *** [7d Ah Kh]
+DaniC1994: bets 200
+manny0calavera: folds
+Uncalled bet (200) returned to DaniC1994
+DaniC1994 collected 610 from pot
+DaniC1994: doesn't show hand
+*** SUMMARY ***
+Total pot 610 | Rake 0
+Board [ 7d Ah Kh ]
+Game ended: 2026/02/10 18:19:00 GMT
+Seat 1: DaniC1994 (small blind) collected (610)
+Seat 2: manny0calavera (big blind) folded on the Flop
+Seat 3: FlushFury folded before Flop
+Seat 4: Avalanche77 folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 folded before Flop
+Seat 7: legia1111 (button) folded before Flop
+
+
+PokerStars Hand #381720505: Tournament #1444386, ₮100 POWERJAM PKO Hold'em No Limit - Level X (100/200) - 2026/02/10 18:19:01 GMT
+Table '1' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (5836 in chips, 5000 bounty)
+Seat 2: manny0calavera (8548 in chips, 5000 bounty)
+Seat 3: FlushFury (14637 in chips, 5000 bounty)
+Seat 4: Avalanche77 (14337 in chips, 5000 bounty)
+Seat 5: sevebozz (6962 in chips, 5000 bounty)
+Seat 6: Ya3 (11334 in chips, 5000 bounty)
+Seat 7: legia1111 (7599 in chips, 5000 bounty)
+DaniC1994: posts the ante 30
+manny0calavera: posts the ante 30
+FlushFury: posts the ante 30
+Avalanche77: posts the ante 30
+sevebozz: posts the ante 30
+Ya3: posts the ante 30
+legia1111: posts the ante 30
+manny0calavera: posts small blind 100
+FlushFury: posts big blind 200
+*** HOLE CARDS ***
+Avalanche77: folds
+sevebozz: folds
+Ya3: raises 200 to 400
+legia1111: folds
+DaniC1994: folds
+manny0calavera: folds
+FlushFury: calls 200
+*** FLOP *** [Jh Jc Js]
+FlushFury: checks
+Ya3: bets 366
+FlushFury: folds
+Uncalled bet (366) returned to Ya3
+Ya3 collected 1110 from pot
+Ya3: doesn't show hand
+*** SUMMARY ***
+Total pot 1110 | Rake 0
+Board [ Jh Jc Js ]
+Game ended: 2026/02/10 18:19:51 GMT
+Seat 1: DaniC1994 (button) folded before Flop
+Seat 2: manny0calavera (small blind) folded before Flop
+Seat 3: FlushFury (big blind) folded on the Flop
+Seat 4: Avalanche77 folded before Flop
+Seat 5: sevebozz folded before Flop
+Seat 6: Ya3 collected (1110)
+Seat 7: legia1111 folded before Flop
+
+
+PokerStars Hand #381863802: Tournament #1444619, ₮50 Hyper Hold'em No Limit - Level X (600/1200) - 2026/02/10 22:02:30 GMT
+Table '1' 7-max Seat #4 is the button
+Seat 2: Salut7 (20103 in chips)
+Seat 4: DaniC1994 (19107 in chips) out of hand
+Seat 5: TheBigBuddha (43243 in chips)
+Seat 6: Rycka (19152 in chips)
+Seat 7: charlieblathers (36160 in chips)
+Salut7: posts the ante 150
+TheBigBuddha: posts the ante 150
+Rycka: posts the ante 150
+charlieblathers: posts the ante 150
+TheBigBuddha: posts small blind 600
+Rycka: posts big blind 1200
+*** HOLE CARDS ***
+charlieblathers: folds
+Salut7: folds
+TheBigBuddha has timed out
+TheBigBuddha activated time-bank (11 seconds)
+TheBigBuddha: raises 1680 to 2880
+Rycka: folds
+Uncalled bet (1680) returned to TheBigBuddha
+TheBigBuddha collected 3000 from pot
+TheBigBuddha: doesn't show hand
+*** SUMMARY ***
+Total pot 3000 | Rake 0
+Board [ ]
+Game ended: 2026/02/10 22:03:01 GMT
+Seat 2: Salut7 folded before Flop
+Seat 4: DaniC1994 (button) folded before Flop (didn't bet)
+Seat 5: TheBigBuddha (small blind) collected (3000)
+Seat 6: Rycka (big blind) folded before Flop
+Seat 7: charlieblathers folded before Flop
+
+
+PokerStars Hand #381864123: Tournament #1444619, ₮50 Hyper Hold'em No Limit - Level X (600/1200) - 2026/02/10 22:03:03 GMT
+Table '1' 7-max Seat #5 is the button
+Seat 2: Salut7 (19953 in chips)
+Seat 4: DaniC1994 (19107 in chips)
+Seat 5: TheBigBuddha (44893 in chips)
+Seat 6: Rycka (17802 in chips)
+Seat 7: charlieblathers (36010 in chips)
+Salut7: posts the ante 150
+DaniC1994: posts the ante 150
+TheBigBuddha: posts the ante 150
+Rycka: posts the ante 150
+charlieblathers: posts the ante 150
+Rycka: posts small blind 600
+charlieblathers: posts big blind 1200
+*** HOLE CARDS ***
+Salut7: folds
+DaniC1994: raises 18957 to 18957 and is all-in
+TheBigBuddha: folds
+Rycka: folds
+charlieblathers: calls 17757
+*** FLOP *** [8d Kh 3h]
+*** TURN *** [8d Kh 3h] [2s]
+*** RIVER *** [8d Kh 3h 2s] [Kd]
+*** SHOW DOWN ***
+DaniC1994: shows [4s 4c] (two pairs, Kings and Fours)
+charlieblathers: shows [Kc Ad] (three of kind, Kings)
+charlieblathers collected 39264 from pot
+*** SUMMARY ***
+Total pot 39264 | Rake 0
+Board [ 8d Kh 3h 2s Kd ]
+Game ended: 2026/02/10 22:03:38 GMT
+Seat 2: Salut7 folded before Flop
+Seat 4: DaniC1994 showed [4s 4c]
+Seat 5: TheBigBuddha (button) folded before Flop
+Seat 6: Rycka (small blind) folded before Flop
+Seat 7: charlieblathers (big blind) showed [Kc Ad] and won (39264) with three of kind, Kings
+
+

@@ -1,0 +1,392 @@
+PokerStars Hand #2987170080: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:39:44 GMT
+Table '298717' 7-max Seat #5 is the button
+Seat 1: swisspower (9925 in chips)
+Seat 2: perritomal (13354.86 in chips)
+Seat 3: DaniC1994 (11370.10 in chips)
+Seat 4: Caramelito (1966.50 in chips)
+Seat 5: PapaPoor (33234.50 in chips)
+Seat 6: Nitroller (15677 in chips)
+Seat 7: Foke24 (8503 in chips)
+swisspower: posts the ante 88
+perritomal: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+Nitroller: posts small blind 350
+Foke24: posts big blind 700
+*** HOLE CARDS ***
+swisspower: folds
+perritomal: folds
+DaniC1994: folds
+Caramelito: folds
+PapaPoor: raises 700 to 1400
+Nitroller: folds
+Foke24: calls 700
+*** FLOP *** [5c 2h Qh]
+Foke24: checks
+PapaPoor: bets 941.50
+Foke24: folds
+Uncalled bet (941.50) returned to PapaPoor
+PapaPoor: doesn't show hand
+PapaPoor collected 3766
+*** SUMMARY ***
+Total pot 3766 | Rake 0
+Board [ 5c 2h Qh ]
+Game ended: 2026/04/19 21:40:32 GMT
+Seat 1: swisspower folded before the flop
+Seat 2: perritomal folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: Caramelito folded before the flop
+Seat 5: PapaPoor collected (3766)
+Seat 6: Nitroller (small blind) folded before the flop
+Seat 7: Foke24 (small blind) folded on the Flop
+
+
+PokerStars Hand #2987170081: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:40:33 GMT
+Table '298717' 7-max Seat #6 is the button
+Seat 1: swisspower (9837 in chips)
+Seat 2: perritomal (13266.86 in chips)
+Seat 3: DaniC1994 (11282.10 in chips)
+Seat 4: Caramelito (1878.50 in chips)
+Seat 5: PapaPoor (35512.50 in chips)
+Seat 6: Nitroller (15239 in chips)
+Seat 7: Foke24 (7015 in chips)
+swisspower: posts the ante 88
+perritomal: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+Foke24: posts small blind 350
+swisspower: posts big blind 700
+*** HOLE CARDS ***
+perritomal: folds
+DaniC1994: folds
+Caramelito: raises 1090.50 to 1790.50 and is all-in
+PapaPoor: folds
+Nitroller: folds
+Foke24: folds
+swisspower: calls 1090.50
+*** FLOP *** [Qh 5h Ad]
+*** TURN *** [Qh 5h Ad] [Kc]
+*** RIVER *** [Qh 5h Ad Kc] [2d]
+swisspower: shows [Tc 6s] ()
+Caramelito: shows [7c 7d] (Pair: Pair of 7)
+Caramelito collected 4547
+*** SUMMARY ***
+Total pot 4547 | Rake 0
+Board [ Qh 5h Ad Kc 2d ]
+Game ended: 2026/04/19 21:41:33 GMT
+Seat 1: swisspower (small blind) showed [ Tc 6s ] and lost with 
+Seat 2: perritomal folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: Caramelito showed [ 7c 7d ] and won (4547) with Pair: Pair of 7
+Seat 5: PapaPoor folded before the flop
+Seat 6: Nitroller folded before the flop
+Seat 7: Foke24 (small blind) folded before the flop
+
+
+PokerStars Hand #2987170082: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:41:34 GMT
+Table '298717' 7-max Seat #7 is the button
+Seat 1: swisspower (7958.50 in chips)
+Seat 3: DaniC1994 (11194.10 in chips)
+Seat 4: Caramelito (4547 in chips)
+Seat 5: PapaPoor (35424.50 in chips)
+Seat 6: Nitroller (15151 in chips)
+Seat 7: Foke24 (6577 in chips)
+swisspower: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+swisspower: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+Caramelito: raises 3759 to 4459 and is all-in
+PapaPoor: folds
+Nitroller: folds
+Foke24: folds
+swisspower: folds
+DaniC1994: folds
+Uncalled bet (3759) returned to Caramelito
+Caramelito: doesn't show hand
+Caramelito collected 2278
+*** SUMMARY ***
+Total pot 2278 | Rake 0
+Board [  ]
+Game ended: 2026/04/19 21:42:20 GMT
+Seat 1: swisspower (small blind) folded before the flop
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 4: Caramelito collected (2278)
+Seat 5: PapaPoor folded before the flop
+Seat 6: Nitroller folded before the flop
+Seat 7: Foke24 folded before the flop
+
+
+PokerStars Hand #2987170083: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:42:21 GMT
+Table '298717' 7-max Seat #1 is the button
+Seat 1: swisspower (7520.50 in chips)
+Seat 3: DaniC1994 (10406.10 in chips)
+Seat 4: Caramelito (6037 in chips)
+Seat 5: PapaPoor (35336.50 in chips)
+Seat 6: Nitroller (15063 in chips)
+Seat 7: Foke24 (6489 in chips)
+swisspower: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+DaniC1994: posts small blind 350
+Caramelito: posts big blind 700
+*** HOLE CARDS ***
+PapaPoor: folds
+Nitroller: folds
+Foke24: raises 5701 to 6401 and is all-in
+swisspower: folds
+DaniC1994: folds
+Caramelito: folds
+Uncalled bet (5701) returned to Foke24
+Foke24: doesn't show hand
+Foke24 collected 2278
+*** SUMMARY ***
+Total pot 2278 | Rake 0
+Board [  ]
+Game ended: 2026/04/19 21:43:01 GMT
+Seat 1: swisspower folded before the flop
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 4: Caramelito (small blind) folded before the flop
+Seat 5: PapaPoor folded before the flop
+Seat 6: Nitroller folded before the flop
+Seat 7: Foke24 collected (2278)
+
+
+PokerStars Hand #2987170084: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:43:02 GMT
+Table '298717' 7-max Seat #3 is the button
+Seat 1: swisspower (7432.50 in chips)
+Seat 3: DaniC1994 (9968.10 in chips)
+Seat 4: Caramelito (5249 in chips)
+Seat 5: PapaPoor (35248.50 in chips)
+Seat 6: Nitroller (14975 in chips)
+Seat 7: Foke24 (7979 in chips)
+swisspower: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+Caramelito: posts small blind 350
+PapaPoor: posts big blind 700
+*** HOLE CARDS ***
+Nitroller: folds
+Foke24: folds
+swisspower: raises 6644.50 to 7344.50 and is all-in
+DaniC1994: folds
+Caramelito: folds
+PapaPoor: calls 6644.50
+*** FLOP *** [9c 6s Qd]
+*** TURN *** [9c 6s Qd] [9h]
+*** RIVER *** [9c 6s Qd 9h] [3h]
+PapaPoor: shows [Qh Kd] (Two Pair: Pair of Q and 9)
+swisspower: shows [Kh Js] ()
+PapaPoor collected 15567
+*** SUMMARY ***
+Total pot 15567 | Rake 0
+Board [ 9c 6s Qd 9h 3h ]
+Game ended: 2026/04/19 21:43:46 GMT
+Seat 1: swisspower showed [ Kh Js ] and lost with 
+Seat 3: DaniC1994 folded before the flop
+Seat 4: Caramelito (small blind) folded before the flop
+Seat 5: PapaPoor (small blind) showed [ Qh Kd ] and won (15567) with Two Pair: Pair of Q and 9
+Seat 6: Nitroller folded before the flop
+Seat 7: Foke24 folded before the flop
+
+
+PokerStars Hand #2987170085: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/19 21:43:56 GMT
+Table '298717' 7-max Seat #4 is the button
+Seat 1: PinkPunter (10000 in chips)
+Seat 3: DaniC1994 (9880.10 in chips)
+Seat 4: Caramelito (4811 in chips)
+Seat 5: PapaPoor (43383 in chips)
+Seat 6: Nitroller (14887 in chips)
+Seat 7: Foke24 (7891 in chips)
+PinkPunter: posts the ante 88
+DaniC1994: posts the ante 88
+Caramelito: posts the ante 88
+PapaPoor: posts the ante 88
+Nitroller: posts the ante 88
+Foke24: posts the ante 88
+PapaPoor: posts small blind 350
+Nitroller: posts big blind 700
+*** HOLE CARDS ***
+Foke24: folds
+PinkPunter: raises 700 to 1400
+DaniC1994: folds
+Caramelito: folds
+PapaPoor: folds
+Nitroller: calls 700
+*** FLOP *** [Qd 4s 3d]
+Nitroller: checks
+PinkPunter: bets 1050
+Nitroller: calls 1050
+*** TURN *** [Qd 4s 3d] [7c]
+Nitroller: checks
+PinkPunter: checks
+*** RIVER *** [Qd 4s 3d 7c] [Ks]
+Nitroller: bets 1611.20
+PinkPunter: raises 5850.80 to 7462 and is all-in
+Nitroller: folds
+Uncalled bet (5850.80) returned to PinkPunter
+PinkPunter: doesn't show hand
+PinkPunter collected 9000.40
+*** SUMMARY ***
+Total pot 9000.40 | Rake 0
+Board [ Qd 4s 3d 7c Ks ]
+Game ended: 2026/04/19 21:45:54 GMT
+Seat 1: PinkPunter collected (9000.40)
+Seat 3: DaniC1994 folded before the flop
+Seat 4: Caramelito folded before the flop
+Seat 5: PapaPoor (small blind) folded before the flop
+Seat 6: Nitroller (small blind) folded on the River
+Seat 7: Foke24 folded before the flop
+
+
+PokerStars Hand #2987170088: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level II (400/800 - Ante 100) - 2026/04/19 21:47:24 GMT
+Table '298717' 7-max Seat #7 is the button
+Seat 1: PinkPunter (13863.20 in chips)
+Seat 2: CrabMentality (11712 in chips)
+Seat 3: DaniC1994 (8134.10 in chips)
+Seat 4: Caramelito (4535 in chips)
+Seat 5: PapaPoor (42757 in chips)
+Seat 6: Nitroller (10199.80 in chips)
+Seat 7: Foke24 (9651 in chips)
+PinkPunter: posts the ante 100
+CrabMentality: posts the ante 100
+DaniC1994: posts the ante 100
+Caramelito: posts the ante 100
+PapaPoor: posts the ante 100
+Nitroller: posts the ante 100
+Foke24: posts the ante 100
+PinkPunter: posts small blind 400
+CrabMentality: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: folds
+Caramelito: folds
+PapaPoor: folds
+Nitroller: folds
+Foke24: raises 8751 to 9551 and is all-in
+PinkPunter: raises 4212.20 to 13763.20 and is all-in
+CrabMentality: folds
+Uncalled bet (4212.20) returned to PinkPunter
+*** FLOP *** [7s Jh 2s]
+*** TURN *** [7s Jh 2s] [Qc]
+*** RIVER *** [7s Jh 2s Qc] [Td]
+PinkPunter: shows [Th Kh] (Pair: Pair of T)
+Foke24: shows [Th Kh 7d Ac] ()
+PinkPunter collected 20602
+*** SUMMARY ***
+Total pot 20602 | Rake 0
+Board [ 7s Jh 2s Qc Td ]
+Game ended: 2026/04/19 21:48:44 GMT
+Seat 1: PinkPunter (small blind) showed [ Th Kh ] and won (20602) with Pair: Pair of T
+Seat 2: CrabMentality (small blind) folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: Caramelito folded before the flop
+Seat 5: PapaPoor folded before the flop
+Seat 6: Nitroller folded before the flop
+Seat 7: Foke24 showed [ Th Kh 7d Ac ] and lost with 
+
+
+PokerStars Hand #2987170089: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level II (400/800 - Ante 100) - 2026/04/19 21:48:44 GMT
+Table '298717' 7-max Seat #1 is the button
+Seat 1: PinkPunter (24814.20 in chips)
+Seat 2: CrabMentality (10812 in chips)
+Seat 3: DaniC1994 (8034.10 in chips)
+Seat 4: Caramelito (4435 in chips)
+Seat 5: PapaPoor (42657 in chips)
+Seat 6: Nitroller (10099.80 in chips)
+PinkPunter: posts the ante 100
+CrabMentality: posts the ante 100
+DaniC1994: posts the ante 100
+Caramelito: posts the ante 100
+PapaPoor: posts the ante 100
+Nitroller: posts the ante 100
+CrabMentality: posts small blind 400
+DaniC1994: posts big blind 800
+*** HOLE CARDS ***
+Caramelito: raises 3535 to 4335 and is all-in
+PapaPoor: folds
+Nitroller: folds
+PinkPunter: folds
+CrabMentality: raises 6377 to 10712 and is all-in
+DaniC1994: folds
+Uncalled bet (6377) returned to CrabMentality
+*** FLOP *** [Tc 6d Ts]
+*** TURN *** [Tc 6d Ts] [5d]
+*** RIVER *** [Tc 6d Ts 5d] [Js]
+CrabMentality: shows [Kc 9c] ()
+Caramelito: shows [3s 3d] (Two Pair: Pair of T and 3)
+Caramelito collected 10070
+*** SUMMARY ***
+Total pot 10070 | Rake 0
+Board [ Tc 6d Ts 5d Js ]
+Game ended: 2026/04/19 21:49:24 GMT
+Seat 1: PinkPunter folded before the flop
+Seat 2: CrabMentality (small blind) showed [ Kc 9c ] and lost with 
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 4: Caramelito showed [ 3s 3d ] and won (10070) with Two Pair: Pair of T and 3
+Seat 5: PapaPoor folded before the flop
+Seat 6: Nitroller folded before the flop
+
+
+PokerStars Hand #2988850038: Tournament #47308, $215 Sunday Mega TurboCharger Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/19 21:38:14 GMT
+Table '298885' 7-max Seat #6 is the button
+Seat 1: isuck90000 (4807.70 in chips)
+Seat 2: Dakarta (15373.92 in chips)
+Seat 3: AlorsPeutEtre (3271 in chips)
+Seat 4: BuenaRachA (22392 in chips)
+Seat 5: DaniC1994 (12645.10 in chips)
+Seat 6: barabymbam (8875 in chips)
+Seat 7: OverlordCalls (10241.37 in chips)
+isuck90000: posts the ante 75
+Dakarta: posts the ante 75
+AlorsPeutEtre: posts the ante 75
+BuenaRachA: posts the ante 75
+DaniC1994: posts the ante 75
+barabymbam: posts the ante 75
+OverlordCalls: posts the ante 75
+OverlordCalls: posts small blind 300
+isuck90000: posts big blind 600
+*** HOLE CARDS ***
+Dakarta: raises 600 to 1200
+AlorsPeutEtre: folds
+BuenaRachA: folds
+DaniC1994: calls 1200
+barabymbam: raises 7600 to 8800 and is all-in
+OverlordCalls: folds
+isuck90000: folds
+Dakarta: calls 7600
+DaniC1994: folds
+*** FLOP *** [3s 6s Th]
+*** TURN *** [3s 6s Th] [3d]
+*** RIVER *** [3s 6s Th 3d] [3c]
+Dakarta: shows [Tc] (Full House: Triplet of 3 and Pair  of T)
+barabymbam: shows [Ad Tc As Js] ()
+Dakarta collected 20225
+*** SUMMARY ***
+Total pot 20225 | Rake 0
+Board [ 3s 6s Th 3d 3c ]
+Game ended: 2026/04/19 21:39:14 GMT
+Seat 1: isuck90000 (small blind) folded before the flop
+Seat 2: Dakarta showed [ Tc ] and won (20225) with Full House: Triplet of 3 and Pair  of T
+Seat 3: AlorsPeutEtre folded before the flop
+Seat 4: BuenaRachA folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: barabymbam showed [ Ad Tc As Js ] and lost with 
+Seat 7: OverlordCalls (small blind) folded before the flop
+
+

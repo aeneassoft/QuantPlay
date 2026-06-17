@@ -1,0 +1,518 @@
+PokerStars Hand #5445610055: Tournament #58239, $109 Kickoff Hold'em No Limit - Level I (1000/2000 - Ante 250) - 2026/05/19 17:24:13 GMT
+Table '544561' 7-max Seat #4 is the button
+Seat 1: br0keliving (121980.72 in chips)
+Seat 2: PudgyPenguin (60390 in chips)
+Seat 3: tiptoe (75605.20 in chips)
+Seat 4: AlpakaStyle (34228.10 in chips)
+Seat 5: modalrealism (155372.75 in chips)
+Seat 6: DaniC1994 (79950 in chips)
+Seat 7: VICTORYa (192583.48 in chips)
+Seat 8: Tazzy77 (79680 in chips)
+br0keliving: posts the ante 250
+PudgyPenguin: posts the ante 250
+tiptoe: posts the ante 250
+AlpakaStyle: posts the ante 250
+modalrealism: posts the ante 250
+DaniC1994: posts the ante 250
+VICTORYa: posts the ante 250
+Tazzy77: posts the ante 250
+modalrealism: posts small blind 1000
+DaniC1994: posts big blind 2000
+*** HOLE CARDS ***
+VICTORYa: raises 2400 to 4400
+Tazzy77: folds
+br0keliving: folds
+PudgyPenguin: folds
+tiptoe: calls 4400
+AlpakaStyle: folds
+modalrealism: folds
+DaniC1994: folds
+*** FLOP *** [8s Jh 9h]
+VICTORYa: checks
+tiptoe: bets 5382
+VICTORYa: calls 5382
+*** TURN *** [8s Jh 9h] [Qc]
+VICTORYa: checks
+tiptoe: checks
+*** RIVER *** [8s Jh 9h Qc] [Ah]
+VICTORYa: checks
+tiptoe: checks
+VICTORYa: shows [Ad Js Kh Qd] ()
+tiptoe: shows [Ad Js] (Two Pair: Pair of A and J)
+tiptoe collected 24564
+*** SUMMARY ***
+Total pot 24564 | Rake 0
+Board [ 8s Jh 9h Qc Ah ]
+Game ended: 2026/05/19 17:25:53 GMT
+Seat 1: br0keliving folded before the flop
+Seat 2: PudgyPenguin folded before the flop
+Seat 3: tiptoe showed [ Ad Js ] and won (24564) with Two Pair: Pair of A and J
+Seat 4: AlpakaStyle folded before the flop
+Seat 5: modalrealism (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: VICTORYa showed [ Ad Js Kh Qd ] and lost with 
+Seat 8: Tazzy77 folded before the flop
+
+
+PokerStars Hand #5445610059: Tournament #58239, $109 Kickoff Hold'em No Limit - Level I (1000/2000 - Ante 250) - 2026/05/19 17:29:28 GMT
+Table '544561' 7-max Seat #8 is the button
+Seat 1: br0keliving (149432.56 in chips)
+Seat 2: PudgyPenguin (59390 in chips)
+Seat 3: tiptoe (89387.20 in chips)
+Seat 4: AlpakaStyle (33228.10 in chips)
+Seat 5: modalrealism (153372.75 in chips)
+Seat 6: DaniC1994 (55498.16 in chips)
+Seat 7: VICTORYa (178801.48 in chips)
+Seat 8: Tazzy77 (80680 in chips)
+br0keliving: posts the ante 250
+PudgyPenguin: posts the ante 250
+tiptoe: posts the ante 250
+AlpakaStyle: posts the ante 250
+modalrealism: posts the ante 250
+DaniC1994: posts the ante 250
+VICTORYa: posts the ante 250
+Tazzy77: posts the ante 250
+br0keliving: posts small blind 1000
+PudgyPenguin: posts big blind 2000
+*** HOLE CARDS ***
+tiptoe: raises 2400 to 4400
+AlpakaStyle: folds
+modalrealism: calls 4400
+DaniC1994: folds
+VICTORYa: folds
+Tazzy77: calls 4400
+br0keliving: folds
+PudgyPenguin: folds
+*** FLOP *** [Ks Qc 5s]
+tiptoe: bets 6006
+modalrealism: calls 6006
+Tazzy77: calls 6006
+*** TURN *** [Ks Qc 5s] [9d]
+tiptoe: checks
+modalrealism: checks
+Tazzy77: checks
+*** RIVER *** [Ks Qc 5s 9d] [6h]
+tiptoe: checks
+modalrealism: checks
+Tazzy77: checks
+tiptoe: shows [Ac 6c] ()
+modalrealism: mucks hand
+Tazzy77: shows [Qs Ts] (Pair: Pair of Q)
+Tazzy77 collected 36218
+*** SUMMARY ***
+Total pot 36218 | Rake 0
+Board [ Ks Qc 5s 9d 6h ]
+Game ended: 2026/05/19 17:31:01 GMT
+Seat 1: br0keliving (small blind) folded before the flop
+Seat 2: PudgyPenguin (small blind) folded before the flop
+Seat 3: tiptoe showed [ Ac 6c ] and lost with 
+Seat 4: AlpakaStyle folded before the flop
+Seat 5: modalrealism mucked
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 showed [ Qs Ts ] and won (36218) with Pair: Pair of Q
+
+
+PokerStars Hand #5445610075: Tournament #58239, $109 Kickoff Hold'em No Limit - Level I (1500/3000 - Ante 375) - 2026/05/19 17:48:34 GMT
+Table '544561' 7-max Seat #8 is the button
+Seat 1: br0keliving (127580 in chips)
+Seat 2: PudgyPenguin (74188 in chips)
+Seat 3: tiptoe (67226.20 in chips)
+Seat 4: AlpakaStyle (76896.20 in chips)
+Seat 5: modalrealism (185473.27 in chips)
+Seat 6: DaniC1994 (96565.72 in chips)
+Seat 7: VICTORYa (110381.86 in chips)
+Seat 8: Tazzy77 (211479 in chips)
+br0keliving: posts the ante 375
+PudgyPenguin: posts the ante 375
+tiptoe: posts the ante 375
+AlpakaStyle: posts the ante 375
+modalrealism: posts the ante 375
+DaniC1994: posts the ante 375
+VICTORYa: posts the ante 375
+Tazzy77: posts the ante 375
+br0keliving: posts small blind 1500
+PudgyPenguin: posts big blind 3000
+*** HOLE CARDS ***
+tiptoe: folds
+AlpakaStyle: folds
+modalrealism: folds
+DaniC1994: folds
+VICTORYa: folds
+Tazzy77: folds
+br0keliving: calls 1500
+PudgyPenguin: checks
+*** FLOP *** [8h 2d As]
+br0keliving: bets 3000
+PudgyPenguin: calls 3000
+*** TURN *** [8h 2d As] [5d]
+br0keliving: checks
+PudgyPenguin: checks
+*** RIVER *** [8h 2d As 5d] [6d]
+br0keliving: checks
+PudgyPenguin: bets 9750
+br0keliving: raises 111455 to 121205 and is all-in
+PudgyPenguin: folds
+Uncalled bet (111455) returned to br0keliving
+br0keliving: doesn't show hand
+br0keliving collected 34500
+*** SUMMARY ***
+Total pot 34500 | Rake 0
+Board [ 8h 2d As 5d 6d ]
+Game ended: 2026/05/19 17:50:34 GMT
+Seat 1: br0keliving (small blind) collected (34500)
+Seat 2: PudgyPenguin (small blind) folded on the River
+Seat 3: tiptoe folded before the flop
+Seat 4: AlpakaStyle folded before the flop
+Seat 5: modalrealism folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 folded before the flop
+
+
+PokerStars Hand #5445610077: Tournament #58239, $109 Kickoff Hold'em No Limit - Level I (1500/3000 - Ante 375) - 2026/05/19 17:50:55 GMT
+Table '544561' 7-max Seat #2 is the button
+Seat 1: br0keliving (145580 in chips)
+Seat 2: PudgyPenguin (56188 in chips)
+Seat 3: tiptoe (63476.20 in chips)
+Seat 4: AlpakaStyle (76146.20 in chips)
+Seat 5: modalrealism (192223.27 in chips)
+Seat 6: DaniC1994 (95815.72 in chips)
+Seat 7: VICTORYa (109631.86 in chips)
+Seat 8: Tazzy77 (210729 in chips)
+br0keliving: posts the ante 375
+PudgyPenguin: posts the ante 375
+tiptoe: posts the ante 375
+AlpakaStyle: posts the ante 375
+modalrealism: posts the ante 375
+DaniC1994: posts the ante 375
+VICTORYa: posts the ante 375
+Tazzy77: posts the ante 375
+tiptoe: posts small blind 1500
+AlpakaStyle: posts big blind 3000
+*** HOLE CARDS ***
+modalrealism: folds
+DaniC1994: folds
+VICTORYa: folds
+Tazzy77: folds
+br0keliving: folds
+PudgyPenguin: folds
+tiptoe: calls 1500
+AlpakaStyle: checks
+*** FLOP *** [5h Ad 5s]
+tiptoe: checks
+AlpakaStyle: checks
+*** TURN *** [5h Ad 5s] [7h]
+tiptoe: checks
+AlpakaStyle: checks
+*** RIVER *** [5h Ad 5s 7h] [7c]
+tiptoe: checks
+AlpakaStyle: checks
+tiptoe: doesn't show hand
+AlpakaStyle: doesn't show hand
+tiptoe collected 9000
+AlpakaStyle collected 9000
+*** SUMMARY ***
+Total pot 9000 | Rake 0
+Board [ 5h Ad 5s 7h 7c ]
+Game ended: 2026/05/19 17:51:54 GMT
+Seat 1: br0keliving folded before the flop
+Seat 2: PudgyPenguin folded before the flop
+Seat 3: tiptoe (small blind) collected (9000)
+Seat 4: AlpakaStyle (small blind) collected (9000)
+Seat 5: modalrealism folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 folded before the flop
+
+
+PokerStars Hand #5445610101: Tournament #58239, $109 Kickoff Hold'em No Limit - Level I (2500/5000 - Ante 625) - 2026/05/19 18:21:58 GMT
+Table '544561' 7-max Seat #3 is the button
+Seat 1: br0keliving (145256.34 in chips)
+Seat 2: PudgyPenguin (178105.82 in chips)
+Seat 3: tiptoe (128454.40 in chips)
+Seat 4: AlpakaStyle (252617.19 in chips)
+Seat 5: Wooway (73750 in chips)
+Seat 6: DaniC1994 (72250 in chips)
+Seat 7: VICTORYa (149913.32 in chips)
+Seat 8: Tazzy77 (174443.18 in chips)
+br0keliving: posts the ante 625
+PudgyPenguin: posts the ante 625
+tiptoe: posts the ante 625
+AlpakaStyle: posts the ante 625
+Wooway: posts the ante 625
+DaniC1994: posts the ante 625
+VICTORYa: posts the ante 625
+Tazzy77: posts the ante 625
+AlpakaStyle: posts small blind 2500
+Wooway: posts big blind 5000
+*** HOLE CARDS ***
+DaniC1994: folds
+VICTORYa: folds
+Tazzy77: folds
+br0keliving: folds
+PudgyPenguin: raises 5000 to 10000
+tiptoe: folds
+AlpakaStyle: folds
+Wooway: folds
+Uncalled bet (5000) returned to PudgyPenguin
+PudgyPenguin: doesn't show hand
+PudgyPenguin collected 17500
+*** SUMMARY ***
+Total pot 17500 | Rake 0
+Board [  ]
+Game ended: 2026/05/19 18:22:20 GMT
+Seat 1: br0keliving folded before the flop
+Seat 2: PudgyPenguin collected (17500)
+Seat 3: tiptoe folded before the flop
+Seat 4: AlpakaStyle (small blind) folded before the flop
+Seat 5: Wooway (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 folded before the flop
+
+
+PokerStars Hand #5445610050: Tournament #58214, $55 The Tuesday Grind Hold'em No Limit - Level I (800/1600 - Ante 200) - 2026/05/19 17:18:48 GMT
+Table '544561' 7-max Seat #7 is the button
+Seat 1: br0keliving (125870.72 in chips)
+Seat 2: PudgyPenguin (63040 in chips)
+Seat 3: tiptoe (79055.20 in chips)
+Seat 4: AlpakaStyle (39798.10 in chips)
+Seat 5: modalrealism (139262.75 in chips)
+Seat 6: DaniC1994 (79200 in chips)
+Seat 7: VICTORYa (189633.48 in chips)
+Seat 8: Tazzy77 (83930 in chips)
+br0keliving: posts the ante 200
+PudgyPenguin: posts the ante 200
+tiptoe: posts the ante 200
+AlpakaStyle: posts the ante 200
+modalrealism: posts the ante 200
+DaniC1994: posts the ante 200
+VICTORYa: posts the ante 200
+Tazzy77: posts the ante 200
+Tazzy77: posts small blind 800
+br0keliving: posts big blind 1600
+*** HOLE CARDS ***
+PudgyPenguin: raises 1600 to 3200
+tiptoe: folds
+AlpakaStyle: folds
+modalrealism: folds
+DaniC1994: calls 3200
+VICTORYa: folds
+Tazzy77: calls 2400
+br0keliving: raises 12000 to 15200
+PudgyPenguin: folds
+DaniC1994: folds
+Tazzy77: folds
+Uncalled bet (12000) returned to br0keliving
+br0keliving: doesn't show hand
+br0keliving collected 14400
+*** SUMMARY ***
+Total pot 14400 | Rake 0
+Board [  ]
+Game ended: 2026/05/19 17:20:09 GMT
+Seat 1: br0keliving (small blind) collected (14400)
+Seat 2: PudgyPenguin folded before the flop
+Seat 3: tiptoe folded before the flop
+Seat 4: AlpakaStyle folded before the flop
+Seat 5: modalrealism folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 (small blind) folded before the flop
+
+
+PokerStars Hand #5445610090: Tournament #58214, $55 The Tuesday Grind Hold'em No Limit - Level I (2000/4000 - Ante 500) - 2026/05/19 18:13:07 GMT
+Table '544561' 7-max Seat #7 is the button
+Seat 1: br0keliving (146838 in chips)
+Seat 2: PudgyPenguin (192855.82 in chips)
+Seat 3: tiptoe (118704.40 in chips)
+Seat 4: AlpakaStyle (281367.19 in chips)
+Seat 6: DaniC1994 (74500 in chips)
+Seat 7: VICTORYa (44331.66 in chips)
+Seat 8: Tazzy77 (166193.18 in chips)
+br0keliving: posts the ante 500
+PudgyPenguin: posts the ante 500
+tiptoe: posts the ante 500
+AlpakaStyle: posts the ante 500
+DaniC1994: posts the ante 500
+VICTORYa: posts the ante 500
+Tazzy77: posts the ante 500
+Tazzy77: posts small blind 2000
+br0keliving: posts big blind 4000
+*** HOLE CARDS ***
+PudgyPenguin: folds
+tiptoe: folds
+AlpakaStyle: folds
+DaniC1994: folds
+VICTORYa: raises 39831.66 to 43831.66 and is all-in
+Tazzy77: folds
+br0keliving: calls 39831.66
+*** FLOP *** [4h 7s 9d]
+*** TURN *** [4h 7s 9d] [2h]
+*** RIVER *** [4h 7s 9d 2h] [4s]
+br0keliving: shows [Ac 6d] ()
+VICTORYa: shows [7d Ah] (Two Pair: Pair of 7 and 4)
+VICTORYa collected 93163.32
+*** SUMMARY ***
+Total pot 93163.32 | Rake 0
+Board [ 4h 7s 9d 2h 4s ]
+Game ended: 2026/05/19 18:13:55 GMT
+Seat 1: br0keliving (small blind) showed [ Ac 6d ] and lost with 
+Seat 2: PudgyPenguin folded before the flop
+Seat 3: tiptoe folded before the flop
+Seat 4: AlpakaStyle folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: VICTORYa showed [ 7d Ah ] and won (93163.32) with Two Pair: Pair of 7 and 4
+Seat 8: Tazzy77 (small blind) folded before the flop
+
+
+PokerStars Hand #5445610087: Tournament #58316, $44 Turbo Hold'em No Limit - Level I (1750/3500 - Ante 438) - 2026/05/19 18:07:57 GMT
+Table '544561' 7-max Seat #4 is the button
+Seat 1: br0keliving (129076 in chips)
+Seat 2: PudgyPenguin (194293.82 in chips)
+Seat 3: tiptoe (120142.40 in chips)
+Seat 4: AlpakaStyle (141038.40 in chips)
+Seat 5: modalrealism (88323.07 in chips)
+Seat 6: DaniC1994 (43565.72 in chips)
+Seat 7: VICTORYa (61719.66 in chips)
+Seat 8: Tazzy77 (171631.18 in chips)
+br0keliving: posts the ante 438
+PudgyPenguin: posts the ante 438
+tiptoe: posts the ante 438
+AlpakaStyle: posts the ante 438
+modalrealism: posts the ante 438
+DaniC1994: posts the ante 438
+VICTORYa: posts the ante 438
+Tazzy77: posts the ante 438
+modalrealism: posts small blind 1750
+DaniC1994: posts big blind 3500
+*** HOLE CARDS ***
+VICTORYa: folds
+Tazzy77: folds
+br0keliving: folds
+PudgyPenguin: folds
+tiptoe: folds
+AlpakaStyle: folds
+modalrealism: raises 4200 to 7700
+DaniC1994: calls 4200
+*** FLOP *** [9d 3d 3s]
+modalrealism: bets 3780.80
+DaniC1994: calls 3780.80
+*** TURN *** [9d 3d 3s] [9h]
+modalrealism: bets 5293.12
+DaniC1994: raises 5293.12 to 10586.24
+modalrealism: calls 5293.12
+*** RIVER *** [9d 3d 3s 9h] [Qh]
+modalrealism: checks
+DaniC1994: bets 19310.68
+modalrealism: raises 19310.68 to 38621.36
+DaniC1994: folds
+Uncalled bet (19310.68) returned to modalrealism
+modalrealism: mucks hand
+modalrealism collected 0
+*** SUMMARY ***
+Total pot 86259.44 | Rake 0
+Board [ 9d 3d 3s 9h Qh ]
+Game ended: 2026/05/19 18:09:53 GMT
+Seat 1: br0keliving folded before the flop
+Seat 2: PudgyPenguin folded before the flop
+Seat 3: tiptoe folded before the flop
+Seat 4: AlpakaStyle folded before the flop
+Seat 5: modalrealism (small blind) collected (86259.44)
+Seat 6: DaniC1994 (small blind) folded on the River
+Seat 7: VICTORYa folded before the flop
+Seat 8: Tazzy77 folded before the flop
+
+
+PokerStars Hand #5463450138: Tournament #58340, $33 Primetime 6-Max Blitz Hold'em No Limit - Level II (6250/12500 - Ante 1875) - 2026/05/19 21:17:31 GMT
+Table '546345' 6-max Seat #3 is the button
+Seat 1: kiriakiriakiria (228124.25 in chips)
+Seat 2: Pepedogus (556251.20 in chips)
+Seat 3: DaniC1994 (250134.38 in chips)
+Seat 4: gracias (257899.79 in chips)
+Seat 5: DomainExpansion (387155.38 in chips)
+Seat 6: AdrenalinaPura (276823.54 in chips)
+Seat 7: fort260 (176175 in chips)
+kiriakiriakiria: posts the ante 1875
+Pepedogus: posts the ante 1875
+DaniC1994: posts the ante 1875
+gracias: posts the ante 1875
+DomainExpansion: posts the ante 1875
+AdrenalinaPura: posts the ante 1875
+fort260: posts the ante 1875
+gracias: posts small blind 6250
+DomainExpansion: posts big blind 12500
+*** HOLE CARDS ***
+AdrenalinaPura: raises 12500 to 25000
+fort260: folds
+kiriakiriakiria: folds
+Pepedogus: folds
+DaniC1994: folds
+gracias: folds
+DomainExpansion: folds
+Uncalled bet (12500) returned to AdrenalinaPura
+AdrenalinaPura: doesn't show hand
+AdrenalinaPura collected 44375
+*** SUMMARY ***
+Total pot 44375 | Rake 0
+Board [  ]
+Game ended: 2026/05/19 21:18:02 GMT
+Seat 1: kiriakiriakiria folded before the flop
+Seat 2: Pepedogus folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: gracias (small blind) folded before the flop
+Seat 5: DomainExpansion (small blind) folded before the flop
+Seat 6: AdrenalinaPura collected (44375)
+Seat 7: fort260 folded before the flop
+
+
+PokerStars Hand #5463450152: Tournament #58353, $44 6-Max Turbo Hold'em No Limit - Level II (7500/15000 - Ante 2250) - 2026/05/19 21:29:57 GMT
+Table '546345' 6-max Seat #3 is the button
+Seat 1: kiriakiriakiria (154770.50 in chips)
+Seat 2: Pepedogus (727229.95 in chips)
+Seat 3: DaniC1994 (198759.38 in chips)
+Seat 4: gracias (132668.54 in chips)
+Seat 5: DomainExpansion (570886.63 in chips)
+Seat 6: AdrenalinaPura (205073.54 in chips)
+Seat 7: fort260 (143175 in chips)
+kiriakiriakiria: posts the ante 2250
+Pepedogus: posts the ante 2250
+DaniC1994: posts the ante 2250
+gracias: posts the ante 2250
+DomainExpansion: posts the ante 2250
+AdrenalinaPura: posts the ante 2250
+fort260: posts the ante 2250
+gracias: posts small blind 7500
+DomainExpansion: posts big blind 15000
+*** HOLE CARDS ***
+AdrenalinaPura: folds
+fort260: folds
+kiriakiriakiria: folds
+Pepedogus: raises 16500 to 31500
+DaniC1994: folds
+gracias: folds
+DomainExpansion: calls 16500
+*** FLOP *** [Tc Td Kc]
+DomainExpansion: checks
+Pepedogus: bets 21562.50
+DomainExpansion: raises 51750 to 73312.50
+Pepedogus: calls 51750
+*** TURN *** [Tc Td Kc] [9d]
+DomainExpansion: bets 116437.50
+Pepedogus: folds
+Uncalled bet (116437.50) returned to DomainExpansion
+DomainExpansion: doesn't show hand
+DomainExpansion collected 232875
+*** SUMMARY ***
+Total pot 232875 | Rake 0
+Board [ Tc Td Kc 9d ]
+Game ended: 2026/05/19 21:31:21 GMT
+Seat 1: kiriakiriakiria folded before the flop
+Seat 2: Pepedogus folded on the Turn
+Seat 3: DaniC1994 folded before the flop
+Seat 4: gracias (small blind) folded before the flop
+Seat 5: DomainExpansion (small blind) collected (232875)
+Seat 6: AdrenalinaPura folded before the flop
+Seat 7: fort260 folded before the flop
+
+

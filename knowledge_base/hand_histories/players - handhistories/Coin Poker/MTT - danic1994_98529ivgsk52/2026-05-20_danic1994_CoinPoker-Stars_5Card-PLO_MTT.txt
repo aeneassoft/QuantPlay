@@ -1,0 +1,3887 @@
+PokerStars Hand #5566690127: Tournament #58882, $66 Americas Showdown Hold'em No Limit - Level III (20000/40000 - Ante 6000) - 2026/05/20 23:39:45 GMT
+Table '556669' 7-max Seat #3 is the button
+Seat 2: ChaseTheMoney (1671019.58 in chips)
+Seat 3: tiptoe (180532.58 in chips)
+Seat 5: Guyver3 (490501.49 in chips)
+Seat 6: DaniC1994 (811125.84 in chips)
+Seat 7: MeliusCotidie (1628948.29 in chips)
+ChaseTheMoney: posts the ante 6000
+tiptoe: posts the ante 6000
+Guyver3: posts the ante 6000
+DaniC1994: posts the ante 6000
+MeliusCotidie: posts the ante 6000
+Guyver3: posts small blind 20000
+DaniC1994: posts big blind 40000
+*** HOLE CARDS ***
+MeliusCotidie: folds
+ChaseTheMoney: folds
+tiptoe: raises 134532.58 to 174532.58 and is all-in
+Guyver3: folds
+DaniC1994: calls 134532.58
+*** FLOP *** [7c Ad 9s]
+*** TURN *** [7c Ad 9s] [Js]
+*** RIVER *** [7c Ad 9s Js] [2h]
+DaniC1994: shows [Ah Kh Qs Jd] ()
+tiptoe: shows [Ah Kh] (Pair: Pair of A)
+tiptoe collected 399065.16
+*** SUMMARY ***
+Total pot 399065.16 | Rake 0
+Board [ 7c Ad 9s Js 2h ]
+Game ended: 2026/05/20 23:40:38 GMT
+Seat 2: ChaseTheMoney folded before the flop
+Seat 3: tiptoe showed [ Ah Kh ] and won (399065.16) with Pair: Pair of A
+Seat 5: Guyver3 (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ Ah Kh Qs Jd ] and lost with 
+Seat 7: MeliusCotidie folded before the flop
+
+
+PokerStars Hand #5548580261: Tournament #58882, $66 Americas Showdown Hold'em No Limit - Level III (30000/60000 - Ante 9000) - 2026/05/20 23:15:29 GMT
+Table '554858' 7-max Seat #6 is the button
+Seat 1: MoneyTrees (1049596.10 in chips)
+Seat 4: DaniC1994 (3562241.84 in chips)
+Seat 6: Laurentisdead (3815293.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6455284.14 in chips)
+MoneyTrees: posts the ante 9000
+DaniC1994: posts the ante 9000
+Laurentisdead: posts the ante 9000
+DAVIDSCUPOFICE: posts the ante 9000
+DAVIDSCUPOFICE: posts small blind 30000
+MoneyTrees: posts big blind 60000
+*** HOLE CARDS ***
+DaniC1994: folds
+Laurentisdead: raises 60000 to 120000
+DAVIDSCUPOFICE: folds
+MoneyTrees: folds
+Uncalled bet (60000) returned to Laurentisdead
+Laurentisdead: doesn't show hand
+Laurentisdead collected 186000
+*** SUMMARY ***
+Total pot 186000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:16:12 GMT
+Seat 1: MoneyTrees (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 6: Laurentisdead collected (186000)
+Seat 7: DAVIDSCUPOFICE (small blind) folded before the flop
+
+
+PokerStars Hand #5548580269: Tournament #58882, $66 Americas Showdown Hold'em No Limit - Level III (35000/70000 - Ante 10500) - 2026/05/20 23:21:26 GMT
+Table '554858' 7-max Seat #7 is the button
+Seat 1: estebangocu (1473413.55 in chips)
+Seat 4: DaniC1994 (4748737.94 in chips)
+Seat 6: Laurentisdead (3725793.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6351884.14 in chips)
+estebangocu: posts the ante 10500
+DaniC1994: posts the ante 10500
+Laurentisdead: posts the ante 10500
+DAVIDSCUPOFICE: posts the ante 10500
+estebangocu: posts small blind 35000
+DaniC1994: posts big blind 70000
+*** HOLE CARDS ***
+Laurentisdead: folds
+DAVIDSCUPOFICE: raises 70000 to 140000
+estebangocu: folds
+DaniC1994: calls 70000
+*** FLOP *** [Jc 5h 2c]
+DaniC1994: checks
+DAVIDSCUPOFICE: bets 117810
+DaniC1994: calls 117810
+*** TURN *** [Jc 5h 2c] [Qc]
+DaniC1994: checks
+DAVIDSCUPOFICE: checks
+*** RIVER *** [Jc 5h 2c Qc] [8d]
+DaniC1994: bets 592620
+DAVIDSCUPOFICE: folds
+Uncalled bet (592620) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 592620
+*** SUMMARY ***
+Total pot 592620 | Rake 0
+Board [ Jc 5h 2c Qc 8d ]
+Game ended: 2026/05/20 23:22:23 GMT
+Seat 1: estebangocu (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) collected (592620)
+Seat 6: Laurentisdead folded before the flop
+Seat 7: DAVIDSCUPOFICE folded on the River
+
+
+PokerStars Hand #5548580215: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level III (15000/30000 - Ante 4500) - 2026/05/20 22:24:03 GMT
+Table '554858' 7-max Seat #1 is the button
+Seat 1: Hammah (978226.32 in chips)
+Seat 3: querulous117266 (868829.26 in chips)
+Seat 4: DaniC1994 (1077259.34 in chips)
+Seat 5: Pohoda (533179.12 in chips)
+Seat 6: Laurentisdead (598368.68 in chips)
+Seat 7: Elem11 (343265.48 in chips)
+Hammah: posts the ante 4500
+querulous117266: posts the ante 4500
+DaniC1994: posts the ante 4500
+Pohoda: posts the ante 4500
+Laurentisdead: posts the ante 4500
+Elem11: posts the ante 4500
+querulous117266: posts small blind 15000
+DaniC1994: posts big blind 30000
+*** HOLE CARDS ***
+Pohoda: folds
+Laurentisdead: raises 30000 to 60000
+Elem11: folds
+Hammah: calls 60000
+querulous117266: folds
+DaniC1994: folds
+*** FLOP *** [8d 3s Jd]
+Laurentisdead: bets 63360
+Hammah: folds
+Uncalled bet (63360) returned to Laurentisdead
+Laurentisdead: doesn't show hand
+Laurentisdead collected 192000
+*** SUMMARY ***
+Total pot 192000 | Rake 0
+Board [ 8d 3s Jd ]
+Game ended: 2026/05/20 22:25:07 GMT
+Seat 1: Hammah folded on the Flop
+Seat 3: querulous117266 (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: Pohoda folded before the flop
+Seat 6: Laurentisdead collected (192000)
+Seat 7: Elem11 folded before the flop
+
+
+PokerStars Hand #5552410143: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level III (8750/17500 - Ante 2625) - 2026/05/20 21:52:22 GMT
+Table '555241' 7-max Seat #1 is the button
+Seat 1: BTC100K (253566.93 in chips)
+Seat 2: BWFCxFan (133983.09 in chips)
+Seat 3: girafganger7 (434833.99 in chips)
+Seat 4: DaniC1994 (930019.06 in chips)
+Seat 5: pineira (318302.81 in chips)
+Seat 6: scottypnoragret (354117.66 in chips)
+Seat 7: evan12444 (672442.68 in chips)
+BTC100K: posts the ante 2625
+BWFCxFan: posts the ante 2625
+girafganger7: posts the ante 2625
+DaniC1994: posts the ante 2625
+pineira: posts the ante 2625
+scottypnoragret: posts the ante 2625
+evan12444: posts the ante 2625
+BWFCxFan: posts small blind 8750
+girafganger7: posts big blind 17500
+*** HOLE CARDS ***
+DaniC1994: raises 19250 to 36750
+pineira: folds
+scottypnoragret: folds
+evan12444: folds
+BTC100K: folds
+BWFCxFan: folds
+girafganger7: folds
+Uncalled bet (19250) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 62125
+*** SUMMARY ***
+Total pot 62125 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 21:52:54 GMT
+Seat 1: BTC100K folded before the flop
+Seat 2: BWFCxFan (small blind) folded before the flop
+Seat 3: girafganger7 (small blind) folded before the flop
+Seat 4: DaniC1994 collected (62125)
+Seat 5: pineira folded before the flop
+Seat 6: scottypnoragret folded before the flop
+Seat 7: evan12444 folded before the flop
+
+
+PokerStars Hand #5552410147: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level III (10000/20000 - Ante 3000) - 2026/05/20 22:02:31 GMT
+Table '555241' 7-max Seat #5 is the button
+Seat 1: BTC100K (322316.93 in chips)
+Seat 3: girafganger7 (397708.99 in chips)
+Seat 4: DaniC1994 (937519.06 in chips)
+Seat 5: pineira (279927.81 in chips)
+Seat 7: evan12444 (1159793.43 in chips)
+BTC100K: posts the ante 3000
+girafganger7: posts the ante 3000
+DaniC1994: posts the ante 3000
+pineira: posts the ante 3000
+evan12444: posts the ante 3000
+evan12444: posts small blind 10000
+BTC100K: posts big blind 20000
+*** HOLE CARDS ***
+girafganger7: folds
+DaniC1994: raises 22000 to 42000
+pineira: folds
+evan12444: folds
+BTC100K: calls 22000
+*** FLOP *** [5d Jd 5c]
+BTC100K: checks
+DaniC1994: bets 27250
+BTC100K: folds
+Uncalled bet (27250) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 109000
+*** SUMMARY ***
+Total pot 109000 | Rake 0
+Board [ 5d Jd 5c ]
+Game ended: 2026/05/20 22:03:32 GMT
+Seat 1: BTC100K (small blind) folded on the Flop
+Seat 3: girafganger7 folded before the flop
+Seat 4: DaniC1994 collected (109000)
+Seat 5: pineira folded before the flop
+Seat 7: evan12444 (small blind) folded before the flop
+
+
+PokerStars Hand #5552410149: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level III (10000/20000 - Ante 3000) - 2026/05/20 22:04:16 GMT
+Table '555241' 7-max Seat #1 is the button
+Seat 1: BTC100K (264316.93 in chips)
+Seat 2: FishyFortune (373929.39 in chips)
+Seat 3: girafganger7 (391708.99 in chips)
+Seat 4: DaniC1994 (1049519.06 in chips)
+Seat 5: pineira (273927.81 in chips)
+Seat 6: Chicoin (740997.72 in chips)
+Seat 7: evan12444 (1143793.43 in chips)
+BTC100K: posts the ante 3000
+FishyFortune: posts the ante 3000
+girafganger7: posts the ante 3000
+DaniC1994: posts the ante 3000
+pineira: posts the ante 3000
+Chicoin: posts the ante 3000
+evan12444: posts the ante 3000
+FishyFortune: posts small blind 10000
+girafganger7: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: raises 22000 to 42000
+pineira: folds
+Chicoin: folds
+evan12444: folds
+BTC100K: folds
+FishyFortune: folds
+girafganger7: calls 22000
+*** FLOP *** [As 2c 9d]
+girafganger7: checks
+DaniC1994: bets 28750
+girafganger7: folds
+Uncalled bet (28750) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 115000
+*** SUMMARY ***
+Total pot 115000 | Rake 0
+Board [ As 2c 9d ]
+Game ended: 2026/05/20 22:05:18 GMT
+Seat 1: BTC100K folded before the flop
+Seat 2: FishyFortune (small blind) folded before the flop
+Seat 3: girafganger7 (small blind) folded on the Flop
+Seat 4: DaniC1994 collected (115000)
+Seat 5: pineira folded before the flop
+Seat 6: Chicoin folded before the flop
+Seat 7: evan12444 folded before the flop
+
+
+PokerStars Hand #5566550044: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/20 22:10:03 GMT
+Table '556655' 7-max Seat #1 is the button
+Seat 1: professorchaos (152951.26 in chips)
+Seat 2: PrinceOfRUGAY (129825 in chips)
+Seat 3: Yafish (69124.40 in chips)
+Seat 4: AllInAlchemist (71658 in chips)
+Seat 5: mkstr (317310.10 in chips)
+Seat 6: DaniC1994 (264754.67 in chips)
+Seat 7: reveur (340500.98 in chips)
+professorchaos: posts the ante 1050
+PrinceOfRUGAY: posts the ante 1050
+Yafish: posts the ante 1050
+AllInAlchemist: posts the ante 1050
+mkstr: posts the ante 1050
+DaniC1994: posts the ante 1050
+reveur: posts the ante 1050
+PrinceOfRUGAY: posts small blind 3500
+Yafish: posts big blind 7000
+*** HOLE CARDS ***
+AllInAlchemist: folds
+mkstr: folds
+DaniC1994: folds
+reveur: folds
+professorchaos: raises 112000 to 119000
+PrinceOfRUGAY: folds
+Yafish: folds
+Uncalled bet (112000) returned to professorchaos
+professorchaos: doesn't show hand
+professorchaos collected 24850
+*** SUMMARY ***
+Total pot 24850 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 22:11:11 GMT
+Seat 1: professorchaos collected (24850)
+Seat 2: PrinceOfRUGAY (small blind) folded before the flop
+Seat 3: Yafish (small blind) folded before the flop
+Seat 4: AllInAlchemist folded before the flop
+Seat 5: mkstr folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: reveur folded before the flop
+
+
+PokerStars Hand #5560350176: Tournament #58859, $55 Bolt [Hyper] Hold'em No Limit - Level III (12500/25000 - Ante 3750) - 2026/05/20 23:19:47 GMT
+Table '556035' 7-max Seat #5 is the button
+Seat 2: care168 (351547.70 in chips)
+Seat 3: DaniC1994 (429450.84 in chips)
+Seat 5: Dakarta (430362.36 in chips)
+Seat 6: MeliusCotidie (773123.66 in chips)
+Seat 7: reveur (538574.63 in chips)
+care168: posts the ante 3750
+DaniC1994: posts the ante 3750
+Dakarta: posts the ante 3750
+MeliusCotidie: posts the ante 3750
+reveur: posts the ante 3750
+MeliusCotidie: posts small blind 12500
+reveur: posts big blind 25000
+*** HOLE CARDS ***
+care168: folds
+DaniC1994: folds
+Dakarta: folds
+MeliusCotidie: raises 744373.66 to 769373.66 and is all-in
+reveur: folds
+Uncalled bet (744373.66) returned to MeliusCotidie
+MeliusCotidie: shows [Ad] ()
+MeliusCotidie collected 68750
+*** SUMMARY ***
+Total pot 68750 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:20:34 GMT
+Seat 2: care168 folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 5: Dakarta folded before the flop
+Seat 6: MeliusCotidie (small blind) showed [ Ad ] and won (68750) with 
+Seat 7: reveur (small blind) folded before the flop
+
+
+PokerStars Hand #5532800042: Tournament #58654, $33 Primetime Classic Hold'em No Limit - Level I (625/1250 - Ante 187) - 2026/05/20 17:04:42 GMT
+Table '553280' 7-max Seat #1 is the button
+Seat 1: SilkBrother (82715.86 in chips)
+Seat 2: HappyLuckyPig (36840.25 in chips)
+Seat 3: MataneTY (48526 in chips)
+Seat 4: DaniC1994 (44903.50 in chips)
+Seat 5: TimmyPoker (80284.25 in chips)
+Seat 6: laaaame (104789.75 in chips)
+Seat 7: CorteN (51943.90 in chips)
+SilkBrother: posts the ante 187
+HappyLuckyPig: posts the ante 187
+MataneTY: posts the ante 187
+DaniC1994: posts the ante 187
+TimmyPoker: posts the ante 187
+laaaame: posts the ante 187
+CorteN: posts the ante 187
+HappyLuckyPig: posts small blind 625
+MataneTY: posts big blind 1250
+*** HOLE CARDS ***
+DaniC1994: folds
+TimmyPoker: folds
+laaaame: folds
+CorteN: folds
+SilkBrother: raises 1250 to 2500
+HappyLuckyPig: folds
+MataneTY: folds
+Uncalled bet (1250) returned to SilkBrother
+SilkBrother: doesn't show hand
+SilkBrother collected 4434
+*** SUMMARY ***
+Total pot 4434 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 17:05:37 GMT
+Seat 1: SilkBrother collected (4434)
+Seat 2: HappyLuckyPig (small blind) folded before the flop
+Seat 3: MataneTY (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: TimmyPoker folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: CorteN folded before the flop
+
+
+PokerStars Hand #5532100102: Tournament #58654, $33 Primetime Classic Hold'em No Limit - Level II (3500/7000 - Ante 1190) - 2026/05/20 17:39:48 GMT
+Table '553210' 7-max Seat #1 is the button
+Seat 1: PoorAndPoorer (198747.57 in chips)
+Seat 2: PatrickLeonard (105280 in chips)
+Seat 3: tiptoe (94791.67 in chips)
+Seat 4: DaniC1994 (213017 in chips)
+Seat 5: OVERCONFIDENCE (166664.23 in chips)
+Seat 6: dandol3 (432800.01 in chips)
+PoorAndPoorer: posts the ante 1190
+PatrickLeonard: posts the ante 1190
+tiptoe: posts the ante 1190
+DaniC1994: posts the ante 1190
+OVERCONFIDENCE: posts the ante 1190
+dandol3: posts the ante 1190
+PatrickLeonard: posts small blind 3500
+tiptoe: posts big blind 7000
+*** HOLE CARDS ***
+DaniC1994: folds
+OVERCONFIDENCE: raises 7000 to 14000
+dandol3: folds
+PoorAndPoorer: folds
+PatrickLeonard: folds
+tiptoe: folds
+Uncalled bet (7000) returned to OVERCONFIDENCE
+OVERCONFIDENCE: doesn't show hand
+OVERCONFIDENCE collected 24640
+*** SUMMARY ***
+Total pot 24640 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 17:40:14 GMT
+Seat 1: PoorAndPoorer folded before the flop
+Seat 2: PatrickLeonard (small blind) folded before the flop
+Seat 3: tiptoe (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: OVERCONFIDENCE collected (24640)
+Seat 6: dandol3 folded before the flop
+
+
+PokerStars Hand #5537050090: Tournament #58710, $44 Turbo Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:50:24 GMT
+Table '553705' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (5861.76 in chips)
+Seat 2: DaddyDonkeyDick (87449.96 in chips)
+Seat 4: NeonRev112 (87350 in chips)
+Seat 5: degenmyname (361709.72 in chips)
+Seat 6: Helpme555 (469176.38 in chips)
+Seat 7: HeavyIsTheCrown (395944.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+DaddyDonkeyDick: posts small blind 3000
+NeonRev112: posts big blind 6000
+*** HOLE CARDS ***
+degenmyname: folds
+Helpme555: folds
+HeavyIsTheCrown: raises 6000 to 12000
+DaniC1994: calls 4961.76 and is all-in
+DaddyDonkeyDick: folds
+NeonRev112: raises 74450 to 86450 and is all-in
+HeavyIsTheCrown: folds
+Uncalled bet (74450) returned to NeonRev112
+*** FLOP *** [2d Ah Ad]
+*** TURN *** [2d Ah Ad] [Js]
+*** RIVER *** [2d Ah Ad Js] [As]
+NeonRev112: shows [Ac] (Four of a kind: Quartet of A)
+DaniC1994: shows [5s Qh] ()
+NeonRev112 collected 37361.76
+*** SUMMARY ***
+Total pot 37361.76 | Rake 0
+Board [ 2d Ah Ad Js As ]
+Game ended: 2026/05/20 18:51:23 GMT
+Seat 1: DaniC1994 showed [ 5s Qh ] and lost with 
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 4: NeonRev112 (small blind) showed [ Ac ] and won (37361.76) with Four of a kind: Quartet of A
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5532800043: Tournament #58591, $55 The Wednesday Grind Hold'em No Limit - Level I (625/1250 - Ante 187) - 2026/05/20 17:05:37 GMT
+Table '553280' 7-max Seat #2 is the button
+Seat 1: SilkBrother (85712.86 in chips)
+Seat 2: HappyLuckyPig (36028.25 in chips)
+Seat 3: MataneTY (47089 in chips)
+Seat 4: DaniC1994 (44716.50 in chips)
+Seat 5: TimmyPoker (80097.25 in chips)
+Seat 6: laaaame (104602.75 in chips)
+Seat 7: CorteN (51756.90 in chips)
+SilkBrother: posts the ante 187
+HappyLuckyPig: posts the ante 187
+MataneTY: posts the ante 187
+DaniC1994: posts the ante 187
+TimmyPoker: posts the ante 187
+laaaame: posts the ante 187
+CorteN: posts the ante 187
+MataneTY: posts small blind 625
+DaniC1994: posts big blind 1250
+*** HOLE CARDS ***
+TimmyPoker: folds
+laaaame: folds
+CorteN: folds
+SilkBrother: raises 1250 to 2500
+HappyLuckyPig: calls 2500
+MataneTY: raises 11279.50 to 13779.50
+DaniC1994: folds
+SilkBrother: folds
+HappyLuckyPig: folds
+Uncalled bet (11279.50) returned to MataneTY
+MataneTY: mucks hand
+MataneTY collected 0
+*** SUMMARY ***
+Total pot 10059 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 17:06:45 GMT
+Seat 1: SilkBrother folded before the flop
+Seat 2: HappyLuckyPig folded before the flop
+Seat 3: MataneTY (small blind) collected (10059)
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: TimmyPoker folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: CorteN folded before the flop
+
+
+PokerStars Hand #5532800058: Tournament #58591, $55 The Wednesday Grind Hold'em No Limit - Level I (875/1750 - Ante 262) - 2026/05/20 17:24:59 GMT
+Table '553280' 7-max Seat #3 is the button
+Seat 1: SilkBrother (16401.61 in chips)
+Seat 2: HappyLuckyPig (94232.60 in chips)
+Seat 3: MataneTY (95884.25 in chips)
+Seat 4: DaniC1994 (37683.25 in chips)
+Seat 5: TimmyPoker (71730.25 in chips)
+Seat 6: laaaame (89131.75 in chips)
+Seat 7: CorteN (44939.80 in chips)
+SilkBrother: posts the ante 262
+HappyLuckyPig: posts the ante 262
+MataneTY: posts the ante 262
+DaniC1994: posts the ante 262
+TimmyPoker: posts the ante 262
+laaaame: posts the ante 262
+CorteN: posts the ante 262
+DaniC1994: posts small blind 875
+TimmyPoker: posts big blind 1750
+*** HOLE CARDS ***
+laaaame: folds
+CorteN: raises 1750 to 3500
+SilkBrother: folds
+HappyLuckyPig: folds
+MataneTY: folds
+DaniC1994: folds
+TimmyPoker: calls 1750
+*** FLOP *** [As Jh 3c]
+TimmyPoker: checks
+CorteN: bets 1750
+TimmyPoker: folds
+Uncalled bet (1750) returned to CorteN
+CorteN: doesn't show hand
+CorteN collected 9709
+*** SUMMARY ***
+Total pot 9709 | Rake 0
+Board [ As Jh 3c ]
+Game ended: 2026/05/20 17:25:46 GMT
+Seat 1: SilkBrother folded before the flop
+Seat 2: HappyLuckyPig folded before the flop
+Seat 3: MataneTY folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: TimmyPoker (small blind) folded on the Flop
+Seat 6: laaaame folded before the flop
+Seat 7: CorteN collected (9709)
+
+
+PokerStars Hand #5552410155: Tournament #58848, $88 Bull Rush PKO Hold'em No Limit - Level III (12500/25000 - Ante 3750) - 2026/05/20 22:10:52 GMT
+Table '555241' 7-max Seat #7 is the button
+Seat 1: BTC100K (457076.93 in chips)
+Seat 2: FishyFortune (345929.39 in chips)
+Seat 3: girafganger7 (412708.99 in chips)
+Seat 4: DaniC1994 (908559.06 in chips)
+Seat 5: pineira (225927.81 in chips)
+Seat 6: Chicoin (652997.72 in chips)
+Seat 7: evan12444 (1234993.43 in chips)
+BTC100K: posts the ante 3750
+FishyFortune: posts the ante 3750
+girafganger7: posts the ante 3750
+DaniC1994: posts the ante 3750
+pineira: posts the ante 3750
+Chicoin: posts the ante 3750
+evan12444: posts the ante 3750
+BTC100K: posts small blind 12500
+FishyFortune: posts big blind 25000
+*** HOLE CARDS ***
+girafganger7: folds
+DaniC1994: folds
+pineira: raises 197177.81 to 222177.81 and is all-in
+Chicoin: folds
+evan12444: folds
+BTC100K: folds
+FishyFortune: folds
+Uncalled bet (197177.81) returned to pineira
+pineira: doesn't show hand
+pineira collected 88750
+*** SUMMARY ***
+Total pot 88750 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 22:11:48 GMT
+Seat 1: BTC100K (small blind) folded before the flop
+Seat 2: FishyFortune (small blind) folded before the flop
+Seat 3: girafganger7 folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: pineira collected (88750)
+Seat 6: Chicoin folded before the flop
+Seat 7: evan12444 folded before the flop
+
+
+PokerStars Hand #5548580252: Tournament #58848, $88 Bull Rush PKO Hold'em No Limit - Level III (30000/60000 - Ante 9000) - 2026/05/20 23:06:19 GMT
+Table '554858' 7-max Seat #4 is the button
+Seat 2: TcheLoko (3157807.86 in chips)
+Seat 3: Chicoin (239353.04 in chips)
+Seat 4: DaniC1994 (2299964.40 in chips)
+Seat 6: Laurentisdead (3295318.54 in chips)
+Seat 7: DAVIDSCUPOFICE (4831375.68 in chips)
+TcheLoko: posts the ante 9000
+Chicoin: posts the ante 9000
+DaniC1994: posts the ante 9000
+Laurentisdead: posts the ante 9000
+DAVIDSCUPOFICE: posts the ante 9000
+Laurentisdead: posts small blind 30000
+DAVIDSCUPOFICE: posts big blind 60000
+*** HOLE CARDS ***
+TcheLoko: folds
+Chicoin: folds
+DaniC1994: raises 66000 to 126000
+Laurentisdead: folds
+DAVIDSCUPOFICE: calls 66000
+*** FLOP *** [4d Jd 3d]
+DAVIDSCUPOFICE: checks
+DaniC1994: bets 60000
+DAVIDSCUPOFICE: calls 60000
+*** TURN *** [4d Jd 3d] [Js]
+DAVIDSCUPOFICE: checks
+DaniC1994: bets 295020
+DAVIDSCUPOFICE: calls 295020
+*** RIVER *** [4d Jd 3d Js] [3s]
+DAVIDSCUPOFICE: checks
+DaniC1994: checks
+DAVIDSCUPOFICE: shows [Tc Th] (Two Pair: Pair of J and T)
+DaniC1994: mucks hand
+DAVIDSCUPOFICE collected 1037040
+*** SUMMARY ***
+Total pot 1037040 | Rake 0
+Board [ 4d Jd 3d Js 3s ]
+Game ended: 2026/05/20 23:07:48 GMT
+Seat 2: TcheLoko folded before the flop
+Seat 3: Chicoin folded before the flop
+Seat 4: DaniC1994 mucked
+Seat 6: Laurentisdead (small blind) folded before the flop
+Seat 7: DAVIDSCUPOFICE (small blind) showed [ Tc Th ] and won (1037040) with Two Pair: Pair of J and T
+
+
+PokerStars Hand #5548580280: Tournament #58889, $109 Collision PKO Hold'em No Limit - Level III (40000/80000 - Ante 12000) - 2026/05/20 23:29:33 GMT
+Table '554858' 7-max Seat #6 is the button
+Seat 1: estebangocu (1301413.55 in chips)
+Seat 4: DaniC1994 (4699547.94 in chips)
+Seat 6: Laurentisdead (3839153.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6459714.14 in chips)
+estebangocu: posts the ante 12000
+DaniC1994: posts the ante 12000
+Laurentisdead: posts the ante 12000
+DAVIDSCUPOFICE: posts the ante 12000
+DAVIDSCUPOFICE: posts small blind 40000
+estebangocu: posts big blind 80000
+*** HOLE CARDS ***
+DaniC1994: folds
+Laurentisdead: raises 80000 to 160000
+DAVIDSCUPOFICE: folds
+estebangocu: folds
+Uncalled bet (80000) returned to Laurentisdead
+Laurentisdead: doesn't show hand
+Laurentisdead collected 248000
+*** SUMMARY ***
+Total pot 248000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:29:53 GMT
+Seat 1: estebangocu (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 6: Laurentisdead collected (248000)
+Seat 7: DAVIDSCUPOFICE (small blind) folded before the flop
+
+
+PokerStars Hand #5548580283: Tournament #58889, $109 Collision PKO Hold'em No Limit - Level III (40000/80000 - Ante 12000) - 2026/05/20 23:31:23 GMT
+Table '554858' 7-max Seat #4 is the button
+Seat 1: estebangocu (1105413.55 in chips)
+Seat 4: DaniC1994 (4751547.94 in chips)
+Seat 6: Laurentisdead (3676513.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6766354.14 in chips)
+estebangocu: posts the ante 12000
+DaniC1994: posts the ante 12000
+Laurentisdead: posts the ante 12000
+DAVIDSCUPOFICE: posts the ante 12000
+Laurentisdead: posts small blind 40000
+DAVIDSCUPOFICE: posts big blind 80000
+*** HOLE CARDS ***
+estebangocu: folds
+DaniC1994: raises 88000 to 168000
+Laurentisdead: calls 128000
+DAVIDSCUPOFICE: folds
+*** FLOP *** [5d Kh Js]
+Laurentisdead: checks
+DaniC1994: checks
+*** TURN *** [5d Kh Js] [Kc]
+Laurentisdead: bets 348000
+DaniC1994: calls 348000
+*** RIVER *** [5d Kh Js Kc] [8s]
+Laurentisdead: bets 3148513.54 and is all-in
+DaniC1994: calls 3148513.54
+DaniC1994: shows [Ks 9d] (Three of a kind: Triplet of K)
+Laurentisdead: shows [Ks 9d 7c 7d] ()
+DaniC1994 collected 7457027.08
+*** SUMMARY ***
+Total pot 7457027.08 | Rake 0
+Board [ 5d Kh Js Kc 8s ]
+Game ended: 2026/05/20 23:33:50 GMT
+Seat 1: estebangocu folded before the flop
+Seat 4: DaniC1994 showed [ Ks 9d ] and won (7457027.08) with Three of a kind: Triplet of K
+Seat 6: Laurentisdead (small blind) showed [ Ks 9d 7c 7d ] and lost with 
+Seat 7: DAVIDSCUPOFICE (small blind) folded before the flop
+
+
+PokerStars Hand #5537050071: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 18:26:59 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (67910 in chips)
+Seat 2: DaddyDonkeyDick (126493.88 in chips)
+Seat 3: boutrun (66693.92 in chips)
+Seat 4: Nick723 (25882.85 in chips)
+Seat 5: littletaptap (66559.32 in chips)
+Seat 6: Helpme555 (347082.79 in chips)
+Seat 7: HeavyIsTheCrown (502832.39 in chips)
+DaniC1994: posts the ante 600
+DaddyDonkeyDick: posts the ante 600
+boutrun: posts the ante 600
+Nick723: posts the ante 600
+littletaptap: posts the ante 600
+Helpme555: posts the ante 600
+HeavyIsTheCrown: posts the ante 600
+boutrun: posts small blind 2000
+Nick723: posts big blind 4000
+*** HOLE CARDS ***
+littletaptap: folds
+Helpme555: raises 6000 to 10000
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: calls 10000
+boutrun: folds
+Nick723: folds
+*** FLOP *** [8d 8s 5d]
+Helpme555: bets 15100
+DaddyDonkeyDick: calls 15100
+*** TURN *** [8d 8s 5d] [Ad]
+Helpme555: checks
+DaddyDonkeyDick: bets 22952
+Helpme555: folds
+Uncalled bet (22952) returned to DaddyDonkeyDick
+DaddyDonkeyDick: doesn't show hand
+DaddyDonkeyDick collected 60400
+*** SUMMARY ***
+Total pot 60400 | Rake 0
+Board [ 8d 8s 5d Ad ]
+Game ended: 2026/05/20 18:28:50 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick collected (60400)
+Seat 3: boutrun (small blind) folded before the flop
+Seat 4: Nick723 (small blind) folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 folded on the Turn
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050072: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 18:28:51 GMT
+Table '553705' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (67310 in chips)
+Seat 2: DaddyDonkeyDick (161193.88 in chips)
+Seat 3: boutrun (64093.92 in chips)
+Seat 4: Nick723 (21282.85 in chips)
+Seat 5: littletaptap (65959.32 in chips)
+Seat 6: Helpme555 (321382.79 in chips)
+Seat 7: HeavyIsTheCrown (502232.39 in chips)
+DaniC1994: posts the ante 600
+DaddyDonkeyDick: posts the ante 600
+boutrun: posts the ante 600
+Nick723: posts the ante 600
+littletaptap: posts the ante 600
+Helpme555: posts the ante 600
+HeavyIsTheCrown: posts the ante 600
+Nick723: posts small blind 2000
+littletaptap: posts big blind 4000
+*** HOLE CARDS ***
+Helpme555: folds
+HeavyIsTheCrown: raises 4000 to 8000
+DaniC1994: folds
+DaddyDonkeyDick: calls 8000
+boutrun: folds
+Nick723: folds
+littletaptap: calls 4000
+*** FLOP *** [Jh 8c 9h]
+littletaptap: checks
+HeavyIsTheCrown: checks
+DaddyDonkeyDick: bets 17516
+littletaptap: folds
+HeavyIsTheCrown: folds
+Uncalled bet (17516) returned to DaddyDonkeyDick
+DaddyDonkeyDick: doesn't show hand
+DaddyDonkeyDick collected 30200
+*** SUMMARY ***
+Total pot 30200 | Rake 0
+Board [ Jh 8c 9h ]
+Game ended: 2026/05/20 18:29:55 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick collected (30200)
+Seat 3: boutrun folded before the flop
+Seat 4: Nick723 (small blind) folded before the flop
+Seat 5: littletaptap (small blind) folded on the Flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown folded on the Flop
+
+
+PokerStars Hand #5537050073: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 18:29:55 GMT
+Table '553705' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (66710 in chips)
+Seat 2: DaddyDonkeyDick (182793.88 in chips)
+Seat 3: boutrun (63493.92 in chips)
+Seat 4: Nick723 (18682.85 in chips)
+Seat 5: littletaptap (57359.32 in chips)
+Seat 6: Helpme555 (320782.79 in chips)
+Seat 7: HeavyIsTheCrown (493632.39 in chips)
+DaniC1994: posts the ante 600
+DaddyDonkeyDick: posts the ante 600
+boutrun: posts the ante 600
+Nick723: posts the ante 600
+littletaptap: posts the ante 600
+Helpme555: posts the ante 600
+HeavyIsTheCrown: posts the ante 600
+littletaptap: posts small blind 2000
+Helpme555: posts big blind 4000
+*** HOLE CARDS ***
+HeavyIsTheCrown: folds
+DaniC1994: raises 4400 to 8400
+DaddyDonkeyDick: folds
+boutrun: folds
+Nick723: raises 8400 to 16800
+littletaptap: folds
+Helpme555: folds
+DaniC1994: raises 49310 to 66110 and is all-in
+Nick723: calls 1282.85 and is all-in
+Uncalled bet (48027.15) returned to DaniC1994
+*** FLOP *** [Ks 6s Th]
+*** TURN *** [Ks 6s Th] [8d]
+*** RIVER *** [Ks 6s Th 8d] [3d]
+DaniC1994: shows [Kd Qs] (Pair: Pair of K)
+Nick723: shows [Kd Qs Ac 7c] ()
+DaniC1994 collected 46365.70
+*** SUMMARY ***
+Total pot 46365.70 | Rake 0
+Board [ Ks 6s Th 8d 3d ]
+Game ended: 2026/05/20 18:30:51 GMT
+Seat 1: DaniC1994 showed [ Kd Qs ] and won (46365.70) with Pair: Pair of K
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: Nick723 showed [ Kd Qs Ac 7c ] and lost with 
+Seat 5: littletaptap (small blind) folded before the flop
+Seat 6: Helpme555 (small blind) folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050074: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 18:31:01 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (94392.85 in chips)
+Seat 2: DaddyDonkeyDick (182193.88 in chips)
+Seat 3: boutrun (62893.92 in chips)
+Seat 5: littletaptap (54759.32 in chips)
+Seat 6: Helpme555 (316182.79 in chips)
+Seat 7: HeavyIsTheCrown (493032.39 in chips)
+DaniC1994: posts the ante 600
+DaddyDonkeyDick: posts the ante 600
+boutrun: posts the ante 600
+littletaptap: posts the ante 600
+Helpme555: posts the ante 600
+HeavyIsTheCrown: posts the ante 600
+Helpme555: posts small blind 2000
+HeavyIsTheCrown: posts big blind 4000
+*** HOLE CARDS ***
+DaniC1994: raises 4400 to 8400
+DaddyDonkeyDick: folds
+boutrun: folds
+littletaptap: folds
+Helpme555: calls 6400
+HeavyIsTheCrown: folds
+*** FLOP *** [9s 4d 8h]
+Helpme555: checks
+DaniC1994: bets 16104
+Helpme555: calls 16104
+*** TURN *** [9s 4d 8h] [Td]
+Helpme555: checks
+DaniC1994: checks
+*** RIVER *** [9s 4d 8h Td] [2c]
+Helpme555: checks
+DaniC1994: bets 69288.85 and is all-in
+Helpme555: folds
+Uncalled bet (69288.85) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 56608
+*** SUMMARY ***
+Total pot 56608 | Rake 0
+Board [ 9s 4d 8h Td 2c ]
+Game ended: 2026/05/20 18:32:30 GMT
+Seat 1: DaniC1994 collected (56608)
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 (small blind) folded on the River
+Seat 7: HeavyIsTheCrown (small blind) folded before the flop
+
+
+PokerStars Hand #5537050075: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 18:32:31 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (125896.85 in chips)
+Seat 2: DaddyDonkeyDick (181593.88 in chips)
+Seat 3: boutrun (62293.92 in chips)
+Seat 4: NeonRev112 (100000 in chips)
+Seat 5: littletaptap (54159.32 in chips)
+Seat 6: Helpme555 (291078.79 in chips)
+Seat 7: HeavyIsTheCrown (488432.39 in chips)
+DaniC1994: posts the ante 600
+DaddyDonkeyDick: posts the ante 600
+boutrun: posts the ante 600
+NeonRev112: posts the ante 600
+littletaptap: posts the ante 600
+Helpme555: posts the ante 600
+HeavyIsTheCrown: posts the ante 600
+HeavyIsTheCrown: posts small blind 2000
+DaniC1994: posts big blind 4000
+*** HOLE CARDS ***
+DaddyDonkeyDick: calls 4000
+boutrun: folds
+NeonRev112: folds
+littletaptap: folds
+Helpme555: raises 4000 to 8000
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: calls 4000
+*** FLOP *** [7c Jc Qc]
+DaddyDonkeyDick: checks
+Helpme555: bets 8733
+DaddyDonkeyDick: folds
+Uncalled bet (8733) returned to Helpme555
+Helpme555: doesn't show hand
+Helpme555 collected 26200
+*** SUMMARY ***
+Total pot 26200 | Rake 0
+Board [ 7c Jc Qc ]
+Game ended: 2026/05/20 18:33:40 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: DaddyDonkeyDick folded on the Flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 collected (26200)
+Seat 7: HeavyIsTheCrown (small blind) folded before the flop
+
+
+PokerStars Hand #5535800172: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:28:49 GMT
+Table '553580' 7-max Seat #1 is the button
+Seat 1: KingLos (683603.60 in chips)
+Seat 2: BigPunisher (886991.47 in chips)
+Seat 3: NessFromG (139700 in chips)
+Seat 4: IdiOtsudaDavai (1258453.97 in chips)
+Seat 5: DaniC1994 (334611.76 in chips)
+Seat 6: PHANTOM825 (148636.07 in chips)
+Seat 7: ignorant2504368 (650811.52 in chips)
+KingLos: posts the ante 1800
+BigPunisher: posts the ante 1800
+NessFromG: posts the ante 1800
+IdiOtsudaDavai: posts the ante 1800
+DaniC1994: posts the ante 1800
+PHANTOM825: posts the ante 1800
+ignorant2504368: posts the ante 1800
+BigPunisher: posts small blind 6000
+NessFromG: posts big blind 12000
+*** HOLE CARDS ***
+IdiOtsudaDavai: folds
+DaniC1994: folds
+PHANTOM825: folds
+ignorant2504368: raises 12000 to 24000
+KingLos: folds
+BigPunisher: folds
+NessFromG: folds
+Uncalled bet (12000) returned to ignorant2504368
+ignorant2504368: doesn't show hand
+ignorant2504368 collected 42600
+*** SUMMARY ***
+Total pot 42600 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:29:16 GMT
+Seat 1: KingLos folded before the flop
+Seat 2: BigPunisher (small blind) folded before the flop
+Seat 3: NessFromG (small blind) folded before the flop
+Seat 4: IdiOtsudaDavai folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: PHANTOM825 folded before the flop
+Seat 7: ignorant2504368 collected (42600)
+
+
+PokerStars Hand #5535800173: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:29:16 GMT
+Table '553580' 7-max Seat #2 is the button
+Seat 1: KingLos (681803.60 in chips)
+Seat 2: BigPunisher (879191.47 in chips)
+Seat 3: NessFromG (125900 in chips)
+Seat 4: IdiOtsudaDavai (1256653.97 in chips)
+Seat 5: DaniC1994 (332811.76 in chips)
+Seat 6: PHANTOM825 (146836.07 in chips)
+Seat 7: ignorant2504368 (679611.52 in chips)
+KingLos: posts the ante 1800
+BigPunisher: posts the ante 1800
+NessFromG: posts the ante 1800
+IdiOtsudaDavai: posts the ante 1800
+DaniC1994: posts the ante 1800
+PHANTOM825: posts the ante 1800
+ignorant2504368: posts the ante 1800
+NessFromG: posts small blind 6000
+IdiOtsudaDavai: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+PHANTOM825: folds
+ignorant2504368: folds
+KingLos: folds
+BigPunisher: folds
+NessFromG: folds
+Uncalled bet (6000) returned to IdiOtsudaDavai
+IdiOtsudaDavai: doesn't show hand
+IdiOtsudaDavai collected 24600
+*** SUMMARY ***
+Total pot 24600 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:29:40 GMT
+Seat 1: KingLos folded before the flop
+Seat 2: BigPunisher folded before the flop
+Seat 3: NessFromG (small blind) folded before the flop
+Seat 4: IdiOtsudaDavai (small blind) collected (24600)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: PHANTOM825 folded before the flop
+Seat 7: ignorant2504368 folded before the flop
+
+
+PokerStars Hand #5535800174: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:29:41 GMT
+Table '553580' 7-max Seat #3 is the button
+Seat 1: KingLos (680003.60 in chips)
+Seat 2: BigPunisher (877391.47 in chips)
+Seat 3: NessFromG (118100 in chips)
+Seat 4: IdiOtsudaDavai (1273453.97 in chips)
+Seat 5: DaniC1994 (331011.76 in chips)
+Seat 6: PHANTOM825 (145036.07 in chips)
+Seat 7: ignorant2504368 (677811.52 in chips)
+KingLos: posts the ante 1800
+BigPunisher: posts the ante 1800
+NessFromG: posts the ante 1800
+IdiOtsudaDavai: posts the ante 1800
+DaniC1994: posts the ante 1800
+PHANTOM825: posts the ante 1800
+ignorant2504368: posts the ante 1800
+IdiOtsudaDavai: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+PHANTOM825: folds
+ignorant2504368: folds
+KingLos: folds
+BigPunisher: folds
+NessFromG: raises 104300 to 116300 and is all-in
+IdiOtsudaDavai: folds
+DaniC1994: folds
+Uncalled bet (104300) returned to NessFromG
+NessFromG: doesn't show hand
+NessFromG collected 42600
+*** SUMMARY ***
+Total pot 42600 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:30:11 GMT
+Seat 1: KingLos folded before the flop
+Seat 2: BigPunisher folded before the flop
+Seat 3: NessFromG collected (42600)
+Seat 4: IdiOtsudaDavai (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: PHANTOM825 folded before the flop
+Seat 7: ignorant2504368 folded before the flop
+
+
+PokerStars Hand #5535800175: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:30:11 GMT
+Table '553580' 7-max Seat #4 is the button
+Seat 1: KingLos (678203.60 in chips)
+Seat 2: BigPunisher (875591.47 in chips)
+Seat 3: NessFromG (146900 in chips)
+Seat 4: IdiOtsudaDavai (1265653.97 in chips)
+Seat 5: DaniC1994 (317211.76 in chips)
+Seat 6: PHANTOM825 (143236.07 in chips)
+Seat 7: ignorant2504368 (676011.52 in chips) is sitting out
+KingLos: posts the ante 1800
+BigPunisher: posts the ante 1800
+NessFromG: posts the ante 1800
+IdiOtsudaDavai: posts the ante 1800
+DaniC1994: posts the ante 1800
+PHANTOM825: posts the ante 1800
+ignorant2504368: posts the ante 1800
+DaniC1994: posts small blind 6000
+PHANTOM825: posts big blind 12000
+*** HOLE CARDS ***
+KingLos: folds
+BigPunisher: folds
+NessFromG: folds
+IdiOtsudaDavai: raises 12000 to 24000
+DaniC1994: folds
+PHANTOM825: raises 66600 to 90600
+IdiOtsudaDavai: folds
+Uncalled bet (66600) returned to PHANTOM825
+PHANTOM825: doesn't show hand
+PHANTOM825 collected 66600
+*** SUMMARY ***
+Total pot 66600 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:30:54 GMT
+Seat 1: KingLos folded before the flop
+Seat 2: BigPunisher folded before the flop
+Seat 3: NessFromG folded before the flop
+Seat 4: IdiOtsudaDavai folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: PHANTOM825 (small blind) collected (66600)
+Seat 7: ignorant2504368 mucked
+
+
+PokerStars Hand #5535800177: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (7000/14000 - Ante 2100) - 2026/05/20 19:32:46 GMT
+Table '553580' 7-max Seat #6 is the button
+Seat 1: KingLos (620578.60 in chips)
+Seat 2: BigPunisher (871691.47 in chips)
+Seat 3: NessFromG (143000 in chips)
+Seat 4: IdiOtsudaDavai (1237753.97 in chips)
+Seat 5: DaniC1994 (307311.76 in chips)
+Seat 6: PHANTOM825 (174936.07 in chips)
+Seat 7: ignorant2504368 (747536.52 in chips)
+KingLos: posts the ante 2100
+BigPunisher: posts the ante 2100
+NessFromG: posts the ante 2100
+IdiOtsudaDavai: posts the ante 2100
+DaniC1994: posts the ante 2100
+PHANTOM825: posts the ante 2100
+ignorant2504368: posts the ante 2100
+ignorant2504368: posts small blind 7000
+KingLos: posts big blind 14000
+*** HOLE CARDS ***
+BigPunisher: raises 14000 to 28000
+NessFromG: folds
+IdiOtsudaDavai: raises 63000 to 91000
+DaniC1994: folds
+PHANTOM825: raises 81836.07 to 172836.07 and is all-in
+ignorant2504368: folds
+KingLos: folds
+BigPunisher: folds
+IdiOtsudaDavai: calls 81836.07
+*** FLOP *** [Ks 8d 5s]
+*** TURN *** [Ks 8d 5s] [Qc]
+*** RIVER *** [Ks 8d 5s Qc] [Jc]
+IdiOtsudaDavai: shows [As Jd] ()
+PHANTOM825: shows [As Jd Qs Ah] ()
+PHANTOM825 collected 0
+*** SUMMARY ***
+Total pot 409372.14 | Rake 0
+Board [ Ks 8d 5s Qc Jc ]
+Game ended: 2026/05/20 19:33:44 GMT
+Seat 1: KingLos (small blind) folded before the flop
+Seat 2: BigPunisher folded before the flop
+Seat 3: NessFromG folded before the flop
+Seat 4: IdiOtsudaDavai showed [ As Jd ] and lost with 
+Seat 5: DaniC1994 folded before the flop
+Seat 6: PHANTOM825 showed [ Qs Ah ] and won (409372.14) with Pair: Pair of Q
+Seat 7: ignorant2504368 (small blind) folded before the flop
+
+
+PokerStars Hand #5535800178: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (7000/14000 - Ante 2100) - 2026/05/20 19:33:45 GMT
+Table '553580' 7-max Seat #7 is the button
+Seat 1: KingLos (604478.60 in chips)
+Seat 2: BigPunisher (841591.47 in chips)
+Seat 3: NessFromG (140900 in chips)
+Seat 4: IdiOtsudaDavai (1062817.90 in chips)
+Seat 5: DaniC1994 (305211.76 in chips)
+Seat 6: PHANTOM825 (409372.14 in chips)
+Seat 7: ignorant2504368 (738436.52 in chips)
+KingLos: posts the ante 2100
+BigPunisher: posts the ante 2100
+NessFromG: posts the ante 2100
+IdiOtsudaDavai: posts the ante 2100
+DaniC1994: posts the ante 2100
+PHANTOM825: posts the ante 2100
+ignorant2504368: posts the ante 2100
+KingLos: posts small blind 7000
+BigPunisher: posts big blind 14000
+*** HOLE CARDS ***
+NessFromG: folds
+IdiOtsudaDavai: raises 14000 to 28000
+DaniC1994: folds
+PHANTOM825: folds
+ignorant2504368: folds
+KingLos: folds
+BigPunisher: folds
+Uncalled bet (14000) returned to IdiOtsudaDavai
+IdiOtsudaDavai: doesn't show hand
+IdiOtsudaDavai collected 49700
+*** SUMMARY ***
+Total pot 49700 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:34:28 GMT
+Seat 1: KingLos (small blind) folded before the flop
+Seat 2: BigPunisher (small blind) folded before the flop
+Seat 3: NessFromG folded before the flop
+Seat 4: IdiOtsudaDavai collected (49700)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: PHANTOM825 folded before the flop
+Seat 7: ignorant2504368 folded before the flop
+
+
+PokerStars Hand #5535800180: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (7000/14000 - Ante 2100) - 2026/05/20 19:35:27 GMT
+Table '553580' 7-max Seat #2 is the button
+Seat 1: KingLos (593278.60 in chips)
+Seat 2: BigPunisher (816391.47 in chips)
+Seat 3: NessFromG (122700 in chips)
+Seat 4: IdiOtsudaDavai (1066317.90 in chips)
+Seat 5: DaniC1994 (301011.76 in chips)
+Seat 6: PHANTOM825 (468872.14 in chips)
+Seat 7: ignorant2504368 (734236.52 in chips)
+KingLos: posts the ante 2100
+BigPunisher: posts the ante 2100
+NessFromG: posts the ante 2100
+IdiOtsudaDavai: posts the ante 2100
+DaniC1994: posts the ante 2100
+PHANTOM825: posts the ante 2100
+ignorant2504368: posts the ante 2100
+NessFromG: posts small blind 7000
+IdiOtsudaDavai: posts big blind 14000
+*** HOLE CARDS ***
+DaniC1994: raises 15400 to 29400
+PHANTOM825: folds
+ignorant2504368: folds
+KingLos: folds
+BigPunisher: folds
+NessFromG: folds
+IdiOtsudaDavai: folds
+Uncalled bet (15400) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 49700
+*** SUMMARY ***
+Total pot 49700 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:36:08 GMT
+Seat 1: KingLos folded before the flop
+Seat 2: BigPunisher folded before the flop
+Seat 3: NessFromG (small blind) folded before the flop
+Seat 4: IdiOtsudaDavai (small blind) folded before the flop
+Seat 5: DaniC1994 collected (49700)
+Seat 6: PHANTOM825 folded before the flop
+Seat 7: ignorant2504368 folded before the flop
+
+
+PokerStars Hand #5537050080: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:37:58 GMT
+Table '553705' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (236843.70 in chips)
+Seat 2: DaddyDonkeyDick (109049.96 in chips)
+Seat 3: boutrun (129187.84 in chips)
+Seat 4: NeonRev112 (89050 in chips)
+Seat 5: littletaptap (58459.32 in chips)
+Seat 6: Helpme555 (197881.94 in chips)
+Seat 7: HeavyIsTheCrown (482982.39 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+littletaptap: posts small blind 2500
+Helpme555: posts big blind 5000
+*** HOLE CARDS ***
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: folds
+boutrun: raises 5000 to 10000
+NeonRev112: folds
+littletaptap: folds
+Helpme555: folds
+Uncalled bet (5000) returned to boutrun
+boutrun: doesn't show hand
+boutrun collected 17750
+*** SUMMARY ***
+Total pot 17750 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:38:37 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun collected (17750)
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap (small blind) folded before the flop
+Seat 6: Helpme555 (small blind) folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050081: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:38:38 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (236093.70 in chips)
+Seat 2: DaddyDonkeyDick (108299.96 in chips)
+Seat 3: boutrun (141187.84 in chips)
+Seat 4: NeonRev112 (88300 in chips)
+Seat 5: littletaptap (55209.32 in chips)
+Seat 6: Helpme555 (192131.94 in chips)
+Seat 7: HeavyIsTheCrown (482232.39 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+Helpme555: posts small blind 2500
+HeavyIsTheCrown: posts big blind 5000
+*** HOLE CARDS ***
+DaniC1994: raises 5500 to 10500
+DaddyDonkeyDick: folds
+boutrun: folds
+NeonRev112: folds
+littletaptap: folds
+Helpme555: raises 23437 to 33937
+HeavyIsTheCrown: folds
+DaniC1994: calls 23437
+*** FLOP *** [Js Jc Ts]
+Helpme555: bets 39062
+DaniC1994: calls 39062
+*** TURN *** [Js Jc Ts] [6s]
+Helpme555: checks
+DaniC1994: checks
+*** RIVER *** [Js Jc Ts 6s] [9h]
+Helpme555: bets 118382.94 and is all-in
+DaniC1994: calls 118382.94
+DaniC1994: shows [As Ad] ()
+Helpme555: shows [Kd Qh] (Straight: K high)
+Helpme555 collected 393013.88
+*** SUMMARY ***
+Total pot 393013.88 | Rake 0
+Board [ Js Jc Ts 6s 9h ]
+Game ended: 2026/05/20 18:40:37 GMT
+Seat 1: DaniC1994 showed [ As Ad ] and lost with 
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 (small blind) showed [ Kd Qh ] and won (393013.88) with Straight: K high
+Seat 7: HeavyIsTheCrown (small blind) folded before the flop
+
+
+PokerStars Hand #5537050082: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:40:37 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (43961.76 in chips)
+Seat 2: DaddyDonkeyDick (107549.96 in chips)
+Seat 3: boutrun (140437.84 in chips)
+Seat 4: NeonRev112 (87550 in chips)
+Seat 5: littletaptap (54459.32 in chips)
+Seat 6: Helpme555 (393013.88 in chips)
+Seat 7: HeavyIsTheCrown (476482.39 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+HeavyIsTheCrown: posts small blind 2500
+DaniC1994: posts big blind 5000
+*** HOLE CARDS ***
+DaddyDonkeyDick: folds
+boutrun: folds
+NeonRev112: folds
+littletaptap: folds
+Helpme555: folds
+HeavyIsTheCrown: raises 100000 to 105000
+DaniC1994: folds
+Uncalled bet (100000) returned to HeavyIsTheCrown
+HeavyIsTheCrown: doesn't show hand
+HeavyIsTheCrown collected 15250
+*** SUMMARY ***
+Total pot 15250 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:41:26 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown (small blind) collected (15250)
+
+
+PokerStars Hand #5537050083: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:41:26 GMT
+Table '553705' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (38211.76 in chips)
+Seat 2: DaddyDonkeyDick (106799.96 in chips)
+Seat 3: boutrun (139687.84 in chips)
+Seat 4: NeonRev112 (86800 in chips)
+Seat 5: littletaptap (53709.32 in chips)
+Seat 6: Helpme555 (392263.88 in chips)
+Seat 7: HeavyIsTheCrown (485982.39 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+DaniC1994: posts small blind 2500
+DaddyDonkeyDick: posts big blind 5000
+*** HOLE CARDS ***
+boutrun: folds
+NeonRev112: folds
+littletaptap: folds
+Helpme555: raises 5000 to 10000
+HeavyIsTheCrown: raises 22500 to 32500
+DaniC1994: folds
+DaddyDonkeyDick: folds
+Helpme555: calls 22500
+*** FLOP *** [8h 5d Kc]
+Helpme555: checks
+HeavyIsTheCrown: bets 19437.50
+Helpme555: calls 19437.50
+*** TURN *** [8h 5d Kc] [8s]
+Helpme555: checks
+HeavyIsTheCrown: checks
+*** RIVER *** [8h 5d Kc 8s] [Kh]
+Helpme555: checks
+HeavyIsTheCrown: checks
+Helpme555: shows [Ac] (Two Pair: Pair of K and 8)
+HeavyIsTheCrown: mucks hand
+Helpme555 collected 116625
+*** SUMMARY ***
+Total pot 116625 | Rake 0
+Board [ 8h 5d Kc 8s Kh ]
+Game ended: 2026/05/20 18:43:04 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 showed [ Ac ] and won (116625) with Two Pair: Pair of K and 8
+Seat 7: HeavyIsTheCrown mucked
+
+
+PokerStars Hand #5537050084: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:43:04 GMT
+Table '553705' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (34961.76 in chips)
+Seat 2: DaddyDonkeyDick (101049.96 in chips)
+Seat 3: boutrun (138937.84 in chips)
+Seat 4: NeonRev112 (86050 in chips)
+Seat 5: littletaptap (52959.32 in chips)
+Seat 6: Helpme555 (456201.38 in chips)
+Seat 7: HeavyIsTheCrown (433294.89 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+DaddyDonkeyDick: posts small blind 2500
+boutrun: posts big blind 5000
+*** HOLE CARDS ***
+NeonRev112: folds
+littletaptap: folds
+Helpme555: folds
+HeavyIsTheCrown: raises 5000 to 10000
+DaniC1994: folds
+DaddyDonkeyDick: folds
+boutrun: folds
+Uncalled bet (5000) returned to HeavyIsTheCrown
+HeavyIsTheCrown: doesn't show hand
+HeavyIsTheCrown collected 17750
+*** SUMMARY ***
+Total pot 17750 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:43:51 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 3: boutrun (small blind) folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown collected (17750)
+
+
+PokerStars Hand #5537050085: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2500/5000 - Ante 750) - 2026/05/20 18:43:52 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (34211.76 in chips)
+Seat 2: DaddyDonkeyDick (97799.96 in chips)
+Seat 3: boutrun (133187.84 in chips)
+Seat 4: NeonRev112 (85300 in chips)
+Seat 5: littletaptap (52209.32 in chips)
+Seat 6: Helpme555 (455451.38 in chips)
+Seat 7: HeavyIsTheCrown (445294.89 in chips)
+DaniC1994: posts the ante 750
+DaddyDonkeyDick: posts the ante 750
+boutrun: posts the ante 750
+NeonRev112: posts the ante 750
+littletaptap: posts the ante 750
+Helpme555: posts the ante 750
+HeavyIsTheCrown: posts the ante 750
+boutrun: posts small blind 2500
+NeonRev112: posts big blind 5000
+*** HOLE CARDS ***
+littletaptap: folds
+Helpme555: folds
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: folds
+boutrun: raises 127437.84 to 132437.84 and is all-in
+NeonRev112: folds
+Uncalled bet (127437.84) returned to boutrun
+boutrun: doesn't show hand
+boutrun collected 15250
+*** SUMMARY ***
+Total pot 15250 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:44:30 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun (small blind) collected (15250)
+Seat 4: NeonRev112 (small blind) folded before the flop
+Seat 5: littletaptap folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050086: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:44:31 GMT
+Table '553705' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (33461.76 in chips)
+Seat 2: DaddyDonkeyDick (97049.96 in chips)
+Seat 3: boutrun (142687.84 in chips)
+Seat 4: NeonRev112 (79550 in chips)
+Seat 6: Helpme555 (454701.38 in chips)
+Seat 7: HeavyIsTheCrown (444544.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+boutrun: posts the ante 900
+NeonRev112: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+NeonRev112: posts small blind 3000
+Helpme555: posts big blind 6000
+*** HOLE CARDS ***
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: folds
+boutrun: folds
+NeonRev112: raises 72650 to 78650 and is all-in
+Helpme555: folds
+Uncalled bet (72650) returned to NeonRev112
+NeonRev112: doesn't show hand
+NeonRev112 collected 17400
+*** SUMMARY ***
+Total pot 17400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:45:06 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 (small blind) collected (17400)
+Seat 6: Helpme555 (small blind) folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050087: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:45:07 GMT
+Table '553705' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (32561.76 in chips)
+Seat 2: DaddyDonkeyDick (96149.96 in chips)
+Seat 3: boutrun (141787.84 in chips)
+Seat 4: NeonRev112 (90050 in chips)
+Seat 6: Helpme555 (447801.38 in chips)
+Seat 7: HeavyIsTheCrown (443644.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+boutrun: posts the ante 900
+NeonRev112: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+Helpme555: posts small blind 3000
+HeavyIsTheCrown: posts big blind 6000
+*** HOLE CARDS ***
+DaniC1994: folds
+DaddyDonkeyDick: folds
+boutrun: folds
+NeonRev112: folds
+Helpme555: raises 6000 to 12000
+HeavyIsTheCrown: raises 30000 to 42000
+Helpme555: calls 30000
+*** FLOP *** [7h Ac Kd]
+Helpme555: bets 67050
+HeavyIsTheCrown: folds
+Uncalled bet (67050) returned to Helpme555
+Helpme555: mucks hand
+Helpme555 collected 0
+*** SUMMARY ***
+Total pot 89400 | Rake 0
+Board [ 7h Ac Kd ]
+Game ended: 2026/05/20 18:46:53 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 6: Helpme555 (small blind) collected (89400)
+Seat 7: HeavyIsTheCrown (small blind) folded on the Flop
+
+
+PokerStars Hand #5537050088: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:46:53 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (31661.76 in chips)
+Seat 2: DaddyDonkeyDick (95249.96 in chips)
+Seat 3: boutrun (140887.84 in chips)
+Seat 4: NeonRev112 (89150 in chips)
+Seat 5: degenmyname (282584.72 in chips)
+Seat 6: Helpme555 (494301.38 in chips)
+Seat 7: HeavyIsTheCrown (400744.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+boutrun: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+HeavyIsTheCrown: posts small blind 3000
+DaniC1994: posts big blind 6000
+*** HOLE CARDS ***
+DaddyDonkeyDick: folds
+boutrun: folds
+NeonRev112: folds
+degenmyname: raises 6000 to 12000
+Helpme555: calls 12000
+HeavyIsTheCrown: folds
+DaniC1994: calls 6000
+*** FLOP *** [As 3c 3d]
+DaniC1994: checks
+degenmyname: bets 11325
+Helpme555: calls 11325
+DaniC1994: folds
+*** TURN *** [As 3c 3d] [2d]
+degenmyname: bets 33000
+Helpme555: folds
+Uncalled bet (33000) returned to degenmyname
+degenmyname: doesn't show hand
+degenmyname collected 67950
+*** SUMMARY ***
+Total pot 67950 | Rake 0
+Board [ As 3c 3d 2d ]
+Game ended: 2026/05/20 18:48:55 GMT
+Seat 1: DaniC1994 (small blind) folded on the Flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: boutrun folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: degenmyname collected (67950)
+Seat 6: Helpme555 folded on the Turn
+Seat 7: HeavyIsTheCrown (small blind) folded before the flop
+
+
+PokerStars Hand #5537050089: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:48:56 GMT
+Table '553705' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (18761.76 in chips)
+Seat 2: DaddyDonkeyDick (94349.96 in chips)
+Seat 3: boutrun (139987.84 in chips)
+Seat 4: NeonRev112 (88250 in chips)
+Seat 5: degenmyname (326309.72 in chips)
+Seat 6: Helpme555 (470076.38 in chips)
+Seat 7: HeavyIsTheCrown (396844.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+boutrun: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+DaniC1994: posts small blind 3000
+DaddyDonkeyDick: posts big blind 6000
+*** HOLE CARDS ***
+boutrun: raises 6000 to 12000
+NeonRev112: folds
+degenmyname: calls 12000
+Helpme555: folds
+HeavyIsTheCrown: folds
+DaniC1994: calls 9000
+DaddyDonkeyDick: folds
+*** FLOP *** [Ks 6d 2d]
+DaniC1994: checks
+boutrun: checks
+degenmyname: bets 16320
+DaniC1994: folds
+boutrun: folds
+Uncalled bet (16320) returned to degenmyname
+degenmyname: doesn't show hand
+degenmyname collected 48300
+*** SUMMARY ***
+Total pot 48300 | Rake 0
+Board [ Ks 6d 2d ]
+Game ended: 2026/05/20 18:50:23 GMT
+Seat 1: DaniC1994 (small blind) folded on the Flop
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 3: boutrun folded on the Flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: degenmyname collected (48300)
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050091: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:51:26 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (100000 in chips)
+Seat 2: DaddyDonkeyDick (83549.96 in chips)
+Seat 4: NeonRev112 (111811.76 in chips)
+Seat 5: degenmyname (360809.72 in chips)
+Seat 6: Helpme555 (468276.38 in chips)
+Seat 7: HeavyIsTheCrown (383044.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+NeonRev112: posts small blind 3000
+degenmyname: posts big blind 6000
+*** HOLE CARDS ***
+Helpme555: folds
+HeavyIsTheCrown: folds
+DaniC1994: raises 6000 to 12000
+DaddyDonkeyDick: folds
+NeonRev112: raises 98911.76 to 110911.76 and is all-in
+degenmyname: folds
+DaniC1994: folds
+Uncalled bet (98911.76) returned to NeonRev112
+NeonRev112: doesn't show hand
+NeonRev112 collected 35400
+*** SUMMARY ***
+Total pot 35400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:52:27 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 4: NeonRev112 (small blind) collected (35400)
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050092: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:52:27 GMT
+Table '553705' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (87100 in chips)
+Seat 2: DaddyDonkeyDick (82649.96 in chips)
+Seat 3: AllCoin (100000 in chips)
+Seat 4: NeonRev112 (134311.76 in chips)
+Seat 5: degenmyname (353909.72 in chips)
+Seat 6: Helpme555 (467376.38 in chips)
+Seat 7: HeavyIsTheCrown (382144.89 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+AllCoin: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+HeavyIsTheCrown: posts the ante 900
+degenmyname: posts small blind 3000
+Helpme555: posts big blind 6000
+*** HOLE CARDS ***
+HeavyIsTheCrown: folds
+DaniC1994: folds
+DaddyDonkeyDick: folds
+AllCoin: raises 6000 to 12000
+NeonRev112: folds
+degenmyname: folds
+Helpme555: calls 6000
+*** FLOP *** [7h 8s 4s]
+Helpme555: checks
+AllCoin: bets 16650
+Helpme555: raises 33300 to 49950
+AllCoin: raises 37150 to 87100 and is all-in
+Helpme555: calls 37150
+*** TURN *** [7h 8s 4s] [3d]
+*** RIVER *** [7h 8s 4s 3d] [3h]
+Helpme555: shows [9h 9d Ah 8c] ()
+AllCoin: shows [9h 9d] (Two Pair: Pair of 9 and 3)
+AllCoin collected 207500
+*** SUMMARY ***
+Total pot 207500 | Rake 0
+Board [ 7h 8s 4s 3d 3h ]
+Game ended: 2026/05/20 18:53:59 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: AllCoin showed [ 9h 9d ] and won (207500) with Two Pair: Pair of 9 and 3
+Seat 4: NeonRev112 folded before the flop
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: Helpme555 (small blind) showed [ 9h 9d Ah 8c ] and lost with 
+Seat 7: HeavyIsTheCrown folded before the flop
+
+
+PokerStars Hand #5537050093: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/20 18:54:00 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (86200 in chips)
+Seat 2: DaddyDonkeyDick (81749.96 in chips)
+Seat 3: AllCoin (207500 in chips)
+Seat 4: NeonRev112 (133411.76 in chips)
+Seat 5: degenmyname (350009.72 in chips)
+Seat 6: Helpme555 (367376.38 in chips)
+DaniC1994: posts the ante 900
+DaddyDonkeyDick: posts the ante 900
+AllCoin: posts the ante 900
+NeonRev112: posts the ante 900
+degenmyname: posts the ante 900
+Helpme555: posts the ante 900
+Helpme555: posts small blind 3000
+DaniC1994: posts big blind 6000
+*** HOLE CARDS ***
+DaddyDonkeyDick: folds
+AllCoin: folds
+NeonRev112: raises 6000 to 12000
+degenmyname: folds
+Helpme555: folds
+DaniC1994: calls 6000
+*** FLOP *** [Qs 4d Kd]
+DaniC1994: checks
+NeonRev112: bets 6000
+DaniC1994: folds
+Uncalled bet (6000) returned to NeonRev112
+NeonRev112: doesn't show hand
+NeonRev112 collected 32400
+*** SUMMARY ***
+Total pot 32400 | Rake 0
+Board [ Qs 4d Kd ]
+Game ended: 2026/05/20 18:54:33 GMT
+Seat 1: DaniC1994 (small blind) folded on the Flop
+Seat 2: DaddyDonkeyDick folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: NeonRev112 collected (32400)
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 (small blind) folded before the flop
+
+
+PokerStars Hand #5537050094: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 18:54:33 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (73300 in chips)
+Seat 2: DaddyDonkeyDick (80849.96 in chips)
+Seat 3: AllCoin (206600 in chips)
+Seat 4: NeonRev112 (152911.76 in chips)
+Seat 5: degenmyname (349109.72 in chips)
+Seat 6: Helpme555 (363476.38 in chips)
+DaniC1994: posts the ante 1200
+DaddyDonkeyDick: posts the ante 1200
+AllCoin: posts the ante 1200
+NeonRev112: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+DaniC1994: posts small blind 4000
+DaddyDonkeyDick: posts big blind 8000
+*** HOLE CARDS ***
+AllCoin: folds
+NeonRev112: folds
+degenmyname: folds
+Helpme555: raises 12000 to 20000
+DaniC1994: raises 52100 to 72100 and is all-in
+DaddyDonkeyDick: folds
+Helpme555: calls 52100
+*** FLOP *** [Qd 9h Jd]
+*** TURN *** [Qd 9h Jd] [Ac]
+*** RIVER *** [Qd 9h Jd Ac] [3h]
+DaniC1994: shows [Ad Qc] (Two Pair: Pair of A and Q)
+Helpme555: shows [Ad Qc 8d 6d] ()
+DaniC1994 collected 159400
+*** SUMMARY ***
+Total pot 159400 | Rake 0
+Board [ Qd 9h Jd Ac 3h ]
+Game ended: 2026/05/20 18:55:49 GMT
+Seat 1: DaniC1994 (small blind) showed [ Ad Qc ] and won (159400) with Two Pair: Pair of A and Q
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: NeonRev112 folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 showed [ Ad Qc 8d 6d ] and lost with 
+
+
+PokerStars Hand #5537050095: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:01:08 GMT
+Table '553705' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (159400 in chips)
+Seat 2: DaddyDonkeyDick (71649.96 in chips)
+Seat 3: AllCoin (205400 in chips)
+Seat 4: NeonRev112 (151711.76 in chips)
+Seat 5: degenmyname (347909.72 in chips)
+Seat 6: Helpme555 (290176.38 in chips)
+Seat 7: GiefcoiN (100000 in chips)
+DaniC1994: posts the ante 1200
+DaddyDonkeyDick: posts the ante 1200
+AllCoin: posts the ante 1200
+NeonRev112: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+DaddyDonkeyDick: posts small blind 4000
+AllCoin: posts big blind 8000
+*** HOLE CARDS ***
+NeonRev112: raises 8000 to 16000
+degenmyname: folds
+Helpme555: folds
+GiefcoiN: folds
+DaniC1994: raises 142200 to 158200 and is all-in
+DaddyDonkeyDick: folds
+AllCoin: folds
+NeonRev112: calls 134511.76 and is all-in
+Uncalled bet (7688.24) returned to DaniC1994
+*** FLOP *** [Qc 3d Jc]
+*** TURN *** [Qc 3d Jc] [9h]
+*** RIVER *** [Qc 3d Jc 9h] [9d]
+NeonRev112: shows [Jh Js Ad Ks] ()
+DaniC1994: shows [Jh Js] (Full House: Triplet of J and Pair  of 9)
+DaniC1994 collected 321423.52
+*** SUMMARY ***
+Total pot 321423.52 | Rake 0
+Board [ Qc 3d Jc 9h 9d ]
+Game ended: 2026/05/20 19:02:15 GMT
+Seat 1: DaniC1994 showed [ Jh Js ] and won (321423.52) with Full House: Triplet of J and Pair  of 9
+Seat 2: DaddyDonkeyDick (small blind) folded before the flop
+Seat 3: AllCoin (small blind) folded before the flop
+Seat 4: NeonRev112 showed [ Jh Js Ad Ks ] and lost with 
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050096: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:02:16 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (329111.76 in chips)
+Seat 2: DaddyDonkeyDick (66449.96 in chips)
+Seat 3: AllCoin (196200 in chips)
+Seat 5: degenmyname (346709.72 in chips)
+Seat 6: Helpme555 (288976.38 in chips)
+Seat 7: GiefcoiN (98800 in chips)
+DaniC1994: posts the ante 1200
+DaddyDonkeyDick: posts the ante 1200
+AllCoin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+AllCoin: posts small blind 4000
+degenmyname: posts big blind 8000
+*** HOLE CARDS ***
+Helpme555: folds
+GiefcoiN: folds
+DaniC1994: folds
+DaddyDonkeyDick: raises 57249.96 to 65249.96 and is all-in
+AllCoin: calls 61249.96
+degenmyname: folds
+*** FLOP *** [Qs 7c Ah]
+*** TURN *** [Qs 7c Ah] [8h]
+*** RIVER *** [Qs 7c Ah 8h] [3s]
+AllCoin: shows [As] (Pair: Pair of A)
+DaddyDonkeyDick: shows [5c 3c] ()
+AllCoin collected 145699.92
+*** SUMMARY ***
+Total pot 145699.92 | Rake 0
+Board [ Qs 7c Ah 8h 3s ]
+Game ended: 2026/05/20 19:03:05 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: DaddyDonkeyDick showed [ 5c 3c ] and lost with 
+Seat 3: AllCoin (small blind) showed [ As ] and won (145699.92) with Pair: Pair of A
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050098: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:03:41 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (326711.76 in chips)
+Seat 2: Habenixwillnix (184264.56 in chips)
+Seat 3: AllCoin (274249.96 in chips)
+Seat 4: Sunpin (212704 in chips)
+Seat 5: degenmyname (350309.72 in chips)
+Seat 6: Helpme555 (278576.38 in chips)
+Seat 7: GiefcoiN (96400 in chips)
+DaniC1994: posts the ante 1200
+Habenixwillnix: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+Helpme555: posts small blind 4000
+GiefcoiN: posts big blind 8000
+*** HOLE CARDS ***
+DaniC1994: folds
+Habenixwillnix: raises 8000 to 16000
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+Helpme555: folds
+GiefcoiN: folds
+Uncalled bet (8000) returned to Habenixwillnix
+Habenixwillnix: doesn't show hand
+Habenixwillnix collected 28400
+*** SUMMARY ***
+Total pot 28400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:04:30 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: Habenixwillnix collected (28400)
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 (small blind) folded before the flop
+Seat 7: GiefcoiN (small blind) folded before the flop
+
+
+PokerStars Hand #5537050099: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:04:30 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (325511.76 in chips)
+Seat 2: Habenixwillnix (203464.56 in chips)
+Seat 3: AllCoin (273049.96 in chips)
+Seat 4: Sunpin (211504 in chips)
+Seat 5: degenmyname (349109.72 in chips)
+Seat 6: Helpme555 (273376.38 in chips)
+Seat 7: GiefcoiN (87200 in chips)
+DaniC1994: posts the ante 1200
+Habenixwillnix: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+GiefcoiN: posts small blind 4000
+DaniC1994: posts big blind 8000
+*** HOLE CARDS ***
+Habenixwillnix: folds
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+Helpme555: folds
+GiefcoiN: folds
+Uncalled bet (4000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 16400
+*** SUMMARY ***
+Total pot 16400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:04:53 GMT
+Seat 1: DaniC1994 (small blind) collected (16400)
+Seat 2: Habenixwillnix folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: GiefcoiN (small blind) folded before the flop
+
+
+PokerStars Hand #5537050100: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:04:54 GMT
+Table '553705' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (336711.76 in chips)
+Seat 2: Habenixwillnix (202264.56 in chips)
+Seat 3: AllCoin (271849.96 in chips)
+Seat 4: Sunpin (210304 in chips)
+Seat 5: degenmyname (347909.72 in chips)
+Seat 6: Helpme555 (272176.38 in chips)
+Seat 7: GiefcoiN (82000 in chips)
+DaniC1994: posts the ante 1200
+Habenixwillnix: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+DaniC1994: posts small blind 4000
+Habenixwillnix: posts big blind 8000
+*** HOLE CARDS ***
+AllCoin: folds
+Sunpin: folds
+degenmyname: raises 8000 to 16000
+Helpme555: folds
+GiefcoiN: folds
+DaniC1994: folds
+Habenixwillnix: folds
+Uncalled bet (8000) returned to degenmyname
+degenmyname: doesn't show hand
+degenmyname collected 28400
+*** SUMMARY ***
+Total pot 28400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:05:24 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: Habenixwillnix (small blind) folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname collected (28400)
+Seat 6: Helpme555 folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050101: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:05:25 GMT
+Table '553705' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (331511.76 in chips)
+Seat 2: Habenixwillnix (193064.56 in chips)
+Seat 3: AllCoin (270649.96 in chips)
+Seat 4: Sunpin (209104 in chips)
+Seat 5: degenmyname (367109.72 in chips)
+Seat 6: Helpme555 (270976.38 in chips)
+Seat 7: GiefcoiN (80800 in chips)
+DaniC1994: posts the ante 1200
+Habenixwillnix: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+Habenixwillnix: posts small blind 4000
+AllCoin: posts big blind 8000
+*** HOLE CARDS ***
+Sunpin: folds
+degenmyname: folds
+Helpme555: folds
+GiefcoiN: folds
+DaniC1994: raises 8800 to 16800
+Habenixwillnix: folds
+AllCoin: calls 8800
+*** FLOP *** [9s 9d 6s]
+AllCoin: checks
+DaniC1994: bets 11500
+AllCoin: calls 11500
+*** TURN *** [9s 9d 6s] [8d]
+AllCoin: bets 24000
+DaniC1994: calls 24000
+*** RIVER *** [9s 9d 6s 8d] [6c]
+AllCoin: checks
+DaniC1994: checks
+AllCoin: shows [Ad 5d Qd Jh] ()
+DaniC1994: shows [Ad] (Two Pair: Pair of 9 and 6)
+DaniC1994 collected 117000
+*** SUMMARY ***
+Total pot 117000 | Rake 0
+Board [ 9s 9d 6s 8d 6c ]
+Game ended: 2026/05/20 19:06:44 GMT
+Seat 1: DaniC1994 showed [ Ad ] and won (117000) with Two Pair: Pair of 9 and 6
+Seat 2: Habenixwillnix (small blind) folded before the flop
+Seat 3: AllCoin (small blind) showed [ Ad 5d Qd Jh ] and lost with 
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050105: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:09:35 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (374611.76 in chips)
+Seat 2: Habenixwillnix (221464.56 in chips)
+Seat 3: AllCoin (452099.92 in chips)
+Seat 4: Sunpin (192304 in chips)
+Seat 5: degenmyname (350309.72 in chips)
+Seat 6: Helpme555 (56426.42 in chips)
+Seat 7: GiefcoiN (76000 in chips)
+DaniC1994: posts the ante 1200
+Habenixwillnix: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+Helpme555: posts small blind 4000
+GiefcoiN: posts big blind 8000
+*** HOLE CARDS ***
+DaniC1994: folds
+Habenixwillnix: raises 8000 to 16000
+AllCoin: raises 28000 to 44000
+Sunpin: folds
+degenmyname: folds
+Helpme555: folds
+GiefcoiN: folds
+Habenixwillnix: raises 176264.56 to 220264.56 and is all-in
+AllCoin: calls 176264.56
+*** FLOP *** [Ad 7s 4h]
+*** TURN *** [Ad 7s 4h] [Ac]
+*** RIVER *** [Ad 7s 4h Ac] [8c]
+Habenixwillnix: shows [Ks Ts] ()
+AllCoin: shows [As Kh] (Three of a kind: Triplet of A)
+AllCoin collected 460929.12
+*** SUMMARY ***
+Total pot 460929.12 | Rake 0
+Board [ Ad 7s 4h Ac 8c ]
+Game ended: 2026/05/20 19:10:30 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: Habenixwillnix showed [ Ks Ts ] and lost with 
+Seat 3: AllCoin showed [ As Kh ] and won (460929.12) with Three of a kind: Triplet of A
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 (small blind) folded before the flop
+Seat 7: GiefcoiN (small blind) folded before the flop
+
+
+PokerStars Hand #5537050106: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 19:10:30 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (373411.76 in chips)
+Seat 3: AllCoin (691564.48 in chips)
+Seat 4: Sunpin (191104 in chips)
+Seat 5: degenmyname (349109.72 in chips)
+Seat 6: Helpme555 (51226.42 in chips)
+Seat 7: GiefcoiN (66800 in chips)
+DaniC1994: posts the ante 1200
+AllCoin: posts the ante 1200
+Sunpin: posts the ante 1200
+degenmyname: posts the ante 1200
+Helpme555: posts the ante 1200
+GiefcoiN: posts the ante 1200
+GiefcoiN: posts small blind 4000
+DaniC1994: posts big blind 8000
+*** HOLE CARDS ***
+AllCoin: raises 8000 to 16000
+Sunpin: folds
+degenmyname: folds
+Helpme555: raises 34026.42 to 50026.42 and is all-in
+GiefcoiN: folds
+DaniC1994: folds
+AllCoin: calls 34026.42
+*** FLOP *** [Jc 2s Td]
+*** TURN *** [Jc 2s Td] [7c]
+*** RIVER *** [Jc 2s Td 7c] [4c]
+AllCoin: shows [7s As] (Pair: Pair of 7)
+Helpme555: shows [As 7s Qd 9c] ()
+AllCoin collected 119252.84
+*** SUMMARY ***
+Total pot 119252.84 | Rake 0
+Board [ Jc 2s Td 7c 4c ]
+Game ended: 2026/05/20 19:11:25 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 3: AllCoin showed [ 7s As ] and won (119252.84) with Pair: Pair of 7
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: Helpme555 showed [ As 7s Qd 9c ] and lost with 
+Seat 7: GiefcoiN (small blind) folded before the flop
+
+
+PokerStars Hand #5537050107: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:11:25 GMT
+Table '553705' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (364211.76 in chips)
+Seat 2: FRATELLOOOO (471900 in chips)
+Seat 3: AllCoin (759590.90 in chips)
+Seat 4: Sunpin (189904 in chips)
+Seat 5: degenmyname (347909.72 in chips)
+Seat 7: GiefcoiN (61600 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+GiefcoiN: posts the ante 1500
+DaniC1994: posts small blind 5000
+FRATELLOOOO: posts big blind 10000
+*** HOLE CARDS ***
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+GiefcoiN: folds
+DaniC1994: calls 5000
+FRATELLOOOO: checks
+*** FLOP *** [6c 8h Ah]
+DaniC1994: checks
+FRATELLOOOO: checks
+*** TURN *** [6c 8h Ah] [4d]
+DaniC1994: bets 15950
+FRATELLOOOO: folds
+Uncalled bet (15950) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 29000
+*** SUMMARY ***
+Total pot 29000 | Rake 0
+Board [ 6c 8h Ah 4d ]
+Game ended: 2026/05/20 19:12:26 GMT
+Seat 1: DaniC1994 (small blind) collected (29000)
+Seat 2: FRATELLOOOO (small blind) folded on the Turn
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050108: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:12:27 GMT
+Table '553705' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (381711.76 in chips)
+Seat 2: FRATELLOOOO (460400 in chips)
+Seat 3: AllCoin (758090.90 in chips)
+Seat 4: Sunpin (188404 in chips)
+Seat 5: degenmyname (346409.72 in chips)
+Seat 7: GiefcoiN (60100 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+GiefcoiN: posts the ante 1500
+FRATELLOOOO: posts small blind 5000
+AllCoin: posts big blind 10000
+*** HOLE CARDS ***
+Sunpin: raises 10000 to 20000
+degenmyname: folds
+GiefcoiN: folds
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+Uncalled bet (10000) returned to Sunpin
+Sunpin: doesn't show hand
+Sunpin collected 34000
+*** SUMMARY ***
+Total pot 34000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:13:08 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO (small blind) folded before the flop
+Seat 3: AllCoin (small blind) folded before the flop
+Seat 4: Sunpin collected (34000)
+Seat 5: degenmyname folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050109: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:13:09 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (380211.76 in chips)
+Seat 2: FRATELLOOOO (453900 in chips)
+Seat 3: AllCoin (746590.90 in chips)
+Seat 4: Sunpin (210904 in chips)
+Seat 5: degenmyname (344909.72 in chips)
+Seat 6: BooYaHv (241400 in chips)
+Seat 7: GiefcoiN (58600 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+AllCoin: posts small blind 5000
+Sunpin: posts big blind 10000
+*** HOLE CARDS ***
+degenmyname: folds
+BooYaHv: folds
+GiefcoiN: folds
+DaniC1994: folds
+FRATELLOOOO: raises 10000 to 20000
+AllCoin: folds
+Sunpin: calls 10000
+*** FLOP *** [5c 3h 8h]
+Sunpin: checks
+FRATELLOOOO: checks
+*** TURN *** [5c 3h 8h] [2s]
+Sunpin: bets 41625
+FRATELLOOOO: folds
+Uncalled bet (41625) returned to Sunpin
+Sunpin: doesn't show hand
+Sunpin collected 55500
+*** SUMMARY ***
+Total pot 55500 | Rake 0
+Board [ 5c 3h 8h 2s ]
+Game ended: 2026/05/20 19:14:01 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded on the Turn
+Seat 3: AllCoin (small blind) folded before the flop
+Seat 4: Sunpin (small blind) collected (55500)
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050110: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:14:02 GMT
+Table '553705' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (378711.76 in chips)
+Seat 2: FRATELLOOOO (432400 in chips)
+Seat 3: AllCoin (740090.90 in chips)
+Seat 4: Sunpin (244904 in chips)
+Seat 5: degenmyname (343409.72 in chips)
+Seat 6: BooYaHv (239900 in chips)
+Seat 7: GiefcoiN (57100 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+Sunpin: posts small blind 5000
+degenmyname: posts big blind 10000
+*** HOLE CARDS ***
+BooYaHv: folds
+GiefcoiN: folds
+DaniC1994: folds
+FRATELLOOOO: raises 10000 to 20000
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+Uncalled bet (10000) returned to FRATELLOOOO
+FRATELLOOOO: doesn't show hand
+FRATELLOOOO collected 35500
+*** SUMMARY ***
+Total pot 35500 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:14:40 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO collected (35500)
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin (small blind) folded before the flop
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: BooYaHv folded before the flop
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050111: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:14:41 GMT
+Table '553705' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (377211.76 in chips)
+Seat 2: FRATELLOOOO (456400 in chips)
+Seat 3: AllCoin (738590.90 in chips)
+Seat 4: Sunpin (238404 in chips)
+Seat 5: degenmyname (331909.72 in chips)
+Seat 6: BooYaHv (238400 in chips)
+Seat 7: GiefcoiN (55600 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+degenmyname: posts small blind 5000
+BooYaHv: posts big blind 10000
+*** HOLE CARDS ***
+GiefcoiN: raises 44100 to 54100 and is all-in
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+BooYaHv: calls 44100
+*** FLOP *** [9s Jd 5d]
+*** TURN *** [9s Jd 5d] [7h]
+*** RIVER *** [9s Jd 5d 7h] [8d]
+BooYaHv: shows [Jc Kc] ()
+GiefcoiN: shows [Ad 6d] (Flush: A high)
+GiefcoiN collected 123700
+*** SUMMARY ***
+Total pot 123700 | Rake 0
+Board [ 9s Jd 5d 7h 8d ]
+Game ended: 2026/05/20 19:15:16 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: BooYaHv (small blind) showed [ Jc Kc ] and lost with 
+Seat 7: GiefcoiN showed [ Ad 6d ] and won (123700) with Flush: A high
+
+
+PokerStars Hand #5537050113: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:16:32 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (374211.76 in chips)
+Seat 2: FRATELLOOOO (129490.28 in chips)
+Seat 3: AllCoin (735590.90 in chips)
+Seat 4: Sunpin (235404 in chips)
+Seat 5: degenmyname (673319.44 in chips)
+Seat 6: BooYaHv (176300 in chips)
+Seat 7: GiefcoiN (112200 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+GiefcoiN: posts small blind 5000
+DaniC1994: posts big blind 10000
+*** HOLE CARDS ***
+FRATELLOOOO: folds
+AllCoin: folds
+Sunpin: folds
+degenmyname: folds
+BooYaHv: raises 164800 to 174800 and is all-in
+GiefcoiN: folds
+DaniC1994: folds
+Uncalled bet (164800) returned to BooYaHv
+BooYaHv: doesn't show hand
+BooYaHv collected 35500
+*** SUMMARY ***
+Total pot 35500 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:17:06 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv collected (35500)
+Seat 7: GiefcoiN (small blind) folded before the flop
+
+
+PokerStars Hand #5537050114: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:17:06 GMT
+Table '553705' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (362711.76 in chips)
+Seat 2: FRATELLOOOO (127990.28 in chips)
+Seat 3: AllCoin (734090.90 in chips)
+Seat 4: Sunpin (233904 in chips)
+Seat 5: degenmyname (671819.44 in chips)
+Seat 6: BooYaHv (200300 in chips)
+Seat 7: GiefcoiN (105700 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+Sunpin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+DaniC1994: posts small blind 5000
+FRATELLOOOO: posts big blind 10000
+*** HOLE CARDS ***
+AllCoin: folds
+Sunpin: raises 10000 to 20000
+degenmyname: folds
+BooYaHv: raises 178800 to 198800 and is all-in
+GiefcoiN: folds
+DaniC1994: folds
+FRATELLOOOO: folds
+Sunpin: folds
+Uncalled bet (178800) returned to BooYaHv
+BooYaHv: doesn't show hand
+BooYaHv collected 65500
+*** SUMMARY ***
+Total pot 65500 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:17:45 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: FRATELLOOOO (small blind) folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: Sunpin folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv collected (65500)
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050116: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 19:19:35 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (354711.76 in chips)
+Seat 2: FRATELLOOOO (109990.28 in chips)
+Seat 3: AllCoin (721090.90 in chips)
+Seat 5: degenmyname (905223.44 in chips)
+Seat 6: BooYaHv (242800 in chips)
+Seat 7: GiefcoiN (102700 in chips)
+DaniC1994: posts the ante 1500
+FRATELLOOOO: posts the ante 1500
+AllCoin: posts the ante 1500
+degenmyname: posts the ante 1500
+BooYaHv: posts the ante 1500
+GiefcoiN: posts the ante 1500
+AllCoin: posts small blind 5000
+degenmyname: posts big blind 10000
+*** HOLE CARDS ***
+BooYaHv: raises 10000 to 20000
+GiefcoiN: folds
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+degenmyname: calls 10000
+*** FLOP *** [8c 3d Qh]
+degenmyname: checks
+BooYaHv: bets 17820
+degenmyname: calls 17820
+*** TURN *** [8c 3d Qh] [Qs]
+degenmyname: checks
+BooYaHv: checks
+*** RIVER *** [8c 3d Qh Qs] [5d]
+degenmyname: checks
+BooYaHv: checks
+degenmyname: shows [8s] (Two Pair: Pair of Q and 8)
+BooYaHv: mucks hand
+degenmyname collected 89640
+*** SUMMARY ***
+Total pot 89640 | Rake 0
+Board [ 8c 3d Qh Qs 5d ]
+Game ended: 2026/05/20 19:21:06 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin (small blind) folded before the flop
+Seat 5: degenmyname (small blind) showed [ 8s ] and won (89640) with Two Pair: Pair of Q and 8
+Seat 6: BooYaHv mucked
+Seat 7: GiefcoiN folded before the flop
+
+
+PokerStars Hand #5537050117: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:21:06 GMT
+Table '553705' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (353211.76 in chips)
+Seat 2: FRATELLOOOO (108490.28 in chips)
+Seat 3: AllCoin (714590.90 in chips)
+Seat 5: degenmyname (955543.44 in chips)
+Seat 6: BooYaHv (203480 in chips)
+Seat 7: GiefcoiN (101200 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+GiefcoiN: posts the ante 1800
+degenmyname: posts small blind 6000
+BooYaHv: posts big blind 12000
+*** HOLE CARDS ***
+GiefcoiN: raises 12000 to 24000
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+degenmyname: folds
+BooYaHv: folds
+Uncalled bet (12000) returned to GiefcoiN
+GiefcoiN: doesn't show hand
+GiefcoiN collected 40800
+*** SUMMARY ***
+Total pot 40800 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:21:34 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 5: degenmyname (small blind) folded before the flop
+Seat 6: BooYaHv (small blind) folded before the flop
+Seat 7: GiefcoiN collected (40800)
+
+
+PokerStars Hand #5537050118: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:21:34 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (351411.76 in chips)
+Seat 2: FRATELLOOOO (106690.28 in chips)
+Seat 3: AllCoin (712790.90 in chips)
+Seat 4: habfer (351245.95 in chips)
+Seat 5: degenmyname (947743.44 in chips)
+Seat 6: BooYaHv (189680 in chips)
+Seat 7: GiefcoiN (128200 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+habfer: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+GiefcoiN: posts the ante 1800
+BooYaHv: posts small blind 6000
+GiefcoiN: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+habfer: folds
+degenmyname: folds
+BooYaHv: raises 175880 to 187880 and is all-in
+GiefcoiN: calls 114400 and is all-in
+Uncalled bet (61480) returned to BooYaHv
+*** FLOP *** [6h 5s Kh]
+*** TURN *** [6h 5s Kh] [3h]
+*** RIVER *** [6h 5s Kh 3h] [Ad]
+BooYaHv: shows [Ah Kc] (Two Pair: Pair of A and K)
+GiefcoiN: shows [Ah Kc Kd 6s] ()
+BooYaHv collected 265400
+*** SUMMARY ***
+Total pot 265400 | Rake 0
+Board [ 6h 5s Kh 3h Ad ]
+Game ended: 2026/05/20 19:22:23 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 4: habfer folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv (small blind) showed [ Ah Kc ] and won (265400) with Two Pair: Pair of A and K
+Seat 7: GiefcoiN (small blind) showed [ Ah Kc Kd 6s ] and lost with 
+
+
+PokerStars Hand #5537050119: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:22:23 GMT
+Table '553705' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (349611.76 in chips)
+Seat 2: FRATELLOOOO (104890.28 in chips)
+Seat 3: AllCoin (710990.90 in chips)
+Seat 4: habfer (349445.95 in chips)
+Seat 5: degenmyname (945943.44 in chips)
+Seat 6: BooYaHv (326880 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+habfer: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+DaniC1994: posts small blind 6000
+FRATELLOOOO: posts big blind 12000
+*** HOLE CARDS ***
+AllCoin: folds
+habfer: raises 12000 to 24000
+degenmyname: folds
+BooYaHv: folds
+DaniC1994: folds
+FRATELLOOOO: calls 12000
+*** FLOP *** [Jh 2d 9h]
+FRATELLOOOO: checks
+habfer: bets 323645.95 and is all-in
+FRATELLOOOO: folds
+Uncalled bet (323645.95) returned to habfer
+habfer: doesn't show hand
+habfer collected 64800
+*** SUMMARY ***
+Total pot 64800 | Rake 0
+Board [ Jh 2d 9h ]
+Game ended: 2026/05/20 19:23:23 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 2: FRATELLOOOO (small blind) folded on the Flop
+Seat 3: AllCoin folded before the flop
+Seat 4: habfer collected (64800)
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv folded before the flop
+
+
+PokerStars Hand #5537050121: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:25:13 GMT
+Table '553705' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (340011.76 in chips)
+Seat 2: FRATELLOOOO (71290.28 in chips)
+Seat 3: AllCoin (1112636.85 in chips)
+Seat 5: degenmyname (942343.44 in chips)
+Seat 6: BooYaHv (323280 in chips)
+Seat 7: SnapcasterMage (362364.01 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+SnapcasterMage: posts the ante 1800
+AllCoin: posts small blind 6000
+degenmyname: posts big blind 12000
+*** HOLE CARDS ***
+BooYaHv: raises 12000 to 24000
+SnapcasterMage: folds
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+degenmyname: calls 12000
+*** FLOP *** [2c 4h 2h]
+degenmyname: checks
+BooYaHv: bets 21384
+degenmyname: folds
+Uncalled bet (21384) returned to BooYaHv
+BooYaHv: doesn't show hand
+BooYaHv collected 64800
+*** SUMMARY ***
+Total pot 64800 | Rake 0
+Board [ 2c 4h 2h ]
+Game ended: 2026/05/20 19:26:00 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin (small blind) folded before the flop
+Seat 5: degenmyname (small blind) folded on the Flop
+Seat 6: BooYaHv collected (64800)
+Seat 7: SnapcasterMage folded before the flop
+
+
+PokerStars Hand #5537050122: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:26:00 GMT
+Table '553705' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (338211.76 in chips)
+Seat 2: FRATELLOOOO (69490.28 in chips)
+Seat 3: AllCoin (1104836.85 in chips)
+Seat 5: degenmyname (916543.44 in chips)
+Seat 6: BooYaHv (362280 in chips)
+Seat 7: SnapcasterMage (360564.01 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+SnapcasterMage: posts the ante 1800
+degenmyname: posts small blind 6000
+BooYaHv: posts big blind 12000
+*** HOLE CARDS ***
+SnapcasterMage: folds
+DaniC1994: folds
+FRATELLOOOO: folds
+AllCoin: folds
+degenmyname: raises 30000 to 42000
+BooYaHv: calls 30000
+*** FLOP *** [6s 2h 2c]
+degenmyname: checks
+BooYaHv: checks
+*** TURN *** [6s 2h 2c] [Tc]
+degenmyname: bets 49920
+BooYaHv: calls 49920
+*** RIVER *** [6s 2h 2c Tc] [Kd]
+degenmyname: bets 816000
+BooYaHv: folds
+Uncalled bet (816000) returned to degenmyname
+degenmyname: doesn't show hand
+degenmyname collected 194640
+*** SUMMARY ***
+Total pot 194640 | Rake 0
+Board [ 6s 2h 2c Tc Kd ]
+Game ended: 2026/05/20 19:27:32 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO folded before the flop
+Seat 3: AllCoin folded before the flop
+Seat 5: degenmyname (small blind) collected (194640)
+Seat 6: BooYaHv (small blind) folded on the River
+Seat 7: SnapcasterMage folded before the flop
+
+
+PokerStars Hand #5537050123: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level II (6000/12000 - Ante 1800) - 2026/05/20 19:27:32 GMT
+Table '553705' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (336411.76 in chips)
+Seat 2: FRATELLOOOO (67690.28 in chips)
+Seat 3: AllCoin (1103036.85 in chips)
+Seat 4: CanadaBoogeyman (155221.78 in chips)
+Seat 5: degenmyname (1017463.44 in chips)
+Seat 6: BooYaHv (268560 in chips)
+Seat 7: SnapcasterMage (358764.01 in chips)
+DaniC1994: posts the ante 1800
+FRATELLOOOO: posts the ante 1800
+AllCoin: posts the ante 1800
+CanadaBoogeyman: posts the ante 1800
+degenmyname: posts the ante 1800
+BooYaHv: posts the ante 1800
+SnapcasterMage: posts the ante 1800
+BooYaHv: posts small blind 6000
+SnapcasterMage: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+FRATELLOOOO: raises 53890.28 to 65890.28 and is all-in
+AllCoin: folds
+CanadaBoogeyman: folds
+degenmyname: folds
+BooYaHv: folds
+SnapcasterMage: folds
+Uncalled bet (53890.28) returned to FRATELLOOOO
+FRATELLOOOO: doesn't show hand
+FRATELLOOOO collected 42600
+*** SUMMARY ***
+Total pot 42600 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:28:06 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: FRATELLOOOO collected (42600)
+Seat 3: AllCoin folded before the flop
+Seat 4: CanadaBoogeyman folded before the flop
+Seat 5: degenmyname folded before the flop
+Seat 6: BooYaHv (small blind) folded before the flop
+Seat 7: SnapcasterMage (small blind) folded before the flop
+
+
+PokerStars Hand #5539980087: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/20 18:45:38 GMT
+Table '553998' 7-max Seat #1 is the button
+Seat 1: dankreas (91433.75 in chips)
+Seat 2: DaniC1994 (75788.75 in chips)
+Seat 3: quadrinarosben (130645.80 in chips)
+Seat 4: rudiscoo (169710.62 in chips)
+Seat 5: ppln3verch4nge (68806.18 in chips)
+Seat 6: thiyam (99550 in chips)
+Seat 7: ChicoPintor (652994.47 in chips)
+dankreas: posts the ante 450
+DaniC1994: posts the ante 450
+quadrinarosben: posts the ante 450
+rudiscoo: posts the ante 450
+ppln3verch4nge: posts the ante 450
+thiyam: posts the ante 450
+ChicoPintor: posts the ante 450
+DaniC1994: posts small blind 1500
+quadrinarosben: posts big blind 3000
+*** HOLE CARDS ***
+rudiscoo: folds
+ppln3verch4nge: folds
+thiyam: folds
+ChicoPintor: folds
+dankreas: folds
+DaniC1994: calls 1500
+quadrinarosben: raises 9000 to 12000
+DaniC1994: folds
+Uncalled bet (9000) returned to quadrinarosben
+quadrinarosben: doesn't show hand
+quadrinarosben collected 9150
+*** SUMMARY ***
+Total pot 9150 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 18:46:22 GMT
+Seat 1: dankreas folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 3: quadrinarosben (small blind) collected (9150)
+Seat 4: rudiscoo folded before the flop
+Seat 5: ppln3verch4nge folded before the flop
+Seat 6: thiyam folded before the flop
+Seat 7: ChicoPintor folded before the flop
+
+
+PokerStars Hand #5539980089: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/20 18:47:13 GMT
+Table '553998' 7-max Seat #3 is the button
+Seat 1: dankreas (90533.75 in chips)
+Seat 2: DaniC1994 (71888.75 in chips)
+Seat 3: quadrinarosben (134395.80 in chips)
+Seat 4: rudiscoo (162810.62 in chips)
+Seat 5: ppln3verch4nge (78556.18 in chips)
+Seat 6: thiyam (98650 in chips)
+Seat 7: ChicoPintor (652094.47 in chips)
+dankreas: posts the ante 450
+DaniC1994: posts the ante 450
+quadrinarosben: posts the ante 450
+rudiscoo: posts the ante 450
+ppln3verch4nge: posts the ante 450
+thiyam: posts the ante 450
+ChicoPintor: posts the ante 450
+rudiscoo: posts small blind 1500
+ppln3verch4nge: posts big blind 3000
+*** HOLE CARDS ***
+thiyam: folds
+ChicoPintor: folds
+dankreas: folds
+DaniC1994: folds
+quadrinarosben: folds
+rudiscoo: raises 6000 to 9000
+ppln3verch4nge: calls 6000
+*** FLOP *** [2h 9d Qs]
+rudiscoo: bets 5400
+ppln3verch4nge: folds
+Uncalled bet (5400) returned to rudiscoo
+rudiscoo: doesn't show hand
+rudiscoo collected 21150
+*** SUMMARY ***
+Total pot 21150 | Rake 0
+Board [ 2h 9d Qs ]
+Game ended: 2026/05/20 18:48:13 GMT
+Seat 1: dankreas folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: quadrinarosben folded before the flop
+Seat 4: rudiscoo (small blind) collected (21150)
+Seat 5: ppln3verch4nge (small blind) folded on the Flop
+Seat 6: thiyam folded before the flop
+Seat 7: ChicoPintor folded before the flop
+
+
+PokerStars Hand #5539980102: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1750/3500 - Ante 525) - 2026/05/20 19:06:58 GMT
+Table '553998' 7-max Seat #2 is the button
+Seat 1: dankreas (63158.75 in chips)
+Seat 2: DaniC1994 (192452.50 in chips)
+Seat 3: quadrinarosben (129345.80 in chips)
+Seat 4: rudiscoo (82896.87 in chips)
+Seat 5: ppln3verch4nge (80006.18 in chips)
+Seat 6: thiyam (96175 in chips)
+Seat 7: ChicoPintor (644894.47 in chips)
+dankreas: posts the ante 525
+DaniC1994: posts the ante 525
+quadrinarosben: posts the ante 525
+rudiscoo: posts the ante 525
+ppln3verch4nge: posts the ante 525
+thiyam: posts the ante 525
+ChicoPintor: posts the ante 525
+quadrinarosben: posts small blind 1750
+rudiscoo: posts big blind 3500
+*** HOLE CARDS ***
+ppln3verch4nge: folds
+thiyam: folds
+ChicoPintor: folds
+dankreas: folds
+DaniC1994: raises 3850 to 7350
+quadrinarosben: raises 16406.25 to 23756.25
+rudiscoo: folds
+DaniC1994: folds
+Uncalled bet (16406.25) returned to quadrinarosben
+quadrinarosben: doesn't show hand
+quadrinarosben collected 21875
+*** SUMMARY ***
+Total pot 21875 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 19:08:08 GMT
+Seat 1: dankreas folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: quadrinarosben (small blind) collected (21875)
+Seat 4: rudiscoo (small blind) folded before the flop
+Seat 5: ppln3verch4nge folded before the flop
+Seat 6: thiyam folded before the flop
+Seat 7: ChicoPintor folded before the flop
+
+
+PokerStars Hand #5539980104: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1750/3500 - Ante 525) - 2026/05/20 19:09:17 GMT
+Table '553998' 7-max Seat #4 is the button
+Seat 1: dankreas (55108.75 in chips)
+Seat 2: DaniC1994 (184052.50 in chips)
+Seat 3: quadrinarosben (142820.80 in chips)
+Seat 4: rudiscoo (76596.87 in chips)
+Seat 5: ppln3verch4nge (91381.18 in chips)
+Seat 6: thiyam (95125 in chips)
+Seat 7: ChicoPintor (643844.47 in chips)
+dankreas: posts the ante 525
+DaniC1994: posts the ante 525
+quadrinarosben: posts the ante 525
+rudiscoo: posts the ante 525
+ppln3verch4nge: posts the ante 525
+thiyam: posts the ante 525
+ChicoPintor: posts the ante 525
+ppln3verch4nge: posts small blind 1750
+thiyam: posts big blind 3500
+*** HOLE CARDS ***
+ChicoPintor: folds
+dankreas: folds
+DaniC1994: folds
+quadrinarosben: folds
+rudiscoo: folds
+ppln3verch4nge: calls 1750
+thiyam: checks
+*** FLOP *** [5h Th Jc]
+ppln3verch4nge: bets 3500
+thiyam: calls 3500
+*** TURN *** [5h Th Jc] [7h]
+ppln3verch4nge: checks
+thiyam: bets 14000
+ppln3verch4nge: folds
+Uncalled bet (14000) returned to thiyam
+thiyam: doesn't show hand
+thiyam collected 17675
+*** SUMMARY ***
+Total pot 17675 | Rake 0
+Board [ 5h Th Jc 7h ]
+Game ended: 2026/05/20 19:10:23 GMT
+Seat 1: dankreas folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: quadrinarosben folded before the flop
+Seat 4: rudiscoo folded before the flop
+Seat 5: ppln3verch4nge (small blind) folded on the Turn
+Seat 6: thiyam (small blind) collected (17675)
+Seat 7: ChicoPintor folded before the flop
+
+
+PokerStars Hand #5539980109: Tournament #50035, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (2000/4000 - Ante 600) - 2026/05/20 19:14:05 GMT
+Table '553998' 7-max Seat #2 is the button
+Seat 1: dankreas (33783.75 in chips)
+Seat 2: DaniC1994 (189727.50 in chips)
+Seat 3: quadrinarosben (131495.80 in chips)
+Seat 4: rudiscoo (83871.87 in chips)
+Seat 5: ppln3verch4nge (81456.18 in chips)
+Seat 6: thiyam (115475 in chips)
+Seat 7: ChicoPintor (653119.47 in chips)
+dankreas: posts the ante 600
+DaniC1994: posts the ante 600
+quadrinarosben: posts the ante 600
+rudiscoo: posts the ante 600
+ppln3verch4nge: posts the ante 600
+thiyam: posts the ante 600
+ChicoPintor: posts the ante 600
+quadrinarosben: posts small blind 2000
+rudiscoo: posts big blind 4000
+*** HOLE CARDS ***
+ppln3verch4nge: raises 4000 to 8000
+thiyam: folds
+ChicoPintor: folds
+dankreas: raises 25183.75 to 33183.75 and is all-in
+DaniC1994: folds
+quadrinarosben: folds
+rudiscoo: folds
+ppln3verch4nge: calls 25183.75
+*** FLOP *** [5c Qd 9c]
+*** RIVER *** [5c Qd 9c 8c] [4s]
+ppln3verch4nge: shows [Jh Jd] (Pair: Pair of J)
+dankreas: shows [6s 6h] ()
+ppln3verch4nge collected 76567.50
+*** SUMMARY ***
+Total pot 76567.50 | Rake 0
+Board [ 5c Qd 9c 8c 4s ]
+Game ended: 2026/05/20 19:14:42 GMT
+Seat 1: dankreas showed [ 6s 6h ] and lost with 
+Seat 2: DaniC1994 folded before the flop
+Seat 3: quadrinarosben (small blind) folded before the flop
+Seat 4: rudiscoo (small blind) folded before the flop
+Seat 5: ppln3verch4nge showed [ Jh Jd ] and won (76567.50) with Pair: Pair of J
+Seat 6: thiyam folded before the flop
+Seat 7: ChicoPintor folded before the flop
+
+
+PokerStars Hand #5550150157: Tournament #58749, $44 6-Max Turbo Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 21:07:26 GMT
+Table '555015' 6-max Seat #6 is the button
+Seat 1: J9ccc (251840.38 in chips)
+Seat 2: DaniC1994 (225663.70 in chips)
+Seat 3: penguy2 (112283.69 in chips)
+Seat 4: Lenulard123 (232151.68 in chips)
+Seat 5: CogelasCerdo (241376.33 in chips)
+Seat 6: TerrorGandhi (210400.96 in chips)
+Seat 7: br0keliving (298932.50 in chips)
+J9ccc: posts the ante 1200
+DaniC1994: posts the ante 1200
+penguy2: posts the ante 1200
+Lenulard123: posts the ante 1200
+CogelasCerdo: posts the ante 1200
+TerrorGandhi: posts the ante 1200
+br0keliving: posts the ante 1200
+br0keliving: posts small blind 4000
+J9ccc: posts big blind 8000
+*** HOLE CARDS ***
+DaniC1994: folds
+penguy2: raises 8000 to 16000
+Lenulard123: folds
+CogelasCerdo: folds
+TerrorGandhi: folds
+br0keliving: folds
+J9ccc: folds
+Uncalled bet (8000) returned to penguy2
+penguy2: doesn't show hand
+penguy2 collected 28400
+*** SUMMARY ***
+Total pot 28400 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 21:07:46 GMT
+Seat 1: J9ccc (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: penguy2 collected (28400)
+Seat 4: Lenulard123 folded before the flop
+Seat 5: CogelasCerdo folded before the flop
+Seat 6: TerrorGandhi folded before the flop
+Seat 7: br0keliving (small blind) folded before the flop
+
+
+PokerStars Hand #5548580213: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (15000/30000 - Ante 4500) - 2026/05/20 22:22:50 GMT
+Table '554858' 7-max Seat #6 is the button
+Seat 1: Hammah (499613.16 in chips)
+Seat 3: querulous117266 (907829.26 in chips)
+Seat 4: DaniC1994 (1086259.34 in chips)
+Seat 5: Pohoda (542179.12 in chips)
+Seat 6: Laurentisdead (607368.68 in chips)
+Seat 7: Elem11 (755878.64 in chips)
+Hammah: posts the ante 4500
+querulous117266: posts the ante 4500
+DaniC1994: posts the ante 4500
+Pohoda: posts the ante 4500
+Laurentisdead: posts the ante 4500
+Elem11: posts the ante 4500
+Elem11: posts small blind 15000
+Hammah: posts big blind 30000
+*** HOLE CARDS ***
+querulous117266: folds
+DaniC1994: folds
+Pohoda: folds
+Laurentisdead: folds
+Elem11: raises 660000 to 690000
+Hammah: folds
+Uncalled bet (660000) returned to Elem11
+Elem11: doesn't show hand
+Elem11 collected 87000
+*** SUMMARY ***
+Total pot 87000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 22:23:19 GMT
+Seat 1: Hammah (small blind) folded before the flop
+Seat 3: querulous117266 folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Pohoda folded before the flop
+Seat 6: Laurentisdead folded before the flop
+Seat 7: Elem11 (small blind) collected (87000)
+
+
+PokerStars Hand #5548580214: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (15000/30000 - Ante 4500) - 2026/05/20 22:23:20 GMT
+Table '554858' 7-max Seat #7 is the button
+Seat 1: Hammah (465113.16 in chips)
+Seat 3: querulous117266 (903329.26 in chips)
+Seat 4: DaniC1994 (1081759.34 in chips)
+Seat 5: Pohoda (537679.12 in chips)
+Seat 6: Laurentisdead (602868.68 in chips)
+Seat 7: Elem11 (808378.64 in chips)
+Hammah: posts the ante 4500
+querulous117266: posts the ante 4500
+DaniC1994: posts the ante 4500
+Pohoda: posts the ante 4500
+Laurentisdead: posts the ante 4500
+Elem11: posts the ante 4500
+Hammah: posts small blind 15000
+querulous117266: posts big blind 30000
+*** HOLE CARDS ***
+DaniC1994: folds
+Pohoda: folds
+Laurentisdead: folds
+Elem11: raises 30000 to 60000
+Hammah: raises 400613.16 to 460613.16 and is all-in
+querulous117266: folds
+Elem11: calls 400613.16
+*** FLOP *** [Qs 9s 6s]
+*** TURN *** [Qs 9s 6s] [4s]
+*** RIVER *** [Qs 9s 6s 4s] [2d]
+Hammah: shows [Qc Kc] ()
+Elem11: shows [Qc Kc 8h 7h] ()
+Hammah collected 0
+*** SUMMARY ***
+Total pot 978226.32 | Rake 0
+Board [ Qs 9s 6s 4s 2d ]
+Game ended: 2026/05/20 22:24:02 GMT
+Seat 1: Hammah (small blind) showed [ Qc Kc ] and won (978226.32) with Pair: Pair of Q
+Seat 3: querulous117266 (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: Pohoda folded before the flop
+Seat 6: Laurentisdead folded before the flop
+Seat 7: Elem11 showed [ Qc Kc 8h 7h ] and lost with 
+
+
+PokerStars Hand #5548580220: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (15000/30000 - Ante 4500) - 2026/05/20 22:28:44 GMT
+Table '554858' 7-max Seat #7 is the button
+Seat 3: querulous117266 (681329.26 in chips)
+Seat 4: DaniC1994 (2169485.66 in chips)
+Seat 5: Pohoda (465679.12 in chips)
+Seat 6: Laurentisdead (806868.68 in chips)
+Seat 7: Elem11 (275765.48 in chips)
+querulous117266: posts the ante 4500
+DaniC1994: posts the ante 4500
+Pohoda: posts the ante 4500
+Laurentisdead: posts the ante 4500
+Elem11: posts the ante 4500
+querulous117266: posts small blind 15000
+DaniC1994: posts big blind 30000
+*** HOLE CARDS ***
+Pohoda: folds
+Laurentisdead: folds
+Elem11: folds
+querulous117266: calls 15000
+DaniC1994: raises 60000 to 90000
+querulous117266: calls 60000
+*** FLOP *** [4h 8h 8c]
+querulous117266: checks
+DaniC1994: bets 50625
+querulous117266: calls 50625
+*** TURN *** [4h 8h 8c] [6c]
+querulous117266: checks
+DaniC1994: checks
+*** RIVER *** [4h 8h 8c 6c] [9s]
+querulous117266: checks
+DaniC1994: checks
+querulous117266: shows [Kh Kc] (Two Pair: Pair of K and 8)
+DaniC1994: mucks hand
+querulous117266 collected 303750
+*** SUMMARY ***
+Total pot 303750 | Rake 0
+Board [ 4h 8h 8c 6c 9s ]
+Game ended: 2026/05/20 22:30:04 GMT
+Seat 3: querulous117266 (small blind) showed [ Kh Kc ] and won (303750) with Two Pair: Pair of K and 8
+Seat 4: DaniC1994 (small blind) mucked
+Seat 5: Pohoda folded before the flop
+Seat 6: Laurentisdead folded before the flop
+Seat 7: Elem11 folded before the flop
+
+
+PokerStars Hand #5566550060: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/20 22:23:54 GMT
+Table '556655' 7-max Seat #4 is the button
+Seat 1: professorchaos (170851.26 in chips)
+Seat 2: PrinceOfRUGAY (122125 in chips)
+Seat 3: Bombaklat (204812.49 in chips)
+Seat 4: Maetrik (55808.40 in chips)
+Seat 6: DaniC1994 (611327.17 in chips)
+Seat 7: reveur (424662.98 in chips)
+professorchaos: posts the ante 1200
+PrinceOfRUGAY: posts the ante 1200
+Bombaklat: posts the ante 1200
+Maetrik: posts the ante 1200
+DaniC1994: posts the ante 1200
+reveur: posts the ante 1200
+DaniC1994: posts small blind 4000
+reveur: posts big blind 8000
+*** HOLE CARDS ***
+professorchaos: folds
+PrinceOfRUGAY: folds
+Bombaklat: folds
+Maetrik: folds
+DaniC1994: raises 20000 to 28000
+reveur: folds
+Uncalled bet (20000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 23200
+*** SUMMARY ***
+Total pot 23200 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 22:24:48 GMT
+Seat 1: professorchaos folded before the flop
+Seat 2: PrinceOfRUGAY folded before the flop
+Seat 3: Bombaklat folded before the flop
+Seat 4: Maetrik folded before the flop
+Seat 6: DaniC1994 (small blind) collected (23200)
+Seat 7: reveur (small blind) folded before the flop
+
+
+PokerStars Hand #5566550068: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level II (5000/10000 - Ante 1500) - 2026/05/20 22:29:43 GMT
+Table '556655' 7-max Seat #7 is the button
+Seat 1: professorchaos (173751.26 in chips)
+Seat 2: PrinceOfRUGAY (122025 in chips)
+Seat 3: Bombaklat (222712.49 in chips)
+Seat 4: Maetrik (77708.40 in chips)
+Seat 6: DaniC1994 (573627.17 in chips)
+Seat 7: reveur (419762.98 in chips)
+professorchaos: posts the ante 1500
+PrinceOfRUGAY: posts the ante 1500
+Bombaklat: posts the ante 1500
+Maetrik: posts the ante 1500
+DaniC1994: posts the ante 1500
+reveur: posts the ante 1500
+professorchaos: posts small blind 5000
+PrinceOfRUGAY: posts big blind 10000
+*** HOLE CARDS ***
+Bombaklat: folds
+Maetrik: folds
+DaniC1994: folds
+reveur: raises 408262.98 to 418262.98 and is all-in
+professorchaos: folds
+PrinceOfRUGAY: folds
+Uncalled bet (408262.98) returned to reveur
+reveur: doesn't show hand
+reveur collected 34000
+*** SUMMARY ***
+Total pot 34000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 22:30:21 GMT
+Seat 1: professorchaos (small blind) folded before the flop
+Seat 2: PrinceOfRUGAY (small blind) folded before the flop
+Seat 3: Bombaklat folded before the flop
+Seat 4: Maetrik folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: reveur collected (34000)
+
+
+PokerStars Hand #5565740101: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (8750/17500 - Ante 2625) - 2026/05/20 22:51:21 GMT
+Table '556574' 7-max Seat #1 is the button
+Seat 1: Milkyway444 (760232.52 in chips)
+Seat 3: NaJiinJa (487611.90 in chips)
+Seat 4: DaniC1994 (448363.78 in chips)
+Seat 6: PenthousePrinz (56138.36 in chips)
+Seat 7: Colossenses1 (286231.70 in chips)
+Milkyway444: posts the ante 2625
+NaJiinJa: posts the ante 2625
+DaniC1994: posts the ante 2625
+PenthousePrinz: posts the ante 2625
+Colossenses1: posts the ante 2625
+NaJiinJa: posts small blind 8750
+DaniC1994: posts big blind 17500
+*** HOLE CARDS ***
+PenthousePrinz: folds
+Colossenses1: folds
+Milkyway444: folds
+NaJiinJa: calls 8750
+DaniC1994: checks
+*** FLOP *** [5s Tc 3h]
+NaJiinJa: checks
+DaniC1994: checks
+*** TURN *** [5s Tc 3h] [7s]
+NaJiinJa: checks
+DaniC1994: checks
+*** RIVER *** [5s Tc 3h 7s] [Jd]
+NaJiinJa: checks
+DaniC1994: checks
+NaJiinJa: shows [4s Ks] ()
+DaniC1994: shows [3s Ac] (Pair: Pair of 3)
+DaniC1994 collected 48125
+*** SUMMARY ***
+Total pot 48125 | Rake 0
+Board [ 5s Tc 3h 7s Jd ]
+Game ended: 2026/05/20 22:52:37 GMT
+Seat 1: Milkyway444 folded before the flop
+Seat 3: NaJiinJa (small blind) showed [ 4s Ks ] and lost with 
+Seat 4: DaniC1994 (small blind) showed [ 3s Ac ] and won (48125) with Pair: Pair of 3
+Seat 6: PenthousePrinz folded before the flop
+Seat 7: Colossenses1 folded before the flop
+
+
+PokerStars Hand #5566690124: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (20000/40000 - Ante 6000) - 2026/05/20 23:37:08 GMT
+Table '556669' 7-max Seat #6 is the button
+Seat 2: ChaseTheMoney (1693019.58 in chips)
+Seat 3: tiptoe (258532.58 in chips)
+Seat 4: Wooway (617916.48 in chips)
+Seat 5: Guyver3 (588501.49 in chips) is sitting out
+Seat 6: DaniC1994 (829125.84 in chips)
+Seat 7: MeliusCotidie (1400948.29 in chips)
+ChaseTheMoney: posts the ante 6000
+tiptoe: posts the ante 6000
+Wooway: posts the ante 6000
+Guyver3: posts the ante 6000
+DaniC1994: posts the ante 6000
+MeliusCotidie: posts the ante 6000
+MeliusCotidie: posts small blind 20000
+ChaseTheMoney: posts big blind 40000
+*** HOLE CARDS ***
+tiptoe: folds
+Wooway: folds
+DaniC1994: folds
+MeliusCotidie: calls 20000
+ChaseTheMoney: checks
+*** FLOP *** [Qs 6h 2h]
+MeliusCotidie: bets 40000
+ChaseTheMoney: calls 40000
+*** TURN *** [Qs 6h 2h] [8d]
+MeliusCotidie: bets 147800
+ChaseTheMoney: folds
+Uncalled bet (147800) returned to MeliusCotidie
+MeliusCotidie: doesn't show hand
+MeliusCotidie collected 196000
+*** SUMMARY ***
+Total pot 196000 | Rake 0
+Board [ Qs 6h 2h 8d ]
+Game ended: 2026/05/20 23:38:10 GMT
+Seat 2: ChaseTheMoney (small blind) folded on the Turn
+Seat 3: tiptoe folded before the flop
+Seat 4: Wooway folded before the flop
+Seat 5: Guyver3 mucked
+Seat 6: DaniC1994 folded before the flop
+Seat 7: MeliusCotidie (small blind) collected (196000)
+
+
+PokerStars Hand #5566690129: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (20000/40000 - Ante 6000) - 2026/05/20 23:41:24 GMT
+Table '556669' 7-max Seat #6 is the button
+Seat 2: ChaseTheMoney (1579019.58 in chips)
+Seat 3: tiptoe (563065.16 in chips)
+Seat 5: Guyver3 (458501.49 in chips)
+Seat 6: DaniC1994 (604593.26 in chips)
+Seat 7: MeliusCotidie (1576948.29 in chips)
+ChaseTheMoney: posts the ante 6000
+tiptoe: posts the ante 6000
+Guyver3: posts the ante 6000
+DaniC1994: posts the ante 6000
+MeliusCotidie: posts the ante 6000
+MeliusCotidie: posts small blind 20000
+ChaseTheMoney: posts big blind 40000
+*** HOLE CARDS ***
+tiptoe: raises 517065.16 to 557065.16 and is all-in
+Guyver3: folds
+DaniC1994: folds
+MeliusCotidie: folds
+ChaseTheMoney: folds
+Uncalled bet (517065.16) returned to tiptoe
+tiptoe: doesn't show hand
+tiptoe collected 130000
+*** SUMMARY ***
+Total pot 130000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:42:03 GMT
+Seat 2: ChaseTheMoney (small blind) folded before the flop
+Seat 3: tiptoe collected (130000)
+Seat 5: Guyver3 folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: MeliusCotidie (small blind) folded before the flop
+
+
+PokerStars Hand #5566690131: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (20000/40000 - Ante 6000) - 2026/05/20 23:42:49 GMT
+Table '556669' 7-max Seat #2 is the button
+Seat 2: ChaseTheMoney (1427019.58 in chips)
+Seat 3: tiptoe (771065.16 in chips)
+Seat 5: Guyver3 (446501.49 in chips)
+Seat 6: DaniC1994 (592593.26 in chips)
+Seat 7: MeliusCotidie (1544948.29 in chips)
+ChaseTheMoney: posts the ante 6000
+tiptoe: posts the ante 6000
+Guyver3: posts the ante 6000
+DaniC1994: posts the ante 6000
+MeliusCotidie: posts the ante 6000
+tiptoe: posts small blind 20000
+Guyver3: posts big blind 40000
+*** HOLE CARDS ***
+DaniC1994: folds
+MeliusCotidie: raises 40000 to 80000
+ChaseTheMoney: folds
+tiptoe: calls 60000
+Guyver3: folds
+*** FLOP *** [9s 6d 8s]
+tiptoe: checks
+MeliusCotidie: bets 152000
+tiptoe: folds
+Uncalled bet (152000) returned to MeliusCotidie
+MeliusCotidie: doesn't show hand
+MeliusCotidie collected 230000
+*** SUMMARY ***
+Total pot 230000 | Rake 0
+Board [ 9s 6d 8s ]
+Game ended: 2026/05/20 23:44:02 GMT
+Seat 2: ChaseTheMoney folded before the flop
+Seat 3: tiptoe (small blind) folded on the Flop
+Seat 5: Guyver3 (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: MeliusCotidie collected (230000)
+
+
+PokerStars Hand #5548580256: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (30000/60000 - Ante 9000) - 2026/05/20 23:10:41 GMT
+Table '554858' 7-max Seat #3 is the button
+Seat 2: TcheLoko (3226807.86 in chips)
+Seat 3: Chicoin (113353.04 in chips)
+Seat 4: DaniC1994 (1857944.40 in chips)
+Seat 6: Laurentisdead (3614293.54 in chips)
+Seat 7: DAVIDSCUPOFICE (5011420.68 in chips)
+TcheLoko: posts the ante 9000
+Chicoin: posts the ante 9000
+DaniC1994: posts the ante 9000
+Laurentisdead: posts the ante 9000
+DAVIDSCUPOFICE: posts the ante 9000
+DaniC1994: posts small blind 30000
+Laurentisdead: posts big blind 60000
+*** HOLE CARDS ***
+DAVIDSCUPOFICE: raises 60000 to 120000
+TcheLoko: folds
+Chicoin: folds
+DaniC1994: folds
+Laurentisdead: calls 60000
+*** FLOP *** [7s 8c Kc]
+Laurentisdead: checks
+DAVIDSCUPOFICE: checks
+*** TURN *** [7s 8c Kc] [Qc]
+Laurentisdead: bets 236250
+DAVIDSCUPOFICE: folds
+Uncalled bet (236250) returned to Laurentisdead
+Laurentisdead: doesn't show hand
+Laurentisdead collected 315000
+*** SUMMARY ***
+Total pot 315000 | Rake 0
+Board [ 7s 8c Kc Qc ]
+Game ended: 2026/05/20 23:11:26 GMT
+Seat 2: TcheLoko folded before the flop
+Seat 3: Chicoin folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 6: Laurentisdead (small blind) collected (315000)
+Seat 7: DAVIDSCUPOFICE folded on the Turn
+
+
+PokerStars Hand #5548580260: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (30000/60000 - Ante 9000) - 2026/05/20 23:14:15 GMT
+Table '554858' 7-max Seat #4 is the button
+Seat 1: MoneyTrees (1058596.10 in chips)
+Seat 4: DaniC1994 (3571241.84 in chips)
+Seat 6: Laurentisdead (3806293.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6446284.14 in chips)
+MoneyTrees: posts the ante 9000
+DaniC1994: posts the ante 9000
+Laurentisdead: posts the ante 9000
+DAVIDSCUPOFICE: posts the ante 9000
+Laurentisdead: posts small blind 30000
+DAVIDSCUPOFICE: posts big blind 60000
+*** HOLE CARDS ***
+MoneyTrees: folds
+DaniC1994: folds
+Laurentisdead: calls 30000
+DAVIDSCUPOFICE: checks
+*** FLOP *** [8s 5c As]
+Laurentisdead: bets 60000
+DAVIDSCUPOFICE: calls 60000
+*** TURN *** [8s 5c As] [Qd]
+Laurentisdead: bets 207000
+DAVIDSCUPOFICE: calls 207000
+*** RIVER *** [8s 5c As Qd] [5d]
+Laurentisdead: bets 227700
+DAVIDSCUPOFICE: calls 227700
+Laurentisdead: shows [Ad] (Two Pair: Pair of A and 5)
+DAVIDSCUPOFICE: shows [Ah] (Two Pair: Pair of A and 5)
+Laurentisdead collected 1145400
+DAVIDSCUPOFICE collected 1145400
+*** SUMMARY ***
+Total pot 1145400 | Rake 0
+Board [ 8s 5c As Qd 5d ]
+Game ended: 2026/05/20 23:15:29 GMT
+Seat 1: MoneyTrees folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 6: Laurentisdead (small blind) showed [ Ad ] and won (1145400) with Two Pair: Pair of A and 5
+Seat 7: DAVIDSCUPOFICE (small blind) showed [ Ah ] and won (1145400) with Two Pair: Pair of A and 5
+
+
+PokerStars Hand #5548580264: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (35000/70000 - Ante 10500) - 2026/05/20 23:18:19 GMT
+Table '554858' 7-max Seat #4 is the button
+Seat 1: MoneyTrees (924596.10 in chips)
+Seat 4: DaniC1994 (3855641.84 in chips)
+Seat 6: Laurentisdead (3841293.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6260884.14 in chips)
+MoneyTrees: posts the ante 10500
+DaniC1994: posts the ante 10500
+Laurentisdead: posts the ante 10500
+DAVIDSCUPOFICE: posts the ante 10500
+Laurentisdead: posts small blind 35000
+DAVIDSCUPOFICE: posts big blind 70000
+*** HOLE CARDS ***
+MoneyTrees: folds
+DaniC1994: folds
+Laurentisdead: calls 35000
+DAVIDSCUPOFICE: checks
+*** FLOP *** [3s 5d 7c]
+Laurentisdead: checks
+DAVIDSCUPOFICE: checks
+*** TURN *** [3s 5d 7c] [2s]
+Laurentisdead: bets 171500
+DAVIDSCUPOFICE: folds
+Uncalled bet (171500) returned to Laurentisdead
+Laurentisdead: doesn't show hand
+Laurentisdead collected 182000
+*** SUMMARY ***
+Total pot 182000 | Rake 0
+Board [ 3s 5d 7c 2s ]
+Game ended: 2026/05/20 23:19:15 GMT
+Seat 1: MoneyTrees folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 6: Laurentisdead (small blind) collected (182000)
+Seat 7: DAVIDSCUPOFICE (small blind) folded on the Turn
+
+
+PokerStars Hand #5548580265: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (35000/70000 - Ante 10500) - 2026/05/20 23:19:16 GMT
+Table '554858' 7-max Seat #6 is the button
+Seat 1: MoneyTrees (914096.10 in chips)
+Seat 4: DaniC1994 (3845141.84 in chips)
+Seat 6: Laurentisdead (3942793.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6180384.14 in chips)
+MoneyTrees: posts the ante 10500
+DaniC1994: posts the ante 10500
+Laurentisdead: posts the ante 10500
+DAVIDSCUPOFICE: posts the ante 10500
+DAVIDSCUPOFICE: posts small blind 35000
+MoneyTrees: posts big blind 70000
+*** HOLE CARDS ***
+DaniC1994: raises 77000 to 147000
+Laurentisdead: folds
+DAVIDSCUPOFICE: folds
+MoneyTrees: raises 756596.10 to 903596.10 and is all-in
+DaniC1994: calls 756596.10
+*** FLOP *** [Ad 7c Jd]
+*** TURN *** [Ad 7c Jd] [Ac]
+*** RIVER *** [Ad 7c Jd Ac] [6h]
+MoneyTrees: shows [Tc Kh] ()
+DaniC1994: shows [8c 8h] (Two Pair: Pair of A and 8)
+DaniC1994 collected 1884192.20
+*** SUMMARY ***
+Total pot 1884192.20 | Rake 0
+Board [ Ad 7c Jd Ac 6h ]
+Game ended: 2026/05/20 23:19:59 GMT
+Seat 1: MoneyTrees (small blind) showed [ Tc Kh ] and lost with 
+Seat 4: DaniC1994 showed [ 8c 8h ] and won (1884192.20) with Two Pair: Pair of A and 8
+Seat 6: Laurentisdead folded before the flop
+Seat 7: DAVIDSCUPOFICE (small blind) folded before the flop
+
+
+PokerStars Hand #5548580267: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (35000/70000 - Ante 10500) - 2026/05/20 23:20:31 GMT
+Table '554858' 7-max Seat #4 is the button
+Seat 1: estebangocu (1417413.55 in chips)
+Seat 4: DaniC1994 (4769737.94 in chips)
+Seat 6: Laurentisdead (3781793.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6330884.14 in chips)
+estebangocu: posts the ante 10500
+DaniC1994: posts the ante 10500
+Laurentisdead: posts the ante 10500
+DAVIDSCUPOFICE: posts the ante 10500
+Laurentisdead: posts small blind 35000
+DAVIDSCUPOFICE: posts big blind 70000
+*** HOLE CARDS ***
+estebangocu: folds
+DaniC1994: folds
+Laurentisdead: folds
+Uncalled bet (35000) returned to DAVIDSCUPOFICE
+DAVIDSCUPOFICE: mucks hand
+DAVIDSCUPOFICE collected 0
+*** SUMMARY ***
+Total pot 112000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:20:45 GMT
+Seat 1: estebangocu folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 6: Laurentisdead (small blind) folded before the flop
+Seat 7: DAVIDSCUPOFICE (small blind) collected (112000)
+
+
+PokerStars Hand #5548580277: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (40000/80000 - Ante 12000) - 2026/05/20 23:27:18 GMT
+Table '554858' 7-max Seat #7 is the button
+Seat 1: estebangocu (1313413.55 in chips)
+Seat 4: DaniC1994 (4751547.94 in chips)
+Seat 6: Laurentisdead (4249793.54 in chips)
+Seat 7: DAVIDSCUPOFICE (5985074.14 in chips)
+estebangocu: posts the ante 12000
+DaniC1994: posts the ante 12000
+Laurentisdead: posts the ante 12000
+DAVIDSCUPOFICE: posts the ante 12000
+estebangocu: posts small blind 40000
+DaniC1994: posts big blind 80000
+*** HOLE CARDS ***
+Laurentisdead: folds
+DAVIDSCUPOFICE: folds
+estebangocu: raises 1221413.55 to 1301413.55 and is all-in
+DaniC1994: calls 1221413.55
+*** FLOP *** [Jh 9s 9h]
+*** TURN *** [Jh 9s 9h] [Kh]
+*** RIVER *** [Jh 9s 9h Kh] [Ks]
+estebangocu: shows [Ac] (Two Pair: Pair of K and 9)
+DaniC1994: shows [Ad] (Two Pair: Pair of K and 9)
+DaniC1994 collected 2650827.10
+estebangocu collected 2650827.10
+*** SUMMARY ***
+Total pot 2650827.10 | Rake 0
+Board [ Jh 9s 9h Kh Ks ]
+Game ended: 2026/05/20 23:27:53 GMT
+Seat 1: estebangocu (small blind) showed [ Ac ] and won (2650827.10) with Two Pair: Pair of K and 9
+Seat 4: DaniC1994 (small blind) showed [ Ad ] and won (2650827.10) with Two Pair: Pair of K and 9
+Seat 6: Laurentisdead folded before the flop
+Seat 7: DAVIDSCUPOFICE folded before the flop
+
+
+PokerStars Hand #5548580282: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (40000/80000 - Ante 12000) - 2026/05/20 23:30:20 GMT
+Table '554858' 7-max Seat #1 is the button
+Seat 1: estebangocu (1117413.55 in chips)
+Seat 4: DaniC1994 (4803547.94 in chips)
+Seat 6: Laurentisdead (3983153.54 in chips)
+Seat 7: DAVIDSCUPOFICE (6395714.14 in chips)
+estebangocu: posts the ante 12000
+DaniC1994: posts the ante 12000
+Laurentisdead: posts the ante 12000
+DAVIDSCUPOFICE: posts the ante 12000
+DaniC1994: posts small blind 40000
+Laurentisdead: posts big blind 80000
+*** HOLE CARDS ***
+DAVIDSCUPOFICE: raises 80000 to 160000
+estebangocu: folds
+DaniC1994: folds
+Laurentisdead: calls 80000
+*** FLOP *** [9s Jc 5s]
+Laurentisdead: checks
+DAVIDSCUPOFICE: bets 134640
+Laurentisdead: calls 134640
+*** TURN *** [9s Jc 5s] [6c]
+Laurentisdead: checks
+DAVIDSCUPOFICE: bets 552000
+Laurentisdead: folds
+Uncalled bet (552000) returned to DAVIDSCUPOFICE
+DAVIDSCUPOFICE: doesn't show hand
+DAVIDSCUPOFICE collected 677280
+*** SUMMARY ***
+Total pot 677280 | Rake 0
+Board [ 9s Jc 5s 6c ]
+Game ended: 2026/05/20 23:31:23 GMT
+Seat 1: estebangocu folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 6: Laurentisdead (small blind) folded on the Turn
+Seat 7: DAVIDSCUPOFICE collected (677280)
+
+
+PokerStars Hand #5560350162: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (8750/17500 - Ante 2625) - 2026/05/20 23:03:45 GMT
+Table '556035' 7-max Seat #1 is the button
+Seat 1: Chumber777 (711902.78 in chips)
+Seat 2: care168 (532422.70 in chips)
+Seat 3: DaniC1994 (412350.42 in chips)
+Seat 4: professorchaos (58191.26 in chips)
+Seat 5: Dakarta (377712.78 in chips)
+Seat 6: MeliusCotidie (977708.66 in chips)
+Seat 7: reveur (409699.63 in chips)
+Chumber777: posts the ante 2625
+care168: posts the ante 2625
+DaniC1994: posts the ante 2625
+professorchaos: posts the ante 2625
+Dakarta: posts the ante 2625
+MeliusCotidie: posts the ante 2625
+reveur: posts the ante 2625
+care168: posts small blind 8750
+DaniC1994: posts big blind 17500
+*** HOLE CARDS ***
+professorchaos: raises 35000 to 52500
+Dakarta: folds
+MeliusCotidie: folds
+reveur: folds
+Chumber777: calls 52500
+care168: folds
+DaniC1994: calls 35000
+*** FLOP *** [5d 9d 5c]
+DaniC1994: checks
+professorchaos: checks
+Chumber777: bets 17500
+DaniC1994: calls 17500
+professorchaos: calls 3066.26 and is all-in
+*** TURN *** [5d 9d 5c] [8c]
+DaniC1994: checks
+Chumber777: checks
+*** RIVER *** [5d 9d 5c 8c] [Ad]
+DaniC1994: checks
+professorchaos: mucks hand
+Chumber777: checks
+DaniC1994: shows [Qc Ah Qs Kc] ()
+Chumber777: shows [Ah Qc] (Two Pair: Pair of A and 5)
+Chumber777 collected 222691.26
+*** SUMMARY ***
+Total pot 222691.26 | Rake 0
+Board [ 5d 9d 5c 8c Ad ]
+Game ended: 2026/05/20 23:06:37 GMT
+Seat 1: Chumber777 showed [ Ah Qc ] and won (222691.26) with Two Pair: Pair of A and 5
+Seat 2: care168 (small blind) folded before the flop
+Seat 3: DaniC1994 (small blind) showed [ Qc Ah Qs Kc ] and lost with 
+Seat 4: professorchaos mucked
+Seat 5: Dakarta folded before the flop
+Seat 6: MeliusCotidie folded before the flop
+Seat 7: reveur folded before the flop
+
+
+PokerStars Hand #5560350163: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (10000/20000 - Ante 3000) - 2026/05/20 23:06:38 GMT
+Table '556035' 7-max Seat #2 is the button
+Seat 1: Chumber777 (861969.04 in chips)
+Seat 2: care168 (521047.70 in chips)
+Seat 3: DaniC1994 (339725.42 in chips)
+Seat 5: Dakarta (375087.78 in chips)
+Seat 6: MeliusCotidie (975083.66 in chips)
+Seat 7: reveur (407074.63 in chips)
+Chumber777: posts the ante 3000
+care168: posts the ante 3000
+DaniC1994: posts the ante 3000
+Dakarta: posts the ante 3000
+MeliusCotidie: posts the ante 3000
+reveur: posts the ante 3000
+DaniC1994: posts small blind 10000
+Dakarta: posts big blind 20000
+*** HOLE CARDS ***
+MeliusCotidie: raises 20000 to 40000
+reveur: raises 58000 to 98000
+Chumber777: folds
+care168: folds
+DaniC1994: folds
+Dakarta: folds
+MeliusCotidie: folds
+Uncalled bet (58000) returned to reveur
+reveur: doesn't show hand
+reveur collected 128000
+*** SUMMARY ***
+Total pot 128000 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:07:37 GMT
+Seat 1: Chumber777 folded before the flop
+Seat 2: care168 folded before the flop
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 5: Dakarta (small blind) folded before the flop
+Seat 6: MeliusCotidie folded before the flop
+Seat 7: reveur collected (128000)
+
+
+PokerStars Hand #5560350175: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (12500/25000 - Ante 3750) - 2026/05/20 23:18:56 GMT
+Table '556035' 7-max Seat #3 is the button
+Seat 2: care168 (355297.70 in chips)
+Seat 3: DaniC1994 (433200.84 in chips)
+Seat 5: Dakarta (446612.36 in chips)
+Seat 6: MeliusCotidie (695623.66 in chips)
+Seat 7: reveur (592324.63 in chips)
+care168: posts the ante 3750
+DaniC1994: posts the ante 3750
+Dakarta: posts the ante 3750
+MeliusCotidie: posts the ante 3750
+reveur: posts the ante 3750
+Dakarta: posts small blind 12500
+MeliusCotidie: posts big blind 25000
+*** HOLE CARDS ***
+reveur: raises 25000 to 50000
+care168: folds
+DaniC1994: folds
+Dakarta: folds
+MeliusCotidie: raises 87500 to 137500
+reveur: folds
+Uncalled bet (87500) returned to MeliusCotidie
+MeliusCotidie: doesn't show hand
+MeliusCotidie collected 131250
+*** SUMMARY ***
+Total pot 131250 | Rake 0
+Board [  ]
+Game ended: 2026/05/20 23:19:47 GMT
+Seat 2: care168 folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 5: Dakarta (small blind) folded before the flop
+Seat 6: MeliusCotidie (small blind) collected (131250)
+Seat 7: reveur folded before the flop
+
+
+PokerStars Hand #5560350178: Tournament #57266, WPM S: $109 CoinMasters LATAM PEPE Hold'em No Limit - Level III (15000/30000 - Ante 4500) - 2026/05/20 23:21:04 GMT
+Table '556035' 7-max Seat #7 is the button
+Seat 2: care168 (313297.70 in chips)
+Seat 3: DaniC1994 (421200.84 in chips)
+Seat 5: Dakarta (422112.36 in chips)
+Seat 6: MeliusCotidie (808623.66 in chips)
+Seat 7: reveur (557824.63 in chips)
+care168: posts the ante 4500
+DaniC1994: posts the ante 4500
+Dakarta: posts the ante 4500
+MeliusCotidie: posts the ante 4500
+reveur: posts the ante 4500
+care168: posts small blind 15000
+DaniC1994: posts big blind 30000
+*** HOLE CARDS ***
+Dakarta: folds
+MeliusCotidie: raises 30000 to 60000
+reveur: raises 493324.63 to 553324.63 and is all-in
+care168: folds
+DaniC1994: folds
+MeliusCotidie: calls 493324.63
+*** FLOP *** [9h 6d Ac]
+*** TURN *** [9h 6d Ac] [3d]
+*** RIVER *** [9h 6d Ac 3d] [9d]
+MeliusCotidie: shows [Ah Jh] (Two Pair: Pair of A and 9)
+reveur: shows [Ah Jh Qh Th] ()
+MeliusCotidie collected 1174149.26
+*** SUMMARY ***
+Total pot 1174149.26 | Rake 0
+Board [ 9h 6d Ac 3d 9d ]
+Game ended: 2026/05/20 23:21:52 GMT
+Seat 2: care168 (small blind) folded before the flop
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 5: Dakarta folded before the flop
+Seat 6: MeliusCotidie showed [ Ah Jh ] and won (1174149.26) with Two Pair: Pair of A and 9
+Seat 7: reveur showed [ Ah Jh Qh Th ] and lost with 
+
+

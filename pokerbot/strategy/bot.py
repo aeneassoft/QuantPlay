@@ -9,9 +9,10 @@ from __future__ import annotations
 import random
 
 from pokerbot.engine.cards import hand_class
-from pokerbot.engine.equity import equity_vs_range
+from pokerbot.engine.equity import equity_vs_range, equity_vs_weighted_range
 from pokerbot.engine.evaluator import best_five_name, evaluate
 from pokerbot.strategy import blueprint
+from pokerbot.strategy import preflop_blueprint as pbp
 from pokerbot.strategy import postflop as pf
 from pokerbot.strategy import advisor as pf_advisor
 from pokerbot.strategy import exploit_engine as pf_ee
@@ -75,6 +76,10 @@ class PokerBot:
         self.use_commit_cap = False    # anti-spew: FOLD (not call off) a big stack commitment with a weak made hand
         self.commit_frac = 0.45        # "big commitment" = call > this fraction of the effective stack
         self.commit_eq = 0.70          # below this equity, that big commitment is a light stack-off -> fold
+        self.deep_jam_pct = 0.985      # preflop deep (>14bb) jam/stack-off threshold. Was 0.94 (top 6%) = the
+                                       # -385/-527 all-in spew. The Nash consult (gpt-5.5) is explicit: at 200bb fold
+                                       # QQ/AK to a full jam (QQ vs KK+ ~18% eq, needs 44% -> -103bb) -> stack off ~AA/KK
+                                       # only (top ~1.5%). A/B-able; measured in the next GTOW run.
         self.use_deepcfr = False       # use the from-scratch HUNL Deep CFR policy net as the decision core
         self._deepcfr_policy = None    # lazy-loaded LoadedPolicy
         # WS3 unify: bounded, PREDICTION-GATED off-tree size probing (port of the AdaptiveExploiter idea). Maps
@@ -87,6 +92,16 @@ class PokerBot:
         self.use_resolver = False    # MVP#2 P1: real-time RIVER re-solving (opt-in; the GTO Wizard A/B enables it)
         self.use_turn_resolver = False  # MVP#2 P2: real-time TURN re-solving (turn->river to terminal; opt-in)
         self.use_defense_advisor = True  # MVP C2: facing-bet DEFENSE advisor (the #1-leak fix; flop coverage, gated)
+        # ---- KEYSTONE: the action-consistent per-combo range tracker as the FLOOR's villain-range source ----
+        # The floor's equity_vs_range used _villain_range/_narrow (top-X%-by-board-strength, bluffs/draws DROPPED)
+        # = barely better than uniform at predicting the solver's true range (GATE A3-FLOOR: L1 0.756 vs 0.995
+        # noop). The Bayesian tracker is +42% closer to solver truth (L1 0.437) -> use it for the floor's villain
+        # equity when its confidence clears CONF_THRESHOLD, else fall back to _narrow (o3-safe). A/B-able.
+        self.use_range_tracker = True
+        # ---- near-Nash PREFLOP BLUEPRINT (extraction/preflop_solve.py; the X-ray's #1 fix: preflop = 87% of -72) ----
+        self.use_blueprint = True      # replace the "standard-dumb" preflop heuristic with the solved GTO mix
+        self.bp_deep_min_bb = 140.0    # blueprint is solved at 200bb -> only fire when genuinely deep (GTOW = 200bb)
+        self.bp_jam_min_pct = 0.90     # value-only clamp: don't 5bet/jam-bluff below top-10% (checkdown is blocker-blind)
 
     # ====================================================================== API
     def decide(self, state: dict) -> dict:
@@ -150,6 +165,12 @@ class PokerBot:
         if eff_bb <= 14:
             return self._pushfold(state, hole, hc, pct, eff_bb, is_sb, raises, r)
 
+        # ---- near-Nash preflop blueprint (deep/200bb; the solved GTO mix replaces the heuristic cascade) ----
+        if self.use_blueprint:
+            bp = self._preflop_blueprint(state, hole, hc, pct, eff_bb, is_sb, raises, r)
+            if bp is not None:
+                return bp
+
         # ---- SB first-in (unopened) ----
         if is_sb and raises == 0 and to_call <= bb:
             if pct >= (1 - R.SB_OPEN_FRAC):
@@ -181,6 +202,54 @@ class PokerBot:
 
         # ---- deeper re-raise war: value-or-fold ----
         return self._deep_reraise(state, hole, hc, pct, r)
+
+    def _preflop_blueprint(self, state, hole, hc, pct, eff_bb, is_sb, raises, r):
+        """Solved GTO preflop action from the 200bb blueprint (extraction/preflop_solve.py), or None to fall
+        through to the heuristic. Gated to deep stacks; a value-only jam clamp guards the checkdown solve's
+        blocker-blind bluff-jams (it would 5bet/jam 76s for 200bb = spew). See NOTES.md."""
+        if eff_bb < self.bp_deep_min_bb or not pbp.available():
+            return None
+        la = state["legal"]
+        bb = state["bb"]
+        # robust "facing a shove" detection: a villain's all-in stack can read 0 (and some adapters coerce 0->start),
+        # so also treat "owe chips but cannot raise" as all-in. Else a 200bb jam mis-maps to 5BET (not JAMSB) and QQ
+        # CALLS it instead of folding = the -15 spew. Only affects the raises==4 (5BET vs JAMSB) branch.
+        villain_allin = (state["players"][1 - self.hero_idx]["all_in"]
+                         or (la.get("to_call", 0) > 0 and not la.get("can_raise", False)))
+        node = pbp.node_for_state(is_sb, raises, la.get("can_check", False), villain_allin)
+        if node is None:
+            return None
+        picked = pbp.pick(node, hc, self.rng)
+        if picked is None:
+            return None
+        action, dist = picked
+        if action in ("jam", "5bet") and node in ("4BET", "5BET") and pct < self.bp_jam_min_pct:
+            safe = {a: p for a, p in dist.items() if a not in ("jam", "5bet")}     # value-only: drop the bluff-jam
+            tot = sum(safe.values())
+            action = self.rng.choices(list(safe), weights=list(safe.values()))[0] if tot > 1e-9 else "fold"
+            r["blueprint_clamp"] = True
+        r["blueprint"] = {"node": node, "picked": action, "pct": round(pct, 3),
+                          "dist": {k: round(v, 3) for k, v in dist.items()}}
+        to_call = la["to_call"]
+        desc = f"Preflop blueprint [{node}] {hc}: {action} (GTO mix {r['blueprint']['dist']})."
+        if action == "fold":
+            if to_call <= 0 and la.get("can_check"):
+                return self._mk("check", None, r, desc)
+            return self._mk("fold", None, r, desc)
+        if action == "check":
+            return self._mk("check", None, r, desc)
+        if action in ("limp", "call"):
+            if to_call <= 0 and la.get("can_check"):
+                return self._mk("check", None, r, desc)
+            return self._mk("call", None, r, desc)
+        if action == "jam":
+            return self._mk("allin", None, r, desc)
+        size_bb = pbp.SIZES_BB.get(action)                  # sized raise: open/iso/3bet/4bet/5bet
+        if size_bb is None or not la.get("can_raise"):
+            if to_call <= 0 and la.get("can_check"):
+                return self._mk("check", None, r, desc + " [raise unavailable]")
+            return self._mk("call", None, r, desc + " [raise unavailable]")
+        return self._mk("raise", self._raise_to(la, round(size_bb * bb)), r, desc)
 
     def _pushfold(self, state, hole, hc, pct, eff_bb, is_sb, raises, r):
         la = state["legal"]
@@ -277,10 +346,11 @@ class PokerBot:
 
     def _deep_reraise(self, state, hole, hc, pct, r):
         la = state["legal"]
-        if pct >= 0.94:
+        if pct >= self.deep_jam_pct:   # deep-stack discipline: only stack off 100bb+ at 200bb with a true premium
             if la["can_raise"]:
-                return self._mk("allin", None, r, f"Get it in: {hc} is a premium in a re-raised pot.")
-            return self._mk("call", None, r, f"Call off with {hc}.")
+                return self._mk("allin", None, r, f"Get it in: {hc} is a premium (top "
+                                f"{int((1-self.deep_jam_pct)*100)}%) in a re-raised pot.")
+            return self._mk("call", None, r, f"Call off with {hc} (premium).")
         if la["can_check"]:
             return self._mk("check", None, r, "Check.")
         return self._mk("fold", None, r, f"Fold {hc} in an escalating re-raise war.")
@@ -310,7 +380,16 @@ class PokerBot:
         vrange = self._villain_range(state)
         aggression = self._villain_postflop_aggression(state)
         kept = self._narrow(vrange, board, hole, aggression)
-        eq = equity_vs_range(hole, kept, board, iters=EQUITY_ITERS, rng=self.rng)
+        # KEYSTONE: prefer the action-consistent per-combo TRACKED villain range (GATE A3-FLOOR: +42% closer to
+        # the solver's true range than _narrow, which strips bluffs/draws); fall back to _narrow when the tracker's
+        # confidence is below CONF_THRESHOLD (o3-safe: never trust a collapsed/mostly-legality-only reconstruction).
+        vw = self._tracked_villain_range(state, board, hole) if self.use_range_tracker else None
+        if vw:
+            eq = equity_vs_weighted_range(hole, vw, board, iters=EQUITY_ITERS, rng=self.rng)
+            n_villain = len(vw)
+        else:
+            eq = equity_vs_range(hole, kept, board, iters=EQUITY_ITERS, rng=self.rng)
+            n_villain = len(kept)
         tex = pf.classify_board(board)
 
         fold_to_bet = self.opp.fold_to_bet_freq()
@@ -320,7 +399,7 @@ class PokerBot:
         bluff_base = max(0.0, min(0.85, 0.18 + conf * (fold_to_bet - 0.5) * 1.2))
         r = {"phase": "postflop", "street": street, "hand": " ".join(hole),
              "made_hand": made, "board": " ".join(board), "equity": round(eq, 3),
-             "villain_combos": len(kept), "position": "IP" if hero_ip else "OOP",
+             "villain_combos": n_villain, "position": "IP" if hero_ip else "OOP",
              "texture": [k for k, v in tex.items() if v],
              "fold_model": "learned" if learned else "prior",
              "opponent": self.opp.summary() if self.exploit else None}
@@ -572,6 +651,25 @@ class PokerBot:
         ranked = sorted(combos, key=lambda c: evaluate(board, list(c)))  # lower=better
         n = max(1, int(len(ranked) * keep_frac))
         return ranked[:n]
+
+    def _tracked_villain_range(self, state, board, hole):
+        """KEYSTONE: the action-consistent per-combo Bayesian tracked villain range as {combo: weight} for the
+        floor's equity calc, or None when the tracker's confidence < CONF_THRESHOLD (-> caller falls back to the
+        _narrow heuristic, o3-safe: never trust a collapsed / mostly-legality-only reconstruction). Board+hole
+        dead-card-filtered. Any malformed state -> None so the floor is never worse than before."""
+        if len(board) < 3:
+            return None
+        try:
+            from pokerbot.strategy.range_tracker import RangeTracker, CONF_THRESHOLD
+            v = 1 - self.hero_idx
+            t = RangeTracker().build(state)
+            if t.confidence(v) < CONF_THRESHOLD:
+                return None
+            dead = set(hole) | set(board)
+            vw = {c: w for c, w in t.range.get(v, {}).items() if w > 0 and not (set(c) & dead)}
+            return vw or None
+        except Exception:  # noqa: BLE001
+            return None
 
     def _river_blocker_signal(self, hole, board, vrange) -> float:
         """River blocker signal in [-1,1]: how much MORE hero's two cards block villain's VALUE combos than

@@ -1,0 +1,279 @@
+PokerStars Hand #3819310150: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:00:23 GMT
+Table '381931' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (311614.60 in chips)
+Seat 5: whalef77 (251852.54 in chips)
+Seat 6: zilvis999 (224656.83 in chips)
+Seat 7: chone07 (201876.03 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+chone07: posts the ante 1500
+DaniC1994: posts small blind 6000
+whalef77: posts big blind 12000
+*** HOLE CARDS ***
+zilvis999: raises 12000 to 24000
+chone07: folds
+DaniC1994: folds
+whalef77: folds
+Uncalled bet (12000) returned to zilvis999
+zilvis999: doesn't show hand
+zilvis999 collected 36000
+*** SUMMARY ***
+Total pot 36000 | Rake 0
+Board [  ]
+Game ended: 2026/05/02 00:00:56 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 5: whalef77 (small blind) folded before the flop
+Seat 6: zilvis999 collected (36000)
+Seat 7: chone07 folded before the flop
+
+
+PokerStars Hand #3819310151: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:00:56 GMT
+Table '381931' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (304114.60 in chips)
+Seat 5: whalef77 (238352.54 in chips)
+Seat 6: zilvis999 (247156.83 in chips)
+Seat 7: chone07 (200376.03 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+chone07: posts the ante 1500
+whalef77: posts small blind 6000
+zilvis999: posts big blind 12000
+*** HOLE CARDS ***
+chone07: raises 18000 to 30000
+DaniC1994: folds
+whalef77: calls 24000
+zilvis999: calls 18000
+*** FLOP *** [Qd 4s 5c]
+whalef77: checks
+zilvis999: checks
+chone07: bets 43000
+whalef77: calls 43000
+zilvis999: folds
+*** TURN *** [Qd 4s 5c] [6c]
+whalef77: checks
+chone07: bets 125876.03 and is all-in
+whalef77: calls 125876.03
+*** RIVER *** [Qd 4s 5c 6c] [Kc]
+whalef77: shows [Qc Tc] (Flush: K high)
+chone07: shows [Qc Tc As 6s] ()
+whalef77 collected 433752.06
+*** SUMMARY ***
+Total pot 433752.06 | Rake 0
+Board [ Qd 4s 5c 6c Kc ]
+Game ended: 2026/05/02 00:01:58 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 5: whalef77 (small blind) showed [ Qc Tc ] and won (433752.06) with Flush: K high
+Seat 6: zilvis999 (small blind) folded on the Flop
+Seat 7: chone07 showed [ Qc Tc As 6s ] and lost with 
+
+
+PokerStars Hand #3819310152: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:01:59 GMT
+Table '381931' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (302614.60 in chips)
+Seat 5: whalef77 (471728.57 in chips)
+Seat 6: zilvis999 (215656.83 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+zilvis999: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+whalef77: folds
+zilvis999: folds
+Uncalled bet (6000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 16500
+*** SUMMARY ***
+Total pot 16500 | Rake 0
+Board [  ]
+Game ended: 2026/05/02 00:02:17 GMT
+Seat 1: DaniC1994 (small blind) collected (16500)
+Seat 5: whalef77 folded before the flop
+Seat 6: zilvis999 (small blind) folded before the flop
+
+
+PokerStars Hand #3819310153: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:02:18 GMT
+Table '381931' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (311614.60 in chips)
+Seat 5: whalef77 (470228.57 in chips)
+Seat 6: zilvis999 (208156.83 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+DaniC1994: posts small blind 6000
+whalef77: posts big blind 12000
+*** HOLE CARDS ***
+zilvis999: raises 12000 to 24000
+DaniC1994: folds
+whalef77: calls 12000
+*** FLOP *** [Kd 7h 7c]
+whalef77: checks
+zilvis999: bets 12000
+whalef77: raises 26400 to 38400
+zilvis999: folds
+Uncalled bet (26400) returned to whalef77
+whalef77: doesn't show hand
+whalef77 collected 82500
+*** SUMMARY ***
+Total pot 82500 | Rake 0
+Board [ Kd 7h 7c ]
+Game ended: 2026/05/02 00:03:04 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 5: whalef77 (small blind) collected (82500)
+Seat 6: zilvis999 folded on the Flop
+
+
+PokerStars Hand #3819310154: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:03:05 GMT
+Table '381931' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (304114.60 in chips)
+Seat 5: whalef77 (515228.57 in chips)
+Seat 6: zilvis999 (170656.83 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+whalef77: posts small blind 6000
+zilvis999: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: raises 12000 to 24000
+whalef77: folds
+zilvis999: raises 145156.83 to 169156.83 and is all-in
+DaniC1994: calls 145156.83
+*** FLOP *** [As 5s 2s]
+*** TURN *** [As 5s 2s] [Qc]
+*** RIVER *** [As 5s 2s Qc] [Ac]
+zilvis999: shows [Ah Ks] (Three of a kind: Triplet of A)
+DaniC1994: shows [Kh Qh] ()
+zilvis999 collected 348813.66
+*** SUMMARY ***
+Total pot 348813.66 | Rake 0
+Board [ As 5s 2s Qc Ac ]
+Game ended: 2026/05/02 00:03:52 GMT
+Seat 1: DaniC1994 showed [ Kh Qh ] and lost with 
+Seat 5: whalef77 (small blind) folded before the flop
+Seat 6: zilvis999 (small blind) showed [ Ah Ks ] and won (348813.66) with Three of a kind: Triplet of A
+
+
+PokerStars Hand #3819310155: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:03:52 GMT
+Table '381931' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (133457.77 in chips)
+Seat 5: whalef77 (507728.57 in chips)
+Seat 6: zilvis999 (348813.66 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+zilvis999: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+whalef77: raises 12000 to 24000
+zilvis999: calls 18000
+DaniC1994: folds
+*** FLOP *** [8h Qs 7d]
+zilvis999: checks
+whalef77: checks
+*** TURN *** [8h Qs 7d] [4s]
+zilvis999: bets 35475
+whalef77: calls 35475
+*** RIVER *** [8h Qs 7d 4s] [2s]
+zilvis999: bets 104296.50
+whalef77: folds
+Uncalled bet (104296.50) returned to zilvis999
+zilvis999: mucks hand
+zilvis999 collected 0
+*** SUMMARY ***
+Total pot 135450 | Rake 0
+Board [ 8h Qs 7d 4s 2s ]
+Game ended: 2026/05/02 00:04:46 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 5: whalef77 folded on the River
+Seat 6: zilvis999 (small blind) collected (135450)
+
+
+PokerStars Hand #3819310156: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:04:47 GMT
+Table '381931' 7-max Seat #6 is the button
+Seat 1: DaniC1994 (119957.77 in chips)
+Seat 5: whalef77 (446753.57 in chips)
+Seat 6: zilvis999 (423288.66 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+DaniC1994: posts small blind 6000
+whalef77: posts big blind 12000
+*** HOLE CARDS ***
+zilvis999: raises 12000 to 24000
+DaniC1994: folds
+whalef77: folds
+Uncalled bet (12000) returned to zilvis999
+zilvis999: doesn't show hand
+zilvis999 collected 34500
+*** SUMMARY ***
+Total pot 34500 | Rake 0
+Board [  ]
+Game ended: 2026/05/02 00:05:11 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 5: whalef77 (small blind) folded before the flop
+Seat 6: zilvis999 collected (34500)
+
+
+PokerStars Hand #3819310157: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:05:12 GMT
+Table '381931' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (112457.77 in chips)
+Seat 5: whalef77 (433253.57 in chips)
+Seat 6: zilvis999 (444288.66 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+whalef77: posts small blind 6000
+zilvis999: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+whalef77: calls 6000
+zilvis999: raises 30000 to 42000
+whalef77: folds
+Uncalled bet (30000) returned to zilvis999
+zilvis999: doesn't show hand
+zilvis999 collected 28500
+*** SUMMARY ***
+Total pot 28500 | Rake 0
+Board [  ]
+Game ended: 2026/05/02 00:05:38 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 5: whalef77 (small blind) folded before the flop
+Seat 6: zilvis999 (small blind) collected (28500)
+
+
+PokerStars Hand #3819310158: Tournament #52612, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/05/02 00:05:38 GMT
+Table '381931' 7-max Seat #5 is the button
+Seat 1: DaniC1994 (110957.77 in chips)
+Seat 5: whalef77 (419753.57 in chips)
+Seat 6: zilvis999 (459288.66 in chips)
+DaniC1994: posts the ante 1500
+whalef77: posts the ante 1500
+zilvis999: posts the ante 1500
+zilvis999: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+whalef77: folds
+zilvis999: calls 6000
+DaniC1994: checks
+*** FLOP *** [6h 8c 7h]
+zilvis999: bets 12000
+DaniC1994: raises 24000 to 36000
+zilvis999: raises 100500 to 136500
+DaniC1994: calls 61457.77 and is all-in
+Uncalled bet (39042.23) returned to zilvis999
+*** TURN *** [6h 8c 7h] [2d]
+*** RIVER *** [6h 8c 7h 2d] [Jh]
+zilvis999: shows [Th 5h] (Flush: J high)
+DaniC1994: shows [4c 5d] ()
+zilvis999 collected 223415.54
+*** SUMMARY ***
+Total pot 223415.54 | Rake 0
+Board [ 6h 8c 7h 2d Jh ]
+Game ended: 2026/05/02 00:06:36 GMT
+Seat 1: DaniC1994 (small blind) showed [ 4c 5d ] and lost with 
+Seat 5: whalef77 folded before the flop
+Seat 6: zilvis999 (small blind) showed [ Th 5h ] and won (223415.54) with Flush: J high
+
+

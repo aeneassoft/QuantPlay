@@ -1,36 +1,368 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) for conventions. Last updated **2026-06-16**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-06-17**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★ CURRENT (2026-06-16) — NEURAL SELF-PLAY GTO CORE. SUPERSEDES every number below.
-> ⟳ LIVE source of truth. Per the CLAUDE.md standing rule, update THIS top section before ending any turn that
-> moves the headline, lands a build, or shifts priorities.
+## ★★★ CURRENT (2026-06-17) — ★ 6-max GTO Qwen brain. SFT proof PASSED (reasoning-loop DSL, frac_bad→0); REWARD PARALLELIZED for full-GPU-load (~5×, byte-identical); Pillar-2 SOLVER DATA pipeline live; Qwen3-8B pod scale prepped (SCALE=1, size-agnostic), gated on a $-go.
+> ⟳ LIVE source of truth. Per the CLAUDE.md standing rule, update THIS top section before ending any turn that moves
+> the headline, lands a build, or shifts priorities. Plan: `.claude/plans/gut-dann-sind-wir-toasty-forest.md` ·
+> `docs/QWEN_6MAX_PLAN.md` · `docs/DATASET_SPEC.md`.
 
-**The pivot:** the solver-IMITATION floor is a MEASURED ceiling — decision-grade **~−72 bb/100 vs GTO Wizard AIVAT**
-(n≥2500; BROAD postflop loss, not a fixable leak; run-to-run noise ±8). The river resolver fed too-wide ranges also
-HURTS (−72…−76 < Always-Fold −64.6); the range-tracker keystone did NOT recover it. So we are building our OWN
-**from-scratch neural Deep CFR self-play GTO core** — pure self-play, NO imitation (AlphaGo-Zero logic).
+**★ LOCAL SFT PROOF PASSED (2026-06-17) — the LLM emits valid REASONING-LOOP DSL (frac_bad 0.97 → 0.00, grounded_rate 1.00, 30/30 OK).** Qwen3-1.7B QLoRA local proof. The fix chain (all $0, grounded by measurement):
+> 1. **completion-only masking** (`assistant_only_loss=True` + `packing=False`; TRL auto-swaps the `qwen3_training.jinja` `{% generation %}` template — verified the loss lands only on the program);
+> 2. **curriculum data present + ordered** (`dataset/build/curriculum.py`; the old SFT had ZERO `decide()` rows);
+> 3. **strip Qwen3's `<think>…</think>`** (incl. dangling) in `policy.extract_program` — left in, it broke the DSL grammar → frac_bad;
+> 4. **THE DECISIVE FIX — decision completions are now REAL reasoning loops** (`dataset/build/from_selfplay.py`): `eq=api.equity(hole,range,board); req=api.required_equity(to_call,pot); if eq>=req+δ: decide('raise') elif eq>=req: decide('call') else: decide('fold')` — the action is DERIVED from engine computation. The OLD form computed `req` then HARDCODED `decide('fold')` (dead code → decoration → the comment register from the 47% no-`decide()` math/exploit shards dominated → frac_bad 0.97). User directive: *everything the LLM emits must drive the decision.*
+> **Honest scope:** the FORM is perfect; decision QUALITY is baseline (ranges collapse to a default, fold-biased ~60%) = RL/realized-EV's job NEXT (SFT=form ✓, RL=quality). n=30 on the train league.
+> **★ GRPO (RL loop) PROVEN on the fixed model (2026-06-17, $0 local, 10 steps):** `reward_std>0` (REAL EV signals — reward bounced 17.4/−13.8/28.0/−24.5/…, not the old all-`R_BAD`), `frac_bad≈0`, `engine_grounded_rate≈1`, completions stable ~120 tok, no collapse. = "integration + sanity proven" (NOT an EV-lift claim; 10 steps). **Held-out (rock/whale/shark, post-RL, greedy): frac_bad 0.13 / grounded 1.00** — the residual 13% is LEGALITY/conditioning (model sometimes applies the facing-bet template to a check spot → illegal action; executor legalizes to a safe fallback), NOT the old garbage. Fixed by the 8B + constrained decoding (STRUCTURED=1) + more/balanced data.
+> **★ FIRST EXTERNAL REFERENCE (2026-06-17) — the LLM brain plays Slumbot end-to-end: −72.0 bb/100 (frac_bad 0.03, n=100).**
+> `pokerbot/benchmark/slumbot_llm.py` (NEW: Slumbot/HU state → our `Spot` → `QwenPolicy` → DSL program → action). The
+> SFT 1.7B brain DROVE a full external game vs near-GTO Slumbot: **frac_bad 0.03** (97% valid executed programs over 120
+> decisions — the "brain in the driver's seat" PROVEN live) and a **stable −72.0 bb/100** (±~7; readings converged
+> −85→−72). HONEST: a LOSING baseline as expected (1.7B, SFT-only/no-RL, HU not 6-max, simple eq-vs-pot-odds rule) — but
+> *reasonable* losing, not spew (a garbage bot is −200+; the old fcpa net was −212). Notable: the old HU engine was also
+> ~−72 vs GTOW, so the 1.7B LLM baseline ≈ that level. **This −72 is the grounded number to beat: RL (above the SFT
+> ceiling) → 8B (capacity) → the 6-max focus.** Local 12GB note: ≤4B QLoRA fits comfortably; 8B/9B QLoRA is at the
+> 12GB edge → the ≥8B training belongs on the pod. Qwen base reconfirmed = Qwen3-8B (3.5/3.6 are multimodal+thinking,
+> no 8B-dense; 3.7-Max is closed) — stay.
+> **★ REPRESENTATION v2 (2026-06-17) — frontier consult (Claude Opus 4.8 + gpt-5.x, independent) REFRAMED the bottleneck:**
+> the −72 is NOT an RL/data problem — the pure / point-equity-vs-fixed-range / single-size policy CLASS *cannot express
+> GTO* (which is MIXED + range-vs-range). Both also said: the EV-truth filter must reject on EXPLOITABILITY (multi-
+> opponent), not point-EV; build a best-responder as the PRIMARY metric (Slumbot bb/100 kept as the presentable
+> headline per the user); train vs an ADAPTIVE nemesis (vs FIXED opponents RL collapses any mix to a pure max-exploit —
+> mixing only emerges vs adaptation). User insight (sharp): 6-max has MULTIPLE equilibria → "which GTO is at the table"
+> is unknowable → the policy must be a FUNCTION of the opponent READ (robust baseline + bounded adaptation), not one
+> fixed strategy. DONE so far: **mixed strategies** — `decide_mix({'raise':.7,'call':.3}, size=)` DSL primitive (both
+> gates + executor seeded-sampling), `from_selfplay` emits load-bearing MIXED reasoning loops (eq picks the branch →
+> each branch a distribution), SFT verified end-to-end (**frac_bad 0.07 held-out, grounded 1.00, model emits valid
+> mixes**). NEXT: (C) opponent-READ conditioning (scalar `spot.villain_fold/aggro` the program conditions on = "which
+> GTO at this table"); (D) adaptive best-responder + exploitability as the primary metric; (2b) RL mix-EV (sample-per-
+> rollout, higher variance — the user's pick). All local/$0 first; RL/8B on the corrected representation.
+> **★ Piece C (read-conditioning) — CONCLUDED locally: data+architecture verified; STABLE emission is an 8B-capacity matter.**
+> `Spot.villain_fold/aggro` (rendered when non-neutral) + `from_selfplay` emits the read-conditioned MIXED program with a
+> bounded-exploit branch (`elif spot.villain_fold>=0.6: decide_mix({'raise':.55,'fold':.45})`); the compact-range fix
+> (`api.range_top(frac)`) shipped (the literal list overflowed FAST=160). **A/B ladder on the 1.7B (all measured, $0):**
+> compact ranges made the read-branch FIT the budget (emit 0→9/30) but ok dropped (truncation edge); **then +data-volume
+> (1500→5000 gen spots) recovered API fidelity (ok 8→25/31, frac_bad ~60%→19%) BUT the model dropped the rare read-branch
+> (9→0/31)** — sample programs CONFIRM it: clean reasoning-loop + valid `decide_mix`, but it collapses 4→3 branches and
+> sometimes swaps `api.range_top`→a literal list. = a definitive **1.7B fidelity ceiling** (holds the API names OR the
+> subtle conditional, not both). Hypotheses competed + settled by measurement: epochs ruled out (train loss≈0.004, tok-acc
+> 0.999 = already overfit), data-volume helps generalization not the rare branch. **The read-conditioning's validator is
+> the 8B (capacity); the 1.7B proved the PIPELINE, as planned.** Not grinding the proxy further.
+> **★ FULL-GPU-LOAD prepped for the pod (2026-06-17) — the reward parallelized (the real GRPO bottleneck).** The CPU
+> reward (`GEN_BATCH×K_ROLL` self-play rollouts/step) starved the GPU; now fanned across a persistent spawn ProcessPool
+> (`REWARD_WORKERS`, qwen_grpo). **Measured ~5× at 8 workers (24 vCPU), byte-identical to sequential.** This surfaced +
+> fixed two real reward bugs: (1) the hero continuation wasn't CRN (unseeded RNG + per-hand state leaked across rollouts)
+> → reset+seeded per rollout (`rl_env._reset_cont`); (2) **`PYTHONHASHSEED`** — card-string set iteration was
+> per-process → workers would have sampled different runouts → **CRN broken within a GRPO group**; pinned via `main()`
+> re-exec. The whole RL/eval pipeline is now reproducible. Campaign `SCALE=1` wires it + vRAM-fill `VLLM_MEM=0.78` +
+> big `GEN_BATCH` + `nproc` auto-detect + a live `nvidia-smi` load logger (`data/gpu_load.jsonl`). **Size-agnostic** (BASE
+> 8B/32B/70B, QLoRA nf4 + all-linear). Design: `docs/full_gpu_load.md`.
+> **★ Pillar 2 — SOLVER GTO DATA shard BUILT (`dataset/build/from_solver.py` → `dataset/shards/solver.jsonl`).** TexasSolver
+> (OSS, CPU, $0) solves 8 representative flops → exact GTO **mixed multi-size frequencies** → `decide_mix({solver mix},
+> size=)` programs (engine-grounded; the mix is ground truth, varies by spot = learnable). **2617 examples, 88% genuinely
+> MIXED (≥2 actions), 1294 bet / 1323 check** — all grammar-valid + executable. Gotcha fixed: TexasSolver rejects the
+> `22+`/`A2s+` shorthand ("format not recognize") → ranges ENUMERATED. Real GTO warm-start gold (CLAUDE.md boundary),
+> size-agnostic, ships in the tarball; the pod SFT now trains on it (the campaign's DSL path was corrected off the old
+> `local_kb.jsonl`). CPU mass-solve = the PC-hub job (the pod has no solver binary) per the 2-node split.
+> **★ Slumbot re-test (2026-06-17, IN PROGRESS):** the data-volume 1.7B regressed on HU transfer (frac_bad 0.48, ~29s/hand
+> — it overfit 6-max self-play + reverts to literal ranges incl. invalid `'AS'`). The clean −72/frac_bad-0.03 checkpoint
+> was overwritten by the data-volume run. Now testing the COMBINED model (selfplay+read+SOLVER). KEY: the local test uses
+> NO constrained decoding; the POD's `STRUCTURED=1` (vllm_structured_outputs_regex) forces valid DSL → pod frac_bad→0 by
+> construction, so the local frac_bad massively overstates the pod's. The −72 remains the number to beat (RL→8B).
+> **★ RunPod final prep (2026-06-17): `docs/RUNPOD_READY.md`** — launch cmds (smoke/scale/70B), the GATE ladder, the
+> corrected data path, the full-load levers, the pre-flight, `--kill` discipline.
+> **★ TEACHER→DISTILL run LAUNCHED (2026-06-17) — the user's "deep research with the biggest model" plan.** The 235B is a
+> TEACHER (not deployed): Qwen3-235B-A22B generates engine-gated DSL over thousands of spots → distil into the 8B (the
+> CLAUDE.md frontier-distillation loop, but the frontier is OUR 235B on the pod, EV-gated on the PC). NEW: `research/
+> teacher_generate.py` (vLLM batched gen + grammar/executes gate, chunked + wall-clock + incremental save — tested
+> locally), `pipeline/distill_teacher.py` (EVFilter G1-G4 → `dataset/shards/teacher.jsonl`, auto-added to the 8B SFT),
+> campaign MODE=teacher + GPU/GPU_COUNT/TP knobs. **B300 FINDING: not API-launchable** — listed in the `--gpus` catalog
+> (288GB) but NOT in the REST `POST /pods` gpuTypeIds enum (400 error; self-kill → no cost). No single available GPU fits
+> 235B-fp8 (~235GB: B200=180, H200=141, MI300X=192). → running **2× H200 tensor-parallel (282GB, $8.78/hr, Hopper =
+> mature, no Blackwell cu128 fragility)**, 235B fp8 (verified exists) with a **32B fallback** if it won't load (so the run
+> always yields teacher data). Blackwell hardening shipped anyway (is_blackwell B200/B300, latest-vLLM-not-torch-swap,
+> bf16-matmul canary in setup+preflight) for when B300 opens up. Pod self-killing, ~100-min cap.
+> **NEXT = the real training: Qwen3-8B pod scale (SFT→GRPO).** Gated on a user go (RunPod $). The polish attempt (widen
+> ranges to cut the ~60% fold) BACKFIRED — long literal ranges overflowed the gen token budget → truncation → frac_bad
+> 0.13→0.43; REVERTED (the fold is correct pot-odds; decision quality = RL's job, not hand-tuned priors). b/d
+> (grounding/exploit) curriculum phases → gated frontier-distillation (not fragile templates), the principled next step.
+> **Process lessons:** a custom `SequentialSampler` Trainer subclass HUNG training → use the built-in `train_sampling_strategy='sequential'`; `packing=False` + batch 8 near-OOM'd the 12 GB card → batch 4; decisions-only curriculum by default (math/exploit shards re-added later as decision-SHAPED reasoning, not comment-only).
 
-**Built + proven this session:**
-- `strategy/deep_cfr.py` — from-scratch Deep CFR on Leduc with EXACT exploitability + a `vanilla_cfr` ground truth
-  (converges to Nash). **DCFR+ added + validated: neural Leduc 445→338 mbb (LinearCFR plateaued ~445), still falling.**
-- `strategy/deep_cfr_hunl.py` — self-contained cloneable HUNL game (fcpa, treys showdown; self-test passes) +
-  external-sampling MCCFR + dual nets (advantage + policy). The first HUNL net BEATS call-station/always-fold/random.
-- `strategy/deepcfr_adapter.py` + `bot.py:use_deepcfr` + `gtowizard.py:POKERB_DEEPCFR` — net→bot wired, feature
-  reconstruction VERIFIED (0 mismatches). **GTOW baseline of the first fcpa net PENDING.**
+**North star (→ CLAUDE.md): PLAY GTO / ACHIEVE TRUE GTO in 6-max** (= the robust correlated equilibrium; Einy et al.
+2022). The goal pivoted FROM the HU exploit-primary engine (now BACKGROUND; all the HU/solver/−72/solver-grafted-
+preflop content below is HISTORY) TO a fine-tuned **Qwen3-8B** that DRIVES our engine via **program-of-thought**,
+trained on a self-growing EV-gated dataset + **RL/self-play** (the only lift above the imitation ceiling).
+**Two nodes:** the PC hub (the dataset + gated frontier-distillation + CPU mass-solve + training monitor) ↔ RunPod
+(SFT→GRPO; reward = `table.py` self-play EV + the `sixmax` league; GTO-anchored eval = PokerBench-acc + bb/100 +
+LBR-exploitability + robustness-spread).
 
-**Next run — [NEXT_RUN_TODO.md](NEXT_RUN_TODO.md)** (4 sources converge — MoP theory, the AAAI-26 DCFR+ paper, GPT-5.5,
-Supremus): finer bet abstraction (`0.33/0.5/0.75/1/1.25/2/allin`) + richer features (card occupancy + hand-class/draw/
-texture, ideally OpenSpiel's info-state tensor) + the DCFR+ port, gated by a paired GTOW A/B. Honest plateau priors:
-fcpa −50…−80 · fine-abstraction −20…−45 · value-net+resolving −15…−30 · mature Supremus −5…−15. Policy-net-only
-plausibly beats −72; *matching* GTOW likely needs real-time resolving.
+**★ Phase 0 DONE + verified (2026-06-17):** repo reorganized (`extraction`→`research/`; qwen→`training/`; runpod+pod→
+`infra/`; NEW `pokerbot/brain/` + `dataset/` + `pipeline/`; the 6 books→`books/poker/`; 57 historical docs→
+`docs/archive/`); all code imports fixed; **core tests green** (test_bot/game/table/range_tracker) + research/infra/web
+import-smokes pass; `config.INFORMATION_DIR`→books/poker. CLAUDE.md fundamentally re-oriented; INDEX.md = the live
+tree.
+**★ Phases 1–2 DONE + verified (2026-06-17):** Phase 1 = the DSL foundation `pokerbot/brain/{api,format_spot,executor}.py`
+(program-of-thought "common language": engine-as-API + PokerBench-aligned spot serializer + execution sandbox) —
+round-trips a live `table.py` spot → api → legal action (verified). Phase 2 = the dataset builder `dataset/` (schema +
+relevance/dedup gate + converters from math/exploit/**PokerBench 6-max spine**) — 253 sample examples, all valid.
+**★ Anti-hallucination hardening (2026-06-17, the "run on our own language" directive):** `pokerbot/brain/grammar.py`
+— a DSL GRAMMAR gate (AST whitelist; calls/attrs only on api/spot/safe-builtins; must `decide()`), wired into
+`executor.run_program(strict=True)`. Proven: 3/3 valid DSL execute, 10/10 foreign/malicious (import/`__import__`/open/
+lambda/while/def/dunder/getattr) STRUCTURALLY rejected — never executed. The executable surface IS our language.
+NEXT hardening = constrained DECODING (vLLM guided/GBNF) at inference + GRPO sampling (invalid tokens unsamplable) +
+deterministic (temp-0) inference. Distinction held: hallucination→structural 0; strategy-noise→bounded = the GTO floor.
+**★ Phase 3 DONE + verified (2026-06-17):** the PC-hub `pipeline/` — `filter.py` (the deterministic EV-TRUTH gate;
+7 gates proven: schema/relevance/decontam/dedup + legality + EV-sanity — rejects a call-blunder `eq 0.23 ≪ 0.60`,
+free-fold, illegal moves), `frontier_loop.py` (gated active-distillation; offline plumbing + a REAL Claude call
+proven), `monitor.py` (weak-cluster active-learning: cluster_of/weak_clusters), `orchestrate.py` (lean 3.3 MB scp
+bundle). *Frontier = prior, ENGINE = truth.* Also: PokerBench-test decontamination wired (10,998 keys, gate proven).
+**★ Phase 4 $0-GROUNDWORK DONE + verified (2026-06-17):** `training/rl_env.py` (the 6-max RL REWARD ENV wrapping
+`table.py` + the `sixmax` league — **zero-sum verified**: chips conserved every hand) + the **rollout-EV machinery**
+(clone/reseed/play-out — reseed proven by 12/12 distinct showdown run-outs; fold-EV==0; snapshot never mutated) +
+`gen_decision_states`; `training/qwen_sft.py` extended for the **DSL format** (mix our gold shards, inference-identical;
+data path verified); `training/pilot.py` (the **GATE-2 core**: CRN-paired + fresh-seed-holdout candidate ranking).
+**★ DE-RISK PILOT: PASS (2026-06-17, $0/local).** The realized-EV reward signal is REAL + SIGNIFICANT. Fair pilot
+(CRN-paired + fresh-seed holdout + SEM), oracle vs baselines: **n=50** → vs random +4.62±1.92 (sig), tag +2.06±1.63
+(not yet); **n=200** → vs random **+11.03±3.31**, maniac **+5.21±1.77**, **tag +5.62±1.81 — ALL significant (>2·SEM)**.
+The tag-lift GREW with scale (+2.06→+5.62), confirming signal not noise; the smoke negative (n=6: −1.67) was pure
+noise. **The #1 pre-spend risk (does rollout-EV move the needle?) is RETIRED.** Caveat: the oracle has rollout
+FORESIGHT (it's the ceiling a learned policy approximates), uses a tag continuation + the training league — not yet a
+held-out league. This proves the reward carries learnable signal, NOT that Qwen captures it (that's the pod test).
+**★ PRE-RUNPOD BUILD DONE + verified (2026-06-17, $0/local; plan = `.claude/plans/gut-dann…`).** All 6 pieces built +
+$0-verified: `brain/dsl_grammar.py` (constrained-decoding regex; 7/7 DSL forms accept, 8/8 foreign reject, 40/40 real
+completions, AST-subset) · `brain/policy.py` (Qwen→spot→program→action bridge; build_messages/parse_completion/hard-neg
+fallback verified) · `rl_env` HELD-OUT league split (rock/whale/shark, disjoint from train) · `training/qwen_grpo.py`
+(DAPO trainer: verified GRPOConfig loss_type=dapo/ε_high=0.28/β=0/scale_rewards=False + vllm_structured_outputs_regex,
+state-buffer dynamic-sampling pre-filter, CRN ev_reward) · `training/qwen_eval_gto.py` (held-out bb/100 + per-type
+robustness-spread + GATE ladder G0–G5) · `infra/pod_setup_rl.sh` + `infra/runpod_rl_campaign.py` (self-killing smoke→
+scale orchestrator). **Stage-0 dry-run PASS** (state buffer + CRN dataset + reward: good=clipped-EV, bad=R_BAD). Full
+DSL gold `dataset/shards/local_kb.jsonl` (11.5k math+exploit) built. DAPO + the RL book digested.
+**★ HELD-OUT ROBUSTNESS: PASS (2026-06-17).** Pilot on the untrained league (rock/whale/shark), n=50: oracle beats
+random **+3.93±1.56**, maniac **+3.27±1.46**, tag **+3.52±1.39** — ALL significant. The EV signal GENERALIZES to
+untrained opponent types (cross-distribution robustness) → the pilot's train-league caveat is CLOSED. The $0 pre-spend
+gate is GREEN (Stage-0 + train-league n=200 + held-out all PASS); only Stage-1 (TRL integration) remains, and it needs
+`trl` = pod/venv.
+**★ MATH ACCURACY (2026-06-17, user-prioritized).** Strategy `docs/math_accuracy_strategy.md` (4 papers + repos:
+Athena tool-use VALIDATES engine-as-truth; fse16 → exact-rational threshold math; MathGLM → number-sense training;
+LEMA → mistake-correction pairs; adopt **sympy** selectively (verify+thresholds, not the hot loop), reject numbat/
+Qalculate). DELIVERED: GPT-5.5 generated **34 post-flop calculations** → ALL 34 ENGINE-VERIFIED (`postflop_calc_gate`,
+verify_expr==verify_value) → materialized `knowledge_base/math/postflop_formulas.py` (34/34 together) → exposed as
+`api.<fn>` (brain callable in DSL; grammar+executor confirmed).
+**★ MATH INTEGRATED INTO THE ARCHITECTURE + LOOP (2026-06-17):** (1) **Multi-MODE framework** `pokerbot/brain/modes.py`
+— the accuracy↔time trade-off made explicit: FAST ~1.5s / STANDARD ~5s (live target) / DEEP 180s (R&D, exact+sympy+
+trace) / TRAIN (RL throughput). Every knob (MC iters, rollout-k, gen tokens, wall-clock, exact/sympy/analysis) is
+mode-set; wired into `api.equity`, `rl_env.rollout_action_ev`, `policy.QwenPolicy` (verified: levers switch with mode).
+(2) **2nd GPT-5.5 batch — 32 STRATEGY formulas** (books + validated public strategy → math: preflop sizing/ranges,
+range balance, c-bet/barrel, bluff/defense, stack-depth, exploit-deviation, position) → ALL 32 engine-verified →
+`strategy_formulas.py` → `api.<fn>`. **Total 66 engine-verified formulas callable by the brain** (34 post-flop + 32
+strategy; integration verified 66/66 via api). (3) **`pipeline/math_loop.py:grow_math`** — the OpenAI math pipeline as
+a loop primitive (consult→gate→merge→re-materialize), PC-hub ONLY (pod never calls a frontier API). Remaining math
+layers: exact-Fraction pass · sympy symbolic tests · mistake-correction · DSL converter for the 66 (training).
+**NEXT (the pod spend, gated):** `python -m infra.runpod_rl_campaign` (H100/H200 smoke→scale) = the REAL GATE 2 — the
+first pod run IS the TRL-integration test (keep the smoke tiny). Optional pre-step: `dataset.build.run --full --pb 60000`
+(PokerBench-DSL augment, decide()-fluent SFT). ALWAYS `runpod_run --status` after = no tracked pods.
+
+---
+> **HISTORY below (the HU exploit-primary era — superseded by the pivot; kept for context, not the current goal).**
+
+**★ SOLVER-GRAFTED PREFLOP (2026-06-16, user-chosen "schneller+genialer" lever) — built + first GATE PASS.** Preflop is
+87% of the −72; the blueprint's see-flop leaf was a pure-equity CHECKDOWN (`w = e + κ·4e(1−e)`, κ=0.05 GUESS) that omits
+ALL postflop betting. We ground it in real TexasSolver play: `extraction/preflop_ranges.py` (reach-weighted ranges per
+see-flop node) → `extraction/preflop_calibrate.py` (200bb flop solves + an MC rollout of the solved strategies →
+measured realization `w_node`) → `extraction/preflop_leaves.py` (re-level κ PER NODE to match the measured w_node;
+default = byte-identical checkdown) → `preflop_solve.py --leaf-table` re-solves → `preflop_blueprint_solvergraft.json`.
+The **NON-CIRCULAR independent-leaf exploitability** (`preflop_exploit.py --leaf-table`, o3's recommended metric):
+- **in-model checkdown expl = 3.31** (the CIRCULAR number) BUT **independent-leaf expl of the SAME blueprint = 6.12**
+  → the checkdown UNDER-stated the real gap ~2× (o3's "equilibrium of the wrong game", confirmed).
+- **re-solved-for-grafted-leaves expl = 2.03** → **GATE PASS (−4.09)**: grafting + re-solving genuinely lowers the
+  non-circular preflop exploitability. **κ_OPEN ≈ 0** (vs the 0.05 guess) → the blueprint OVER-credited see-flop
+  realization; decision-boundary sane (BB defends opens slightly WIDER, correct since the opener realizes less).
+- **HONEST caveats:** (a) lean 1-size solve tree likely UNDER-realizes → κ_OPEN≈0 is a lower bound (rich-tree
+  robustness check running: `data/calib_open_rich.log`); (b) only OPEN grafted so far (others = checkdown κ=0.05);
+  (c) independent-leaf expl is a non-circular LOCAL proxy (simplified preflop game + solver leaves), NOT the GTOW
+  bb/100 — the GTOW AIVAT A/B (server-blocked) remains the −30 arbiter. NEXT: rich-tree + all-node calibration →
+  wire the grafted blueprint behind an env toggle → GTOW A/B.
+
+**The path (user-approved single pass, a measured gate per step):** −72 bb/100 vs GTOW is 87% PREFLOP (`gtow_xray.py`).
+Close it: **(1) near-Nash preflop blueprint** [DONE, wired] → **(2) a SHARP turn/river TexasSolver resolver via the
+range-tracker keystone** [DONE on the $0 local gates, below] → **(3) a CFV value net for flop depth-limited resolving
+(DeepStack)** [NEXT — the committed neural net]. Honest ceiling: −53 → −15..−25 (sharp resolver) → −5..−15 (flop net);
+a true 0-tie is the frontier (o3: exact Nash → 0). **GTOW server is RESTING (503-storm)** → the $0 local grounded gates
+are the go-signal; the GTOW AIVAT headline fires in ONE command (the harness already runs resolver+blueprint ON) once
+it recovers.
+
+**Headline (2026-06-16, late session) — three grounded findings + a strategic re-order:**
+1. **CFV-net PILOT validated the pipeline + architecture, but it's DATA-LIMITED.** `cfv_data.py` (new `k_rivers=12`
+   knob) → 123 local samples → `train_cfv_net.py` (new target-normalization fix): the 392→338 MLP fits the train set
+   to ~0 (architecture + features SOUND) but held-out MAE = **96% of scale** (99 samples ≈ 1000× too few). End-to-end
+   pipeline PROVEN; the sole blocker is DATA VOLUME. (Root-caused the earlier ZERO-samples pod runs: `turn_boundary_cfv`
+   is atomic = 48 river solves/sample, none finished in a short pod window → fixed via `k_rivers` + local gen.)
+2. **★ CORRECTNESS finding (o3 + gpt-5.5, VETTED — `docs/consults/nextrun_*`):** the current target (solve 48 rivers
+   SEPARATELY at the turn pot + average) computes "river EV after a forced turn CHECK-CHECK" — it **OMITS turn betting**
+   (Δ up to 10-20 bb on coordinated turns; turn-bet-fold nodes invisible) and isn't a consistent joint strategy. The
+   CORRECT + ~10-40× CHEAPER target = **ONE `dump_rounds=2` turn+river solve + a single backward-induction pass**.
+   Accel tricks queued (NEXT_RUN_TODO / VALUE_NET_PLAN): board suit-canonicalization (~8× fewer solves), vectorized
+   showdown-matrix extraction (~100× faster, kills the GIL loop), DeepStack river-net bootstrapping.
+3. **★ STRATEGIC RE-ORDER — do the $0 range-tracker keystone BEFORE the CFV net.** Both frontier consults (matching the
+   quadruple-triangulation + the plan) agree: the net realistically recovers only **~4-8 bb/100** (postflop-non-jam was
+   the SMALLEST X-ray term, ~−10) AND needs correct line-narrowed ranges first — to make the EXISTING resolver sharp
+   AND to sample the right CFV states. So the **EXACT combo-level range tracker** (today's is class-level / preflop-line-
+   only) is the higher-ROI next step. gpt-5.5 also flagged a 169-class **suit-aliasing** risk (can't tell KhQh from KsQs
+   on heart boards) → an aliasing test must GATE any big net run.
+
+**Benchmarks (this session):** GTOW still server-blocked (503-storm; definitive AIVAT awaits recovery; retry
+`tools/gtow_measure_chunked.py`). **Slumbot whole-bot (exploit-primary, n=2500): −39.6 ±30.9** = statistically ≈ the
+FLOOR (−43); the historical **+31 did NOT reproduce**, and the opp-model log hints the exploit overlay under-built
+(a separate Exploit-engine thread — flagged, not yet investigated). Local signals unchanged: preflop exploitability
+**3.3 vs 234**, A3 range-L1 **+60% turn**. Pro-hands (`extraction/pro_hands_profile.py`) catalogued = NLHE 7-max PKO
+MTT (NOT cash) → exploit ARCHETYPE only (29/20, 9.5% 3bet, AF 2.26). RunPod: **0 pods live** (verified, no billing).
+*(History pointer: the earlier Slumbot "floor-bridge to GTOW ≈ −22" idea is superseded by this direct whole-bot run.)*
+
+**★ (2) SHARP RESOLVER — the range-tracker KEYSTONE — DONE on the $0 local gates (2026-06-16):** the resolver
+(`resolver.py` turn+river, wired) was measured NEUTRAL only because it was fed too-WIDE ranges (`range_tracker._p_call`
+was FLOP-ONLY → turn/river calls fell to legality-only). Fixed in one pass:
+- Turn data: `mass_solve.py STREET=4` → 5919 turn boards; `build_defense_data.py` (turn cap 2500) → **2.45M defense
+  rows (flop+turn+river)** in `defense_data.jsonl`.
+- **GATE A2** — retrained `defense_advisor.pt` (now multi-street): held-out-by-board, the MLP beats strength-only by
+  **flop +63% / turn +46% / river +18%** (gate was >+3%). PASS.
+- **The keystone widen:** `range_tracker._p_call` now reweights on ALL streets (was `street != "flop"`).
+- **GATE A3** (`check_range_l1.py`, the o3-bound metric, Solver = truth, held-out): the advisor P(call) update HALVES
+  the range-L1 error vs do-nothing — **flop +59% / turn +60% / river +47%**; turn-L1 0.409 reaches flop's 0.399. Since
+  extra-exploitability ≤ (pot/2)·L1, this is a GROUNDED proof the ranges are now sharp (the fix for the "−72 neutral
+  resolver"). PASS.
+- **End-to-end smoke (verified):** on a turn bet-call line the widen narrows OOP's range 658→302 eff. combos toward K-x
+  second pair (the true calling range) + raises confidence 0.833→1.0 (the call is now MODELED not silent → fewer floors).
+- Deferred (GTOW resting / slow): the paired live-solve eval (step 6) + the GTOW AIVAT headline (step 7); `_p_call`
+  size-threading is a MEASURED refinement only if A3-river (0.525, the loosest) demands it (logged in NOTES).
+
+**★ KEYSTONE — SECOND HALF (the FLOOR) now WIRED + grounded (2026-06-16).** The resolver got the tracker above; the
+FLOOR — which plays the MAJORITY of hands (all flop decisions + every spot the resolver gates out) — still built the
+villain range with `_villain_range`+`_narrow` = "keep top-X%-by-board-strength", which DROPS every bluff/draw → it fed
+`equity_vs_range` an artificially-strong range → systematic OVER-FOLDING facing bets (CLAUDE.md's "poisons the floor's
+facing-bet/bluffcatch math"; the postflop twin of the preflop over-fold the blueprint fixed).
+- **GATE A3-FLOOR** (`extraction/check_floor_range.py`, held-out by board, Solver=truth, $0): `_narrow`'s range is L1
+  **0.756 vs solver truth ≈ uniform-random 0.995** (near-worthless!); the action-consistent tracker is **0.437 = +42%
+  closer to truth** (flop +51% / turn +44% / river +30%). By the o3 bound (exploitability ≤ (pot/2)·L1) this ~HALVES
+  the villain-range leak in the floor's facing-bet math. PASS.
+- **Wired** in `bot.py` (`use_range_tracker`, `_tracked_villain_range` + new `equity.equity_vs_weighted_range`);
+  `_narrow` kept as the `<CONF_THRESHOLD` fallback (o3-safe). Tests green (incl. a stale `test_range_tracker` fixed —
+  calls are now MODELED post-widen). Smoke: AsKd on a checked-through board reads 0.300 eq under `_narrow` (→ thin-value
+  spew) vs the correct **0.129** under the tracker (→ give-up) = the spew-reduction mechanism, concrete.
+- **EV A/B** (`pokerbot/benchmark/range_tracker_ab.py`, duplicate, n=250): head-to-head ON>OFF **+50.5 ±40.7** (~1.2σ,
+  fixes the over-fold leak); vs GTOBaseline paired **−31.4 ±58** (within noise, NO significant regression). Honest:
+  grounded range-L1 is the TRUSTED gate (strong PASS); the bb/100 vs the analytic GTOBaseline is the noisy
+  regression-catcher (and GTOBaseline isn't a solver → a solver-grounded range model is benignly mismatched to it).
+  **DECISION: KEEP ON.** DEFINITIVE EV decider = the GTOW AIVAT A/B (`POKERB_RANGE_TRACKER=1` vs `0`, wired into
+  `gtowizard.py`) when the server recovers. Still-open keystone bit: the RESOLVER emit is 169-CLASS (suit-aliasing) —
+  the floor path uses per-combo weights directly (no aliasing), so this affects only the resolver (gpt-5.5's aliasing
+  test is the gate; deferred — NOTES).
+
+**(3) FLOP GTO — ARCHITECTURE RE-OPENED by the Gate-0c diagnosis (2026-06-16).** Gate-0c (the Leduc value-net
+re-solve) was fully diagnosed (causal chain traced, Fable-5): the round-0-ONLY re-solve converges to a spurious
+non-bluffing corner (170 vs exact-eq 22 mbb/hand) — REFUTED as a code bug (keys/conventions correct) AND as simple
+adaptivity (a frozen value fn is WORSE, 840). Root cause = collapsing ALL of round 1 into a value fn removes the
+round-1 co-evolution → a known depth-limited-solving spurious equilibrium (fix = Brown-Sandholm multi-valued states /
+CFR-D gadget). **★ KEY:** this round-0-only test is STRICTLY MORE DEGENERATE than the real HUNL plan (flop-resolve
+solves flop+turn EXPLICITLY, net only at the turn→river leaf) — Leduc can't even validate that deeper construction.
+The value-net CORE is PROVEN (0a exact + 0b net 6.4%). So the flop choice is re-opened: **(A) the committed CFV-net
+path** (RunPod ~$112, needs the gadget for soundness) vs **(B) a SOLVER-to-terminal flop→turn→river live re-solve**
+(no net, no RunPod, a deeper clone of the SHIPPED+validated turn/river resolver — the plan's "Risk 5", robust default,
+sidesteps gate-0c). **DECISION (user, 2026-06-16): the NEURAL NET is the postflop path** — exhaustive live-solving
+of the flop is "supercomputer territory" (too many continuations to compute live); a net is amortized offline → fast
+inference. So Phase B (CFV value net) is RE-COMMITTED with the **gate-0c-robust architecture: solve flop+turn
+EXPLICITLY (CFR), query the net ONLY at the turn→river LEAF** (never round-0-only — that degenerate construction is
+what failed). Self-play boundary stays HARD: labels from OUR solver, NEVER the LLM (the LLM = design/validation; that
+imitation IS the −72 ceiling). Next $0 build = `extraction/cfv_eval.py` — extract per-combo
+RIVER-subgame CFVs (the net's target at the turn→river leaf) via a backward EV pass over a solved RIVER subgame, then
+GATE B1 (zero-sum / range-EV / determinism) BEFORE any RunPod spend. **DONE 2026-06-16 — `extraction/cfv_eval.py`
+GATE B1 PASS:** zero-sum exact (Σcfv0+Σcfv1=0), deterministic, nut-sanity correct (full-houses/flushes top, busted
+broadways bottom), OOP range-EV +0.23 chips. The CFV extractor (per-matchup backward pass over the river betting tree,
+implicit terminals, contrib-tracked zero-sum) is validated → safe to scale. **STEP 9 CODE COMPLETE + validated $0
+(2026-06-16) — `extraction/cfv_data.py`:** per turn board, solve all 48 river run-outs → per-combo mean = the
+turn-boundary CFV label (E over the river card; n=46 constant across combos → zero-sum PRESERVED, proven + measured)
++ a diverse-range sampler (`sample_range`, valid weighted class strings). Pipeline test PASS (zero-sum 0.0000, 48/48
+solves, nut-sane: quads/full-houses top, busted broadways bottom). The ONLY remaining net-data piece = the RunPod
+data-gen RUN at scale (pure $-spend: ~48 river solves/sample × diverse ranges → `cfv_dataset.jsonl` via
+`cfv_data.py --gen N`; $5 pilot first, user's go, always `--kill`).
+**★ DATA-GEN PIPELINE — FULL-LOAD VALIDATED (2026-06-16):** `extraction/cfv_pod_campaign.py N_pods N_per 32 wall WORKERS THREADS`
+= a SELF-KILLING multi-pod orchestrator (provision → `pod_setup.sh` [python-zipfile TexasSolver-Linux + pip treys] →
+saturated `cfv_data --gen` → pull+merge → `finally`+`atexit` kill ALL pods). **PROVEN repeatedly: pods ALWAYS die, no
+orphan** (TaskStop alone does NOT trigger finally → ALWAYS follow with `python -m extraction.runpod_run --kill`; verify
+`--status` = "no tracked pods"). Setup-bug fixes banked: local-OOM co-run, unzip→python-zipfile, treys→pip, scp-slow→
+1.1MB tarball, ssh-key→forward-slashes, setup-timeout→600s+per-pod-catch. **FULL-LOAD fix: the gen MUST use a
+PROCESS pool (`gen()` ProcessPoolExecutor) — the cfv_eval extraction is GIL-bound, a ThreadPool capped at ~22% (load
+7/32); `workers=32 threads=1` → 32 solvers = full saturation** (cpu5c "32 vCPU" delivers ~18-22 effective, load
+climbs there; pods have 124GB RAM, ample). Last good run: `4 300 32 28 32 1` (3/4 pods, 1 setup-timeout skipped).
+TWO known inefficiencies to fix for the BIG run: (a) the setup `ex.map` BARRIER lets fast pods idle ~10min waiting for
+a slow/timing-out pod → start each pod's gen as soon as IT is ready; (b) ~1/4 pods hit a setup-timeout (RunPod slow
+networking) → over-provision + per-pod-catch handles it. **★ Step-10 TRAINER BUILT + smoke-tested:**
+`extraction/train_cfv_net.py` (CFVNetHUNL: board[52]+OOP[169]+IP[169]+pot → per-class cfv0[169]+cfv1[169], masked MSE,
+GATE B2 = held-out MAE <8%). Runs end-to-end; needs the BIG dataset to actually learn (2-sample smoke → 100% MAE, expected).
+**NEXT to a MEASURED win:** big dataset run (now full-load works) → `train_cfv_net` (GATE B2) → wire `resolver.flop_resolve`
+with the net at the turn→river leaf (step 11) → measure vs Slumbot/GTOW.
+  **DATA SOURCE = the existing `_gto_river_cache`
+(STREET=5, river = last round → NOT truncated).** VERIFIED (Fable-5): a dump_rounds=2 TURN solve truncates at the
+river chance-node (`childrens: []`) → it does NOT contain river betting, so the turn-subgame value can't be extracted
+that way — which independently CONFIRMS the net-at-river-leaf choice (the river value IS cleanly solvable; the turn
+value is not). The aborted `_gto_turnriver_cache` pilot is unusable; deleted. **GTOW measurement is BLOCKED** (our API-key's 20-hand cap is saturated with hands stuck
+on "GTOW's turn"; the key IS the identity, no abandon endpoint → needs a server-side timeout (hours) or a fresh
+user-generated key). Retry `tools/gtow_measure_chunked.py` (now 409-graceful) when the cap frees.
+
+**The X-ray (`extraction/gtow_xray.py`, zero new compute) localizes the −72: 87% is PREFLOP** — preflop strategy −50,
+deep-stack all-in spew −15, postflop non-jam only ~−10 (the SMALLEST term — the neural-postflop pivot aimed at it).
+Our HU preflop is a crude strength-model (open top-X% at a fixed 2.5bb, no mixing/limps, `deep_jam_pct=0.985`) = the
+"too standard dumb" the user flagged. (MIT 15.S50 L4 + Modern Poker Theory agree: preflop is where most value leaks +
+it is near-Nash-solvable.)
+
+**THE #1 BUILD (IN PROGRESS): a near-Nash PREFLOP BLUEPRINT.** `extraction/preflop_solve.py` — EXACT CFR+ over a real
+size menu (limp / 2.5 open / 3bet-10 / 4bet-24 / 5bet-60 / jam) with a precomputed 169×169 all-in equity matrix + a
+zero-sum IP-realization premium κ=0.05 on see-flop leaves (the chance-sampled v1 left deep nodes as NOISE — 72o
+called jams; exact CFR fixed it; κ fixed the OOP over-defense 72o call 0.38→fold 0.98). Loader
+`strategy/preflop_blueprint.py` is **WIRED into `bot.py:_preflop`** (depth-gated ≥140bb; `use_blueprint` /
+`POKERB_BLUEPRINT` env). **VERIFIED (unit, Fable-5):** node-mapping for all 9 nodes; all-in discipline solver-grounded
+(QQ/AKo **fold** 200bb jams @0.96, AA/KK call); a **value-only jam clamp** guards the checkdown's blocker-blind 200bb
+jam-bluffs (76s never jams = no spew); a **robust facing-shove detection** (a caught bug: the adapter hides an all-in
+stack → a 200bb jam mis-mapped 5BET←JAMSB → QQ CALLED it = spew); `tests.test_*` green. **The GTOW AIVAT A/B
+(`use_blueprint` ON vs OFF, n≥2500) is DEFERRED — GTOW server resting (see the CURRENT lead); the directional −53
+(n=200) stands.** o3 theorem: exact Nash → ceiling vs GTOW is ~0 (≥0, not above; symmetric 2p0s) — the realistic win
+is closing −72 toward break-even.
+
+**Local-vs-cloud (MEASURED, per the user's ask): LOCAL wins for the blueprint** — eq matrix ~3min + CFR+ ~3.5min =
+~6min local, single-thread, cached; GCP setup alone is ~15min and a single CFR loop doesn't exploit many vCPUs. GCP
+(quotas raised, ready) is held for the HIGH-QUALITY version — a real postflop continuation per leaf = orders-of-
+magnitude more compute, embarrassingly parallel — gated behind this cheap proof.
+
+**Bug hunt (2026-06-16, user hypothesis "maybe losses are just bugs"):** an Opus agent + manual review of the
+decision/adapter path. FIXED: (1) `gtow_to_state` coerced an all-in stack 0→start (`... or start`) → corrupted
+`all_in`/`committed_total`/`_eff_stack` in EVERY all-in spot of the benchmark (now a legit 0 stays 0); (2) `raise_max`
+fallback used `hero_stack` not `hero_stack+committed_street` (undersized all-in when GTOW omits `raise_range`). The
+agent's "BUG 1" (uncapped `to_call` overstates `req`) is REAL math but CANNOT fire in equal-stack HU (`to_call ≤
+hero_remaining` always — prior streets are matched) → 0 impact, verified. **Net: the decision math is mostly SOUND →
+the −72 is STRATEGY, not bugs** (the coercion was the one real EV leak, now fixed).
+
+**Distance-to-Nash metric (`extraction/preflop_exploit.py`) — EXACT preflop best-response exploitability.** Built per
+the user's framing (get closer to GTO, measure where we stand — NOT chase exploits). EXACT in the toy game (all
+infosets enumerated; ½[BRV_SB+BRV_BB], Johanson convention). Result: **expl(blueprint)=3.3, expl(heuristic)=234
+bb/100 → the blueprint is 71× less exploitable.** A per-NODE decomposition LOCALIZES the old heuristic's leaks
+precisely — two huge ones, both "over-fold to a re-raise": **3BET +164 bb/100** (SB over-folds to 3bets → BR
+3bet-bluffs any-two) and **4BET +87** (BB folds 98% to 4bets; `_deep_reraise` treats deep re-raises like all-ins).
+This MECHANISTICALLY explains the −72: GTOW 3bet/4bet-bluffed us relentlessly and we folded. The blueprint gives real
+3bet/4bet defense → fixes both (its residual 3.3 is spread evenly = no single leak, just CFR under-convergence).
+**LIVE CONFIRMATION: the GTOW A/B is running and shows −53 ±~24 bb/100 (blueprint ON, n=200) vs the −72 baseline** —
++19 directional, exactly as the leak-fix predicts (slow run, ~10s/hand through a 503-storm; awaiting n≥1000 for significance).
+- **CRUCIAL caveat (both Nash-keyword consults + o3 agree, vetted):** in-model exploitability is a CONVERGENCE /
+  regression test, NOT real-Nash-distance — "low expl can just mean convergence to the WRONG (checkdown) game." The
+  non-circular metric = an **independent-leaf** exploitability: the BR uses REAL postflop leaf values (from
+  **TexasSolver** — the user's idea, = the consults' recommendation) instead of the checkdown. THAT is the next build.
+- **Decisive cross-check:** if the blueprint's in-model 3.3 doesn't translate to a much-better GTOW number (running),
+  the checkdown is missing the real leaks. No published 200bb HU NLHE Nash chart exists (consult) → we measure our own.
+- The local bb/100 duplicate (`benchmark/preflop_ab.py`) is a regression-catcher only — GTOBaseline is too weak to
+  proxy GTOW (we're ~−5 vs it, −72 vs GTOW). Grounded-confirmed: the blueprint fixes the −15 all-in spew + the 4bet over-fold.
 
 **Clean boundary (HARD rule):** external assets (books/papers/PokerBench/Pluribus/OpenSpiel/the LLM) = validation /
-design / exploit-overlay ONLY, NEVER a training label (imitation IS the −72 ceiling). Validation gates: Leduc exact
-exploitability + the clairvoyance toy-game (α=1/3, MDF=1/2 at pot, river-only — `docs/math_theory_net_connection.md`).
-Compute: the Python MCCFR traverse is the bottleneck (NOT the GPU) → no B200 until a GPU-native job (OpenSpiel C++
-traverse / the value-net pipeline). **vs the field we still crush: Slumbot +31, weak bots +300–700.**
+design / exploit-overlay ONLY, NEVER a training label. Validation gates: Leduc exact exploitability + the
+clairvoyance toy-game. **vs the field we still crush: Slumbot +31, weak bots +300–700.**
 
 ---
 

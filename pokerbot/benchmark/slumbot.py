@@ -102,7 +102,7 @@ def build_state(hole: list[str], board: list[str], action: str,
                     last_raise = inc
                 street_contrib[actor] = to
                 current_bet = to
-                history.append({"street": sname, "player": actor, "action": "raise"})
+                history.append({"street": sname, "player": actor, "action": "raise", "to": to})  # "to" (chips) = additive (consumers ignore extra keys); used by the LLM-adapter's spot line
             actor = 1 - actor
 
     if folded is not None:

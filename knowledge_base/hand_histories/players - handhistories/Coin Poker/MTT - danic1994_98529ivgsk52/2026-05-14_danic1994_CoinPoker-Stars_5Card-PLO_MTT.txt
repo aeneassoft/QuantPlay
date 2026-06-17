@@ -1,0 +1,1038 @@
+PokerStars Hand #4943590155: Tournament #56692, $44 Asia Showdown Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 14:40:35 GMT
+Table '494359' 7-max Seat #5 is the button
+Seat 1: canthurtme (155697.93 in chips)
+Seat 2: AAAAkid (61707.92 in chips)
+Seat 3: bd24 (100000 in chips)
+Seat 4: HashiraX (414100 in chips)
+Seat 5: DaniC1994 (125200 in chips)
+Seat 6: wanderman (174753.40 in chips)
+Seat 7: VIEMK (168937.10 in chips)
+canthurtme: posts the ante 1050
+AAAAkid: posts the ante 1050
+bd24: posts the ante 1050
+HashiraX: posts the ante 1050
+DaniC1994: posts the ante 1050
+wanderman: posts the ante 1050
+VIEMK: posts the ante 1050
+wanderman: posts small blind 3500
+VIEMK: posts big blind 7000
+*** HOLE CARDS ***
+canthurtme: folds
+AAAAkid: raises 53657.92 to 60657.92 and is all-in
+bd24: folds
+HashiraX: folds
+DaniC1994: folds
+wanderman: folds
+VIEMK: calls 53657.92
+*** FLOP *** [6c 2s 9c]
+*** TURN *** [6c 2s 9c] [Qh]
+*** RIVER *** [6c 2s 9c Qh] [Ts]
+VIEMK: shows [Ks Js] (Straight: K high)
+AAAAkid: shows [Ac 7c] ()
+VIEMK collected 132165.84
+*** SUMMARY ***
+Total pot 132165.84 | Rake 0
+Board [ 6c 2s 9c Qh Ts ]
+Game ended: 2026/05/14 14:41:28 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid showed [ Ac 7c ] and lost with 
+Seat 3: bd24 folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman (small blind) folded before the flop
+Seat 7: VIEMK (small blind) showed [ Ks Js ] and won (132165.84) with Straight: K high
+
+
+PokerStars Hand #4983180167: Tournament #56882, $88 Bull Rush PKO Hold'em No Limit - Level III (8750/17500 - Ante 2625) - 2026/05/14 21:47:19 GMT
+Table '498318' 7-max Seat #5 is the button
+Seat 1: Trok (784829.72 in chips)
+Seat 2: DaniC1994 (494617.50 in chips)
+Seat 3: dwarricor (915000.05 in chips)
+Seat 4: TruthIsOutThere (1002752.06 in chips)
+Seat 5: churlz (131184.66 in chips)
+Seat 6: DontBluffMee (450515 in chips)
+Trok: posts the ante 2625
+DaniC1994: posts the ante 2625
+dwarricor: posts the ante 2625
+TruthIsOutThere: posts the ante 2625
+churlz: posts the ante 2625
+DontBluffMee: posts the ante 2625
+DontBluffMee: posts small blind 8750
+Trok: posts big blind 17500
+*** HOLE CARDS ***
+DaniC1994: raises 19250 to 36750
+dwarricor: raises 875625.05 to 912375.05 and is all-in
+TruthIsOutThere: folds
+churlz: folds
+DontBluffMee: folds
+Trok: folds
+DaniC1994: folds
+Uncalled bet (875625.05) returned to dwarricor
+dwarricor: doesn't show hand
+dwarricor collected 115500
+*** SUMMARY ***
+Total pot 115500 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 21:48:00 GMT
+Seat 1: Trok (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: dwarricor collected (115500)
+Seat 4: TruthIsOutThere folded before the flop
+Seat 5: churlz folded before the flop
+Seat 6: DontBluffMee (small blind) folded before the flop
+
+
+PokerStars Hand #4965560075: Tournament #50030, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/14 17:45:45 GMT
+Table '496556' 7-max Seat #1 is the button
+Seat 1: JusstRelaxx (189962.87 in chips)
+Seat 2: PrinceOfRUGAY (118356.85 in chips)
+Seat 3: B41MyEGGs (30545 in chips)
+Seat 4: CaLLmeWithQQ (93602.50 in chips)
+Seat 5: DaniC1994 (124593.10 in chips)
+Seat 6: TruthIsOutThere (34849.30 in chips)
+Seat 7: TiranossauroTex (153454.45 in chips)
+JusstRelaxx: posts the ante 375
+PrinceOfRUGAY: posts the ante 375
+B41MyEGGs: posts the ante 375
+CaLLmeWithQQ: posts the ante 375
+DaniC1994: posts the ante 375
+TruthIsOutThere: posts the ante 375
+TiranossauroTex: posts the ante 375
+PrinceOfRUGAY: posts small blind 1250
+B41MyEGGs: posts big blind 2500
+*** HOLE CARDS ***
+CaLLmeWithQQ: folds
+DaniC1994: raises 2750 to 5250
+TruthIsOutThere: folds
+TiranossauroTex: folds
+JusstRelaxx: calls 5250
+PrinceOfRUGAY: folds
+B41MyEGGs: folds
+*** FLOP *** [8h 3d 5c]
+DaniC1994: checks
+JusstRelaxx: bets 4218.75
+DaniC1994: folds
+Uncalled bet (4218.75) returned to JusstRelaxx
+JusstRelaxx: doesn't show hand
+JusstRelaxx collected 16875
+*** SUMMARY ***
+Total pot 16875 | Rake 0
+Board [ 8h 3d 5c ]
+Game ended: 2026/05/14 17:47:20 GMT
+Seat 1: JusstRelaxx collected (16875)
+Seat 2: PrinceOfRUGAY (small blind) folded before the flop
+Seat 3: B41MyEGGs (small blind) folded before the flop
+Seat 4: CaLLmeWithQQ folded before the flop
+Seat 5: DaniC1994 folded on the Flop
+Seat 6: TruthIsOutThere folded before the flop
+Seat 7: TiranossauroTex folded before the flop
+
+
+PokerStars Hand #4943590145: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:32:32 GMT
+Table '494359' 7-max Seat #1 is the button
+Seat 1: canthurtme (182397.93 in chips)
+Seat 2: AAAAkid (107307.92 in chips)
+Seat 3: aouarin (97450 in chips)
+Seat 4: HashiraX (84890.82 in chips)
+Seat 5: DaniC1994 (100000 in chips)
+Seat 6: wanderman (234812.58 in chips)
+Seat 7: VIEMK (193537.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+AAAAkid: posts small blind 3000
+aouarin: posts big blind 6000
+*** HOLE CARDS ***
+HashiraX: folds
+DaniC1994: folds
+wanderman: folds
+VIEMK: folds
+canthurtme: raises 6000 to 12000
+AAAAkid: folds
+aouarin: folds
+Uncalled bet (6000) returned to canthurtme
+canthurtme: doesn't show hand
+canthurtme collected 21300
+*** SUMMARY ***
+Total pot 21300 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 14:32:58 GMT
+Seat 1: canthurtme collected (21300)
+Seat 2: AAAAkid (small blind) folded before the flop
+Seat 3: aouarin (small blind) folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590146: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:32:58 GMT
+Table '494359' 7-max Seat #2 is the button
+Seat 1: canthurtme (196797.93 in chips)
+Seat 2: AAAAkid (103407.92 in chips)
+Seat 3: aouarin (90550 in chips)
+Seat 4: HashiraX (83990.82 in chips)
+Seat 5: DaniC1994 (99100 in chips)
+Seat 6: wanderman (233912.58 in chips)
+Seat 7: VIEMK (192637.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+aouarin: posts small blind 3000
+HashiraX: posts big blind 6000
+*** HOLE CARDS ***
+DaniC1994: folds
+wanderman: folds
+VIEMK: folds
+canthurtme: raises 6000 to 12000
+AAAAkid: folds
+aouarin: raises 77650 to 89650 and is all-in
+HashiraX: calls 77090.82 and is all-in
+canthurtme: folds
+Uncalled bet (6559.18) returned to aouarin
+*** TURN *** [2c 8h 7d] [Ad]
+*** RIVER *** [2c 8h 7d Ad] [6c]
+aouarin: shows [8s 7s] (Two Pair: Pair of 8 and 7)
+HashiraX: shows [8s 7s Ac Jh] ()
+aouarin collected 184481.64
+*** SUMMARY ***
+Total pot 184481.64 | Rake 0
+Board [ 2c 8h 7d Ad 6c ]
+Game ended: 2026/05/14 14:33:40 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 3: aouarin (small blind) showed [ 8s 7s ] and won (184481.64) with Two Pair: Pair of 8 and 7
+Seat 4: HashiraX (small blind) showed [ 8s 7s Ac Jh ] and lost with 
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590147: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:33:41 GMT
+Table '494359' 7-max Seat #3 is the button
+Seat 1: canthurtme (183897.93 in chips)
+Seat 2: AAAAkid (102507.92 in chips)
+Seat 3: aouarin (191040.82 in chips)
+Seat 4: HashiraX (100000 in chips)
+Seat 5: DaniC1994 (98200 in chips)
+Seat 6: wanderman (233012.58 in chips)
+Seat 7: VIEMK (191737.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+HashiraX: posts small blind 3000
+DaniC1994: posts big blind 6000
+*** HOLE CARDS ***
+wanderman: folds
+VIEMK: folds
+canthurtme: folds
+AAAAkid: raises 6000 to 12000
+aouarin: folds
+HashiraX: calls 9000
+DaniC1994: calls 6000
+*** FLOP *** [7d 7c 6h]
+HashiraX: checks
+DaniC1994: bets 7575
+AAAAkid: folds
+HashiraX: folds
+Uncalled bet (7575) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 42300
+*** SUMMARY ***
+Total pot 42300 | Rake 0
+Board [ 7d 7c 6h ]
+Game ended: 2026/05/14 14:34:28 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded on the Flop
+Seat 3: aouarin folded before the flop
+Seat 4: HashiraX (small blind) folded on the Flop
+Seat 5: DaniC1994 (small blind) collected (42300)
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590148: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:34:29 GMT
+Table '494359' 7-max Seat #4 is the button
+Seat 1: canthurtme (182997.93 in chips)
+Seat 2: AAAAkid (89607.92 in chips)
+Seat 3: aouarin (190140.82 in chips)
+Seat 4: HashiraX (87100 in chips)
+Seat 5: DaniC1994 (127600 in chips)
+Seat 6: wanderman (232112.58 in chips)
+Seat 7: VIEMK (190837.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+DaniC1994: posts small blind 3000
+wanderman: posts big blind 6000
+*** HOLE CARDS ***
+VIEMK: folds
+canthurtme: folds
+AAAAkid: folds
+aouarin: folds
+HashiraX: raises 80200 to 86200 and is all-in
+DaniC1994: folds
+wanderman: calls 80200
+*** FLOP *** [9d As 6h]
+*** TURN *** [9d As 6h] [7h]
+*** RIVER *** [9d As 6h 7h] [5h]
+wanderman: shows [Ad 3d Kc Jh] ()
+HashiraX: shows [Ad] (Pair: Pair of A)
+HashiraX collected 181700
+*** SUMMARY ***
+Total pot 181700 | Rake 0
+Board [ 9d As 6h 7h 5h ]
+Game ended: 2026/05/14 14:35:08 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 3: aouarin folded before the flop
+Seat 4: HashiraX showed [ Ad ] and won (181700) with Pair: Pair of A
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: wanderman (small blind) showed [ Ad 3d Kc Jh ] and lost with 
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590149: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:35:08 GMT
+Table '494359' 7-max Seat #5 is the button
+Seat 1: canthurtme (182097.93 in chips)
+Seat 2: AAAAkid (88707.92 in chips)
+Seat 3: aouarin (189240.82 in chips)
+Seat 4: HashiraX (181700 in chips)
+Seat 5: DaniC1994 (123700 in chips)
+Seat 6: wanderman (145012.58 in chips)
+Seat 7: VIEMK (189937.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+wanderman: posts small blind 3000
+VIEMK: posts big blind 6000
+*** HOLE CARDS ***
+canthurtme: folds
+AAAAkid: folds
+aouarin: folds
+HashiraX: raises 6600 to 12600
+DaniC1994: folds
+wanderman: folds
+VIEMK: calls 6600
+*** FLOP *** [5h 6h Ks]
+VIEMK: checks
+HashiraX: bets 11385
+VIEMK: folds
+Uncalled bet (11385) returned to HashiraX
+HashiraX: doesn't show hand
+HashiraX collected 34500
+*** SUMMARY ***
+Total pot 34500 | Rake 0
+Board [ 5h 6h Ks ]
+Game ended: 2026/05/14 14:35:48 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 3: aouarin folded before the flop
+Seat 4: HashiraX collected (34500)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman (small blind) folded before the flop
+Seat 7: VIEMK (small blind) folded on the Flop
+
+
+PokerStars Hand #4943590150: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:35:49 GMT
+Table '494359' 7-max Seat #6 is the button
+Seat 1: canthurtme (181197.93 in chips)
+Seat 2: AAAAkid (87807.92 in chips)
+Seat 3: aouarin (188340.82 in chips)
+Seat 4: HashiraX (202700 in chips)
+Seat 5: DaniC1994 (122800 in chips)
+Seat 6: wanderman (141112.58 in chips)
+Seat 7: VIEMK (176437.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+VIEMK: posts small blind 3000
+canthurtme: posts big blind 6000
+*** HOLE CARDS ***
+AAAAkid: folds
+aouarin: raises 6000 to 12000
+HashiraX: folds
+DaniC1994: calls 12000
+wanderman: folds
+VIEMK: folds
+canthurtme: folds
+*** FLOP *** [8d Ts 4c]
+aouarin: bets 6000
+DaniC1994: calls 6000
+*** TURN *** [8d Ts 4c] [3d]
+aouarin: bets 26598
+DaniC1994: folds
+Uncalled bet (26598) returned to aouarin
+aouarin: doesn't show hand
+aouarin collected 51300
+*** SUMMARY ***
+Total pot 51300 | Rake 0
+Board [ 8d Ts 4c 3d ]
+Game ended: 2026/05/14 14:36:54 GMT
+Seat 1: canthurtme (small blind) folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 3: aouarin collected (51300)
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 folded on the Turn
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK (small blind) folded before the flop
+
+
+PokerStars Hand #4943590151: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:36:54 GMT
+Table '494359' 7-max Seat #7 is the button
+Seat 1: canthurtme (174297.93 in chips)
+Seat 2: AAAAkid (86907.92 in chips)
+Seat 3: aouarin (220740.82 in chips)
+Seat 4: HashiraX (201800 in chips)
+Seat 5: DaniC1994 (103900 in chips)
+Seat 6: wanderman (140212.58 in chips)
+Seat 7: VIEMK (172537.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+canthurtme: posts small blind 3000
+AAAAkid: posts big blind 6000
+*** HOLE CARDS ***
+aouarin: folds
+HashiraX: folds
+DaniC1994: raises 6600 to 12600
+wanderman: folds
+VIEMK: folds
+canthurtme: folds
+AAAAkid: calls 6600
+*** FLOP *** [5s 5d 6c]
+AAAAkid: checks
+DaniC1994: bets 6000
+AAAAkid: calls 6000
+*** TURN *** [5s 5d 6c] [Ad]
+AAAAkid: checks
+DaniC1994: bets 15345
+AAAAkid: folds
+Uncalled bet (15345) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 46500
+*** SUMMARY ***
+Total pot 46500 | Rake 0
+Board [ 5s 5d 6c Ad ]
+Game ended: 2026/05/14 14:37:50 GMT
+Seat 1: canthurtme (small blind) folded before the flop
+Seat 2: AAAAkid (small blind) folded on the Turn
+Seat 3: aouarin folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 collected (46500)
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590152: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:37:50 GMT
+Table '494359' 7-max Seat #1 is the button
+Seat 1: canthurtme (170397.93 in chips)
+Seat 2: AAAAkid (67407.92 in chips)
+Seat 3: aouarin (219840.82 in chips)
+Seat 4: HashiraX (200900 in chips)
+Seat 5: DaniC1994 (130900 in chips)
+Seat 6: wanderman (139312.58 in chips)
+Seat 7: VIEMK (171637.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+AAAAkid: posts small blind 3000
+aouarin: posts big blind 6000
+*** HOLE CARDS ***
+HashiraX: raises 6600 to 12600
+DaniC1994: folds
+wanderman: calls 12600
+VIEMK: folds
+canthurtme: folds
+AAAAkid: folds
+aouarin: calls 6600
+*** FLOP *** [3c Kh 4h]
+aouarin: checks
+HashiraX: checks
+wanderman: checks
+*** TURN *** [3c Kh 4h] [7c]
+aouarin: bets 21666
+HashiraX: calls 21666
+wanderman: folds
+*** RIVER *** [3c Kh 4h 7c] [2d]
+aouarin: bets 184674.82 and is all-in
+HashiraX: calls 165734 and is all-in
+Uncalled bet (18940.82) returned to aouarin
+aouarin: shows [Td 8s] ()
+HashiraX: shows [Kd 9d] (Pair: Pair of K)
+HashiraX collected 421900
+*** SUMMARY ***
+Total pot 421900 | Rake 0
+Board [ 3c Kh 4h 7c 2d ]
+Game ended: 2026/05/14 14:39:21 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid (small blind) folded before the flop
+Seat 3: aouarin (small blind) showed [ Td 8s ] and lost with 
+Seat 4: HashiraX showed [ Kd 9d ] and won (421900) with Pair: Pair of K
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman folded on the Turn
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590153: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:39:21 GMT
+Table '494359' 7-max Seat #2 is the button
+Seat 1: canthurtme (169497.93 in chips)
+Seat 2: AAAAkid (63507.92 in chips)
+Seat 3: aouarin (18940.82 in chips)
+Seat 4: HashiraX (421900 in chips)
+Seat 5: DaniC1994 (130000 in chips)
+Seat 6: wanderman (125812.58 in chips)
+Seat 7: VIEMK (170737.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+aouarin: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+aouarin: posts small blind 3000
+HashiraX: posts big blind 6000
+*** HOLE CARDS ***
+DaniC1994: folds
+wanderman: raises 9000 to 15000
+VIEMK: folds
+canthurtme: folds
+AAAAkid: folds
+aouarin: raises 3040.82 to 18040.82 and is all-in
+HashiraX: folds
+wanderman: calls 3040.82
+*** FLOP *** [5c 3d Ah]
+*** TURN *** [5c 3d Ah] [2d]
+*** RIVER *** [5c 3d Ah 2d] [4c]
+aouarin: shows [9d 3c] ()
+wanderman: shows [6s 2s] (Straight: 6 high)
+wanderman collected 48381.64
+*** SUMMARY ***
+Total pot 48381.64 | Rake 0
+Board [ 5c 3d Ah 2d 4c ]
+Game ended: 2026/05/14 14:39:54 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 3: aouarin (small blind) showed [ 9d 3c ] and lost with 
+Seat 4: HashiraX (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman showed [ 6s 2s ] and won (48381.64) with Straight: 6 high
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590154: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level I (3000/6000 - Ante 900) - 2026/05/14 14:39:55 GMT
+Table '494359' 7-max Seat #4 is the button
+Seat 1: canthurtme (168597.93 in chips)
+Seat 2: AAAAkid (62607.92 in chips)
+Seat 4: HashiraX (415000 in chips)
+Seat 5: DaniC1994 (129100 in chips)
+Seat 6: wanderman (155253.40 in chips)
+Seat 7: VIEMK (169837.10 in chips)
+canthurtme: posts the ante 900
+AAAAkid: posts the ante 900
+HashiraX: posts the ante 900
+DaniC1994: posts the ante 900
+wanderman: posts the ante 900
+VIEMK: posts the ante 900
+DaniC1994: posts small blind 3000
+wanderman: posts big blind 6000
+*** HOLE CARDS ***
+VIEMK: folds
+canthurtme: raises 6000 to 12000
+AAAAkid: folds
+HashiraX: folds
+DaniC1994: folds
+wanderman: raises 54000 to 66000
+canthurtme: folds
+Uncalled bet (54000) returned to wanderman
+wanderman: doesn't show hand
+wanderman collected 32400
+*** SUMMARY ***
+Total pot 32400 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 14:40:35 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: AAAAkid folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: wanderman (small blind) collected (32400)
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590156: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 14:41:29 GMT
+Table '494359' 7-max Seat #6 is the button
+Seat 1: canthurtme (154647.93 in chips)
+Seat 3: bd24 (98950 in chips)
+Seat 4: HashiraX (413050 in chips)
+Seat 5: DaniC1994 (124150 in chips)
+Seat 6: wanderman (170203.40 in chips)
+Seat 7: VIEMK (239395.02 in chips)
+canthurtme: posts the ante 1050
+bd24: posts the ante 1050
+HashiraX: posts the ante 1050
+DaniC1994: posts the ante 1050
+wanderman: posts the ante 1050
+VIEMK: posts the ante 1050
+VIEMK: posts small blind 3500
+canthurtme: posts big blind 7000
+*** HOLE CARDS ***
+bd24: folds
+HashiraX: raises 7000 to 14000
+DaniC1994: folds
+wanderman: folds
+VIEMK: folds
+canthurtme: calls 7000
+*** FLOP *** [7d Js 2d]
+canthurtme: checks
+HashiraX: bets 9450
+canthurtme: calls 9450
+*** TURN *** [7d Js 2d] [3c]
+canthurtme: checks
+HashiraX: bets 37422
+canthurtme: folds
+Uncalled bet (37422) returned to HashiraX
+HashiraX: doesn't show hand
+HashiraX collected 56700
+*** SUMMARY ***
+Total pot 56700 | Rake 0
+Board [ 7d Js 2d 3c ]
+Game ended: 2026/05/14 14:42:24 GMT
+Seat 1: canthurtme (small blind) folded on the Turn
+Seat 3: bd24 folded before the flop
+Seat 4: HashiraX collected (56700)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK (small blind) folded before the flop
+
+
+PokerStars Hand #4943590157: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 14:42:24 GMT
+Table '494359' 7-max Seat #7 is the button
+Seat 1: canthurtme (130147.93 in chips)
+Seat 2: UmtitisMcvities (65063.80 in chips)
+Seat 3: bd24 (97900 in chips)
+Seat 4: HashiraX (445250 in chips)
+Seat 5: DaniC1994 (123100 in chips)
+Seat 6: wanderman (169153.40 in chips)
+Seat 7: VIEMK (234845.02 in chips)
+canthurtme: posts the ante 1050
+UmtitisMcvities: posts the ante 1050
+bd24: posts the ante 1050
+HashiraX: posts the ante 1050
+DaniC1994: posts the ante 1050
+wanderman: posts the ante 1050
+VIEMK: posts the ante 1050
+canthurtme: posts small blind 3500
+UmtitisMcvities: posts big blind 7000
+*** HOLE CARDS ***
+bd24: folds
+HashiraX: folds
+DaniC1994: folds
+wanderman: folds
+VIEMK: folds
+canthurtme: raises 70000 to 77000
+UmtitisMcvities: calls 57013.80 and is all-in
+Uncalled bet (12986.20) returned to canthurtme
+*** FLOP *** [Td 8s Kh]
+*** TURN *** [Td 8s Kh] [6s]
+*** RIVER *** [Td 8s Kh 6s] [Ah]
+canthurtme: shows [As] (Pair: Pair of A)
+UmtitisMcvities: shows [As 5s Th 9s] ()
+canthurtme collected 135377.60
+*** SUMMARY ***
+Total pot 135377.60 | Rake 0
+Board [ Td 8s Kh 6s Ah ]
+Game ended: 2026/05/14 14:43:03 GMT
+Seat 1: canthurtme (small blind) showed [ As ] and won (135377.60) with Pair: Pair of A
+Seat 2: UmtitisMcvities (small blind) showed [ As 5s Th 9s ] and lost with 
+Seat 3: bd24 folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: wanderman folded before the flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590159: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 14:43:43 GMT
+Table '494359' 7-max Seat #3 is the button
+Seat 1: canthurtme (199411.73 in chips)
+Seat 2: Daxxxrr9 (472286.71 in chips)
+Seat 3: bd24 (88800 in chips)
+Seat 4: HashiraX (456450 in chips)
+Seat 5: DaniC1994 (121000 in chips)
+Seat 6: wanderman (167053.40 in chips)
+Seat 7: VIEMK (232745.02 in chips)
+canthurtme: posts the ante 1050
+Daxxxrr9: posts the ante 1050
+bd24: posts the ante 1050
+HashiraX: posts the ante 1050
+DaniC1994: posts the ante 1050
+wanderman: posts the ante 1050
+VIEMK: posts the ante 1050
+HashiraX: posts small blind 3500
+DaniC1994: posts big blind 7000
+*** HOLE CARDS ***
+wanderman: raises 7000 to 14000
+VIEMK: folds
+canthurtme: folds
+Daxxxrr9: calls 14000
+bd24: folds
+HashiraX: folds
+DaniC1994: calls 7000
+*** FLOP *** [3s Td Qc]
+DaniC1994: checks
+wanderman: checks
+Daxxxrr9: bets 17440.50
+DaniC1994: folds
+wanderman: folds
+Uncalled bet (17440.50) returned to Daxxxrr9
+Daxxxrr9: doesn't show hand
+Daxxxrr9 collected 52850
+*** SUMMARY ***
+Total pot 52850 | Rake 0
+Board [ 3s Td Qc ]
+Game ended: 2026/05/14 14:44:41 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: Daxxxrr9 collected (52850)
+Seat 3: bd24 folded before the flop
+Seat 4: HashiraX (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded on the Flop
+Seat 6: wanderman folded on the Flop
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4943590160: Tournament #55213, WPM Side: $88 CoinMasters Asia BONK Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 14:44:41 GMT
+Table '494359' 7-max Seat #4 is the button
+Seat 1: canthurtme (198361.73 in chips)
+Seat 2: Daxxxrr9 (510086.71 in chips)
+Seat 3: bd24 (87750 in chips)
+Seat 4: HashiraX (451900 in chips)
+Seat 5: DaniC1994 (105950 in chips)
+Seat 6: wanderman (152003.40 in chips)
+Seat 7: VIEMK (231695.02 in chips)
+canthurtme: posts the ante 1050
+Daxxxrr9: posts the ante 1050
+bd24: posts the ante 1050
+HashiraX: posts the ante 1050
+DaniC1994: posts the ante 1050
+wanderman: posts the ante 1050
+VIEMK: posts the ante 1050
+DaniC1994: posts small blind 3500
+wanderman: posts big blind 7000
+*** HOLE CARDS ***
+VIEMK: folds
+canthurtme: folds
+Daxxxrr9: folds
+bd24: folds
+HashiraX: folds
+DaniC1994: calls 3500
+wanderman: checks
+*** FLOP *** [4s 2d 5d]
+DaniC1994: checks
+wanderman: checks
+*** TURN *** [4s 2d 5d] [8s]
+DaniC1994: bets 17720.50
+wanderman: raises 18741.03 to 36461.53
+DaniC1994: raises 61438.47 to 97900 and is all-in
+wanderman: calls 61438.47
+*** RIVER *** [4s 2d 5d 8s] [9h]
+DaniC1994: shows [8c Js] ()
+wanderman: shows [7h 6c] (Straight: 9 high)
+wanderman collected 217150
+*** SUMMARY ***
+Total pot 217150 | Rake 0
+Board [ 4s 2d 5d 8s 9h ]
+Game ended: 2026/05/14 14:45:37 GMT
+Seat 1: canthurtme folded before the flop
+Seat 2: Daxxxrr9 folded before the flop
+Seat 3: bd24 folded before the flop
+Seat 4: HashiraX folded before the flop
+Seat 5: DaniC1994 (small blind) showed [ 8c Js ] and lost with 
+Seat 6: wanderman (small blind) showed [ 7h 6c ] and won (217150) with Straight: 9 high
+Seat 7: VIEMK folded before the flop
+
+
+PokerStars Hand #4983180181: Tournament #55388, WPM S: $109 CoinMasters LATAM BONK Hold'em No Limit - Level III (10000/20000 - Ante 3000) - 2026/05/14 22:06:04 GMT
+Table '498318' 7-max Seat #2 is the button
+Seat 1: Trok (560079.72 in chips)
+Seat 2: DaniC1994 (760014.93 in chips)
+Seat 3: autistic (502252.03 in chips)
+Seat 4: TruthIsOutThere (1431612.11 in chips)
+Seat 6: DontBluffMee (956339.66 in chips)
+Seat 7: VICTORYa (596634.31 in chips)
+Trok: posts the ante 3000
+DaniC1994: posts the ante 3000
+autistic: posts the ante 3000
+TruthIsOutThere: posts the ante 3000
+DontBluffMee: posts the ante 3000
+VICTORYa: posts the ante 3000
+autistic: posts small blind 10000
+TruthIsOutThere: posts big blind 20000
+*** HOLE CARDS ***
+DontBluffMee: folds
+VICTORYa: folds
+Trok: raises 20000 to 40000
+DaniC1994: folds
+autistic: folds
+TruthIsOutThere: folds
+Uncalled bet (20000) returned to Trok
+Trok: doesn't show hand
+Trok collected 68000
+*** SUMMARY ***
+Total pot 68000 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 22:06:49 GMT
+Seat 1: Trok collected (68000)
+Seat 2: DaniC1994 folded before the flop
+Seat 3: autistic (small blind) folded before the flop
+Seat 4: TruthIsOutThere (small blind) folded before the flop
+Seat 6: DontBluffMee folded before the flop
+Seat 7: VICTORYa folded before the flop
+
+
+PokerStars Hand #4983180182: Tournament #55388, WPM S: $109 CoinMasters LATAM BONK Hold'em No Limit - Level III (10000/20000 - Ante 3000) - 2026/05/14 22:06:50 GMT
+Table '498318' 7-max Seat #3 is the button
+Seat 1: Trok (605079.72 in chips)
+Seat 2: DaniC1994 (757014.93 in chips)
+Seat 3: autistic (489252.03 in chips)
+Seat 4: TruthIsOutThere (1408612.11 in chips)
+Seat 6: DontBluffMee (953339.66 in chips)
+Seat 7: VICTORYa (593634.31 in chips)
+Trok: posts the ante 3000
+DaniC1994: posts the ante 3000
+autistic: posts the ante 3000
+TruthIsOutThere: posts the ante 3000
+DontBluffMee: posts the ante 3000
+VICTORYa: posts the ante 3000
+TruthIsOutThere: posts small blind 10000
+DontBluffMee: posts big blind 20000
+*** HOLE CARDS ***
+VICTORYa: raises 20000 to 40000
+Trok: folds
+DaniC1994: folds
+autistic: folds
+TruthIsOutThere: folds
+DontBluffMee: folds
+Uncalled bet (20000) returned to VICTORYa
+VICTORYa: doesn't show hand
+VICTORYa collected 68000
+*** SUMMARY ***
+Total pot 68000 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 22:07:25 GMT
+Seat 1: Trok folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: autistic folded before the flop
+Seat 4: TruthIsOutThere (small blind) folded before the flop
+Seat 6: DontBluffMee (small blind) folded before the flop
+Seat 7: VICTORYa collected (68000)
+
+
+PokerStars Hand #4986810118: Tournament #51682, WPM #13H: $530 NLHE 6-Max Hold'em No Limit - Level II (3000/6000 - Ante 900) - 2026/05/14 20:47:15 GMT
+Table '498681' 6-max Seat #6 is the button
+Seat 1: Macaww (94450.86 in chips)
+Seat 2: Stackwrecker (123706.80 in chips)
+Seat 3: LelouchLamperouge (152595.50 in chips)
+Seat 4: DaniC1994 (196476 in chips)
+Seat 5: fishzaum (186990.28 in chips)
+Seat 6: OpAnD13 (231758.48 in chips)
+Seat 7: livb112 (154683.56 in chips)
+Macaww: posts the ante 900
+Stackwrecker: posts the ante 900
+LelouchLamperouge: posts the ante 900
+DaniC1994: posts the ante 900
+fishzaum: posts the ante 900
+OpAnD13: posts the ante 900
+livb112: posts the ante 900
+livb112: posts small blind 3000
+Macaww: posts big blind 6000
+*** HOLE CARDS ***
+Stackwrecker: folds
+LelouchLamperouge: folds
+DaniC1994: folds
+fishzaum: folds
+OpAnD13: raises 6600 to 12600
+livb112: folds
+Macaww: raises 80950.86 to 93550.86 and is all-in
+OpAnD13: folds
+Uncalled bet (80950.86) returned to Macaww
+Macaww: doesn't show hand
+Macaww collected 34500
+*** SUMMARY ***
+Total pot 34500 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 20:48:07 GMT
+Seat 1: Macaww (small blind) collected (34500)
+Seat 2: Stackwrecker folded before the flop
+Seat 3: LelouchLamperouge folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: fishzaum folded before the flop
+Seat 6: OpAnD13 folded before the flop
+Seat 7: livb112 (small blind) folded before the flop
+
+
+PokerStars Hand #4986810127: Tournament #51682, WPM #13H: $530 NLHE 6-Max Hold'em No Limit - Level II (3500/7000 - Ante 1050) - 2026/05/14 21:02:02 GMT
+Table '498681' 6-max Seat #1 is the button
+Seat 1: Macaww (114613.36 in chips)
+Seat 2: Stackwrecker (236263.60 in chips)
+Seat 3: LelouchLamperouge (127495.50 in chips)
+Seat 4: DaniC1994 (132963.50 in chips)
+Seat 5: fishzaum (197765.28 in chips)
+Seat 6: OpAnD13 (259683.48 in chips)
+Seat 7: livb112 (71876.76 in chips)
+Macaww: posts the ante 1050
+Stackwrecker: posts the ante 1050
+LelouchLamperouge: posts the ante 1050
+DaniC1994: posts the ante 1050
+fishzaum: posts the ante 1050
+OpAnD13: posts the ante 1050
+livb112: posts the ante 1050
+Stackwrecker: posts small blind 3500
+LelouchLamperouge: posts big blind 7000
+*** HOLE CARDS ***
+DaniC1994: folds
+fishzaum: raises 7000 to 14000
+OpAnD13: calls 14000
+livb112: folds
+Macaww: folds
+Stackwrecker: folds
+LelouchLamperouge: calls 7000
+*** FLOP *** [Jd Ah Tc]
+LelouchLamperouge: checks
+fishzaum: checks
+OpAnD13: checks
+*** TURN *** [Jd Ah Tc] [5h]
+LelouchLamperouge: checks
+fishzaum: bets 33425
+OpAnD13: folds
+LelouchLamperouge: folds
+Uncalled bet (33425) returned to fishzaum
+fishzaum: doesn't show hand
+fishzaum collected 52850
+*** SUMMARY ***
+Total pot 52850 | Rake 0
+Board [ Jd Ah Tc 5h ]
+Game ended: 2026/05/14 21:03:05 GMT
+Seat 1: Macaww folded before the flop
+Seat 2: Stackwrecker (small blind) folded before the flop
+Seat 3: LelouchLamperouge (small blind) folded on the Turn
+Seat 4: DaniC1994 folded before the flop
+Seat 5: fishzaum collected (52850)
+Seat 6: OpAnD13 folded on the Turn
+Seat 7: livb112 folded before the flop
+
+
+PokerStars Hand #4986610060: Tournament #51683, WPM #13L: $88 NLHE 6-Max Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/14 19:43:55 GMT
+Table '498661' 6-max Seat #2 is the button
+Seat 1: Trok (131876.16 in chips)
+Seat 2: Note100 (110886.46 in chips)
+Seat 3: coinilini (74404 in chips)
+Seat 4: DaniC1994 (114758 in chips)
+Seat 5: DantistAA (101772 in chips)
+Seat 7: junglebird (55333 in chips)
+Trok: posts the ante 375
+Note100: posts the ante 375
+coinilini: posts the ante 375
+DaniC1994: posts the ante 375
+DantistAA: posts the ante 375
+junglebird: posts the ante 375
+coinilini: posts small blind 1250
+DaniC1994: posts big blind 2500
+*** HOLE CARDS ***
+DantistAA: folds
+junglebird: raises 52458 to 54958 and is all-in
+Trok: folds
+Note100: raises 53708 to 108666
+coinilini: folds
+DaniC1994: folds
+Uncalled bet (53708) returned to Note100
+*** FLOP *** [Kc Tc 7d]
+*** TURN *** [Kc Tc 7d] [8h]
+*** RIVER *** [Kc Tc 7d 8h] [3c]
+junglebird: shows [Kh Qd] (Pair: Pair of K)
+Note100: shows [Ad Ts] ()
+junglebird collected 115916
+*** SUMMARY ***
+Total pot 115916 | Rake 0
+Board [ Kc Tc 7d 8h 3c ]
+Game ended: 2026/05/14 19:45:01 GMT
+Seat 1: Trok folded before the flop
+Seat 2: Note100 showed [ Ad Ts ] and lost with 
+Seat 3: coinilini (small blind) folded before the flop
+Seat 4: DaniC1994 (small blind) folded before the flop
+Seat 5: DantistAA folded before the flop
+Seat 7: junglebird showed [ Kh Qd ] and won (115916) with Pair: Pair of K
+
+
+PokerStars Hand #4986610071: Tournament #51683, WPM #13L: $88 NLHE 6-Max Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/14 20:03:44 GMT
+Table '498661' 6-max Seat #1 is the button
+Seat 1: Trok (96076.16 in chips)
+Seat 2: Note100 (106994.42 in chips)
+Seat 3: ETHWhale (39523.76 in chips)
+Seat 4: DaniC1994 (97008 in chips)
+Seat 5: DantistAA (70305.75 in chips)
+Seat 6: Orkenator (369281.63 in chips)
+Seat 7: care168 (70454.94 in chips)
+Trok: posts the ante 450
+Note100: posts the ante 450
+ETHWhale: posts the ante 450
+DaniC1994: posts the ante 450
+DantistAA: posts the ante 450
+Orkenator: posts the ante 450
+care168: posts the ante 450
+Note100: posts small blind 1500
+ETHWhale: posts big blind 3000
+*** HOLE CARDS ***
+DaniC1994: folds
+DantistAA: folds
+Orkenator: raises 3000 to 6000
+care168: folds
+Trok: folds
+Note100: folds
+ETHWhale: folds
+Uncalled bet (3000) returned to Orkenator
+Orkenator: doesn't show hand
+Orkenator collected 10650
+*** SUMMARY ***
+Total pot 10650 | Rake 0
+Board [  ]
+Game ended: 2026/05/14 20:04:29 GMT
+Seat 1: Trok folded before the flop
+Seat 2: Note100 (small blind) folded before the flop
+Seat 3: ETHWhale (small blind) folded before the flop
+Seat 4: DaniC1994 folded before the flop
+Seat 5: DantistAA folded before the flop
+Seat 6: Orkenator collected (10650)
+Seat 7: care168 folded before the flop
+
+

@@ -10,7 +10,7 @@ from pathlib import Path
 
 # --- Project paths ---------------------------------------------------------
 ROOT = Path(__file__).resolve().parent.parent  # ...\Desktop\PokerB
-INFORMATION_DIR = ROOT / "Information"          # the 3 source PDFs
+INFORMATION_DIR = ROOT / "books" / "poker"      # the 6 source poker books (merged from the old Information/)
 DATA_DIR = ROOT / "data"                        # intermediate artifacts
 KNOWLEDGE_DIR = ROOT / "knowledge_base"         # final extracted knowledge (JSON/MD)
 

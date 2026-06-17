@@ -1,0 +1,3 @@
+https://github.com/sharkdp/numbat
+https://github.com/sympy/sympy
+https://github.com/Qalculate

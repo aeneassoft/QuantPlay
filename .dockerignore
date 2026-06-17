@@ -1,0 +1,24 @@
+# Keep the serverless image lean: ship only the code + the data/knowledge the handler needs.
+.git
+__pycache__
+**/__pycache__
+*.pyc
+data
+models
+books
+tools
+docs
+tests
+*.bat
+*.tgz
+*.log
+.claude
+.venv
+venv
+# knowledge_base: keep only what config/strategy/api hard-reference (math/ranges/exploit/postflop); drop the heavy rest
+knowledge_base/hand_histories
+knowledge_base/theory
+knowledge_base/concepts
+# the handler generates spots LIVE (gen_decision_states) — it doesn't read the dataset shards
+dataset/shards
+extraction

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PokerB — die KI lernt live</title>
+<style>
+  :root{--bg:#f5f7f6;--card:#ffffff;--edge:#dfe6e2;--ink:#1d2b23;--muted:#5d6f64;
+        --teal:#1f8f80;--gold:#bf8b16;--red:#d6453a;--purple:#6a4ec0;--blue:#2f6fed;--green:#2e9e57;
+        --good:#1f8f5a;--bad:#cf3b30;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;}
+  header{padding:14px 18px;background:var(--card);border-bottom:1px solid var(--edge);}
+  header h1{font-size:18px;margin:0 0 8px;color:var(--ink);}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;}
+  .chip{font-size:13px;color:var(--muted);background:#eef3f0;border:1px solid var(--edge);border-radius:999px;padding:4px 12px;}
+  .chip b{color:var(--ink);}
+  .wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:16px;max-width:1100px;margin:0 auto;}
+  .card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .card h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px;}
+  .qbtn{cursor:pointer;width:20px;height:20px;border-radius:50%;border:1px solid var(--edge);background:#eef3f0;
+        color:var(--muted);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;}
+  .qbtn:hover{background:var(--teal);color:#fff;}
+  .info{display:none;margin:8px 0 0;font-size:12.5px;line-height:1.5;color:var(--muted);background:#f0f5f2;
+        border-left:3px solid var(--teal);border-radius:6px;padding:8px 10px;}
+  .info.show{display:block;}
+  canvas{width:100%;height:160px;display:block;margin-top:8px;}
+  .toggle{grid-column:1/-1;text-align:center;}
+  .toggle button{cursor:pointer;background:var(--card);border:1px solid var(--edge);border-radius:10px;
+        padding:7px 16px;color:var(--muted);font-size:13px;}
+  #details{display:none;grid-column:1/-1;grid-template-columns:repeat(3,1fr);gap:14px;}
+  #details.show{display:grid;}
+  #gates{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .gate{padding:6px 12px;border-radius:8px;border:1px solid var(--edge);font-size:13px;background:var(--card);}
+  .gpass{background:#e4f5ec;color:var(--good);border-color:#bfe6cf;}
+  .gfail{background:#fdeceb;color:var(--bad);border-color:#f3c9c5;}
+  .gmuted{color:var(--muted);}
+</style>
+</head>
+<body>
+<header>
+  <h1>🃏 PokerB — die KI lernt gerade (live)</h1>
+  <div class="chips">
+    <span class="chip">Lernschritt <b id="s-step">—</b></span>
+    <span class="chip">Spielstärke <b id="s-reward">—</b></span>
+    <span class="chip">rechnet statt rät <b id="s-ground">—</b></span>
+    <span class="chip">Müll-Quote <b id="s-bad">—</b></span>
+    <span class="chip">Tempo <b id="s-time">—</b></span>
+    <span class="chip">aktualisiert <b id="s-upd">—</b></span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <h3>📈 Wie gut spielt die KI? <span class="qbtn" data-i="i1">?</span></h3>
+    <div class="info" id="i1">Durchschnittlicher Gewinn in <b>Big Blinds pro Entscheidung</b> (in der Simulation gegen
+      die Gegner-Liga). <b>Soll leicht steigen oder stabil-positiv bleiben</b> — NICHT Richtung −10 abstürzen
+      (das wäre ein Kollaps). Das graue Band ist die Streuung.</div>
+    <canvas id="c-reward"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>🧮 Rechnet sie, statt zu raten? <span class="qbtn" data-i="i2">?</span></h3>
+    <div class="info" id="i2">Anteil der Entscheidungen, die die KI mit der <b>Engine ausrechnet</b> (ruft eine
+      Formel auf), statt sie aus dem Gedächtnis zu raten. <b>Soll STEIGEN</b> — genau das ist unser Ziel:
+      rechnen statt halluzinieren.</div>
+    <canvas id="c-ground"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>🗑️ Wie oft baut sie Müll? <span class="qbtn" data-i="i3">?</span></h3>
+    <div class="info" id="i3">Anteil ungültiger/illegaler Programme (die Engine lehnt sie ab). <b>Soll niedrig
+      bleiben</b> — unter der grünen 10%-Linie. Steigt es Richtung der roten 20%-Linie, verlernt die KI das
+      richtige Format.</div>
+    <canvas id="c-bad"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>⏱️ Tempo (Sek. pro Schritt) <span class="qbtn" data-i="i4">?</span></h3>
+    <div class="info" id="i4">Sekunden pro Lernschritt. Zeigt, ob wir im Zeitbudget bleiben. <b>Hoch</b> = die
+      CPU-Auswertung (das Durchsimulieren der Hände) bremst — dann läuft die teure GPU oft leer.</div>
+    <canvas id="c-st"></canvas>
+  </div>
+
+  <div class="toggle"><button id="t-det">▸ Technik-Details ein-/ausblenden</button></div>
+  <div id="details">
+    <div class="card">
+      <h3>Exploration <span class="qbtn" data-i="i5">?</span></h3>
+      <div class="info" id="i5">Wie „breit" die KI noch ausprobiert (Entropie). <b>Soll NICHT auf 0 fallen</b> —
+        sonst wiederholt sie stur dasselbe und lernt nichts Neues mehr.</div>
+      <canvas id="c-ent"></canvas>
+    </div>
+    <div class="card">
+      <h3>Programm-Länge <span class="qbtn" data-i="i6">?</span></h3>
+      <div class="info" id="i6">Durchschnittliche Länge der erzeugten Programme (Tokens). <b>Soll stabil bleiben</b>
+        — wenn sie davonläuft, schreibt die KI sinnloses Zeug.</div>
+      <canvas id="c-len"></canvas>
+    </div>
+    <div class="card">
+      <h3>„Nichts zu lernen"-Quote <span class="qbtn" data-i="i7">?</span></h3>
+      <div class="info" id="i7">Anteil der Situationen, in denen alle Versuche gleich bewertet wurden = dort gibt es
+        kein Lernsignal. <b>0,1–0,5 ist gesund</b>; viel höher = die Situationen sind zu trivial.</div>
+      <canvas id="c-zero"></canvas>
+    </div>
+  </div>
+
+  <div id="gates"><span class="gmuted">Die End-Bewertung (GATE-Leiter) erscheint hier nach dem Eval …</span></div>
+</div>
+
+<script>
+document.querySelectorAll('.qbtn').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.i).classList.toggle('show'));
+document.getElementById('t-det').onclick=()=>document.getElementById('details').classList.toggle('show');
+
+function draw(id, series, opts){
+  opts=opts||{}; const cv=document.getElementById(id); if(!cv) return; const ctx=cv.getContext('2d');
+  const dpr=window.devicePixelRatio||1, W=cv.clientWidth, H=cv.clientHeight;
+  cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+  const P={l:38,r:10,t:8,b:18}, pw=W-P.l-P.r, ph=H-P.t-P.b;
+  const all=series.flatMap(s=>s.data).filter(p=>p.y!=null&&isFinite(p.y));
+  if(!all.length){ ctx.fillStyle='#9aa8a0'; ctx.font='12px sans-serif'; ctx.fillText('— wartet auf Daten —',P.l,H/2); return; }
+  let xs=all.map(p=>p.x), ys=all.map(p=>p.y);
+  let xmin=Math.min(...xs), xmax=Math.max(...xs);
+  let ymin=opts.ymin!=null?opts.ymin:Math.min(...ys), ymax=opts.ymax!=null?opts.ymax:Math.max(...ys);
+  (opts.bands||[]).forEach(b=>{ymin=Math.min(ymin,b.y);ymax=Math.max(ymax,b.y);});
+  if(ymin===ymax){ymin-=1;ymax+=1;} if(xmin===xmax){xmax=xmin+1;}
+  const X=x=>P.l+(x-xmin)/(xmax-xmin)*pw, Y=y=>P.t+(1-(y-ymin)/(ymax-ymin))*ph;
+  ctx.strokeStyle='#dfe6e2'; ctx.lineWidth=1; ctx.beginPath();
+  ctx.moveTo(P.l,P.t); ctx.lineTo(P.l,P.t+ph); ctx.lineTo(P.l+pw,P.t+ph); ctx.stroke();
+  ctx.fillStyle='#9aa8a0'; ctx.font='10px sans-serif';
+  ctx.fillText(ymax.toFixed(2),2,P.t+8); ctx.fillText(ymin.toFixed(2),2,P.t+ph);
+  (opts.bands||[]).forEach(b=>{ ctx.strokeStyle=b.color; ctx.setLineDash([4,3]); ctx.beginPath();
+    ctx.moveTo(P.l,Y(b.y)); ctx.lineTo(P.l+pw,Y(b.y)); ctx.stroke(); ctx.setLineDash([]); });
+  series.filter(s=>s.band).forEach(s=>{ ctx.fillStyle=s.color+'22'; ctx.beginPath();
+    s.data.forEach((p,i)=>{const x=X(p.x),y=Y(p.y+(p.b||0)); i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+    for(let i=s.data.length-1;i>=0;i--){const p=s.data[i];ctx.lineTo(X(p.x),Y(p.y-(p.b||0)));} ctx.fill(); });
+  series.forEach(s=>{ ctx.strokeStyle=s.color; ctx.lineWidth=2.2; ctx.beginPath();
+    s.data.forEach((p,i)=>{ if(p.y==null) return; const x=X(p.x),y=Y(p.y); i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+    ctx.stroke(); });
+}
+const G=(m,k)=>m.map(x=>({x:x.step, y:(x[k]==null?null:x[k])}));
+async function tick(){
+  let d; try{ d=await (await fetch('/api/metrics')).json(); }catch(e){ return; }
+  const m=d.metrics||[];
+  if(m.length){ const L=m[m.length-1];
+    s('s-step',L.step); s('s-reward',L.reward!=null?L.reward.toFixed(2)+' bb':'—');
+    s('s-ground',L.engine_grounded_rate!=null?(L.engine_grounded_rate*100).toFixed(0)+'%':'—');
+    s('s-bad',L.frac_bad!=null?(L.frac_bad*100).toFixed(0)+'%':'—');
+    s('s-time',L.step_time!=null?L.step_time.toFixed(1)+'s':'—');
+    s('s-upd',new Date().toLocaleTimeString());
+  }
+  const rew=G(m,'reward').map((p,i)=>({...p,b:(m[i].reward_std||0)}));
+  draw('c-reward',[{color:'#1f8f80',data:rew,band:true}],{bands:[{y:0,color:'#cdd6d0'}]});
+  draw('c-ground',[{color:'#bf8b16',data:G(m,'engine_grounded_rate')}],{ymin:0,ymax:1,bands:[{y:1,color:'#cfe6d6'}]});
+  draw('c-bad',[{color:'#d6453a',data:G(m,'frac_bad')}],{ymin:0,ymax:1,bands:[{y:0.1,color:'#9bd6b3'},{y:0.2,color:'#e6b3ad'}]});
+  draw('c-st',[{color:'#6a4ec0',data:G(m,'step_time')}],{ymin:0});
+  draw('c-ent',[{color:'#2f6fed',data:G(m,'entropy')}],{bands:[{y:0,color:'#e6b3ad'}]});
+  draw('c-len',[{color:'#2e9e57',data:G(m,'completions/mean_length')}],{});
+  draw('c-zero',[{color:'#e0a800',data:G(m,'frac_reward_zero_std')}],{ymin:0,ymax:1});
+  const g=d.gates, gel=document.getElementById('gates');
+  if(g&&g.gates){ const gd=g.gates, it=[];
+    const add=(k,ok)=>it.push(`<span class="gate ${ok?'gpass':'gfail'}">${k}: ${ok?'✓':'✗'}</span>`);
+    add('Format+Acc',gd['G0_pokerbench+dsl']); add('Legalität',gd['G1_legality']);
+    add('RL > Start',gd['G2_rl_beats_sft_init']); add('robust',gd['G3_robust_vs_each_type']);
+    it.push(`<span class="gate gmuted">Δ vs. Start: ${gd['delta_vs_sft_bb100']} bb/100</span>`);
+    it.push(`<span class="gate ${gd.PASS?'gpass':'gfail'}">Gesamt: ${gd.PASS?'BESTANDEN':'noch nicht'}</span>`);
+    gel.innerHTML=it.join('');
+  }
+}
+function s(id,v){const e=document.getElementById(id); if(e) e.textContent=v;}
+setInterval(tick,2000); tick();
+</script>
+</body>
+</html>

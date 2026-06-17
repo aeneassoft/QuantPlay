@@ -1,158 +1,123 @@
 # CLAUDE.md — PokerB
 
-A Heads-Up **and** 6-max No-Limit Hold'em bot grounded in five poker books, with a browser app
-to play against it, an opponent-exploiting layer, and tooling to analyze your own play. Built
-across several sessions — see the user memory for the full history.
+**Goal: a world-class 6-max No-Limit Hold'em AI that PLAYS GTO — i.e. approaches TRUE GTO.** The AI is three
+assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the
+scaffold** the brain drives. Built across many sessions — see the user memory + `docs/STATE.md` for history.
 
-> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth: current state,
-> headline number, workstream, next build. This file = stable conventions; `STATE.md` = what's happening now.
+> **★ NORTH STAR (2026-06-17) — PLAY GTO / ACHIEVE TRUE GTO, in 6-max NLHE.**
+> Rigorous target = the **robust correlated equilibrium**. (Einy–Haimanko–Lagziel, *Economic Theory* 2022,
+> `books/papers/Springer - Nash + Incomplete Information.pdf`: a Nash eq is *strongly robust to incomplete
+> information* **iff** it is the UNIQUE correlated equilibrium; a 2-player zero-sum game with a unique NE has a unique
+> CE.) → that is WHY heads-up is the solver/SOTA domain (unique NE → unique CE → strongly robust) and WHY **6-max is
+> fundamentally harder** (multiplayer general-sum → no unique-CE guarantee → **strong robustness is NOT free**). So
+> "true GTO" here = **lowest achievable exploitability + solver-match + cross-opponent-distribution robustness**,
+> enforced EMPIRICALLY. **Exploitation = a BOUNDED, GTO-EVALUATED overlay** (a deviation justified by EV gain vs its
+> exploitability cost) — never the goal in itself.
 >
-> **⟳ KEEP STATE.md CURRENT — standing rule (do this every session).** STATE.md must reflect the LIVE state, not
-> history. After any turn that moves a headline number (a measurement), lands a build, or shifts priorities,
-> UPDATE STATE.md's top CURRENT section *before ending the turn* — lead with the current frontier, demote
-> superseded numbers to a one-line "history" pointer. A fresh context (a human OR Claude after a context summary)
-> must start from the truth, never a stale framing. *(This rule exists because a stale doc once led a code-reviewer
-> onto an outdated "it's just a heuristic / −160 bb/100" trail — don't let that recur. Same for THIS file's "Honest
-> status" below.)*
+> **The approach:** an **LLM brain** — a fine-tuned **Qwen3** (8B first, size-agnostic pipeline → 32B later) — that
+> DRIVES our engine via **program-of-thought**: it emits Python calling our engine-API (`pokerbot/brain/api.py`),
+> which EXECUTES → an exact, verifiable action. The LLM does NOT *be* a solver; it *orchestrates* one (math by code =
+> no LLM-arithmetic errors; legality by the engine; judgment by NL). SOTA value-nets (DeepStack/Supremus) are HU-only;
+> a from-scratch 6-max net is DEPRIORITIZED (no clean GTO benchmark + extreme complexity). Plan:
+> `.claude/plans/gut-dann-sind-wir-toasty-forest.md` · `docs/QWEN_6MAX_PLAN.md` · `docs/DATASET_SPEC.md`.
 >
-> **Current phase (2026-06-16): NEURAL SELF-PLAY GTO CORE.** The solver-imitation floor is a MEASURED ceiling —
-> decision-grade **~−72 bb/100 vs GTO Wizard AIVAT** (n≥2500; the loss is BROAD postflop quality, not a fixable leak;
-> run-to-run noise ±8). The resolver fed too-wide ranges also hurts (−72…−76 < Always-Fold −64.6). So we PIVOTED to
-> building our OWN **from-scratch neural Deep CFR self-play net** — pure self-play, NO imitation (AlphaGo-Zero logic):
-> `strategy/deep_cfr.py` (Leduc-proven via EXACT exploitability), `deep_cfr_hunl.py` (the HUNL game + dual-net
-> trainer), `deepcfr_adapter.py` (net→bot, features verified). DCFR+ is the convergence engine (validated: Leduc
-> neural 445→338 mbb, still falling). Next run scoped in [`docs/NEXT_RUN_TODO.md`](docs/NEXT_RUN_TODO.md): finer bet
-> abstraction + richer features, gated by a paired GTOW A/B. Every other asset (books, CFR papers, PokerBench/Pluribus,
-> OpenSpiel, the LLM) connects at the **CLEAN BOUNDARY** — validation/design/exploit, NEVER a training label. vs the
-> field we still crush (+31 Slumbot, +300–700 weak). (Resolver/range-tracker = HISTORY now; see STATE.md + NOTES.md.)
+> **Two-node system:** (1) **the PC (hub)** = the self-growing EV-gated dataset + a frontier-distillation loop
+> (OpenAI/Claude → a HARD-CODED deterministic EV-TRUTH filter → dataset) + CPU mass-solving + the training monitor +
+> scp-orchestration; (2) **RunPod** = Qwen SFT→GRPO (reward = 6-max self-play EV via `table.py` + the `sixmax`
+> opponent league; GTO-anchored eval = PokerBench-acc + bb/100 + LBR-exploitability + robustness-spread). Frontier
+> APIs feed ONLY the PC, never the pod; **the engine is TRUTH, the frontier a GATED PRIOR.**
 >
-> **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — in-repo log of approximations we ship now and
-> should compute exactly later. Add an entry when you ship a heuristic. (NOT a primary onboarding doc — it's a
-> caveat list; the live state is STATE.md.)
+> **CLEAN BOUNDARY (hard rule):** SFT/distillation = WARM-START only; the imitation ceiling is real (a HU policy net
+> hit −212, a solver-imitation floor plateaued ~−72). **Only RL/self-play with realized-EV reward lifts above the
+> teacher.** External assets (the 6 books, CFR/Pluribus/Supremus papers, PokerBench, Pluribus hands, frontier LLMs)
+> seed / validate / distill-UNDER-GATE — never an ungated training label.
+
+> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth. Live repo tree =
+> [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = what's happening now.
+>
+> **⟳ KEEP STATE.md CURRENT — standing rule.** After any turn that moves a headline number (a measurement), lands a
+> build, or shifts priorities, UPDATE STATE.md's top CURRENT section *before ending the turn* — lead with the current
+> frontier, demote superseded numbers to a one-line "history" pointer. A fresh context must start from the truth.
+>
+> **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — approximations we ship now + should compute
+> exactly later. Add an entry when you ship a heuristic.
+
+## Working discipline — Fable-5 verified mode (embedded from `github.com/fivetaku/fablize`)
+How to work on THIS project. Transfers PROCEDURE, not capability — *make the work reach its own ceiling, don't fake it.*
+- **Verification grounding:** run + observe the artifact — a measured run, a paired/duplicate A/B, exact
+  exploitability, a `test_*`, a UI via TestClient — BEFORE any "done". A claim without its cited evidence is not done.
+- **Multi-story gate:** decompose; refuse a groundless "done". Per objective, state truly-evidenced vs merely-declared.
+- **Investigation protocol:** for any loss/failure, reproduce it, COMPETE the hypotheses, trace the COMPLETE causal
+  chain — never stop at the first plausible cause.
+- **No promising-without-doing:** "I'll do X" / "should help" are NOT results. Hard-separate DONE+measured from planned/hoped.
+- **Grounded gate (hard-won):** only a GROUNDED signal (solver-gap / AIVAT / exact exploitability / a deterministic
+  check) gates a change. Single-rule raw-bb/100 A/B is too noisy (plausible fixes were REVERTED after measurement);
+  small samples lie (n≤150 AIVAT lied as −13 vs the real −72). Paired/duplicate eval cancels card luck.
 
 ## Run / play
-- **6-max vs 5 bots (the main app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000
-  Desktop launcher: **`PokerB 6max spielen.bat`**. Fast (bots decide locally, no LLM in-play); logs
-  every hand to `data/sessions/session_*.jsonl`; "Analyse" button = end-of-session breakdown.
-- **Heads-Up + live coach:** `python -m pokerbot.web.server --open`. Desktop: **`PokerB spielen.bat`**.
-- Always run from the project root as `python -m <module>` (the `pokerbot`/`extraction` packages need
-  the root on `sys.path`). Windows / PowerShell, Python 3.12. Install: `pip install -r requirements.txt`.
+- **6-max vs 5 bots (the app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 (launcher
+  `PokerB 6max spielen.bat`). Logs each hand to `data/sessions/`; "Analyse" = end-of-session breakdown.
+- HU app (background/validation only now): `python -m pokerbot.web.server --open`.
+- Always run from the project root as `python -m <module>`. Windows / PowerShell, Python 3.12. `pip install -r requirements.txt`.
 
-## Architecture
-- `pokerbot/engine/` — cards, treys evaluator, Monte-Carlo equity, HU `game.py`, N-player `table.py` (side pots).
-- `pokerbot/strategy/` — preflop strength model, ranges, **CFR push/fold blueprint** (`cfr_preflop.py` +
-  `blueprint.py`), **postflop + fold-equity sizing** (`postflop.py`), the **analytic GTO baseline**
-  (`gto_baseline.py`, texture/aggressor-aware) measured against the **TexasSolver GTO oracle** (`gto_oracle.py`),
-  online `opponent.py` model, the **adaptive exploitation engine** (`adaptive.py`), per-opponent exploit models
-  (`pluribus_exploit.py`, the Slumbot `LearnedFoldModel`), the HU `bot.py`.
-  **MVP#2 — real-time GTO:** `resolver.py` (live TexasSolver river/turn re-solve to terminal, the situation-specific
-  GTO path) + `range_tracker.py` (line-aware ranges into the resolver) + `advisor.py` (flop/turn/river solver-
-  imitation MLPs = the floor) + `exploit_engine.py`/`opp_model.py` (LCB-gated safe exploit + Dirichlet opponent
-  model). The HU benchmark adapter is `benchmark/gtowizard.py` (+ `tools/gtow_run.py`).
-  **★ Neural self-play GTO core (current frontier):** `deep_cfr.py` (from-scratch Deep CFR + DCFR+, with the
-  `vanilla_cfr` Leduc EXACT-exploitability ground truth), `deep_cfr_hunl.py` (self-contained HUNL game + dual-net
-  trainer), `deepcfr_adapter.py` (policy net → bot via `use_deepcfr` / `POKERB_DEEPCFR`).
-- `pokerbot/arena/` — `sixmax.py` (6-max decision brain), `openpoker.py` (Open Poker WebSocket client).
-- `pokerbot/coach/` — Claude-backed coaching (HU app); `meta_coach.py` (engine-agnostic in-loop meta-coach /
-  exploit-hypothesis / run-director — Anthropic or an OpenAI-compatible vLLM endpoint), `translate.py`
-  (engine spot ↔ poker prose, directive → clamped param delta).
-- `pokerbot/analysis/` — `session_analysis.py` (stats + Claude narrative), `session_deep.py` (meta-pattern /
-  better-vs-bot / tilt), `pluribus_catalog.py`.
-- `pokerbot/web/` — FastAPI servers + `static/*.html` single-page UIs (`six.html` = 6-max, `index.html` = HU).
-- `pokerbot/benchmark/` — `slumbot.py` (play Slumbot's API, `--exploit`), `probe.py` (learn its fold curve),
-  `internal.py` (local baselines), `pluribus_bench.py` (decision-alignment vs Pluribus) + `pluribus_leaks.py`
-  (mine its exploitable fold-curve), `beat_them_all.py` (adaptive vs a diverse suite), `lbr.py` (LBR
-  exploitability lower bound), `llm_opponent.py` (our bot vs a frontier-LLM agent, GTO-Wizard-leaderboard-style).
-- `extraction/` — book-mining pipeline (PDF→text→Claude concepts/ranges + OpenAI math; `mathematics_of_poker.py`)
-  PLUS heavy-compute: `mass_solve.py` (RAM-adaptive parallel TexasSolver → GTO cache), `analyze_cache.py`
-  (cache → GTO patterns by texture), `exploit_playbook.py` (concurrent Claude → bounded exploit-directive grid),
-  `qwen_sft.py` (Qwen LoRA fine-tune on PokerBench), `runpod_run.py` (pod lifecycle), `deep_cfr_nlhe.py`, `pod_run30.py`.
-  **Active learning (2026-06-14):** `grounded_blindspots.py` (solver-disagreement per spot = the RELIABLE
-  acquisition signal) + `blindspot_radar.py` (Claude-Haiku triage = cheap hypotheses, MUST be solver-verified);
-  `solvability_query.py` (OpenAI); `gcp_solve_setup.sh`/`gcp_solve_launch.sh` (GCP coverage-solve — free-tier
-  capped at 12 vCPU global, big run needs an account upgrade).
-- `knowledge_base/` — extracted artifacts: `concepts/`, `ranges/` (+ `cfr/preflop_pushfold.json`), `math/`
-  (incl. `mathematics_of_poker.json`), `hand_histories/` (10k Pluribus hands), `exploit/` (`slumbot_fold.json`
-  + `playbook.jsonl` = 11.5k Haiku exploit directives + `playbook_opus_coarse.jsonl` = 240 Opus).
-- `docs/` — `STATE.md` (session entry point) + ROADMAP / POD_PLAN / RUNPOD_PLAN etc.
-- `tests/` — engine stress tests + bot/web smoke tests. `data/` — intermediate + session logs (gitignored).
+## Architecture (logical; the live tree is [`INDEX.md`](INDEX.md))
+- `pokerbot/engine/` — cards, treys evaluator, MC equity (`equity.py`), the **N-player `table.py` = the 6-max RL
+  ENVIRONMENT** (start_hand / legal_actions / act / obs_for / result, side pots), HU `game.py`.
+- `pokerbot/strategy/` — the engine PRIMITIVES the brain calls: `preflop_blueprint.py`, `range_tracker.py`,
+  `advisor.py` (solver-frequency MLPs), `opp_model.py` (Dirichlet exploit), `postflop.py` (sizing/texture), `bot.py`.
+- `pokerbot/brain/` — **the LLM-brain interface (NEW):** `api.py` (typed engine-API = the DSL vocabulary),
+  `format_spot.py` (canonical 6-max spot, PokerBench-aligned), `executor.py` (program-of-thought sandbox).
+- `pokerbot/arena/` — `sixmax.py` (the opponent LEAGUE: TAG/LAG/nit/station/maniac profiles).
+- `pokerbot/{web,benchmark,coach,analysis}/` — apps; benchmarks (`slumbot.py`, `gtowizard.py`, `lbr.py`,
+  `duplicate.py`); coaching; session analysis.
+- `dataset/` — **the GOLD (NEW):** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards.
+- `training/` — **Qwen (NEW):** `qwen_sft.py` (SFT, Qwen3-8B QLoRA on the DSL data), `qwen_grpo.py` (RL self-play),
+  `qwen_eval.py` (PokerBench-acc + bb/100 + LBR).
+- `pipeline/` — **the PC-hub program (NEW):** `frontier_loop.py` (gated active distillation), `filter.py` (the
+  deterministic EV-truth/relevance filter), `monitor.py`, `orchestrate.py` (scp to/from the pod).
+- `research/` — the one-off mining/consult/solve scripts (the historical `extraction/`; reusable: `llm.py` = the
+  OpenAI/Claude call helpers, `mass_solve.py`, `preflop_*`, `cfv_*`).
+- `infra/` — `runpod_run.py` (pod lifecycle) + the pod campaign/setup.
+- `knowledge_base/` — extracted theory = the dataset's SOURCE: `math/` (Mathematics of Poker → `formulas.py`),
+  `concepts/`, `theory/` (CFR/Pluribus/Supremus/AGT), `exploit/` (11.5k directives), `ranges/`, `postflop/`,
+  `hand_histories/` (10k Pluribus). **Hard-referenced by `config.py` + strategy — do not move without updating both.**
+- `books/` — the 6 poker books (`poker/`: Mathematics of Poker, Beyond GTO, Exploitative Poker, Modern Poker Theory,
+  NLHE Theory & Practice, Theory of Poker) + `papers/` (CFR, Pluribus, Supremus, the PokerBench-LLM + Nash-robustness PDFs).
+- `docs/` (`STATE.md` entry point + plans/consults) · `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client).
+
+## The common language (DSL) — see [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md)
+Math (`knowledge_base/math/formulas.py`) ↔ Code (the `brain/api.py` engine-API) ↔ Language (concepts/prompt). A
+training example = a canonical spot → a **decision-program** (Python calling the API + brief NL) → the executed action.
+Same `format_spot()` byte-identical across SFT / RL / inference / eval. Qwen-native (code), exact (math by code),
+verifiable (run it → exact RL reward).
 
 ## Config / keys
-- `pokerbot/config.py`: paths, models, API keys. Keys are read from `C:\Users\hampe\Desktop\Secret keys\`
-  (Claude + OpenAI under `AI\`, RunPod) with env-var override — **never hardcode keys in source**.
-- Models: Claude **`claude-opus-4-8`**; OpenAI auto-resolves to **`gpt-5.1`** (see `OPENAI_MODEL_PREFERENCE`).
+- `pokerbot/config.py`: paths, models, API keys read from `C:\Users\hampe\Desktop\Secret keys\` (Claude+OpenAI under
+  `AI\`, RunPod) with env-var override — **never hardcode keys**. The OpenAI/Claude call helpers live in
+  `research/llm.py` (`ask_openai`/`ask_claude`/`claude_json`/`openai_json`).
+- Models: Claude `claude-opus-4-8`; OpenAI auto-resolves (`OPENAI_MODEL_PREFERENCE`, gpt-5.1/gpt-5.5/o3). Base LLM = **Qwen3-8B**.
 
 ## Conventions / gotchas
-- Cards are 2-char strings (`'As'`, `'Td'`) — treys-compatible. `bb = 100` chips in the apps; UIs show bb.
-- `six_server.index()` reads `six.html` fresh per request (browser refresh shows UI edits). The other
-  servers cache HTML at import → restart to pick up changes.
-- `TaskStop` on a backgrounded server can leave the Python child alive holding the port. If a port is
-  "in use": `Get-NetTCPConnection -LocalPort <p>` → `Stop-Process -Id <pid> -Force`.
-- The Claude-Preview screenshot tool hangs in this environment — verify UIs via the API or
-  `fastapi.testclient.TestClient` (in-process), not screenshots.
-- 6-max UI: chip colours are deliberately outside the teal/cyan/gold theme; only winners reveal cards
-  (mucking); only the human's own net is shown; next hand auto-advances (~2.4 s).
+- Cards are 2-char strings (`'As'`, `'Td'`) — treys-compatible. `bb = 100` chips; UIs show bb.
+- `six_server.index()` reads `six.html` fresh per request; other servers cache HTML at import → restart for UI edits.
+- A backgrounded server killed via TaskStop can hold its port: `Get-NetTCPConnection -LocalPort <p>` → `Stop-Process -Id <pid> -Force`.
+- Verify UIs via `fastapi.testclient.TestClient`, not the (hanging) screenshot tool.
 
 ## Heavy compute / pod (RunPod)
-- `extraction/runpod_run.py` provisions/kills a GPU pod (B200 via `--fast`). **ALWAYS `--kill` when done** — it
-  does `DELETE /pods/{id}` = full terminate (compute+storage billing stops); a mere "stop" still bills storage.
-- B200 = Blackwell (sm_100): the stock `pytorch:2.4` image's torch fails "no kernel image" → on the pod
-  `pip install -U torch --index-url https://download.pytorch.org/whl/cu128` (+ drop torchvision/torchaudio). Verify
-  FOREGROUND that `torch.__version__` ends `+cu128` (a quiet `-q` install can silently no-op).
-- **CPU and GPU heavy jobs do NOT coexist on one box**: a TexasSolver mass-solve starves the GPU trainer's
-  kernel-dispatch *and* saturates sshd (SSH 255s, unmanageable). Run the GPU job on the pod and the CPU
-  mass-solve LOCALLY (separate boxes). SSH key `C:\Users\hampe\.ssh\pokerb_runpod`; fresh pods get a NEW ssh port.
+- `infra/runpod_run.py` provisions/kills a GPU pod. **ALWAYS `--kill` when done** (`DELETE /pods/{id}` = full
+  terminate; a "stop" still bills storage). Verify `--status` = no tracked pods.
+- **Prefer H100/H200 for Qwen.** B200 = Blackwell sm_100: training kernels are immature (torch SDPA math-fallback,
+  ~10× slower observed) → only with `pip install -U torch --index-url …/cu128` AND verified `+cu128` throughput.
+- **CPU and GPU heavy jobs do NOT coexist on one box** (mass-solve starves the GPU trainer + saturates sshd). The
+  GPU job runs on the pod, the CPU mass-solve LOCALLY (the 2-node split). SSH key `C:\Users\hampe\.ssh\pokerb_runpod`.
+- Data moves PC↔pod via a single **scp tarball** (`pokerbot/`+`research/`+`dataset/`) + scp results back; the campaign
+  pattern is self-killing (`atexit`+`finally`).
 
-## Honest status (what's real)
-*Lead with the LIVE numbers; older numbers are HISTORY (one-liners at the end). #1 benchmark = the GTO Wizard AIVAT board.*
-- **★ CURRENT FRONTIER (2026-06-16) — from-scratch neural Deep CFR self-play GTO core** (`strategy/deep_cfr*.py`),
-  built to ESCAPE the imitation ceiling (the floor below is what it replaces). Proven on Leduc (exact exploitability;
-  DCFR+ took the neural run 445→338 mbb, still falling); the first HUNL net beats call-station/always-fold/random; the
-  GTOW number is pending. PURE self-play — external knowledge (books/papers/PokerBench/Pluribus/OpenSpiel/the LLM) is
-  validation/design/exploit ONLY, **never a training label** (that imitation IS the −72 ceiling). Plan: `docs/NEXT_RUN_TODO.md`.
-- **What the bot IS:** an **exploit-primary** engine — a solver-grounded **floor** (flop/turn/river solver-imitation
-  advisors + analytic defense/sizing) + **real-time TexasSolver re-solving** at high-leverage nodes (`resolver.py`:
-  river built+measured, turn built) + a **range tracker** + an **LCB-gated exploit overlay** (fires only on a
-  measured, safe leak → floor vs near-GTO). Honest: the floor MATCHES solver bet/check FREQUENCIES but is
-  context-collapsed (heuristic + advisors, **not** a solver); the resolver is the path to situation-specific GTO.
-- **vs GTO Wizard AI — the #1 benchmark (key ACTIVATED 2026-06-15; AIVAT ~10× variance-cut):** the river resolver,
-  measured DECISION-GRADE, is **−72.06 ±6.70** (n=2498) — the earlier −12.9 (n=150) was a LUCKY small sample (the
-  small-samples-lie lesson, again). −72 is worse than Always-Fold (−64.6): fed too-wide ranges, the resolver
-  confidently plays the WRONG equilibrium in big pots. MVP#1 floor was −33 ±11 but only n=30 (also unreliable); a
-  floor baseline at n=2500 is running. **Implication: the range-tracker keystone is a PREREQUISITE — without
-  correct ranges the resolver HURTS, it doesn't help.** You can't beat near-GTO regardless; least-loss is the goal.
-- **vs Slumbot (exploitable near-GTO):** current MVP **+31 ±46** (2000h) — the floor-fix + exploit + live-learning
-  turned the old −102 into a crush. **The thesis in one line: vs the exploitable field we WIN big; vs true near-GTO
-  we minimize loss.** The edge = exploiting each opponent's gap to GTO, not out-GTO-ing anyone. Crushes weak
-  opponents locally (+300–700 bb/100).
-- **★ THE keystone next build (quadruple-triangulated — an external code-review + Opus 4.6 + GPT-5.5 + our own
-  notes ALL independently name it #1):** a **Bayesian action-consistent postflop range tracker**. Today's
-  `_villain_range`/`_narrow` is "top X% by absolute board strength" (no bluffs/draws/lineage) → poisons the floor's
-  facing-bet/bluffcatch math; and `range_tracker` is preflop-line-only → the resolver solves the right board with
-  too-wide ranges. Fixing ranges fixes BOTH. Cheap win alongside: wire `preflop_gto.py` (the 88.6% PokerBench
-  table) into the HU `bot.py` — verified NOT wired (only 6-max RFI uses it).
-- **Measurement discipline (hard-won):** only a GROUNDED signal (solver gap / AIVAT) or a deterministic check
-  gates a change — LLM triage + single-rule raw-bb/100 A/B are too noisy (plausible fixes were REVERTED after
-  measurement). Paired/duplicate eval cancels card luck; the GTO Wizard board uses AIVAT.
-- **History (superseded; context only):** the 2026-06-14 Slumbot **anti-spew saga** (no-exploit floor −526 → −46 →
-  −5.4 with the fold-curve exploit) and the **−160 paired vs-TexasSolver-oracle** head-to-head are PRE-GTO-Wizard,
-  PRE-resolver numbers (the −160 oracle shared an abstraction + used too-wide ranges → not true GTO). The live truth
-  is the GTO Wizard AIVAT line above. Preflop push/fold ≤~10bb = verified Nash; deeper preflop is still heuristic.
-
-## Direction (not a rulebook — current thinking, expected to evolve)
-No bot plays **true GTO** yet, so every opponent (Pluribus, Slumbot, GTO Wizard, humans) is an exploitable
-approximation. Imitating any one of them is a ceiling. The goal is a **universal adaptive exploiter**: a
-robust low-exploitability baseline + an online opponent-model that detects each opponent's leaks and
-exploits them safely, with a confidence-gated fallback — built to handle opponents *we haven't seen yet*.
-"Beat them all" requires adaptivity (the exploit that beats one bot loses to another). RunPod/Deep-CFR is
-an *optional* lever for a stronger baseline, not the edge. Stay honest about what's measured vs projected.
-**Solvability validation (gpt-5.1, 2026-06-14, `data/sessions/solvability_6max.md`):** 6-max NLHE is provably
-NOT "solvable" like heads-up — multiplayer general-sum ⇒ computing Nash is PPAD-hard & non-unique, no-regret
-(CFR) only reaches a CCE not Nash, and exploitability isn't a clean scalar. So this design *is* the only sound
-north star: a bounded-exploitability blueprint (floor) + an adaptive exploiter, judged by MEASURED
-exploitability (LBR/AIVAT) + realized bb/100 — never a "solve". The edge = exploiting each opponent's gap to
-GTO; vs near-GTO (GTO Wizard) the ceiling is ~break-even, vs the field it's huge.
+## History (superseded — context only; the live state is STATE.md)
+The project was a HU exploit-primary engine measured **−72 bb/100 vs GTO Wizard** (87% preflop; AIVAT n=2498); the
+solver-imitation floor + the fcpa policy net (−212) showed the imitation ceiling; a near-Nash preflop blueprint +
+range-tracker keystone + a solver-grafted-preflop pass were built (grounded but flat in bb/100 vs near-GTO). Those
+are now **background/validation** — the goal pivoted to the 6-max GTO-achieving Qwen brain above.
 
 ## Tests
-`python -m tests.test_game` · `python -m tests.test_table` · `python -m tests.test_bot` ·
-`python -m pokerbot.strategy.cfr_preflop --quick`
+`python -m tests.test_game` · `python -m tests.test_table` · `python -m tests.test_bot` · `python -m tests.test_range_tracker`

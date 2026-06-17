@@ -95,13 +95,13 @@ def gtow_to_state(gsr: dict) -> dict:
     rr = gs.get("raise_range") or {}
     rmin = rr.get("min") if isinstance(rr, dict) else None
     rmax = rr.get("max") if isinstance(rr, dict) else None
-    hero_stack = int(hero.get("stack", start) or start)
+    hero_stack = int(hero["stack"]) if hero.get("stack") is not None else start  # NOT `or start`: a legit all-in 0 must stay 0
     legal = {"to_act": 0, "to_call": int(to_call), "pot": int(total_pot),
              "can_fold": "f" in la_codes, "can_check": "k" in la_codes, "can_call": "c" in la_codes,
              "call_amount": int(to_call), "can_raise": "b" in la_codes, "is_bet": ("k" in la_codes),
              "raise_min": int(rmin) if rmin is not None else None,
-             "raise_max": int(rmax) if rmax is not None else hero_stack}
-    vill_stack = int(vill.get("stack", start) or start)
+             "raise_max": int(rmax) if rmax is not None else hero_stack + int(c_h)}  # all-in raise-TO = behind + already-in
+    vill_stack = int(vill["stack"]) if vill.get("stack") is not None else start  # 0 = all-in; the old `or start` hid it
     return {
         "street": street, "board": board, "pot": int(total_pot), "bb": int(bb),
         "current_bet": int(max(c_h, c_v)) if to_call > 0 else 0, "button": button_eng,
@@ -165,6 +165,10 @@ class PokerBotAgent:
         self.bot.use_turn_resolver = use_turn_resolver   # MVP#2 P2: real-time turn re-solving
         if os.environ.get("POKERB_DEEPCFR", "0") == "1":  # our from-scratch HUNL Deep CFR net IS the strategy
             self.bot.use_deepcfr = True
+        if os.environ.get("POKERB_BLUEPRINT", "1") == "0":  # A/B: OFF -> heuristic preflop (the -72 baseline)
+            self.bot.use_blueprint = False
+        if os.environ.get("POKERB_RANGE_TRACKER", "1") == "0":  # A/B: OFF -> floor uses _narrow (pre-keystone villain range)
+            self.bot.use_range_tracker = False
 
     def act_dict(self, gsr: dict) -> dict:
         state = gtow_to_state(gsr)

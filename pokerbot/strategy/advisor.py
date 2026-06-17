@@ -107,8 +107,8 @@ def defense_available() -> bool:
 
 def p_defense(hole, board, role, size_faced: float, street: str = "flop"):
     """Solver (P_fold, P_call, P_raise) for this hand facing a bet of size_faced (× the pot it was bet into) on
-    `street`, or None -> caller uses the heuristic. Trained on the flop+river caches -> the caller gates to those
-    streets. Feature vector EXACTLY matches extraction/train_defense_advisor.feat: tier, texture(flop), STREET,
+    `street`, or None -> caller uses the heuristic. Trained on the flop+turn+river caches (turn added 2026-06-16)
+    -> the caller gates to those streets. Feature vector EXACTLY matches extraction/train_defense_advisor.feat: tier, texture(flop), STREET,
     role, bools, overcards, strength, size_faced. Texture is keyed on the flop (board[:3]) as in build_defense_data."""
     net = _load_defense()
     if not net:

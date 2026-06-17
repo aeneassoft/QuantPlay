@@ -2,8 +2,7 @@
 
 A No-Limit Hold'em bot grounded in five poker books and modern CFR research, with a browser app to play
 against it, an opponent-exploiting layer, a Claude-backed coach, and a measurement harness against the
-strongest public benchmarks (Slumbot, GTO Wizard AI). The current frontier is **building our own from-scratch
-neural Deep CFR self-play GTO core** to escape the ceiling of solver imitation.
+strongest public benchmarks (Slumbot, GTO Wizard AI). The current frontier is **finetune an Open Source LLM to be able to Play 6 Players NLH Poker.
 
 > **New here? Read [`docs/STATE.md`](docs/STATE.md) first** — the LIVE source of truth (current frontier, the
 > headline number, the next build). `CLAUDE.md` = stable conventions; this README = the durable overview;

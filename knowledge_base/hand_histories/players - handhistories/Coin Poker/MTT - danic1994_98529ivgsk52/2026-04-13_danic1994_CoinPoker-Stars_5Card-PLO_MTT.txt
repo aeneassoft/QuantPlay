@@ -1,0 +1,4111 @@
+PokerStars Hand #2613730031: Tournament #46629, $55 Bolt [Hyper] Hold'em No Limit - Level I (250/500 - Ante 63) - 2026/04/13 22:13:41 GMT
+Table '261373' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (20252 in chips)
+Seat 3: tidy57392326836 (26462.64 in chips)
+Seat 4: Kapeika (7452 in chips)
+Seat 5: blufffold69 (12721.03 in chips)
+Seat 6: lbe417 (8994 in chips)
+Seat 7: Zimomo (8925 in chips)
+DaniC1994: posts the ante 63
+tidy57392326836: posts the ante 63
+Kapeika: posts the ante 63
+blufffold69: posts the ante 63
+lbe417: posts the ante 63
+Zimomo: posts the ante 63
+tidy57392326836: posts small blind 250
+Kapeika: posts big blind 500
+*** HOLE CARDS ***
+blufffold69: folds
+lbe417: raises 500 to 1000
+Zimomo: folds
+DaniC1994: folds
+tidy57392326836: calls 750
+Kapeika: calls 500
+*** FLOP *** [7h Jh 9d]
+tidy57392326836: bets 500
+Kapeika: calls 500
+lbe417: raises 7431 to 7931 and is all-in
+tidy57392326836: raises 7431 to 15362
+Kapeika: folds
+Uncalled bet (7431) returned to tidy57392326836
+*** TURN *** [7h Jh 9d] [2h]
+*** RIVER *** [7h Jh 9d 2h] [9c]
+tidy57392326836: shows [Jd Qh] (Two Pair: Pair of J and 9)
+lbe417: shows [Qh Jd Qc Th] ()
+tidy57392326836 collected 19740
+*** SUMMARY ***
+Total pot 19740 | Rake 0
+Board [ 7h Jh 9d 2h 9c ]
+Game ended: 2026/04/13 22:15:26 GMT
+Seat 2: DaniC1994 folded before the flop
+Seat 3: tidy57392326836 (small blind) showed [ Jd Qh ] and won (19740) with Two Pair: Pair of J and 9
+Seat 4: Kapeika (small blind) folded on the Flop
+Seat 5: blufffold69 folded before the flop
+Seat 6: lbe417 showed [ Qh Jd Qc Th ] and lost with 
+Seat 7: Zimomo folded before the flop
+
+
+PokerStars Hand #2613730032: Tournament #46629, $55 Bolt [Hyper] Hold'em No Limit - Level I (250/500 - Ante 63) - 2026/04/13 22:15:27 GMT
+Table '261373' 7-max Seat #3 is the button
+Seat 2: DaniC1994 (20189 in chips)
+Seat 3: tidy57392326836 (37208.64 in chips)
+Seat 4: Kapeika (5889 in chips)
+Seat 5: blufffold69 (12658.03 in chips)
+Seat 7: Zimomo (8862 in chips)
+DaniC1994: posts the ante 63
+tidy57392326836: posts the ante 63
+Kapeika: posts the ante 63
+blufffold69: posts the ante 63
+Zimomo: posts the ante 63
+Kapeika: posts small blind 250
+blufffold69: posts big blind 500
+*** HOLE CARDS ***
+Zimomo: folds
+DaniC1994: raises 550 to 1050
+tidy57392326836: calls 1050
+Kapeika: folds
+blufffold69: calls 550
+*** FLOP *** [Ts Qs 5c]
+blufffold69: checks
+DaniC1994: checks
+tidy57392326836: checks
+*** TURN *** [Ts Qs 5c] [Qd]
+blufffold69: bets 1225.95
+DaniC1994: folds
+tidy57392326836: calls 1225.95
+*** RIVER *** [Ts Qs 5c Qd] [9d]
+blufffold69: checks
+tidy57392326836: bets 4500
+blufffold69: calls 4500
+tidy57392326836: shows [Ac Jd] ()
+blufffold69: shows [Qc Ks] (Three of a kind: Triplet of Q)
+blufffold69 collected 15166.90
+*** SUMMARY ***
+Total pot 15166.90 | Rake 0
+Board [ Ts Qs 5c Qd 9d ]
+Game ended: 2026/04/13 22:17:10 GMT
+Seat 2: DaniC1994 folded on the Turn
+Seat 3: tidy57392326836 showed [ Ac Jd ] and lost with 
+Seat 4: Kapeika (small blind) folded before the flop
+Seat 5: blufffold69 (small blind) showed [ Qc Ks ] and won (15166.90) with Three of a kind: Triplet of Q
+Seat 7: Zimomo folded before the flop
+
+
+PokerStars Hand #2613730033: Tournament #46629, $55 Bolt [Hyper] Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/13 22:17:11 GMT
+Table '261373' 7-max Seat #4 is the button
+Seat 1: steppinonyaneck37 (10000 in chips)
+Seat 2: DaniC1994 (19076 in chips)
+Seat 3: tidy57392326836 (30369.69 in chips)
+Seat 4: Kapeika (5576 in chips)
+Seat 5: blufffold69 (20985.98 in chips)
+Seat 7: Zimomo (8799 in chips)
+steppinonyaneck37: posts the ante 75
+DaniC1994: posts the ante 75
+tidy57392326836: posts the ante 75
+Kapeika: posts the ante 75
+blufffold69: posts the ante 75
+Zimomo: posts the ante 75
+blufffold69: posts small blind 300
+Zimomo: posts big blind 600
+*** HOLE CARDS ***
+steppinonyaneck37: folds
+DaniC1994: folds
+tidy57392326836: folds
+Kapeika: raises 4901 to 5501 and is all-in
+blufffold69: folds
+Zimomo: folds
+Uncalled bet (4901) returned to Kapeika
+Kapeika: doesn't show hand
+Kapeika collected 1950
+*** SUMMARY ***
+Total pot 1950 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:17:53 GMT
+Seat 1: steppinonyaneck37 folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 3: tidy57392326836 folded before the flop
+Seat 4: Kapeika collected (1950)
+Seat 5: blufffold69 (small blind) folded before the flop
+Seat 7: Zimomo (small blind) folded before the flop
+
+
+PokerStars Hand #2613730035: Tournament #46629, $55 Bolt [Hyper] Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/13 22:19:18 GMT
+Table '261373' 7-max Seat #7 is the button
+Seat 1: steppinonyaneck37 (21650 in chips)
+Seat 2: DaniC1994 (18926 in chips)
+Seat 3: tidy57392326836 (20369.69 in chips)
+Seat 4: Kapeika (6776 in chips)
+Seat 5: blufffold69 (19335.98 in chips)
+Seat 6: CheeseholeLover (10000 in chips)
+Seat 7: Zimomo (7749 in chips)
+steppinonyaneck37: posts the ante 75
+DaniC1994: posts the ante 75
+tidy57392326836: posts the ante 75
+Kapeika: posts the ante 75
+blufffold69: posts the ante 75
+CheeseholeLover: posts the ante 75
+Zimomo: posts the ante 75
+steppinonyaneck37: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+tidy57392326836: folds
+Kapeika: folds
+blufffold69: folds
+CheeseholeLover: folds
+Zimomo: raises 7074 to 7674 and is all-in
+steppinonyaneck37: folds
+DaniC1994: folds
+Uncalled bet (7074) returned to Zimomo
+Zimomo: doesn't show hand
+Zimomo collected 2025
+*** SUMMARY ***
+Total pot 2025 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:19:55 GMT
+Seat 1: steppinonyaneck37 (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 3: tidy57392326836 folded before the flop
+Seat 4: Kapeika folded before the flop
+Seat 5: blufffold69 folded before the flop
+Seat 6: CheeseholeLover folded before the flop
+Seat 7: Zimomo collected (2025)
+
+
+PokerStars Hand #2597710256: Tournament #46624, $109 Americas Special Deepstack Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:19:51 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (415368.81 in chips)
+Seat 2: 04051311 (769184.48 in chips)
+Seat 3: Looking111 (651605.31 in chips)
+Seat 4: BiggButtBenjamin (362379.09 in chips)
+Seat 5: DaniC1994 (1205622.62 in chips)
+Seat 6: fexzera (422491.90 in chips)
+Seat 7: Randolf (604410.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+BiggButtBenjamin: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+04051311: posts small blind 8000
+Looking111: posts big blind 16000
+*** HOLE CARDS ***
+BiggButtBenjamin: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: calls 8000
+Looking111: checks
+*** FLOP *** [Qs 5d 6d]
+04051311: bets 16000
+Looking111: raises 31000 to 47000
+04051311: calls 31000
+*** TURN *** [Qs 5d 6d] [Th]
+04051311: checks
+Looking111: bets 140000
+04051311: folds
+Uncalled bet (140000) returned to Looking111
+Looking111: doesn't show hand
+Looking111 collected 140000
+*** SUMMARY ***
+Total pot 140000 | Rake 0
+Board [ Qs 5d 6d Th ]
+Game ended: 2026/04/13 22:20:39 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 (small blind) folded on the Turn
+Seat 3: Looking111 (small blind) collected (140000)
+Seat 4: BiggButtBenjamin folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710267: Tournament #46624, $109 Americas Special Deepstack Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:30:55 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (464801.81 in chips)
+Seat 2: 04051311 (799204.48 in chips)
+Seat 3: Looking111 (344419.31 in chips)
+Seat 4: Kubsonek10 (629963.74 in chips)
+Seat 5: DaniC1994 (1148322.62 in chips)
+Seat 6: fexzera (390191.90 in chips)
+Seat 7: Randolf (869243.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Looking111: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+Randolf: posts small blind 10000
+ProfessorStacks: posts big blind 20000
+*** HOLE CARDS ***
+04051311: folds
+Looking111: folds
+Kubsonek10: raises 20000 to 40000
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: raises 422301.81 to 462301.81 and is all-in
+Kubsonek10: folds
+Uncalled bet (422301.81) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 107500
+*** SUMMARY ***
+Total pot 107500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:31:44 GMT
+Seat 1: ProfessorStacks (small blind) collected (107500)
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710306: Tournament #46624, $109 Americas Special Deepstack Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:13:25 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (511989.81 in chips)
+Seat 2: Noleniiitoooo (740593.07 in chips)
+Seat 3: Looking111 (872017.94 in chips)
+Seat 4: Kubsonek10 (1069832.68 in chips)
+Seat 5: DaniC1994 (559964.04 in chips)
+Seat 7: Randolf (1068728.28 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+Kubsonek10: posts small blind 17500
+DaniC1994: posts big blind 35000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: raises 35000 to 70000
+Noleniiitoooo: folds
+Looking111: calls 70000
+Kubsonek10: folds
+DaniC1994: folds
+*** FLOP *** [4s Qc Js]
+ProfessorStacks: checks
+Looking111: bets 72916
+ProfessorStacks: folds
+Uncalled bet (72916) returned to Looking111
+Looking111: doesn't show hand
+Looking111 collected 218750
+*** SUMMARY ***
+Total pot 218750 | Rake 0
+Board [ 4s Qc Js ]
+Game ended: 2026/04/13 23:14:38 GMT
+Seat 1: ProfessorStacks folded on the Flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: Looking111 collected (218750)
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710311: Tournament #46590, $55 Monday Main Event Hold'em No Limit - Level III (20000/40000 - Ante 5000) - 2026/04/13 23:19:19 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (831479.62 in chips)
+Seat 2: Noleniiitoooo (821843.07 in chips)
+Seat 4: Kubsonek10 (478633.18 in chips)
+Seat 5: DaniC1994 (190474.23 in chips)
+Seat 7: Randolf (909978.28 in chips)
+ProfessorStacks: posts the ante 5000
+Noleniiitoooo: posts the ante 5000
+Kubsonek10: posts the ante 5000
+DaniC1994: posts the ante 5000
+Randolf: posts the ante 5000
+Kubsonek10: posts small blind 20000
+DaniC1994: posts big blind 40000
+*** HOLE CARDS ***
+Randolf: raises 60000 to 100000
+ProfessorStacks: folds
+Noleniiitoooo: folds
+Kubsonek10: folds
+DaniC1994: calls 60000
+*** FLOP *** [4h Js 4c]
+DaniC1994: checks
+Randolf: bets 100000
+DaniC1994: folds
+Uncalled bet (100000) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 245000
+*** SUMMARY ***
+Total pot 245000 | Rake 0
+Board [ 4h Js 4c ]
+Game ended: 2026/04/13 23:20:42 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded on the Flop
+Seat 7: Randolf collected (245000)
+
+
+PokerStars Hand #2601990128: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:51:12 GMT
+Table '260199' 7-max Seat #6 is the button
+Seat 1: Flakxs (159393.74 in chips)
+Seat 2: Bup123 (17850 in chips)
+Seat 3: KoenGSGR (113068.93 in chips)
+Seat 4: junglebird (17600 in chips)
+Seat 5: DaniC1994 (20000 in chips)
+Seat 6: Voyager1 (43680 in chips)
+Seat 7: komarcus (25763.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+komarcus: posts small blind 700
+Flakxs: posts big blind 1400
+*** HOLE CARDS ***
+Bup123: folds
+KoenGSGR: folds
+junglebird: raises 1400 to 2800
+DaniC1994: raises 17025 to 19825 and is all-in
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+junglebird: folds
+Uncalled bet (17025) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 8925
+*** SUMMARY ***
+Total pot 8925 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 20:51:40 GMT
+Seat 1: Flakxs (small blind) folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR folded before the flop
+Seat 4: junglebird folded before the flop
+Seat 5: DaniC1994 collected (8925)
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus (small blind) folded before the flop
+
+
+PokerStars Hand #2601990129: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:51:41 GMT
+Table '260199' 7-max Seat #7 is the button
+Seat 1: Flakxs (157818.74 in chips)
+Seat 2: Bup123 (17675 in chips)
+Seat 3: KoenGSGR (112893.93 in chips)
+Seat 4: junglebird (14625 in chips)
+Seat 5: DaniC1994 (25950 in chips)
+Seat 6: Voyager1 (43505 in chips)
+Seat 7: komarcus (24888.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+Flakxs: posts small blind 700
+Bup123: posts big blind 1400
+*** HOLE CARDS ***
+KoenGSGR: raises 1540 to 2940
+junglebird: folds
+DaniC1994: folds
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+Bup123: calls 1540
+*** FLOP *** [Ad 2s 9c]
+Bup123: bets 5600
+KoenGSGR: folds
+Uncalled bet (5600) returned to Bup123
+Bup123: doesn't show hand
+Bup123 collected 7805
+*** SUMMARY ***
+Total pot 7805 | Rake 0
+Board [ Ad 2s 9c ]
+Game ended: 2026/04/13 20:52:25 GMT
+Seat 1: Flakxs (small blind) folded before the flop
+Seat 2: Bup123 (small blind) collected (7805)
+Seat 3: KoenGSGR folded on the Flop
+Seat 4: junglebird folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990130: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:52:25 GMT
+Table '260199' 7-max Seat #1 is the button
+Seat 1: Flakxs (156943.74 in chips)
+Seat 2: Bup123 (22365 in chips)
+Seat 3: KoenGSGR (109778.93 in chips)
+Seat 4: junglebird (14450 in chips)
+Seat 5: DaniC1994 (25775 in chips)
+Seat 6: Voyager1 (43330 in chips)
+Seat 7: komarcus (24713.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+Bup123: posts small blind 700
+KoenGSGR: posts big blind 1400
+*** HOLE CARDS ***
+junglebird: folds
+DaniC1994: folds
+Voyager1: folds
+komarcus: folds
+Flakxs: raises 1820 to 3220
+Bup123: folds
+KoenGSGR: folds
+Uncalled bet (1820) returned to Flakxs
+Flakxs: doesn't show hand
+Flakxs collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 20:52:50 GMT
+Seat 1: Flakxs collected (4725)
+Seat 2: Bup123 (small blind) folded before the flop
+Seat 3: KoenGSGR (small blind) folded before the flop
+Seat 4: junglebird folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990131: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:52:51 GMT
+Table '260199' 7-max Seat #2 is the button
+Seat 1: Flakxs (160093.74 in chips)
+Seat 2: Bup123 (21490 in chips)
+Seat 3: KoenGSGR (108203.93 in chips)
+Seat 4: junglebird (14275 in chips)
+Seat 5: DaniC1994 (25600 in chips)
+Seat 6: Voyager1 (43155 in chips)
+Seat 7: komarcus (24538.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+KoenGSGR: posts small blind 700
+junglebird: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+Bup123: folds
+KoenGSGR: raises 106628.93 to 108028.93 and is all-in
+junglebird: folds
+Uncalled bet (106628.93) returned to KoenGSGR
+KoenGSGR: doesn't show hand
+KoenGSGR collected 4025
+*** SUMMARY ***
+Total pot 4025 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 20:53:42 GMT
+Seat 1: Flakxs folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR (small blind) collected (4025)
+Seat 4: junglebird (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990132: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:53:43 GMT
+Table '260199' 7-max Seat #3 is the button
+Seat 1: Flakxs (159918.74 in chips)
+Seat 2: Bup123 (21315 in chips)
+Seat 3: KoenGSGR (110653.93 in chips)
+Seat 4: junglebird (12700 in chips)
+Seat 5: DaniC1994 (25425 in chips)
+Seat 6: Voyager1 (42980 in chips)
+Seat 7: komarcus (24363.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+junglebird: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+Voyager1: folds
+komarcus: folds
+Flakxs: raises 1680 to 3080
+Bup123: folds
+KoenGSGR: calls 3080
+junglebird: folds
+DaniC1994: calls 1680
+*** FLOP *** [3c 4s Tc]
+DaniC1994: checks
+Flakxs: checks
+KoenGSGR: checks
+*** TURN *** [3c 4s Tc] [Kc]
+DaniC1994: checks
+Flakxs: checks
+KoenGSGR: bets 9073
+DaniC1994: folds
+Flakxs: folds
+Uncalled bet (9073) returned to KoenGSGR
+KoenGSGR: doesn't show hand
+KoenGSGR collected 11165
+*** SUMMARY ***
+Total pot 11165 | Rake 0
+Board [ 3c 4s Tc Kc ]
+Game ended: 2026/04/13 20:54:52 GMT
+Seat 1: Flakxs folded on the Turn
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR collected (11165)
+Seat 4: junglebird (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded on the Turn
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990133: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 20:54:53 GMT
+Table '260199' 7-max Seat #4 is the button
+Seat 1: Flakxs (156663.74 in chips)
+Seat 2: Bup123 (21140 in chips)
+Seat 3: KoenGSGR (118563.93 in chips)
+Seat 4: junglebird (11825 in chips)
+Seat 5: DaniC1994 (22170 in chips)
+Seat 6: Voyager1 (42805 in chips)
+Seat 7: komarcus (24188.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+DaniC1994: posts small blind 700
+Voyager1: posts big blind 1400
+*** HOLE CARDS ***
+komarcus: folds
+Flakxs: raises 1820 to 3220
+Bup123: folds
+KoenGSGR: raises 1820 to 5040
+junglebird: folds
+DaniC1994: folds
+Voyager1: folds
+Flakxs: calls 1820
+*** FLOP *** [As 3d Qc]
+Flakxs: checks
+KoenGSGR: bets 5168
+Flakxs: folds
+Uncalled bet (5168) returned to KoenGSGR
+KoenGSGR: doesn't show hand
+KoenGSGR collected 13405
+*** SUMMARY ***
+Total pot 13405 | Rake 0
+Board [ As 3d Qc ]
+Game ended: 2026/04/13 20:55:47 GMT
+Seat 1: Flakxs folded on the Flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR collected (13405)
+Seat 4: junglebird folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Voyager1 (small blind) folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990134: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 21:01:36 GMT
+Table '260199' 7-max Seat #5 is the button
+Seat 1: Flakxs (151448.74 in chips)
+Seat 2: Bup123 (20965 in chips)
+Seat 3: KoenGSGR (126753.93 in chips)
+Seat 4: junglebird (11650 in chips)
+Seat 5: DaniC1994 (21295 in chips)
+Seat 6: Voyager1 (41230 in chips)
+Seat 7: komarcus (24013.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+Voyager1: posts small blind 700
+komarcus: posts big blind 1400
+*** HOLE CARDS ***
+Flakxs: folds
+Bup123: folds
+KoenGSGR: raises 1540 to 2940
+junglebird: folds
+DaniC1994: folds
+Voyager1: raises 6860 to 9800
+komarcus: folds
+KoenGSGR: calls 6860
+*** FLOP *** [7h 2d 5d]
+Voyager1: bets 7334.25
+KoenGSGR: raises 109444.68 to 116778.93 and is all-in
+Voyager1: calls 23920.75 and is all-in
+Uncalled bet (85523.93) returned to KoenGSGR
+*** TURN *** [7h 2d 5d] [4d]
+*** RIVER *** [7h 2d 5d 4d] [Qd]
+Voyager1: shows [Jd] (Flush: Q high)
+KoenGSGR: shows [3d 3s] ()
+Voyager1 collected 84735
+*** SUMMARY ***
+Total pot 84735 | Rake 0
+Board [ 7h 2d 5d 4d Qd ]
+Game ended: 2026/04/13 21:03:15 GMT
+Seat 1: Flakxs folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR showed [ 3d 3s ] and lost with 
+Seat 4: junglebird folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 (small blind) showed [ Jd ] and won (84735) with Flush: Q high
+Seat 7: komarcus (small blind) folded before the flop
+
+
+PokerStars Hand #2601990135: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 21:03:16 GMT
+Table '260199' 7-max Seat #6 is the button
+Seat 1: Flakxs (151273.74 in chips)
+Seat 2: Bup123 (20790 in chips)
+Seat 3: KoenGSGR (85523.93 in chips)
+Seat 4: junglebird (11475 in chips)
+Seat 5: DaniC1994 (21120 in chips)
+Seat 6: Voyager1 (84735 in chips)
+Seat 7: komarcus (22438.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+junglebird: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+komarcus: posts small blind 700
+Flakxs: posts big blind 1400
+*** HOLE CARDS ***
+Bup123: folds
+KoenGSGR: raises 1400 to 2800
+junglebird: raises 8500 to 11300 and is all-in
+DaniC1994: folds
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+KoenGSGR: calls 8500
+*** FLOP *** [5c 3d 8d]
+*** TURN *** [5c 3d 8d] [2h]
+*** RIVER *** [5c 3d 8d 2h] [As]
+KoenGSGR: shows [6s Ah] ()
+junglebird: shows [6s Ah 6h 6c] ()
+KoenGSGR collected 0
+*** SUMMARY ***
+Total pot 25925 | Rake 0
+Board [ 5c 3d 8d 2h As ]
+Game ended: 2026/04/13 21:04:04 GMT
+Seat 1: Flakxs (small blind) folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR showed [ 6s Ah ] and lost with 
+Seat 4: junglebird showed [ 6s Ah 6h 6c ] and lost with 
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus (small blind) folded before the flop
+
+
+PokerStars Hand #2601990136: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/13 21:04:04 GMT
+Table '260199' 7-max Seat #7 is the button
+Seat 1: Flakxs (149698.74 in chips)
+Seat 2: Bup123 (20615 in chips)
+Seat 3: KoenGSGR (99973.93 in chips)
+Seat 5: DaniC1994 (20945 in chips)
+Seat 6: Voyager1 (84560 in chips)
+Seat 7: komarcus (21563.50 in chips)
+Flakxs: posts the ante 175
+Bup123: posts the ante 175
+KoenGSGR: posts the ante 175
+DaniC1994: posts the ante 175
+Voyager1: posts the ante 175
+komarcus: posts the ante 175
+Flakxs: posts small blind 700
+Bup123: posts big blind 1400
+*** HOLE CARDS ***
+KoenGSGR: raises 1540 to 2940
+DaniC1994: folds
+Voyager1: calls 2940
+komarcus: folds
+Flakxs: folds
+Bup123: folds
+*** FLOP *** [Th 3h 8h]
+KoenGSGR: bets 4515
+Voyager1: folds
+Uncalled bet (4515) returned to KoenGSGR
+KoenGSGR: doesn't show hand
+KoenGSGR collected 9030
+*** SUMMARY ***
+Total pot 9030 | Rake 0
+Board [ Th 3h 8h ]
+Game ended: 2026/04/13 21:04:40 GMT
+Seat 1: Flakxs (small blind) folded before the flop
+Seat 2: Bup123 (small blind) folded before the flop
+Seat 3: KoenGSGR collected (9030)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded on the Flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990138: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/13 21:05:36 GMT
+Table '260199' 7-max Seat #2 is the button
+Seat 1: Flakxs (132253.87 in chips)
+Seat 2: Bup123 (18165 in chips)
+Seat 3: KoenGSGR (124033.80 in chips)
+Seat 4: BiggButtBenjamin (19350 in chips)
+Seat 5: DaniC1994 (20595 in chips)
+Seat 6: Voyager1 (81270 in chips)
+Seat 7: komarcus (21213.50 in chips)
+Flakxs: posts the ante 200
+Bup123: posts the ante 200
+KoenGSGR: posts the ante 200
+BiggButtBenjamin: posts the ante 200
+DaniC1994: posts the ante 200
+Voyager1: posts the ante 200
+komarcus: posts the ante 200
+KoenGSGR: posts small blind 800
+BiggButtBenjamin: posts big blind 1600
+*** HOLE CARDS ***
+DaniC1994: folds
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+Bup123: folds
+KoenGSGR: raises 114240 to 115840
+BiggButtBenjamin: folds
+Uncalled bet (114240) returned to KoenGSGR
+KoenGSGR: doesn't show hand
+KoenGSGR collected 4600
+*** SUMMARY ***
+Total pot 4600 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 21:06:04 GMT
+Seat 1: Flakxs folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR (small blind) collected (4600)
+Seat 4: BiggButtBenjamin (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990139: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/13 21:06:05 GMT
+Table '260199' 7-max Seat #3 is the button
+Seat 1: Flakxs (132053.87 in chips)
+Seat 2: Bup123 (17965 in chips)
+Seat 3: KoenGSGR (126833.80 in chips)
+Seat 4: BiggButtBenjamin (17550 in chips)
+Seat 5: DaniC1994 (20395 in chips)
+Seat 6: Voyager1 (81070 in chips)
+Seat 7: komarcus (21013.50 in chips)
+Flakxs: posts the ante 200
+Bup123: posts the ante 200
+KoenGSGR: posts the ante 200
+BiggButtBenjamin: posts the ante 200
+DaniC1994: posts the ante 200
+Voyager1: posts the ante 200
+komarcus: posts the ante 200
+BiggButtBenjamin: posts small blind 800
+DaniC1994: posts big blind 1600
+*** HOLE CARDS ***
+Voyager1: folds
+komarcus: folds
+Flakxs: folds
+Bup123: folds
+KoenGSGR: folds
+BiggButtBenjamin: raises 15750 to 17350 and is all-in
+DaniC1994: calls 15750
+*** FLOP *** [8h 8s 5h]
+*** TURN *** [8h 8s 5h] [8c]
+*** RIVER *** [8h 8s 5h 8c] [6h]
+BiggButtBenjamin: shows [5s] (Full House: Triplet of 8 and Pair  of 5)
+DaniC1994: shows [Jh 5s Ts Jd] ()
+BiggButtBenjamin collected 36100
+*** SUMMARY ***
+Total pot 36100 | Rake 0
+Board [ 8h 8s 5h 8c 6h ]
+Game ended: 2026/04/13 21:06:36 GMT
+Seat 1: Flakxs folded before the flop
+Seat 2: Bup123 folded before the flop
+Seat 3: KoenGSGR folded before the flop
+Seat 4: BiggButtBenjamin (small blind) showed [ 5s ] and won (36100) with Full House: Triplet of 8 and Pair  of 5
+Seat 5: DaniC1994 (small blind) showed [ Jh 5s Ts Jd ] and lost with 
+Seat 6: Voyager1 folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2601990140: Tournament #46662, $215 Monday Special Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/13 21:06:36 GMT
+Table '260199' 7-max Seat #4 is the button
+Seat 1: Flakxs (131853.87 in chips)
+Seat 2: Bup123 (17765 in chips)
+Seat 3: KoenGSGR (126633.80 in chips)
+Seat 4: BiggButtBenjamin (36100 in chips)
+Seat 5: DaniC1994 (2845 in chips)
+Seat 6: Voyager1 (80870 in chips)
+Seat 7: komarcus (20813.50 in chips)
+Flakxs: posts the ante 200
+Bup123: posts the ante 200
+KoenGSGR: posts the ante 200
+BiggButtBenjamin: posts the ante 200
+DaniC1994: posts the ante 200
+Voyager1: posts the ante 200
+komarcus: posts the ante 200
+DaniC1994: posts small blind 800
+Voyager1: posts big blind 1600
+*** HOLE CARDS ***
+komarcus: folds
+Flakxs: folds
+Bup123: calls 1600
+KoenGSGR: raises 5600 to 7200
+BiggButtBenjamin: folds
+DaniC1994: calls 1845 and is all-in
+Voyager1: folds
+Bup123: calls 5600
+*** FLOP *** [Ah 4s 8d]
+Bup123: checks
+KoenGSGR: bets 98240
+Bup123: folds
+Uncalled bet (98240) returned to KoenGSGR
+*** TURN *** [Ah 4s 8d] [4d]
+*** RIVER *** [Ah 4s 8d 4d] [3c]
+DaniC1994: shows [9h 8s 5h 7d] ()
+KoenGSGR: shows [8s] (Two Pair: Pair of 8 and 4)
+KoenGSGR collected 20045
+*** SUMMARY ***
+Total pot 20045 | Rake 0
+Board [ Ah 4s 8d 4d 3c ]
+Game ended: 2026/04/13 21:07:56 GMT
+Seat 1: Flakxs folded before the flop
+Seat 2: Bup123 folded on the Flop
+Seat 3: KoenGSGR showed [ 8s ] and won (20045) with Two Pair: Pair of 8 and 4
+Seat 4: BiggButtBenjamin folded before the flop
+Seat 5: DaniC1994 (small blind) showed [ 9h 8s 5h 7d ] and lost with 
+Seat 6: Voyager1 (small blind) folded before the flop
+Seat 7: komarcus folded before the flop
+
+
+PokerStars Hand #2597710253: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (7000/14000 - Ante 1750) - 2026/04/13 22:15:15 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (508118.81 in chips)
+Seat 2: 04051311 (727184.48 in chips)
+Seat 3: Looking111 (732105.31 in chips)
+Seat 4: BiggButtBenjamin (367629.09 in chips)
+Seat 5: DaniC1994 (1130372.62 in chips)
+Seat 6: fexzera (434741.90 in chips)
+Seat 7: Randolf (530910.54 in chips)
+ProfessorStacks: posts the ante 1750
+04051311: posts the ante 1750
+Looking111: posts the ante 1750
+BiggButtBenjamin: posts the ante 1750
+DaniC1994: posts the ante 1750
+fexzera: posts the ante 1750
+Randolf: posts the ante 1750
+fexzera: posts small blind 7000
+Randolf: posts big blind 14000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: raises 14000 to 28000
+Looking111: folds
+BiggButtBenjamin: folds
+DaniC1994: calls 28000
+fexzera: folds
+Randolf: calls 14000
+*** FLOP *** [5d 9d 3d]
+Randolf: checks
+04051311: bets 34072.50
+DaniC1994: folds
+Randolf: folds
+Uncalled bet (34072.50) returned to 04051311
+04051311: doesn't show hand
+04051311 collected 103250
+*** SUMMARY ***
+Total pot 103250 | Rake 0
+Board [ 5d 9d 3d ]
+Game ended: 2026/04/13 22:16:35 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 collected (103250)
+Seat 3: Looking111 folded before the flop
+Seat 4: BiggButtBenjamin folded before the flop
+Seat 5: DaniC1994 folded on the Flop
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded on the Flop
+
+
+PokerStars Hand #2597710254: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (7000/14000 - Ante 1750) - 2026/04/13 22:16:35 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (506368.81 in chips)
+Seat 2: 04051311 (800684.48 in chips)
+Seat 3: Looking111 (730355.31 in chips)
+Seat 4: BiggButtBenjamin (365879.09 in chips)
+Seat 5: DaniC1994 (1100622.62 in chips)
+Seat 6: fexzera (425991.90 in chips)
+Seat 7: Randolf (501160.54 in chips)
+ProfessorStacks: posts the ante 1750
+04051311: posts the ante 1750
+Looking111: posts the ante 1750
+BiggButtBenjamin: posts the ante 1750
+DaniC1994: posts the ante 1750
+fexzera: posts the ante 1750
+Randolf: posts the ante 1750
+Randolf: posts small blind 7000
+ProfessorStacks: posts big blind 14000
+*** HOLE CARDS ***
+04051311: folds
+Looking111: calls 14000
+BiggButtBenjamin: folds
+DaniC1994: calls 14000
+fexzera: folds
+Randolf: folds
+ProfessorStacks: checks
+*** FLOP *** [6h 8s Kd]
+ProfessorStacks: checks
+Looking111: bets 30625
+DaniC1994: calls 30625
+ProfessorStacks: folds
+*** TURN *** [6h 8s Kd] [Qs]
+Looking111: checks
+DaniC1994: checks
+*** RIVER *** [6h 8s Kd Qs] [6c]
+Looking111: checks
+DaniC1994: bets 30625
+Looking111: calls 30625
+DaniC1994: shows [Kc] (Two Pair: Pair of K and 6)
+Looking111: mucks hand
+DaniC1994 collected 183750
+*** SUMMARY ***
+Total pot 183750 | Rake 0
+Board [ 6h 8s Kd Qs 6c ]
+Game ended: 2026/04/13 22:18:09 GMT
+Seat 1: ProfessorStacks (small blind) folded on the Flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 mucked
+Seat 4: BiggButtBenjamin folded before the flop
+Seat 5: DaniC1994 showed [ Kc ] and won (183750) with Two Pair: Pair of K and 6
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710255: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (7000/14000 - Ante 1750) - 2026/04/13 22:18:10 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (490618.81 in chips)
+Seat 2: 04051311 (798934.48 in chips)
+Seat 3: Looking111 (653355.31 in chips)
+Seat 4: BiggButtBenjamin (364129.09 in chips)
+Seat 5: DaniC1994 (1207372.62 in chips)
+Seat 6: fexzera (424241.90 in chips)
+Seat 7: Randolf (492410.54 in chips)
+ProfessorStacks: posts the ante 1750
+04051311: posts the ante 1750
+Looking111: posts the ante 1750
+BiggButtBenjamin: posts the ante 1750
+DaniC1994: posts the ante 1750
+fexzera: posts the ante 1750
+Randolf: posts the ante 1750
+ProfessorStacks: posts small blind 7000
+04051311: posts big blind 14000
+*** HOLE CARDS ***
+Looking111: folds
+BiggButtBenjamin: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: raises 14000 to 28000
+ProfessorStacks: calls 21000
+04051311: calls 14000
+*** FLOP *** [8d Js Qd]
+ProfessorStacks: checks
+04051311: checks
+Randolf: checks
+*** TURN *** [8d Js Qd] [5d]
+ProfessorStacks: checks
+04051311: checks
+Randolf: bets 45500
+ProfessorStacks: calls 45500
+04051311: folds
+*** RIVER *** [8d Js Qd 5d] [Th]
+ProfessorStacks: checks
+Randolf: checks
+ProfessorStacks: shows [As Jd] ()
+Randolf: shows [Qh Kh] (Pair: Pair of Q)
+Randolf collected 187250
+*** SUMMARY ***
+Total pot 187250 | Rake 0
+Board [ 8d Js Qd 5d Th ]
+Game ended: 2026/04/13 22:19:51 GMT
+Seat 1: ProfessorStacks (small blind) showed [ As Jd ] and lost with 
+Seat 2: 04051311 (small blind) folded on the Turn
+Seat 3: Looking111 folded before the flop
+Seat 4: BiggButtBenjamin folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf showed [ Qh Kh ] and won (187250) with Pair: Pair of Q
+
+
+PokerStars Hand #2597710257: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:20:40 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (413368.81 in chips)
+Seat 2: 04051311 (704184.48 in chips)
+Seat 3: Looking111 (726605.31 in chips)
+Seat 5: DaniC1994 (1203622.62 in chips)
+Seat 6: fexzera (420491.90 in chips)
+Seat 7: Randolf (602410.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+Looking111: posts small blind 8000
+DaniC1994: posts big blind 16000
+*** HOLE CARDS ***
+fexzera: folds
+Randolf: folds
+ProfessorStacks: raises 16000 to 32000
+04051311: folds
+Looking111: calls 24000
+DaniC1994: calls 16000
+*** FLOP *** [Jd Td 9s]
+Looking111: checks
+DaniC1994: checks
+ProfessorStacks: checks
+*** TURN *** [Jd Td 9s] [2s]
+Looking111: checks
+DaniC1994: checks
+ProfessorStacks: checks
+*** RIVER *** [Jd Td 9s 2s] [2c]
+Looking111: checks
+DaniC1994: checks
+ProfessorStacks: checks
+Looking111: shows [Tc Qh] (Two Pair: Pair of T and 2)
+DaniC1994: mucks hand
+ProfessorStacks: mucks hand
+Looking111 collected 108000
+*** SUMMARY ***
+Total pot 108000 | Rake 0
+Board [ Jd Td 9s 2s 2c ]
+Game ended: 2026/04/13 22:22:14 GMT
+Seat 1: ProfessorStacks mucked
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 (small blind) showed [ Tc Qh ] and won (108000) with Two Pair: Pair of T and 2
+Seat 5: DaniC1994 (small blind) mucked
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710258: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:22:14 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (379368.81 in chips)
+Seat 2: 04051311 (702184.48 in chips)
+Seat 3: Looking111 (800605.31 in chips)
+Seat 5: DaniC1994 (1169622.62 in chips)
+Seat 6: fexzera (418491.90 in chips)
+Seat 7: Randolf (600410.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+DaniC1994: posts small blind 8000
+fexzera: posts big blind 16000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Looking111: calls 16000
+DaniC1994: calls 8000
+fexzera: checks
+*** FLOP *** [2c 9c 8c]
+DaniC1994: checks
+fexzera: checks
+Looking111: checks
+*** TURN *** [2c 9c 8c] [4c]
+DaniC1994: bets 49800
+fexzera: calls 49800
+Looking111: folds
+*** RIVER *** [2c 9c 8c 4c] [Ts]
+DaniC1994: bets 132468
+fexzera: folds
+Uncalled bet (132468) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 159600
+*** SUMMARY ***
+Total pot 159600 | Rake 0
+Board [ 2c 9c 8c 4c Ts ]
+Game ended: 2026/04/13 22:23:19 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded on the Turn
+Seat 5: DaniC1994 (small blind) collected (159600)
+Seat 6: fexzera (small blind) folded on the River
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710259: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:23:20 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (377368.81 in chips)
+Seat 2: 04051311 (700184.48 in chips)
+Seat 3: Looking111 (782605.31 in chips)
+Seat 5: DaniC1994 (1261422.62 in chips)
+Seat 6: fexzera (350691.90 in chips)
+Seat 7: Randolf (598410.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+fexzera: posts small blind 8000
+Randolf: posts big blind 16000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: folds
+Looking111: raises 24000 to 40000
+DaniC1994: folds
+fexzera: folds
+Randolf: calls 24000
+*** FLOP *** [Qc 6d Qs]
+Randolf: checks
+Looking111: bets 50000
+Randolf: raises 66000 to 116000
+Looking111: calls 66000
+*** TURN *** [Qc 6d Qs] [6h]
+Randolf: bets 75000
+Looking111: raises 110666 to 185666
+Randolf: calls 110666
+*** RIVER *** [Qc 6d Qs 6h] [Th]
+Randolf: bets 64000
+Looking111: folds
+Uncalled bet (64000) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 703332
+*** SUMMARY ***
+Total pot 703332 | Rake 0
+Board [ Qc 6d Qs 6h Th ]
+Game ended: 2026/04/13 22:24:57 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded on the River
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf (small blind) collected (703332)
+
+
+PokerStars Hand #2597710260: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:24:57 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (375368.81 in chips)
+Seat 2: 04051311 (698184.48 in chips)
+Seat 3: Looking111 (438939.31 in chips)
+Seat 5: DaniC1994 (1259422.62 in chips)
+Seat 6: fexzera (340691.90 in chips)
+Seat 7: Randolf (958076.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+Randolf: posts small blind 8000
+ProfessorStacks: posts big blind 16000
+*** HOLE CARDS ***
+04051311: folds
+Looking111: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: calls 8000
+ProfessorStacks: checks
+*** FLOP *** [8c 2d 7c]
+Randolf: checks
+ProfessorStacks: checks
+*** TURN *** [8c 2d 7c] [Tc]
+Randolf: checks
+ProfessorStacks: bets 37333
+Randolf: calls 37333
+*** RIVER *** [8c 2d 7c Tc] [5c]
+Randolf: checks
+ProfessorStacks: bets 63110
+Randolf: folds
+Uncalled bet (63110) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 118666
+*** SUMMARY ***
+Total pot 118666 | Rake 0
+Board [ 8c 2d 7c Tc 5c ]
+Game ended: 2026/04/13 22:27:02 GMT
+Seat 1: ProfessorStacks (small blind) collected (118666)
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) folded on the River
+
+
+PokerStars Hand #2597710261: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:27:02 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (438701.81 in chips)
+Seat 2: 04051311 (696184.48 in chips)
+Seat 3: Looking111 (436939.31 in chips)
+Seat 4: Kubsonek10 (575463.74 in chips)
+Seat 5: DaniC1994 (1257422.62 in chips)
+Seat 6: fexzera (338691.90 in chips)
+Seat 7: Randolf (902743.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+Kubsonek10: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+ProfessorStacks: posts small blind 8000
+04051311: posts big blind 16000
+*** HOLE CARDS ***
+Looking111: folds
+Kubsonek10: raises 16000 to 32000
+DaniC1994: calls 32000
+fexzera: folds
+Randolf: folds
+ProfessorStacks: calls 24000
+04051311: folds
+*** FLOP *** [Td 6d Kh]
+ProfessorStacks: checks
+Kubsonek10: bets 41580
+DaniC1994: folds
+ProfessorStacks: folds
+Uncalled bet (41580) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 126000
+*** SUMMARY ***
+Total pot 126000 | Rake 0
+Board [ Td 6d Kh ]
+Game ended: 2026/04/13 22:28:10 GMT
+Seat 1: ProfessorStacks (small blind) folded on the Flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 collected (126000)
+Seat 5: DaniC1994 folded on the Flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710262: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (8000/16000 - Ante 2000) - 2026/04/13 22:28:11 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (404701.81 in chips)
+Seat 2: 04051311 (678184.48 in chips)
+Seat 3: Looking111 (434939.31 in chips)
+Seat 4: Kubsonek10 (667463.74 in chips)
+Seat 5: DaniC1994 (1223422.62 in chips)
+Seat 6: fexzera (336691.90 in chips)
+Seat 7: Randolf (900743.54 in chips)
+ProfessorStacks: posts the ante 2000
+04051311: posts the ante 2000
+Looking111: posts the ante 2000
+Kubsonek10: posts the ante 2000
+DaniC1994: posts the ante 2000
+fexzera: posts the ante 2000
+Randolf: posts the ante 2000
+04051311: posts small blind 8000
+Looking111: posts big blind 16000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: raises 17600 to 33600
+fexzera: folds
+Randolf: folds
+ProfessorStacks: raises 57600 to 91200
+04051311: folds
+Looking111: folds
+DaniC1994: folds
+Uncalled bet (57600) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 105200
+*** SUMMARY ***
+Total pot 105200 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:28:44 GMT
+Seat 1: ProfessorStacks collected (105200)
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710264: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:29:34 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (472301.81 in chips)
+Seat 2: 04051311 (759204.48 in chips)
+Seat 3: Looking111 (351919.31 in chips)
+Seat 4: Kubsonek10 (647463.74 in chips)
+Seat 5: DaniC1994 (1185822.62 in chips)
+Seat 6: fexzera (332691.90 in chips)
+Seat 7: Randolf (896743.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Looking111: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+Kubsonek10: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+fexzera: raises 20000 to 40000
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+Uncalled bet (20000) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 67500
+*** SUMMARY ***
+Total pot 67500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:29:58 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera collected (67500)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710265: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:29:58 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (469801.81 in chips)
+Seat 2: 04051311 (756704.48 in chips)
+Seat 3: Looking111 (349419.31 in chips)
+Seat 4: Kubsonek10 (634963.74 in chips)
+Seat 5: DaniC1994 (1163322.62 in chips)
+Seat 6: fexzera (377691.90 in chips)
+Seat 7: Randolf (894243.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Looking111: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+DaniC1994: posts small blind 10000
+fexzera: posts big blind 20000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+04051311: raises 20000 to 40000
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: folds
+Uncalled bet (20000) returned to 04051311
+04051311: doesn't show hand
+04051311 collected 67500
+*** SUMMARY ***
+Total pot 67500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:30:29 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 collected (67500)
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710266: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:30:30 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (467301.81 in chips)
+Seat 2: 04051311 (801704.48 in chips)
+Seat 3: Looking111 (346919.31 in chips)
+Seat 4: Kubsonek10 (632463.74 in chips)
+Seat 5: DaniC1994 (1150822.62 in chips)
+Seat 6: fexzera (355191.90 in chips)
+Seat 7: Randolf (891743.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Looking111: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+fexzera: posts small blind 10000
+Randolf: posts big blind 20000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: raises 332691.90 to 352691.90 and is all-in
+Randolf: folds
+Uncalled bet (332691.90) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 57500
+*** SUMMARY ***
+Total pot 57500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:30:55 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera (small blind) collected (57500)
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710268: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:31:45 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (529801.81 in chips)
+Seat 2: 04051311 (796704.48 in chips)
+Seat 3: Looking111 (341919.31 in chips)
+Seat 4: Kubsonek10 (587463.74 in chips)
+Seat 5: DaniC1994 (1145822.62 in chips)
+Seat 6: fexzera (387691.90 in chips)
+Seat 7: Randolf (856743.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Looking111: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+ProfessorStacks: posts small blind 10000
+04051311: posts big blind 20000
+*** HOLE CARDS ***
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: raises 22000 to 42000
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: calls 22000
+*** FLOP *** [Ah 6d Qd]
+04051311: checks
+DaniC1994: bets 27875
+04051311: calls 27875
+*** TURN *** [Ah 6d Qd] [Ts]
+04051311: checks
+DaniC1994: checks
+*** RIVER *** [Ah 6d Qd Ts] [5d]
+04051311: bets 130000
+DaniC1994: folds
+Uncalled bet (130000) returned to 04051311
+04051311: doesn't show hand
+04051311 collected 167250
+*** SUMMARY ***
+Total pot 167250 | Rake 0
+Board [ Ah 6d Qd Ts 5d ]
+Game ended: 2026/04/13 22:33:01 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: 04051311 (small blind) collected (167250)
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded on the River
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710269: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:33:02 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (517301.81 in chips)
+Seat 2: 04051311 (891579.48 in chips)
+Seat 4: Kubsonek10 (584963.74 in chips)
+Seat 5: DaniC1994 (1073447.62 in chips)
+Seat 6: fexzera (385191.90 in chips)
+Seat 7: Randolf (854243.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+04051311: posts small blind 10000
+Kubsonek10: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: folds
+fexzera: raises 20000 to 40000
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: folds
+Uncalled bet (20000) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 65000
+*** SUMMARY ***
+Total pot 65000 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:33:43 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera collected (65000)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710270: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:33:44 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (514801.81 in chips)
+Seat 2: 04051311 (879079.48 in chips)
+Seat 4: Kubsonek10 (562463.74 in chips)
+Seat 5: DaniC1994 (1070947.62 in chips)
+Seat 6: fexzera (427691.90 in chips)
+Seat 7: Randolf (851743.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+Kubsonek10: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+fexzera: raises 20000 to 40000
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: folds
+DaniC1994: folds
+Uncalled bet (20000) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 65000
+*** SUMMARY ***
+Total pot 65000 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:34:13 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera collected (65000)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710271: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:34:14 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (512301.81 in chips)
+Seat 2: 04051311 (876579.48 in chips)
+Seat 4: Kubsonek10 (549963.74 in chips)
+Seat 5: DaniC1994 (1048447.62 in chips)
+Seat 6: fexzera (470191.90 in chips)
+Seat 7: Randolf (849243.54 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+DaniC1994: posts small blind 10000
+fexzera: posts big blind 20000
+*** HOLE CARDS ***
+Randolf: raises 20000 to 40000
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: raises 80000 to 120000
+Randolf: calls 80000
+*** FLOP *** [Ac Js 4d]
+fexzera: bets 66250
+Randolf: calls 66250
+*** TURN *** [Ac Js 4d] [3s]
+fexzera: bets 99375
+Randolf: calls 99375
+*** RIVER *** [Ac Js 4d 3s] [8h]
+fexzera: bets 182066.90 and is all-in
+Randolf: calls 182066.90
+Randolf: shows [Ad 4s Ah Qh] ()
+fexzera: shows [Ad 4s] (Two Pair: Pair of A and 4)
+fexzera collected 960383.80
+*** SUMMARY ***
+Total pot 960383.80 | Rake 0
+Board [ Ac Js 4d 3s 8h ]
+Game ended: 2026/04/13 22:35:49 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera (small blind) showed [ Ad 4s ] and won (960383.80) with Two Pair: Pair of A and 4
+Seat 7: Randolf showed [ Ad 4s Ah Qh ] and lost with 
+
+
+PokerStars Hand #2597710272: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:35:50 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (509801.81 in chips)
+Seat 2: 04051311 (874079.48 in chips)
+Seat 4: Kubsonek10 (547463.74 in chips)
+Seat 5: DaniC1994 (1035947.62 in chips)
+Seat 6: fexzera (960383.80 in chips)
+Seat 7: Randolf (379051.64 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+fexzera: posts small blind 10000
+Randolf: posts big blind 20000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: raises 20000 to 40000
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+Uncalled bet (20000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 65000
+*** SUMMARY ***
+Total pot 65000 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:36:10 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 collected (65000)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710273: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:36:11 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (507301.81 in chips)
+Seat 2: 04051311 (871579.48 in chips)
+Seat 4: Kubsonek10 (589963.74 in chips)
+Seat 5: DaniC1994 (1033447.62 in chips)
+Seat 6: fexzera (947883.80 in chips)
+Seat 7: Randolf (356551.64 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+Randolf: posts small blind 10000
+ProfessorStacks: posts big blind 20000
+*** HOLE CARDS ***
+04051311: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: calls 10000
+ProfessorStacks: checks
+*** FLOP *** [9c Jh Kd]
+Randolf: checks
+ProfessorStacks: bets 20000
+Randolf: calls 20000
+*** TURN *** [9c Jh Kd] [2c]
+Randolf: checks
+ProfessorStacks: checks
+*** RIVER *** [9c Jh Kd 2c] [Qs]
+Randolf: checks
+ProfessorStacks: checks
+Randolf: shows [Qc] (Pair: Pair of Q)
+ProfessorStacks: mucks hand
+Randolf collected 95000
+*** SUMMARY ***
+Total pot 95000 | Rake 0
+Board [ 9c Jh Kd 2c Qs ]
+Game ended: 2026/04/13 22:37:32 GMT
+Seat 1: ProfessorStacks (small blind) mucked
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) showed [ Qc ] and won (95000) with Pair: Pair of Q
+
+
+PokerStars Hand #2597710274: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:37:32 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (464801.81 in chips)
+Seat 2: 04051311 (869079.48 in chips)
+Seat 4: Kubsonek10 (587463.74 in chips) is sitting out
+Seat 5: DaniC1994 (1030947.62 in chips)
+Seat 6: fexzera (945383.80 in chips)
+Seat 7: Randolf (409051.64 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+ProfessorStacks: posts small blind 10000
+04051311: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: folds
+fexzera: folds
+Randolf: raises 20000 to 40000
+ProfessorStacks: folds
+04051311: calls 20000
+*** FLOP *** [7s 9s 4s]
+04051311: checks
+Randolf: checks
+*** TURN *** [7s 9s 4s] [4c]
+04051311: bets 84000
+Randolf: folds
+Uncalled bet (84000) returned to 04051311
+04051311: doesn't show hand
+04051311 collected 105000
+*** SUMMARY ***
+Total pot 105000 | Rake 0
+Board [ 7s 9s 4s 4c ]
+Game ended: 2026/04/13 22:38:32 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: 04051311 (small blind) collected (105000)
+Seat 4: Kubsonek10 mucked
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded on the Turn
+
+
+PokerStars Hand #2597710275: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (10000/20000 - Ante 2500) - 2026/04/13 22:38:33 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (452301.81 in chips)
+Seat 2: 04051311 (931579.48 in chips)
+Seat 4: Kubsonek10 (584963.74 in chips)
+Seat 5: DaniC1994 (1028447.62 in chips)
+Seat 6: fexzera (942883.80 in chips)
+Seat 7: Randolf (366551.64 in chips)
+ProfessorStacks: posts the ante 2500
+04051311: posts the ante 2500
+Kubsonek10: posts the ante 2500
+DaniC1994: posts the ante 2500
+fexzera: posts the ante 2500
+Randolf: posts the ante 2500
+04051311: posts small blind 10000
+Kubsonek10: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: raises 20000 to 40000
+04051311: folds
+Kubsonek10: raises 80000 to 120000
+ProfessorStacks: folds
+Uncalled bet (80000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 105000
+*** SUMMARY ***
+Total pot 105000 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:39:17 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) collected (105000)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710276: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:39:18 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (409801.81 in chips)
+Seat 2: 04051311 (919079.48 in chips)
+Seat 4: Kubsonek10 (647463.74 in chips)
+Seat 5: DaniC1994 (1025947.62 in chips)
+Seat 6: fexzera (940383.80 in chips)
+Seat 7: Randolf (364051.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+Kubsonek10: posts small blind 12500
+DaniC1994: posts big blind 25000
+*** HOLE CARDS ***
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: raises 25000 to 50000
+Kubsonek10: folds
+DaniC1994: raises 137500 to 187500
+04051311: calls 137500
+*** FLOP *** [Qd 6c 9h]
+DaniC1994: checks
+04051311: checks
+*** TURN *** [Qd 6c 9h] [7d]
+DaniC1994: bets 223437.50
+04051311: folds
+Uncalled bet (223437.50) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 406250
+*** SUMMARY ***
+Total pot 406250 | Rake 0
+Board [ Qd 6c 9h 7d ]
+Game ended: 2026/04/13 22:40:43 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded on the Turn
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) collected (406250)
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710277: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:40:44 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (406676.81 in chips)
+Seat 2: 04051311 (728454.48 in chips)
+Seat 4: Kubsonek10 (631838.74 in chips)
+Seat 5: DaniC1994 (1241572.62 in chips)
+Seat 6: fexzera (937258.80 in chips)
+Seat 7: Randolf (360926.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+DaniC1994: posts small blind 12500
+fexzera: posts big blind 25000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: folds
+DaniC1994: raises 62500 to 87500
+fexzera: folds
+Uncalled bet (62500) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 68750
+*** SUMMARY ***
+Total pot 68750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:41:22 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) collected (68750)
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710278: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:41:23 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (403551.81 in chips)
+Seat 2: 04051311 (725329.48 in chips)
+Seat 4: Kubsonek10 (628713.74 in chips)
+Seat 5: DaniC1994 (1282197.62 in chips)
+Seat 6: fexzera (909133.80 in chips)
+Seat 7: Randolf (357801.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+fexzera: posts small blind 12500
+Randolf: posts big blind 25000
+*** HOLE CARDS ***
+ProfessorStacks: raises 25000 to 50000
+04051311: folds
+Kubsonek10: folds
+DaniC1994: calls 50000
+fexzera: folds
+Randolf: folds
+*** FLOP *** [4s Qs 2c]
+ProfessorStacks: checks
+DaniC1994: bets 39063
+ProfessorStacks: calls 39063
+*** TURN *** [4s Qs 2c] [4c]
+ProfessorStacks: checks
+DaniC1994: checks
+*** RIVER *** [4s Qs 2c 4c] [9d]
+ProfessorStacks: checks
+DaniC1994: checks
+ProfessorStacks: shows [Js Jh] (Two Pair: Pair of J and 4)
+DaniC1994: mucks hand
+ProfessorStacks collected 234376
+*** SUMMARY ***
+Total pot 234376 | Rake 0
+Board [ 4s Qs 2c 4c 9d ]
+Game ended: 2026/04/13 22:42:59 GMT
+Seat 1: ProfessorStacks showed [ Js Jh ] and won (234376) with Two Pair: Pair of J and 4
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 mucked
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710279: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:43:00 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (545739.81 in chips)
+Seat 2: 04051311 (722204.48 in chips)
+Seat 4: Kubsonek10 (625588.74 in chips)
+Seat 5: DaniC1994 (1190009.62 in chips)
+Seat 6: fexzera (893508.80 in chips)
+Seat 7: Randolf (329676.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+Randolf: posts small blind 12500
+ProfessorStacks: posts big blind 25000
+*** HOLE CARDS ***
+04051311: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: raises 301551.64 to 326551.64 and is all-in
+ProfessorStacks: folds
+Uncalled bet (301551.64) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 68750
+*** SUMMARY ***
+Total pot 68750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:43:29 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) collected (68750)
+
+
+PokerStars Hand #2597710280: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:43:29 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (517614.81 in chips)
+Seat 2: 04051311 (719079.48 in chips)
+Seat 4: Kubsonek10 (622463.74 in chips)
+Seat 5: DaniC1994 (1186884.62 in chips)
+Seat 6: fexzera (890383.80 in chips) is sitting out
+Seat 7: Randolf (370301.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+ProfessorStacks: posts small blind 12500
+04051311: posts big blind 25000
+*** HOLE CARDS ***
+Kubsonek10: raises 25000 to 50000
+DaniC1994: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Uncalled bet (25000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 81250
+*** SUMMARY ***
+Total pot 81250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:43:55 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 4: Kubsonek10 collected (81250)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera mucked
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710281: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:43:55 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (501989.81 in chips)
+Seat 2: 04051311 (690954.48 in chips)
+Seat 4: Kubsonek10 (675588.74 in chips)
+Seat 5: DaniC1994 (1183759.62 in chips)
+Seat 6: fexzera (887258.80 in chips)
+Seat 7: Randolf (367176.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+04051311: posts small blind 12500
+Kubsonek10: posts big blind 25000
+*** HOLE CARDS ***
+DaniC1994: raises 27500 to 52500
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: raises 110000 to 162500
+DaniC1994: folds
+Uncalled bet (110000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 136250
+*** SUMMARY ***
+Total pot 136250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:45:10 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) collected (136250)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710282: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:45:11 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (498864.81 in chips)
+Seat 2: 04051311 (675329.48 in chips)
+Seat 4: Kubsonek10 (756213.74 in chips)
+Seat 5: DaniC1994 (1128134.62 in chips)
+Seat 6: fexzera (884133.80 in chips)
+Seat 7: Randolf (364051.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+Kubsonek10: posts small blind 12500
+DaniC1994: posts big blind 25000
+*** HOLE CARDS ***
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: calls 12500
+DaniC1994: checks
+*** FLOP *** [Qs Qh 5h]
+Kubsonek10: checks
+DaniC1994: bets 25000
+Kubsonek10: calls 25000
+*** TURN *** [Qs Qh 5h] [3s]
+Kubsonek10: checks
+DaniC1994: bets 42187.50
+Kubsonek10: calls 42187.50
+*** RIVER *** [Qs Qh 5h 3s] [Tc]
+Kubsonek10: checks
+DaniC1994: checks
+Kubsonek10: shows [2s Kh] ()
+DaniC1994: shows [As 7h] (Pair: Pair of Q)
+DaniC1994 collected 203125
+*** SUMMARY ***
+Total pot 203125 | Rake 0
+Board [ Qs Qh 5h 3s Tc ]
+Game ended: 2026/04/13 22:46:47 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 (small blind) showed [ 2s Kh ] and lost with 
+Seat 5: DaniC1994 (small blind) showed [ As 7h ] and won (203125) with Pair: Pair of Q
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710284: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (12500/25000 - Ante 3125) - 2026/04/13 22:47:49 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (492614.81 in chips)
+Seat 2: 04051311 (669079.48 in chips)
+Seat 4: Kubsonek10 (657776.24 in chips)
+Seat 5: DaniC1994 (1301572.12 in chips)
+Seat 6: fexzera (827883.80 in chips)
+Seat 7: Randolf (357801.64 in chips)
+ProfessorStacks: posts the ante 3125
+04051311: posts the ante 3125
+Kubsonek10: posts the ante 3125
+DaniC1994: posts the ante 3125
+fexzera: posts the ante 3125
+Randolf: posts the ante 3125
+fexzera: posts small blind 12500
+Randolf: posts big blind 25000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: folds
+Kubsonek10: raises 25000 to 50000
+DaniC1994: raises 75000 to 125000
+fexzera: folds
+Randolf: folds
+Kubsonek10: calls 604651.24 and is all-in
+DaniC1994: raises 1173447.12 to 1298447.12 and is all-in
+Uncalled bet (643795.88) returned to DaniC1994
+*** FLOP *** [Ad 4d 5s]
+*** TURN *** [Ad 4d 5s] [6d]
+*** RIVER *** [Ad 4d 5s 6d] [6c]
+Kubsonek10: shows [As Ks] (Two Pair: Pair of A and 6)
+DaniC1994: shows [As Ks Qs Ac] ()
+Kubsonek10 collected 1365552.48
+*** SUMMARY ***
+Total pot 1365552.48 | Rake 0
+Board [ Ad 4d 5s 6d 6c ]
+Game ended: 2026/04/13 22:49:15 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 4: Kubsonek10 showed [ As Ks ] and won (1365552.48) with Two Pair: Pair of A and 6
+Seat 5: DaniC1994 showed [ As Ks Qs Ac ] and lost with 
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710286: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:50:32 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (455739.81 in chips)
+Seat 2: 04051311 (662204.48 in chips)
+Seat 3: Looking111 (753213.62 in chips)
+Seat 4: Kubsonek10 (1361802.48 in chips)
+Seat 5: DaniC1994 (774295.88 in chips)
+Seat 6: fexzera (745508.80 in chips)
+Seat 7: Randolf (310926.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+ProfessorStacks: posts small blind 15000
+04051311: posts big blind 30000
+*** HOLE CARDS ***
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: raises 421989.81 to 451989.81 and is all-in
+04051311: folds
+Uncalled bet (421989.81) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 86250
+*** SUMMARY ***
+Total pot 86250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:51:09 GMT
+Seat 1: ProfessorStacks (small blind) collected (86250)
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710287: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:51:10 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (508239.81 in chips)
+Seat 2: 04051311 (628454.48 in chips)
+Seat 3: Looking111 (749463.62 in chips)
+Seat 4: Kubsonek10 (1358052.48 in chips)
+Seat 5: DaniC1994 (770545.88 in chips)
+Seat 6: fexzera (741758.80 in chips)
+Seat 7: Randolf (307176.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+04051311: posts small blind 15000
+Looking111: posts big blind 30000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: raises 30000 to 60000
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Looking111: calls 30000
+*** FLOP *** [Ac 9h Ts]
+Looking111: checks
+fexzera: bets 40312.50
+Looking111: folds
+Uncalled bet (40312.50) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 161250
+*** SUMMARY ***
+Total pot 161250 | Rake 0
+Board [ Ac 9h Ts ]
+Game ended: 2026/04/13 22:51:51 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 (small blind) folded before the flop
+Seat 3: Looking111 (small blind) folded on the Flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera collected (161250)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710288: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:51:51 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (504489.81 in chips)
+Seat 2: 04051311 (609704.48 in chips)
+Seat 3: Looking111 (685713.62 in chips)
+Seat 4: Kubsonek10 (1354302.48 in chips)
+Seat 5: DaniC1994 (766795.88 in chips)
+Seat 6: fexzera (839258.80 in chips)
+Seat 7: Randolf (303426.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+Looking111: posts small blind 15000
+Kubsonek10: posts big blind 30000
+*** HOLE CARDS ***
+DaniC1994: raises 33000 to 63000
+fexzera: raises 123000 to 186000
+Randolf: folds
+ProfessorStacks: folds
+04051311: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+Uncalled bet (123000) returned to fexzera
+fexzera: doesn't show hand
+fexzera collected 197250
+*** SUMMARY ***
+Total pot 197250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:52:33 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera collected (197250)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710289: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:52:34 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (500739.81 in chips)
+Seat 2: 04051311 (605954.48 in chips)
+Seat 3: Looking111 (666963.62 in chips)
+Seat 4: Kubsonek10 (1320552.48 in chips)
+Seat 5: DaniC1994 (700045.88 in chips)
+Seat 6: fexzera (969758.80 in chips)
+Seat 7: Randolf (299676.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+Kubsonek10: posts small blind 15000
+DaniC1994: posts big blind 30000
+*** HOLE CARDS ***
+fexzera: folds
+Randolf: raises 265926.64 to 295926.64 and is all-in
+ProfessorStacks: folds
+04051311: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+Uncalled bet (265926.64) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 101250
+*** SUMMARY ***
+Total pot 101250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:53:09 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf collected (101250)
+
+
+PokerStars Hand #2597710290: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:53:09 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (496989.81 in chips)
+Seat 2: 04051311 (602204.48 in chips)
+Seat 3: Looking111 (663213.62 in chips)
+Seat 4: Kubsonek10 (1301802.48 in chips)
+Seat 5: DaniC1994 (666295.88 in chips)
+Seat 6: fexzera (966008.80 in chips)
+Seat 7: Randolf (367176.64 in chips) is sitting out
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+DaniC1994: posts small blind 15000
+fexzera: posts big blind 30000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: folds
+Looking111: raises 30000 to 60000
+Kubsonek10: folds
+DaniC1994: raises 602545.88 to 662545.88 and is all-in
+fexzera: folds
+Looking111: folds
+Uncalled bet (602545.88) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 176250
+*** SUMMARY ***
+Total pot 176250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:53:55 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) collected (176250)
+Seat 6: fexzera (small blind) folded before the flop
+Seat 7: Randolf mucked
+
+
+PokerStars Hand #2597710291: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:53:56 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (493239.81 in chips)
+Seat 2: 04051311 (598454.48 in chips)
+Seat 3: Looking111 (599463.62 in chips)
+Seat 4: Kubsonek10 (1298052.48 in chips)
+Seat 5: DaniC1994 (778795.88 in chips)
+Seat 6: fexzera (932258.80 in chips)
+Seat 7: Randolf (363426.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+fexzera: posts small blind 15000
+Randolf: posts big blind 30000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+04051311: raises 30000 to 60000
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: raises 868508.80 to 928508.80 and is all-in
+Randolf: folds
+04051311: calls 534704.48 and is all-in
+Uncalled bet (333804.32) returned to fexzera
+*** FLOP *** [Ac Qd As]
+*** TURN *** [Ac Qd As] [9h]
+*** RIVER *** [Ac Qd As 9h] [8s]
+fexzera: shows [Ad Ks Ah 3h] ()
+04051311: shows [Ad Ks] (Three of a kind: Triplet of A)
+04051311 collected 1245658.96
+*** SUMMARY ***
+Total pot 1245658.96 | Rake 0
+Board [ Ac Qd As 9h 8s ]
+Game ended: 2026/04/13 22:54:55 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: 04051311 showed [ Ad Ks ] and won (1245658.96) with Three of a kind: Triplet of A
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera (small blind) showed [ Ad Ks Ah 3h ] and lost with 
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710292: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 22:54:56 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (489489.81 in chips)
+Seat 2: 04051311 (1245658.96 in chips)
+Seat 3: Looking111 (595713.62 in chips)
+Seat 4: Kubsonek10 (1294302.48 in chips)
+Seat 5: DaniC1994 (775045.88 in chips)
+Seat 6: fexzera (333804.32 in chips)
+Seat 7: Randolf (329676.64 in chips)
+ProfessorStacks: posts the ante 3750
+04051311: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+Randolf: posts small blind 15000
+ProfessorStacks: posts big blind 30000
+*** HOLE CARDS ***
+04051311: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+fexzera: folds
+Randolf: raises 295926.64 to 325926.64 and is all-in
+ProfessorStacks: folds
+Uncalled bet (295926.64) returned to Randolf
+Randolf: mucks hand
+Randolf collected 0
+*** SUMMARY ***
+Total pot 86250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 22:55:49 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: 04051311 folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf (small blind) collected (86250)
+
+
+PokerStars Hand #2597710293: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:01:11 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (455739.81 in chips)
+Seat 3: Looking111 (591963.62 in chips)
+Seat 4: Kubsonek10 (1290552.48 in chips)
+Seat 5: DaniC1994 (771295.88 in chips)
+Seat 6: fexzera (330054.32 in chips)
+Seat 7: Randolf (382176.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+ProfessorStacks: posts small blind 15000
+Looking111: posts big blind 30000
+*** HOLE CARDS ***
+Kubsonek10: raises 30000 to 60000
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+Looking111: folds
+Uncalled bet (30000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 97500
+*** SUMMARY ***
+Total pot 97500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:01:34 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 collected (97500)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710294: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:01:34 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (436989.81 in chips)
+Seat 3: Looking111 (558213.62 in chips)
+Seat 4: Kubsonek10 (1354302.48 in chips)
+Seat 5: DaniC1994 (767545.88 in chips)
+Seat 6: fexzera (326304.32 in chips)
+Seat 7: Randolf (378426.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+Looking111: posts small blind 15000
+Kubsonek10: posts big blind 30000
+*** HOLE CARDS ***
+DaniC1994: folds
+fexzera: folds
+Randolf: folds
+ProfessorStacks: folds
+Looking111: folds
+Uncalled bet (15000) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 52500
+*** SUMMARY ***
+Total pot 52500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:01:59 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) collected (52500)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: fexzera folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710295: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:02:00 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (433239.81 in chips)
+Seat 3: Looking111 (539463.62 in chips)
+Seat 4: Kubsonek10 (1388052.48 in chips)
+Seat 5: DaniC1994 (763795.88 in chips)
+Seat 6: fexzera (322554.32 in chips)
+Seat 7: Randolf (374676.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+fexzera: posts the ante 3750
+Randolf: posts the ante 3750
+Kubsonek10: posts small blind 15000
+DaniC1994: posts big blind 30000
+*** HOLE CARDS ***
+fexzera: raises 288804.32 to 318804.32 and is all-in
+Randolf: folds
+ProfessorStacks: folds
+Looking111: calls 318804.32
+Kubsonek10: folds
+DaniC1994: folds
+*** FLOP *** [6c Kh 2h]
+*** TURN *** [6c Kh 2h] [Js]
+*** RIVER *** [6c Kh 2h Js] [8s]
+fexzera: shows [Kd Ks Qc Ad] ()
+Looking111: shows [Kd Ks] (Three of a kind: Triplet of K)
+Looking111 collected 705108.64
+*** SUMMARY ***
+Total pot 705108.64 | Rake 0
+Board [ 6c Kh 2h Js 8s ]
+Game ended: 2026/04/13 23:02:50 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 3: Looking111 showed [ Kd Ks ] and won (705108.64) with Three of a kind: Triplet of K
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: fexzera showed [ Kd Ks Qc Ad ] and lost with 
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710296: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:02:50 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (429489.81 in chips)
+Seat 3: Looking111 (922017.94 in chips)
+Seat 4: Kubsonek10 (1369302.48 in chips)
+Seat 5: DaniC1994 (730045.88 in chips)
+Seat 7: Randolf (370926.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+Randolf: posts the ante 3750
+DaniC1994: posts small blind 15000
+Randolf: posts big blind 30000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: raises 696295.88 to 726295.88 and is all-in
+Randolf: folds
+Uncalled bet (696295.88) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 78750
+*** SUMMARY ***
+Total pot 78750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:03:15 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) collected (78750)
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710297: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:03:15 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (425739.81 in chips)
+Seat 3: Looking111 (918267.94 in chips)
+Seat 4: Kubsonek10 (1365552.48 in chips)
+Seat 5: DaniC1994 (775045.88 in chips)
+Seat 7: Randolf (337176.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+Randolf: posts the ante 3750
+Randolf: posts small blind 15000
+ProfessorStacks: posts big blind 30000
+*** HOLE CARDS ***
+Looking111: folds
+Kubsonek10: folds
+DaniC1994: folds
+Randolf: folds
+Uncalled bet (15000) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 48750
+*** SUMMARY ***
+Total pot 48750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:03:55 GMT
+Seat 1: ProfessorStacks (small blind) collected (48750)
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710298: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:03:56 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (455739.81 in chips)
+Seat 3: Looking111 (914517.94 in chips)
+Seat 4: Kubsonek10 (1361802.48 in chips)
+Seat 5: DaniC1994 (771295.88 in chips)
+Seat 7: Randolf (318426.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+Randolf: posts the ante 3750
+ProfessorStacks: posts small blind 15000
+Looking111: posts big blind 30000
+*** HOLE CARDS ***
+Kubsonek10: raises 30000 to 60000
+DaniC1994: folds
+Randolf: folds
+ProfessorStacks: folds
+Looking111: calls 30000
+*** FLOP *** [5s 3s 6h]
+Looking111: checks
+Kubsonek10: checks
+*** TURN *** [5s 3s 6h] [2s]
+Looking111: bets 76875
+Kubsonek10: folds
+Uncalled bet (76875) returned to Looking111
+Looking111: doesn't show hand
+Looking111 collected 153750
+*** SUMMARY ***
+Total pot 153750 | Rake 0
+Board [ 5s 3s 6h 2s ]
+Game ended: 2026/04/13 23:05:08 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 3: Looking111 (small blind) collected (153750)
+Seat 4: Kubsonek10 folded on the Turn
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710299: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (15000/30000 - Ante 3750) - 2026/04/13 23:05:09 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (436989.81 in chips)
+Seat 3: Looking111 (1004517.94 in chips)
+Seat 4: Kubsonek10 (1298052.48 in chips)
+Seat 5: DaniC1994 (767545.88 in chips)
+Seat 7: Randolf (314676.64 in chips)
+ProfessorStacks: posts the ante 3750
+Looking111: posts the ante 3750
+Kubsonek10: posts the ante 3750
+DaniC1994: posts the ante 3750
+Randolf: posts the ante 3750
+Looking111: posts small blind 15000
+Kubsonek10: posts big blind 30000
+*** HOLE CARDS ***
+DaniC1994: folds
+Randolf: raises 280926.64 to 310926.64 and is all-in
+ProfessorStacks: folds
+Looking111: folds
+Kubsonek10: folds
+Uncalled bet (280926.64) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 93750
+*** SUMMARY ***
+Total pot 93750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:05:30 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf collected (93750)
+
+
+PokerStars Hand #2597710300: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:05:30 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (433239.81 in chips)
+Seat 2: Noleniiitoooo (1001343.07 in chips)
+Seat 3: Looking111 (985767.94 in chips)
+Seat 4: Kubsonek10 (1264302.48 in chips)
+Seat 5: DaniC1994 (763795.88 in chips)
+Seat 7: Randolf (374676.64 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+Kubsonek10: posts small blind 17500
+DaniC1994: posts big blind 35000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: folds
+Looking111: folds
+Kubsonek10: raises 70000 to 105000
+DaniC1994: calls 70000
+*** FLOP *** [7h Th 4h]
+Kubsonek10: checks
+DaniC1994: bets 59063
+Kubsonek10: calls 59063
+*** TURN *** [7h Th 4h] [5c]
+Kubsonek10: checks
+DaniC1994: bets 124906.80
+Kubsonek10: calls 124906.80
+*** RIVER *** [7h Th 4h 5c] [Kc]
+Kubsonek10: checks
+DaniC1994: bets 470451.08 and is all-in
+Kubsonek10: folds
+Uncalled bet (470451.08) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 604189.60
+*** SUMMARY ***
+Total pot 604189.60 | Rake 0
+Board [ 7h Th 4h 5c Kc ]
+Game ended: 2026/04/13 23:08:30 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 (small blind) folded on the River
+Seat 5: DaniC1994 (small blind) collected (604189.60)
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710301: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:08:31 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (428864.81 in chips)
+Seat 2: Noleniiitoooo (996968.07 in chips)
+Seat 3: Looking111 (981392.94 in chips)
+Seat 4: Kubsonek10 (970957.68 in chips)
+Seat 5: DaniC1994 (1074640.68 in chips)
+Seat 7: Randolf (370301.64 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+DaniC1994: posts small blind 17500
+Randolf: posts big blind 35000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Noleniiitoooo: folds
+Looking111: folds
+Kubsonek10: raises 35000 to 70000
+DaniC1994: folds
+Randolf: calls 35000
+*** FLOP *** [9d 8s 6h]
+Randolf: bets 123112.50
+Kubsonek10: folds
+Uncalled bet (123112.50) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 183750
+*** SUMMARY ***
+Total pot 183750 | Rake 0
+Board [ 9d 8s 6h ]
+Game ended: 2026/04/13 23:09:34 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded on the Flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 7: Randolf (small blind) collected (183750)
+
+
+PokerStars Hand #2597710302: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:09:35 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (424489.81 in chips)
+Seat 2: Noleniiitoooo (992593.07 in chips)
+Seat 3: Looking111 (977017.94 in chips)
+Seat 4: Kubsonek10 (896582.68 in chips)
+Seat 5: DaniC1994 (1052765.68 in chips)
+Seat 7: Randolf (479676.64 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+Randolf: posts small blind 17500
+ProfessorStacks: posts big blind 35000
+*** HOLE CARDS ***
+Noleniiitoooo: folds
+Looking111: calls 35000
+Kubsonek10: calls 35000
+DaniC1994: raises 1013390.68 to 1048390.68 and is all-in
+Randolf: calls 457801.64 and is all-in
+ProfessorStacks: folds
+Looking111: folds
+Kubsonek10: folds
+Uncalled bet (573089.04) returned to DaniC1994
+*** FLOP *** [7h 7d Th]
+*** TURN *** [7h 7d Th] [4c]
+*** RIVER *** [7h 7d Th 4c] [3d]
+Randolf: shows [Ad Ah] (Two Pair: Pair of A and 7)
+DaniC1994: shows [9h 9c] ()
+Randolf collected 1081853.28
+*** SUMMARY ***
+Total pot 1081853.28 | Rake 0
+Board [ 7h 7d Th 4c 3d ]
+Game ended: 2026/04/13 23:10:29 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 showed [ 9h 9c ] and lost with 
+Seat 7: Randolf (small blind) showed [ Ad Ah ] and won (1081853.28) with Two Pair: Pair of A and 7
+
+
+PokerStars Hand #2597710303: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:10:29 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (385114.81 in chips)
+Seat 2: Noleniiitoooo (988218.07 in chips)
+Seat 3: Looking111 (937642.94 in chips)
+Seat 4: Kubsonek10 (857207.68 in chips)
+Seat 5: DaniC1994 (573089.04 in chips)
+Seat 7: Randolf (1081853.28 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+ProfessorStacks: posts small blind 17500
+Noleniiitoooo: posts big blind 35000
+*** HOLE CARDS ***
+Looking111: folds
+Kubsonek10: raises 35000 to 70000
+DaniC1994: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: calls 35000
+*** FLOP *** [7h Kc 2h]
+Noleniiitoooo: checks
+Kubsonek10: bets 60637.50
+Noleniiitoooo: raises 86362.50 to 147000
+Kubsonek10: calls 86362.50
+*** TURN *** [7h Kc 2h] [Js]
+Noleniiitoooo: checks
+Kubsonek10: bets 119437.50
+Noleniiitoooo: folds
+Uncalled bet (119437.50) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 477750
+*** SUMMARY ***
+Total pot 477750 | Rake 0
+Board [ 7h Kc 2h Js ]
+Game ended: 2026/04/13 23:12:06 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: Noleniiitoooo (small blind) folded on the Turn
+Seat 3: Looking111 folded before the flop
+Seat 4: Kubsonek10 collected (477750)
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710304: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:12:07 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (363239.81 in chips)
+Seat 2: Noleniiitoooo (766843.07 in chips)
+Seat 3: Looking111 (933267.94 in chips)
+Seat 4: Kubsonek10 (1113582.68 in chips)
+Seat 5: DaniC1994 (568714.04 in chips)
+Seat 7: Randolf (1077478.28 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+Noleniiitoooo: posts small blind 17500
+Looking111: posts big blind 35000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: folds
+Randolf: folds
+ProfessorStacks: raises 323864.81 to 358864.81 and is all-in
+Noleniiitoooo: folds
+Looking111: folds
+Uncalled bet (323864.81) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 113750
+*** SUMMARY ***
+Total pot 113750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:12:49 GMT
+Seat 1: ProfessorStacks collected (113750)
+Seat 2: Noleniiitoooo (small blind) folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710305: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (17500/35000 - Ante 4375) - 2026/04/13 23:12:50 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (437614.81 in chips)
+Seat 2: Noleniiitoooo (744968.07 in chips)
+Seat 3: Looking111 (893892.94 in chips)
+Seat 4: Kubsonek10 (1109207.68 in chips)
+Seat 5: DaniC1994 (564339.04 in chips)
+Seat 7: Randolf (1073103.28 in chips)
+ProfessorStacks: posts the ante 4375
+Noleniiitoooo: posts the ante 4375
+Looking111: posts the ante 4375
+Kubsonek10: posts the ante 4375
+DaniC1994: posts the ante 4375
+Randolf: posts the ante 4375
+Looking111: posts small blind 17500
+Kubsonek10: posts big blind 35000
+*** HOLE CARDS ***
+DaniC1994: folds
+Randolf: folds
+ProfessorStacks: raises 293239 to 328239
+Noleniiitoooo: folds
+Looking111: folds
+Kubsonek10: folds
+Uncalled bet (293239) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 113750
+*** SUMMARY ***
+Total pot 113750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:13:24 GMT
+Seat 1: ProfessorStacks collected (113750)
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: Looking111 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710312: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (20000/40000 - Ante 5000) - 2026/04/13 23:20:43 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (826479.62 in chips)
+Seat 2: Noleniiitoooo (816843.07 in chips)
+Seat 4: Kubsonek10 (453633.18 in chips)
+Seat 5: DaniC1994 (85474.23 in chips)
+Seat 7: Randolf (1049978.28 in chips)
+ProfessorStacks: posts the ante 5000
+Noleniiitoooo: posts the ante 5000
+Kubsonek10: posts the ante 5000
+DaniC1994: posts the ante 5000
+Randolf: posts the ante 5000
+DaniC1994: posts small blind 20000
+Randolf: posts big blind 40000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Noleniiitoooo: folds
+Kubsonek10: folds
+DaniC1994: calls 20000
+Randolf: checks
+*** FLOP *** [Qd 8s Kh]
+DaniC1994: checks
+Randolf: checks
+*** TURN *** [Qd 8s Kh] [Ks]
+DaniC1994: checks
+Randolf: checks
+*** RIVER *** [Qd 8s Kh Ks] [7h]
+DaniC1994: bets 40474.23 and is all-in
+Randolf: folds
+Uncalled bet (40474.23) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 105000
+*** SUMMARY ***
+Total pot 105000 | Rake 0
+Board [ Qd 8s Kh Ks 7h ]
+Game ended: 2026/04/13 23:22:16 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) collected (105000)
+Seat 7: Randolf (small blind) folded on the River
+
+
+PokerStars Hand #2597710313: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (20000/40000 - Ante 5000) - 2026/04/13 23:22:17 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (821479.62 in chips)
+Seat 2: Noleniiitoooo (811843.07 in chips)
+Seat 4: Kubsonek10 (448633.18 in chips)
+Seat 5: DaniC1994 (145474.23 in chips)
+Seat 7: Randolf (1004978.28 in chips)
+ProfessorStacks: posts the ante 5000
+Noleniiitoooo: posts the ante 5000
+Kubsonek10: posts the ante 5000
+DaniC1994: posts the ante 5000
+Randolf: posts the ante 5000
+Randolf: posts small blind 20000
+ProfessorStacks: posts big blind 40000
+*** HOLE CARDS ***
+Noleniiitoooo: folds
+Kubsonek10: folds
+DaniC1994: folds
+Randolf: calls 20000
+ProfessorStacks: checks
+*** FLOP *** [2h Kc 7s]
+Randolf: checks
+ProfessorStacks: checks
+*** TURN *** [2h Kc 7s] [5h]
+Randolf: bets 60000
+ProfessorStacks: folds
+Uncalled bet (60000) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 105000
+*** SUMMARY ***
+Total pot 105000 | Rake 0
+Board [ 2h Kc 7s 5h ]
+Game ended: 2026/04/13 23:23:34 GMT
+Seat 1: ProfessorStacks (small blind) folded on the Turn
+Seat 2: Noleniiitoooo folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 7: Randolf (small blind) collected (105000)
+
+
+PokerStars Hand #2597710315: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (20000/40000 - Ante 5000) - 2026/04/13 23:25:05 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (886479.62 in chips)
+Seat 2: Noleniiitoooo (721843.07 in chips)
+Seat 3: educated8028464 (586446.68 in chips)
+Seat 4: Kubsonek10 (438633.18 in chips)
+Seat 5: DaniC1994 (135474.23 in chips)
+Seat 6: Ranked (2281549.94 in chips)
+Seat 7: Randolf (1059978.28 in chips)
+ProfessorStacks: posts the ante 5000
+Noleniiitoooo: posts the ante 5000
+educated8028464: posts the ante 5000
+Kubsonek10: posts the ante 5000
+DaniC1994: posts the ante 5000
+Ranked: posts the ante 5000
+Randolf: posts the ante 5000
+Noleniiitoooo: posts small blind 20000
+educated8028464: posts big blind 40000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: raises 40000 to 80000
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: raises 636843.07 to 716843.07 and is all-in
+educated8028464: folds
+DaniC1994: calls 50474.23 and is all-in
+Uncalled bet (586368.84) returned to Noleniiitoooo
+*** FLOP *** [Qc 2h 8d]
+*** TURN *** [Qc 2h 8d] [Kd]
+*** RIVER *** [Qc 2h 8d Kd] [Kc]
+Noleniiitoooo: shows [3h 3d] ()
+DaniC1994: shows [Qh As] (Two Pair: Pair of K and Q)
+DaniC1994 collected 335948.46
+*** SUMMARY ***
+Total pot 335948.46 | Rake 0
+Board [ Qc 2h 8d Kd Kc ]
+Game ended: 2026/04/13 23:26:29 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo (small blind) showed [ 3h 3d ] and lost with 
+Seat 3: educated8028464 (small blind) folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 showed [ Qh As ] and won (335948.46) with Two Pair: Pair of K and Q
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710316: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:26:30 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (881479.62 in chips)
+Seat 2: Noleniiitoooo (586368.84 in chips)
+Seat 3: educated8028464 (541446.68 in chips)
+Seat 4: Kubsonek10 (433633.18 in chips)
+Seat 5: DaniC1994 (335948.46 in chips)
+Seat 6: Ranked (2276549.94 in chips)
+Seat 7: Randolf (1054978.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+educated8028464: posts small blind 25000
+Kubsonek10: posts big blind 50000
+*** HOLE CARDS ***
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: folds
+educated8028464: raises 485196.68 to 535196.68 and is all-in
+Kubsonek10: folds
+Uncalled bet (485196.68) returned to educated8028464
+educated8028464: doesn't show hand
+educated8028464 collected 143750
+*** SUMMARY ***
+Total pot 143750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:27:06 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: educated8028464 (small blind) collected (143750)
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710318: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:28:09 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (868979.62 in chips)
+Seat 2: Noleniiitoooo (250420.38 in chips)
+Seat 3: educated8028464 (622696.68 in chips)
+Seat 4: Kubsonek10 (346133.18 in chips)
+Seat 5: DaniC1994 (715646.92 in chips)
+Seat 6: Ranked (2264049.94 in chips)
+Seat 7: Randolf (1042478.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+DaniC1994: posts small blind 25000
+Ranked: posts big blind 50000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: raises 50000 to 100000
+Noleniiitoooo: folds
+educated8028464: folds
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: calls 50000
+*** FLOP *** [2h Qs Ts]
+Ranked: checks
+ProfessorStacks: bets 89583
+Ranked: folds
+Uncalled bet (89583) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 268750
+*** SUMMARY ***
+Total pot 268750 | Rake 0
+Board [ 2h Qs Ts ]
+Game ended: 2026/04/13 23:29:13 GMT
+Seat 1: ProfessorStacks collected (268750)
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: educated8028464 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked (small blind) folded on the Flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710319: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:29:13 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (1031479.62 in chips)
+Seat 2: Noleniiitoooo (244170.38 in chips)
+Seat 3: educated8028464 (616446.68 in chips)
+Seat 4: Kubsonek10 (339883.18 in chips)
+Seat 5: DaniC1994 (684396.92 in chips)
+Seat 6: Ranked (2157799.94 in chips)
+Seat 7: Randolf (1036228.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+Ranked: posts small blind 25000
+Randolf: posts big blind 50000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Noleniiitoooo: folds
+educated8028464: folds
+Kubsonek10: folds
+DaniC1994: raises 603146.94 to 653146.94
+Ranked: folds
+Randolf: folds
+Uncalled bet (603146.94) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 168750
+*** SUMMARY ***
+Total pot 168750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:29:57 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: educated8028464 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 collected (168750)
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710320: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:29:57 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (1025229.62 in chips)
+Seat 2: Noleniiitoooo (237920.38 in chips)
+Seat 3: educated8028464 (610196.68 in chips)
+Seat 4: Kubsonek10 (333633.18 in chips)
+Seat 5: DaniC1994 (796896.92 in chips)
+Seat 6: Ranked (2126549.94 in chips)
+Seat 7: Randolf (979978.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+Randolf: posts small blind 25000
+ProfessorStacks: posts big blind 50000
+*** HOLE CARDS ***
+Noleniiitoooo: folds
+educated8028464: folds
+Kubsonek10: folds
+DaniC1994: raises 50000 to 100000
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Uncalled bet (50000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 168750
+*** SUMMARY ***
+Total pot 168750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:30:30 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: Noleniiitoooo folded before the flop
+Seat 3: educated8028464 folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 collected (168750)
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710321: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:30:31 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (968979.62 in chips)
+Seat 2: Noleniiitoooo (231670.38 in chips)
+Seat 3: educated8028464 (603946.68 in chips)
+Seat 4: Kubsonek10 (327383.18 in chips)
+Seat 5: DaniC1994 (909396.92 in chips)
+Seat 6: Ranked (2120299.94 in chips)
+Seat 7: Randolf (948728.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+ProfessorStacks: posts small blind 25000
+Noleniiitoooo: posts big blind 50000
+*** HOLE CARDS ***
+educated8028464: raises 50000 to 100000
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: calls 50000
+*** FLOP *** [8c 5d 5s]
+Noleniiitoooo: checks
+educated8028464: bets 150000
+Noleniiitoooo: folds
+Uncalled bet (150000) returned to educated8028464
+educated8028464: doesn't show hand
+educated8028464 collected 268750
+*** SUMMARY ***
+Total pot 268750 | Rake 0
+Board [ 8c 5d 5s ]
+Game ended: 2026/04/13 23:31:47 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 2: Noleniiitoooo (small blind) folded on the Flop
+Seat 3: educated8028464 collected (268750)
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710322: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:31:48 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (937729.62 in chips)
+Seat 2: Noleniiitoooo (125420.38 in chips)
+Seat 3: educated8028464 (766446.68 in chips)
+Seat 4: Kubsonek10 (321133.18 in chips)
+Seat 5: DaniC1994 (903146.92 in chips)
+Seat 6: Ranked (2114049.94 in chips)
+Seat 7: Randolf (942478.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+Noleniiitoooo: posts small blind 25000
+educated8028464: posts big blind 50000
+*** HOLE CARDS ***
+Kubsonek10: raises 214883.20 to 264883.20
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: folds
+educated8028464: folds
+Uncalled bet (214883.20) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 168750
+*** SUMMARY ***
+Total pot 168750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:32:34 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo (small blind) folded before the flop
+Seat 3: educated8028464 (small blind) folded before the flop
+Seat 4: Kubsonek10 collected (168750)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710323: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:32:35 GMT
+Table '259771' 7-max Seat #2 is the button
+Seat 1: ProfessorStacks (931479.62 in chips)
+Seat 2: Noleniiitoooo (94170.38 in chips)
+Seat 3: educated8028464 (710196.68 in chips)
+Seat 4: Kubsonek10 (433633.18 in chips)
+Seat 5: DaniC1994 (896896.92 in chips)
+Seat 6: Ranked (2107799.94 in chips)
+Seat 7: Randolf (936228.28 in chips)
+ProfessorStacks: posts the ante 6250
+Noleniiitoooo: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+educated8028464: posts small blind 25000
+Kubsonek10: posts big blind 50000
+*** HOLE CARDS ***
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Noleniiitoooo: raises 37920.38 to 87920.38 and is all-in
+educated8028464: folds
+Kubsonek10: calls 37920.38
+*** FLOP *** [2d 4d Tc]
+*** TURN *** [2d 4d Tc] [Td]
+*** RIVER *** [2d 4d Tc Td] [5h]
+Kubsonek10: shows [2h] (Two Pair: Pair of T and 2)
+Noleniiitoooo: shows [As 9h] ()
+Kubsonek10 collected 244590.76
+*** SUMMARY ***
+Total pot 244590.76 | Rake 0
+Board [ 2d 4d Tc Td 5h ]
+Game ended: 2026/04/13 23:33:38 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 2: Noleniiitoooo showed [ As 9h ] and lost with 
+Seat 3: educated8028464 (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) showed [ 2h ] and won (244590.76) with Two Pair: Pair of T and 2
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710324: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:33:40 GMT
+Table '259771' 7-max Seat #3 is the button
+Seat 1: ProfessorStacks (925229.62 in chips)
+Seat 3: educated8028464 (678946.68 in chips)
+Seat 4: Kubsonek10 (584053.56 in chips)
+Seat 5: DaniC1994 (890646.92 in chips)
+Seat 6: Ranked (2101549.94 in chips)
+Seat 7: Randolf (929978.28 in chips)
+ProfessorStacks: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+Kubsonek10: posts small blind 25000
+DaniC1994: posts big blind 50000
+*** HOLE CARDS ***
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+educated8028464: folds
+Kubsonek10: folds
+Uncalled bet (25000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 87500
+*** SUMMARY ***
+Total pot 87500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:34:09 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 3: educated8028464 folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) collected (87500)
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710325: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:34:10 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (918979.62 in chips)
+Seat 3: educated8028464 (672696.68 in chips)
+Seat 4: Kubsonek10 (552803.56 in chips)
+Seat 5: DaniC1994 (946896.92 in chips)
+Seat 6: Ranked (2095299.94 in chips)
+Seat 7: Randolf (923728.28 in chips)
+ProfessorStacks: posts the ante 6250
+educated8028464: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+DaniC1994: posts small blind 25000
+Ranked: posts big blind 50000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: raises 50000 to 100000
+educated8028464: raises 566446.68 to 666446.68 and is all-in
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+ProfessorStacks: calls 566446.68
+*** FLOP *** [6s 5s 9d]
+*** TURN *** [6s 5s 9d] [Qc]
+*** RIVER *** [6s 5s 9d Qc] [Jh]
+ProfessorStacks: shows [Js Jc] (Three of a kind: Triplet of J)
+educated8028464: shows [Js Jc Th Ah] ()
+ProfessorStacks collected 1445393.36
+*** SUMMARY ***
+Total pot 1445393.36 | Rake 0
+Board [ 6s 5s 9d Qc Jh ]
+Game ended: 2026/04/13 23:35:05 GMT
+Seat 1: ProfessorStacks showed [ Js Jc ] and won (1445393.36) with Three of a kind: Triplet of J
+Seat 3: educated8028464 showed [ Js Jc Th Ah ] and lost with 
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710326: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (25000/50000 - Ante 6250) - 2026/04/13 23:35:08 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (1691676.30 in chips)
+Seat 4: Kubsonek10 (546553.56 in chips)
+Seat 5: DaniC1994 (915646.92 in chips)
+Seat 6: Ranked (2039049.94 in chips)
+Seat 7: Randolf (917478.28 in chips)
+ProfessorStacks: posts the ante 6250
+Kubsonek10: posts the ante 6250
+DaniC1994: posts the ante 6250
+Ranked: posts the ante 6250
+Randolf: posts the ante 6250
+Ranked: posts small blind 25000
+Randolf: posts big blind 50000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Kubsonek10: folds
+DaniC1994: raises 55000 to 105000
+Ranked: folds
+Randolf: folds
+Uncalled bet (55000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 156250
+*** SUMMARY ***
+Total pot 156250 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:35:53 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 collected (156250)
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710327: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:35:54 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (1685426.30 in chips)
+Seat 4: Kubsonek10 (540303.56 in chips)
+Seat 5: DaniC1994 (1015646.92 in chips)
+Seat 6: Ranked (2007799.94 in chips)
+Seat 7: Randolf (861228.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Randolf: posts small blind 30000
+ProfessorStacks: posts big blind 60000
+*** HOLE CARDS ***
+Kubsonek10: raises 442803.56 to 502803.56
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Uncalled bet (442803.56) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 187500
+*** SUMMARY ***
+Total pot 187500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:36:24 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 4: Kubsonek10 collected (187500)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710328: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:36:25 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (1617926.30 in chips)
+Seat 4: Kubsonek10 (660303.56 in chips)
+Seat 5: DaniC1994 (1008146.92 in chips) is sitting out
+Seat 6: Ranked (2000299.94 in chips)
+Seat 7: Randolf (823728.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+ProfessorStacks: posts small blind 30000
+Kubsonek10: posts big blind 60000
+*** HOLE CARDS ***
+Ranked: folds
+Randolf: folds
+ProfessorStacks: raises 1550426.30 to 1610426.30 and is all-in
+Kubsonek10: folds
+Uncalled bet (1550426.30) returned to ProfessorStacks
+ProfessorStacks: mucks hand
+ProfessorStacks collected 0
+*** SUMMARY ***
+Total pot 157500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:37:26 GMT
+Seat 1: ProfessorStacks (small blind) collected (157500)
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 mucked
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710330: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:38:10 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (1700426.30 in chips)
+Seat 4: Kubsonek10 (555303.56 in chips)
+Seat 5: DaniC1994 (933146.92 in chips)
+Seat 6: Ranked (1985299.94 in chips)
+Seat 7: Randolf (936228.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+DaniC1994: posts small blind 30000
+Ranked: posts big blind 60000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+Kubsonek10: raises 457803.56 to 517803.56
+DaniC1994: folds
+Ranked: folds
+Uncalled bet (457803.56) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 187500
+*** SUMMARY ***
+Total pot 187500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:38:47 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 collected (187500)
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710331: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:38:48 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (1692926.30 in chips)
+Seat 4: Kubsonek10 (675303.56 in chips)
+Seat 5: DaniC1994 (895646.92 in chips)
+Seat 6: Ranked (1917799.94 in chips)
+Seat 7: Randolf (928728.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Ranked: posts small blind 30000
+Randolf: posts big blind 60000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: calls 30000
+Randolf: raises 90000 to 150000
+Ranked: folds
+Uncalled bet (90000) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 157500
+*** SUMMARY ***
+Total pot 157500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:39:43 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf (small blind) collected (157500)
+
+
+PokerStars Hand #2597710332: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:39:44 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (1685426.30 in chips)
+Seat 4: Kubsonek10 (667803.56 in chips)
+Seat 5: DaniC1994 (888146.92 in chips)
+Seat 6: Ranked (1850299.94 in chips)
+Seat 7: Randolf (1018728.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Randolf: posts small blind 30000
+ProfessorStacks: posts big blind 60000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+Uncalled bet (30000) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 97500
+*** SUMMARY ***
+Total pot 97500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:40:19 GMT
+Seat 1: ProfessorStacks (small blind) collected (97500)
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710333: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:40:20 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (1745426.30 in chips)
+Seat 4: Kubsonek10 (660303.56 in chips)
+Seat 5: DaniC1994 (880646.92 in chips)
+Seat 6: Ranked (1842799.94 in chips)
+Seat 7: Randolf (981228.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+ProfessorStacks: posts small blind 30000
+Kubsonek10: posts big blind 60000
+*** HOLE CARDS ***
+DaniC1994: folds
+Ranked: raises 60000 to 120000
+Randolf: folds
+ProfessorStacks: folds
+Kubsonek10: calls 60000
+*** FLOP *** [Ts Qs Jh]
+Kubsonek10: checks
+Ranked: checks
+*** TURN *** [Ts Qs Jh] [Jd]
+Kubsonek10: bets 532803.56 and is all-in
+Ranked: folds
+Uncalled bet (532803.56) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 307500
+*** SUMMARY ***
+Total pot 307500 | Rake 0
+Board [ Ts Qs Jh Jd ]
+Game ended: 2026/04/13 23:41:31 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) collected (307500)
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded on the Turn
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710335: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:43:25 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (1734176.30 in chips)
+Seat 4: Kubsonek10 (802803.56 in chips)
+Seat 5: DaniC1994 (899396.92 in chips)
+Seat 6: Ranked (1707799.94 in chips)
+Seat 7: Randolf (966228.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+DaniC1994: posts small blind 30000
+Ranked: posts big blind 60000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+Kubsonek10: raises 705303.56 to 765303.56
+DaniC1994: folds
+Ranked: folds
+Uncalled bet (705303.56) returned to Kubsonek10
+Kubsonek10: doesn't show hand
+Kubsonek10 collected 187500
+*** SUMMARY ***
+Total pot 187500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:44:08 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 collected (187500)
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710336: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:44:08 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (1726676.30 in chips)
+Seat 4: Kubsonek10 (922803.56 in chips)
+Seat 5: DaniC1994 (861896.92 in chips)
+Seat 6: Ranked (1640299.94 in chips)
+Seat 7: Randolf (958728.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Ranked: posts small blind 30000
+Randolf: posts big blind 60000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: raises 1572799.94 to 1632799.94 and is all-in
+Randolf: folds
+Uncalled bet (1572799.94) returned to Ranked
+Ranked: doesn't show hand
+Ranked collected 157500
+*** SUMMARY ***
+Total pot 157500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:44:50 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked (small blind) collected (157500)
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710337: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:44:50 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (1719176.30 in chips)
+Seat 4: Kubsonek10 (915303.56 in chips)
+Seat 5: DaniC1994 (854396.92 in chips)
+Seat 6: Ranked (1730299.94 in chips)
+Seat 7: Randolf (891228.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Randolf: posts small blind 30000
+ProfessorStacks: posts big blind 60000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: raises 60000 to 120000
+Ranked: folds
+Randolf: folds
+ProfessorStacks: folds
+Uncalled bet (60000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 187500
+*** SUMMARY ***
+Total pot 187500 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:45:19 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 collected (187500)
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710338: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:45:19 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (1651676.30 in chips)
+Seat 4: Kubsonek10 (907803.56 in chips)
+Seat 5: DaniC1994 (974396.92 in chips)
+Seat 6: Ranked (1722799.94 in chips)
+Seat 7: Randolf (853728.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+ProfessorStacks: posts small blind 35000
+Kubsonek10: posts big blind 70000
+*** HOLE CARDS ***
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+ProfessorStacks: raises 105000 to 175000
+Kubsonek10: calls 105000
+*** FLOP *** [9s Jd 5c]
+ProfessorStacks: bets 98437
+Kubsonek10: calls 98437
+*** TURN *** [9s Jd 5c] [Qh]
+ProfessorStacks: bets 231874
+Kubsonek10: calls 231874
+*** RIVER *** [9s Jd 5c Qh] [7h]
+ProfessorStacks: bets 1137615.30 and is all-in
+Kubsonek10: folds
+Uncalled bet (1137615.30) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 1054372
+*** SUMMARY ***
+Total pot 1054372 | Rake 0
+Board [ 9s Jd 5c Qh 7h ]
+Game ended: 2026/04/13 23:48:37 GMT
+Seat 1: ProfessorStacks (small blind) collected (1054372)
+Seat 4: Kubsonek10 (small blind) folded on the River
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710339: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:48:38 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (2191987.30 in chips)
+Seat 4: Kubsonek10 (393742.56 in chips)
+Seat 5: DaniC1994 (965646.92 in chips)
+Seat 6: Ranked (1714049.94 in chips)
+Seat 7: Randolf (844978.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+Kubsonek10: posts small blind 35000
+DaniC1994: posts big blind 70000
+*** HOLE CARDS ***
+Ranked: raises 70000 to 140000
+Randolf: folds
+ProfessorStacks: raises 175000 to 315000
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+Uncalled bet (175000) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 428750
+*** SUMMARY ***
+Total pot 428750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:49:38 GMT
+Seat 1: ProfessorStacks collected (428750)
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710340: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:49:39 GMT
+Table '259771' 7-max Seat #4 is the button
+Seat 1: ProfessorStacks (2471987.30 in chips)
+Seat 4: Kubsonek10 (349992.56 in chips)
+Seat 5: DaniC1994 (886896.92 in chips)
+Seat 6: Ranked (1565299.94 in chips)
+Seat 7: Randolf (836228.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+DaniC1994: posts small blind 35000
+Ranked: posts big blind 70000
+*** HOLE CARDS ***
+Randolf: folds
+ProfessorStacks: folds
+Kubsonek10: raises 271242.56 to 341242.56 and is all-in
+DaniC1994: folds
+Ranked: calls 271242.56
+*** FLOP *** [6d Ts 4s]
+*** TURN *** [6d Ts 4s] [4h]
+*** RIVER *** [6d Ts 4s 4h] [Qd]
+Ranked: shows [8s Qs Ad 3h] ()
+Kubsonek10: shows [Qs] (Two Pair: Pair of Q and 4)
+Kubsonek10 collected 761235.12
+*** SUMMARY ***
+Total pot 761235.12 | Rake 0
+Board [ 6d Ts 4s 4h Qd ]
+Game ended: 2026/04/13 23:50:29 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 showed [ Qs ] and won (761235.12) with Two Pair: Pair of Q and 4
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: Ranked (small blind) showed [ 8s Qs Ad 3h ] and lost with 
+Seat 7: Randolf folded before the flop
+
+
+PokerStars Hand #2597710341: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:50:29 GMT
+Table '259771' 7-max Seat #5 is the button
+Seat 1: ProfessorStacks (2463237.30 in chips)
+Seat 4: Kubsonek10 (761235.12 in chips)
+Seat 5: DaniC1994 (843146.92 in chips)
+Seat 6: Ranked (1215307.38 in chips)
+Seat 7: Randolf (827478.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+Ranked: posts small blind 35000
+Randolf: posts big blind 70000
+*** HOLE CARDS ***
+ProfessorStacks: folds
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+Uncalled bet (35000) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 113750
+*** SUMMARY ***
+Total pot 113750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:51:22 GMT
+Seat 1: ProfessorStacks folded before the flop
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked (small blind) folded before the flop
+Seat 7: Randolf (small blind) collected (113750)
+
+
+PokerStars Hand #2597710342: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:51:23 GMT
+Table '259771' 7-max Seat #6 is the button
+Seat 1: ProfessorStacks (2454487.30 in chips)
+Seat 4: Kubsonek10 (752485.12 in chips)
+Seat 5: DaniC1994 (834396.92 in chips)
+Seat 6: Ranked (1171557.38 in chips)
+Seat 7: Randolf (897478.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+Randolf: posts small blind 35000
+ProfessorStacks: posts big blind 70000
+*** HOLE CARDS ***
+Kubsonek10: folds
+DaniC1994: folds
+Ranked: folds
+Randolf: folds
+Uncalled bet (35000) returned to ProfessorStacks
+ProfessorStacks: doesn't show hand
+ProfessorStacks collected 113750
+*** SUMMARY ***
+Total pot 113750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:52:06 GMT
+Seat 1: ProfessorStacks (small blind) collected (113750)
+Seat 4: Kubsonek10 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf (small blind) folded before the flop
+
+
+PokerStars Hand #2597710343: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:52:07 GMT
+Table '259771' 7-max Seat #7 is the button
+Seat 1: ProfessorStacks (2524487.30 in chips)
+Seat 4: Kubsonek10 (743735.12 in chips)
+Seat 5: DaniC1994 (825646.92 in chips)
+Seat 6: Ranked (1162807.38 in chips)
+Seat 7: Randolf (853728.28 in chips)
+ProfessorStacks: posts the ante 8750
+Kubsonek10: posts the ante 8750
+DaniC1994: posts the ante 8750
+Ranked: posts the ante 8750
+Randolf: posts the ante 8750
+ProfessorStacks: posts small blind 35000
+Kubsonek10: posts big blind 70000
+*** HOLE CARDS ***
+DaniC1994: folds
+Ranked: folds
+Randolf: raises 739978.25 to 809978.25
+ProfessorStacks: folds
+Kubsonek10: folds
+Uncalled bet (739978.25) returned to Randolf
+Randolf: doesn't show hand
+Randolf collected 218750
+*** SUMMARY ***
+Total pot 218750 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:52:58 GMT
+Seat 1: ProfessorStacks (small blind) folded before the flop
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf collected (218750)
+
+
+PokerStars Hand #2606600284: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/13 23:52:58 GMT
+Table '260660' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (816896.92 in chips)
+Seat 3: idontbelieveit (1027057.84 in chips)
+Seat 4: Looking111 (3244280.61 in chips)
+Seat 6: 40yrsoldReg (5238256.55 in chips)
+DaniC1994: posts the ante 8750
+idontbelieveit: posts the ante 8750
+Looking111: posts the ante 8750
+40yrsoldReg: posts the ante 8750
+40yrsoldReg: posts small blind 35000
+DaniC1994: posts big blind 70000
+*** HOLE CARDS ***
+idontbelieveit: folds
+Looking111: raises 105000 to 175000
+40yrsoldReg: folds
+DaniC1994: folds
+Uncalled bet (105000) returned to Looking111
+Looking111: doesn't show hand
+Looking111 collected 210000
+*** SUMMARY ***
+Total pot 210000 | Rake 0
+Board [  ]
+Game ended: 2026/04/13 23:53:22 GMT
+Seat 1: DaniC1994 (small blind) folded before the flop
+Seat 3: idontbelieveit folded before the flop
+Seat 4: Looking111 collected (210000)
+Seat 6: 40yrsoldReg (small blind) folded before the flop
+
+
+PokerStars Hand #2597710334: Tournament #47015, $109 Collision PKO Hold'em No Limit - Level III (30000/60000 - Ante 7500) - 2026/04/13 23:41:32 GMT
+Table '259771' 7-max Seat #1 is the button
+Seat 1: ProfessorStacks (1707926.30 in chips)
+Seat 4: Kubsonek10 (840303.56 in chips)
+Seat 5: DaniC1994 (873146.92 in chips)
+Seat 6: Ranked (1715299.94 in chips)
+Seat 7: Randolf (973728.28 in chips)
+ProfessorStacks: posts the ante 7500
+Kubsonek10: posts the ante 7500
+DaniC1994: posts the ante 7500
+Ranked: posts the ante 7500
+Randolf: posts the ante 7500
+Kubsonek10: posts small blind 30000
+DaniC1994: posts big blind 60000
+*** HOLE CARDS ***
+Ranked: folds
+Randolf: folds
+ProfessorStacks: raises 60000 to 120000
+Kubsonek10: folds
+DaniC1994: calls 60000
+*** FLOP *** [3c 5d Th]
+DaniC1994: checks
+ProfessorStacks: checks
+*** TURN *** [3c 5d Th] [3s]
+DaniC1994: checks
+ProfessorStacks: checks
+*** RIVER *** [3c 5d Th 3s] [Tc]
+DaniC1994: checks
+ProfessorStacks: checks
+DaniC1994: shows [Kh] (Two Pair: Pair of T and 3)
+ProfessorStacks: shows [Kd] (Two Pair: Pair of T and 3)
+DaniC1994 collected 307500
+ProfessorStacks collected 307500
+*** SUMMARY ***
+Total pot 307500 | Rake 0
+Board [ 3c 5d Th 3s Tc ]
+Game ended: 2026/04/13 23:43:25 GMT
+Seat 1: ProfessorStacks showed [ Kd ] and won (307500) with Two Pair: Pair of T and 3
+Seat 4: Kubsonek10 (small blind) folded before the flop
+Seat 5: DaniC1994 (small blind) showed [ Kh ] and won (307500) with Two Pair: Pair of T and 3
+Seat 6: Ranked folded before the flop
+Seat 7: Randolf folded before the flop
+
+

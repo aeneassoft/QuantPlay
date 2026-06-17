@@ -1,0 +1,4126 @@
+PokerStars Hand #2652880091: Tournament #46949, $55 CoinHunter PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:24:26 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (56363.06 in chips)
+Seat 2: Xixoxo (17780.91 in chips)
+Seat 3: Pilaf (41790.10 in chips)
+Seat 4: MikelArteta (76836.27 in chips)
+Seat 6: laaaame (51456.18 in chips)
+Seat 7: DaniC1994 (7205.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+DaniC1994: posts small blind 400
+FedeCeccarini: posts big blind 800
+*** HOLE CARDS ***
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+laaaame: raises 800 to 1600
+DaniC1994: folds
+FedeCeccarini: calls 800
+*** FLOP *** [Jh Js Kc]
+FedeCeccarini: checks
+laaaame: bets 800
+FedeCeccarini: folds
+Uncalled bet (800) returned to laaaame
+laaaame: mucks hand
+laaaame collected 0
+*** SUMMARY ***
+Total pot 4320 | Rake 0
+Board [ Jh Js Kc ]
+Game ended: 2026/04/14 18:25:12 GMT
+Seat 1: FedeCeccarini (small blind) folded on the Flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame collected (4320)
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880107: Tournament #46949, $55 CoinHunter PKO Hold'em No Limit - Level II (600/1200 - Ante 180) - 2026/04/14 18:39:08 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (62076.73 in chips)
+Seat 2: Xixoxo (34053.06 in chips)
+Seat 3: Pilaf (35788.90 in chips)
+Seat 4: MikelArteta (69577.52 in chips)
+Seat 6: laaaame (63693.98 in chips)
+Seat 7: DaniC1994 (6661.80 in chips)
+FedeCeccarini: posts the ante 180
+Xixoxo: posts the ante 180
+Pilaf: posts the ante 180
+MikelArteta: posts the ante 180
+laaaame: posts the ante 180
+DaniC1994: posts the ante 180
+MikelArteta: posts small blind 600
+laaaame: posts big blind 1200
+*** HOLE CARDS ***
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Pilaf: raises 1200 to 2400
+MikelArteta: raises 7200 to 9600
+laaaame: raises 8400 to 18000
+Pilaf: raises 17608.90 to 35608.90 and is all-in
+MikelArteta: folds
+laaaame: calls 17608.90
+*** FLOP *** [4d Ac 4c]
+*** TURN *** [4d Ac 4c] [Th]
+*** RIVER *** [4d Ac 4c Th] [9c]
+laaaame: shows [Ah Ks Qh Qs] ()
+Pilaf: shows [Ah Ks] (Two Pair: Pair of A and 4)
+Pilaf collected 81897.80
+*** SUMMARY ***
+Total pot 81897.80 | Rake 0
+Board [ 4d Ac 4c Th 9c ]
+Game ended: 2026/04/14 18:40:09 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf showed [ Ah Ks ] and won (81897.80) with Two Pair: Pair of A and 4
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 6: laaaame (small blind) showed [ Ah Ks Qh Qs ] and lost with 
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880108: Tournament #46949, $55 CoinHunter PKO Hold'em No Limit - Level II (600/1200 - Ante 180) - 2026/04/14 18:40:10 GMT
+Table '265288' 7-max Seat #4 is the button
+Seat 1: FedeCeccarini (61896.73 in chips)
+Seat 2: Xixoxo (33873.06 in chips)
+Seat 3: Pilaf (81897.80 in chips)
+Seat 4: MikelArteta (59797.52 in chips)
+Seat 6: laaaame (27905.08 in chips)
+Seat 7: DaniC1994 (6481.80 in chips)
+FedeCeccarini: posts the ante 180
+Xixoxo: posts the ante 180
+Pilaf: posts the ante 180
+MikelArteta: posts the ante 180
+laaaame: posts the ante 180
+DaniC1994: posts the ante 180
+laaaame: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+FedeCeccarini: folds
+Xixoxo: raises 1200 to 2400
+Pilaf: folds
+MikelArteta: folds
+laaaame: folds
+DaniC1994: calls 1200
+*** FLOP *** [3d 3c Qh]
+DaniC1994: checks
+Xixoxo: bets 1200
+DaniC1994: folds
+Uncalled bet (1200) returned to Xixoxo
+Xixoxo: doesn't show hand
+Xixoxo collected 6480
+*** SUMMARY ***
+Total pot 6480 | Rake 0
+Board [ 3d 3c Qh ]
+Game ended: 2026/04/14 18:40:48 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo collected (6480)
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame (small blind) folded before the flop
+Seat 7: DaniC1994 (small blind) folded on the Flop
+
+
+PokerStars Hand #2672590031: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level I (250/500 - Ante 63) - 2026/04/14 22:13:04 GMT
+Table '267259' 7-max Seat #4 is the button
+Seat 1: justAteacher (7454.75 in chips)
+Seat 2: Nags (30939.40 in chips)
+Seat 3: xRNGx (15188.32 in chips)
+Seat 4: Gomes999 (10815 in chips)
+Seat 5: DaniC1994 (6934.34 in chips)
+Seat 6: IveFloppedQuads (7867 in chips)
+justAteacher: posts the ante 63
+Nags: posts the ante 63
+xRNGx: posts the ante 63
+Gomes999: posts the ante 63
+DaniC1994: posts the ante 63
+IveFloppedQuads: posts the ante 63
+DaniC1994: posts small blind 250
+IveFloppedQuads: posts big blind 500
+*** HOLE CARDS ***
+justAteacher: folds
+Nags: folds
+xRNGx: raises 750 to 1250
+Gomes999: folds
+DaniC1994: folds
+IveFloppedQuads: raises 6554 to 7804 and is all-in
+xRNGx: folds
+Uncalled bet (6554) returned to IveFloppedQuads
+IveFloppedQuads: doesn't show hand
+IveFloppedQuads collected 3128
+*** SUMMARY ***
+Total pot 3128 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 22:13:43 GMT
+Seat 1: justAteacher folded before the flop
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 4: Gomes999 folded before the flop
+Seat 5: DaniC1994 (small blind) folded before the flop
+Seat 6: IveFloppedQuads (small blind) collected (3128)
+
+
+PokerStars Hand #2672590032: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level I (250/500 - Ante 63) - 2026/04/14 22:13:43 GMT
+Table '267259' 7-max Seat #5 is the button
+Seat 1: justAteacher (7391.75 in chips)
+Seat 2: Nags (30876.40 in chips)
+Seat 3: xRNGx (13875.32 in chips)
+Seat 4: Gomes999 (10752 in chips)
+Seat 5: DaniC1994 (6621.34 in chips)
+Seat 6: IveFloppedQuads (9682 in chips)
+justAteacher: posts the ante 63
+Nags: posts the ante 63
+xRNGx: posts the ante 63
+Gomes999: posts the ante 63
+DaniC1994: posts the ante 63
+IveFloppedQuads: posts the ante 63
+IveFloppedQuads: posts small blind 250
+justAteacher: posts big blind 500
+*** HOLE CARDS ***
+Nags: folds
+xRNGx: folds
+Gomes999: folds
+DaniC1994: folds
+IveFloppedQuads: folds
+Uncalled bet (250) returned to justAteacher
+justAteacher: doesn't show hand
+justAteacher collected 878
+*** SUMMARY ***
+Total pot 878 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 22:14:21 GMT
+Seat 1: justAteacher (small blind) collected (878)
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 4: Gomes999 folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: IveFloppedQuads (small blind) folded before the flop
+
+
+PokerStars Hand #2672590035: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/14 22:16:00 GMT
+Table '267259' 7-max Seat #2 is the button
+Seat 1: justAteacher (7580.75 in chips)
+Seat 2: Nags (21131.40 in chips)
+Seat 3: xRNGx (12686.32 in chips)
+Seat 4: Gomes999 (10563 in chips)
+Seat 5: DaniC1994 (6432.34 in chips)
+Seat 6: IveFloppedQuads (20805 in chips)
+justAteacher: posts the ante 75
+Nags: posts the ante 75
+xRNGx: posts the ante 75
+Gomes999: posts the ante 75
+DaniC1994: posts the ante 75
+IveFloppedQuads: posts the ante 75
+xRNGx: posts small blind 300
+Gomes999: posts big blind 600
+*** HOLE CARDS ***
+DaniC1994: folds
+IveFloppedQuads: raises 600 to 1200
+justAteacher: folds
+Nags: folds
+xRNGx: calls 900
+Gomes999: calls 600
+*** FLOP *** [Jd 6s 5d]
+xRNGx: checks
+Gomes999: checks
+IveFloppedQuads: bets 2250
+xRNGx: folds
+Gomes999: folds
+Uncalled bet (2250) returned to IveFloppedQuads
+IveFloppedQuads: doesn't show hand
+IveFloppedQuads collected 4050
+*** SUMMARY ***
+Total pot 4050 | Rake 0
+Board [ Jd 6s 5d ]
+Game ended: 2026/04/14 22:16:58 GMT
+Seat 1: justAteacher folded before the flop
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx (small blind) folded on the Flop
+Seat 4: Gomes999 (small blind) folded on the Flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: IveFloppedQuads collected (4050)
+
+
+PokerStars Hand #2672590037: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/14 22:17:26 GMT
+Table '267259' 7-max Seat #4 is the button
+Seat 1: justAteacher (7430.75 in chips)
+Seat 2: Nags (20981.40 in chips)
+Seat 3: xRNGx (11336.32 in chips)
+Seat 4: Gomes999 (10338 in chips)
+Seat 5: DaniC1994 (5682.34 in chips)
+Seat 6: IveFloppedQuads (23505 in chips)
+Seat 7: CharIes1 (9925 in chips)
+justAteacher: posts the ante 75
+Nags: posts the ante 75
+xRNGx: posts the ante 75
+Gomes999: posts the ante 75
+DaniC1994: posts the ante 75
+IveFloppedQuads: posts the ante 75
+CharIes1: posts the ante 75
+DaniC1994: posts small blind 300
+IveFloppedQuads: posts big blind 600
+*** HOLE CARDS ***
+CharIes1: folds
+justAteacher: raises 600 to 1200
+Nags: folds
+xRNGx: folds
+Gomes999: folds
+DaniC1994: calls 900
+IveFloppedQuads: calls 600
+*** FLOP *** [Jh 6h 6d]
+DaniC1994: checks
+IveFloppedQuads: checks
+justAteacher: bets 1361.25
+DaniC1994: folds
+IveFloppedQuads: calls 1361.25
+*** TURN *** [Jh 6h 6d] [Ad]
+IveFloppedQuads: checks
+justAteacher: checks
+*** RIVER *** [Jh 6h 6d Ad] [4s]
+IveFloppedQuads: bets 5008
+justAteacher: calls 4794.50 and is all-in
+Uncalled bet (213.50) returned to IveFloppedQuads
+IveFloppedQuads: shows [6s Kh] (Three of a kind: Triplet of 6)
+justAteacher: shows [As Th] ()
+IveFloppedQuads collected 16436.50
+*** SUMMARY ***
+Total pot 16436.50 | Rake 0
+Board [ Jh 6h 6d Ad 4s ]
+Game ended: 2026/04/14 22:18:51 GMT
+Seat 1: justAteacher showed [ As Th ] and lost with 
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 4: Gomes999 folded before the flop
+Seat 5: DaniC1994 (small blind) folded on the Flop
+Seat 6: IveFloppedQuads (small blind) showed [ 6s Kh ] and won (16436.50) with Three of a kind: Triplet of 6
+Seat 7: CharIes1 folded before the flop
+
+
+PokerStars Hand #2672590038: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level I (300/600 - Ante 75) - 2026/04/14 22:18:53 GMT
+Table '267259' 7-max Seat #5 is the button
+Seat 1: justAteacher (10000 in chips)
+Seat 2: Nags (20906.40 in chips)
+Seat 3: xRNGx (11261.32 in chips)
+Seat 4: Gomes999 (10263 in chips)
+Seat 5: DaniC1994 (4407.34 in chips)
+Seat 6: IveFloppedQuads (32510.75 in chips)
+Seat 7: CharIes1 (9850 in chips)
+justAteacher: posts the ante 75
+Nags: posts the ante 75
+xRNGx: posts the ante 75
+Gomes999: posts the ante 75
+DaniC1994: posts the ante 75
+IveFloppedQuads: posts the ante 75
+CharIes1: posts the ante 75
+IveFloppedQuads: posts small blind 300
+CharIes1: posts big blind 600
+*** HOLE CARDS ***
+justAteacher: folds
+Nags: folds
+xRNGx: folds
+Gomes999: raises 600 to 1200
+DaniC1994: folds
+IveFloppedQuads: calls 900
+CharIes1: raises 8575 to 9775 and is all-in
+Gomes999: raises 413 to 10188 and is all-in
+IveFloppedQuads: folds
+Uncalled bet (413) returned to Gomes999
+*** FLOP *** [Qs Kd 9h]
+*** TURN *** [Qs Kd 9h] [7h]
+*** RIVER *** [Qs Kd 9h 7h] [5c]
+CharIes1: shows [Kc Ah] (Pair: Pair of K)
+Gomes999: shows [Jh Ad] ()
+CharIes1 collected 21275
+*** SUMMARY ***
+Total pot 21275 | Rake 0
+Board [ Qs Kd 9h 7h 5c ]
+Game ended: 2026/04/14 22:19:35 GMT
+Seat 1: justAteacher folded before the flop
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 4: Gomes999 showed [ Jh Ad ] and lost with 
+Seat 5: DaniC1994 folded before the flop
+Seat 6: IveFloppedQuads (small blind) folded before the flop
+Seat 7: CharIes1 (small blind) showed [ Kc Ah ] and won (21275) with Pair: Pair of K
+
+
+PokerStars Hand #2672590040: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level II (350/700 - Ante 88) - 2026/04/14 22:20:30 GMT
+Table '267259' 7-max Seat #7 is the button
+Seat 1: justAteacher (9137 in chips)
+Seat 2: Nags (20743.40 in chips)
+Seat 3: xRNGx (11098.32 in chips)
+Seat 5: DaniC1994 (4244.34 in chips)
+Seat 6: IveFloppedQuads (29747.75 in chips)
+Seat 7: CharIes1 (24228 in chips)
+justAteacher: posts the ante 88
+Nags: posts the ante 88
+xRNGx: posts the ante 88
+DaniC1994: posts the ante 88
+IveFloppedQuads: posts the ante 88
+CharIes1: posts the ante 88
+justAteacher: posts small blind 350
+Nags: posts big blind 700
+*** HOLE CARDS ***
+xRNGx: folds
+DaniC1994: folds
+IveFloppedQuads: folds
+CharIes1: folds
+justAteacher: raises 8349 to 9049 and is all-in
+Nags: folds
+Uncalled bet (8349) returned to justAteacher
+justAteacher: doesn't show hand
+justAteacher collected 1928
+*** SUMMARY ***
+Total pot 1928 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 22:21:10 GMT
+Seat 1: justAteacher (small blind) collected (1928)
+Seat 2: Nags (small blind) folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 5: DaniC1994 folded before the flop
+Seat 6: IveFloppedQuads folded before the flop
+Seat 7: CharIes1 folded before the flop
+
+
+PokerStars Hand #2672590041: Tournament #47081, $55 Bolt [Hyper] Hold'em No Limit - Level II (350/700 - Ante 88) - 2026/04/14 22:21:10 GMT
+Table '267259' 7-max Seat #1 is the button
+Seat 1: justAteacher (10277 in chips)
+Seat 2: Nags (19955.40 in chips)
+Seat 3: xRNGx (11010.32 in chips)
+Seat 5: DaniC1994 (4156.34 in chips)
+Seat 6: IveFloppedQuads (29659.75 in chips)
+Seat 7: CharIes1 (24140 in chips)
+justAteacher: posts the ante 88
+Nags: posts the ante 88
+xRNGx: posts the ante 88
+DaniC1994: posts the ante 88
+IveFloppedQuads: posts the ante 88
+CharIes1: posts the ante 88
+Nags: posts small blind 350
+xRNGx: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: raises 3368.34 to 4068.34 and is all-in
+IveFloppedQuads: folds
+CharIes1: folds
+justAteacher: folds
+Nags: raises 8268.34 to 12336.68
+xRNGx: folds
+Uncalled bet (8268.34) returned to Nags
+*** FLOP *** [7c 3c 9d]
+*** TURN *** [7c 3c 9d] [8h]
+*** RIVER *** [7c 3c 9d 8h] [6s]
+Nags: shows [Kd Kh] (Pair: Pair of K)
+DaniC1994: shows [Kd Kh 9s As] ()
+Nags collected 9364.68
+*** SUMMARY ***
+Total pot 9364.68 | Rake 0
+Board [ 7c 3c 9d 8h 6s ]
+Game ended: 2026/04/14 22:22:03 GMT
+Seat 1: justAteacher folded before the flop
+Seat 2: Nags (small blind) showed [ Kd Kh ] and won (9364.68) with Pair: Pair of K
+Seat 3: xRNGx (small blind) folded before the flop
+Seat 5: DaniC1994 showed [ Kd Kh 9s As ] and lost with 
+Seat 6: IveFloppedQuads folded before the flop
+Seat 7: CharIes1 folded before the flop
+
+
+PokerStars Hand #2650640088: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level I (300/600 - Ante 90) - 2026/04/14 18:04:36 GMT
+Table '265064' 7-max Seat #4 is the button
+Seat 1: opulent87181836 (72099.30 in chips)
+Seat 2: Xixoxo (13103.88 in chips)
+Seat 3: stady (32161.75 in chips)
+Seat 4: RealTrueScammer (15609.75 in chips)
+Seat 6: danielwbr (68022.35 in chips)
+Seat 7: DaniC1994 (16543.58 in chips)
+opulent87181836: posts the ante 90
+Xixoxo: posts the ante 90
+stady: posts the ante 90
+RealTrueScammer: posts the ante 90
+danielwbr: posts the ante 90
+DaniC1994: posts the ante 90
+danielwbr: posts small blind 300
+DaniC1994: posts big blind 600
+*** HOLE CARDS ***
+opulent87181836: folds
+Xixoxo: folds
+stady: folds
+RealTrueScammer: folds
+danielwbr: raises 1500 to 2100
+DaniC1994: calls 1500
+*** FLOP *** [8c Qd Ts]
+danielwbr: bets 1896
+DaniC1994: folds
+Uncalled bet (1896) returned to danielwbr
+danielwbr: doesn't show hand
+danielwbr collected 4740
+*** SUMMARY ***
+Total pot 4740 | Rake 0
+Board [ 8c Qd Ts ]
+Game ended: 2026/04/14 18:05:37 GMT
+Seat 1: opulent87181836 folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: stady folded before the flop
+Seat 4: RealTrueScammer folded before the flop
+Seat 6: danielwbr (small blind) collected (4740)
+Seat 7: DaniC1994 (small blind) folded on the Flop
+
+
+PokerStars Hand #2652880072: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:08:49 GMT
+Table '265288' 7-max Seat #5 is the button
+Seat 1: FedeCeccarini (41079.73 in chips)
+Seat 2: Xixoxo (12923.88 in chips)
+Seat 3: ChaseTheMoney (23546.15 in chips)
+Seat 4: MikelArteta (29315.06 in chips)
+Seat 5: Stefan24 (16947.99 in chips)
+Seat 6: Guyver3 (10703.33 in chips)
+Seat 7: DaniC1994 (22212.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+Guyver3: posts the ante 105
+DaniC1994: posts the ante 105
+Guyver3: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+FedeCeccarini: raises 840 to 1540
+Xixoxo: folds
+ChaseTheMoney: folds
+MikelArteta: folds
+Stefan24: folds
+Guyver3: folds
+DaniC1994: calls 840
+*** FLOP *** [8c 7c Td]
+DaniC1994: checks
+FedeCeccarini: bets 2660
+DaniC1994: folds
+Uncalled bet (2660) returned to FedeCeccarini
+FedeCeccarini: doesn't show hand
+FedeCeccarini collected 4165
+*** SUMMARY ***
+Total pot 4165 | Rake 0
+Board [ 8c 7c Td ]
+Game ended: 2026/04/14 18:09:54 GMT
+Seat 1: FedeCeccarini collected (4165)
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 5: Stefan24 folded before the flop
+Seat 6: Guyver3 (small blind) folded before the flop
+Seat 7: DaniC1994 (small blind) folded on the Flop
+
+
+PokerStars Hand #2652880073: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:09:54 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (43599.73 in chips)
+Seat 2: Xixoxo (12818.88 in chips)
+Seat 3: ChaseTheMoney (23441.15 in chips)
+Seat 4: MikelArteta (29210.06 in chips)
+Seat 5: Stefan24 (16842.99 in chips)
+Seat 6: Guyver3 (10248.33 in chips)
+Seat 7: DaniC1994 (20567.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+Guyver3: posts the ante 105
+DaniC1994: posts the ante 105
+DaniC1994: posts small blind 350
+FedeCeccarini: posts big blind 700
+*** HOLE CARDS ***
+Xixoxo: folds
+ChaseTheMoney: folds
+MikelArteta: folds
+Stefan24: raises 700 to 1400
+Guyver3: raises 8743.33 to 10143.33 and is all-in
+DaniC1994: folds
+FedeCeccarini: raises 26243.33 to 36386.66
+Stefan24: folds
+Uncalled bet (26243.33) returned to FedeCeccarini
+*** FLOP *** [Js 4s 4h]
+*** TURN *** [Js 4s 4h] [Qc]
+*** RIVER *** [Js 4s 4h Qc] [5s]
+FedeCeccarini: shows [8s 8c] (Two Pair: Pair of 8 and 4)
+Guyver3: shows [8s 8c As Td] ()
+FedeCeccarini collected 22771.66
+*** SUMMARY ***
+Total pot 22771.66 | Rake 0
+Board [ Js 4s 4h Qc 5s ]
+Game ended: 2026/04/14 18:10:55 GMT
+Seat 1: FedeCeccarini (small blind) showed [ 8s 8c ] and won (22771.66) with Two Pair: Pair of 8 and 4
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 5: Stefan24 folded before the flop
+Seat 6: Guyver3 showed [ 8s 8c As Td ] and lost with 
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880074: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:10:55 GMT
+Table '265288' 7-max Seat #7 is the button
+Seat 1: FedeCeccarini (56123.06 in chips)
+Seat 2: Xixoxo (12713.88 in chips)
+Seat 3: ChaseTheMoney (23336.15 in chips)
+Seat 4: MikelArteta (29105.06 in chips)
+Seat 5: Stefan24 (15337.99 in chips)
+Seat 7: DaniC1994 (20112.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+FedeCeccarini: posts small blind 350
+Xixoxo: posts big blind 700
+*** HOLE CARDS ***
+ChaseTheMoney: folds
+MikelArteta: folds
+Stefan24: raises 700 to 1400
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: calls 700
+*** FLOP *** [8h 2h 5d]
+Xixoxo: checks
+Stefan24: bets 1247.40
+Xixoxo: calls 1247.40
+*** TURN *** [8h 2h 5d] [Ks]
+Xixoxo: checks
+Stefan24: bets 2070.68
+Xixoxo: folds
+Uncalled bet (2070.68) returned to Stefan24
+Stefan24: doesn't show hand
+Stefan24 collected 6274.80
+*** SUMMARY ***
+Total pot 6274.80 | Rake 0
+Board [ 8h 2h 5d Ks ]
+Game ended: 2026/04/14 18:11:45 GMT
+Seat 1: FedeCeccarini (small blind) folded before the flop
+Seat 2: Xixoxo (small blind) folded on the Turn
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 5: Stefan24 collected (6274.80)
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880075: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:11:45 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (55668.06 in chips)
+Seat 2: Xixoxo (9961.48 in chips)
+Seat 3: ChaseTheMoney (23231.15 in chips)
+Seat 4: MikelArteta (29000.06 in chips)
+Seat 5: Stefan24 (18860.39 in chips)
+Seat 7: DaniC1994 (20007.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+Xixoxo: posts small blind 350
+ChaseTheMoney: posts big blind 700
+*** HOLE CARDS ***
+MikelArteta: raises 700 to 1400
+Stefan24: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+ChaseTheMoney: calls 700
+*** FLOP *** [3h 6s 4s]
+ChaseTheMoney: bets 1890
+MikelArteta: folds
+Uncalled bet (1890) returned to ChaseTheMoney
+ChaseTheMoney: doesn't show hand
+ChaseTheMoney collected 3780
+*** SUMMARY ***
+Total pot 3780 | Rake 0
+Board [ 3h 6s 4s ]
+Game ended: 2026/04/14 18:12:25 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 3: ChaseTheMoney (small blind) collected (3780)
+Seat 4: MikelArteta folded on the Flop
+Seat 5: Stefan24 folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880076: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:12:26 GMT
+Table '265288' 7-max Seat #2 is the button
+Seat 1: FedeCeccarini (55563.06 in chips)
+Seat 2: Xixoxo (9506.48 in chips)
+Seat 3: ChaseTheMoney (25506.15 in chips)
+Seat 4: MikelArteta (27495.06 in chips)
+Seat 5: Stefan24 (18755.39 in chips)
+Seat 7: DaniC1994 (19902.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+ChaseTheMoney: posts small blind 350
+MikelArteta: posts big blind 700
+*** HOLE CARDS ***
+Stefan24: raises 17950.39 to 18650.39 and is all-in
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+ChaseTheMoney: folds
+MikelArteta: folds
+Uncalled bet (17950.39) returned to Stefan24
+Stefan24: doesn't show hand
+Stefan24 collected 2380
+*** SUMMARY ***
+Total pot 2380 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:12:55 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney (small blind) folded before the flop
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 5: Stefan24 collected (2380)
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880077: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:12:56 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (55458.06 in chips)
+Seat 2: Xixoxo (9401.48 in chips)
+Seat 3: ChaseTheMoney (25051.15 in chips)
+Seat 4: MikelArteta (26690.06 in chips)
+Seat 5: Stefan24 (20330.39 in chips)
+Seat 7: DaniC1994 (19797.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+MikelArteta: posts small blind 350
+Stefan24: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+ChaseTheMoney: folds
+MikelArteta: calls 350
+Stefan24: checks
+*** FLOP *** [6h Ks 6d]
+MikelArteta: bets 700
+Stefan24: folds
+Uncalled bet (700) returned to MikelArteta
+MikelArteta: doesn't show hand
+MikelArteta collected 2030
+*** SUMMARY ***
+Total pot 2030 | Rake 0
+Board [ 6h Ks 6d ]
+Game ended: 2026/04/14 18:13:33 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta (small blind) collected (2030)
+Seat 5: Stefan24 (small blind) folded on the Flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880078: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:13:33 GMT
+Table '265288' 7-max Seat #4 is the button
+Seat 1: FedeCeccarini (55353.06 in chips)
+Seat 2: Xixoxo (9296.48 in chips)
+Seat 3: ChaseTheMoney (24946.15 in chips)
+Seat 4: MikelArteta (27915.06 in chips)
+Seat 5: Stefan24 (19525.39 in chips)
+Seat 7: DaniC1994 (19692.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+Stefan24: posts small blind 350
+DaniC1994: posts big blind 700
+*** HOLE CARDS ***
+FedeCeccarini: raises 840 to 1540
+Xixoxo: folds
+ChaseTheMoney: folds
+MikelArteta: calls 1540
+Stefan24: folds
+DaniC1994: folds
+*** FLOP *** [8d Qs 5c]
+FedeCeccarini: checks
+MikelArteta: checks
+*** TURN *** [8d Qs 5c] [8s]
+FedeCeccarini: checks
+MikelArteta: checks
+*** RIVER *** [8d Qs 5c 8s] [Kc]
+FedeCeccarini: bets 980
+MikelArteta: calls 980
+FedeCeccarini: shows [Kd] (Two Pair: Pair of K and 8)
+MikelArteta: mucks hand
+FedeCeccarini collected 6720
+*** SUMMARY ***
+Total pot 6720 | Rake 0
+Board [ 8d Qs 5c 8s Kc ]
+Game ended: 2026/04/14 18:14:49 GMT
+Seat 1: FedeCeccarini showed [ Kd ] and won (6720) with Two Pair: Pair of K and 8
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta mucked
+Seat 5: Stefan24 (small blind) folded before the flop
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880079: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:14:50 GMT
+Table '265288' 7-max Seat #5 is the button
+Seat 1: FedeCeccarini (59448.06 in chips)
+Seat 2: Xixoxo (9191.48 in chips)
+Seat 3: ChaseTheMoney (24841.15 in chips)
+Seat 4: MikelArteta (25290.06 in chips)
+Seat 5: Stefan24 (19070.39 in chips)
+Seat 7: DaniC1994 (18887.38 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+DaniC1994: posts the ante 105
+DaniC1994: posts small blind 350
+FedeCeccarini: posts big blind 700
+*** HOLE CARDS ***
+Xixoxo: raises 8386.48 to 9086.48 and is all-in
+ChaseTheMoney: folds
+MikelArteta: folds
+Stefan24: folds
+DaniC1994: raises 8386.48 to 17472.96
+FedeCeccarini: folds
+Uncalled bet (8386.48) returned to DaniC1994
+*** FLOP *** [4h Ad 4d]
+*** TURN *** [4h Ad 4d] [Kh]
+*** RIVER *** [4h Ad 4d Kh] [As]
+DaniC1994: shows [Ks Qh 3s 3d] ()
+Xixoxo: shows [Ks Qh] (Two Pair: Pair of A and K)
+Xixoxo collected 19502.96
+*** SUMMARY ***
+Total pot 19502.96 | Rake 0
+Board [ 4h Ad 4d Kh As ]
+Game ended: 2026/04/14 18:15:33 GMT
+Seat 1: FedeCeccarini (small blind) folded before the flop
+Seat 2: Xixoxo showed [ Ks Qh ] and won (19502.96) with Two Pair: Pair of A and K
+Seat 3: ChaseTheMoney folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 5: Stefan24 folded before the flop
+Seat 7: DaniC1994 (small blind) showed [ Ks Qh 3s 3d ] and lost with 
+
+
+PokerStars Hand #2652880081: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (350/700 - Ante 105) - 2026/04/14 18:17:01 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (58188.06 in chips)
+Seat 2: Xixoxo (16715.91 in chips)
+Seat 3: ChaseTheMoney (24631.15 in chips)
+Seat 4: MikelArteta (25080.06 in chips)
+Seat 5: Stefan24 (18860.39 in chips)
+Seat 6: laaaame (55615.85 in chips)
+Seat 7: DaniC1994 (9590.90 in chips)
+FedeCeccarini: posts the ante 105
+Xixoxo: posts the ante 105
+ChaseTheMoney: posts the ante 105
+MikelArteta: posts the ante 105
+Stefan24: posts the ante 105
+laaaame: posts the ante 105
+DaniC1994: posts the ante 105
+Xixoxo: posts small blind 350
+ChaseTheMoney: posts big blind 700
+*** HOLE CARDS ***
+MikelArteta: folds
+Stefan24: folds
+laaaame: raises 700 to 1400
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+ChaseTheMoney: calls 700
+*** FLOP *** [Jh Ac Jd]
+ChaseTheMoney: checks
+laaaame: bets 971.25
+ChaseTheMoney: folds
+Uncalled bet (971.25) returned to laaaame
+laaaame: doesn't show hand
+laaaame collected 3885
+*** SUMMARY ***
+Total pot 3885 | Rake 0
+Board [ Jh Ac Jd ]
+Game ended: 2026/04/14 18:17:48 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 3: ChaseTheMoney (small blind) folded on the Flop
+Seat 4: MikelArteta folded before the flop
+Seat 5: Stefan24 folded before the flop
+Seat 6: laaaame collected (3885)
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880083: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:18:21 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (56203.06 in chips)
+Seat 2: Xixoxo (19940.91 in chips)
+Seat 3: ChaseTheMoney (22606.15 in chips)
+Seat 4: MikelArteta (24055.06 in chips)
+Seat 5: Stefan24 (18635.39 in chips)
+Seat 6: laaaame (57875.85 in chips)
+Seat 7: DaniC1994 (9365.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+ChaseTheMoney: posts the ante 120
+MikelArteta: posts the ante 120
+Stefan24: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+MikelArteta: posts small blind 400
+Stefan24: posts big blind 800
+*** HOLE CARDS ***
+laaaame: raises 800 to 1600
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+ChaseTheMoney: calls 1600
+MikelArteta: raises 22335.06 to 23935.06 and is all-in
+Stefan24: folds
+laaaame: raises 33820.79 to 57755.85 and is all-in
+ChaseTheMoney: calls 20886.15 and is all-in
+Uncalled bet (33820.79) returned to laaaame
+*** FLOP *** [Jd 9h 6c]
+*** TURN *** [Jd 9h 6c] [5c]
+*** RIVER *** [Jd 9h 6c 5c] [Ks]
+MikelArteta: shows [Kh Jh] (Two Pair: Pair of K and J)
+laaaame: shows [Ah As Kh Jh Tc Th] ()
+ChaseTheMoney: shows [Ah As] ()
+MikelArteta collected 71996.27
+*** SUMMARY ***
+Total pot 71996.27 | Rake 0
+Board [ Jd 9h 6c 5c Ks ]
+Game ended: 2026/04/14 18:19:28 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: ChaseTheMoney showed [ Ah As ] and lost with 
+Seat 4: MikelArteta (small blind) showed [ Kh Jh ] and won (71996.27) with Two Pair: Pair of K and J
+Seat 5: Stefan24 (small blind) folded before the flop
+Seat 6: laaaame showed [ Ah As Kh Jh Tc Th ] and lost with 
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880085: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:20:53 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (55963.06 in chips)
+Seat 2: Xixoxo (19700.91 in chips)
+Seat 4: MikelArteta (71876.27 in chips)
+Seat 6: laaaame (52016.18 in chips)
+Seat 7: DaniC1994 (9125.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+DaniC1994: posts small blind 400
+FedeCeccarini: posts big blind 800
+*** HOLE CARDS ***
+Xixoxo: folds
+MikelArteta: raises 960 to 1760
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: calls 960
+*** FLOP *** [Ks Kc 3s]
+FedeCeccarini: checks
+MikelArteta: bets 1130
+FedeCeccarini: folds
+Uncalled bet (1130) returned to MikelArteta
+MikelArteta: doesn't show hand
+MikelArteta collected 4520
+*** SUMMARY ***
+Total pot 4520 | Rake 0
+Board [ Ks Kc 3s ]
+Game ended: 2026/04/14 18:21:27 GMT
+Seat 1: FedeCeccarini (small blind) folded on the Flop
+Seat 2: Xixoxo folded before the flop
+Seat 4: MikelArteta collected (4520)
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880086: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:21:27 GMT
+Table '265288' 7-max Seat #7 is the button
+Seat 1: FedeCeccarini (54083.06 in chips)
+Seat 2: Xixoxo (19580.91 in chips)
+Seat 4: MikelArteta (74516.27 in chips)
+Seat 6: laaaame (51896.18 in chips)
+Seat 7: DaniC1994 (8605.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+FedeCeccarini: posts small blind 400
+Xixoxo: posts big blind 800
+*** HOLE CARDS ***
+MikelArteta: raises 960 to 1760
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Uncalled bet (960) returned to MikelArteta
+MikelArteta: doesn't show hand
+MikelArteta collected 2600
+*** SUMMARY ***
+Total pot 2600 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:21:48 GMT
+Seat 1: FedeCeccarini (small blind) folded before the flop
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 4: MikelArteta collected (2600)
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880087: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:21:49 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (53563.06 in chips)
+Seat 2: Xixoxo (18660.91 in chips)
+Seat 3: Pilaf (42750.10 in chips)
+Seat 4: MikelArteta (76196.27 in chips)
+Seat 6: laaaame (51776.18 in chips)
+Seat 7: DaniC1994 (8485.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+Xixoxo: posts small blind 400
+Pilaf: posts big blind 800
+*** HOLE CARDS ***
+MikelArteta: folds
+laaaame: raises 800 to 1600
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Pilaf: calls 800
+*** FLOP *** [2c Qc 8s]
+Pilaf: checks
+laaaame: checks
+*** TURN *** [2c Qc 8s] [Kd]
+Pilaf: checks
+laaaame: bets 4320
+Pilaf: folds
+Uncalled bet (4320) returned to laaaame
+laaaame: doesn't show hand
+laaaame collected 4320
+*** SUMMARY ***
+Total pot 4320 | Rake 0
+Board [ 2c Qc 8s Kd ]
+Game ended: 2026/04/14 18:23:02 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 3: Pilaf (small blind) folded on the Turn
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame collected (4320)
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880088: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:23:02 GMT
+Table '265288' 7-max Seat #2 is the button
+Seat 1: FedeCeccarini (53443.06 in chips)
+Seat 2: Xixoxo (18140.91 in chips)
+Seat 3: Pilaf (41030.10 in chips)
+Seat 4: MikelArteta (76076.27 in chips)
+Seat 6: laaaame (54376.18 in chips)
+Seat 7: DaniC1994 (8365.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+Pilaf: posts small blind 400
+MikelArteta: posts big blind 800
+*** HOLE CARDS ***
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Pilaf: calls 400
+MikelArteta: raises 2000 to 2800
+Pilaf: folds
+Uncalled bet (2000) returned to MikelArteta
+MikelArteta: doesn't show hand
+MikelArteta collected 2320
+*** SUMMARY ***
+Total pot 2320 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:23:22 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf (small blind) folded before the flop
+Seat 4: MikelArteta (small blind) collected (2320)
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880089: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:23:23 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (53323.06 in chips)
+Seat 2: Xixoxo (18020.91 in chips)
+Seat 3: Pilaf (40110.10 in chips)
+Seat 4: MikelArteta (77476.27 in chips)
+Seat 6: laaaame (54256.18 in chips)
+Seat 7: DaniC1994 (8245.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+MikelArteta: posts small blind 400
+laaaame: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Pilaf: raises 800 to 1600
+MikelArteta: folds
+laaaame: folds
+Uncalled bet (800) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 2720
+*** SUMMARY ***
+Total pot 2720 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:23:40 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf collected (2720)
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 6: laaaame (small blind) folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880090: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:23:41 GMT
+Table '265288' 7-max Seat #4 is the button
+Seat 1: FedeCeccarini (53203.06 in chips)
+Seat 2: Xixoxo (17900.91 in chips)
+Seat 3: Pilaf (41910.10 in chips)
+Seat 4: MikelArteta (76956.27 in chips)
+Seat 6: laaaame (53336.18 in chips)
+Seat 7: DaniC1994 (8125.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+laaaame: posts small blind 400
+DaniC1994: posts big blind 800
+*** HOLE CARDS ***
+FedeCeccarini: raises 960 to 1760
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+laaaame: calls 1360
+DaniC1994: folds
+*** FLOP *** [3d Ad Qs]
+laaaame: checks
+FedeCeccarini: bets 3200
+laaaame: folds
+Uncalled bet (3200) returned to FedeCeccarini
+FedeCeccarini: mucks hand
+FedeCeccarini collected 0
+*** SUMMARY ***
+Total pot 5040 | Rake 0
+Board [ 3d Ad Qs ]
+Game ended: 2026/04/14 18:24:26 GMT
+Seat 1: FedeCeccarini mucked
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame (small blind) folded on the Flop
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880092: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:25:12 GMT
+Table '265288' 7-max Seat #7 is the button
+Seat 1: FedeCeccarini (54643.06 in chips)
+Seat 2: Xixoxo (17660.91 in chips)
+Seat 3: Pilaf (41670.10 in chips)
+Seat 4: MikelArteta (76716.27 in chips)
+Seat 6: laaaame (54056.18 in chips)
+Seat 7: DaniC1994 (6685.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+FedeCeccarini: posts small blind 400
+Xixoxo: posts big blind 800
+*** HOLE CARDS ***
+Pilaf: raises 800 to 1600
+MikelArteta: folds
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: calls 800
+*** FLOP *** [9s 8d 3h]
+Xixoxo: checks
+Pilaf: bets 1425.60
+Xixoxo: calls 1425.60
+*** TURN *** [9s 8d 3h] [9c]
+Xixoxo: checks
+Pilaf: bets 3585.60
+Xixoxo: calls 3585.60
+*** RIVER *** [9s 8d 3h 9c] [7d]
+Xixoxo: checks
+Pilaf: checks
+Xixoxo: shows [8c] (Two Pair: Pair of 9 and 8)
+Pilaf: mucks hand
+Xixoxo collected 14342.40
+*** SUMMARY ***
+Total pot 14342.40 | Rake 0
+Board [ 9s 8d 3h 9c 7d ]
+Game ended: 2026/04/14 18:26:11 GMT
+Seat 1: FedeCeccarini (small blind) folded before the flop
+Seat 2: Xixoxo (small blind) showed [ 8c ] and won (14342.40) with Two Pair: Pair of 9 and 8
+Seat 3: Pilaf mucked
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880093: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (400/800 - Ante 120) - 2026/04/14 18:26:11 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (54123.06 in chips)
+Seat 2: Xixoxo (25272.11 in chips)
+Seat 3: Pilaf (34938.90 in chips)
+Seat 4: MikelArteta (76596.27 in chips)
+Seat 6: laaaame (53936.18 in chips)
+Seat 7: DaniC1994 (6565.90 in chips)
+FedeCeccarini: posts the ante 120
+Xixoxo: posts the ante 120
+Pilaf: posts the ante 120
+MikelArteta: posts the ante 120
+laaaame: posts the ante 120
+DaniC1994: posts the ante 120
+Xixoxo: posts small blind 400
+Pilaf: posts big blind 800
+*** HOLE CARDS ***
+MikelArteta: folds
+laaaame: raises 800 to 1600
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: calls 1200
+Pilaf: calls 800
+*** FLOP *** [7s Th 6d]
+Xixoxo: bets 1380
+Pilaf: folds
+laaaame: raises 2607.80 to 3987.80
+Xixoxo: calls 2607.80
+*** TURN *** [7s Th 6d] [3d]
+Xixoxo: checks
+laaaame: bets 36069.50
+Xixoxo: folds
+Uncalled bet (36069.50) returned to laaaame
+laaaame: doesn't show hand
+laaaame collected 13495.60
+*** SUMMARY ***
+Total pot 13495.60 | Rake 0
+Board [ 7s Th 6d 3d ]
+Game ended: 2026/04/14 18:27:32 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) folded on the Turn
+Seat 3: Pilaf (small blind) folded on the Flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame collected (13495.60)
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880094: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:27:33 GMT
+Table '265288' 7-max Seat #2 is the button
+Seat 1: FedeCeccarini (54003.06 in chips)
+Seat 2: Xixoxo (19564.31 in chips)
+Seat 3: Pilaf (33218.90 in chips)
+Seat 4: MikelArteta (76476.27 in chips)
+Seat 6: laaaame (61723.98 in chips)
+Seat 7: DaniC1994 (6445.90 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts small blind 500
+MikelArteta: posts big blind 1000
+*** HOLE CARDS ***
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: raises 1100 to 2100
+Pilaf: folds
+MikelArteta: folds
+Uncalled bet (1100) returned to Xixoxo
+Xixoxo: doesn't show hand
+Xixoxo collected 3400
+*** SUMMARY ***
+Total pot 3400 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:27:54 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo collected (3400)
+Seat 3: Pilaf (small blind) folded before the flop
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880095: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:27:55 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (53853.06 in chips)
+Seat 2: Xixoxo (21814.31 in chips)
+Seat 3: Pilaf (32568.90 in chips)
+Seat 4: MikelArteta (75326.27 in chips)
+Seat 6: laaaame (61573.98 in chips)
+Seat 7: DaniC1994 (6295.90 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+MikelArteta: posts small blind 500
+laaaame: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+FedeCeccarini: raises 1200 to 2200
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+laaaame: calls 1200
+*** FLOP *** [2d Ts 6h]
+laaaame: checks
+FedeCeccarini: bets 4000
+laaaame: calls 4000
+*** TURN *** [2d Ts 6h] [As]
+laaaame: checks
+FedeCeccarini: bets 10100
+laaaame: folds
+Uncalled bet (10100) returned to FedeCeccarini
+FedeCeccarini: doesn't show hand
+FedeCeccarini collected 13800
+*** SUMMARY ***
+Total pot 13800 | Rake 0
+Board [ 2d Ts 6h As ]
+Game ended: 2026/04/14 18:29:15 GMT
+Seat 1: FedeCeccarini collected (13800)
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 6: laaaame (small blind) folded on the Turn
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880097: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:29:48 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (55157.16 in chips)
+Seat 2: Xixoxo (21514.31 in chips)
+Seat 3: Pilaf (32268.90 in chips)
+Seat 4: MikelArteta (74526.27 in chips)
+Seat 5: UncleMath (20419.57 in chips)
+Seat 6: laaaame (54573.98 in chips)
+Seat 7: DaniC1994 (13391.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+UncleMath: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+DaniC1994: posts small blind 500
+FedeCeccarini: posts big blind 1000
+*** HOLE CARDS ***
+Xixoxo: raises 1000 to 2000
+Pilaf: folds
+MikelArteta: calls 2000
+UncleMath: folds
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: calls 1000
+*** FLOP *** [Ah 7c 4d]
+FedeCeccarini: checks
+Xixoxo: bets 1887.50
+MikelArteta: calls 1887.50
+FedeCeccarini: folds
+*** TURN *** [Ah 7c 4d] [4h]
+Xixoxo: checks
+MikelArteta: bets 5831.25
+Xixoxo: calls 5831.25
+*** RIVER *** [Ah 7c 4d 4h] [Qc]
+Xixoxo: checks
+MikelArteta: checks
+Xixoxo: shows [As] (Two Pair: Pair of A and 4)
+MikelArteta: mucks hand
+Xixoxo collected 22987.50
+*** SUMMARY ***
+Total pot 22987.50 | Rake 0
+Board [ Ah 7c 4d 4h Qc ]
+Game ended: 2026/04/14 18:31:27 GMT
+Seat 1: FedeCeccarini (small blind) folded on the Flop
+Seat 2: Xixoxo showed [ As ] and won (22987.50) with Two Pair: Pair of A and 4
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta mucked
+Seat 5: UncleMath folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880099: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:32:03 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (52357.16 in chips)
+Seat 2: Xixoxo (33483.06 in chips)
+Seat 3: Pilaf (31968.90 in chips)
+Seat 4: MikelArteta (64507.52 in chips)
+Seat 5: UncleMath (20119.57 in chips)
+Seat 6: laaaame (56823.98 in chips)
+Seat 7: DaniC1994 (12591.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+UncleMath: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+Xixoxo: posts small blind 500
+Pilaf: posts big blind 1000
+*** HOLE CARDS ***
+MikelArteta: folds
+UncleMath: folds
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: folds
+Xixoxo: folds
+Uncalled bet (500) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 2050
+*** SUMMARY ***
+Total pot 2050 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:32:18 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 3: Pilaf (small blind) collected (2050)
+Seat 4: MikelArteta folded before the flop
+Seat 5: UncleMath folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880100: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:32:19 GMT
+Table '265288' 7-max Seat #2 is the button
+Seat 1: FedeCeccarini (52207.16 in chips)
+Seat 2: Xixoxo (32833.06 in chips)
+Seat 3: Pilaf (33368.90 in chips)
+Seat 4: MikelArteta (64357.52 in chips)
+Seat 5: UncleMath (19969.57 in chips)
+Seat 6: laaaame (56673.98 in chips)
+Seat 7: DaniC1994 (12441.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+UncleMath: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts small blind 500
+MikelArteta: posts big blind 1000
+*** HOLE CARDS ***
+UncleMath: folds
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: raises 1200 to 2200
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+Uncalled bet (1200) returned to FedeCeccarini
+FedeCeccarini: doesn't show hand
+FedeCeccarini collected 3550
+*** SUMMARY ***
+Total pot 3550 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:32:47 GMT
+Seat 1: FedeCeccarini collected (3550)
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf (small blind) folded before the flop
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 5: UncleMath folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880101: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:32:48 GMT
+Table '265288' 7-max Seat #3 is the button
+Seat 1: FedeCeccarini (54607.16 in chips)
+Seat 2: Xixoxo (32683.06 in chips)
+Seat 3: Pilaf (32718.90 in chips)
+Seat 4: MikelArteta (63207.52 in chips)
+Seat 5: UncleMath (19819.57 in chips)
+Seat 6: laaaame (56523.98 in chips)
+Seat 7: DaniC1994 (12291.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+UncleMath: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+MikelArteta: posts small blind 500
+UncleMath: posts big blind 1000
+*** HOLE CARDS ***
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: raises 1200 to 2200
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+UncleMath: calls 1200
+*** FLOP *** [9c Js Th]
+UncleMath: checks
+FedeCeccarini: bets 1487.50
+UncleMath: raises 2512.50 to 4000
+FedeCeccarini: calls 2512.50
+*** TURN *** [9c Js Th] [6h]
+UncleMath: bets 13469.57 and is all-in
+FedeCeccarini: calls 13469.57
+*** RIVER *** [9c Js Th 6h] [Ac]
+UncleMath: shows [Ah Kh Qs Jc] ()
+FedeCeccarini: shows [Ah Kh] (Pair: Pair of A)
+FedeCeccarini collected 40889.14
+*** SUMMARY ***
+Total pot 40889.14 | Rake 0
+Board [ 9c Js Th 6h Ac ]
+Game ended: 2026/04/14 18:34:13 GMT
+Seat 1: FedeCeccarini showed [ Ah Kh ] and won (40889.14) with Pair: Pair of A
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta (small blind) folded before the flop
+Seat 5: UncleMath (small blind) showed [ Ah Kh Qs Jc ] and lost with 
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880103: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:35:16 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (75526.73 in chips)
+Seat 2: Xixoxo (32383.06 in chips)
+Seat 3: Pilaf (38018.90 in chips)
+Seat 4: MikelArteta (62407.52 in chips)
+Seat 6: laaaame (55723.98 in chips)
+Seat 7: DaniC1994 (7791.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+DaniC1994: posts small blind 500
+FedeCeccarini: posts big blind 1000
+*** HOLE CARDS ***
+Xixoxo: raises 1000 to 2000
+Pilaf: folds
+MikelArteta: folds
+laaaame: calls 2000
+DaniC1994: folds
+FedeCeccarini: folds
+*** FLOP *** [2h 3d 2s]
+Xixoxo: bets 4200
+laaaame: calls 4200
+*** TURN *** [2h 3d 2s] [Ad]
+Xixoxo: checks
+laaaame: bets 3700
+Xixoxo: folds
+Uncalled bet (3700) returned to laaaame
+laaaame: doesn't show hand
+laaaame collected 14800
+*** SUMMARY ***
+Total pot 14800 | Rake 0
+Board [ 2h 3d 2s Ad ]
+Game ended: 2026/04/14 18:36:25 GMT
+Seat 1: FedeCeccarini (small blind) folded before the flop
+Seat 2: Xixoxo folded on the Turn
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame collected (14800)
+Seat 7: DaniC1994 (small blind) folded before the flop
+
+
+PokerStars Hand #2652880105: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:37:13 GMT
+Table '265288' 7-max Seat #1 is the button
+Seat 1: FedeCeccarini (70726.73 in chips)
+Seat 2: Xixoxo (30283.06 in chips)
+Seat 3: Pilaf (37718.90 in chips)
+Seat 4: MikelArteta (62107.52 in chips)
+Seat 6: laaaame (64023.98 in chips)
+Seat 7: DaniC1994 (6991.80 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+Xixoxo: posts small blind 500
+Pilaf: posts big blind 1000
+*** HOLE CARDS ***
+MikelArteta: folds
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: raises 1200 to 2200
+Xixoxo: raises 27933.06 to 30133.06 and is all-in
+Pilaf: folds
+FedeCeccarini: folds
+Uncalled bet (27933.06) returned to Xixoxo
+Xixoxo: doesn't show hand
+Xixoxo collected 6300
+*** SUMMARY ***
+Total pot 6300 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 18:37:47 GMT
+Seat 1: FedeCeccarini folded before the flop
+Seat 2: Xixoxo (small blind) collected (6300)
+Seat 3: Pilaf (small blind) folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880106: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (600/1200 - Ante 180) - 2026/04/14 18:37:48 GMT
+Table '265288' 7-max Seat #2 is the button
+Seat 1: FedeCeccarini (68376.73 in chips)
+Seat 2: Xixoxo (34233.06 in chips)
+Seat 3: Pilaf (36568.90 in chips)
+Seat 4: MikelArteta (61957.52 in chips)
+Seat 6: laaaame (63873.98 in chips)
+Seat 7: DaniC1994 (6841.80 in chips)
+FedeCeccarini: posts the ante 180
+Xixoxo: posts the ante 180
+Pilaf: posts the ante 180
+MikelArteta: posts the ante 180
+laaaame: posts the ante 180
+DaniC1994: posts the ante 180
+Pilaf: posts small blind 600
+MikelArteta: posts big blind 1200
+*** HOLE CARDS ***
+laaaame: folds
+DaniC1994: folds
+FedeCeccarini: raises 1440 to 2640
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: calls 1440
+*** FLOP *** [7d 7s 5c]
+MikelArteta: checks
+FedeCeccarini: checks
+*** TURN *** [7d 7s 5c] [Jh]
+MikelArteta: checks
+FedeCeccarini: bets 3480
+MikelArteta: calls 3480
+*** RIVER *** [7d 7s 5c Jh] [As]
+MikelArteta: checks
+FedeCeccarini: checks
+MikelArteta: shows [Ah] (Two Pair: Pair of A and 7)
+FedeCeccarini: mucks hand
+MikelArteta collected 13920
+*** SUMMARY ***
+Total pot 13920 | Rake 0
+Board [ 7d 7s 5c Jh As ]
+Game ended: 2026/04/14 18:39:08 GMT
+Seat 1: FedeCeccarini mucked
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf (small blind) folded before the flop
+Seat 4: MikelArteta (small blind) showed [ Ah ] and won (13920) with Two Pair: Pair of A and 7
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 folded before the flop
+
+
+PokerStars Hand #2652880109: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (600/1200 - Ante 180) - 2026/04/14 18:40:48 GMT
+Table '265288' 7-max Seat #6 is the button
+Seat 1: FedeCeccarini (61716.73 in chips)
+Seat 2: Xixoxo (37773.06 in chips)
+Seat 3: Pilaf (81717.80 in chips)
+Seat 4: MikelArteta (59617.52 in chips)
+Seat 6: laaaame (27125.08 in chips)
+Seat 7: DaniC1994 (3901.80 in chips)
+FedeCeccarini: posts the ante 180
+Xixoxo: posts the ante 180
+Pilaf: posts the ante 180
+MikelArteta: posts the ante 180
+laaaame: posts the ante 180
+DaniC1994: posts the ante 180
+DaniC1994: posts small blind 600
+FedeCeccarini: posts big blind 1200
+*** HOLE CARDS ***
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+laaaame: calls 1200
+DaniC1994: calls 600
+FedeCeccarini: checks
+*** FLOP *** [4h 6h 3c]
+DaniC1994: bets 2521.80 and is all-in
+FedeCeccarini: calls 2521.80
+laaaame: calls 2521.80
+*** TURN *** [4h 6h 3c] [Kd]
+FedeCeccarini: checks
+laaaame: checks
+*** RIVER *** [4h 6h 3c Kd] [2h]
+DaniC1994: shows [6d Qs] (Pair: Pair of 6)
+FedeCeccarini: checks
+laaaame: checks
+FedeCeccarini: mucks hand
+laaaame: mucks hand
+DaniC1994 collected 12245.40
+*** SUMMARY ***
+Total pot 12245.40 | Rake 0
+Board [ 4h 6h 3c Kd 2h ]
+Game ended: 2026/04/14 18:42:06 GMT
+Seat 1: FedeCeccarini (small blind) mucked
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame mucked
+Seat 7: DaniC1994 (small blind) showed [ 6d Qs ] and won (12245.40) with Pair: Pair of 6
+
+
+PokerStars Hand #2652880110: Tournament #46823, $215 CoinHunter HR PKO Hold'em No Limit - Level II (600/1200 - Ante 180) - 2026/04/14 18:42:07 GMT
+Table '265288' 7-max Seat #7 is the button
+Seat 1: FedeCeccarini (57814.93 in chips)
+Seat 2: Xixoxo (37593.06 in chips)
+Seat 3: Pilaf (81537.80 in chips)
+Seat 4: MikelArteta (59437.52 in chips)
+Seat 6: laaaame (23223.28 in chips)
+Seat 7: DaniC1994 (12245.40 in chips)
+FedeCeccarini: posts the ante 180
+Xixoxo: posts the ante 180
+Pilaf: posts the ante 180
+MikelArteta: posts the ante 180
+laaaame: posts the ante 180
+DaniC1994: posts the ante 180
+FedeCeccarini: posts small blind 600
+Xixoxo: posts big blind 1200
+*** HOLE CARDS ***
+Pilaf: folds
+MikelArteta: folds
+laaaame: folds
+DaniC1994: raises 10865.40 to 12065.40 and is all-in
+FedeCeccarini: calls 11465.40
+Xixoxo: folds
+*** FLOP *** [6d Ah 4h]
+*** TURN *** [6d Ah 4h] [5s]
+*** RIVER *** [6d Ah 4h 5s] [8c]
+FedeCeccarini: shows [Kh Kd] (Pair: Pair of K)
+DaniC1994: shows [Kh Kd Qs Jd] ()
+FedeCeccarini collected 26410.80
+*** SUMMARY ***
+Total pot 26410.80 | Rake 0
+Board [ 6d Ah 4h 5s 8c ]
+Game ended: 2026/04/14 18:43:00 GMT
+Seat 1: FedeCeccarini (small blind) showed [ Kh Kd ] and won (26410.80) with Pair: Pair of K
+Seat 2: Xixoxo (small blind) folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame folded before the flop
+Seat 7: DaniC1994 showed [ Kh Kd Qs Jd ] and lost with 
+
+
+PokerStars Hand #2606600287: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (35000/70000 - Ante 8750) - 2026/04/14 00:00:39 GMT
+Table '260660' 7-max Seat #3 is the button
+Seat 1: DaniC1994 (650646.92 in chips)
+Seat 3: idontbelieveit (1105807.84 in chips)
+Seat 4: Looking111 (3393030.61 in chips)
+Seat 6: 40yrsoldReg (5177006.55 in chips)
+DaniC1994: posts the ante 8750
+idontbelieveit: posts the ante 8750
+Looking111: posts the ante 8750
+40yrsoldReg: posts the ante 8750
+Looking111: posts small blind 35000
+40yrsoldReg: posts big blind 70000
+*** HOLE CARDS ***
+DaniC1994: folds
+idontbelieveit: folds
+Looking111: calls 35000
+40yrsoldReg: raises 175000 to 245000
+Looking111: calls 175000
+*** FLOP *** [Kc As Ad]
+Looking111: checks
+40yrsoldReg: bets 105000
+Looking111: calls 105000
+*** TURN *** [Kc As Ad] [Js]
+Looking111: checks
+40yrsoldReg: bets 514500
+Looking111: calls 514500
+*** RIVER *** [Kc As Ad Js] [3d]
+Looking111: checks
+40yrsoldReg: bets 1764000
+Looking111: calls 1764000
+40yrsoldReg: shows [Ac Qc] (Three of a kind: Triplet of A)
+Looking111: mucks hand
+40yrsoldReg collected 5292000
+*** SUMMARY ***
+Total pot 5292000 | Rake 0
+Board [ Kc As Ad Js 3d ]
+Game ended: 2026/04/14 00:01:53 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 3: idontbelieveit folded before the flop
+Seat 4: Looking111 (small blind) mucked
+Seat 6: 40yrsoldReg (small blind) showed [ Ac Qc ] and won (5292000) with Three of a kind: Triplet of A
+
+
+PokerStars Hand #2606600288: Tournament #46646, $109 CoinMasters - DOGE Hold'em No Limit - Level III (40000/80000 - Ante 10000) - 2026/04/14 00:01:54 GMT
+Table '260660' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (641896.92 in chips)
+Seat 3: idontbelieveit (1097057.84 in chips)
+Seat 4: Looking111 (755780.61 in chips)
+Seat 6: 40yrsoldReg (7831756.55 in chips)
+DaniC1994: posts the ante 10000
+idontbelieveit: posts the ante 10000
+Looking111: posts the ante 10000
+40yrsoldReg: posts the ante 10000
+40yrsoldReg: posts small blind 40000
+DaniC1994: posts big blind 80000
+*** HOLE CARDS ***
+idontbelieveit: folds
+Looking111: raises 665780.61 to 745780.61 and is all-in
+40yrsoldReg: folds
+DaniC1994: calls 551896.92 and is all-in
+Uncalled bet (113883.69) returned to Looking111
+*** FLOP *** [8d 5h Jd]
+*** TURN *** [8d 5h Jd] [Kd]
+*** RIVER *** [8d 5h Jd Kd] [5d]
+DaniC1994: shows [Kc Jc] ()
+Looking111: shows [9d] (Flush: K high)
+Looking111 collected 1343793.84
+*** SUMMARY ***
+Total pot 1343793.84 | Rake 0
+Board [ 8d 5h Jd Kd 5d ]
+Game ended: 2026/04/14 00:02:33 GMT
+Seat 1: DaniC1994 (small blind) showed [ Kc Jc ] and lost with 
+Seat 3: idontbelieveit folded before the flop
+Seat 4: Looking111 showed [ 9d ] and won (1343793.84) with Flush: K high
+Seat 6: 40yrsoldReg (small blind) folded before the flop
+
+
+PokerStars Hand #2652880096: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (500/1000 - Ante 150) - 2026/04/14 18:29:15 GMT
+Table '265288' 7-max Seat #4 is the button
+Seat 1: FedeCeccarini (61303.06 in chips)
+Seat 2: Xixoxo (21664.31 in chips)
+Seat 3: Pilaf (32418.90 in chips)
+Seat 4: MikelArteta (74676.27 in chips)
+Seat 6: laaaame (55223.98 in chips)
+Seat 7: DaniC1994 (6145.90 in chips)
+FedeCeccarini: posts the ante 150
+Xixoxo: posts the ante 150
+Pilaf: posts the ante 150
+MikelArteta: posts the ante 150
+laaaame: posts the ante 150
+DaniC1994: posts the ante 150
+laaaame: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+FedeCeccarini: raises 1200 to 2200
+Xixoxo: folds
+Pilaf: folds
+MikelArteta: folds
+laaaame: folds
+DaniC1994: calls 1200
+*** FLOP *** [Ts 7h 9d]
+DaniC1994: bets 3795.90 and is all-in
+FedeCeccarini: calls 3795.90
+*** TURN *** [Ts 7h 9d] [5c]
+*** RIVER *** [Ts 7h 9d 5c] [Ac]
+DaniC1994: shows [7d] (Pair: Pair of 7)
+FedeCeccarini: shows [Qs 8s] ()
+DaniC1994 collected 13391.80
+*** SUMMARY ***
+Total pot 13391.80 | Rake 0
+Board [ Ts 7h 9d 5c Ac ]
+Game ended: 2026/04/14 18:29:48 GMT
+Seat 1: FedeCeccarini showed [ Qs 8s ] and lost with 
+Seat 2: Xixoxo folded before the flop
+Seat 3: Pilaf folded before the flop
+Seat 4: MikelArteta folded before the flop
+Seat 6: laaaame (small blind) folded before the flop
+Seat 7: DaniC1994 (small blind) showed [ 7d ] and won (13391.80) with Pair: Pair of 7
+
+
+PokerStars Hand #2656780087: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (350/700 - Ante 88) - 2026/04/14 19:07:09 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Jameson018 (31394.50 in chips)
+Seat 2: ExcIusive (71383.16 in chips)
+Seat 3: JLLagrange1 (31894 in chips)
+Seat 4: Dammmam (25512 in chips)
+Seat 5: SHVTBOT (41753.76 in chips)
+Seat 6: DaniC1994 (59499.06 in chips)
+Seat 7: Pilaf (21989.87 in chips)
+Jameson018: posts the ante 88
+ExcIusive: posts the ante 88
+JLLagrange1: posts the ante 88
+Dammmam: posts the ante 88
+SHVTBOT: posts the ante 88
+DaniC1994: posts the ante 88
+Pilaf: posts the ante 88
+Pilaf: posts small blind 350
+Jameson018: posts big blind 700
+*** HOLE CARDS ***
+ExcIusive: folds
+JLLagrange1: raises 700 to 1400
+Dammmam: folds
+SHVTBOT: folds
+DaniC1994: calls 1400
+Pilaf: folds
+Jameson018: calls 700
+*** FLOP *** [6d As Ks]
+Jameson018: checks
+JLLagrange1: bets 1291.50
+DaniC1994: folds
+Jameson018: folds
+Uncalled bet (1291.50) returned to JLLagrange1
+JLLagrange1: doesn't show hand
+JLLagrange1 collected 5166
+*** SUMMARY ***
+Total pot 5166 | Rake 0
+Board [ 6d As Ks ]
+Game ended: 2026/04/14 19:08:43 GMT
+Seat 1: Jameson018 (small blind) folded on the Flop
+Seat 2: ExcIusive folded before the flop
+Seat 3: JLLagrange1 collected (5166)
+Seat 4: Dammmam folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded on the Flop
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780089: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:10:57 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Jameson018 (29406.50 in chips)
+Seat 2: ExcIusive (62801.08 in chips)
+Seat 3: JLLagrange1 (35472 in chips)
+Seat 4: Dammmam (25324 in chips)
+Seat 5: SHVTBOT (41565.76 in chips)
+Seat 6: DaniC1994 (57911.06 in chips)
+Seat 7: Pilaf (30945.95 in chips)
+Jameson018: posts the ante 100
+ExcIusive: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+ExcIusive: posts small blind 400
+JLLagrange1: posts big blind 800
+*** HOLE CARDS ***
+Dammmam: folds
+SHVTBOT: folds
+DaniC1994: raises 880 to 1680
+Pilaf: folds
+Jameson018: folds
+ExcIusive: calls 1280
+JLLagrange1: folds
+*** FLOP *** [8d Kh 7d]
+ExcIusive: checks
+DaniC1994: checks
+*** TURN *** [8d Kh 7d] [Th]
+ExcIusive: checks
+DaniC1994: bets 4033.80
+ExcIusive: folds
+Uncalled bet (4033.80) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 4860
+*** SUMMARY ***
+Total pot 4860 | Rake 0
+Board [ 8d Kh 7d Th ]
+Game ended: 2026/04/14 19:12:01 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ExcIusive (small blind) folded on the Turn
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: Dammmam folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 collected (4860)
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780090: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:12:01 GMT
+Table '265678' 7-max Seat #2 is the button
+Seat 1: Jameson018 (29306.50 in chips)
+Seat 2: ExcIusive (61021.08 in chips)
+Seat 3: JLLagrange1 (34572 in chips)
+Seat 4: Dammmam (25224 in chips)
+Seat 5: SHVTBOT (41465.76 in chips)
+Seat 6: DaniC1994 (60991.06 in chips)
+Seat 7: Pilaf (30845.95 in chips)
+Jameson018: posts the ante 100
+ExcIusive: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+JLLagrange1: posts small blind 400
+Dammmam: posts big blind 800
+*** HOLE CARDS ***
+SHVTBOT: folds
+DaniC1994: raises 880 to 1680
+Pilaf: folds
+Jameson018: folds
+ExcIusive: folds
+JLLagrange1: folds
+Dammmam: calls 880
+*** FLOP *** [8c 3d 2c]
+Dammmam: checks
+DaniC1994: bets 1471.80
+Dammmam: calls 1471.80
+*** TURN *** [8c 3d 2c] [Ac]
+Dammmam: checks
+DaniC1994: checks
+*** RIVER *** [8c 3d 2c Ac] [4s]
+Dammmam: checks
+DaniC1994: bets 1480.72
+Dammmam: calls 1480.72
+DaniC1994: shows [Ad 9h Jd Jh] ()
+Dammmam: shows [Ad 9h] (Pair: Pair of A)
+Dammmam collected 10365.04
+*** SUMMARY ***
+Total pot 10365.04 | Rake 0
+Board [ 8c 3d 2c Ac 4s ]
+Game ended: 2026/04/14 19:13:11 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ExcIusive folded before the flop
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: Dammmam (small blind) showed [ Ad 9h ] and won (10365.04) with Pair: Pair of A
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 showed [ Ad 9h Jd Jh ] and lost with 
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780091: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:13:12 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 1: Jameson018 (29206.50 in chips)
+Seat 2: ExcIusive (60921.08 in chips)
+Seat 3: JLLagrange1 (34072 in chips)
+Seat 4: Dammmam (30856.52 in chips)
+Seat 5: SHVTBOT (41365.76 in chips)
+Seat 6: DaniC1994 (56258.54 in chips)
+Seat 7: Pilaf (30745.95 in chips)
+Jameson018: posts the ante 100
+ExcIusive: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+Dammmam: posts small blind 400
+SHVTBOT: posts big blind 800
+*** HOLE CARDS ***
+DaniC1994: raises 880 to 1680
+Pilaf: folds
+Jameson018: folds
+ExcIusive: calls 1680
+JLLagrange1: folds
+Dammmam: folds
+SHVTBOT: calls 880
+*** FLOP *** [3s 2h Ks]
+SHVTBOT: calls 2026.20
+DaniC1994: checks
+ExcIusive: bets 2026.20
+SHVTBOT: folds
+DaniC1994: raises 4052.80 to 6079
+ExcIusive: folds
+Uncalled bet (4052.80) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 12218.60
+*** SUMMARY ***
+Total pot 12218.60 | Rake 0
+Board [ 3s 2h Ks ]
+Game ended: 2026/04/14 19:14:31 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ExcIusive folded on the Flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: Dammmam (small blind) folded before the flop
+Seat 5: SHVTBOT (small blind) folded on the Flop
+Seat 6: DaniC1994 collected (12218.60)
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780092: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:14:31 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: Jameson018 (29106.50 in chips)
+Seat 2: ExcIusive (57114.88 in chips)
+Seat 3: JLLagrange1 (33972 in chips)
+Seat 4: Dammmam (30356.52 in chips)
+Seat 5: SHVTBOT (37559.56 in chips)
+Seat 6: DaniC1994 (64670.94 in chips)
+Seat 7: Pilaf (30645.95 in chips)
+Jameson018: posts the ante 100
+ExcIusive: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+SHVTBOT: posts small blind 400
+DaniC1994: posts big blind 800
+*** HOLE CARDS ***
+Pilaf: folds
+Jameson018: raises 800 to 1600
+ExcIusive: folds
+JLLagrange1: folds
+Dammmam: calls 1600
+SHVTBOT: folds
+DaniC1994: calls 800
+*** FLOP *** [8s Jc Qs]
+DaniC1994: checks
+Jameson018: bets 1966
+Dammmam: folds
+DaniC1994: calls 1966
+*** TURN *** [8s Jc Qs] [8c]
+DaniC1994: checks
+Jameson018: bets 4916
+DaniC1994: calls 4916
+*** RIVER *** [8s Jc Qs 8c] [Ah]
+DaniC1994: checks
+Jameson018: checks
+DaniC1994: shows [Kh Tc Js 7s] ()
+Jameson018: shows [Kh Tc] (Straight: A high)
+Jameson018 collected 19664
+*** SUMMARY ***
+Total pot 19664 | Rake 0
+Board [ 8s Jc Qs 8c Ah ]
+Game ended: 2026/04/14 19:15:25 GMT
+Seat 1: Jameson018 showed [ Kh Tc ] and won (19664) with Straight: A high
+Seat 2: ExcIusive folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: Dammmam folded on the Flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ Kh Tc Js 7s ] and lost with 
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780093: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:15:25 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Jameson018 (40188.50 in chips)
+Seat 2: ExcIusive (57014.88 in chips)
+Seat 3: JLLagrange1 (33872 in chips)
+Seat 4: Dammmam (28656.52 in chips)
+Seat 5: SHVTBOT (37059.56 in chips)
+Seat 6: DaniC1994 (56088.94 in chips)
+Seat 7: Pilaf (30545.95 in chips)
+Jameson018: posts the ante 100
+ExcIusive: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+DaniC1994: posts small blind 400
+Pilaf: posts big blind 800
+*** HOLE CARDS ***
+Jameson018: raises 800 to 1600
+ExcIusive: folds
+JLLagrange1: folds
+Dammmam: raises 2900 to 4500
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Jameson018: calls 2900
+*** FLOP *** [Jd 9h Jh]
+Jameson018: checks
+Dammmam: bets 24056.52 and is all-in
+Jameson018: folds
+Uncalled bet (24056.52) returned to Dammmam
+Dammmam: doesn't show hand
+Dammmam collected 10900
+*** SUMMARY ***
+Total pot 10900 | Rake 0
+Board [ Jd 9h Jh ]
+Game ended: 2026/04/14 19:16:22 GMT
+Seat 1: Jameson018 folded on the Flop
+Seat 2: ExcIusive folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: Dammmam collected (10900)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780095: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (400/800 - Ante 100) - 2026/04/14 19:17:21 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Jameson018 (32455.50 in chips)
+Seat 3: JLLagrange1 (33672 in chips)
+Seat 4: Dammmam (34856.52 in chips)
+Seat 5: SHVTBOT (40992.56 in chips)
+Seat 6: DaniC1994 (55488.94 in chips)
+Seat 7: Pilaf (29145.95 in chips)
+Jameson018: posts the ante 100
+JLLagrange1: posts the ante 100
+Dammmam: posts the ante 100
+SHVTBOT: posts the ante 100
+DaniC1994: posts the ante 100
+Pilaf: posts the ante 100
+Jameson018: posts small blind 400
+JLLagrange1: posts big blind 800
+*** HOLE CARDS ***
+Dammmam: raises 1600 to 2400
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+JLLagrange1: folds
+Uncalled bet (1600) returned to Dammmam
+Dammmam: doesn't show hand
+Dammmam collected 2600
+*** SUMMARY ***
+Total pot 2600 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:18:00 GMT
+Seat 1: Jameson018 (small blind) folded before the flop
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: Dammmam collected (2600)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780096: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:18:01 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Jameson018 (31955.50 in chips)
+Seat 3: JLLagrange1 (32772 in chips)
+Seat 5: SHVTBOT (40892.56 in chips)
+Seat 6: DaniC1994 (55388.94 in chips)
+Seat 7: Pilaf (29045.95 in chips)
+Jameson018: posts the ante 125
+JLLagrange1: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+JLLagrange1: posts small blind 500
+SHVTBOT: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+Pilaf: raises 1000 to 2000
+Jameson018: folds
+JLLagrange1: folds
+SHVTBOT: folds
+Uncalled bet (1000) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 3125
+*** SUMMARY ***
+Total pot 3125 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:18:52 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf collected (3125)
+
+
+PokerStars Hand #2656780097: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:18:52 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 1: Jameson018 (31830.50 in chips)
+Seat 2: ziopippo (38562.68 in chips)
+Seat 3: JLLagrange1 (32147 in chips)
+Seat 5: SHVTBOT (39767.56 in chips)
+Seat 6: DaniC1994 (55263.94 in chips)
+Seat 7: Pilaf (31045.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+SHVTBOT: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+Pilaf: folds
+Jameson018: folds
+ziopippo: folds
+JLLagrange1: folds
+SHVTBOT: folds
+Uncalled bet (500) returned to DaniC1994
+DaniC1994: mucks hand
+DaniC1994 collected 0
+*** SUMMARY ***
+Total pot 1750 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:19:13 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) collected (1750)
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780098: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:19:14 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Jameson018 (31705.50 in chips)
+Seat 2: ziopippo (38437.68 in chips)
+Seat 3: JLLagrange1 (32022 in chips)
+Seat 4: jorick21 (14496 in chips)
+Seat 5: SHVTBOT (39142.56 in chips)
+Seat 6: DaniC1994 (56388.94 in chips)
+Seat 7: Pilaf (30920.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+DaniC1994: posts small blind 500
+Pilaf: posts big blind 1000
+*** HOLE CARDS ***
+Jameson018: raises 1000 to 2000
+ziopippo: folds
+JLLagrange1: folds
+jorick21: raises 12371 to 14371 and is all-in
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+Uncalled bet (12371) returned to jorick21
+jorick21: doesn't show hand
+jorick21 collected 6375
+*** SUMMARY ***
+Total pot 6375 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:19:39 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 collected (6375)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780099: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:19:39 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Jameson018 (29580.50 in chips)
+Seat 2: ziopippo (38312.68 in chips)
+Seat 3: JLLagrange1 (31897 in chips)
+Seat 4: jorick21 (18746 in chips)
+Seat 5: SHVTBOT (39017.56 in chips)
+Seat 6: DaniC1994 (55763.94 in chips)
+Seat 7: Pilaf (29795.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+Pilaf: posts small blind 500
+Jameson018: posts big blind 1000
+*** HOLE CARDS ***
+ziopippo: folds
+JLLagrange1: folds
+jorick21: folds
+SHVTBOT: raises 1000 to 2000
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+Uncalled bet (1000) returned to SHVTBOT
+SHVTBOT: doesn't show hand
+SHVTBOT collected 3375
+*** SUMMARY ***
+Total pot 3375 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:20:30 GMT
+Seat 1: Jameson018 (small blind) folded before the flop
+Seat 2: ziopippo folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT collected (3375)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780100: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:20:30 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Jameson018 (28455.50 in chips)
+Seat 2: ziopippo (38187.68 in chips)
+Seat 3: JLLagrange1 (31772 in chips)
+Seat 4: jorick21 (18621 in chips)
+Seat 5: SHVTBOT (41267.56 in chips)
+Seat 6: DaniC1994 (55638.94 in chips)
+Seat 7: Pilaf (29170.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+Jameson018: posts small blind 500
+ziopippo: posts big blind 1000
+*** HOLE CARDS ***
+JLLagrange1: folds
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: raises 1100 to 2100
+Pilaf: folds
+Jameson018: raises 26230.50 to 28330.50 and is all-in
+ziopippo: raises 9732.18 to 38062.68 and is all-in
+DaniC1994: folds
+Uncalled bet (9732.18) returned to ziopippo
+*** FLOP *** [9d 4h Qc]
+*** TURN *** [9d 4h Qc] [Js]
+*** RIVER *** [9d 4h Qc Js] [9c]
+Jameson018: shows [5h 5c] ()
+ziopippo: shows [Qd Qh] (Full House: Triplet of Q and Pair  of 9)
+ziopippo collected 59636
+*** SUMMARY ***
+Total pot 59636 | Rake 0
+Board [ 9d 4h Qc Js 9c ]
+Game ended: 2026/04/14 19:21:11 GMT
+Seat 1: Jameson018 (small blind) showed [ 5h 5c ] and lost with 
+Seat 2: ziopippo (small blind) showed [ Qd Qh ] and won (59636) with Full House: Triplet of Q and Pair  of 9
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780101: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:21:13 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Jameson018 (20000 in chips)
+Seat 2: ziopippo (69368.18 in chips)
+Seat 3: JLLagrange1 (31647 in chips)
+Seat 4: jorick21 (18496 in chips)
+Seat 5: SHVTBOT (41142.56 in chips)
+Seat 6: DaniC1994 (53413.94 in chips)
+Seat 7: Pilaf (29045.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+ziopippo: posts small blind 500
+JLLagrange1: posts big blind 1000
+*** HOLE CARDS ***
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+ziopippo: raises 2500 to 3500
+JLLagrange1: calls 2500
+*** FLOP *** [4d 8c Qc]
+ziopippo: bets 1968.75
+JLLagrange1: folds
+Uncalled bet (1968.75) returned to ziopippo
+ziopippo: doesn't show hand
+ziopippo collected 7875
+*** SUMMARY ***
+Total pot 7875 | Rake 0
+Board [ 4d 8c Qc ]
+Game ended: 2026/04/14 19:22:12 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo (small blind) collected (7875)
+Seat 3: JLLagrange1 (small blind) folded on the Flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780102: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:22:13 GMT
+Table '265678' 7-max Seat #2 is the button
+Seat 1: Jameson018 (19875 in chips)
+Seat 2: ziopippo (73618.18 in chips)
+Seat 3: JLLagrange1 (28022 in chips)
+Seat 4: jorick21 (18371 in chips)
+Seat 5: SHVTBOT (41017.56 in chips)
+Seat 6: DaniC1994 (53288.94 in chips)
+Seat 7: Pilaf (28920.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+JLLagrange1: posts small blind 500
+jorick21: posts big blind 1000
+*** HOLE CARDS ***
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+ziopippo: folds
+JLLagrange1: folds
+Uncalled bet (500) returned to jorick21
+jorick21: doesn't show hand
+jorick21 collected 1875
+*** SUMMARY ***
+Total pot 1875 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:22:57 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo folded before the flop
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: jorick21 (small blind) collected (1875)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780103: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:22:58 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 1: Jameson018 (19750 in chips)
+Seat 2: ziopippo (73493.18 in chips)
+Seat 3: JLLagrange1 (27397 in chips)
+Seat 4: jorick21 (19621 in chips)
+Seat 5: SHVTBOT (40892.56 in chips)
+Seat 6: DaniC1994 (53163.94 in chips)
+Seat 7: Pilaf (28795.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+jorick21: posts small blind 500
+SHVTBOT: posts big blind 1000
+*** HOLE CARDS ***
+DaniC1994: folds
+Pilaf: folds
+Jameson018: folds
+ziopippo: raises 1000 to 2000
+JLLagrange1: folds
+jorick21: calls 1500
+SHVTBOT: calls 1000
+*** FLOP *** [3c Jd 9s]
+jorick21: checks
+SHVTBOT: checks
+ziopippo: bets 2218.75
+jorick21: folds
+SHVTBOT: calls 2218.75
+*** TURN *** [3c Jd 9s] [Ts]
+SHVTBOT: checks
+ziopippo: bets 7918.75
+SHVTBOT: folds
+Uncalled bet (7918.75) returned to ziopippo
+ziopippo: doesn't show hand
+ziopippo collected 11312.50
+*** SUMMARY ***
+Total pot 11312.50 | Rake 0
+Board [ 3c Jd 9s Ts ]
+Game ended: 2026/04/14 19:24:19 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo collected (11312.50)
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 (small blind) folded on the Flop
+Seat 5: SHVTBOT (small blind) folded on the Turn
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780104: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:24:19 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: Jameson018 (19625 in chips)
+Seat 2: ziopippo (80461.93 in chips)
+Seat 3: JLLagrange1 (27272 in chips)
+Seat 4: jorick21 (17496 in chips)
+Seat 5: SHVTBOT (36548.81 in chips)
+Seat 6: DaniC1994 (53038.94 in chips)
+Seat 7: Pilaf (28670.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+SHVTBOT: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+Pilaf: folds
+Jameson018: folds
+ziopippo: folds
+JLLagrange1: folds
+jorick21: raises 1000 to 2000
+SHVTBOT: folds
+DaniC1994: calls 1000
+*** FLOP *** [Ac 9d 6c]
+DaniC1994: checks
+jorick21: bets 2000
+DaniC1994: calls 2000
+*** TURN *** [Ac 9d 6c] [Th]
+DaniC1994: checks
+jorick21: checks
+*** RIVER *** [Ac 9d 6c Th] [Jh]
+DaniC1994: bets 48913.94 and is all-in
+jorick21: folds
+Uncalled bet (48913.94) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 9375
+*** SUMMARY ***
+Total pot 9375 | Rake 0
+Board [ Ac 9d 6c Th Jh ]
+Game ended: 2026/04/14 19:25:28 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: ziopippo folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 folded on the River
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) collected (9375)
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780106: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (500/1000 - Ante 125) - 2026/04/14 19:26:37 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Jameson018 (19375 in chips)
+Seat 2: ziopippo (80211.93 in chips)
+Seat 3: JLLagrange1 (27022 in chips)
+Seat 4: jorick21 (13246 in chips)
+Seat 5: SHVTBOT (35798.81 in chips)
+Seat 6: DaniC1994 (47188.94 in chips)
+Seat 7: Pilaf (40270.95 in chips)
+Jameson018: posts the ante 125
+ziopippo: posts the ante 125
+JLLagrange1: posts the ante 125
+jorick21: posts the ante 125
+SHVTBOT: posts the ante 125
+DaniC1994: posts the ante 125
+Pilaf: posts the ante 125
+Pilaf: posts small blind 500
+Jameson018: posts big blind 1000
+*** HOLE CARDS ***
+ziopippo: raises 1000 to 2000
+JLLagrange1: folds
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: calls 1500
+Jameson018: calls 1000
+*** FLOP *** [Ad 5d 2s]
+Pilaf: checks
+Jameson018: checks
+ziopippo: bets 2218.75
+Pilaf: calls 2218.75
+Jameson018: folds
+*** TURN *** [Ad 5d 2s] [7h]
+Pilaf: checks
+ziopippo: bets 8418.75
+Pilaf: calls 8418.75
+*** RIVER *** [Ad 5d 2s 7h] [Td]
+Pilaf: checks
+ziopippo: bets 67449.43 and is all-in
+Pilaf: folds
+Uncalled bet (67449.43) returned to ziopippo
+ziopippo: doesn't show hand
+ziopippo collected 28150
+*** SUMMARY ***
+Total pot 28150 | Rake 0
+Board [ Ad 5d 2s 7h Td ]
+Game ended: 2026/04/14 19:28:13 GMT
+Seat 1: Jameson018 (small blind) folded on the Flop
+Seat 2: ziopippo collected (28150)
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) folded on the River
+
+
+PokerStars Hand #2656780107: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:28:14 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Jameson018 (17250 in chips)
+Seat 3: JLLagrange1 (26897 in chips)
+Seat 4: jorick21 (13121 in chips)
+Seat 5: SHVTBOT (35673.81 in chips)
+Seat 6: DaniC1994 (47063.94 in chips)
+Seat 7: Pilaf (27508.45 in chips)
+Jameson018: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+Jameson018: posts small blind 600
+JLLagrange1: posts big blind 1200
+*** HOLE CARDS ***
+jorick21: folds
+SHVTBOT: raises 1200 to 2400
+DaniC1994: folds
+Pilaf: folds
+Jameson018: raises 14700 to 17100 and is all-in
+JLLagrange1: folds
+SHVTBOT: folds
+Uncalled bet (14700) returned to Jameson018
+Jameson018: doesn't show hand
+Jameson018 collected 6900
+*** SUMMARY ***
+Total pot 6900 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:28:45 GMT
+Seat 1: Jameson018 (small blind) collected (6900)
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780108: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:28:46 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Jameson018 (21600 in chips)
+Seat 3: JLLagrange1 (25547 in chips)
+Seat 4: jorick21 (12971 in chips)
+Seat 5: SHVTBOT (33123.81 in chips)
+Seat 6: DaniC1994 (46913.94 in chips)
+Seat 7: Pilaf (27358.45 in chips)
+Jameson018: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+JLLagrange1: posts small blind 600
+jorick21: posts big blind 1200
+*** HOLE CARDS ***
+SHVTBOT: folds
+DaniC1994: raises 1320 to 2520
+Pilaf: raises 4320 to 6840
+Jameson018: folds
+JLLagrange1: folds
+jorick21: folds
+DaniC1994: folds
+Uncalled bet (4320) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 7740
+*** SUMMARY ***
+Total pot 7740 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:29:18 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 3: JLLagrange1 (small blind) folded before the flop
+Seat 4: jorick21 (small blind) folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf collected (7740)
+
+
+PokerStars Hand #2656780109: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:29:18 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 1: Jameson018 (21450 in chips)
+Seat 2: Drogan (20290.53 in chips)
+Seat 3: JLLagrange1 (24797 in chips)
+Seat 4: jorick21 (11621 in chips)
+Seat 5: SHVTBOT (32973.81 in chips)
+Seat 6: DaniC1994 (44243.94 in chips)
+Seat 7: Pilaf (32428.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+jorick21: posts small blind 600
+SHVTBOT: posts big blind 1200
+*** HOLE CARDS ***
+DaniC1994: folds
+Pilaf: raises 1200 to 2400
+Jameson018: folds
+Drogan: folds
+JLLagrange1: folds
+jorick21: raises 9071 to 11471 and is all-in
+SHVTBOT: folds
+Pilaf: folds
+Uncalled bet (9071) returned to jorick21
+jorick21: doesn't show hand
+jorick21 collected 7050
+*** SUMMARY ***
+Total pot 7050 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:29:59 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 (small blind) collected (7050)
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780110: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:30:00 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: Jameson018 (21300 in chips)
+Seat 2: Drogan (20140.53 in chips)
+Seat 3: JLLagrange1 (24647 in chips)
+Seat 4: jorick21 (16121 in chips)
+Seat 5: SHVTBOT (31623.81 in chips)
+Seat 6: DaniC1994 (44093.94 in chips)
+Seat 7: Pilaf (29878.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+SHVTBOT: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+Pilaf: folds
+Jameson018: folds
+Drogan: folds
+JLLagrange1: folds
+jorick21: raises 1200 to 2400
+SHVTBOT: folds
+DaniC1994: calls 1200
+*** FLOP *** [7c 5d 8c]
+DaniC1994: checks
+jorick21: bets 13571 and is all-in
+DaniC1994: calls 13571
+*** TURN *** [7c 5d 8c] [7d]
+*** RIVER *** [7c 5d 8c 7d] [9c]
+DaniC1994: shows [9h Td] (Two Pair: Pair of 9 and 7)
+jorick21: shows [4h 4c] ()
+DaniC1994 collected 33592
+*** SUMMARY ***
+Total pot 33592 | Rake 0
+Board [ 7c 5d 8c 7d 9c ]
+Game ended: 2026/04/14 19:30:42 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 showed [ 4h 4c ] and lost with 
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ 9h Td ] and won (33592) with Two Pair: Pair of 9 and 7
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780111: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:30:44 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Jameson018 (21150 in chips)
+Seat 2: Drogan (19990.53 in chips)
+Seat 3: JLLagrange1 (24497 in chips)
+Seat 4: jorick21 (20000 in chips)
+Seat 5: SHVTBOT (30873.81 in chips)
+Seat 6: DaniC1994 (61564.94 in chips)
+Seat 7: Pilaf (29728.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+DaniC1994: posts small blind 600
+Pilaf: posts big blind 1200
+*** HOLE CARDS ***
+Jameson018: folds
+Drogan: folds
+JLLagrange1: folds
+jorick21: calls 1200
+SHVTBOT: folds
+DaniC1994: calls 600
+Pilaf: checks
+*** FLOP *** [Ah 2c 8c]
+DaniC1994: checks
+Pilaf: checks
+jorick21: checks
+*** TURN *** [Ah 2c 8c] [7d]
+DaniC1994: checks
+Pilaf: checks
+jorick21: bets 2400
+DaniC1994: folds
+Pilaf: folds
+Uncalled bet (2400) returned to jorick21
+jorick21: doesn't show hand
+jorick21 collected 4650
+*** SUMMARY ***
+Total pot 4650 | Rake 0
+Board [ Ah 2c 8c 7d ]
+Game ended: 2026/04/14 19:31:42 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 collected (4650)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded on the Turn
+Seat 7: Pilaf (small blind) folded on the Turn
+
+
+PokerStars Hand #2656780112: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:31:42 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Jameson018 (21000 in chips)
+Seat 2: Drogan (19840.53 in chips)
+Seat 3: JLLagrange1 (24347 in chips)
+Seat 4: jorick21 (23300 in chips)
+Seat 5: SHVTBOT (30723.81 in chips)
+Seat 6: DaniC1994 (60214.94 in chips)
+Seat 7: Pilaf (28378.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+Pilaf: posts small blind 600
+Jameson018: posts big blind 1200
+*** HOLE CARDS ***
+Drogan: folds
+JLLagrange1: folds
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 2400 to 3600
+Jameson018: raises 17250 to 20850 and is all-in
+Pilaf: calls 17250
+*** FLOP *** [Kh Jh 9c]
+*** TURN *** [Kh Jh 9c] [Qd]
+*** RIVER *** [Kh Jh 9c Qd] [Qh]
+Pilaf: shows [Jd Ah] (Two Pair: Pair of Q and J)
+Jameson018: shows [As 8h] ()
+Pilaf collected 42750
+*** SUMMARY ***
+Total pot 42750 | Rake 0
+Board [ Kh Jh 9c Qd Qh ]
+Game ended: 2026/04/14 19:32:48 GMT
+Seat 1: Jameson018 (small blind) showed [ As 8h ] and lost with 
+Seat 2: Drogan folded before the flop
+Seat 3: JLLagrange1 folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) showed [ Jd Ah ] and won (42750) with Two Pair: Pair of Q and J
+
+
+PokerStars Hand #2656780113: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:32:59 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 2: Drogan (19690.53 in chips)
+Seat 3: JLLagrange1 (24197 in chips)
+Seat 4: jorick21 (23150 in chips)
+Seat 5: SHVTBOT (30573.81 in chips)
+Seat 6: DaniC1994 (60064.94 in chips)
+Seat 7: Pilaf (50128.45 in chips)
+Drogan: posts the ante 150
+JLLagrange1: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+Drogan: posts small blind 600
+JLLagrange1: posts big blind 1200
+*** HOLE CARDS ***
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 1200 to 2400
+Drogan: folds
+JLLagrange1: raises 21647 to 24047 and is all-in
+Pilaf: calls 21647
+*** FLOP *** [3h Ac 4s]
+*** TURN *** [3h Ac 4s] [4h]
+*** RIVER *** [3h Ac 4s 4h] [3c]
+JLLagrange1: shows [7c 7s] ()
+Pilaf: shows [Ad 8d] (Two Pair: Pair of A and 4)
+Pilaf collected 49594
+*** SUMMARY ***
+Total pot 49594 | Rake 0
+Board [ 3h Ac 4s 4h 3c ]
+Game ended: 2026/04/14 19:34:37 GMT
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: JLLagrange1 (small blind) showed [ 7c 7s ] and lost with 
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf showed [ Ad 8d ] and won (49594) with Two Pair: Pair of A and 4
+
+
+PokerStars Hand #2656780115: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:35:21 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: Jameson018 (19850 in chips)
+Seat 2: Drogan (18790.53 in chips)
+Seat 3: rememberGhorman (20000 in chips)
+Seat 4: jorick21 (22250 in chips)
+Seat 5: SHVTBOT (27873.81 in chips)
+Seat 6: DaniC1994 (59764.94 in chips)
+Seat 7: Pilaf (79275.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+rememberGhorman: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+SHVTBOT: posts small blind 600
+DaniC1994: posts big blind 1200
+*** HOLE CARDS ***
+Pilaf: raises 1200 to 2400
+Jameson018: folds
+Drogan: folds
+rememberGhorman: folds
+jorick21: folds
+SHVTBOT: folds
+DaniC1994: calls 1200
+*** FLOP *** [8h 6s Ad]
+DaniC1994: checks
+Pilaf: checks
+*** TURN *** [8h 6s Ad] [Qs]
+DaniC1994: bets 5353.50
+Pilaf: folds
+Uncalled bet (5353.50) returned to DaniC1994
+DaniC1994: mucks hand
+DaniC1994 collected 0
+*** SUMMARY ***
+Total pot 6450 | Rake 0
+Board [ 8h 6s Ad Qs ]
+Game ended: 2026/04/14 19:36:18 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: jorick21 folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) collected (6450)
+Seat 7: Pilaf folded on the Turn
+
+
+PokerStars Hand #2656780116: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:36:18 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Jameson018 (19700 in chips)
+Seat 2: Drogan (18640.53 in chips)
+Seat 3: rememberGhorman (19850 in chips)
+Seat 4: jorick21 (22100 in chips)
+Seat 5: SHVTBOT (27123.81 in chips)
+Seat 6: DaniC1994 (63664.94 in chips)
+Seat 7: Pilaf (76725.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+rememberGhorman: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+DaniC1994: posts small blind 600
+Pilaf: posts big blind 1200
+*** HOLE CARDS ***
+Jameson018: folds
+Drogan: folds
+rememberGhorman: folds
+jorick21: calls 1200
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: checks
+*** FLOP *** [Ks 7c Qd]
+Pilaf: checks
+jorick21: bets 2400
+Pilaf: calls 2400
+*** TURN *** [Ks 7c Qd] [4h]
+Pilaf: checks
+jorick21: bets 4425
+Pilaf: folds
+Uncalled bet (4425) returned to jorick21
+jorick21: doesn't show hand
+jorick21 collected 8850
+*** SUMMARY ***
+Total pot 8850 | Rake 0
+Board [ Ks 7c Qd 4h ]
+Game ended: 2026/04/14 19:37:11 GMT
+Seat 1: Jameson018 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: jorick21 collected (8850)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf (small blind) folded on the Turn
+
+
+PokerStars Hand #2656780117: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level I (600/1200 - Ante 150) - 2026/04/14 19:37:12 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Jameson018 (19550 in chips)
+Seat 2: Drogan (18490.53 in chips)
+Seat 3: rememberGhorman (19700 in chips)
+Seat 4: jorick21 (27200 in chips)
+Seat 5: SHVTBOT (26973.81 in chips)
+Seat 6: DaniC1994 (62914.94 in chips)
+Seat 7: Pilaf (72975.45 in chips)
+Jameson018: posts the ante 150
+Drogan: posts the ante 150
+rememberGhorman: posts the ante 150
+jorick21: posts the ante 150
+SHVTBOT: posts the ante 150
+DaniC1994: posts the ante 150
+Pilaf: posts the ante 150
+Pilaf: posts small blind 600
+Jameson018: posts big blind 1200
+*** HOLE CARDS ***
+Drogan: folds
+rememberGhorman: folds
+jorick21: raises 1200 to 2400
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 4800 to 7200
+Jameson018: folds
+jorick21: raises 19850 to 27050 and is all-in
+Pilaf: calls 19850
+*** FLOP *** [Kc 8d 4c]
+*** TURN *** [Kc 8d 4c] [8c]
+*** RIVER *** [Kc 8d 4c 8c] [Ts]
+Pilaf: shows [Ac Jc] (Flush: A high)
+jorick21: shows [Ah Qd] ()
+Pilaf collected 56350
+*** SUMMARY ***
+Total pot 56350 | Rake 0
+Board [ Kc 8d 4c 8c Ts ]
+Game ended: 2026/04/14 19:37:59 GMT
+Seat 1: Jameson018 (small blind) folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: jorick21 showed [ Ah Qd ] and lost with 
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) showed [ Ac Jc ] and won (56350) with Flush: A high
+
+
+PokerStars Hand #2656780118: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:38:10 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Jameson018 (18200 in chips)
+Seat 2: Drogan (18340.53 in chips)
+Seat 3: rememberGhorman (19550 in chips)
+Seat 4: FedeCeccarini (29500 in chips)
+Seat 5: SHVTBOT (26823.81 in chips)
+Seat 6: DaniC1994 (62764.94 in chips)
+Seat 7: Pilaf (102125.45 in chips)
+Jameson018: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+Jameson018: posts small blind 700
+Drogan: posts big blind 1400
+*** HOLE CARDS ***
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: raises 1400 to 2800
+DaniC1994: folds
+Pilaf: folds
+Jameson018: raises 15225 to 18025 and is all-in
+Drogan: folds
+SHVTBOT: calls 15225
+*** FLOP *** [7c Td Qc]
+*** TURN *** [7c Td Qc] [Ac]
+*** RIVER *** [7c Td Qc Ac] [7h]
+Jameson018: shows [Ad Kc] ()
+SHVTBOT: shows [Qs Qh] (Full House: Triplet of Q and Pair  of 7)
+SHVTBOT collected 38675
+*** SUMMARY ***
+Total pot 38675 | Rake 0
+Board [ 7c Td Qc Ac 7h ]
+Game ended: 2026/04/14 19:38:55 GMT
+Seat 1: Jameson018 (small blind) showed [ Ad Kc ] and lost with 
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT showed [ Qs Qh ] and won (38675) with Full House: Triplet of Q and Pair  of 7
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780119: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:38:55 GMT
+Table '265678' 7-max Seat #2 is the button
+Seat 2: Drogan (16765.53 in chips)
+Seat 3: rememberGhorman (19375 in chips)
+Seat 4: FedeCeccarini (29325 in chips)
+Seat 5: SHVTBOT (47298.81 in chips)
+Seat 6: DaniC1994 (62589.94 in chips)
+Seat 7: Pilaf (101950.45 in chips)
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+rememberGhorman: posts small blind 700
+FedeCeccarini: posts big blind 1400
+*** HOLE CARDS ***
+SHVTBOT: folds
+DaniC1994: raises 1540 to 2940
+Pilaf: folds
+Drogan: folds
+rememberGhorman: raises 16260 to 19200 and is all-in
+FedeCeccarini: folds
+DaniC1994: calls 16260
+*** FLOP *** [Th 9s 4h]
+*** TURN *** [Th 9s 4h] [Kd]
+*** RIVER *** [Th 9s 4h Kd] [5h]
+rememberGhorman: shows [Ah 3h] (Flush: A high)
+DaniC1994: shows [Ah 3h Jh Jc] ()
+rememberGhorman collected 40850
+*** SUMMARY ***
+Total pot 40850 | Rake 0
+Board [ Th 9s 4h Kd 5h ]
+Game ended: 2026/04/14 19:39:42 GMT
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman (small blind) showed [ Ah 3h ] and won (40850) with Flush: A high
+Seat 4: FedeCeccarini (small blind) folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 showed [ Ah 3h Jh Jc ] and lost with 
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780120: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:39:43 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 2: Drogan (16590.53 in chips)
+Seat 3: rememberGhorman (40850 in chips)
+Seat 4: FedeCeccarini (27750 in chips)
+Seat 5: SHVTBOT (47123.81 in chips)
+Seat 6: DaniC1994 (43214.94 in chips)
+Seat 7: Pilaf (101775.45 in chips)
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+FedeCeccarini: posts small blind 700
+SHVTBOT: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: folds
+Pilaf: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: calls 700
+SHVTBOT: checks
+*** FLOP *** [6s Qs Td]
+FedeCeccarini: checks
+SHVTBOT: bets 1400
+FedeCeccarini: calls 1400
+*** TURN *** [6s Qs Td] [2h]
+FedeCeccarini: checks
+SHVTBOT: checks
+*** RIVER *** [6s Qs Td 2h] [As]
+FedeCeccarini: checks
+SHVTBOT: bets 5320
+FedeCeccarini: folds
+Uncalled bet (5320) returned to SHVTBOT
+SHVTBOT: doesn't show hand
+SHVTBOT collected 6650
+*** SUMMARY ***
+Total pot 6650 | Rake 0
+Board [ 6s Qs Td 2h As ]
+Game ended: 2026/04/14 19:40:42 GMT
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini (small blind) folded on the River
+Seat 5: SHVTBOT (small blind) collected (6650)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780121: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:40:43 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: B4baY4ga (16925 in chips)
+Seat 2: Drogan (16415.53 in chips)
+Seat 3: rememberGhorman (40675 in chips)
+Seat 4: FedeCeccarini (24775 in chips)
+Seat 5: SHVTBOT (50798.81 in chips)
+Seat 6: DaniC1994 (43039.94 in chips)
+Seat 7: Pilaf (101600.45 in chips)
+B4baY4ga: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+SHVTBOT: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+Pilaf: folds
+B4baY4ga: raises 1400 to 2800
+Drogan: calls 2800
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+*** FLOP *** [Td 2h 9d]
+B4baY4ga: checks
+Drogan: bets 2945.25
+B4baY4ga: folds
+Uncalled bet (2945.25) returned to Drogan
+Drogan: doesn't show hand
+Drogan collected 8925
+*** SUMMARY ***
+Total pot 8925 | Rake 0
+Board [ Td 2h 9d ]
+Game ended: 2026/04/14 19:41:44 GMT
+Seat 1: B4baY4ga folded on the Flop
+Seat 2: Drogan collected (8925)
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780123: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:42:39 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: B4baY4ga (13775 in chips)
+Seat 2: Drogan (22190.53 in chips)
+Seat 3: rememberGhorman (40325 in chips)
+Seat 4: FedeCeccarini (24425 in chips)
+Seat 5: SHVTBOT (49748.81 in chips)
+Seat 6: DaniC1994 (39889.94 in chips)
+Seat 7: Pilaf (103875.45 in chips)
+B4baY4ga: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+Pilaf: posts small blind 700
+B4baY4ga: posts big blind 1400
+*** HOLE CARDS ***
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: raises 1540 to 2940
+Pilaf: folds
+B4baY4ga: folds
+Uncalled bet (1540) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 4725
+*** SUMMARY ***
+Total pot 4725 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:43:20 GMT
+Seat 1: B4baY4ga (small blind) folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 collected (4725)
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780124: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:43:20 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: B4baY4ga (12200 in chips)
+Seat 2: Drogan (22015.53 in chips)
+Seat 3: rememberGhorman (40150 in chips) is sitting out
+Seat 4: FedeCeccarini (24250 in chips)
+Seat 5: SHVTBOT (49573.81 in chips)
+Seat 6: DaniC1994 (43039.94 in chips)
+Seat 7: Pilaf (103000.45 in chips)
+B4baY4ga: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+B4baY4ga: posts small blind 700
+Drogan: posts big blind 1400
+*** HOLE CARDS ***
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+B4baY4ga: folds
+Uncalled bet (700) returned to Drogan
+Drogan: doesn't show hand
+Drogan collected 2625
+*** SUMMARY ***
+Total pot 2625 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:43:36 GMT
+Seat 1: B4baY4ga (small blind) folded before the flop
+Seat 2: Drogan (small blind) collected (2625)
+Seat 3: rememberGhorman mucked
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780125: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:43:37 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: B4baY4ga (11325 in chips)
+Seat 2: Drogan (23765.53 in chips)
+Seat 3: rememberGhorman (39975 in chips)
+Seat 4: FedeCeccarini (24075 in chips)
+Seat 5: SHVTBOT (49398.81 in chips)
+Seat 6: DaniC1994 (42864.94 in chips)
+Seat 7: Pilaf (102825.45 in chips)
+B4baY4ga: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+Drogan: posts small blind 700
+rememberGhorman: posts big blind 1400
+*** HOLE CARDS ***
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 1680 to 3080
+B4baY4ga: raises 8070 to 11150 and is all-in
+Drogan: folds
+rememberGhorman: folds
+Pilaf: calls 8070
+*** FLOP *** [5c 6c 2s]
+*** TURN *** [5c 6c 2s] [Th]
+*** RIVER *** [5c 6c 2s Th] [Qc]
+Pilaf: shows [Ah 9s] (High Card: A high)
+B4baY4ga: shows [Jd Kh] ()
+Pilaf collected 25625
+*** SUMMARY ***
+Total pot 25625 | Rake 0
+Board [ 5c 6c 2s Th Qc ]
+Game ended: 2026/04/14 19:44:31 GMT
+Seat 1: B4baY4ga showed [ Jd Kh ] and lost with 
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: rememberGhorman (small blind) folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf showed [ Ah 9s ] and won (25625) with High Card: A high
+
+
+PokerStars Hand #2656780126: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:44:31 GMT
+Table '265678' 7-max Seat #2 is the button
+Seat 2: Drogan (22890.53 in chips)
+Seat 3: rememberGhorman (38400 in chips)
+Seat 4: FedeCeccarini (23900 in chips)
+Seat 5: SHVTBOT (49223.81 in chips)
+Seat 6: DaniC1994 (42689.94 in chips)
+Seat 7: Pilaf (117125.45 in chips)
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+rememberGhorman: posts small blind 700
+FedeCeccarini: posts big blind 1400
+*** HOLE CARDS ***
+SHVTBOT: raises 1400 to 2800
+DaniC1994: folds
+Pilaf: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: calls 1400
+*** FLOP *** [4h 7s Kh]
+FedeCeccarini: checks
+SHVTBOT: bets 2800
+FedeCeccarini: folds
+Uncalled bet (2800) returned to SHVTBOT
+SHVTBOT: doesn't show hand
+SHVTBOT collected 7350
+*** SUMMARY ***
+Total pot 7350 | Rake 0
+Board [ 4h 7s Kh ]
+Game ended: 2026/04/14 19:45:07 GMT
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman (small blind) folded before the flop
+Seat 4: FedeCeccarini (small blind) folded on the Flop
+Seat 5: SHVTBOT collected (7350)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780127: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:45:08 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 2: Drogan (22715.53 in chips)
+Seat 3: rememberGhorman (37525 in chips)
+Seat 4: FedeCeccarini (20925 in chips)
+Seat 5: SHVTBOT (53598.81 in chips)
+Seat 6: DaniC1994 (42514.94 in chips)
+Seat 7: Pilaf (116950.45 in chips)
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+FedeCeccarini: posts small blind 700
+SHVTBOT: posts big blind 1400
+*** HOLE CARDS ***
+DaniC1994: raises 1540 to 2940
+Pilaf: folds
+Drogan: raises 19600.53 to 22540.53 and is all-in
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: calls 19600.53
+*** FLOP *** [Js 9d 4h]
+*** TURN *** [Js 9d 4h] [9s]
+*** RIVER *** [Js 9d 4h 9s] [2h]
+DaniC1994: shows [Th Td Qs As] ()
+Drogan: shows [Th Td] (Two Pair: Pair of T and 9)
+Drogan collected 48231.06
+*** SUMMARY ***
+Total pot 48231.06 | Rake 0
+Board [ Js 9d 4h 9s 2h ]
+Game ended: 2026/04/14 19:46:05 GMT
+Seat 2: Drogan showed [ Th Td ] and won (48231.06) with Two Pair: Pair of T and 9
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini (small blind) folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 showed [ Th Td Qs As ] and lost with 
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780128: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:46:05 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 2: Drogan (48231.06 in chips)
+Seat 3: rememberGhorman (37350 in chips)
+Seat 4: FedeCeccarini (20050 in chips)
+Seat 5: SHVTBOT (52023.81 in chips)
+Seat 6: DaniC1994 (19799.41 in chips)
+Seat 7: Pilaf (116775.45 in chips)
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+SHVTBOT: posts small blind 700
+DaniC1994: posts big blind 1400
+*** HOLE CARDS ***
+Pilaf: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: calls 700
+DaniC1994: raises 18224.41 to 19624.41 and is all-in
+SHVTBOT: folds
+Uncalled bet (18224.41) returned to DaniC1994
+DaniC1994: mucks hand
+DaniC1994 collected 0
+*** SUMMARY ***
+Total pot 3850 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:46:28 GMT
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) collected (3850)
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780129: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:46:29 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Phanteidos1 (44425.30 in chips)
+Seat 2: Drogan (48056.06 in chips)
+Seat 3: rememberGhorman (37175 in chips)
+Seat 4: FedeCeccarini (19875 in chips)
+Seat 5: SHVTBOT (50448.81 in chips)
+Seat 6: DaniC1994 (22074.41 in chips)
+Seat 7: Pilaf (116600.45 in chips)
+Phanteidos1: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+DaniC1994: posts small blind 700
+Pilaf: posts big blind 1400
+*** HOLE CARDS ***
+Phanteidos1: raises 1400 to 2800
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: raises 16900 to 19700 and is all-in
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Phanteidos1: folds
+Uncalled bet (16900) returned to FedeCeccarini
+FedeCeccarini: doesn't show hand
+FedeCeccarini collected 8925
+*** SUMMARY ***
+Total pot 8925 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:46:55 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini collected (8925)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf (small blind) folded before the flop
+
+
+PokerStars Hand #2656780130: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:46:56 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Phanteidos1 (41450.30 in chips)
+Seat 2: Drogan (47881.06 in chips)
+Seat 3: rememberGhorman (37000 in chips)
+Seat 4: FedeCeccarini (25825 in chips)
+Seat 5: SHVTBOT (50273.81 in chips)
+Seat 6: DaniC1994 (21199.41 in chips)
+Seat 7: Pilaf (115025.45 in chips)
+Phanteidos1: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+Pilaf: posts small blind 700
+Phanteidos1: posts big blind 1400
+*** HOLE CARDS ***
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: raises 1400 to 2800
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 4900 to 7700
+Phanteidos1: folds
+FedeCeccarini: folds
+Uncalled bet (4900) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 8225
+*** SUMMARY ***
+Total pot 8225 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:47:35 GMT
+Seat 1: Phanteidos1 (small blind) folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) collected (8225)
+
+
+PokerStars Hand #2656780131: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:47:35 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Phanteidos1 (39875.30 in chips)
+Seat 2: Drogan (47706.06 in chips)
+Seat 3: rememberGhorman (36825 in chips)
+Seat 4: FedeCeccarini (22850 in chips)
+Seat 5: SHVTBOT (50098.81 in chips)
+Seat 6: DaniC1994 (21024.41 in chips)
+Seat 7: Pilaf (120275.45 in chips)
+Phanteidos1: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+Phanteidos1: posts small blind 700
+Drogan: posts big blind 1400
+*** HOLE CARDS ***
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: raises 1400 to 2800
+DaniC1994: folds
+Pilaf: folds
+Phanteidos1: folds
+Drogan: raises 7700 to 10500
+SHVTBOT: folds
+Uncalled bet (7700) returned to Drogan
+Drogan: doesn't show hand
+Drogan collected 7525
+*** SUMMARY ***
+Total pot 7525 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:48:17 GMT
+Seat 1: Phanteidos1 (small blind) folded before the flop
+Seat 2: Drogan (small blind) collected (7525)
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780132: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:48:18 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Phanteidos1 (39000.30 in chips)
+Seat 2: Drogan (52256.06 in chips)
+Seat 3: rememberGhorman (36650 in chips)
+Seat 4: FedeCeccarini (22675 in chips)
+Seat 5: SHVTBOT (47123.81 in chips)
+Seat 6: DaniC1994 (20849.41 in chips)
+Seat 7: Pilaf (120100.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+Drogan: posts small blind 800
+rememberGhorman: posts big blind 1600
+*** HOLE CARDS ***
+FedeCeccarini: raises 1600 to 3200
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: folds
+Phanteidos1: folds
+Drogan: folds
+rememberGhorman: calls 1600
+*** FLOP *** [6s Qh 6d]
+rememberGhorman: checks
+FedeCeccarini: checks
+*** TURN *** [6s Qh 6d] [Ac]
+rememberGhorman: checks
+FedeCeccarini: bets 3200
+rememberGhorman: folds
+Uncalled bet (3200) returned to FedeCeccarini
+FedeCeccarini: doesn't show hand
+FedeCeccarini collected 8600
+*** SUMMARY ***
+Total pot 8600 | Rake 0
+Board [ 6s Qh 6d Ac ]
+Game ended: 2026/04/14 19:48:59 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: rememberGhorman (small blind) folded on the Turn
+Seat 4: FedeCeccarini collected (8600)
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780133: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:49:00 GMT
+Table '265678' 7-max Seat #2 is the button
+Seat 1: Phanteidos1 (38800.30 in chips)
+Seat 2: Drogan (51256.06 in chips)
+Seat 3: rememberGhorman (33250 in chips)
+Seat 4: FedeCeccarini (27875 in chips)
+Seat 5: SHVTBOT (46923.81 in chips)
+Seat 6: DaniC1994 (20649.41 in chips)
+Seat 7: Pilaf (119900.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+rememberGhorman: posts small blind 800
+FedeCeccarini: posts big blind 1600
+*** HOLE CARDS ***
+SHVTBOT: raises 1600 to 3200
+DaniC1994: folds
+Pilaf: folds
+Phanteidos1: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+Uncalled bet (1600) returned to SHVTBOT
+SHVTBOT: doesn't show hand
+SHVTBOT collected 5400
+*** SUMMARY ***
+Total pot 5400 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:49:25 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman (small blind) folded before the flop
+Seat 4: FedeCeccarini (small blind) folded before the flop
+Seat 5: SHVTBOT collected (5400)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780134: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:49:26 GMT
+Table '265678' 7-max Seat #3 is the button
+Seat 1: Phanteidos1 (38600.30 in chips)
+Seat 2: Drogan (51056.06 in chips)
+Seat 3: rememberGhorman (32250 in chips)
+Seat 4: FedeCeccarini (26075 in chips)
+Seat 5: SHVTBOT (50523.81 in chips)
+Seat 6: DaniC1994 (20449.41 in chips)
+Seat 7: Pilaf (119700.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+FedeCeccarini: posts small blind 800
+SHVTBOT: posts big blind 1600
+*** HOLE CARDS ***
+DaniC1994: folds
+Pilaf: raises 1600 to 3200
+Phanteidos1: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+Uncalled bet (1600) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 5400
+*** SUMMARY ***
+Total pot 5400 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:49:53 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini (small blind) folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf collected (5400)
+
+
+PokerStars Hand #2656780135: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:49:54 GMT
+Table '265678' 7-max Seat #4 is the button
+Seat 1: Phanteidos1 (38400.30 in chips)
+Seat 2: Drogan (50856.06 in chips)
+Seat 3: rememberGhorman (32050 in chips)
+Seat 4: FedeCeccarini (25075 in chips)
+Seat 5: SHVTBOT (48723.81 in chips)
+Seat 6: DaniC1994 (20249.41 in chips)
+Seat 7: Pilaf (123300.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+SHVTBOT: posts small blind 800
+DaniC1994: posts big blind 1600
+*** HOLE CARDS ***
+Pilaf: raises 1600 to 3200
+Phanteidos1: raises 4800 to 8000
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: calls 4800
+*** FLOP *** [Ts 5c Kh]
+Pilaf: checks
+Phanteidos1: bets 30200.30 and is all-in
+Pilaf: folds
+Uncalled bet (30200.30) returned to Phanteidos1
+Phanteidos1: doesn't show hand
+Phanteidos1 collected 19800
+*** SUMMARY ***
+Total pot 19800 | Rake 0
+Board [ Ts 5c Kh ]
+Game ended: 2026/04/14 19:50:46 GMT
+Seat 1: Phanteidos1 collected (19800)
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf folded on the Flop
+
+
+PokerStars Hand #2656780136: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:50:47 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: Phanteidos1 (50000.30 in chips)
+Seat 2: Drogan (50656.06 in chips)
+Seat 3: rememberGhorman (31850 in chips)
+Seat 4: FedeCeccarini (24875 in chips)
+Seat 5: SHVTBOT (47723.81 in chips)
+Seat 6: DaniC1994 (18449.41 in chips)
+Seat 7: Pilaf (115100.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+DaniC1994: posts small blind 800
+Pilaf: posts big blind 1600
+*** HOLE CARDS ***
+Phanteidos1: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: raises 1600 to 3200
+DaniC1994: folds
+Pilaf: calls 1600
+*** FLOP *** [8c 3h 2d]
+Pilaf: checks
+SHVTBOT: checks
+*** TURN *** [8c 3h 2d] [3c]
+Pilaf: checks
+SHVTBOT: bets 2400
+Pilaf: folds
+Uncalled bet (2400) returned to SHVTBOT
+SHVTBOT: doesn't show hand
+SHVTBOT collected 8600
+*** SUMMARY ***
+Total pot 8600 | Rake 0
+Board [ 8c 3h 2d 3c ]
+Game ended: 2026/04/14 19:52:02 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT collected (8600)
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Pilaf (small blind) folded on the Turn
+
+
+PokerStars Hand #2656780137: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:52:03 GMT
+Table '265678' 7-max Seat #6 is the button
+Seat 1: Phanteidos1 (49800.30 in chips)
+Seat 2: Drogan (50456.06 in chips)
+Seat 3: rememberGhorman (31650 in chips)
+Seat 4: FedeCeccarini (24675 in chips)
+Seat 5: SHVTBOT (52923.81 in chips)
+Seat 6: DaniC1994 (17449.41 in chips)
+Seat 7: Pilaf (111700.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+Pilaf: posts small blind 800
+Phanteidos1: posts big blind 1600
+*** HOLE CARDS ***
+Drogan: raises 1600 to 3200
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: calls 2400
+Phanteidos1: calls 1600
+*** FLOP *** [2s 4c Ts]
+Pilaf: checks
+Phanteidos1: checks
+Drogan: bets 3630
+Pilaf: calls 3630
+Phanteidos1: folds
+*** TURN *** [2s 4c Ts] [Ad]
+Pilaf: checks
+Drogan: bets 11295
+Pilaf: folds
+Uncalled bet (11295) returned to Drogan
+Drogan: doesn't show hand
+Drogan collected 18260
+*** SUMMARY ***
+Total pot 18260 | Rake 0
+Board [ 2s 4c Ts Ad ]
+Game ended: 2026/04/14 19:53:13 GMT
+Seat 1: Phanteidos1 (small blind) folded on the Flop
+Seat 2: Drogan collected (18260)
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf (small blind) folded on the Turn
+
+
+PokerStars Hand #2656780138: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:53:14 GMT
+Table '265678' 7-max Seat #7 is the button
+Seat 1: Phanteidos1 (46400.30 in chips)
+Seat 2: Drogan (61686.06 in chips)
+Seat 3: rememberGhorman (31450 in chips)
+Seat 4: FedeCeccarini (24475 in chips)
+Seat 5: SHVTBOT (52723.81 in chips)
+Seat 6: DaniC1994 (17249.41 in chips)
+Seat 7: Pilaf (104670.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+Phanteidos1: posts small blind 800
+Drogan: posts big blind 1600
+*** HOLE CARDS ***
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: folds
+Pilaf: raises 1920 to 3520
+Phanteidos1: folds
+Drogan: folds
+Uncalled bet (1920) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 5400
+*** SUMMARY ***
+Total pot 5400 | Rake 0
+Board [  ]
+Game ended: 2026/04/14 19:53:35 GMT
+Seat 1: Phanteidos1 (small blind) folded before the flop
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Pilaf collected (5400)
+
+
+PokerStars Hand #2656780139: Tournament #46975, $109 CoinMasters - PENGU Hold'em No Limit - Level II (800/1600 - Ante 200) - 2026/04/14 19:53:35 GMT
+Table '265678' 7-max Seat #1 is the button
+Seat 1: Phanteidos1 (45400.30 in chips)
+Seat 2: Drogan (59886.06 in chips)
+Seat 3: rememberGhorman (31250 in chips)
+Seat 4: FedeCeccarini (24275 in chips)
+Seat 5: SHVTBOT (52523.81 in chips)
+Seat 6: DaniC1994 (17049.41 in chips)
+Seat 7: Pilaf (108270.45 in chips)
+Phanteidos1: posts the ante 200
+Drogan: posts the ante 200
+rememberGhorman: posts the ante 200
+FedeCeccarini: posts the ante 200
+SHVTBOT: posts the ante 200
+DaniC1994: posts the ante 200
+Pilaf: posts the ante 200
+Drogan: posts small blind 800
+rememberGhorman: posts big blind 1600
+*** HOLE CARDS ***
+FedeCeccarini: folds
+SHVTBOT: raises 1600 to 3200
+DaniC1994: raises 13649.41 to 16849.41 and is all-in
+Pilaf: folds
+Phanteidos1: folds
+Drogan: folds
+rememberGhorman: folds
+SHVTBOT: calls 13649.41
+*** FLOP *** [5s Qd 8d]
+*** TURN *** [5s Qd 8d] [8c]
+*** RIVER *** [5s Qd 8d 8c] [2c]
+SHVTBOT: shows [8h Kd] (Three of a kind: Triplet of 8)
+DaniC1994: shows [8h Kd 7h Ah] ()
+SHVTBOT collected 37498.82
+*** SUMMARY ***
+Total pot 37498.82 | Rake 0
+Board [ 5s Qd 8d 8c 2c ]
+Game ended: 2026/04/14 19:54:18 GMT
+Seat 1: Phanteidos1 folded before the flop
+Seat 2: Drogan (small blind) folded before the flop
+Seat 3: rememberGhorman (small blind) folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT showed [ 8h Kd ] and won (37498.82) with Three of a kind: Triplet of 8
+Seat 6: DaniC1994 showed [ 8h Kd 7h Ah ] and lost with 
+Seat 7: Pilaf folded before the flop
+
+
+PokerStars Hand #2656780122: Tournament #46850, $55 Tuesday Main Event Hold'em No Limit - Level II (700/1400 - Ante 175) - 2026/04/14 19:41:45 GMT
+Table '265678' 7-max Seat #5 is the button
+Seat 1: B4baY4ga (13950 in chips)
+Seat 2: Drogan (22365.53 in chips)
+Seat 3: rememberGhorman (40500 in chips)
+Seat 4: FedeCeccarini (24600 in chips)
+Seat 5: SHVTBOT (49923.81 in chips)
+Seat 6: DaniC1994 (41464.94 in chips)
+Seat 7: Pilaf (101425.45 in chips)
+B4baY4ga: posts the ante 175
+Drogan: posts the ante 175
+rememberGhorman: posts the ante 175
+FedeCeccarini: posts the ante 175
+SHVTBOT: posts the ante 175
+DaniC1994: posts the ante 175
+Pilaf: posts the ante 175
+DaniC1994: posts small blind 700
+Pilaf: posts big blind 1400
+*** HOLE CARDS ***
+B4baY4ga: folds
+Drogan: folds
+rememberGhorman: folds
+FedeCeccarini: folds
+SHVTBOT: folds
+DaniC1994: calls 700
+Pilaf: checks
+*** FLOP *** [7c 8h Tc]
+DaniC1994: checks
+Pilaf: bets 1400
+DaniC1994: folds
+Uncalled bet (1400) returned to Pilaf
+Pilaf: doesn't show hand
+Pilaf collected 4025
+*** SUMMARY ***
+Total pot 4025 | Rake 0
+Board [ 7c 8h Tc ]
+Game ended: 2026/04/14 19:42:39 GMT
+Seat 1: B4baY4ga folded before the flop
+Seat 2: Drogan folded before the flop
+Seat 3: rememberGhorman folded before the flop
+Seat 4: FedeCeccarini folded before the flop
+Seat 5: SHVTBOT folded before the flop
+Seat 6: DaniC1994 (small blind) folded on the Flop
+Seat 7: Pilaf (small blind) collected (4025)
+
+
+PokerStars Hand #2672590039: Tournament #47438, $88 Bull Rush PKO Hold'em No Limit - Level II (350/700 - Ante 88) - 2026/04/14 22:19:36 GMT
+Table '267259' 7-max Seat #6 is the button
+Seat 1: justAteacher (9925 in chips)
+Seat 2: Nags (20831.40 in chips)
+Seat 3: xRNGx (11186.32 in chips)
+Seat 4: Gomes999 (413 in chips)
+Seat 5: DaniC1994 (4332.34 in chips)
+Seat 6: IveFloppedQuads (31235.75 in chips)
+Seat 7: CharIes1 (21275 in chips)
+justAteacher: posts the ante 88
+Nags: posts the ante 88
+xRNGx: posts the ante 88
+Gomes999: posts the ante 88
+DaniC1994: posts the ante 88
+IveFloppedQuads: posts the ante 88
+CharIes1: posts the ante 88
+CharIes1: posts small blind 350
+justAteacher: posts big blind 700
+*** HOLE CARDS ***
+Nags: folds
+xRNGx: folds
+Gomes999: calls 325 and is all-in
+DaniC1994: folds
+IveFloppedQuads: raises 700 to 1400
+CharIes1: raises 19787 to 21187 and is all-in
+justAteacher: folds
+IveFloppedQuads: folds
+Uncalled bet (19787) returned to CharIes1
+*** FLOP *** [Ks 3h 2h]
+*** TURN *** [Ks 3h 2h] [3d]
+*** RIVER *** [Ks 3h 2h 3d] [Ah]
+CharIes1: shows [7s 7c] (Two Pair: Pair of 7 and 3)
+Gomes999: shows [9s 8c] ()
+CharIes1 collected 4441
+*** SUMMARY ***
+Total pot 4441 | Rake 0
+Board [ Ks 3h 2h 3d Ah ]
+Game ended: 2026/04/14 22:20:29 GMT
+Seat 1: justAteacher (small blind) folded before the flop
+Seat 2: Nags folded before the flop
+Seat 3: xRNGx folded before the flop
+Seat 4: Gomes999 showed [ 9s 8c ] and lost with 
+Seat 5: DaniC1994 folded before the flop
+Seat 6: IveFloppedQuads folded before the flop
+Seat 7: CharIes1 (small blind) showed [ 7s 7c ] and won (4441) with Two Pair: Pair of 7 and 3
+
+

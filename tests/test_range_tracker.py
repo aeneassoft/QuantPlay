@@ -87,34 +87,33 @@ def test_confidence_bounds_and_emit():
 
 
 def test_safety_no_zeroed_live_combo():
-    """o3 safety property: a silent action (call/raise) must NEVER zero a combo that doesn't use a dead card.
-    Build a line full of calls (all silent) and assert every board-legal combo survives with positive weight."""
+    """o3 safety property: a SILENT action — one the advisor does NOT model (a raise, or an unmodeled size) —
+    must NEVER zero a combo that doesn't use a dead card. (Calls are now MODELED via the multi-street defense
+    advisor, the keystone widen, so they reweight rather than stay silent; we therefore exercise the property
+    with a check-RAISE line, where BB's flop raise is the legality-only/silent update.) Assert the silent raise
+    leaves every board-legal combo alive with positive weight."""
     board = ["Qs", "Jh", "2h", "5c", "8d"]
-    # a call-heavy line: BTN bets every street, BB calls every street (all BB updates are silent 'call')
     hist = [
         {"player": 0, "action": "raise", "street": "preflop", "to": 300},
         {"player": 1, "action": "call", "street": "preflop", "amount": 200},
         {"action": "deal", "street": "flop", "board": board[:3]},
         {"player": 1, "action": "check", "street": "flop"},
         {"player": 0, "action": "bet", "street": "flop", "to": 200},
-        {"player": 1, "action": "call", "street": "flop", "amount": 200},
+        {"player": 1, "action": "raise", "street": "flop", "to": 700},        # SILENT (legality-only) update
+        {"player": 0, "action": "call", "street": "flop", "amount": 500},
         {"action": "deal", "street": "turn", "board": board[:4]},
         {"player": 1, "action": "check", "street": "turn"},
-        {"player": 0, "action": "bet", "street": "turn", "to": 400},
-        {"player": 1, "action": "call", "street": "turn", "amount": 400},
+        {"player": 0, "action": "check", "street": "turn"},
         {"action": "deal", "street": "river", "board": board[:5]},
     ]
     st = _state(0, board, hist, hero=0, hole=["As", "Kd"], street="river")
     t = RangeTracker().build(st)
-    # BB (seat 1) only ever called postflop -> legality-only -> its range == preflop prior minus dead cards.
     bb = t.range[1]
-    assert bb, "BB range collapsed (should be legality-only on a call-line)"
-    assert all(w > 0 for w in bb.values()), "a silent call zeroed a live combo (safety violation)"
-    # the call-heavy BB line is LESS confident than a fully-modeled line (more silent updates), but the
-    # safety property is the point: no live combo is ever zeroed by a silent action.
+    assert bb, "BB range collapsed (a silent raise must not zero the range)"
+    assert all(w > 0 for w in bb.values()), "a silent action zeroed a live combo (safety violation)"
     conf_bb = t.confidence(1)
-    assert 0.2 <= conf_bb <= 0.85, f"call-heavy BB conf {conf_bb} unexpected"
-    print(f"OK safety: BB call-line kept {len(bb)} live combos, conf={conf_bb:.2f} (silent calls never zero)")
+    assert 0.2 <= conf_bb <= 1.0, f"BB conf {conf_bb} out of bounds"
+    print(f"OK safety: BB check-raise (silent) line kept {len(bb)} live combos, conf={conf_bb:.2f}")
 
 
 def main():

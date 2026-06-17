@@ -109,9 +109,12 @@ class RangeTracker:
     def _p_call(self, seat, combo, board, role, street, size_faced: float = 0.66):
         """KEYSTONE: defense-advisor P(call | facing a ~size_faced-pot bet) for a combo, or None (-> legality-only).
         Narrows the opponent's range on a CALL (the missing piece that gives the resolver correct-er ranges).
-        Flop-only (the defense advisor's coverage); size_faced default = a typical c-bet."""
+        ALL streets (the defense advisor is now multi-street: flop+turn+river, retrained 2026-06-16). size_faced
+        default = a typical c-bet; the ACTUAL size is not threaded yet — at a too-small queried size the range only
+        errs WIDE (o3-safe), and the range-L1 gate (`extraction/check_range_l1.py`) measures whether threading the
+        real size is needed before adding that complexity."""
         adv = self.adv
-        if street != "flop" or adv is None or not getattr(adv, "defense_available", lambda: False)():
+        if street not in ("flop", "turn", "river") or adv is None or not getattr(adv, "defense_available", lambda: False)():
             return None
         try:
             pd = adv.p_defense([combo[0], combo[1]], board, role, size_faced, street)
@@ -173,8 +176,9 @@ class RangeTracker:
             if not modeled:
                 self.heur[seat] += 1
         elif action == "call" and facing:
-            # KEYSTONE: narrow the range on a CALL via the defense advisor's P(call). Flop-only (advisor coverage);
-            # turn/river calls fall through to legality-only. This is what gives the resolver correct-er ranges.
+            # KEYSTONE: narrow the range on a CALL via the defense advisor's P(call). ALL streets now (the defense
+            # advisor is multi-street as of 2026-06-16) — turn/river calls used to fall to legality-only (too-wide
+            # ranges = the resolver-neutral leak this fixes). This is what gives the resolver correct-er ranges.
             modeled = False
             for c in list(d.keys()):
                 pc = self._p_call(seat, c, board, role, street)

@@ -1,85 +1,81 @@
-# NEXT NEURAL-NET RUN — TO-DO (one-go execution)
+# NEXT RUN — evidence-grounded TO-DO (re-scoped 2026-06-16 after the CFV pilot + 2× frontier consult)
 
-Synthesized 2026-06-16 from FOUR independent sources that **converge on the same answer**, + in-session vetting:
-- **Mathematics of Poker** (Claude, `math_theory_net_connection.md`): fcpa is "structurally impoverished"; strength
-  buckets can't express GTO (need polarity/blockers/SPR/texture); the clairvoyance toy-game is an EXACT validation.
-- **AAAI-26 Deep DCFR+** (`knowledge_base/theory/deep_pdcfr_paper.json`): DCFR+ = the convergence engine (DONE,
-  validated: Leduc neural 445→338). Variance-reduction is real but secondary for external sampling.
-- **GPT-5.5 architecture consult** (`cfr_architecture_gpt55.md`): Rank-1 = finer betting; Rank-2 = richer features;
-  DCFR+ done; VR/scale/resolving are later. (All bb/100 numbers below are ENGINEERING PRIORS, not measured.)
-- **Supremus** (`supremus_paper.json`): SOTA uses fine abstraction (F/C/0.33/0.5/0.75/1/1.25/2/A) + CFV value nets +
-  continual resolving. We adopt the abstraction now; the value-net/resolving is the deferred ceiling.
+## ★ READ FIRST — the priority ORDER (grounded this session)
+The X-ray (`extraction/gtow_xray.py`, $0) localized −72 vs GTOW: **PREFLOP −50 (67%)** + **jam spew −15** +
+**postflop-non-jam ~−10 (the SMALLEST term)**. Preflop is largely addressed (near-Nash blueprint, wired). So the
+remaining gap is postflop — but BOTH frontier consults (o3 + gpt-5.5, `docs/consults/nextrun_*`), the quadruple-
+triangulation, and the plan AGREE on the order:
 
-**The verdict (vetted, high-confidence): the fcpa abstraction + 20-dim strength features are the ceiling, NOT the
-CFR variant. Next run = FINE bet abstraction + RICHER features, gated by a cheap paired A/B vs GTO Wizard.**
-
----
-
-## The run (do these in order)
-
-### 1. Finer bet abstraction — Rank 1, the biggest lever  `deep_cfr_hunl.py`
-Replace fcpa with the menu: **`fold / call|check / 0.33 / 0.5 / 0.75 / 1.0 / 1.25 / 2.0 / all-in`** (pot fractions).
-- Prune duplicate/illegal sizes after min-raise + stack-cap rounding; keep the existing `MAX_RAISES` cap.
-- `fold` only when `owe>0`; call/check always. This only adds REPRESENTATIONAL CAPACITY — no strategy injected.
-- Math grounding: geometric sizing, polarization→overbet, merge→small bets — all impossible under pot-only.
-- Cost: ~1.8–2.8× slower/iter (bigger branch factor, Python traverse). Worth it.
-
-### 2. Richer features — Rank 2, bundle with #1  `deep_cfr_hunl.features`
-Keep the current 20 + add: **52-dim private-card occupancy + 52-dim board occupancy + explicit hand-class /
-draw / blocker / texture flags** → ~140–170 dim. (Strength buckets collapse exactly what GTO needs: nut-advantage,
-blockers, SPR, texture.) **NOT WEVA** — vetted low-ROI for full HUNL (its warm-up-CFR-EV method needs a tabular
-abstraction that doesn't fit; both GPT-5.5 and our triage agree).
-
-### 3. DCFR+ port to HUNL + target scaling  `deep_cfr_hunl.py`
-Port the Leduc-validated DCFR+ into the HUNL trainer (currently LinearCFR): clear adv buffer each iter; target
-`max(R_{t-1},0)·(t-1)²/((t-1)²+1) + advantage` (clip BEFORE discount); γ=2 policy averaging via **normalized
-`(t/T)²`** (numerical safety vs unbounded `t^γ`). Utilities already scaled `/20000` (SCALE) → keep.
-
-### 4. NO variance-reduction baseline yet — Rank 4, deferred
-We use EXTERNAL sampling (the updating player enumerates actions) → VR upside is modest + an unvalidated ES baseline
-can silently bias targets. Add it ONLY after: Leduc exploitability still passes + the ES control-variate is validated
-at sampled opponent/chance nodes (NOT enumeration nodes).
+1. **★ #1 — do FIRST, $0: the EXACT combo-level range-tracker keystone.** Today's tracker is class-level / preflop-
+   line-only → it feeds the EXISTING (shipped) turn/river resolver too-WIDE ranges (the "−72 neutral resolver") AND
+   can't sample the right CFV states. Fixing it (a) makes the resolver sharp NOW, (b) is the PREREQUISITE for any CFV
+   net data. Both consults rank it ABOVE the net: ~3-8 bb/100 at **$0**, vs the net's ~4-8 bb/100 at high cost + risk.
+2. **#2 — re-X-ray after the keystone** (`gtow_xray`, $0): is postflop still material? Only scale the net if yes.
+   (gpt-5.5: "do not assume the net recovers 50 bb/100 without measurement".)
+3. **#3 — the CFV value net, only if #2 greenlights it** — with the CORRECTED calc + accel tricks below.
 
 ---
 
-## The gate — cheap paired A/B (decides if this direction is worth big compute)
-Three arms, identical wall-clock (~45–90 min each on the 3080 Ti), DCFR+ on, `K=80`, `T≈800–1200`:
-- **A** = fcpa + 20 feat  (= the baseline net training now; its GTOW number is Arm A)
-- **B** = fine menu + 20 feat
-- **C** = fine menu + rich feat
+## The CFV net — CORRECTED calculation + acceleration tricks (ready for when #2 greenlights it)
+The pilot (this session) PROVED the pipeline + architecture (the 392→338 MLP fits train to ~0 once targets are
+normalized) but is DATA-LIMITED (99 samples → held-out 96% of scale). Before scaling, two things changed (o3 +
+gpt-5.5, VETTED — `docs/consults/nextrun_calc_o3.md`, `nextrun_design_gpt55.md`):
 
-Eval: sanity vs always-fold/check-call/random FIRST (catches action-masking bugs), then **GTO Wizard paired n=500–1000**
-(noise ≈ ±18 @ n=500, ±13 @ n=1000). **Continue with fine abstraction only if B or C beats A by ≥15–25 bb/100.**
-If not → the next direction is NOT more scale; it's resolving/value-net (#8).
+### (a) FIX the target — the current one is WRONG (omits turn betting)
+`turn_boundary_cfv` solves the 48 rivers SEPARATELY at the turn pot + averages = "river EV after a forced turn
+CHECK-CHECK" → it OMITS all turn-betting EV (Δ up to 10-20 bb on coordinated turns; turn-bet-fold nodes invisible)
+and is not a consistent joint strategy. CORRECT target = **ONE `dump_rounds=2` turn+river solve + a single backward-
+induction pass** (turn betting → river CHANCE node (card-removal) → river betting → showdown/fold). Build
+`cfv_eval.compute_turn_cfv` = the river backward-pass + a river chance node. ~10-40× cheaper AND correct.
 
-## The two HARD validation gates (math theory — keep both)
-- **Leduc exact exploitability** (existing correctness gate — the best test we have).
-- **Clairvoyance toy-game test** (NEW): construct a polarized nuts-or-air river spot; assert the net bluffs at
-  **α = s/(1+2s)** (=1/3 at pot) and defends at **MDF = 1/(1+s)** (=1/2 at pot), ±0.05. RIVER/terminal ONLY —
-  do NOT assert α/MDF on flop/turn (semi-bluffs + equity realization correctly break it).
+### (b) ACCELERATION tricks — the binding constraint is SOLVE COUNT, so ELIMINATE solves first
+- **Board suit-canonicalization** (~8× fewer distinct solves; the net never re-learns suit permutations). [o3]
+- **`dump_rounds=2` single solve** replaces 48 river solves (= also (a)). [o3]
+- **Vectorized showdown-matrix extraction** — replace the O(169²) per-matchup Python loop with a precomputed per-board
+  win/tie/lose matrix + numpy → ~100× faster extraction (kills the GIL loop that forced the ProcessPool). [Claude]
+- **DeepStack river-net bootstrapping** — train a cheap RIVER net first, then use it as the turn-solve's river-leaf
+  evaluator → near-free turn data. [Claude, follow-on]
+- Cheaper per solve: shallow iters (label noise averages out), minimal bet menu, range pruning (drop ~0 combos).
+
+### (c) GATES before any big run (gpt-5.5, non-negotiable)
+- **169-aliasing test FIRST:** same-board / same-169-range states with different suit-combo distributions → direct-
+  solve both → if weighted-CFV-L1 > ~0.75 bb (1.5 bb in big pots), the 169-class input is ALIASED (can't tell KhQh
+  from KsQs on heart boards) → need combo-level or board-relative suit/blocker features. *More data cannot fix missing
+  information.*
+- **Coverage = real line-narrowed ranges** (the keystone's output: SRP/3BP/4BP × c-bet/check/raise/call leaves), NOT
+  uniform-random; stratified oversample of rare high-EV-error textures (monotone, flush-completing, paired,
+  four-straight, low-SPR); pot/SPR bins; oversample big pots (a 10 bb error in a 120 bb pot is fatal).
+- **Bet abstraction (compact, faithful):** turn `33 / 75 (or geometric) / 150 / all-in when SPR≤2.5-3`; river
+  `33 / 75 / 150 / all-in when SPR≤2-2.5`; one non-all-in raise + jam, cap one raise. (Everything-at-every-node = overkill.)
+- **Sample schedule:** 5k (learning-curve + aliasing) → 20k (does held-out fall?) → 100k (first serious). If held-out
+  plateaus > ~3 bb at 20k, the blocker is NOT volume.
+- **Deploy-safety gates** (before the net touches a real decision): held-out ≥5-10k split by board/line/pot;
+  weighted-L1 ≤0.75 bb mean / ≤1.5 bb p95; range-EV bias ≤0.15 bb; zero-sum residual ≤0.05 bb; nut/blocker sanity;
+  **ROOT-DECISION REGRET ≤0.25 bb mean / no >3 bb in big pots**; an OOD detector + solver fallback. (Full list:
+  `docs/consults/nextrun_design_gpt55.md` §4.)
+
+### Realistic ROI (gpt-5.5, honest)
+A good CFV net recovers **~4-8 bb/100** (optimistic 8-12), NOT a −72 fix (preflop was the big term). The net is the
+right LONG-TERM architecture but lower-ROI than the keystone — which is why it is #3, not #1.
 
 ---
 
-## Compute / scale reality (vetted)
-- **CPU traversal + GPU minibatch.** The bottleneck is the Python traverse, NOT the net → a B200 does NOT help the
-  current code (and was measured slower for tiny nets). NO pod until a GPU-native job exists (the value-net pipeline).
-- Cheap local speedup FIRST: **multiprocess the traversal** (embarrassingly parallel; unused cores on the 3080 Ti box).
-- Real run after the A/B passes: `T≈3000, K=80`, fine menu, rich features.
+## Discipline gates (keep — Fable-5)
+- Only a GROUNDED signal gates a change (solver-gap / AIVAT / exact exploitability / a deterministic check). A single-
+  rule raw-bb/100 A/B is too noisy (plausible fixes were REVERTED after measurement). Slumbot whole-bot is variance-
+  limited (±~30-46 even at n=2500 — this session: −39.6 ±30.9).
+- Pre-register KILL gates before any big build; a GTOW number inside noise is NULL, not success.
+- Hard-separate DONE+measured from planned/hoped in every report.
 
-## Deferred (the real ceiling, after the A/B proves abstraction)
-- **CFV value net + depth-limited continual resolving** (Supremus/DeepStack). The path to near-parity, but a full
-  architecture (public-state ranges, CFV nets, safe re-solving) — not a patch. This is where policy-net-only plateaus.
-- **Sequential-Equilibrium refinement** (ICLR-26 paper) → the EXPLOIT overlay (off-equilibrium play vs weak
-  opponents), kept SEPARATE from the pure-self-play GTO core.
+## Compute / cost reality
+- #1 (keystone) + the corrected calc + the vectorized extraction are **$0 local**. The CFV data-gen, with the tricks,
+  is feasible local + a modest pod — NOT the o3 "1000 VMs × 4 days" estimate (that assumed 1500-iter full convergence;
+  our label regime is ~50× cheaper). ALWAYS `--kill` pods (verified **0 live** now; the atomic 48-solve sample is why
+  short pod windows produced 0 — fixed via `k_rivers` + the dump_rounds=2 plan).
 
-## Honest plateau priors (NOT measured — engineering priors from GPT-5.5 + our −72)
-| architecture | expected vs GTO Wizard |
-|---|---:|
-| fcpa policy-net (current) | −50…−80 |
-| fine-abstraction policy-net | −20…−45 |
-| + richer features + much more traverse | −15…−35 |
-| value-net + resolving (first competent) | −15…−30 |
-| mature Supremus-style resolving | −5…−15 (near 0 only with serious scale) |
-
-**Bottom line: policy-net-only can plausibly beat −72; matching GTO Wizard likely needs resolving. Prove the cheap
-abstraction win first; don't burn compute or a pod before the A/B says go.**
+## SUPERSEDED (history pointer — do NOT re-do without re-deciding)
+- The prior content of this file (the **fine bet-abstraction self-play POLICY-net run**: fcpa → 0.33/0.5/0.75/1/1.25/2/
+  all-in + richer features + DCFR+ port + clairvoyance gate) is SUPERSEDED by the DeepStack CFV-VALUE-net path — a
+  policy net IS the −72 imitation ceiling (measured −212 for fcpa). The fine-abstraction + clairvoyance-gate ideas stay
+  valid IF the pure self-play policy core is ever revived; the CFV value net (re-solved strategy, not a copied policy)
+  is the committed postflop path. (Old text recoverable from git history pre-2026-06-16.)

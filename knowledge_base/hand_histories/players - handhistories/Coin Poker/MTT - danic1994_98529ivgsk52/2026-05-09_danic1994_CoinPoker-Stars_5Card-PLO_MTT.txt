@@ -1,0 +1,236 @@
+PokerStars Hand #4481190023: Tournament #55231, $55 The Saturday Grind Hold'em No Limit - Level I (350/700 - Ante 105) - 2026/05/09 15:30:04 GMT
+Table '448119' 7-max Seat #7 is the button
+Seat 1: nonoveas (64218 in chips)
+Seat 2: OBRIGADINHA (63109.75 in chips)
+Seat 3: DaniC1994 (52526.25 in chips)
+Seat 4: brown3788048486 (43247.25 in chips)
+Seat 5: NUTzzzy (46075 in chips)
+Seat 6: TRBZ007 (56701 in chips)
+Seat 7: Bukay0Saka (74122.75 in chips)
+nonoveas: posts the ante 105
+OBRIGADINHA: posts the ante 105
+DaniC1994: posts the ante 105
+brown3788048486: posts the ante 105
+NUTzzzy: posts the ante 105
+TRBZ007: posts the ante 105
+Bukay0Saka: posts the ante 105
+nonoveas: posts small blind 350
+OBRIGADINHA: posts big blind 700
+*** HOLE CARDS ***
+DaniC1994: folds
+brown3788048486: folds
+NUTzzzy: folds
+TRBZ007: raises 700 to 1400
+Bukay0Saka: calls 1400
+nonoveas: folds
+OBRIGADINHA: folds
+*** FLOP *** [Th Qd 3h]
+TRBZ007: checks
+Bukay0Saka: bets 1513.05
+TRBZ007: calls 1513.05
+*** TURN *** [Th Qd 3h] [8c]
+TRBZ007: checks
+Bukay0Saka: checks
+*** RIVER *** [Th Qd 3h 8c] [Ad]
+TRBZ007: bets 7611
+Bukay0Saka: folds
+Uncalled bet (7611) returned to TRBZ007
+TRBZ007: doesn't show hand
+TRBZ007 collected 7611.10
+*** SUMMARY ***
+Total pot 7611.10 | Rake 0
+Board [ Th Qd 3h 8c Ad ]
+Game ended: 2026/05/09 15:31:44 GMT
+Seat 1: nonoveas (small blind) folded before the flop
+Seat 2: OBRIGADINHA (small blind) folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: brown3788048486 folded before the flop
+Seat 5: NUTzzzy folded before the flop
+Seat 6: TRBZ007 collected (7611.10)
+Seat 7: Bukay0Saka folded on the River
+
+
+PokerStars Hand #4481190033: Tournament #55231, $55 The Saturday Grind Hold'em No Limit - Level I (400/800 - Ante 120) - 2026/05/09 15:40:33 GMT
+Table '448119' 7-max Seat #3 is the button
+Seat 1: nonoveas (60743 in chips)
+Seat 2: OBRIGADINHA (55908.75 in chips)
+Seat 3: DaniC1994 (49441.25 in chips)
+Seat 4: brown3788048486 (45399.75 in chips)
+Seat 5: NUTzzzy (38153 in chips)
+Seat 6: TRBZ007 (60614.05 in chips)
+Seat 7: Bukay0Saka (89740.20 in chips)
+nonoveas: posts the ante 120
+OBRIGADINHA: posts the ante 120
+DaniC1994: posts the ante 120
+brown3788048486: posts the ante 120
+NUTzzzy: posts the ante 120
+TRBZ007: posts the ante 120
+Bukay0Saka: posts the ante 120
+brown3788048486: posts small blind 400
+NUTzzzy: posts big blind 800
+*** HOLE CARDS ***
+TRBZ007: raises 800 to 1600
+Bukay0Saka: folds
+nonoveas: folds
+OBRIGADINHA: folds
+DaniC1994: folds
+brown3788048486: calls 1200
+NUTzzzy: calls 800
+*** FLOP *** [6d 3h 3s]
+brown3788048486: checks
+NUTzzzy: checks
+TRBZ007: bets 2680
+brown3788048486: folds
+NUTzzzy: folds
+Uncalled bet (2680) returned to TRBZ007
+TRBZ007: doesn't show hand
+TRBZ007 collected 5640
+*** SUMMARY ***
+Total pot 5640 | Rake 0
+Board [ 6d 3h 3s ]
+Game ended: 2026/05/09 15:41:33 GMT
+Seat 1: nonoveas folded before the flop
+Seat 2: OBRIGADINHA folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: brown3788048486 (small blind) folded on the Flop
+Seat 5: NUTzzzy (small blind) folded on the Flop
+Seat 6: TRBZ007 collected (5640)
+Seat 7: Bukay0Saka folded before the flop
+
+
+PokerStars Hand #4481190038: Tournament #55231, $55 The Saturday Grind Hold'em No Limit - Level I (500/1000 - Ante 150) - 2026/05/09 15:46:00 GMT
+Table '448119' 7-max Seat #1 is the button
+Seat 1: nonoveas (64978.20 in chips)
+Seat 2: OBRIGADINHA (56828.75 in chips)
+Seat 3: DaniC1994 (48811.25 in chips)
+Seat 4: brown3788048486 (45209.75 in chips)
+Seat 5: NUTzzzy (33293 in chips)
+Seat 6: TRBZ007 (67094.05 in chips)
+Seat 7: Bukay0Saka (83785 in chips)
+nonoveas: posts the ante 150
+OBRIGADINHA: posts the ante 150
+DaniC1994: posts the ante 150
+brown3788048486: posts the ante 150
+NUTzzzy: posts the ante 150
+TRBZ007: posts the ante 150
+Bukay0Saka: posts the ante 150
+OBRIGADINHA: posts small blind 500
+DaniC1994: posts big blind 1000
+*** HOLE CARDS ***
+brown3788048486: folds
+NUTzzzy: folds
+TRBZ007: raises 1000 to 2000
+Bukay0Saka: raises 5000 to 7000
+nonoveas: folds
+OBRIGADINHA: folds
+DaniC1994: folds
+TRBZ007: calls 5000
+*** FLOP *** [Kd 4h As]
+TRBZ007: checks
+Bukay0Saka: bets 3500
+TRBZ007: folds
+Uncalled bet (3500) returned to Bukay0Saka
+Bukay0Saka: doesn't show hand
+Bukay0Saka collected 16550
+*** SUMMARY ***
+Total pot 16550 | Rake 0
+Board [ Kd 4h As ]
+Game ended: 2026/05/09 15:46:57 GMT
+Seat 1: nonoveas folded before the flop
+Seat 2: OBRIGADINHA (small blind) folded before the flop
+Seat 3: DaniC1994 (small blind) folded before the flop
+Seat 4: brown3788048486 folded before the flop
+Seat 5: NUTzzzy folded before the flop
+Seat 6: TRBZ007 folded on the Flop
+Seat 7: Bukay0Saka collected (16550)
+
+
+PokerStars Hand #4481190049: Tournament #55231, $55 The Saturday Grind Hold'em No Limit - Level I (625/1250 - Ante 187) - 2026/05/09 16:02:43 GMT
+Table '448119' 7-max Seat #5 is the button
+Seat 1: nonoveas (50000 in chips)
+Seat 2: OBRIGADINHA (50641.75 in chips)
+Seat 3: DaniC1994 (91176.95 in chips)
+Seat 4: brown3788048486 (65832.25 in chips)
+Seat 5: NUTzzzy (25481 in chips)
+Seat 6: TRBZ007 (57745.05 in chips)
+Seat 7: Bukay0Saka (109123 in chips)
+nonoveas: posts the ante 187
+OBRIGADINHA: posts the ante 187
+DaniC1994: posts the ante 187
+brown3788048486: posts the ante 187
+NUTzzzy: posts the ante 187
+TRBZ007: posts the ante 187
+Bukay0Saka: posts the ante 187
+TRBZ007: posts small blind 625
+Bukay0Saka: posts big blind 1250
+*** HOLE CARDS ***
+nonoveas: folds
+OBRIGADINHA: folds
+DaniC1994: folds
+brown3788048486: folds
+NUTzzzy: raises 1250 to 2500
+TRBZ007: folds
+Bukay0Saka: calls 1250
+*** FLOP *** [Ac Tc As]
+Bukay0Saka: checks
+NUTzzzy: bets 1250
+Bukay0Saka: folds
+Uncalled bet (1250) returned to NUTzzzy
+NUTzzzy: doesn't show hand
+NUTzzzy collected 6934
+*** SUMMARY ***
+Total pot 6934 | Rake 0
+Board [ Ac Tc As ]
+Game ended: 2026/05/09 16:03:20 GMT
+Seat 1: nonoveas folded before the flop
+Seat 2: OBRIGADINHA folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: brown3788048486 folded before the flop
+Seat 5: NUTzzzy collected (6934)
+Seat 6: TRBZ007 (small blind) folded before the flop
+Seat 7: Bukay0Saka (small blind) folded on the Flop
+
+
+PokerStars Hand #4481190043: Tournament #55218, $55 Smash PKO Asia Hold'em No Limit - Level I (500/1000 - Ante 150) - 2026/05/09 15:50:04 GMT
+Table '448119' 7-max Seat #6 is the button
+Seat 1: nonoveas (64228.20 in chips)
+Seat 2: OBRIGADINHA (55578.75 in chips)
+Seat 3: DaniC1994 (44461.25 in chips)
+Seat 4: brown3788048486 (55471.75 in chips)
+Seat 5: NUTzzzy (31043 in chips)
+Seat 6: TRBZ007 (55082.05 in chips)
+Seat 7: Bukay0Saka (94135 in chips)
+nonoveas: posts the ante 150
+OBRIGADINHA: posts the ante 150
+DaniC1994: posts the ante 150
+brown3788048486: posts the ante 150
+NUTzzzy: posts the ante 150
+TRBZ007: posts the ante 150
+Bukay0Saka: posts the ante 150
+Bukay0Saka: posts small blind 500
+nonoveas: posts big blind 1000
+*** HOLE CARDS ***
+OBRIGADINHA: folds
+DaniC1994: folds
+brown3788048486: raises 1300 to 2300
+NUTzzzy: folds
+TRBZ007: raises 4075 to 6375
+Bukay0Saka: folds
+nonoveas: folds
+brown3788048486: folds
+Uncalled bet (4075) returned to TRBZ007
+TRBZ007: doesn't show hand
+TRBZ007 collected 7150
+*** SUMMARY ***
+Total pot 7150 | Rake 0
+Board [  ]
+Game ended: 2026/05/09 15:50:59 GMT
+Seat 1: nonoveas (small blind) folded before the flop
+Seat 2: OBRIGADINHA folded before the flop
+Seat 3: DaniC1994 folded before the flop
+Seat 4: brown3788048486 folded before the flop
+Seat 5: NUTzzzy folded before the flop
+Seat 6: TRBZ007 collected (7150)
+Seat 7: Bukay0Saka (small blind) folded before the flop
+
+

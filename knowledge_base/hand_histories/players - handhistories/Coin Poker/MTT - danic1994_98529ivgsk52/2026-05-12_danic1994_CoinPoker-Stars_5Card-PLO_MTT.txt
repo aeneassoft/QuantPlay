@@ -1,0 +1,654 @@
+PokerStars Hand #4798030099: Tournament #50028, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:40:14 GMT
+Table '479803' 7-max Seat #4 is the button
+Seat 1: NickyP1010 (68417.98 in chips)
+Seat 2: Sweden (176763.44 in chips)
+Seat 3: StillDontKnowMyname (12719.30 in chips)
+Seat 4: flikkflakk (54244.18 in chips)
+Seat 5: MatiAA (59081.25 in chips)
+Seat 6: DaniC1994 (83838.24 in chips)
+Seat 7: Skaloo (156424.23 in chips)
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+MatiAA: posts small blind 1250
+DaniC1994: posts big blind 2500
+*** HOLE CARDS ***
+Skaloo: folds
+NickyP1010: folds
+Sweden: folds
+StillDontKnowMyname: folds
+flikkflakk: raises 3000 to 5500
+MatiAA: raises 53206.25 to 58706.25 and is all-in
+DaniC1994: folds
+flikkflakk: calls 48369.18 and is all-in
+Uncalled bet (4837.07) returned to MatiAA
+*** FLOP *** [Qd 5h Ks]
+*** TURN *** [Qd 5h Ks] [7h]
+*** RIVER *** [Qd 5h Ks 7h] [2c]
+MatiAA: shows [6d 6c] (Pair: Pair of 6)
+flikkflakk: shows [Ad Ts] ()
+MatiAA collected 112863.36
+*** SUMMARY ***
+Total pot 112863.36 | Rake 0
+Board [ Qd 5h Ks 7h 2c ]
+Game ended: 2026/05/12 19:41:08 GMT
+Seat 1: NickyP1010 folded before the flop
+Seat 2: Sweden folded before the flop
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk showed [ Ad Ts ] and lost with 
+Seat 5: MatiAA (small blind) showed [ 6d 6c ] and won (112863.36) with Pair: Pair of 6
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030095: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:37:30 GMT
+Table '479803' 7-max Seat #7 is the button
+Seat 1: NickyP1010 (71167.98 in chips)
+Seat 2: Sweden (170388.44 in chips)
+Seat 3: StillDontKnowMyname (23938.05 in chips)
+Seat 4: flikkflakk (97600.80 in chips)
+Seat 5: MatiAA (55737.50 in chips)
+Seat 6: DaniC1994 (46106.62 in chips)
+Seat 7: Skaloo (146549.23 in chips)
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+NickyP1010: posts small blind 1250
+Sweden: posts big blind 2500
+*** HOLE CARDS ***
+StillDontKnowMyname: folds
+flikkflakk: folds
+MatiAA: raises 2500 to 5000
+DaniC1994: folds
+Skaloo: raises 7500 to 12500
+NickyP1010: folds
+Sweden: folds
+MatiAA: folds
+Uncalled bet (7500) returned to Skaloo
+Skaloo: doesn't show hand
+Skaloo collected 16375
+*** SUMMARY ***
+Total pot 16375 | Rake 0
+Board [  ]
+Game ended: 2026/05/12 19:38:08 GMT
+Seat 1: NickyP1010 (small blind) folded before the flop
+Seat 2: Sweden (small blind) folded before the flop
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo collected (16375)
+
+
+PokerStars Hand #4798030096: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:38:08 GMT
+Table '479803' 7-max Seat #1 is the button
+Seat 1: NickyP1010 (69542.98 in chips)
+Seat 2: Sweden (167513.44 in chips)
+Seat 3: StillDontKnowMyname (23563.05 in chips)
+Seat 4: flikkflakk (97225.80 in chips)
+Seat 5: MatiAA (50362.50 in chips)
+Seat 6: DaniC1994 (45731.62 in chips)
+Seat 7: Skaloo (157549.23 in chips)
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+Sweden: posts small blind 1250
+StillDontKnowMyname: posts big blind 2500
+*** HOLE CARDS ***
+flikkflakk: folds
+MatiAA: raises 2500 to 5000
+DaniC1994: folds
+Skaloo: folds
+NickyP1010: folds
+Sweden: folds
+StillDontKnowMyname: calls 2500
+*** FLOP *** [2c 7s As]
+StillDontKnowMyname: checks
+MatiAA: bets 3468.75
+StillDontKnowMyname: calls 3468.75
+*** TURN *** [2c 7s As] [5c]
+StillDontKnowMyname: checks
+MatiAA: bets 41518.75 and is all-in
+StillDontKnowMyname: folds
+Uncalled bet (41518.75) returned to MatiAA
+MatiAA: doesn't show hand
+MatiAA collected 20812.50
+*** SUMMARY ***
+Total pot 20812.50 | Rake 0
+Board [ 2c 7s As 5c ]
+Game ended: 2026/05/12 19:38:58 GMT
+Seat 1: NickyP1010 folded before the flop
+Seat 2: Sweden (small blind) folded before the flop
+Seat 3: StillDontKnowMyname (small blind) folded on the Turn
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA collected (20812.50)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030097: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:38:59 GMT
+Table '479803' 7-max Seat #2 is the button
+Seat 1: NickyP1010 (69167.98 in chips)
+Seat 2: Sweden (165888.44 in chips)
+Seat 3: StillDontKnowMyname (14719.30 in chips)
+Seat 4: flikkflakk (96850.80 in chips)
+Seat 5: MatiAA (62331.25 in chips)
+Seat 6: DaniC1994 (45356.62 in chips)
+Seat 7: Skaloo (157174.23 in chips) is sitting out
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+StillDontKnowMyname: posts small blind 1250
+flikkflakk: posts big blind 2500
+*** HOLE CARDS ***
+MatiAA: folds
+DaniC1994: raises 2750 to 5250
+NickyP1010: folds
+Sweden: raises 5563 to 10813
+StillDontKnowMyname: folds
+flikkflakk: folds
+DaniC1994: folds
+Uncalled bet (5563) returned to Sweden
+Sweden: doesn't show hand
+Sweden collected 16875
+*** SUMMARY ***
+Total pot 16875 | Rake 0
+Board [  ]
+Game ended: 2026/05/12 19:39:31 GMT
+Seat 1: NickyP1010 folded before the flop
+Seat 2: Sweden collected (16875)
+Seat 3: StillDontKnowMyname (small blind) folded before the flop
+Seat 4: flikkflakk (small blind) folded before the flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo mucked
+
+
+PokerStars Hand #4798030100: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:41:11 GMT
+Table '479803' 7-max Seat #5 is the button
+Seat 1: NickyP1010 (68042.98 in chips)
+Seat 2: Sweden (176388.44 in chips)
+Seat 3: StillDontKnowMyname (12344.30 in chips)
+Seat 4: flikkflakk (75000 in chips)
+Seat 5: MatiAA (117700.43 in chips)
+Seat 6: DaniC1994 (80963.24 in chips)
+Seat 7: Skaloo (156049.23 in chips)
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+DaniC1994: posts small blind 1250
+Skaloo: posts big blind 2500
+*** HOLE CARDS ***
+NickyP1010: folds
+Sweden: raises 2500 to 5000
+StillDontKnowMyname: raises 6969.30 to 11969.30 and is all-in
+flikkflakk: folds
+MatiAA: folds
+DaniC1994: folds
+Skaloo: folds
+Sweden: calls 6969.30
+*** FLOP *** [Kc 4c Qh]
+*** TURN *** [Kc 4c Qh] [2s]
+*** RIVER *** [Kc 4c Qh 2s] [Td]
+Sweden: shows [7h 7c] ()
+StillDontKnowMyname: shows [Kh Ac] (Pair: Pair of K)
+StillDontKnowMyname collected 30313.60
+*** SUMMARY ***
+Total pot 30313.60 | Rake 0
+Board [ Kc 4c Qh 2s Td ]
+Game ended: 2026/05/12 19:42:04 GMT
+Seat 1: NickyP1010 folded before the flop
+Seat 2: Sweden showed [ 7h 7c ] and lost with 
+Seat 3: StillDontKnowMyname showed [ Kh Ac ] and won (30313.60) with Pair: Pair of K
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 (small blind) folded before the flop
+Seat 7: Skaloo (small blind) folded before the flop
+
+
+PokerStars Hand #4798030101: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1250/2500 - Ante 375) - 2026/05/12 19:42:05 GMT
+Table '479803' 7-max Seat #6 is the button
+Seat 1: NickyP1010 (67667.98 in chips)
+Seat 2: Sweden (164044.14 in chips)
+Seat 3: StillDontKnowMyname (30313.60 in chips)
+Seat 4: flikkflakk (74625 in chips)
+Seat 5: MatiAA (117325.43 in chips)
+Seat 6: DaniC1994 (79338.24 in chips)
+Seat 7: Skaloo (153174.23 in chips)
+NickyP1010: posts the ante 375
+Sweden: posts the ante 375
+StillDontKnowMyname: posts the ante 375
+flikkflakk: posts the ante 375
+MatiAA: posts the ante 375
+DaniC1994: posts the ante 375
+Skaloo: posts the ante 375
+Skaloo: posts small blind 1250
+NickyP1010: posts big blind 2500
+*** HOLE CARDS ***
+Sweden: folds
+StillDontKnowMyname: folds
+flikkflakk: folds
+MatiAA: raises 2500 to 5000
+DaniC1994: folds
+Skaloo: folds
+NickyP1010: calls 2500
+*** FLOP *** [7d 4d 9d]
+NickyP1010: checks
+MatiAA: bets 3468.75
+NickyP1010: raises 8468.75 to 11937.50
+MatiAA: calls 8468.75
+*** TURN *** [7d 4d 9d] [5d]
+NickyP1010: bets 9957.50
+MatiAA: calls 9957.50
+*** RIVER *** [7d 4d 9d 5d] [5s]
+NickyP1010: bets 40397.98 and is all-in
+MatiAA: calls 40397.98
+MatiAA: shows [Ad] (Flush: A high)
+NickyP1010: shows [Kd Js] ()
+MatiAA collected 138460.96
+*** SUMMARY ***
+Total pot 138460.96 | Rake 0
+Board [ 7d 4d 9d 5d 5s ]
+Game ended: 2026/05/12 19:43:36 GMT
+Seat 1: NickyP1010 (small blind) showed [ Kd Js ] and lost with 
+Seat 2: Sweden folded before the flop
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA showed [ Ad ] and won (138460.96) with Flush: A high
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo (small blind) folded before the flop
+
+
+PokerStars Hand #4798030103: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/12 19:44:38 GMT
+Table '479803' 7-max Seat #2 is the button
+Seat 1: OHMYRIVER (62137 in chips)
+Seat 2: Sweden (162044.14 in chips)
+Seat 3: StillDontKnowMyname (43463.60 in chips)
+Seat 4: flikkflakk (73875 in chips)
+Seat 5: MatiAA (177343.41 in chips)
+Seat 6: DaniC1994 (78588.24 in chips)
+Seat 7: Skaloo (151174.23 in chips)
+OHMYRIVER: posts the ante 450
+Sweden: posts the ante 450
+StillDontKnowMyname: posts the ante 450
+flikkflakk: posts the ante 450
+MatiAA: posts the ante 450
+DaniC1994: posts the ante 450
+Skaloo: posts the ante 450
+StillDontKnowMyname: posts small blind 1500
+flikkflakk: posts big blind 3000
+*** HOLE CARDS ***
+MatiAA: folds
+DaniC1994: folds
+Skaloo: folds
+OHMYRIVER: folds
+Sweden: raises 3000 to 6000
+StillDontKnowMyname: folds
+flikkflakk: folds
+Uncalled bet (3000) returned to Sweden
+Sweden: doesn't show hand
+Sweden collected 10650
+*** SUMMARY ***
+Total pot 10650 | Rake 0
+Board [  ]
+Game ended: 2026/05/12 19:45:36 GMT
+Seat 1: OHMYRIVER folded before the flop
+Seat 2: Sweden collected (10650)
+Seat 3: StillDontKnowMyname (small blind) folded before the flop
+Seat 4: flikkflakk (small blind) folded before the flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030104: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/12 19:45:36 GMT
+Table '479803' 7-max Seat #3 is the button
+Seat 1: OHMYRIVER (61687 in chips)
+Seat 2: Sweden (169244.14 in chips)
+Seat 3: StillDontKnowMyname (41513.60 in chips)
+Seat 4: flikkflakk (70425 in chips)
+Seat 5: MatiAA (176893.41 in chips)
+Seat 6: DaniC1994 (78138.24 in chips)
+Seat 7: Skaloo (150724.23 in chips)
+OHMYRIVER: posts the ante 450
+Sweden: posts the ante 450
+StillDontKnowMyname: posts the ante 450
+flikkflakk: posts the ante 450
+MatiAA: posts the ante 450
+DaniC1994: posts the ante 450
+Skaloo: posts the ante 450
+flikkflakk: posts small blind 1500
+MatiAA: posts big blind 3000
+*** HOLE CARDS ***
+DaniC1994: folds
+Skaloo: folds
+OHMYRIVER: folds
+Sweden: raises 3000 to 6000
+StillDontKnowMyname: raises 35063.60 to 41063.60 and is all-in
+flikkflakk: folds
+MatiAA: raises 135379.81 to 176443.41 and is all-in
+Sweden: folds
+Uncalled bet (135379.81) returned to MatiAA
+*** FLOP *** [8h Td Qc]
+*** TURN *** [8h Td Qc] [2s]
+*** RIVER *** [8h Td Qc 2s] [Tc]
+MatiAA: shows [As Qd 6d 6h] ()
+StillDontKnowMyname: shows [Qd As] (Two Pair: Pair of Q and T)
+StillDontKnowMyname collected 92777.20
+*** SUMMARY ***
+Total pot 92777.20 | Rake 0
+Board [ 8h Td Qc 2s Tc ]
+Game ended: 2026/05/12 19:46:30 GMT
+Seat 1: OHMYRIVER folded before the flop
+Seat 2: Sweden folded before the flop
+Seat 3: StillDontKnowMyname showed [ Qd As ] and won (92777.20) with Two Pair: Pair of Q and T
+Seat 4: flikkflakk (small blind) folded before the flop
+Seat 5: MatiAA (small blind) showed [ As Qd 6d 6h ] and lost with 
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030107: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/12 19:49:41 GMT
+Table '479803' 7-max Seat #6 is the button
+Seat 1: OHMYRIVER (60337 in chips)
+Seat 2: Sweden (12519.91 in chips)
+Seat 3: StillDontKnowMyname (91877.20 in chips)
+Seat 4: flikkflakk (67575 in chips)
+Seat 5: MatiAA (131479.81 in chips)
+Seat 6: DaniC1994 (81438.24 in chips)
+Seat 7: Skaloo (303398.46 in chips)
+OHMYRIVER: posts the ante 450
+Sweden: posts the ante 450
+StillDontKnowMyname: posts the ante 450
+flikkflakk: posts the ante 450
+MatiAA: posts the ante 450
+DaniC1994: posts the ante 450
+Skaloo: posts the ante 450
+Skaloo: posts small blind 1500
+OHMYRIVER: posts big blind 3000
+*** HOLE CARDS ***
+Sweden: folds
+StillDontKnowMyname: folds
+flikkflakk: folds
+MatiAA: raises 3000 to 6000
+DaniC1994: folds
+Skaloo: folds
+OHMYRIVER: calls 3000
+*** FLOP *** [2c 9h 8h]
+OHMYRIVER: checks
+MatiAA: bets 11155.50
+OHMYRIVER: calls 11155.50
+*** TURN *** [2c 9h 8h] [Jd]
+OHMYRIVER: checks
+MatiAA: bets 113874.31 and is all-in
+OHMYRIVER: folds
+Uncalled bet (113874.31) returned to MatiAA
+MatiAA: doesn't show hand
+MatiAA collected 38961
+*** SUMMARY ***
+Total pot 38961 | Rake 0
+Board [ 2c 9h 8h Jd ]
+Game ended: 2026/05/12 19:50:27 GMT
+Seat 1: OHMYRIVER (small blind) folded on the Turn
+Seat 2: Sweden folded before the flop
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA collected (38961)
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo (small blind) folded before the flop
+
+
+PokerStars Hand #4798030109: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/12 19:52:33 GMT
+Table '479803' 7-max Seat #1 is the button
+Seat 1: OHMYRIVER (40781.50 in chips)
+Seat 3: StillDontKnowMyname (60319.08 in chips)
+Seat 4: flikkflakk (66675 in chips)
+Seat 5: MatiAA (152385.31 in chips)
+Seat 6: DaniC1994 (80538.24 in chips)
+Seat 7: Skaloo (347926.49 in chips)
+OHMYRIVER: posts the ante 450
+StillDontKnowMyname: posts the ante 450
+flikkflakk: posts the ante 450
+MatiAA: posts the ante 450
+DaniC1994: posts the ante 450
+Skaloo: posts the ante 450
+StillDontKnowMyname: posts small blind 1500
+flikkflakk: posts big blind 3000
+*** HOLE CARDS ***
+MatiAA: folds
+DaniC1994: folds
+Skaloo: folds
+OHMYRIVER: folds
+StillDontKnowMyname: raises 6000 to 9000
+flikkflakk: calls 6000
+*** FLOP *** [2s 9c 2d]
+StillDontKnowMyname: bets 6000
+flikkflakk: folds
+Uncalled bet (6000) returned to StillDontKnowMyname
+StillDontKnowMyname: doesn't show hand
+StillDontKnowMyname collected 20700
+*** SUMMARY ***
+Total pot 20700 | Rake 0
+Board [ 2s 9c 2d ]
+Game ended: 2026/05/12 19:53:11 GMT
+Seat 1: OHMYRIVER folded before the flop
+Seat 3: StillDontKnowMyname (small blind) collected (20700)
+Seat 4: flikkflakk (small blind) folded on the Flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 folded before the flop
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030111: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1500/3000 - Ante 450) - 2026/05/12 19:53:49 GMT
+Table '479803' 7-max Seat #4 is the button
+Seat 1: OHMYRIVER (39881.50 in chips)
+Seat 2: INCREDULOMARISA (423548.49 in chips)
+Seat 3: StillDontKnowMyname (71119.08 in chips)
+Seat 4: flikkflakk (55275 in chips)
+Seat 5: MatiAA (145185.31 in chips)
+Seat 6: DaniC1994 (90138.24 in chips)
+Seat 7: Skaloo (347026.49 in chips)
+OHMYRIVER: posts the ante 450
+INCREDULOMARISA: posts the ante 450
+StillDontKnowMyname: posts the ante 450
+flikkflakk: posts the ante 450
+MatiAA: posts the ante 450
+DaniC1994: posts the ante 450
+Skaloo: posts the ante 450
+MatiAA: posts small blind 1500
+DaniC1994: posts big blind 3000
+*** HOLE CARDS ***
+Skaloo: folds
+OHMYRIVER: folds
+INCREDULOMARISA: raises 3000 to 6000
+StillDontKnowMyname: folds
+flikkflakk: folds
+MatiAA: folds
+DaniC1994: calls 3000
+*** FLOP *** [3s Ah Th]
+DaniC1994: checks
+INCREDULOMARISA: bets 4162.50
+DaniC1994: calls 4162.50
+*** TURN *** [3s Ah Th] [8h]
+DaniC1994: checks
+INCREDULOMARISA: bets 15000
+DaniC1994: calls 15000
+*** RIVER *** [3s Ah Th 8h] [3h]
+DaniC1994: checks
+INCREDULOMARISA: checks
+DaniC1994: shows [Ad Qs Ac 5s] ()
+INCREDULOMARISA: shows [Ad Qs] (Two Pair: Pair of A and 3)
+INCREDULOMARISA collected 54975
+*** SUMMARY ***
+Total pot 54975 | Rake 0
+Board [ 3s Ah Th 8h 3h ]
+Game ended: 2026/05/12 19:55:00 GMT
+Seat 1: OHMYRIVER folded before the flop
+Seat 2: INCREDULOMARISA showed [ Ad Qs ] and won (54975) with Two Pair: Pair of A and 3
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA (small blind) folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ Ad Qs Ac 5s ] and lost with 
+Seat 7: Skaloo folded before the flop
+
+
+PokerStars Hand #4798030112: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level I (1750/3500 - Ante 525) - 2026/05/12 20:01:42 GMT
+Table '479803' 7-max Seat #5 is the button
+Seat 1: OHMYRIVER (39431.50 in chips)
+Seat 2: INCREDULOMARISA (452910.99 in chips)
+Seat 3: StillDontKnowMyname (70669.08 in chips)
+Seat 4: flikkflakk (54825 in chips)
+Seat 5: MatiAA (143235.31 in chips)
+Seat 6: DaniC1994 (64525.74 in chips)
+Seat 7: Skaloo (346576.49 in chips)
+OHMYRIVER: posts the ante 525
+INCREDULOMARISA: posts the ante 525
+StillDontKnowMyname: posts the ante 525
+flikkflakk: posts the ante 525
+MatiAA: posts the ante 525
+DaniC1994: posts the ante 525
+Skaloo: posts the ante 525
+DaniC1994: posts small blind 1750
+Skaloo: posts big blind 3500
+*** HOLE CARDS ***
+OHMYRIVER: raises 35406.50 to 38906.50 and is all-in
+INCREDULOMARISA: folds
+StillDontKnowMyname: folds
+flikkflakk: folds
+MatiAA: folds
+DaniC1994: raises 25094.24 to 64000.74 and is all-in
+Skaloo: calls 60500.74
+*** FLOP *** [5d 9s 4h]
+*** TURN *** [5d 9s 4h] [2h]
+*** RIVER *** [5d 9s 4h 2h] [Js]
+DaniC1994: shows [Td Tc Ac Kd] ()
+Skaloo: shows [5c 6c] (Pair: Pair of 5)
+OHMYRIVER: shows [Td Tc] (Pair: Pair of T)
+OHMYRIVER collected 120394.50
+Skaloo collected 50188.48
+*** SUMMARY ***
+Total pot 170582.98 | Rake 0
+Board [ 5d 9s 4h 2h Js ]
+Game ended: 2026/05/12 20:02:33 GMT
+Seat 1: OHMYRIVER showed [ Td Tc ] and won (120394.50) with Pair: Pair of T
+Seat 2: INCREDULOMARISA folded before the flop
+Seat 3: StillDontKnowMyname folded before the flop
+Seat 4: flikkflakk folded before the flop
+Seat 5: MatiAA folded before the flop
+Seat 6: DaniC1994 (small blind) showed [ Td Tc Ac Kd ] and lost with 
+Seat 7: Skaloo (small blind) showed [ 5c 6c ] and won (50188.48) with Pair: Pair of 5
+
+
+PokerStars Hand #4802760141: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/12 20:50:15 GMT
+Table '480276' 7-max Seat #5 is the button
+Seat 1: VisaElectron (88847 in chips)
+Seat 2: DaniC1994 (180600 in chips)
+Seat 3: DaddyDonkeyDick (137061.31 in chips)
+Seat 4: ModesTTo (433142.12 in chips)
+Seat 5: Swann97 (99250 in chips)
+Seat 6: Iveybluffallin (364701.22 in chips)
+Seat 7: Sheepsyou (496143.04 in chips)
+VisaElectron: posts the ante 1200
+DaniC1994: posts the ante 1200
+DaddyDonkeyDick: posts the ante 1200
+ModesTTo: posts the ante 1200
+Swann97: posts the ante 1200
+Iveybluffallin: posts the ante 1200
+Sheepsyou: posts the ante 1200
+Iveybluffallin: posts small blind 4000
+Sheepsyou: posts big blind 8000
+*** HOLE CARDS ***
+VisaElectron: folds
+DaniC1994: raises 8800 to 16800
+DaddyDonkeyDick: folds
+ModesTTo: folds
+Swann97: folds
+Iveybluffallin: calls 12800
+Sheepsyou: folds
+*** FLOP *** [7d 8s 8h]
+Iveybluffallin: checks
+DaniC1994: bets 12500
+Iveybluffallin: folds
+Uncalled bet (12500) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 50000
+*** SUMMARY ***
+Total pot 50000 | Rake 0
+Board [ 7d 8s 8h ]
+Game ended: 2026/05/12 20:51:29 GMT
+Seat 1: VisaElectron folded before the flop
+Seat 2: DaniC1994 collected (50000)
+Seat 3: DaddyDonkeyDick folded before the flop
+Seat 4: ModesTTo folded before the flop
+Seat 5: Swann97 folded before the flop
+Seat 6: Iveybluffallin (small blind) folded on the Flop
+Seat 7: Sheepsyou (small blind) folded before the flop
+
+
+PokerStars Hand #4802760144: Tournament #50130, WPM#11H $320 CoinHunter Special PKO Hold'em No Limit - Level II (4000/8000 - Ante 1200) - 2026/05/12 20:53:45 GMT
+Table '480276' 7-max Seat #1 is the button
+Seat 1: VisaElectron (73247 in chips)
+Seat 2: DaniC1994 (202200 in chips)
+Seat 3: DaddyDonkeyDick (214261.31 in chips)
+Seat 4: ModesTTo (429542.12 in chips)
+Seat 5: Swann97 (95650 in chips)
+Seat 6: Iveybluffallin (344301.22 in chips)
+Seat 7: Sheepsyou (440543.04 in chips)
+VisaElectron: posts the ante 1200
+DaniC1994: posts the ante 1200
+DaddyDonkeyDick: posts the ante 1200
+ModesTTo: posts the ante 1200
+Swann97: posts the ante 1200
+Iveybluffallin: posts the ante 1200
+Sheepsyou: posts the ante 1200
+DaniC1994: posts small blind 4000
+DaddyDonkeyDick: posts big blind 8000
+*** HOLE CARDS ***
+ModesTTo: raises 8000 to 16000
+Swann97: folds
+Iveybluffallin: folds
+Sheepsyou: calls 16000
+VisaElectron: folds
+DaniC1994: raises 185000 to 201000 and is all-in
+DaddyDonkeyDick: folds
+ModesTTo: folds
+Sheepsyou: calls 185000
+*** FLOP *** [Qc 4c 9h]
+*** TURN *** [Qc 4c 9h] [Td]
+*** RIVER *** [Qc 4c 9h Td] [Ac]
+DaniC1994: shows [8h 8d] ()
+Sheepsyou: shows [As Qh] (Two Pair: Pair of A and Q)
+Sheepsyou collected 434400
+*** SUMMARY ***
+Total pot 434400 | Rake 0
+Board [ Qc 4c 9h Td Ac ]
+Game ended: 2026/05/12 20:54:56 GMT
+Seat 1: VisaElectron folded before the flop
+Seat 2: DaniC1994 (small blind) showed [ 8h 8d ] and lost with 
+Seat 3: DaddyDonkeyDick (small blind) folded before the flop
+Seat 4: ModesTTo folded before the flop
+Seat 5: Swann97 folded before the flop
+Seat 6: Iveybluffallin folded before the flop
+Seat 7: Sheepsyou showed [ As Qh ] and won (434400) with Two Pair: Pair of A and Q
+
+

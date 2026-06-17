@@ -1,0 +1,224 @@
+PokerStars Hand #383598311: Tournament #1446112, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/13 17:30:02 GMT
+Table '4' 7-max Seat #5 is the button
+Seat 1: Rycka (11837 in chips, 18750 bounty)
+Seat 2: GoldenCoin (24914 in chips, 12500 bounty)
+Seat 3: BigRandom111 (14118 in chips, 12500 bounty)
+Seat 5: DaniC1994 (13305 in chips, 18750 bounty)
+Seat 6: ToShine (12500 in chips, 12500 bounty)
+Seat 7: Laurentisdead (5935 in chips, 12500 bounty)
+Rycka: posts the ante 38
+GoldenCoin: posts the ante 38
+BigRandom111: posts the ante 38
+DaniC1994: posts the ante 38
+ToShine: posts the ante 38
+Laurentisdead: posts the ante 38
+ToShine: posts small blind 125
+Laurentisdead: posts big blind 250
+*** HOLE CARDS ***
+Rycka: raises 250 to 500
+GoldenCoin: folds
+BigRandom111: folds
+DaniC1994: calls 500
+ToShine: calls 375
+Laurentisdead: folds
+*** FLOP *** [5c 5d Td]
+ToShine: checks
+Rycka: bets 692
+DaniC1994: raises 1384 to 2076
+ToShine: folds
+Rycka: calls 1384
+*** TURN *** [5c 5d Td] [Kh]
+Rycka: checks
+DaniC1994: checks
+*** RIVER *** [5c 5d Td Kh] [Kc]
+Rycka: checks
+DaniC1994: checks
+*** SHOW DOWN ***
+Rycka: shows [Th Ts] (a full house, Tens over Kings)
+DaniC1994: mucks hand
+Rycka collected 6130 from pot
+*** SUMMARY ***
+Total pot 6130 | Rake 0
+Board [ 5c 5d Td Kh Kc ]
+Game ended: 2026/02/13 17:31:27 GMT
+Seat 1: Rycka showed [Th Ts] and won (6130) with a full house, Tens over Kings
+Seat 2: GoldenCoin folded before Flop
+Seat 3: BigRandom111 folded before Flop
+Seat 5: DaniC1994 (button) mucked
+Seat 6: ToShine (small blind) folded on the Flop
+Seat 7: Laurentisdead (big blind) folded before Flop
+
+
+PokerStars Hand #383599089: Tournament #1446112, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/13 17:31:27 GMT
+Table '4' 7-max Seat #6 is the button
+Seat 1: Rycka (15353 in chips, 18750 bounty)
+Seat 2: GoldenCoin (24876 in chips, 12500 bounty)
+Seat 3: BigRandom111 (14080 in chips, 12500 bounty)
+Seat 5: DaniC1994 (10691 in chips, 18750 bounty)
+Seat 6: ToShine (11962 in chips, 12500 bounty)
+Seat 7: Laurentisdead (5647 in chips, 12500 bounty)
+Rycka: posts the ante 38
+GoldenCoin: posts the ante 38
+BigRandom111: posts the ante 38
+DaniC1994: posts the ante 38
+ToShine: posts the ante 38
+Laurentisdead: posts the ante 38
+Laurentisdead: posts small blind 125
+Rycka: posts big blind 250
+*** HOLE CARDS ***
+GoldenCoin: raises 300 to 550
+BigRandom111: folds
+DaniC1994: folds
+ToShine: folds
+Laurentisdead: folds
+Rycka: folds
+Uncalled bet (300) returned to GoldenCoin
+GoldenCoin collected 853 from pot
+GoldenCoin: doesn't show hand
+*** SUMMARY ***
+Total pot 853 | Rake 0
+Board [ ]
+Game ended: 2026/02/13 17:32:09 GMT
+Seat 1: Rycka (big blind) folded before Flop
+Seat 2: GoldenCoin collected (853)
+Seat 3: BigRandom111 folded before Flop
+Seat 5: DaniC1994 folded before Flop
+Seat 6: ToShine (button) folded before Flop
+Seat 7: Laurentisdead (small blind) folded before Flop
+
+
+PokerStars Hand #383599529: Tournament #1446112, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/13 17:32:10 GMT
+Table '4' 7-max Seat #7 is the button
+Seat 1: Rycka (15065 in chips, 18750 bounty)
+Seat 2: GoldenCoin (25441 in chips, 12500 bounty)
+Seat 3: BigRandom111 (14042 in chips, 12500 bounty)
+Seat 5: DaniC1994 (10653 in chips, 18750 bounty)
+Seat 6: ToShine (11924 in chips, 12500 bounty)
+Seat 7: Laurentisdead (5484 in chips, 12500 bounty)
+Rycka: posts the ante 38
+GoldenCoin: posts the ante 38
+BigRandom111: posts the ante 38
+DaniC1994: posts the ante 38
+ToShine: posts the ante 38
+Laurentisdead: posts the ante 38
+Rycka: posts small blind 125
+GoldenCoin: posts big blind 250
+*** HOLE CARDS ***
+BigRandom111: folds
+DaniC1994: raises 275 to 525
+ToShine: raises 1150 to 1675
+Laurentisdead: folds
+Rycka: folds
+GoldenCoin: folds
+DaniC1994: folds
+Uncalled bet (1150) returned to ToShine
+ToShine collected 1653 from pot
+ToShine: doesn't show hand
+*** SUMMARY ***
+Total pot 1653 | Rake 0
+Board [ ]
+Game ended: 2026/02/13 17:32:54 GMT
+Seat 1: Rycka (small blind) folded before Flop
+Seat 2: GoldenCoin (big blind) folded before Flop
+Seat 3: BigRandom111 folded before Flop
+Seat 5: DaniC1994 folded before Flop
+Seat 6: ToShine collected (1653)
+Seat 7: Laurentisdead (button) folded before Flop
+
+
+PokerStars Hand #383599906: Tournament #1446112, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/13 17:32:55 GMT
+Table '4' 7-max Seat #1 is the button
+Seat 1: Rycka (14902 in chips, 18750 bounty)
+Seat 2: GoldenCoin (25153 in chips, 12500 bounty)
+Seat 3: BigRandom111 (14004 in chips, 12500 bounty)
+Seat 4: membachewbacca (13404 in chips, 12500 bounty)
+Seat 5: DaniC1994 (10090 in chips, 18750 bounty)
+Seat 6: ToShine (13014 in chips, 12500 bounty)
+Seat 7: Laurentisdead (5446 in chips, 12500 bounty)
+Rycka: posts the ante 38
+GoldenCoin: posts the ante 38
+BigRandom111: posts the ante 38
+membachewbacca: posts the ante 38
+DaniC1994: posts the ante 38
+ToShine: posts the ante 38
+Laurentisdead: posts the ante 38
+GoldenCoin: posts small blind 125
+BigRandom111: posts big blind 250
+*** HOLE CARDS ***
+membachewbacca: folds
+DaniC1994: folds
+ToShine: raises 300 to 550
+Laurentisdead: folds
+Rycka: folds
+GoldenCoin: calls 425
+BigRandom111: calls 300
+*** FLOP *** [9s 9d 7h]
+GoldenCoin: checks
+BigRandom111: checks
+ToShine: bets 632
+GoldenCoin: raises 1257 to 1889
+BigRandom111: folds
+ToShine: folds
+Uncalled bet (1257) returned to GoldenCoin
+GoldenCoin collected 3180 from pot
+GoldenCoin: doesn't show hand
+*** SUMMARY ***
+Total pot 3180 | Rake 0
+Board [ 9s 9d 7h ]
+Game ended: 2026/02/13 17:34:32 GMT
+Seat 1: Rycka (button) folded before Flop
+Seat 2: GoldenCoin (small blind) collected (3180)
+Seat 3: BigRandom111 (big blind) folded on the Flop
+Seat 4: membachewbacca folded before Flop
+Seat 5: DaniC1994 folded before Flop
+Seat 6: ToShine folded on the Flop
+Seat 7: Laurentisdead folded before Flop
+
+
+PokerStars Hand #383601025: Tournament #1446112, ₮250 CoinHunter HR PKO Hold'em No Limit - Level X (125/250) - 2026/02/13 17:34:33 GMT
+Table '4' 7-max Seat #2 is the button
+Seat 1: Rycka (14864 in chips, 18750 bounty)
+Seat 2: GoldenCoin (27113 in chips, 12500 bounty)
+Seat 3: BigRandom111 (13416 in chips, 12500 bounty)
+Seat 4: membachewbacca (13366 in chips, 12500 bounty)
+Seat 5: DaniC1994 (10052 in chips, 18750 bounty)
+Seat 6: ToShine (11794 in chips, 12500 bounty)
+Seat 7: Laurentisdead (5408 in chips, 12500 bounty)
+Rycka: posts the ante 38
+GoldenCoin: posts the ante 38
+BigRandom111: posts the ante 38
+membachewbacca: posts the ante 38
+DaniC1994: posts the ante 38
+ToShine: posts the ante 38
+Laurentisdead: posts the ante 38
+BigRandom111: posts small blind 125
+membachewbacca: posts big blind 250
+*** HOLE CARDS ***
+DaniC1994: folds
+ToShine: raises 300 to 550
+Laurentisdead: folds
+Rycka: folds
+GoldenCoin: folds
+BigRandom111: folds
+membachewbacca: calls 300
+*** FLOP *** [9h Kd 6d]
+membachewbacca: checks
+ToShine: bets 492
+membachewbacca: raises 989 to 1481
+ToShine: folds
+Uncalled bet (989) returned to membachewbacca
+membachewbacca collected 2475 from pot
+membachewbacca: doesn't show hand
+*** SUMMARY ***
+Total pot 2475 | Rake 0
+Board [ 9h Kd 6d ]
+Game ended: 2026/02/13 17:35:52 GMT
+Seat 1: Rycka folded before Flop
+Seat 2: GoldenCoin (button) folded before Flop
+Seat 3: BigRandom111 (small blind) folded before Flop
+Seat 4: membachewbacca (big blind) collected (2475)
+Seat 5: DaniC1994 folded before Flop
+Seat 6: ToShine folded on the Flop
+Seat 7: Laurentisdead folded before Flop
+
+

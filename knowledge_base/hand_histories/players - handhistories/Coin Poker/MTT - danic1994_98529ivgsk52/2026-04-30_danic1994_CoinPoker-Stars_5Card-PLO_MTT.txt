@@ -1,0 +1,1698 @@
+PokerStars Hand #3671670247: Tournament #51724, $33 Rainmaker Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:09:53 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (323249.26 in chips)
+Seat 2: DaniC1994 (212150.01 in chips)
+Seat 4: croutonsalad (309502.57 in chips)
+Seat 6: PinathGelin (185098.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+PinathGelin: posts small blind 5000
+Cachorrocururu: posts big blind 10000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: folds
+PinathGelin: calls 5000
+Cachorrocururu: raises 18750 to 28750
+PinathGelin: calls 18750
+*** FLOP *** [Ts 7d 8s]
+PinathGelin: bets 15625
+Cachorrocururu: calls 15625
+*** TURN *** [Ts 7d 8s] [4d]
+PinathGelin: bets 51562.50
+Cachorrocururu: folds
+Uncalled bet (51562.50) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 93750
+*** SUMMARY ***
+Total pot 93750 | Rake 0
+Board [ Ts 7d 8s 4d ]
+Game ended: 2026/04/30 00:11:41 GMT
+Seat 1: Cachorrocururu (small blind) folded on the Turn
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) collected (93750)
+
+
+PokerStars Hand #3671670265: Tournament #51724, $33 Rainmaker Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:22:29 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (305374.26 in chips)
+Seat 2: DaniC1994 (169650.01 in chips)
+Seat 4: croutonsalad (414002.57 in chips)
+Seat 6: PinathGelin (140973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+DaniC1994: posts small blind 6000
+croutonsalad: posts big blind 12000
+*** HOLE CARDS ***
+PinathGelin: raises 90000 to 102000
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: folds
+Uncalled bet (90000) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 36000
+*** SUMMARY ***
+Total pot 36000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:23:00 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin collected (36000)
+
+
+PokerStars Hand #3671670262: Tournament #51726, $320 Rainmaker HR Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:20:22 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (303874.26 in chips)
+Seat 2: DaniC1994 (186150.01 in chips)
+Seat 4: croutonsalad (364502.57 in chips)
+Seat 6: PinathGelin (175473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+croutonsalad: posts small blind 6000
+PinathGelin: posts big blind 12000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: calls 6000
+PinathGelin: checks
+*** FLOP *** [Ah 4d 2h]
+croutonsalad: bets 12000
+PinathGelin: calls 12000
+*** TURN *** [Ah 4d 2h] [Kd]
+croutonsalad: bets 36000
+PinathGelin: folds
+Uncalled bet (36000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 54000
+*** SUMMARY ***
+Total pot 54000 | Rake 0
+Board [ Ah 4d 2h Kd ]
+Game ended: 2026/04/30 00:21:40 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (54000)
+Seat 6: PinathGelin (small blind) folded on the Turn
+
+
+PokerStars Hand #3671670241: Tournament #51673, $77 El Clsico Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:05:06 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (389249.26 in chips)
+Seat 2: DaniC1994 (238150.01 in chips)
+Seat 4: croutonsalad (199502.57 in chips)
+Seat 6: PinathGelin (203098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+DaniC1994: posts small blind 4000
+croutonsalad: posts big blind 8000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: raises 8000 to 16000
+DaniC1994: folds
+croutonsalad: raises 182502.57 to 198502.57 and is all-in
+Cachorrocururu: folds
+Uncalled bet (182502.57) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 40000
+*** SUMMARY ***
+Total pot 40000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:05:48 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (40000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670234: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (3500/7000 - Ante 875) - 2026/04/30 00:00:58 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (388374.26 in chips)
+Seat 2: DaniC1994 (309924.09 in chips)
+Seat 4: croutonsalad (260027.57 in chips)
+Seat 6: PinathGelin (71674.08 in chips)
+Cachorrocururu: posts the ante 875
+DaniC1994: posts the ante 875
+croutonsalad: posts the ante 875
+PinathGelin: posts the ante 875
+croutonsalad: posts small blind 3500
+PinathGelin: posts big blind 7000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: folds
+Uncalled bet (3500) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 10500
+*** SUMMARY ***
+Total pot 10500 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:01:21 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin (small blind) collected (10500)
+
+
+PokerStars Hand #3671670235: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (3500/7000 - Ante 875) - 2026/04/30 00:01:22 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (387499.26 in chips)
+Seat 2: DaniC1994 (309049.09 in chips)
+Seat 4: croutonsalad (255652.57 in chips)
+Seat 6: PinathGelin (77799.08 in chips)
+Cachorrocururu: posts the ante 875
+DaniC1994: posts the ante 875
+croutonsalad: posts the ante 875
+PinathGelin: posts the ante 875
+PinathGelin: posts small blind 3500
+Cachorrocururu: posts big blind 7000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (3500) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 10500
+*** SUMMARY ***
+Total pot 10500 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:01:51 GMT
+Seat 1: Cachorrocururu (small blind) collected (10500)
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670236: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (3500/7000 - Ante 875) - 2026/04/30 00:01:52 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (393624.26 in chips)
+Seat 2: DaniC1994 (308174.09 in chips)
+Seat 4: croutonsalad (254777.57 in chips)
+Seat 6: PinathGelin (73424.08 in chips)
+Cachorrocururu: posts the ante 875
+DaniC1994: posts the ante 875
+croutonsalad: posts the ante 875
+PinathGelin: posts the ante 875
+Cachorrocururu: posts small blind 3500
+DaniC1994: posts big blind 7000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: raises 45500 to 52500
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (45500) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 21000
+*** SUMMARY ***
+Total pot 21000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:02:29 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin collected (21000)
+
+
+PokerStars Hand #3671670237: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:02:30 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (389249.26 in chips)
+Seat 2: DaniC1994 (300299.09 in chips)
+Seat 4: croutonsalad (253902.57 in chips)
+Seat 6: PinathGelin (86549.08 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+DaniC1994: posts small blind 4000
+croutonsalad: posts big blind 8000
+*** HOLE CARDS ***
+PinathGelin: raises 52000 to 60000
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: folds
+Uncalled bet (52000) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 24000
+*** SUMMARY ***
+Total pot 24000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:02:51 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin collected (24000)
+
+
+PokerStars Hand #3671670239: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:03:41 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (387249.26 in chips)
+Seat 2: DaniC1994 (193750.01 in chips)
+Seat 4: croutonsalad (239902.57 in chips)
+Seat 6: PinathGelin (209098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+PinathGelin: posts small blind 4000
+Cachorrocururu: posts big blind 8000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (4000) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 12000
+*** SUMMARY ***
+Total pot 12000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:03:56 GMT
+Seat 1: Cachorrocururu (small blind) collected (12000)
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670240: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:03:56 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (394249.26 in chips)
+Seat 2: DaniC1994 (192750.01 in chips)
+Seat 4: croutonsalad (238902.57 in chips)
+Seat 6: PinathGelin (204098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+Cachorrocururu: posts small blind 4000
+DaniC1994: posts big blind 8000
+*** HOLE CARDS ***
+croutonsalad: raises 8000 to 16000
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: calls 8000
+*** FLOP *** [9s 7d Ts]
+DaniC1994: checks
+croutonsalad: checks
+*** TURN *** [9s 7d Ts] [As]
+DaniC1994: checks
+croutonsalad: bets 22400
+DaniC1994: calls 22400
+*** RIVER *** [9s 7d Ts As] [Jh]
+DaniC1994: checks
+croutonsalad: checks
+DaniC1994: shows [8d] (Straight: J high)
+croutonsalad: mucks hand
+DaniC1994 collected 84800
+*** SUMMARY ***
+Total pot 84800 | Rake 0
+Board [ 9s 7d Ts As Jh ]
+Game ended: 2026/04/30 00:05:05 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) showed [ 8d ] and won (84800) with Straight: J high
+Seat 4: croutonsalad mucked
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670242: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:05:48 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (372249.26 in chips)
+Seat 2: DaniC1994 (233150.01 in chips)
+Seat 4: croutonsalad (222502.57 in chips)
+Seat 6: PinathGelin (202098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+croutonsalad: posts small blind 4000
+PinathGelin: posts big blind 8000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: raises 16000 to 24000
+PinathGelin: folds
+Uncalled bet (16000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 20000
+*** SUMMARY ***
+Total pot 20000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:06:15 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (20000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670243: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:06:16 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (371249.26 in chips)
+Seat 2: DaniC1994 (232150.01 in chips)
+Seat 4: croutonsalad (233502.57 in chips)
+Seat 6: PinathGelin (193098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+PinathGelin: posts small blind 4000
+Cachorrocururu: posts big blind 8000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: folds
+PinathGelin: raises 16000 to 24000
+Cachorrocururu: folds
+Uncalled bet (16000) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 20000
+*** SUMMARY ***
+Total pot 20000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:06:40 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) collected (20000)
+
+
+PokerStars Hand #3671670245: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:07:13 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (357249.26 in chips)
+Seat 2: DaniC1994 (222150.01 in chips)
+Seat 4: croutonsalad (247502.57 in chips)
+Seat 6: PinathGelin (203098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+DaniC1994: posts small blind 4000
+croutonsalad: posts big blind 8000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: calls 4000
+croutonsalad: raises 24000 to 32000
+DaniC1994: folds
+Uncalled bet (24000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 20000
+*** SUMMARY ***
+Total pot 20000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:07:54 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (20000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670246: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:07:55 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (356249.26 in chips)
+Seat 2: DaniC1994 (213150.01 in chips)
+Seat 4: croutonsalad (258502.57 in chips)
+Seat 6: PinathGelin (202098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+croutonsalad: posts small blind 4000
+PinathGelin: posts big blind 8000
+*** HOLE CARDS ***
+Cachorrocururu: raises 8000 to 16000
+DaniC1994: folds
+croutonsalad: calls 12000
+PinathGelin: calls 8000
+*** FLOP *** [9s 7s Kd]
+croutonsalad: checks
+PinathGelin: checks
+Cachorrocururu: bets 16000
+croutonsalad: calls 16000
+PinathGelin: folds
+*** TURN *** [9s 7s Kd] [Jd]
+croutonsalad: checks
+Cachorrocururu: checks
+*** RIVER *** [9s 7s Kd Jd] [3d]
+croutonsalad: bets 27200
+Cachorrocururu: folds
+Uncalled bet (27200) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 84000
+*** SUMMARY ***
+Total pot 84000 | Rake 0
+Board [ 9s 7s Kd Jd 3d ]
+Game ended: 2026/04/30 00:09:52 GMT
+Seat 1: Cachorrocururu folded on the River
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (84000)
+Seat 6: PinathGelin (small blind) folded on the Flop
+
+
+PokerStars Hand #3671670248: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:11:42 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (277624.26 in chips)
+Seat 2: DaniC1994 (210900.01 in chips)
+Seat 4: croutonsalad (308252.57 in chips)
+Seat 6: PinathGelin (233223.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+Cachorrocururu: posts small blind 5000
+DaniC1994: posts big blind 10000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: raises 10000 to 20000
+Cachorrocururu: folds
+DaniC1994: calls 10000
+*** FLOP *** [3h 4c 9d]
+DaniC1994: checks
+PinathGelin: bets 12500
+DaniC1994: folds
+Uncalled bet (12500) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 50000
+*** SUMMARY ***
+Total pot 50000 | Rake 0
+Board [ 3h 4c 9d ]
+Game ended: 2026/04/30 00:12:30 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded on the Flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin collected (50000)
+
+
+PokerStars Hand #3671670249: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:12:31 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (271374.26 in chips)
+Seat 2: DaniC1994 (189650.01 in chips)
+Seat 4: croutonsalad (307002.57 in chips)
+Seat 6: PinathGelin (261973.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+DaniC1994: posts small blind 5000
+croutonsalad: posts big blind 10000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: raises 10000 to 20000
+DaniC1994: folds
+croutonsalad: folds
+Uncalled bet (10000) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:12:54 GMT
+Seat 1: Cachorrocururu collected (30000)
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670250: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:12:54 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (290124.26 in chips)
+Seat 2: DaniC1994 (183400.01 in chips)
+Seat 4: croutonsalad (295752.57 in chips)
+Seat 6: PinathGelin (260723.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+croutonsalad: posts small blind 5000
+PinathGelin: posts big blind 10000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: raises 20000 to 30000
+PinathGelin: calls 20000
+*** FLOP *** [6d Jh 6c]
+croutonsalad: bets 15000
+PinathGelin: calls 15000
+*** TURN *** [6d Jh 6c] [Kc]
+croutonsalad: bets 36000
+PinathGelin: calls 36000
+*** RIVER *** [6d Jh 6c Kc] [Ks]
+croutonsalad: bets 212000
+PinathGelin: folds
+Uncalled bet (212000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 167000
+*** SUMMARY ***
+Total pot 167000 | Rake 0
+Board [ 6d Jh 6c Kc Ks ]
+Game ended: 2026/04/30 00:15:11 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (167000)
+Seat 6: PinathGelin (small blind) folded on the River
+
+
+PokerStars Hand #3671670251: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:15:12 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (288874.26 in chips)
+Seat 2: DaniC1994 (182150.01 in chips)
+Seat 4: croutonsalad (380502.57 in chips)
+Seat 6: PinathGelin (178473.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+PinathGelin: posts small blind 5000
+Cachorrocururu: posts big blind 10000
+*** HOLE CARDS ***
+DaniC1994: raises 10000 to 20000
+croutonsalad: folds
+PinathGelin: folds
+Cachorrocururu: raises 267624.26 to 287624.26 and is all-in
+DaniC1994: folds
+Uncalled bet (267624.26) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 50000
+*** SUMMARY ***
+Total pot 50000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:15:40 GMT
+Seat 1: Cachorrocururu (small blind) collected (50000)
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670253: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:16:43 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (311374.26 in chips)
+Seat 2: DaniC1994 (139650.01 in chips)
+Seat 4: croutonsalad (378002.57 in chips)
+Seat 6: PinathGelin (200973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+DaniC1994: posts small blind 6000
+croutonsalad: posts big blind 12000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (6000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 18000
+*** SUMMARY ***
+Total pot 18000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:17:13 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (18000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670254: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:17:14 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (309874.26 in chips)
+Seat 2: DaniC1994 (132150.01 in chips)
+Seat 4: croutonsalad (388502.57 in chips)
+Seat 6: PinathGelin (199473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+croutonsalad: posts small blind 6000
+PinathGelin: posts big blind 12000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: raises 375002.57 to 387002.57 and is all-in
+PinathGelin: folds
+Uncalled bet (375002.57) returned to croutonsalad
+croutonsalad: mucks hand
+croutonsalad collected 0
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:17:39 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (30000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670255: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:17:40 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (308374.26 in chips)
+Seat 2: DaniC1994 (130650.01 in chips)
+Seat 4: croutonsalad (405002.57 in chips)
+Seat 6: PinathGelin (185973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+PinathGelin: posts small blind 6000
+Cachorrocururu: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: raises 12000 to 24000
+PinathGelin: raises 106473.16 to 130473.16
+Cachorrocururu: folds
+croutonsalad: folds
+Uncalled bet (106473.16) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 66000
+*** SUMMARY ***
+Total pot 66000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:18:16 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) collected (66000)
+
+
+PokerStars Hand #3671670256: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:18:17 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (294874.26 in chips)
+Seat 2: DaniC1994 (129150.01 in chips)
+Seat 4: croutonsalad (379502.57 in chips)
+Seat 6: PinathGelin (226473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+Cachorrocururu: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: folds
+Cachorrocururu: raises 264000 to 276000
+DaniC1994: folds
+Uncalled bet (264000) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:18:36 GMT
+Seat 1: Cachorrocururu (small blind) collected (30000)
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670257: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:18:37 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (311374.26 in chips)
+Seat 2: DaniC1994 (115650.01 in chips)
+Seat 4: croutonsalad (378002.57 in chips)
+Seat 6: PinathGelin (224973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+DaniC1994: posts small blind 6000
+croutonsalad: posts big blind 12000
+*** HOLE CARDS ***
+PinathGelin: raises 12000 to 24000
+Cachorrocururu: folds
+DaniC1994: raises 90150.01 to 114150.01 and is all-in
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (90150.01) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 66000
+*** SUMMARY ***
+Total pot 66000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:19:04 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) collected (66000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670259: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:19:23 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (308374.26 in chips)
+Seat 2: DaniC1994 (154650.01 in chips)
+Seat 4: croutonsalad (381002.57 in chips)
+Seat 6: PinathGelin (185973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+PinathGelin: posts small blind 6000
+Cachorrocururu: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (6000) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 18000
+*** SUMMARY ***
+Total pot 18000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:19:34 GMT
+Seat 1: Cachorrocururu (small blind) collected (18000)
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670260: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:19:34 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (318874.26 in chips)
+Seat 2: DaniC1994 (153150.01 in chips)
+Seat 4: croutonsalad (379502.57 in chips)
+Seat 6: PinathGelin (178473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+Cachorrocururu: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: folds
+Cachorrocururu: calls 6000
+DaniC1994: raises 24000 to 36000
+Cachorrocururu: folds
+Uncalled bet (24000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:20:06 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) collected (30000)
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670261: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:20:06 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (305374.26 in chips)
+Seat 2: DaniC1994 (169650.01 in chips)
+Seat 4: croutonsalad (378002.57 in chips)
+Seat 6: PinathGelin (176973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+DaniC1994: posts small blind 6000
+croutonsalad: posts big blind 12000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: raises 156150.01 to 168150.01 and is all-in
+croutonsalad: folds
+Uncalled bet (156150.01) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:20:22 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) collected (30000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670264: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:22:00 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (288874.26 in chips)
+Seat 2: DaniC1994 (183150.01 in chips)
+Seat 4: croutonsalad (415502.57 in chips)
+Seat 6: PinathGelin (142473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+Cachorrocururu: posts small blind 6000
+DaniC1994: posts big blind 12000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: folds
+Cachorrocururu: raises 15600 to 27600
+DaniC1994: folds
+Uncalled bet (15600) returned to Cachorrocururu
+Cachorrocururu: doesn't show hand
+Cachorrocururu collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:22:28 GMT
+Seat 1: Cachorrocururu (small blind) collected (30000)
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670267: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:23:31 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (302124.26 in chips)
+Seat 2: DaniC1994 (188400.01 in chips)
+Seat 4: croutonsalad (391752.57 in chips)
+Seat 6: PinathGelin (147723.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+PinathGelin: posts small blind 7000
+Cachorrocururu: posts big blind 14000
+*** HOLE CARDS ***
+DaniC1994: raises 15400 to 29400
+croutonsalad: folds
+PinathGelin: folds
+Cachorrocururu: folds
+Uncalled bet (15400) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:23:46 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 collected (42000)
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670268: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:23:46 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (286374.26 in chips)
+Seat 2: DaniC1994 (214650.01 in chips)
+Seat 4: croutonsalad (390002.57 in chips)
+Seat 6: PinathGelin (138973.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+Cachorrocururu: posts small blind 7000
+DaniC1994: posts big blind 14000
+*** HOLE CARDS ***
+croutonsalad: raises 14000 to 28000
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (14000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:24:03 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad collected (42000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670269: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:24:04 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (277624.26 in chips)
+Seat 2: DaniC1994 (198900.01 in chips)
+Seat 4: croutonsalad (416252.57 in chips)
+Seat 6: PinathGelin (137223.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+DaniC1994: posts small blind 7000
+croutonsalad: posts big blind 14000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: raises 183150.01 to 197150.01 and is all-in
+croutonsalad: folds
+Uncalled bet (183150.01) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 35000
+*** SUMMARY ***
+Total pot 35000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:24:28 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) collected (35000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670270: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:24:29 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (275874.26 in chips)
+Seat 2: DaniC1994 (218150.01 in chips)
+Seat 4: croutonsalad (400502.57 in chips)
+Seat 6: PinathGelin (135473.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+croutonsalad: posts small blind 7000
+PinathGelin: posts big blind 14000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: raises 14000 to 28000
+croutonsalad: raises 42000 to 70000
+PinathGelin: folds
+DaniC1994: folds
+Uncalled bet (42000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 77000
+*** SUMMARY ***
+Total pot 77000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:24:57 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (77000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670271: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:24:58 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (274124.26 in chips)
+Seat 2: DaniC1994 (188400.01 in chips)
+Seat 4: croutonsalad (447752.57 in chips)
+Seat 6: PinathGelin (119723.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+PinathGelin: posts small blind 7000
+Cachorrocururu: posts big blind 14000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: raises 14000 to 28000
+PinathGelin: folds
+Cachorrocururu: folds
+Uncalled bet (14000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:25:20 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad collected (42000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670272: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:25:21 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (258374.26 in chips)
+Seat 2: DaniC1994 (186650.01 in chips)
+Seat 4: croutonsalad (474002.57 in chips)
+Seat 6: PinathGelin (110973.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+Cachorrocururu: posts small blind 7000
+DaniC1994: posts big blind 14000
+*** HOLE CARDS ***
+croutonsalad: raises 448000 to 462000
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (448000) returned to croutonsalad
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:25:38 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad collected (42000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670273: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:25:38 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (249624.26 in chips)
+Seat 2: DaniC1994 (170900.01 in chips)
+Seat 4: croutonsalad (500252.57 in chips)
+Seat 6: PinathGelin (109223.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+DaniC1994: posts small blind 7000
+croutonsalad: posts big blind 14000
+*** HOLE CARDS ***
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: raises 155150.01 to 169150.01 and is all-in
+croutonsalad: folds
+Uncalled bet (155150.01) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 35000
+*** SUMMARY ***
+Total pot 35000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:25:58 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) collected (35000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670274: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:25:59 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (247874.26 in chips)
+Seat 2: DaniC1994 (190150.01 in chips)
+Seat 4: croutonsalad (484502.57 in chips)
+Seat 6: PinathGelin (107473.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+croutonsalad: posts small blind 7000
+PinathGelin: posts big blind 14000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: raises 14000 to 28000
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (14000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:26:32 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 collected (42000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670275: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:26:33 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (246124.26 in chips)
+Seat 2: DaniC1994 (216400.01 in chips)
+Seat 4: croutonsalad (475752.57 in chips)
+Seat 6: PinathGelin (91723.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+PinathGelin: posts small blind 7000
+Cachorrocururu: posts big blind 14000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: raises 14000 to 28000
+PinathGelin: folds
+Cachorrocururu: folds
+Uncalled bet (14000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:26:47 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad collected (42000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670276: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:26:48 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (230374.26 in chips)
+Seat 2: DaniC1994 (214650.01 in chips)
+Seat 4: croutonsalad (502002.57 in chips)
+Seat 6: PinathGelin (82973.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+Cachorrocururu: posts small blind 7000
+DaniC1994: posts big blind 14000
+*** HOLE CARDS ***
+croutonsalad: raises 341600 to 355600
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (341600) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:27:11 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad collected (42000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670277: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:27:12 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (221624.26 in chips)
+Seat 2: DaniC1994 (198900.01 in chips)
+Seat 4: croutonsalad (528252.57 in chips)
+Seat 6: PinathGelin (81223.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+DaniC1994: posts small blind 7000
+croutonsalad: posts big blind 14000
+*** HOLE CARDS ***
+PinathGelin: raises 56000 to 70000
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: folds
+Uncalled bet (56000) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:27:36 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin collected (42000)
+
+
+PokerStars Hand #3671670278: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:27:37 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (219874.26 in chips)
+Seat 2: DaniC1994 (190150.01 in chips)
+Seat 4: croutonsalad (512502.57 in chips)
+Seat 6: PinathGelin (107473.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+croutonsalad: posts small blind 7000
+PinathGelin: posts big blind 14000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: raises 174400.01 to 188400.01 and is all-in
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (174400.01) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:28:09 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 collected (42000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670279: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:28:10 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (218124.26 in chips)
+Seat 2: DaniC1994 (216400.01 in chips) is sitting out
+Seat 4: croutonsalad (503752.57 in chips)
+Seat 6: PinathGelin (91723.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+PinathGelin: posts small blind 7000
+Cachorrocururu: posts big blind 14000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: raises 75973.16 to 89973.16 and is all-in
+Cachorrocururu: calls 75973.16
+*** FLOP *** [Jh 6d 3c]
+*** TURN *** [Jh 6d 3c] [Tc]
+*** RIVER *** [Jh 6d 3c Tc] [Qs]
+PinathGelin: shows [Qh Qd Kh 5s] ()
+Cachorrocururu: shows [Qh Qd] (Three of a kind: Triplet of Q)
+Cachorrocururu collected 186946.32
+*** SUMMARY ***
+Total pot 186946.32 | Rake 0
+Board [ Jh 6d 3c Tc Qs ]
+Game ended: 2026/04/30 00:28:48 GMT
+Seat 1: Cachorrocururu (small blind) showed [ Qh Qd ] and won (186946.32) with Three of a kind: Triplet of Q
+Seat 2: DaniC1994 mucked
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin (small blind) showed [ Qh Qd Kh 5s ] and lost with 
+
+
+PokerStars Hand #3671670280: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:28:48 GMT
+Table '367167' 7-max Seat #1 is the button
+Seat 1: Cachorrocururu (313347.42 in chips)
+Seat 2: DaniC1994 (214650.01 in chips)
+Seat 4: croutonsalad (502002.57 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+DaniC1994: posts small blind 7000
+croutonsalad: posts big blind 14000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: calls 7000
+croutonsalad: raises 434000 to 448000
+DaniC1994: folds
+Uncalled bet (434000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 33250
+*** SUMMARY ***
+Total pot 33250 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:29:08 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (33250)
+
+
+PokerStars Hand #3671670295: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (8000/16000 - Ante 2000) - 2026/04/30 00:35:48 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (491800.04 in chips)
+Seat 4: croutonsalad (538199.96 in chips)
+DaniC1994: posts the ante 2000
+croutonsalad: posts the ante 2000
+DaniC1994: posts small blind 8000
+croutonsalad: posts big blind 16000
+*** HOLE CARDS ***
+DaniC1994: raises 17600 to 33600
+croutonsalad: calls 17600
+*** FLOP *** [5s 7d Qh]
+croutonsalad: checks
+DaniC1994: bets 23496
+croutonsalad: folds
+Uncalled bet (23496) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 71200
+*** SUMMARY ***
+Total pot 71200 | Rake 0
+Board [ 5s 7d Qh ]
+Game ended: 2026/04/30 00:36:09 GMT
+Seat 2: DaniC1994 (small blind) collected (71200)
+Seat 4: croutonsalad (small blind) folded on the Flop
+
+
+PokerStars Hand #3671670296: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (8000/16000 - Ante 2000) - 2026/04/30 00:36:10 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 2: DaniC1994 (527400.04 in chips)
+Seat 4: croutonsalad (502599.96 in chips)
+DaniC1994: posts the ante 2000
+croutonsalad: posts the ante 2000
+croutonsalad: posts small blind 8000
+DaniC1994: posts big blind 16000
+*** HOLE CARDS ***
+croutonsalad: raises 16000 to 32000
+DaniC1994: calls 16000
+*** FLOP *** [6s 8h Qd]
+DaniC1994: checks
+croutonsalad: checks
+*** TURN *** [6s 8h Qd] [Jc]
+DaniC1994: bets 96722.59
+croutonsalad: folds
+Uncalled bet (96722.59) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 68000
+*** SUMMARY ***
+Total pot 68000 | Rake 0
+Board [ 6s 8h Qd Jc ]
+Game ended: 2026/04/30 00:36:43 GMT
+Seat 2: DaniC1994 (small blind) collected (68000)
+Seat 4: croutonsalad (small blind) folded on the Turn
+
+
+PokerStars Hand #3671670298: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:38:06 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 2: DaniC1994 (442200.04 in chips)
+Seat 4: croutonsalad (587799.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+croutonsalad: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+croutonsalad: folds
+Uncalled bet (10000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 25000
+*** SUMMARY ***
+Total pot 25000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:38:14 GMT
+Seat 2: DaniC1994 (small blind) collected (25000)
+Seat 4: croutonsalad (small blind) folded before the flop
+
+
+PokerStars Hand #3671670299: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:38:14 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (454700.04 in chips)
+Seat 4: croutonsalad (575299.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+DaniC1994: posts small blind 10000
+croutonsalad: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: calls 10000
+croutonsalad: raises 40000 to 60000
+DaniC1994: folds
+Uncalled bet (40000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 45000
+*** SUMMARY ***
+Total pot 45000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:38:35 GMT
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (45000)
+
+
+PokerStars Hand #3671670301: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:39:25 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (272825.04 in chips)
+Seat 4: croutonsalad (757174.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+DaniC1994: posts small blind 10000
+croutonsalad: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: folds
+Uncalled bet (10000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 25000
+*** SUMMARY ***
+Total pot 25000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:39:34 GMT
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad (small blind) collected (25000)
+
+
+PokerStars Hand #3671670302: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:39:34 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 2: DaniC1994 (260325.04 in chips)
+Seat 4: croutonsalad (769674.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+croutonsalad: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+croutonsalad: folds
+Uncalled bet (10000) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 25000
+*** SUMMARY ***
+Total pot 25000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:39:42 GMT
+Seat 2: DaniC1994 (small blind) collected (25000)
+Seat 4: croutonsalad (small blind) folded before the flop
+
+
+PokerStars Hand #3671670303: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:39:42 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (272825.04 in chips)
+Seat 4: croutonsalad (757174.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+DaniC1994: posts small blind 10000
+croutonsalad: posts big blind 20000
+*** HOLE CARDS ***
+DaniC1994: calls 10000
+croutonsalad: checks
+*** FLOP *** [3s 5c 8h]
+croutonsalad: checks
+DaniC1994: bets 20000
+croutonsalad: raises 40000 to 60000
+DaniC1994: raises 190325.04 to 250325.04 and is all-in
+croutonsalad: folds
+Uncalled bet (190325.04) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 165000
+*** SUMMARY ***
+Total pot 165000 | Rake 0
+Board [ 3s 5c 8h ]
+Game ended: 2026/04/30 00:40:10 GMT
+Seat 2: DaniC1994 (small blind) collected (165000)
+Seat 4: croutonsalad (small blind) folded on the Flop
+
+
+PokerStars Hand #3671670304: Tournament #51733, $55 Mega TurboCharger Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:40:10 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 2: DaniC1994 (355325.04 in chips)
+Seat 4: croutonsalad (674674.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+croutonsalad: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+croutonsalad: raises 20000 to 40000
+DaniC1994: raises 60000 to 100000
+croutonsalad: calls 60000
+*** FLOP *** [7c Qc 5c]
+DaniC1994: bets 20500
+croutonsalad: calls 20500
+*** TURN *** [7c Qc 5c] [Ks]
+DaniC1994: checks
+croutonsalad: bets 80000
+DaniC1994: calls 80000
+*** RIVER *** [7c Qc 5c Ks] [Qh]
+DaniC1994: checks
+croutonsalad: bets 164000
+DaniC1994: calls 152325.04 and is all-in
+Uncalled bet (11674.96) returned to croutonsalad
+DaniC1994: shows [Jh Jd] ()
+croutonsalad: shows [Kd] (Two Pair: Pair of K and Q)
+croutonsalad collected 710650.08
+*** SUMMARY ***
+Total pot 710650.08 | Rake 0
+Board [ 7c Qc 5c Ks Qh ]
+Game ended: 2026/04/30 00:41:02 GMT
+Seat 2: DaniC1994 (small blind) showed [ Jh Jd ] and lost with 
+Seat 4: croutonsalad (small blind) showed [ Kd ] and won (710650.08) with Two Pair: Pair of K and Q
+
+
+PokerStars Hand #3671670266: Tournament #51843, $109 Big Kahuna Hold'em No Limit - Level IV (7000/14000 - Ante 1750) - 2026/04/30 00:23:01 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (303874.26 in chips)
+Seat 2: DaniC1994 (162150.01 in chips)
+Seat 4: croutonsalad (400502.57 in chips)
+Seat 6: PinathGelin (163473.16 in chips)
+Cachorrocururu: posts the ante 1750
+DaniC1994: posts the ante 1750
+croutonsalad: posts the ante 1750
+PinathGelin: posts the ante 1750
+croutonsalad: posts small blind 7000
+PinathGelin: posts big blind 14000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: raises 15400 to 29400
+croutonsalad: folds
+PinathGelin: folds
+Uncalled bet (15400) returned to DaniC1994
+DaniC1994: doesn't show hand
+DaniC1994 collected 42000
+*** SUMMARY ***
+Total pot 42000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:23:31 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 collected (42000)
+Seat 4: croutonsalad (small blind) folded before the flop
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670252: Tournament #51753, $109 Americas Special Deepstack Hold'em No Limit - Level IV (5000/10000 - Ante 1250) - 2026/04/30 00:15:41 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (317624.26 in chips)
+Seat 2: DaniC1994 (160900.01 in chips)
+Seat 4: croutonsalad (379252.57 in chips)
+Seat 6: PinathGelin (172223.16 in chips)
+Cachorrocururu: posts the ante 1250
+DaniC1994: posts the ante 1250
+croutonsalad: posts the ante 1250
+PinathGelin: posts the ante 1250
+Cachorrocururu: posts small blind 5000
+DaniC1994: posts big blind 10000
+*** HOLE CARDS ***
+croutonsalad: folds
+PinathGelin: raises 10000 to 20000
+Cachorrocururu: folds
+DaniC1994: calls 10000
+*** FLOP *** [2h Ac Qc]
+DaniC1994: checks
+PinathGelin: bets 12500
+DaniC1994: folds
+Uncalled bet (12500) returned to PinathGelin
+PinathGelin: doesn't show hand
+PinathGelin collected 50000
+*** SUMMARY ***
+Total pot 50000 | Rake 0
+Board [ 2h Ac Qc ]
+Game ended: 2026/04/30 00:16:43 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded on the Flop
+Seat 4: croutonsalad folded before the flop
+Seat 6: PinathGelin collected (50000)
+
+
+PokerStars Hand #3671670258: Tournament #51801, $77 Americas Classic Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:19:04 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 1: Cachorrocururu (309874.26 in chips)
+Seat 2: DaniC1994 (156150.01 in chips)
+Seat 4: croutonsalad (364502.57 in chips)
+Seat 6: PinathGelin (199473.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+croutonsalad: posts small blind 6000
+PinathGelin: posts big blind 12000
+*** HOLE CARDS ***
+Cachorrocururu: folds
+DaniC1994: folds
+croutonsalad: raises 351002.57 to 363002.57 and is all-in
+PinathGelin: folds
+Uncalled bet (351002.57) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 30000
+*** SUMMARY ***
+Total pot 30000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:19:23 GMT
+Seat 1: Cachorrocururu folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad (small blind) collected (30000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670263: Tournament #51801, $77 Americas Classic Hold'em No Limit - Level IV (6000/12000 - Ante 1500) - 2026/04/30 00:21:41 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 1: Cachorrocururu (302374.26 in chips)
+Seat 2: DaniC1994 (184650.01 in chips)
+Seat 4: croutonsalad (393002.57 in chips)
+Seat 6: PinathGelin (149973.16 in chips)
+Cachorrocururu: posts the ante 1500
+DaniC1994: posts the ante 1500
+croutonsalad: posts the ante 1500
+PinathGelin: posts the ante 1500
+PinathGelin: posts small blind 6000
+Cachorrocururu: posts big blind 12000
+*** HOLE CARDS ***
+DaniC1994: folds
+croutonsalad: raises 379502.57 to 391502.57 and is all-in
+PinathGelin: folds
+Cachorrocururu: folds
+Uncalled bet (379502.57) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 36000
+*** SUMMARY ***
+Total pot 36000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:21:59 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 folded before the flop
+Seat 4: croutonsalad collected (36000)
+Seat 6: PinathGelin (small blind) folded before the flop
+
+
+PokerStars Hand #3671670244: Tournament #51664, $55 Wednesday Main Event Hold'em No Limit - Level IV (4000/8000 - Ante 1000) - 2026/04/30 00:06:41 GMT
+Table '367167' 7-max Seat #6 is the button
+Seat 1: Cachorrocururu (362249.26 in chips)
+Seat 2: DaniC1994 (231150.01 in chips)
+Seat 4: croutonsalad (232502.57 in chips)
+Seat 6: PinathGelin (204098.16 in chips)
+Cachorrocururu: posts the ante 1000
+DaniC1994: posts the ante 1000
+croutonsalad: posts the ante 1000
+PinathGelin: posts the ante 1000
+Cachorrocururu: posts small blind 4000
+DaniC1994: posts big blind 8000
+*** HOLE CARDS ***
+croutonsalad: raises 8000 to 16000
+PinathGelin: folds
+Cachorrocururu: folds
+DaniC1994: folds
+Uncalled bet (8000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 24000
+*** SUMMARY ***
+Total pot 24000 | Rake 0
+Board [  ]
+Game ended: 2026/04/30 00:07:13 GMT
+Seat 1: Cachorrocururu (small blind) folded before the flop
+Seat 2: DaniC1994 (small blind) folded before the flop
+Seat 4: croutonsalad collected (24000)
+Seat 6: PinathGelin folded before the flop
+
+
+PokerStars Hand #3671670297: Tournament #51814, $109 Collision PKO Hold'em No Limit - Level IV (8000/16000 - Ante 2000) - 2026/04/30 00:36:44 GMT
+Table '367167' 7-max Seat #2 is the button
+Seat 2: DaniC1994 (561400.04 in chips)
+Seat 4: croutonsalad (468599.96 in chips)
+DaniC1994: posts the ante 2000
+croutonsalad: posts the ante 2000
+DaniC1994: posts small blind 8000
+croutonsalad: posts big blind 16000
+*** HOLE CARDS ***
+DaniC1994: raises 17600 to 33600
+croutonsalad: calls 17600
+*** FLOP *** [7d 9c 3d]
+croutonsalad: checks
+DaniC1994: bets 17800
+croutonsalad: raises 65800 to 83600
+DaniC1994: calls 65800
+*** TURN *** [7d 9c 3d] [8s]
+croutonsalad: checks
+DaniC1994: checks
+*** RIVER *** [7d 9c 3d 8s] [8h]
+croutonsalad: bets 240000
+DaniC1994: folds
+Uncalled bet (240000) returned to croutonsalad
+croutonsalad: doesn't show hand
+croutonsalad collected 238400
+*** SUMMARY ***
+Total pot 238400 | Rake 0
+Board [ 7d 9c 3d 8s 8h ]
+Game ended: 2026/04/30 00:38:05 GMT
+Seat 2: DaniC1994 (small blind) folded on the River
+Seat 4: croutonsalad (small blind) collected (238400)
+
+
+PokerStars Hand #3671670300: Tournament #51814, $109 Collision PKO Hold'em No Limit - Level IV (10000/20000 - Ante 2500) - 2026/04/30 00:38:36 GMT
+Table '367167' 7-max Seat #4 is the button
+Seat 2: DaniC1994 (432200.04 in chips)
+Seat 4: croutonsalad (597799.96 in chips)
+DaniC1994: posts the ante 2500
+croutonsalad: posts the ante 2500
+croutonsalad: posts small blind 10000
+DaniC1994: posts big blind 20000
+*** HOLE CARDS ***
+croutonsalad: raises 20000 to 40000
+DaniC1994: calls 20000
+*** FLOP *** [6d 5d 9d]
+DaniC1994: checks
+croutonsalad: checks
+*** TURN *** [6d 5d 9d] [8s]
+DaniC1994: bets 21250
+croutonsalad: calls 21250
+*** RIVER *** [6d 5d 9d 8s] [9h]
+DaniC1994: bets 95625
+croutonsalad: calls 95625
+DaniC1994: shows [Ks 4h] ()
+croutonsalad: shows [9c Th] (Three of a kind: Triplet of 9)
+croutonsalad collected 318750
+*** SUMMARY ***
+Total pot 318750 | Rake 0
+Board [ 6d 5d 9d 8s 9h ]
+Game ended: 2026/04/30 00:39:25 GMT
+Seat 2: DaniC1994 (small blind) showed [ Ks 4h ] and lost with 
+Seat 4: croutonsalad (small blind) showed [ 9c Th ] and won (318750) with Three of a kind: Triplet of 9
+
+

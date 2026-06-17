@@ -1,0 +1,298 @@
+PokerStars Hand #4558170179: Tournament #53665, $88 Sunday Special Asia Hold'em No Limit - Level II (1750/3500 - Ante 440) - 2026/05/10 15:38:07 GMT
+Table '455817' 7-max Seat #7 is the button
+Seat 1: DaniC1994 (122885.11 in chips)
+Seat 2: YuriDepay (275823.13 in chips)
+Seat 3: buzinote (88965.66 in chips)
+Seat 4: b00tybutt (152261.88 in chips)
+Seat 5: FlukeCones (95276.31 in chips)
+Seat 6: Theobaldo (172815.42 in chips)
+Seat 7: ThinkAllowed (48372.77 in chips)
+DaniC1994: posts the ante 440
+YuriDepay: posts the ante 440
+buzinote: posts the ante 440
+b00tybutt: posts the ante 440
+FlukeCones: posts the ante 440
+Theobaldo: posts the ante 440
+ThinkAllowed: posts the ante 440
+DaniC1994: posts small blind 1750
+YuriDepay: posts big blind 3500
+*** HOLE CARDS ***
+buzinote: folds
+b00tybutt: folds
+FlukeCones: folds
+Theobaldo: folds
+ThinkAllowed: folds
+DaniC1994: calls 1750
+YuriDepay: checks
+*** FLOP *** [6d 2c 5d]
+DaniC1994: checks
+YuriDepay: bets 5040
+DaniC1994: calls 5040
+*** TURN *** [6d 2c 5d] [2h]
+DaniC1994: checks
+YuriDepay: checks
+*** RIVER *** [6d 2c 5d 2h] [Ah]
+DaniC1994: checks
+YuriDepay: checks
+DaniC1994: shows [5c] (Two Pair: Pair of 5 and 2)
+YuriDepay: mucks hand
+DaniC1994 collected 20160
+*** SUMMARY ***
+Total pot 20160 | Rake 0
+Board [ 6d 2c 5d 2h Ah ]
+Game ended: 2026/05/10 15:39:51 GMT
+Seat 1: DaniC1994 (small blind) showed [ 5c ] and won (20160) with Two Pair: Pair of 5 and 2
+Seat 2: YuriDepay (small blind) mucked
+Seat 3: buzinote folded before the flop
+Seat 4: b00tybutt folded before the flop
+Seat 5: FlukeCones folded before the flop
+Seat 6: Theobaldo folded before the flop
+Seat 7: ThinkAllowed folded before the flop
+
+
+PokerStars Hand #4558170180: Tournament #53665, $88 Sunday Special Asia Hold'em No Limit - Level II (1750/3500 - Ante 440) - 2026/05/10 15:39:51 GMT
+Table '455817' 7-max Seat #1 is the button
+Seat 1: DaniC1994 (134065.11 in chips)
+Seat 2: YuriDepay (266843.13 in chips)
+Seat 3: buzinote (88525.66 in chips)
+Seat 4: b00tybutt (151821.88 in chips)
+Seat 5: FlukeCones (94836.31 in chips)
+Seat 6: Theobaldo (172375.42 in chips)
+Seat 7: ThinkAllowed (47932.77 in chips)
+DaniC1994: posts the ante 440
+YuriDepay: posts the ante 440
+buzinote: posts the ante 440
+b00tybutt: posts the ante 440
+FlukeCones: posts the ante 440
+Theobaldo: posts the ante 440
+ThinkAllowed: posts the ante 440
+YuriDepay: posts small blind 1750
+buzinote: posts big blind 3500
+*** HOLE CARDS ***
+b00tybutt: folds
+FlukeCones: folds
+Theobaldo: folds
+ThinkAllowed: folds
+DaniC1994: raises 3850 to 7350
+YuriDepay: raises 21350 to 28700
+buzinote: folds
+DaniC1994: folds
+Uncalled bet (21350) returned to YuriDepay
+YuriDepay: doesn't show hand
+YuriDepay collected 21280
+*** SUMMARY ***
+Total pot 21280 | Rake 0
+Board [  ]
+Game ended: 2026/05/10 15:40:34 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: YuriDepay (small blind) collected (21280)
+Seat 3: buzinote (small blind) folded before the flop
+Seat 4: b00tybutt folded before the flop
+Seat 5: FlukeCones folded before the flop
+Seat 6: Theobaldo folded before the flop
+Seat 7: ThinkAllowed folded before the flop
+
+
+PokerStars Hand #4558170181: Tournament #53665, $88 Sunday Special Asia Hold'em No Limit - Level II (1750/3500 - Ante 440) - 2026/05/10 15:40:34 GMT
+Table '455817' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (126275.11 in chips)
+Seat 2: YuriDepay (280333.13 in chips)
+Seat 3: buzinote (84585.66 in chips)
+Seat 4: b00tybutt (151381.88 in chips)
+Seat 5: FlukeCones (94396.31 in chips)
+Seat 6: Theobaldo (171935.42 in chips)
+Seat 7: ThinkAllowed (47492.77 in chips)
+DaniC1994: posts the ante 440
+YuriDepay: posts the ante 440
+buzinote: posts the ante 440
+b00tybutt: posts the ante 440
+FlukeCones: posts the ante 440
+Theobaldo: posts the ante 440
+ThinkAllowed: posts the ante 440
+buzinote: posts small blind 1750
+b00tybutt: posts big blind 3500
+*** HOLE CARDS ***
+FlukeCones: folds
+Theobaldo: raises 4200 to 7700
+ThinkAllowed: folds
+DaniC1994: folds
+YuriDepay: calls 7700
+buzinote: folds
+b00tybutt: calls 4200
+*** FLOP *** [6h 3s 6s]
+b00tybutt: checks
+Theobaldo: checks
+YuriDepay: bets 9216.90
+b00tybutt: calls 9216.90
+Theobaldo: raises 26810.28 to 36027.18
+YuriDepay: folds
+b00tybutt: calls 26810.28
+*** TURN *** [6h 3s 6s] [7s]
+b00tybutt: checks
+Theobaldo: checks
+*** RIVER *** [6h 3s 6s 7s] [Qd]
+b00tybutt: bets 107214.70 and is all-in
+Theobaldo: folds
+Uncalled bet (107214.70) returned to b00tybutt
+b00tybutt: doesn't show hand
+b00tybutt collected 109201.26
+*** SUMMARY ***
+Total pot 109201.26 | Rake 0
+Board [ 6h 3s 6s 7s Qd ]
+Game ended: 2026/05/10 15:42:11 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: YuriDepay folded on the Flop
+Seat 3: buzinote (small blind) folded before the flop
+Seat 4: b00tybutt (small blind) collected (109201.26)
+Seat 5: FlukeCones folded before the flop
+Seat 6: Theobaldo folded on the River
+Seat 7: ThinkAllowed folded before the flop
+
+
+PokerStars Hand #4610360060: Tournament #53832, $88 Bencb Sunday Champion Hold'em No Limit - Level I (750/1500 - Ante 225) - 2026/05/10 19:15:51 GMT
+Table '461036' 7-max Seat #5 is the button
+Seat 1: WardenVine (83754.44 in chips)
+Seat 2: Brelarsss (36871.32 in chips)
+Seat 3: DaniC1994 (55349.70 in chips)
+Seat 4: JaB0z3 (43379.62 in chips)
+Seat 5: twentysix (215755.59 in chips)
+Seat 6: Hablblbl (95449.38 in chips)
+Seat 7: TakeMyMoneey (293687.09 in chips)
+WardenVine: posts the ante 225
+Brelarsss: posts the ante 225
+DaniC1994: posts the ante 225
+JaB0z3: posts the ante 225
+twentysix: posts the ante 225
+Hablblbl: posts the ante 225
+TakeMyMoneey: posts the ante 225
+Hablblbl: posts small blind 750
+TakeMyMoneey: posts big blind 1500
+*** HOLE CARDS ***
+WardenVine: folds
+Brelarsss: folds
+DaniC1994: raises 1650 to 3150
+JaB0z3: calls 3150
+twentysix: calls 3150
+Hablblbl: raises 13065.75 to 16215.75
+TakeMyMoneey: folds
+DaniC1994: raises 38908.95 to 55124.70 and is all-in
+JaB0z3: folds
+twentysix: raises 38908.95 to 94033.65
+Hablblbl: raises 1190.73 to 95224.38 and is all-in
+twentysix: calls 1190.73
+*** FLOP *** [2s 8d Kc]
+*** TURN *** [2s 8d Kc] [4c]
+*** RIVER *** [2s 8d Kc 4c] [8s]
+Hablblbl: shows [Kh Ad] (Two Pair: Pair of K and 8)
+DaniC1994: shows [Tc Td] ()
+twentysix: shows [Tc Td Ac 2c] ()
+Hablblbl collected 251798.46
+*** SUMMARY ***
+Total pot 251798.46 | Rake 0
+Board [ 2s 8d Kc 4c 8s ]
+Game ended: 2026/05/10 19:17:08 GMT
+Seat 1: WardenVine folded before the flop
+Seat 2: Brelarsss folded before the flop
+Seat 3: DaniC1994 showed [ Tc Td ] and lost with 
+Seat 4: JaB0z3 folded before the flop
+Seat 5: twentysix showed [ Tc Td Ac 2c ] and lost with 
+Seat 6: Hablblbl (small blind) showed [ Kh Ad ] and won (251798.46) with Two Pair: Pair of K and 8
+Seat 7: TakeMyMoneey (small blind) folded before the flop
+
+
+PokerStars Hand #4610320050: Tournament #50026, WPM #30L: $55 MINI MAIN [DAY 1] Hold'em No Limit - Level I (625/1250 - Ante 187) - 2026/05/10 19:07:34 GMT
+Table '461032' 7-max Seat #2 is the button
+Seat 1: DaniC1994 (48037.70 in chips)
+Seat 2: T3G3S (6265.56 in chips)
+Seat 3: coldinparis (97357.88 in chips)
+Seat 4: arjunag (106610.71 in chips)
+Seat 5: JohnnieD47 (50715 in chips)
+Seat 6: OTmachine (122445.17 in chips)
+Seat 7: MaximumValue (76195.23 in chips)
+DaniC1994: posts the ante 187
+T3G3S: posts the ante 187
+coldinparis: posts the ante 187
+arjunag: posts the ante 187
+JohnnieD47: posts the ante 187
+OTmachine: posts the ante 187
+MaximumValue: posts the ante 187
+coldinparis: posts small blind 625
+arjunag: posts big blind 1250
+*** HOLE CARDS ***
+JohnnieD47: folds
+OTmachine: folds
+MaximumValue: raises 1875 to 3125
+DaniC1994: folds
+T3G3S: folds
+coldinparis: folds
+arjunag: folds
+Uncalled bet (1875) returned to MaximumValue
+MaximumValue: doesn't show hand
+MaximumValue collected 4434
+*** SUMMARY ***
+Total pot 4434 | Rake 0
+Board [  ]
+Game ended: 2026/05/10 19:08:08 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: T3G3S folded before the flop
+Seat 3: coldinparis (small blind) folded before the flop
+Seat 4: arjunag (small blind) folded before the flop
+Seat 5: JohnnieD47 folded before the flop
+Seat 6: OTmachine folded before the flop
+Seat 7: MaximumValue collected (4434)
+
+
+PokerStars Hand #4610320038: Tournament #54808, WPM#22 $1,500 CoinMasters BTC HR 1A Hold'em No Limit - Level I (500/1000 - Ante 150) - 2026/05/10 18:46:50 GMT
+Table '461032' 7-max Seat #4 is the button
+Seat 1: DaniC1994 (57963.70 in chips)
+Seat 2: Avalanche77 (34828.15 in chips)
+Seat 3: FRee391 (42426.62 in chips)
+Seat 4: arjunag (51710.53 in chips)
+Seat 5: JohnnieD47 (51275 in chips)
+Seat 6: OTmachine (79267.02 in chips)
+Seat 7: MaximumValue (84055.23 in chips)
+DaniC1994: posts the ante 150
+Avalanche77: posts the ante 150
+FRee391: posts the ante 150
+arjunag: posts the ante 150
+JohnnieD47: posts the ante 150
+OTmachine: posts the ante 150
+MaximumValue: posts the ante 150
+JohnnieD47: posts small blind 500
+OTmachine: posts big blind 1000
+*** HOLE CARDS ***
+MaximumValue: raises 1500 to 2500
+DaniC1994: folds
+Avalanche77: folds
+FRee391: calls 2500
+arjunag: raises 7738.50 to 10238.50
+JohnnieD47: folds
+OTmachine: folds
+MaximumValue: folds
+FRee391: calls 7738.50
+*** FLOP *** [8s 5d Ac]
+FRee391: checks
+arjunag: bets 5871.21
+FRee391: calls 5871.21
+*** TURN *** [8s 5d Ac] [4s]
+FRee391: checks
+arjunag: checks
+*** RIVER *** [8s 5d Ac 4s] [Jd]
+FRee391: bets 26166.91 and is all-in
+arjunag: calls 26166.91
+arjunag: shows [Ah Js] (Two Pair: Pair of A and J)
+FRee391: shows [6h 6d] ()
+arjunag collected 89603.24
+*** SUMMARY ***
+Total pot 89603.24 | Rake 0
+Board [ 8s 5d Ac 4s Jd ]
+Game ended: 2026/05/10 18:48:01 GMT
+Seat 1: DaniC1994 folded before the flop
+Seat 2: Avalanche77 folded before the flop
+Seat 3: FRee391 showed [ 6h 6d ] and lost with 
+Seat 4: arjunag showed [ Ah Js ] and won (89603.24) with Two Pair: Pair of A and J
+Seat 5: JohnnieD47 (small blind) folded before the flop
+Seat 6: OTmachine (small blind) folded before the flop
+Seat 7: MaximumValue folded before the flop
+
+
