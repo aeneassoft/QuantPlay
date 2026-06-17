@@ -13,5 +13,6 @@ ENV PYTHONPATH=/app \
     PYTHONUNBUFFERED=1
 
 # the base image's ENTRYPOINT is the vLLM OpenAI server — override it to run OUR serverless handler loop
+# (handler.py at the repo ROOT = the RunPod convention; its `runpod.serverless.start()` is what the indexer scans for)
 ENTRYPOINT []
-CMD ["python3", "-u", "infra/serverless_handler.py"]
+CMD ["python3", "-u", "handler.py"]
