@@ -32,9 +32,10 @@ def money(chips: int) -> str:
 
 
 # ---- bot deciders (uniform (action, amount) interface) ----
-def hero_decider(seat: int, seed: int):
+def hero_decider(seat: int, seed: int, resolver: bool = False):
     pb = PokerBot(seat, seed=seed, exploit=False)
     pb.value_raise_eq = 0.72
+    pb.use_resolver = resolver        # river GTO re-solve for the targeted A/B (slow ~6s/river decision)
     def d(st):
         pb.hero_idx = seat
         r = pb.decide(st)
@@ -50,13 +51,13 @@ def villain_decider(seat: int, seed: int):
     return d
 
 
-def play_hand(g: HeadsUpGame, hero_seat: int, idx: int):
+def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool = False):
     """Drive one hand to completion; return (holes, history, result, button)."""
     g.players[0].stack = g.players[1].stack = STACK     # cash-game reset to 200bb
     g.start_hand()
     holes = [list(g.players[0].hole), list(g.players[1].hole)]
     button = g.button
-    deciders = {hero_seat: hero_decider(hero_seat, seed=100 + idx),
+    deciders = {hero_seat: hero_decider(hero_seat, seed=100 + idx, resolver=resolver),
                 1 - hero_seat: villain_decider(1 - hero_seat, seed=200 + idx)}
     guard = 0
     while not g.hand_over:
@@ -175,6 +176,8 @@ def main():
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--idbase", type=int, default=BASE_ID)   # offset so GTOW doesn't DEDUP vs a prior upload
     ap.add_argument("--dayoffset", type=int, default=0)      # shift timestamps too (unique hand identity)
+    ap.add_argument("--resolver", action="store_true")       # enable Hero's river GTO re-solver (targeted river A/B)
+    ap.add_argument("--river-only", action="store_true")     # emit only hands that reached the river (river-dense)
     ap.add_argument("--out", default="data/gtow_upload/bot_hands.txt")
     args = ap.parse_args()
 
@@ -185,7 +188,9 @@ def main():
         # (i%2 would track the button in lockstep -> Hero stuck as SB; seat 0 fixed covers both).
         hero_seat = 0
         names = ["Hero" if k == hero_seat else "Villain" for k in (0, 1)]
-        holes, history, result, button = play_hand(g, hero_seat, i)
+        holes, history, result, button = play_hand(g, hero_seat, i, resolver=args.resolver)
+        if args.river_only and len(result["board"]) < 5:
+            continue                                         # not a river hand -> skip (keep the upload river-dense)
         dt = BASE_DT + datetime.timedelta(days=args.dayoffset, minutes=3 * i)
         blocks.append(format_hand(args.idbase + i, dt, names, button, holes, history, result, hero_seat))
 
@@ -193,9 +198,10 @@ def main():
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"WROTE {args.n} hands -> {args.out}  ({len(text)} chars)")
-    print("\n===== FIRST HAND PREVIEW =====\n")
-    print(blocks[0])
+    print(f"WROTE {len(blocks)} of {args.n} played hands -> {args.out}  ({len(text)} chars)")
+    if blocks:
+        print("\n===== FIRST HAND PREVIEW =====\n")
+        print(blocks[0])
 
 
 if __name__ == "__main__":
