@@ -530,6 +530,8 @@ class PokerBot:
             role = "IP" if self._has_initiative(state) else "OOP"
             pb = pf_advisor.p_bet(hole, board, role, "river")
             if pb is not None:
+                if eq >= pf.RIVER_VALUE_FLOOR_EQ:          # value-floor: a clearly-strong final-card hand bets for
+                    pb = max(pb, pf.RIVER_VALUE_BET_FREQ)  # value (no protection concern) -> don't under-bet it
                 r["advisor_pbet_river"] = round(pb, 2)
                 if self.rng.random() < pb:
                     if eq >= pf.VALUE_EQ:
@@ -763,6 +765,9 @@ class PokerBot:
         (modal bet-vs-check at the value/bluff size) when available, else the heuristic; a CHECK baseline for
         marginal/air so the exploit can still ADD fold-equity bets where the floor gives up (without ever
         overriding a good floor bet with a worse size -- safe-by-construction)."""
+        if eq >= pf.RIVER_VALUE_FLOOR_EQ:                  # value-floor: a clearly-strong final-card hand is a value
+            _, sf = self._value_to(pot, fm, "river", hero_committed, hero_stack, eq)   # bet (exploit may upsize on top)
+            return "bet", (sf or 0.66)
         if self.use_river_advisor and pf_advisor.available("river"):
             pb = pf_advisor.p_bet(hole, board, role, "river")
             if pb is None or pb < 0.5:

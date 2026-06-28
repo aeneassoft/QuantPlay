@@ -24,6 +24,15 @@ CANDIDATE_SIZES = [0.33, 0.5, 0.66, 1.0, 1.5, 2.0]
 ONTREE = os.environ.get("POKERB_ONTREE", "1") == "1"
 TREE_SIZES = (0.33, 0.5, 0.75, 1.0, 1.25)            # standard GTOW tree fractions (drops 0.66/1.5/2.0)
 
+# River VALUE-BET FLOOR (POKERB_RIVER_VALUE = the equity threshold, empty/0 = OFF). On the FINAL card a strong made
+# hand has no protection concern, so the river advisor's MEASURED under-betting (checks ~67% of eq>=0.80 river hands
+# = the #1 river leak; GTOW: river 47% perfect / 26% mistake+blunder) only FORGOES value. When enabled, a river hand
+# with eq>=this floor bets at >= RIVER_VALUE_BET_FREQ (a high freq, not 100% -> keep a small check-back for balance)
+# instead of the advisor's low mix. Default OFF -> floor 2.0 (eq never exceeds it) = baseline byte-identical.
+_rvf = os.environ.get("POKERB_RIVER_VALUE", "")
+RIVER_VALUE_FLOOR_EQ = float(_rvf) if _rvf else 2.0
+RIVER_VALUE_BET_FREQ = float(os.environ.get("POKERB_RIVER_VALUE_FREQ", "0.85"))
+
 
 def snap_to_tree(bet_chips: int, pot: int) -> int:
     """Round a bet (chips) to the nearest GTOW-tree pot-fraction; returns the input if pot/bet non-positive."""
