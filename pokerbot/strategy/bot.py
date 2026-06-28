@@ -6,6 +6,7 @@ the transparency panel and the Claude-backed coach.
 """
 from __future__ import annotations
 
+import os
 import random
 
 from pokerbot.engine.cards import hand_class
@@ -73,9 +74,9 @@ class PokerBot:
         self.use_fe_sizing = True      # fold-model value sizing (False -> fixed 0.66-pot; isolates NOTES leak #2)
         self.use_mdf_shade = True      # MDF bluffiness shade (False -> call_thresh = pot-odds req; NOTES leak #3)
         self.use_river_advisor = True  # WS2 river advisor (False -> #40 river heuristic; ablation/A-B hook)
-        self.use_commit_cap = False    # anti-spew: FOLD (not call off) a big stack commitment with a weak made hand
+        self.use_commit_cap = os.environ.get("POKERB_COMMIT_CAP", "0") == "1"   # anti-spew: FOLD a big stack commitment with a weak made hand (env-gated, default OFF = baseline byte-identical)
         self.commit_frac = 0.45        # "big commitment" = call > this fraction of the effective stack
-        self.commit_eq = 0.70          # below this equity, that big commitment is a light stack-off -> fold
+        self.commit_eq = float(os.environ.get("POKERB_COMMIT_EQ", "0.70"))   # below this equity, a big commitment is a light stack-off -> fold (env-tunable)
         self.deep_jam_pct = 0.985      # preflop deep (>14bb) jam/stack-off threshold. Was 0.94 (top 6%) = the
                                        # -385/-527 all-in spew. The Nash consult (gpt-5.5) is explicit: at 200bb fold
                                        # QQ/AK to a full jam (QQ vs KK+ ~18% eq, needs 44% -> -103bb) -> stack off ~AA/KK
@@ -110,6 +111,7 @@ class PokerBot:
             raise ValueError("Not the bot's turn.")
         hero = state["players"][self.hero_idx]
         hole = hero["hole"]
+        self._cur_street = state["street"]            # for _raise_to's POKERB_ONTREE postflop size-snap
         if self.use_deepcfr:                          # our from-scratch HUNL Deep CFR net IS the strategy
             return self._deepcfr(state, hole)
         if state["street"] == "preflop":
@@ -863,6 +865,12 @@ class PokerBot:
         lo, hi = la["raise_min"], la["raise_max"]
         if lo is None:
             return hi
+        # GTO-mode (POKERB_ONTREE): snap a postflop BET onto GTOW's discrete size tree so the spot stays on
+        # GTOW's solution (off-tree exploit-sizing was ~the SRP UNSOLVED driver). Bets only — never jams
+        # (desired>=hi), never raises (is_bet False), never preflop (_cur_street guard).
+        if (pf.ONTREE and getattr(self, "_cur_street", "preflop") in ("flop", "turn", "river")
+                and la.get("is_bet") and la.get("pot", 0) > 0 and int(desired) < hi):
+            desired = pf.snap_to_tree(int(desired), la["pot"])
         return max(lo, min(int(desired), hi))
 
     def _value_to(self, pot, fm, street, hero_committed, hero_stack, eq):

@@ -11,9 +11,27 @@ turns this into an edge.
 from __future__ import annotations
 
 import json
+import os
 
 # candidate bet sizes as a fraction of the pot (overbets included to probe/exploit big-size folds)
 CANDIDATE_SIZES = [0.33, 0.5, 0.66, 1.0, 1.5, 2.0]
+
+# GTO-mode (POKERB_ONTREE, DEFAULT ON since the A/B): snap postflop BETS to GTOW's discrete size tree so the spot
+# stays on GTOW's solution (off-tree variable sizing was the main SRP "UNSOLVED" driver). A/B (1000 hands each +
+# duplicate.py): more on-tree + GTO-score 50.7->53.1 + EV-loss-vs-GTO 22.7->21.2, at NO realized-EV cost
+# (-59.2 vs -60.6 bb/100, inside the noise) -> SHIPPED as default. Set POKERB_ONTREE=0 to restore the variable
+# exploit-sizing (the edge vs very leaky fields; trades GTO-alignment for exploitation).
+ONTREE = os.environ.get("POKERB_ONTREE", "1") == "1"
+TREE_SIZES = (0.33, 0.5, 0.75, 1.0, 1.25)            # standard GTOW tree fractions (drops 0.66/1.5/2.0)
+
+
+def snap_to_tree(bet_chips: int, pot: int) -> int:
+    """Round a bet (chips) to the nearest GTOW-tree pot-fraction; returns the input if pot/bet non-positive."""
+    if pot <= 0 or bet_chips <= 0:
+        return bet_chips
+    frac = bet_chips / pot
+    best = min(TREE_SIZES, key=lambda s: abs(s - frac))
+    return max(1, round(best * pot))
 
 VALUE_EQ = 0.58      # bet for value at/above this equity vs the continuing range
 BLUFF_EQ = 0.38      # only bluff below this equity
