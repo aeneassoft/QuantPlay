@@ -716,7 +716,7 @@ class PokerBot:
             return None
         action, amount = res
         if action in ("bet", "raise") and amount is not None:
-            amount = self._raise_to(la, amount)
+            amount = self._raise_to(la, amount, snap=False)   # resolver's GTO size is exact -> never re-snap (#3)
         r = {"phase": "postflop", "street": "river", "hand": " ".join(hole), "range_conf": round(rconf, 2),
              "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
         return self._mk(action, amount, r, "MVP#2 river resolver: real-time GTO re-solve of the public state.")
@@ -743,7 +743,7 @@ class PokerBot:
             return None
         action, amount = res
         if action in ("bet", "raise") and amount is not None:
-            amount = self._raise_to(la, amount)
+            amount = self._raise_to(la, amount, snap=False)   # resolver's GTO size is exact -> never re-snap (#3)
         r = {"phase": "postflop", "street": "turn", "hand": " ".join(hole), "range_conf": round(rconf, 2),
              "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
         return self._mk(action, amount, r, "MVP#2 turn resolver: real-time GTO re-solve (turn->river) of the public state.")
@@ -861,15 +861,17 @@ class PokerBot:
         return sum(1 for h in state["history"]
                    if h.get("street") == "preflop" and h.get("action") in ("bet", "raise"))
 
-    def _raise_to(self, la: dict, desired: int) -> int:
+    def _raise_to(self, la: dict, desired: int, snap: bool = True) -> int:
         lo, hi = la["raise_min"], la["raise_max"]
         if lo is None:
             return hi
-        # GTO-mode (POKERB_ONTREE): snap a postflop BET onto GTOW's discrete size tree so the spot stays on
-        # GTOW's solution (off-tree exploit-sizing was ~the SRP UNSOLVED driver). Bets only — never jams
-        # (desired>=hi), never raises (is_bet False), never preflop (_cur_street guard).
-        if (pf.ONTREE and getattr(self, "_cur_street", "preflop") in ("flop", "turn", "river")
-                and la.get("is_bet") and la.get("pot", 0) > 0 and int(desired) < hi):
+        # GTO-mode (POKERB_ONTREE): snap a postflop BET onto GTOW's discrete size tree (off-tree exploit-sizing
+        # was ~the SRP UNSOLVED driver). Bets only (is_bet), never preflop (_cur_street). NEVER a jam/huge overbet:
+        # the desired<=2*pot guard fixes the PROVEN bug where a 24x-pot jam (desired<hi because the resolver's eff
+        # != raise_max) got snapped to 1.25x pot. snap=False lets a caller (the GTO resolver) keep its exact size.
+        if (snap and pf.ONTREE and getattr(self, "_cur_street", "preflop") in ("flop", "turn", "river")
+                and la.get("is_bet") and la.get("pot", 0) > 0 and int(desired) < hi
+                and int(desired) <= 2.0 * la["pot"]):
             desired = pf.snap_to_tree(int(desired), la["pot"])
         return max(lo, min(int(desired), hi))
 
