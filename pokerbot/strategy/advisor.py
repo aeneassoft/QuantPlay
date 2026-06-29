@@ -6,6 +6,8 @@ floor) if torch or the model is absent. Each net is street-specific (flop net va
 """
 from __future__ import annotations
 
+import os
+
 from pokerbot import config
 from pokerbot.engine.evaluator import evaluate
 from pokerbot.strategy.features import RANKS, hand_features
@@ -14,9 +16,16 @@ TIERS = ["air", "medium", "strong"]
 TEX = ["high", "low", "connected", "monotone", "paired"]
 BOOLS = ["flush_draw", "backdoor_flush", "nut_flush_blocker", "made_straight", "oesd", "gutshot", "has_draw"]
 _STREETS = ["flop", "turn", "river"]   # defense-advisor street one-hot (matches train_defense_advisor.feat)
-_FILES = {"flop": "advisor.pt", "turn": "turn_advisor.pt", "river": "river_advisor.pt"}
+_FILES = {"flop": "advisor.pt", "turn": "turn_advisor.pt", "river": "river_advisor.pt",
+          "river_la": "river_advisor_la.pt"}
 _NETS: dict = {}
 _TORCH = None
+
+# Line-aware river advisor (POKERB_RIVER_LA, default OFF -> the old river_advisor.pt path = product unchanged). When
+# ON + a pot_type is supplied, p_bet routes the river to river_advisor_la.pt (21-dim: + pot-type one-hot) so it can
+# value-bet correctly per range (the under-value-betting fix; the micro-test: P_bet swings 17%->97% with the range).
+RIVER_LA = os.environ.get("POKERB_RIVER_LA", "0") == "1"
+POT_TYPES = ["srp", "3bet", "4bet"]      # one-hot order — MUST match research/train_river_la.POT_TYPES
 
 
 def _texture(board) -> str:
@@ -65,15 +74,21 @@ def available(street: str = "flop") -> bool:
     return bool(_load(street))
 
 
-def p_bet(hole, board, role, street: str = "flop") -> float | None:
-    """Advisor P(bet) for this hand at the flop (role OOP=donk / IP=c-bet) or turn (OOP=lead / IP=barrel)
-    node; None -> caller falls back to the heuristic floor."""
+def p_bet(hole, board, role, street: str = "flop", pot_type: str | None = None) -> float | None:
+    """Advisor P(bet) for this hand at the flop (OOP=donk / IP=c-bet), turn (OOP=lead / IP=barrel) or river node;
+    None -> caller falls back to the heuristic floor. When RIVER_LA is ON and a pot_type is given, the river routes
+    to the line-aware net river_advisor_la.pt (21-dim: + pot-type one-hot) = the under-value-betting fix."""
+    strength = 1.0 - evaluate(board, hole) / 7462.0
+    f = hand_features(hole, board)
+    if street == "river" and RIVER_LA and pot_type is not None and _load("river_la"):
+        v = _vector(f, role, _texture(board), strength) + [1.0 if pot_type == p else 0.0 for p in POT_TYPES]
+        x = _TORCH.tensor([v], dtype=_TORCH.float32)
+        with _TORCH.no_grad():
+            return float(_load("river_la")(x)[0, 0].item())
     net = _load(street)
     if not net:
         return None
-    f = hand_features(hole, board)
-    x = _TORCH.tensor([_vector(f, role, _texture(board), 1.0 - evaluate(board, hole) / 7462.0)],
-                      dtype=_TORCH.float32)
+    x = _TORCH.tensor([_vector(f, role, _texture(board), strength)], dtype=_TORCH.float32)
     with _TORCH.no_grad():
         return float(net(x)[0, 0].item())
 

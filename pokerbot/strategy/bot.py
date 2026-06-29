@@ -528,7 +528,7 @@ class PokerBot:
         # SELECTION heuristic when present; the #40 bluffcatch (facing a bet) is a disjoint node and stays active.
         if street == "river" and self.use_river_advisor and pf_advisor.available("river"):
             role = "IP" if self._has_initiative(state) else "OOP"
-            pb = pf_advisor.p_bet(hole, board, role, "river")
+            pb = pf_advisor.p_bet(hole, board, role, "river", pot_type=self._pot_type(state))  # line-aware (POKERB_RIVER_LA)
             if pb is not None:
                 if eq >= pf.RIVER_VALUE_FLOOR_EQ:          # value-floor: a clearly-strong final-card hand bets for
                     pb = max(pb, pf.RIVER_VALUE_BET_FREQ)  # value (no protection concern) -> don't under-bet it
@@ -865,6 +865,11 @@ class PokerBot:
     def _preflop_raises(self, state: dict) -> int:
         return sum(1 for h in state["history"]
                    if h.get("street") == "preflop" and h.get("action") in ("bet", "raise"))
+
+    def _pot_type(self, state: dict) -> str | None:
+        """Pot type from the preflop raise count (SRP=1, 3bet=2, 4bet=3); None for limped/5bet+ -> advisor floor.
+        Feeds the line-aware river advisor (pf_advisor.p_bet pot_type=...) so it value-bets per the correct range."""
+        return {1: "srp", 2: "3bet", 3: "4bet"}.get(self._preflop_raises(state))
 
     def _raise_to(self, la: dict, desired: int, snap: bool = True) -> int:
         lo, hi = la["raise_min"], la["raise_max"]
