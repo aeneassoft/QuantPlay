@@ -33,6 +33,16 @@ _ONTREE_RAISES = _gto_flag("POKERB_ONTREE_RAISES", "0") == "1"   # snap postflop
 _GTOW_NOLIMP = _gto_flag("POKERB_GTOW_NOLIMP", "0") == "1"       # SB root: renormalize limp->open/fold (GTOW's
                                                                  # tree has no limp -> limped pots are ungradeable)
 
+# PRINCE v3 (the top-2 over-fold classes from the error prognosis, data/gtow_grades/error_prognosis.json;
+# both default OFF = byte-identical):
+_PAIR_DEFENSE = float(_gto_flag("POKERB_PAIR_DEFENSE", "0"))     # FLOP: we fold PAIRS 59% vs a single c-bet where
+                                                                 # GTOW folds 10% (freq-diff, n>=577 node) — the
+                                                                 # largest confirmed error class (-5 bb/100, ~-2.5
+                                                                 # recoverable). Caps the advisor fold + widens MDF.
+_RIVER_DEFENSE = float(_gto_flag("POKERB_RIVER_DEFENSE", "0"))   # RIVER vs SMALL bets (<=0.6 pot): we continue 47%
+                                                                 # vs MDF 57% and 23% of our folds were AHEAD —
+                                                                 # defend bluffcatchers closer to MDF (-18pp gap).
+
 # PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
 # CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
 # there). OOP first-in on the turn AFTER villain checked back the flop -> boost the advisor's lead frequency by
@@ -527,6 +537,9 @@ class PokerBot:
 
         if to_call > 0:  # ---- facing a bet/raise ----
             req = to_call / (pot + to_call)
+            # v3 shared context: a pair OUR hole participates in + the villain's aggression count this hand
+            hole_pair = hole[0][0] == hole[1][0] or any(hc[0] == b[0] for hc in hole for b in board)
+            v_barrels = self._villain_barrels(state, hero_ip)
             # ---- DEFENSE ADVISOR (MVP C2): solver (fold/call/raise) per hand = the #1-leak fix. Gated to its
             # coverage (flop, where it was trained); samples the GTO mix; raise keeps the anti-spew commitment cap.
             # P6/3b: the defense advisor was trained flop+turn+river but hard-gated to the FLOP (river defense
@@ -538,6 +551,14 @@ class PokerBot:
                 pd = pf_advisor.p_defense(hole, board, "IP" if hero_ip else "OOP", size_faced, street=street)
                 if pd is not None:
                     pf_, pc_, pr_ = pd
+                    # v3 LEVER 1 (PAIR_DEFENSE): vs a SINGLE c-bet <=1 pot with a hole-participating pair, cap the
+                    # advisor's fold at 0.30 (measured: we folded pairs 59% where GTOW folds 10%; the graded
+                    # blunders folded TOP PAIR). The freed mass goes to CALL (never to raise — no new aggression).
+                    if (_PAIR_DEFENSE > 0 and hole_pair and v_barrels <= 1 and size_faced <= 1.0
+                            and pf_ > 0.30):
+                        pc_ += pf_ - 0.30
+                        pf_ = 0.30
+                        r["pair_defense"] = True
                     r.update({"defense_advisor": [round(pf_, 2), round(pc_, 2), round(pr_, 2)],
                               "size_faced": round(size_faced, 2), "required_equity": round(req, 3)})
                     u = self.rng.random()
@@ -568,14 +589,29 @@ class PokerBot:
             # USER-FOUND leak fix: turn check-defense MDF calibration. Facing a small/medium turn STAB with a pair
             # our own hole makes, our eq (computed vs a bluff-stripped narrowed range) over-rates villain -> we
             # folded 44% vs the 33% MDF (probe n=686; weak pairs folded 33.9%). Discount the threshold there.
-            # BUG-HUNT FIXES: (a) best-five 'Pair' includes BOARD pairs -> require a HOLE-card pair (a paired board
-            # promoted pure air into the discount); (b) hero_committed == 0 -> only first-in stabs after we checked,
-            # never turn RAISES of our own bet (a far stronger range than the any-two stab the fix targets).
-            hole_pair = hole[0][0] == hole[1][0] or any(h[0] == b[0] for h in hole for b in board)
+            # (hole_pair excludes board-pairs; hero_committed==0 = stabs only, never raises of our own bet.)
             if (_TURN_DEFENSE > 0 and street == "turn" and hole_pair and hero_committed == 0
                     and to_call / max(1.0, pot - to_call) <= 0.8):
                 call_thresh = max(0.0, call_thresh - _TURN_DEFENSE)
                 r["turn_defense"] = _TURN_DEFENSE
+            # v3 LEVER 1 (MDF side): the FLOP pair over-fold when the defense advisor didn't decide — same class,
+            # same bound: a hole-participating pair vs a SINGLE bet <=1 pot defends wider.
+            if (_PAIR_DEFENSE > 0 and street == "flop" and hole_pair and v_barrels <= 1
+                    and to_call / max(1.0, pot - to_call) <= 1.0):
+                call_thresh = max(0.0, call_thresh - _PAIR_DEFENSE)
+                r["pair_defense_mdf"] = _PAIR_DEFENSE
+            # v3 LEVER 2 (river bluffcatch): vs SMALL river bets (<=0.6 pot) with a bluffcatcher, defend closer to
+            # MDF (we continue 47% vs MDF 57%; 23% of folds were AHEAD; the -18pp gap is worst vs small sizes).
+            # PRECEDENCE: the barrel-discipline danger class (monotone/double-paired vs 2nd+ barrel) keeps its
+            # tightening — this lever explicitly skips those boards.
+            if (_RIVER_DEFENSE > 0 and street == "river" and made != "High Card"
+                    and to_call / max(1.0, pot - to_call) <= 0.6):
+                board_ranks_rd = [b[0] for b in board]
+                danger = tex.get("monotone") or (len(board_ranks_rd) - len(set(board_ranks_rd)) >= 2
+                                                 and v_barrels >= 2)
+                if not danger:
+                    call_thresh = max(0.0, call_thresh - _RIVER_DEFENSE)
+                    r["river_defense"] = _RIVER_DEFENSE
             # PRINCE v2.2 BARREL DISCIPLINE (the stress-suite MDF cluster): facing the villain's 2nd+ barrel of
             # >=0.5 pot on a MONOTONE or DOUBLE-PAIRED board with <= Two Pair, demand extra equity — the tracked
             # range keeps his bluffs alive but repeated big bets on THESE textures are value-heavy (the Kc3h class:
@@ -584,7 +620,7 @@ class PokerBot:
             if (_BARREL_DISCIPLINE > 0 and street in ("turn", "river")
                     and made in ("High Card", "Pair", "Two Pair")
                     and to_call / max(1.0, pot - to_call) >= 0.5
-                    and self._villain_barrels(state, hero_ip) >= 2):
+                    and v_barrels >= 2):
                 board_ranks = [b[0] for b in board]
                 double_paired = len(board_ranks) - len(set(board_ranks)) >= 2
                 if tex.get("monotone") or double_paired:
