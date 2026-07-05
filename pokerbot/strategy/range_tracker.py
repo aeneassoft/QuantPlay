@@ -91,12 +91,15 @@ AUDIT_FIX = _flag("POKERB_AUDIT_FIX", "0") == "1"
 # Mined targets (data/freq_targets/gtow_raise_ranges.json, pooled): jams pooled across streets (n=29 — small,
 # but the classes agree: nutted); normal/huge raises pooled per street (huge folded into normal: river-huge is
 # AIR-heavy 47%, so treating it as normal is the conservative side).
+# LAPLACE-SHRUNK targets (pre-gate update 2026-07-05, OpenAI consult / RESEARCH_SWEEP §1.2): posterior
+# means under Dirichlet(1), t~ = (1+n*f)/(5+n) — matters at the jam mix's n=29 (raw air 0.069 -> 0.088,
+# two-pair+ 0.414 -> 0.382), negligible at the street mixes' n=96-263. Flag still unshipped -> allowed.
 RAISE_MIX = {
-    "flop":  {"air": 0.529, "two-pair+": 0.160, "pair": 0.160, "top-pair": 0.137, "monster": 0.015},
-    "turn":  {"air": 0.333, "two-pair+": 0.271, "pair": 0.188, "top-pair": 0.125, "monster": 0.083},
-    "river": {"two-pair+": 0.350, "air": 0.210, "monster": 0.210, "pair": 0.130, "top-pair": 0.100},
+    "flop":  {"air": 0.522, "two-pair+": 0.160, "pair": 0.160, "top-pair": 0.138, "monster": 0.019},
+    "turn":  {"air": 0.327, "two-pair+": 0.267, "pair": 0.188, "top-pair": 0.129, "monster": 0.089},
+    "river": {"two-pair+": 0.343, "air": 0.210, "monster": 0.210, "pair": 0.133, "top-pair": 0.105},
 }
-RAISE_MIX_JAM = {"two-pair+": 0.414, "monster": 0.207, "pair": 0.172, "top-pair": 0.138, "air": 0.069}
+RAISE_MIX_JAM = {"two-pair+": 0.382, "monster": 0.206, "pair": 0.176, "top-pair": 0.147, "air": 0.088}
 
 
 def _board_at(board: list[str], street: str) -> list[str]:
