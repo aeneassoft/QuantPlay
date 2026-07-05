@@ -577,3 +577,12 @@ harness (same decks across bot versions → leak-free hands cancel) = a low-vari
 **Use this as the change-gate now.** LBR v2 (Bayesian action-consistent range + multi-street best-response) is
 the real ABSOLUTE-exploitability fix — DEFER until a change needs an absolute number (on consolidation phase,
 don't build speculatively).
+
+## Raise-facing-bet is UNMODELED in the range tracker (v3.3 candidate, mechanism-proven 2026-07-05)
+`range_tracker.update` (:215) treats villain's raise/all-in FACING A BET as legality-only — the single most
+range-defining action narrows nothing. Reproduced 30/30: PRINCE calls a turn check-raise-JAM in a 4bet pot with
+K2o second pair ("37% >= MDF 21%") because the 37% is MC equity vs the un-narrowed range; a jam range there is
+nutted (RANK4 cell: 7 hands x -13.8bb = ~-4 bb/100). Fix sketch: on raise-facing-bet, filter villain to the
+top-R% by board strength + a census-calibrated bluff share (R from GTOW's revealed raise frequency at that node
+class, data/freq_targets/gtow_frequencies.json); secondary root = the flat 50% bluffiness shading on jam nodes.
+Gate ladder as usual; ONE lever at a time (v3.2 thin-value is in flight first).
