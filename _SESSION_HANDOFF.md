@@ -6,18 +6,17 @@ honest asymptote of the current architecture −8..−11; ~−10 is the realisti
 count (never GTO-score). Everything ships through the gate ladder: stress → replay → (canary) → paired
 Analyzer grade (user uploads in Chrome) → live smoke. ONE lever family per Analyzer arm. German with the user.**
 
-## ⚠️ PRIORITY 0 — A RUNPOD CPU POD MAY STILL BE RUNNING (BILLING!)
-The previous session fired `python -m infra.export_pod 64 10` (pod `g5rke3x93p7eas`, 64 vCPU, $2.24/hr,
-IP 213.173.111.79 ssh port 37471, started ~22:35 local). It generates FIVE Analyzer arms in parallel
-(`/root/pokerb/hu_{v3fresh,v32,v33,v34,v35}_1500.txt` + `/root/arm_*.log`). The campaign process lived in the
-OLD session — if it died with the session, its atexit-kill may NOT have fired and the pod runs on.
-**FIRST ACTIONS:**
-1. `python -m infra.runpod_run --status` — if no pod: fine, check `data/gtow_upload/pod/` for pulled results.
-2. If the pod is RUNNING: adopt it — `ssh -i C:\Users\hampe\.ssh\pokerb_runpod -p 37471 root@213.173.111.79
-   "ls /root/pokerb/hu_*_1500.txt"`. All 5 files there → scp them to `data/gtow_upload/pod/` + the logs, then
-   **KILL: `python -m infra.runpod_run --kill`** and verify `--status` is empty. Not all done → poll every
-   ~20min (each arm ~4-9h from 22:35); hard budget stop: kill by ~08:30 (10h wall) regardless, pull what exists.
-3. Expected cost: $14-22 total; user budget ~$30. NEVER leave the pod alive unattended.
+## ✅ PRIORITY 0 — RESOLVED: the pod is DEAD (API-confirmed 0 pods, $0 billing). NO pod action needed.
+The 2026-07-05 export-pod campaign FAILED to produce arm files and self-terminated. ROOT CAUSE (baked into
+`infra/export_pod.py` now): the exports ran with the TURN resolver ON -> each 1500-hand export needs ~1500
+live turn TexasSolver solves at ~150s each, ~1 solve/min on a 5-way-shared box = 10-20h/arm, never finishing
+in budget. `--resolver off` only disables the RIVER resolver; the fix is `POKERB_TURN_RESOLVER=0` (now in
+export_pod BASE_ENV). Cost of the failed run: ~$3-4. **The 5 Analyzer arms (fresh v3 anchor + v3.3/v3.4/v3.5,
+v32=refuted) were NEVER generated — this is the open task.** Options for the next session (user picks):
+(a) local overnight generation with POKERB_TURN_RESOLVER=0 (free, ~minutes/arm now that decide() is 12x
+faster + turn solves off; all arms mutually paired vs a fresh turn-off local anchor); (b) one fresh pod via
+the FIXED export_pod (`python -m infra.export_pod 64 8`, now turn-off, ~1-2h, ~$3). Recommend (a) — free,
+and the pod added no value last run. Whichever: pair each arm ONLY against the fresh same-config anchor.
 
 ## THE CURRENT STAND (one paragraph)
 Shipped bot = **PRINCE v3** (`POKERB_PRINCE=1`, commit 85d2919): paired-Analyzer **17.93** vs v2.2's 20.66;
