@@ -46,6 +46,12 @@ def available() -> bool:
 # shapes the solve), so it defaults ON; POKERB_SOLVE_CACHE=0 disables. Biggest payoff in the $0 loops
 # (duplicate.py mirrored decks hit the same boards twice; repeated grading runs re-hit spots).
 _CACHE_ON = os.environ.get("POKERB_SOLVE_CACHE", "1") == "1"
+# RAM/ISO lever (Johanson 2007 §2.5.1, the 'Big RAM CFR' read 2026-07-05; gated POKERB_ISO_CACHE default OFF):
+# suit-relabeled boards define IDENTICAL games, our range strings are CLASS-level (suit-invariant) and tree
+# navigation is by bet labels (suit-free) — so solving the CANONICAL board and permuting hero's hole at lookup
+# collapses up to 24 cache entries into one (12GB cache -> up to 24x hit rate -> fewer live floor-fallbacks).
+# The returned root carries '_suit_map'; resolver maps hero's cards through it before strategy_for.
+_ISO_CACHE = os.environ.get("POKERB_ISO_CACHE", "0") == "1"
 _CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "_solve_cache"
 
 
@@ -73,6 +79,16 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
         raise FileNotFoundError(f"TexasSolver console binary not found at {EXE}")
     if mode not in ("holdem", "shortdeck"):
         raise ValueError(f"mode must be 'holdem' or 'shortdeck', got {mode!r}")
+    suit_map = None
+    if _ISO_CACHE and mode == "holdem":
+        from pokerbot.engine.isomorph import canonical_board
+        board, suit_map = canonical_board(list(board))
+
+    def _attach_map(d: dict) -> dict:
+        if suit_map is not None:
+            d["_suit_map"] = suit_map
+        return d
+
     ck = None
     if _CACHE_ON:
         ck = _cache_key(board, oop_range, ip_range, pot, eff_stack, bets or _DEFAULT_BETS,
@@ -80,7 +96,7 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
         cpath = _CACHE_DIR / f"{ck}.json"
         if cpath.exists():
             try:
-                return json.loads(cpath.read_text(encoding="utf-8"))
+                return _attach_map(json.loads(cpath.read_text(encoding="utf-8")))
             except Exception:  # noqa: BLE001 — corrupt cache entry: fall through to a fresh solve
                 pass
     file_tag = tag if tag is not None else os.getpid()
@@ -133,7 +149,7 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
             tmp.replace(_CACHE_DIR / f"{ck}.json")
         except Exception:  # noqa: BLE001 — cache write failures never break a solve
             pass
-    return data
+    return _attach_map(data)
 
 
 def _parse_exploitability(stdout: str):

@@ -608,3 +608,22 @@ mine the raw logs (both holes are always logged).
   cache (hours of re-solves); include it only when != default at the next planned cache flush.
 - classify_board 'twotone' (maxsuit==2) is true on ~every 5-card board -> tex['dynamic'] vacuous on rivers.
 - v3.2 thin_to can be clamped up by raise_min in sub-3bb pots (unreachable in practice; noted for completeness).
+
+## 'Big RAM CFR' = Johanson-Thesis 2007 — RAM-Hebel-Karte (agent-gelesen 2026-07-05; Maschine real: 15.7GB)
+- GEBAUT: **ISO-Cache** (POKERB_ISO_CACHE, default OFF) — suit-kanonischer Solve-Cache-Key + Hole-Map am
+  Lookup; BEWIESEN end-to-end (permutiertes Board -> Cache-Kollaps 5.0s->0.0s, identische Strategie). Bis 24x
+  Hit-Rate auf dem 12GB-Cache -> weniger Live-Floor-Fallbacks. Exakt, weil Ranges KLASSEN-level sind.
+- QUEUE #1 (der grosse): **kanonische FLOP-Solve-BIBLIOTHEK** (GS2-Praezedenz: 135k vorgeloeste Abstraktionen)
+  — Praecomputation umgeht das doppelt bestaetigte Flop-Live-NO-GO komplett; ~200 Top-Flops x Census-Lines als
+  Hintergrund-CPU-Job (1-2 Tage) oder Pod; zielt auf die Flop-Bleed −6.4…−8.3. POKERB_RSV_FLOP, volle Leiter.
+- QUEUE #2: 7-card-LUT-Evaluator (~124MB RAM, verhaltenserhaltend) + EXAKTE Turn-Enumeration statt MC
+  (Qualitaet: entfernt die ~0.9pp MC-SE aus Grenzentscheidungen; aendert Entscheidungen -> eigener Arm).
+- KORREKTUR einer stalen Memory: River-Equity ENUMERIERT bereits exakt (equity.py:49-102) — der alte
+  'river should enumerate'-Notiz-Punkt ist LAENGST implementiert.
+- RNR (Kap. 5) = die Formalisierung unseres Nordstern-'bounded exploit overlay' (Theorem 6: Best Response
+  unter Exploitability-Budget); via DBR-2009 (p pro Node nach Beobachtungs-Konfidenz = unser tracker.confidence).
+  Bewusst DEPRIORISIERT vs GTOW (Harvest ~0, Dossier) — bauen, wenn Pools/Menschen die Mission sind.
+- Mr.-Orange-Trick (Kap. 7): Equilibrium im PERTURBIERTEN Spiel (+7% Sieger-Utility) = aggressiv aber nur
+  35mb/g exploitierbar — Kandidat fuer den River-Aggressions-Leak, braucht eigenen Mini-CFR (numpy, Hebel E).
+- Lokales DIVAT fuer nicht-GTOW-Messungen (Slumbot/Coaching) notiert; UCB1-Team-Coach nur bei nicht-stationaeren
+  Gegnern relevant. Volle Analyse: Agent-Report (Task a33db0cea418f96e9).

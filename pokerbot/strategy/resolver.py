@@ -228,7 +228,10 @@ def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         if not ch or ch.get("node_type") == "chance_node":
             return None
         node = ch
-    strat = O.strategy_for(node, hole[0], hole[1])
+    # ISO_CACHE: the solve ran on the CANONICAL board — map hero's hole through the same suit permutation
+    sm = root.get("_suit_map")
+    h0, h1 = (hole[0][0] + sm[hole[0][1]], hole[1][0] + sm[hole[1][1]]) if sm else (hole[0], hole[1])
+    strat = O.strategy_for(node, h0, h1)
     if not strat:
         return None
     labels = list(strat.keys())
@@ -263,7 +266,10 @@ def turn_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         if not ch or ch.get("node_type") == "chance_node":
             return None
         node = ch
-    strat = O.strategy_for(node, hole[0], hole[1])
+    # ISO_CACHE: the solve ran on the CANONICAL board — map hero's hole through the same suit permutation
+    sm = root.get("_suit_map")
+    h0, h1 = (hole[0][0] + sm[hole[0][1]], hole[1][0] + sm[hole[1][1]]) if sm else (hole[0], hole[1])
+    strat = O.strategy_for(node, h0, h1)
     if not strat:
         return None
     labels = list(strat.keys())
