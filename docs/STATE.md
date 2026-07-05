@@ -4,6 +4,24 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★ SESSION CLOSE-OUT (2026-07-05 late) — infrastructure + research, all committed:**
+(1) **CLEANUP: decide() 12.1× faster** (999→83ms; proven-pure memoization of p_bet/p_defense/hand_features/
+evaluate + the exhaustively-proven _straight_outs memo; commit 114e107) + the 5-agent clean-code pass
+(byte-identity PROVEN: 0 diffs over 6 arms × 70 spots, commit 5a70070). (2) **DETERMINISM ROOT FIX:**
+combos_for_classes iterated a string SET → PYTHONHASHSEED-dependent combo order → MC-equity boundary
+decisions flipped between identical runs (4/140 measured) — sorted() pins it; ALL prior "deterministic"
+instrument runs carried this small jitter (pairs stay valid — symmetric). (3) **EVPA read+implemented**:
+the one net-free sound transfer (geometric arm prune, POKERB_ARM_PRUNE) measured NO-OP vs TexasSolver
+(it collapses over-allin arms internally, ε identical to 1e-8) — kept as the v4 building block; census-
+frequency pruning + range-zeroing deliberately NOT built. Flop-NO-GO retest with minimal menu ran in
+background. (4) **Embedding CFR read**: not a pillar (blueprint card abstraction); one v4 takeaway =
+HandEbdNet card featurization. (5) **Research sweep** (docs/RESEARCH_SWEEP_2026-07-05.md): 27/36 papers
+existence-verified (Perplexity scrambles metadata!); OpenAI math verdicts: eCall score = exact EV(bet) ✓,
+v3.2's 0.5-threshold = special case (exact formula ready = v3.2b), v3.3 reweight = exact KL projection ✓
++ Laplace-shrink numbers for the jam mix, covered-stack formula verified. (6) **Serena codebase MCP**
+(.mcp.json, 305 files indexed, active next session). (7) Docs aligned: CLAUDE.md v3-block,
+VERSION_PRINCE live status, _PRINCE_START_HERE, INDEX. v3.2 export still generating (cold solve cache).
+
 **★★ FULL-BOT AUDIT (2026-07-05 evening, user-ordered, 90 agents / 9 dimensions / 3x adversarial verify):
 23 CONFIRMED finds, 4 refuted — ledger `data/audit/audit_result.json`, all fixes commit 8c827cc.** The two
 HIGH finds were MEASUREMENT-seam: (1) `gtowizard._parse_history` unpacked the live blinds [BB,SB] as [SB,BB]

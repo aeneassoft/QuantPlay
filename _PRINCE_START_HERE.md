@@ -1,4 +1,11 @@
-# ★★★ ROOT MARKER — READ THIS FIRST (2026-07-04, end of the PRINCE-prep session) ★★★
+# ★★★ ROOT MARKER — READ THIS FIRST (updated 2026-07-05 evening) ★★★
+
+> **UPDATE 2026-07-05:** the shipped bot = **PRINCE v3** (v2.2 + pair-defense + river-bluffcatch-defense;
+> paired-Analyzer 17.93 vs 20.66, tag `v2` = the restore point before it). Four gated levers await their
+> Analyzer arms (v3.2 thin-sel / v3.3 raise-narrow / v3.4 audit-fix / v3.5 advisor-role). decide() is 12.1×
+> faster and the instruments are process-deterministic now. The live-AIVAT blinds-inversion bug is FIXED
+> (every pre-fix live number carried a preflop over-fold). v4 = depth-limited CFR + neural leaves (the path
+> below −8): `docs/RESEARCH_SWEEP_2026-07-05.md`. Everything below = the 2026-07-04 founding context.
 
 **THE MISSION: build VERSION "PRINCE" and WIN bb vs GTO Wizard.** Doctrine (user, measured, non-negotiable):
 **the GTO-score is DEAD as a target — ONLY bb count** (frequency-matching GTOW measured -EV; chasing score cost money).

@@ -88,7 +88,7 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > teacher.** External assets (the 6 books, CFR/Pluribus/Supremus papers, PokerBench, Pluribus hands, frontier LLMs)
 > seed / validate / distill-UNDER-GATE — never an ungated training label.
 
-> **★★★★★ MILESTONE `v2` (git tag, 2026-07-05) — PRINCE v2.2 = the current shipped bot, PRECISION-MEASURED at
+> **★★★★★ MILESTONE `v2` (git tag, 2026-07-05) — PRINCE v2.2 (SUPERSEDED by v3, block below) — PRECISION-MEASURED at
 > AIVAT −19.70 ± 4.37 bb/100 vs GTO Wizard (n=2,393, pre-registered; ZERO catastrophes ≤−50bb, per-hand SD 214 =
 > leaderboard-grade, body −6..−9).** This is the first bot the team versioned as a restore point (`git checkout v2`;
 > commits `6bbf1c3`+`a49e244`). Config = `POKERB_PRINCE=1` (20-flag profile, `pokerbot/strategy/gto_mode.py`). The
@@ -100,6 +100,32 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > revealed per-node frequencies from 13.5k hands = free teacher). NEXT = μ-levers on the river (Q6 anchors:
 > `data/freq_targets/gtow_frequencies.json`), each gated stress→replay→canary→live. **The −20 in every block BELOW
 > is the SAME engine measured; v2 is that engine with the deception+eCall+line-U+size-inject layer, tail-fixed.**
+>
+> **★★★★★ PRINCE v3 SHIPPED + THE LEVER PIPELINE + THE INFRASTRUCTURE LEAP (2026-07-05 evening).** The shipped
+> bot is now **PRINCE v3** (commit 85d2919): the v2.2 profile + PAIR_DEFENSE 0.10 + RIVER_DEFENSE 0.06 — gated by
+> the agreed v3-test-protocol (**paired Analyzer 17.93 vs v2.2's 20.66 on identical seed-55 deals** = the decisive
+> $0 gate; tail-smoke 0 catastrophes, worst −19.3bb). v3.1 (flat thin-floor) was Analyzer-REFUTED (19.76) = the
+> THIRD measured proof that **frequency-matching without the teacher's SELECTION loses**. IN THE PIPELINE (built,
+> all gates green, default-OFF, ONE Analyzer arm each): **v3.2** RIVER_THIN_SEL (selection-aware thin value via
+> eCall), **v3.3** RAISE_NARROW (raise-facing-bet range narrowing toward the MINED GTOW raise mix —
+> `research/raise_mine.py`, 488 raises: jams ~62% nutted, flop raises 53% air), **v3.4** AUDIT_FIX (9 finds of the
+> 90-agent audit: PAIR_DEFENSE fired on check-raises, TURN_DEFENSE cancelled BARREL_DISCIPLINE, vacuous river
+> bluffcatcher gate, covered-stack pot odds, threshold floor, phantom sizer arms, raise=aggro), **v3.5**
+> ADVISOR_ROLE_POS (advisors were queried by INITIATIVE but trained by POSITION → inverted in 3bet pots).
+> **MEASUREMENT-SEAM FIXES (live now):** the live blinds order [BB,SB] was unpacked as [SB,BB] → EVERY live AIVAT
+> run carried a baked-in preflop over-fold (+7pp required equity BB-vs-open; exports unaffected); the config
+> fingerprint missed 13 flags; export all-in run-outs lacked HH board sections (**future pairings need FRESH
+> anchors**). **INFRASTRUCTURE: decide() is 12.1× faster** (999→83ms, proven-pure memoization, commit 114e107) and
+> the instruments are now TRULY process-deterministic (set-iteration/PYTHONHASHSEED root fix in
+> `ranges.combos_for_classes` — every prior "deterministic" run carried boundary-spot jitter). Clean-code
+> discipline = standing rule (memory `clean-code-discipline`; the byte-identity harness is THE refactor gate).
+> **THE v4 PATH (post-lever-ladder, decided):** real-time depth-limited CFR + neural leaves per Li&Huang
+> (`books/papers/CFR/2605.19928v1.pdf`) + EVPA (ICLR25, read: ensemble pruning needs the nets; the geometric
+> transfer measured NO-OP vs TexasSolver — it prunes internally) + TurboReBeL (leaf training) — ladder ≈ −10
+> asymptote, v4 = the way below −8. Research ledger: `docs/RESEARCH_SWEEP_2026-07-05.md` (27/36 papers
+> existence-verified; Perplexity scrambles metadata — NEVER cite unverified). Codebase MCP: Serena (`.mcp.json`,
+> LSP symbol navigation, active from the next session). Analyzer sequencing: v3.2 → v3.3 → v3.4 → v3.5, one arm
+> per user upload, fresh anchors from the fixed exporter.
 >
 > **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
 > the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the

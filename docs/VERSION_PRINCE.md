@@ -1,5 +1,25 @@
 # VERSION "PRINCE" — the next best bot (concept + pre-registered build card, 2026-07-04)
 
+> **★ LIVE STATUS (2026-07-05 evening — supersedes the queue below where they conflict):**
+> **SHIPPED = PRINCE v3** (commit 85d2919; profile += PAIR_DEFENSE 0.10, RIVER_DEFENSE 0.06; paired Analyzer
+> **17.93** vs v2.2's 20.66; live anchor −19.70 ± 4.37 n=2,393 = tag `v2`).
+> **REFUTED:** v3.1 (flat RIVER_THIN + CBET_DAMP, 19.76) · flat turn-probe (parked) · limp→open (reverted) —
+> the "frequency without selection" family, 3/3 measured.
+> **THE ANALYZER QUEUE (built, gates green, default-OFF, one arm per user upload, FRESH anchors — the exporter
+> gained all-in run-out sections):**
+> 1. **v3.2 `POKERB_RIVER_THIN_SEL=0.40`** — selection-aware thin value (eCall probe gates the bet DECISION);
+>    export in flight. Follow-up if graded good: v3.2b = the EXACT threshold (OpenAI-derived, sweep doc §1.1).
+> 2. **v3.3 `POKERB_RAISE_NARROW=1`** — raise-facing-bet narrowing toward the mined GTOW raise mix
+>    (`research/raise_mine.py`; RANK4 stack-off fix; K2o probe 37%→24%). Pre-gate TODO: Laplace-shrink the
+>    n=29 jam mix (sweep doc §1.2).
+> 3. **v3.4 `POKERB_AUDIT_FIX=1`** — the 9-find audit bundle (scope guards + covered-stack req + floor +
+>    phantom sizer arms + raise=aggro).
+> 4. **v3.5 `POKERB_ADVISOR_ROLE_POS=1`** — advisor role by tree POSITION (training convention; inverts 3bet-pot
+>    lookups; potentially the largest single lever left).
+> Ledger: audit `data/audit/audit_result.json` · research `docs/RESEARCH_SWEEP_2026-07-05.md` · error budget
+> `data/gtow_grades/error_prognosis.json`. After the ladder: the v4 decision (depth-limited CFR + neural leaves).
+
+
 **The name is the thesis:** the cross-coaching result (bot-vs-Prince replay, 2,332 decisions) said the perfect player
 of that sample plays *the bot's discipline + the user's pressure*. This version fuses them. **Doctrine: ONLY bb count**
 (GTO-score is dead as a target — measured: chasing it COST EV). Every ingredient below carries its evidence status;
