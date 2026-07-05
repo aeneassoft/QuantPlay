@@ -22,8 +22,15 @@ CONCEPTS_DIR = KNOWLEDGE_DIR / "concepts"       # strategy concepts / heuristics
 RANGES_DIR = KNOWLEDGE_DIR / "ranges"           # structured preflop ranges
 MATH_DIR = KNOWLEDGE_DIR / "math"               # verified math formulas + code
 
+# The training-data assets ("the gold"). `dataset/registry.py` is the ONE place that enumerates + describes them;
+# these constants are just the roots it builds on (mirrors DATA_DIR/KNOWLEDGE_DIR).
+DATASET_DIR = ROOT / "dataset"                  # the dataset builders + shards
+SHARDS_DIR = DATASET_DIR / "shards"             # the self-growing DSL gold (a_contract, solver_mass, ...)
+MODELS_DIR = ROOT / "models"                    # Qwen SFT/GRPO adapters + checkpoints
+POSTFLOP_DIR = KNOWLEDGE_DIR / "postflop"       # the trained street bet-frequency advisors (advisor/turn/river .pt)
+
 for _d in (DATA_DIR, KNOWLEDGE_DIR, TEXT_DIR, CHUNK_DIR, PAGE_IMAGE_DIR,
-           CONCEPTS_DIR, RANGES_DIR, MATH_DIR):
+           CONCEPTS_DIR, RANGES_DIR, MATH_DIR, DATASET_DIR, SHARDS_DIR, MODELS_DIR):
     _d.mkdir(parents=True, exist_ok=True)
 
 # --- API keys --------------------------------------------------------------
@@ -41,11 +48,13 @@ def _read_key(path: Path) -> str | None:
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY") or _read_key(_CLAUDE_KEY_FILE)
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") or _read_key(_OPENAI_KEY_FILE)
-# GTO Wizard AI Benchmark (researcher API). Key file lives in the Secret keys ROOT (not the AI subdir). The key
-# was requested but is assumed possibly-never-arriving -> this is None until the txt is filled / env is set;
-# the WS5 harness is built ready-to-fire and stays dormant while this is falsy. Never hardcode/commit the key.
-_GTOW_KEY_FILE = _SECRET_DIR.parent / "GTO Wizard API Key!.txt"
-GTOWIZARD_API_KEY = os.environ.get("GTOWIZARD_API_KEY") or _read_key(_GTOW_KEY_FILE)
+# GTO Wizard AI Benchmark (researcher API). Key file lives in Secret keys/Poker/ (moved there 2026-06 — was the root;
+# the stale root path silently fell back to the env var, which a PC restart then lost). Env override still wins.
+# Never hardcode/commit the key. Two fallback paths so a future move/rename doesn't break it again.
+_GTOW_KEY_FILE = _SECRET_DIR.parent / "Poker" / "GTO Wizard API Key!.txt"
+GTOWIZARD_API_KEY = (os.environ.get("GTOWIZARD_API_KEY")
+                     or _read_key(_GTOW_KEY_FILE)
+                     or _read_key(_SECRET_DIR.parent / "GTO Wizard API Key!.txt"))
 
 # --- Models ----------------------------------------------------------------
 # Claude: user chose Opus 4.8 for the book analysis.

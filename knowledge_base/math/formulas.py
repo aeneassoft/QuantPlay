@@ -191,10 +191,10 @@ def bluff_to_value_and_frequencies(P: float,
     hands (always winning when called) and pure bluffs (always losing when called).
 
     Under the standard GTO condition that makes Villain indifferent to calling
-    (so that EV(call) = EV(fold) = 0), the optimal bluff-to-value ratio r equals
-    the pot odds offered to Villain:
+    (EV(call) = EV(fold)), the value share of Hero's betting range must be
+    P/(P+B), so the optimal bluff-to-value ratio r = N_bluff/N_value is:
 
-        r = (P + B) / B
+        r = B / P
 
     Given a chosen number of value combinations n_value in Hero's betting range
     and the total number of hand combinations n_total Hero can have in this spot,
@@ -225,13 +225,13 @@ def bluff_to_value_and_frequencies(P: float,
     """
     if B <= 0:
         raise ValueError("Bet size B must be positive.")
-    if P < 0:
-        raise ValueError("Pot size P cannot be negative.")
+    if P <= 0:
+        raise ValueError("Pot size P must be positive (r = B/P divides by it).")
     if n_value < 0 or n_total <= 0:
         raise ValueError("n_value must be >= 0 and n_total must be > 0.")
 
-    # 1. GTO bluff-to-value ratio equals Villain's pot odds
-    r = (P + B) / B
+    # 1. GTO bluff-to-value ratio = B/P (Villain indifferent: value share of the bet range = P/(P+B))
+    r = B / P
 
     # 2. Number of bluff combos implied by r and n_value
     n_bluff = r * n_value
@@ -257,11 +257,11 @@ def required_future_winnings_for_implied_odds(pot_size: float, call_cost: float,
 
     The break-even condition (in chip-EV) for a pure drawing call is:
 
-        hit_probability * (pot_size + F) = call_cost
+        hit_probability * (pot_size + call_cost + F) = (1 - hit_probability) * call_cost
 
     Solving for F gives:
 
-        F_min = max(0, call_cost / hit_probability - pot_size)
+        F_min = max(0, call_cost * (1/hit_probability - 1) - pot_size)
 
     where:
         - pot_size (P): current pot before caller adds the call (includes
@@ -298,8 +298,9 @@ def required_future_winnings_for_implied_odds(pot_size: float, call_cost: float,
     if not (0 < hit_probability <= 1):
         raise ValueError("hit_probability must be in the interval (0, 1].")
 
-    # Compute the raw required future winnings from the EV = 0 condition
-    raw_F = call_cost / hit_probability - pot_size
+    # raw required future winnings from EV=0 WITH Hero's own call returned on a win:
+    # p*(P+C+F) − (1−p)*C = 0 → F = C*(1/p − 1) − P  (the old form omitted the returned call C)
+    raw_F = call_cost * (1.0 / hit_probability - 1.0) - pot_size
 
     # If raw_F <= 0, pot odds alone are enough; no future winnings are required.
     return max(0.0, raw_F)
@@ -340,13 +341,13 @@ def required_fold_equity(P, R, C, E):
 
     Setting EV = 0 and solving for FE yields
 
-        FE = (R - E * (P + R + C)) / (P - E * (P + R + C))
+        FE = (R - E * (P + R + C)) / (P + R - E * (P + R + C))
 
     which this function returns.
     """
     pot_when_called = P + R + C
     numerator = R - E * pot_when_called
-    denominator = P - E * pot_when_called
+    denominator = P + R - E * pot_when_called   # the call-branch risks R (loses R, not 2R) → +R here
 
     if denominator == 0:
         # Edge case: the equation for FE is degenerate. In practice this
@@ -494,7 +495,7 @@ def count_hand_combos_with_blockers(pattern, known_cards):
       This is fully general and works for pocket pairs, suited, offsuit, and
       "any-suit" patterns with arbitrary blockers.
     - This directly implements the formal definition of blockers:
-        #combos(H | K) = #{ h ⊆ D \ K : h matches H }.
+        #combos(H | K) = #{ h ⊆ D \\ K : h matches H }.
     """
     # Basic validation maps
     rank_order = '23456789TJQKA'

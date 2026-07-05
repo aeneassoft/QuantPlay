@@ -7,11 +7,36 @@ the RL environment); `format_spot(spot)` renders the canonical prompt text. `ACT
 """
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass, field
 
 # The ONE output contract: the brain ends with `ACTION: <fold|check|call|bet N|raise N|all-in>` (N = total bet in bb).
 ACTION_RE = re.compile(r"ACTION:\s*(fold|check|call|all-in|allin|bet|raise)\s*([0-9]*\.?[0-9]+)?", re.IGNORECASE)
+
+# Engine-grounded made-hand read in the prompt (the LLM<->engine WIRING fix): a local probe found the GLM mis-reads
+# its OWN made hand in NL on coordinated boards BOTH ways -- a full house read as "two pair" / a flopped straight as
+# "air" (-> checks monsters = lost value) AND a weak pair read as "a flush" (-> a spew-bet). `api.hand_rank` is exact;
+# injecting it anchors the LLM on engine truth. Turned ON (postflop only) after a paired LOCAL A/B (research/
+# glm_local_probe.py): 7 spots, 3 clear fixes (boat value-bet, two-pair call, hallucinated-flush -> check), 3 controls
+# preserved, frac_bad 0. NOTE: the deployed adapter was SFT'd with this OFF -> serving it ON is mildly OOD (validated
+# fine); the NEXT re-SFT rebuilds the data with it ON so train==serve. Env-overridable (POKERB_MADE_HAND=0/1) so the
+# GTOW pod can run a PAIRED OFF-vs-ON A/B at scale = the at-scale bb/100 confirmation. Default ON (production).
+INCLUDE_MADE_HAND = os.environ.get("POKERB_MADE_HAND", "1") == "1"
+
+# Engine bet-frequency hint = the trained advisor's P(bet) for hero's exact hand (api.solver_freq) — a SERVE-TIME,
+# env-gated, A/B-able nudge against the measured postflop turn UNDER-betting leak. It's a pre-computed value of a
+# primitive the model ALREADY knows (api.solver_freq is in the SYSTEM_PROMPT) → bounded OOD risk. DEFAULT OFF so the
+# baseline prompt stays byte-identical; flip ON only via the gated GTOW A/B (POKERB_SOLVER_FREQ=1, gtow_glm_pod --ab-hints).
+# ★ HARD RULE: serve-time ONLY — NEVER bake this line into the dataset builders. Training on a made-hand serve-hint
+# REGRESSED the model (−28→−90, postflop spew, 2026-06-21; see NOTES.md + [[glm-resft-regression]]).
+INCLUDE_SOLVER_FREQ = os.environ.get("POKERB_SOLVER_FREQ", "0") == "1"
+
+# Consolidated strategic-understanding block (pokerbot/brain/understanding.py) — fuses SPR / position / pot-odds / MDF
+# + board texture + the made-hand read + the MEASURED GTO heuristics into ONE engine-computed frame, so the brain
+# reasons from poker first-principles on UNSOLVED spots (the ~60-85% the solver never covers). Gated (default OFF ->
+# the baseline prompt stays byte-identical + the change is A/B-able); appended last, it reaches BOTH brains.
+INCLUDE_UNDERSTANDING = os.environ.get("POKERB_UNDERSTANDING", "0") == "1"
 
 
 @dataclass
@@ -93,6 +118,16 @@ def format_spot(spot: "Spot") -> str:
         f"Hero: {spot.hero_pos}, holding {' '.join(spot.hero_hole)}.",
         f"Stacks (bb): {stacks}.",
     ]
+    if INCLUDE_MADE_HAND and spot.street in ("flop", "turn", "river") and len(spot.board) >= 3:
+        from pokerbot.brain import api                          # lazy: avoid any import cycle at module load
+        cat, strength = api.hand_rank(spot.hero_hole, spot.board)
+        lines.insert(2, f"Made hand (engine): {cat}, strength {strength:.2f}/1.0.")
+    if INCLUDE_SOLVER_FREQ and spot.street in ("flop", "turn", "river") and len(spot.board) >= 3:
+        from pokerbot.brain import api                          # lazy (same as the made-hand import)
+        role = "IP" if spot.hero_pos in ("BTN", "SB") else "OOP"   # HU: the button (SB) is in position postflop
+        p = api.solver_freq(spot.hero_hole, spot.board, role, spot.street)
+        if p is not None:                                      # None (advisor uncovered) -> omit; never render "None"
+            lines.append(f"GTO advisor ({role}) bet-frequency: {p:.2f}.")
     for st in ("preflop", "flop", "turn", "river"):
         seg = _street_line(spot, st)
         if st == "preflop" or seg or (st == spot.street):
@@ -114,5 +149,8 @@ def format_spot(spot: "Spot") -> str:
     lines.append(f"Pot {spot.b(spot.pot)}bb, to-call {spot.b(spot.to_call)}bb. Legal: {', '.join(legal)}.")
     if spot.villain_fold != 0.5 or spot.villain_aggro != 0.5:    # render the READ only when informative (non-neutral)
         lines.append(f"Villain read: fold-to-bet {spot.villain_fold:.2f}, aggression {spot.villain_aggro:.2f}.")
+    if INCLUDE_UNDERSTANDING:
+        from pokerbot.brain.understanding import strategic_read   # lazy: only build the read when gated ON
+        lines.append(strategic_read(spot))
     lines.append(f"Hero to act on the {spot.street}.")
     return "\n".join(lines)

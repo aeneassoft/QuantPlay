@@ -4,6 +4,15 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★★ THE PRECISION NUMBER (2026-07-05 15:13, pre-registered n=2500 → 2,393 ok/107 fails): PRINCE v2.2 =
+AIVAT −19.70 ± 4.37 bb/100.** ZERO catastrophes ≤−50bb over 2,393 (worst −38.2); per-hand SD 214 =
+leaderboard-grade; body −9.0/−6.3; RAW +1.94. **HONEST VERDICT: the distribution is transformed (tail dead,
+± small) but the MEAN did not move vs HEAD (−20.09 ± 7.18; Δ +0.4 ± 8.4 indistinguishable) — the −11.61 anchor
+was a lucky n=100 draw. X-ray: preflop −1.6 / flop −6.4 / turn −3.2 / RIVER −8.5 — the postflop bleed is
+untouched; discipline bought safety, not μ. The mission gap to #1 (−3.14) ≈ 16.5 bb/100, nearly all in
+river+flop.** Next: the v2.4 turn-probe live arm (fired), then the river-μ lever generation (Q6 anchors:
+GTOW river = 28% air @0.81 pot; call-turn-release-river). Log: gtow_hands_1783226155.jsonl. Commits:
+6bbf1c3 (v2.2) + a49e244 (v2.4 probe).
 **★ v2.2 LIVE (300-smoke, n=295, 5 fails): AIVAT −20.38 ± 15.06, RAW +26.6 — and THE TAIL IS DEAD: ZERO hands
 ≤−50bb (worst −22.5!), per-hand SD ≈ 259 bb/100-units ≈ leaderboard-grade (the blowup smoke was ~1000).** Body:
 5%-trim −12.4 / 10%-trim −7.1 (consistent with the −11.6 GTO-mode anchor + HEAD body −8..−11; the mean at n=295

@@ -12,7 +12,8 @@ from collections import defaultdict
 
 from pokerbot import config
 
-BB = 50.0  # GTO Wizard HUNL bb
+BB = 100.0  # GTO Wizard HUNL 200BB big blind (chips). Was 50 = the SMALL blind -> a 2x-bb inflation bug; the
+#            chip size-buckets below (300=<3bb, 1000=10bb, ...) already assume bb=100, so this is the consistent value.
 
 
 def _newest():

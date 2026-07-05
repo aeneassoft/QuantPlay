@@ -30,7 +30,7 @@ _ACTION = r"""(?:'(?:fold|check|call|bet|raise|allin|all-in)'|"(?:fold|check|cal
 _APICALL = r"api\.\w+\([^()\n]*\)"
 _PAREN = r"\([^()\n]*\)"                                 # a flat parenthesized group, e.g. (spot.pot + spot.to_call)
 _ATOM = rf"(?:{_APICALL}|spot\.\w+|{_LIST}|{_STR}|{_NUM}|{_PAREN}|\w+)"
-_OP = r"(?:\*\*|//|[-+*/%]|==|!=|<=|>=|<|>|and|or|not)"
+_OP = r"(?:\*\*|//|[-+*/%]|==|!=|<=|>=|<|>|is not|is|and|or|not)"  # `is not`/`is` -> the api.solver_freq None-guard (`if f is not None`)
 # a flat expression: atoms joined by binops/comparisons (paren-groups are atoms; contents are AST-gated by grammar.py)
 _EXPR = rf"{_ATOM}(?:{_WS}{_OP}{_WS}{_ATOM})*"
 
@@ -61,9 +61,16 @@ def matches(program: str) -> bool:
     return bool(DSL_REGEX.fullmatch((program or "").rstrip() + "\n"))
 
 
-def vllm_regex() -> str:
-    """The raw regex string for TRL `GRPOConfig(vllm_structured_outputs_regex=...)` (vLLM structured outputs)."""
-    return _PROGRAM
+def vllm_regex(think_cap_chars: int | None = None) -> str:
+    """The raw regex string for TRL `GRPOConfig(vllm_structured_outputs_regex=...)` (vLLM structured outputs).
+    None (default) = the pure-DSL form (Qwen non-thinking). With `think_cap_chars` set (GLM-Z1 / any reasoning model whose
+    PROMPT opens `<think>`), the completion is `<reasoning ≤N chars></think> <program>`: the `{0,N}` HARD-bounds the think
+    so `</think>` + the program ALWAYS fit inside `max_completion_length` — the structural defense vs the frac_bad=0.93
+    thinking-ramble (stronger than a soft prompt). `[\\s\\S]` (not `(?s).`) so it spans newlines without an inline flag
+    (vLLM's structured-output backend may not honor `(?s)`)."""
+    if think_cap_chars is None:
+        return _PROGRAM
+    return rf"[\s\S]{{0,{int(think_cap_chars)}}}</think>\s*{_PROGRAM}"
 
 
 def regex_logits_processor(tokenizer):

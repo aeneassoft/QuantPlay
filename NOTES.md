@@ -5,6 +5,164 @@ decisions. Distinct from the cross-session auto-memory (`C:\Users\hampe\.claude\
 entry whenever we ship a heuristic/approximation that should later be replaced by an exact/measured value.
 Referenced from `CLAUDE.md`.
 
+## ★★★ ENGINE→GTOW: the −47 is stale (−20 real), GTOW-MODE built + UNMEASURED (2026-07-04)
+- **CORRECTION (measured): the engine is −20.09 AIVAT, NOT −47.** Fresh HEAD-default GTOW run (n=974): AIVAT
+  −20.09 ± 7.18, body −8…−11 (trim), 0 catastrophes. The −47.18 was a STALE account aggregate over dead code eras.
+  Cross-checked: GTOW-Analyzer HU per-decision EV-loss 19.3 ≈ AIVAT −20. **Purge/annotate every "−47" in the repo.**
+- **[BUILT, UNMEASURED — the #1 next test] `POKERB_GTO_MODE` (`pokerbot/strategy/gto_mode.py`).** Flips exploit OFF +
+  GTOW-tree census sizes (S1–S5). The HU exploit engine grades 53.4% GTO-score / Freq-Diff 54.6% (deviates by design);
+  6-max tag-core grades 85.9%. HYPOTHESIS: exploit-OFF lifts HU GTO-score toward 85% + shrinks Freq-Diff. TEST $0
+  DETERMINISTICALLY: `POKERB_GTO_MODE=1 python -m research.pokerstars_export --n 1500 ...` → GTOW-Analyzer grade vs the
+  53.4% HEAD. Only then a paired AIVAT run (S6, gated vs −20.09, NOT −47). Sub-levers still `in_progress`: S2
+  weighted_ranges fix (verify via `research/check_range_l1.py` + `resolver_probe.py`), S5 resolver-on-census-tree.
+- **[measured, deferred-precision] `--resolver off` only kills the RIVER resolver; the TURN resolver needs
+  `POKERB_TURN_RESOLVER=0` separately** (the HU-export hang: turn-resolver ~6s/turn-decision). `hero_decider` should
+  disable both for fast gradable exports; the shipped bot keeps both ON.
+- **[finding] EV-loss is CONCENTRATED (fat tail), both HU + 6-max**: of 54 6-max "blunders" only 2 cost ≥8bb (a 3bet
+  −8.25 + a 4bet −34.23 stack-off); the rest are ~0-EV mini-pot blunders. → the lever is BIG-POT stack-off discipline
+  (the `postflop_corset`/commit-cap territory), not chasing the blunder COUNT. Mirror of [[gtow-tail-body-vs-spew]].
+- **[built] `research/gtow_tree_census.py` → `data/census/gtow_tree.json`** = GTOW's empirical bet tree from 12,483
+  logged hands (open 2.25 / 3bet 4x / river 0.65-0.35-1.0-1.5 …). Reusable to re-calibrate any tree constant.
+- **[built] `pokerbot/vision/screen_reader.py`** = universal VLM poker-table reader (any site, dHash change-gate,
+  watch mode). Grading exporters: `research/sixmax_export.py` (6-max), `research/pokerstars_export.py` (HU).
+
+## ★ Understanding layer + river over-sizing + the personal coaching path (2026-06-29 #2)
+Built the consolidated UNDERSTANDING layer (`pokerbot/brain/understanding.py::strategic_read`) so the brain reasons on
+UNSOLVED spots, measured the brain's river over-sizing, and wrote the forward plan `docs/ROADMAP.md`. Deferred / open:
+- **[BUILT, gated, EV-UNMEASURED — the #1 next measurement] the understanding layer.** Fuses SPR/position/pot-odds/MDF
+  + texture + made-hand + the measured GTO heuristics into one engine-computed frame, appended in `format_spot` gated
+  `POKERB_UNDERSTANDING` (default OFF). Locally verified (OFF byte-identical, ON-numbers exact). Its REALIZED-EV benefit
+  is UNPROVEN → A/B it: deterministic GTOW per-decision (`research/claude_export.py`) FIRST (no variance), then a paired
+  AIVAT run only if promising. Honest precedent: perception fixes helped (made-hand +40), strategy nudges didn't
+  (solver_freq neutral) — the layer is mostly perception, so cautiously optimistic, but measure before believing.
+- **[BUILT, gated, EV-UNMEASURED] the river-sizing rule** (`claude_brain.py`, `POKERB_CLAUDE_RIVERSIZE`, default OFF).
+  MEASURED: the brain bets ~0.60× river vs the solver's median ~0.33× (checks 58%) → over-sizes ~2×. The rule nudges it
+  smaller; validate deterministically (does the bet-size distribution move toward 0.33× at one seed?). **The cleaner fix
+  (proposed, not built): render the solver's preferred SIZE in the prompt** — the size analog of `api.solver_freq` — so
+  the brain sizes like the solver instead of being snapped post-hoc (`POKERB_BRAIN_ONTREE` snap is only a partial
+  band-aid: 0.6→0.5/0.75 is still > 0.33×).
+- **[PROPOSED — a new product direction] the personal Claude coaching path** (`docs/ROADMAP.md` §B). Review the user's
+  OWN CoinPoker/PokerStars hands, engine-grounded + GTO-anchored, personalized to the user's tracked leaks. Most
+  machinery exists (`pokerbot/coach/coach.py`, `research/study_grade.py` reconstruction, `research/llm.py`, the new
+  `understanding.py`); the one genuinely new piece is a **CoinPoker HH parser**. Phased MVP = a `review_session.py` CLI
+  (PokerStars first). Guardrails: Claude = PC-hub only, hands stay local, cite the engine's exact numbers (no hollow
+  praise), and per-session bb/100 is noise — the value is per-decision grading + the cross-session leak trend.
+
+## ★ Wiring-hint A/B + the perception-vs-strategy lesson + the noise floor (2026-06-21 night)
+The `solver_freq` hint (the advisor's P(bet) shown in the prompt) was A/B'd **NEUTRAL** (paired n=500: ON −49.21 ≈ OFF
+−49.52). The OFF arm also revealed the **"−28.36" baseline was a lucky draw** (same config re-measured −49.52; true ≈ −37
+± 8, being pinned with n=1500). Insights + deferred:
+- **[HYPOTHESIS — perception vs strategy] the model ACTS on corrected PERCEPTIONS but IGNORES strategy ADVICE.** The
+  made-hand line (a PERCEPTION fix — the model mis-read its own hand) helped +40; `solver_freq` (a STRATEGY nudge — "GTO
+  bets X%") was neutral. Couldn't fully ground it (the A/B harness pulls only ONE arm's per-hand log → the ON-arm log was
+  lost; same pull-gap as the SFT). If true → future wiring leverage = MORE perception fixes, NOT strategy nudges.
+- **[DEFERRED — the motivated next lever] a DRAW-perception hint.** The model UNDER-bets DRAWS on the turn (the one real
+  leak from the 264-decision study); the made-hand line says "High Card" for a flush draw → UNDER-states it. A line like
+  "Draw: flush draw, 9 outs ≈ 35% (2-card)" (`api.outs_equity` + a draw classifier) is a PERCEPTION fix (like made-hand)
+  hitting the exact leak → the best-motivated next hint. Build + local-verify via the `format_spot` env-gated pattern
+  (default OFF), THEN A/B. NOT done now (budget + the noise floor below).
+- **[BLOCKER — the noise floor] n=500 AIVAT swings ±~20 session-to-session for this 9B** → it only detects BIG effects
+  (made-hand +40 = 2.1σ; to_call +12 and solver_freq ≈0 were below it). The draw-hint (likely a few bb) needs a BIGGER-n
+  A/B (≥1500/arm) or a duplicate/paired-hands harness to be measurable. **Do NOT A/B small hints at n=500 — you measure
+  noise, not the effect.** This is the real constraint on cheap wiring optimization now.
+
+## ★ RL/re-SFT post-mortem + deferred (2026-06-21)
+The made-hand-NATIVE re-SFT→GRPO REGRESSED (−28.36 baseline → −90 GRPO vs GTOW; postflop/river spew). The session's wins
+were INFERENCE-WIRING (to_call +12, made-hand +40 OOD), NOT weights; baking a serve-hint into training backfired. Open/deferred:
+- **[OPERATIONAL — fix before ANY next campaign] `runpod_rl_campaign` pulls ONLY the GRPO** (`qwen_poker_grpo.tgz`) → it
+  LOST today's SFT base (never pulled) → the clean SFT-vs-GRPO isolation was impossible (I had to A/B a stale older SFT).
+  Add an SFT pull (slim `/root/qwen_poker_lora` → e.g. `sft_new.tgz`) at the end of the SFT stage.
+- **[OPEN — the real RL lever] the self-play sixmax league is too weak/≠ GTOW** → RL optimizes league-beating aggression
+  that SPEWS vs GTOW (river −211 in the −90 run). The deeper lever = a BETTER REWARD (GTOW-anchored eval-in-the-loop, or a
+  much stronger opponent league), NOT more SFT/GRPO steps on the current reward. This is the hard, deferred RL work.
+- **[REFUTED $0 — the cheap version of the above: a LEAGUE RESHUFFLE won't work] (2026-06-21 #3).** Plan was "drop the
+  exploitable maniac/station from `TRAIN_LEAGUE` so the reward stops rewarding over-paying-off/over-bluffing". 3 grounded
+  rollout tests killed it: call-EV maniac-vs-tag = +0.0 (a call CLOSES the action → CRN cards → style-irrelevant);
+  maniac-gen vs tag-gen facing-bet call-EV = +0.3 bb; bluff-EV nit-vs-tag = +0.0. ROOT CAUSE: the `PROFILES` differ mainly
+  PREFLOP; **POSTFLOP all 5 share ONE `_decide` engine (68% identical decisions; the 32% diffs are EV-low-leverage).** So
+  the league can't change the POSTFLOP reward (where the tail is). The wall is the **OPPONENT CEILING** (RL trains vs a
+  ~−47 engine; no GTOW-level postflop opponent for the loop — solve_node ~76s too slow, SolverSlumbotBot ~engine-level).
+  → the ONLY real RL lever = build a **solver-distilled strong postflop opponent NET** (extend the advisor to full
+  action+sizing), realistic ceiling **~−45 = engine-level** (the solver IS ~the −47 oracle → can't exceed it), NOT the
+  leaderboard. Beating −45 needs a better-than-solver signal we don't have (GTOW in-loop infeasible). See [[gtow-tail-body-vs-spew]].
+- **[DEFERRED — diagnostic, likely not worth it] isolate the regression cause** (made-hand-native gold vs claude_study vs
+  the GRPO step): a controlled re-SFT (made-hand-native, NO claude_study) with BOTH SFT+GRPO pulled + A/B'd. The postflop
+  spew is NOT uniquely tied to made-hand-native (an older made-hand-OFF SFT also spewed) → cause unconfirmed.
+- **[HARD RULE] serve-time prompt hints (made-hand, to_call, the new `solver_freq`) stay OFF in the dataset builders** —
+  NEVER bake into training. They are env-gated serve-time only; the re-SFT regression is exactly why.
+
+## ★ Tail-robust eval + the anti-spew gate REFUTED (2026-06-21 #3)
+Built `research/gtow_tail.py` (tail-robust metrics + a cross-session body table + a $0 gate counterfactual). Findings:
+- **[FINDING] the BODY is ~−17; the raw −40/−68 is ALL TAIL.** The 5%-trimmed AIVAT clusters at ~−15…−19 across EVERY
+  baseline session (incl. the "−28 lucky" AND the "−90 regression") while the raw swings −28↔−90. The model's
+  non-catastrophic skill ≈ −17 (near the leaderboard); the raw is tail-variance. → at n≤1500 report the TRIMMED body + the
+  tail separately, NOT the raw mean (the noise floor, restated harder: even the "−90 regression" is body-indistinguishable).
+- **[REFUTED] the anti-spew CALL gate does not work.** Counterfactual replay over the 1500-hand log: ORACLE (perfect-info,
+  eq vs villain's actual hand) fires 2/1500 (+16.7 bb/100); LIVE (eq vs a committing range = serve-computable) fires
+  0/1500 (+0.0); aggressive settings → cost ≈ saved, net ≤0. Only 27 big-calls exist in 1500 hands. NOT built/shipped.
+- **[WHY] the tail is hero's -EV BETTING, not call-offs** (the −208bb hand = `HERO:b1000 … HERO:b2710 gtow:b8134 HERO:f`).
+  A serve-gate can't reach it — a bet→check change isn't cleanly offline-counterfactual'able (fold-equity is unknowable);
+  it's RL's job. **[CONCLUSION] cheap serve levers are EXHAUSTED** (made-hand +40 robust, to_call noise, solver_freq
+  neutral, retraining regressed, anti-spew gate refuted) → the only remaining real lever = a BETTER RL REWARD (the hard,
+  deferred one above). See [[gtow-tail-body-vs-spew]].
+
+## ★ Math-formula fixes + stale-duplicate cleanup (2026-06-20 Feinschliff)
+The OpenAI math audit's 3 `knowledge_base/math/formulas.py` bugs are FIXED + grounded-verified (deterministic algebra +
+an EV-zeroing numeric check): `required_fold_equity` denominator `P`→`P+R`; `required_future_winnings_for_implied_odds`
+`C/p−P`→`C*(1/p−1)−P` (the audit JSON's own `C*(1/p−2)−P` was itself wrong — it double-counts the call); 
+`bluff_to_value_and_frequencies` ratio `(P+B)/B`→`B/P`. HONEST: all three were **DORMANT** — the brain sandbox exposes
+only `api.*`, and `api.py` wraps only 4 of formulas.py's functions (none of these three); the LIVE math comes from the
+parallel, engine-verified `postflop_formulas.py`/`strategy_formulas.py`. So this is **KB correctness, NOT a bb/100 play
+gain** (gate: deterministic, no noisy A/B). Jam-discipline + sizing were also checked: NO groundable engine-vs-blueprint
+deviation (the blueprint IS the jam authority in both the brain path and `bot.py`).
+- **[DEFERRED — structural] `formulas.py` is a stale, shadowed DUPLICATE of `postflop_formulas.py`.** The clean permanent
+  fix = delete/redirect the dormant formulas.py functions to their verified postflop_formulas equivalents (kill the
+  divergence) — but FIRST confirm the 4 live `api.py` wrappers + any other importer still resolve. Not done now (risk).
+
+## ★ GTOW optimization pass (2026-06-20) — the preflop switch + deferred items
+The GLM vs GTOW = −43.30 (n=100), diagnosed as ~90% a **PREFLOP** leak → the **preflop switch** (the engine blueprint plays
+preflop, the GLM keeps postflop) is being measured. DEFERRED (flagged so the re-run measures ONE change at a time):
+- **[DEFERRED — needs re-SFT] `format_spot` navigation enrichment** (the user's "add references/options" idea: show the
+  LLM the IP/OOP role, effective stack/SPR, pot-odds/required-equity/MDF, explicit options). frac_bad is 0.009 → the GLM
+  is NOT format-confused (the leak is preflop STRATEGY), and `format_spot` is what the GLM was SFT/GRPO-trained on
+  byte-identically → changing it at serve time is OOD vs the weights (frac_bad-spike risk on the postflop spots we now
+  depend on). The data IS already reachable via `api.spr`/`api.pot_odds`/`api.mdf`/`api.required_equity`. Correct path:
+  re-SFT/GRPO on the enriched format (train + serve the SAME new bytes), gated on the re-run's postflop AIVAT.
+- **[UNMEASURED — exposed by the switch] the GLM's POSTFLOP play.** Only ~6 hands reached postflop in the −43.30 run (the
+  GLM over-folded preflop); the switch routes far more hands postflop → the postflop AIVAT is the new headline unknown.
+  Measure in the re-run; if weak, lean on the advisor/solver postflop or re-SFT.
+- **[DEFERRED] install TexasSolver on the GTOW pod** (live `api.solve_node`): the GLM postflop uses the trained advisor
+  `api.solver_freq` (works on the pod); the pure live-solver spewed (−276 noisy). Add only if the re-run shows weak
+  postflop AND the advisor is the cause — as its OWN measured change (do not confound the switch).
+
+## ★ GLM-Z1-9B RL bring-up (2026-06-19 PM) — open questions + deferred items from Phase C
+The GLM-Z1 SFT WARM-START is solved (loss 0.087, token-acc 97.5% on the H100 SXM); the bring-up chain + status is in
+`docs/STATE.md`'s top CURRENT section. OPEN / DEFERRED:
+- **[THE open question — UNMEASURED] does the RL LIFT above the engine?** We have only the (imitation-capped) warm-start;
+  NO GRPO step's frac_bad/reward has been measured yet (round 10's GRPO died to the concurrency bug pre-step-1; round 11
+  re-runs it clean). Everything downstream (GATE 2, the leaderboard number) waits on this.
+- **[DEFERRED — path B, the real value of a reasoning model] explicit inference-time CoT is OFF.** We strip the GLM
+  template's forced `<think>` so the prompt is byte-aligned with the program-only SFT (the frac_bad fix). That uses the
+  reasoning-tuned WEIGHTS (adapted, not wasted) but drops the EXPLICIT test-time CoT that gave Claude −9. To capture it:
+  (a) Claude-teacher-distilled CoT gold (reasoning + program, EV-gated), (b) a template/render that does NOT strip the
+  think from SFT content, (c) a non-pathological structured approach (see next). Decide AFTER the RL-lift question.
+- **[WORKAROUND, deferred] `STRUCTURED=0` for GLM.** vLLM's xgrammar HANGS on the bounded-think regex
+  `[\s\S]{0,1500}</think>...` (state explosion); we disabled structured decoding for GLM and rely on the SFT (97.5%) to
+  emit valid programs. A non-pathological grammar (the pure-DSL program regex, `think_cap_chars=None`, OR a bounded-think
+  form that doesn't state-explode) would RESTORE the format guarantee + drop frac_bad to ~0. Test once the RL path is green.
+- **[INVESTIGATE] recurring `AttributeError: 'NoneType' object has no attribute 'util'`** in the probe + GRPO (non-fatal —
+  probe ok=True, GRPO starts; appears with a ProcessGroupNCCL teardown warning + a `concurrent.futures` weakref_cb) →
+  likely a reward-ProcessPool / distributed TEARDOWN error, not in the hot path. Resolve to keep the logs clean.
+- **[RULE, hardening deferred] serialize campaigns.** Two `runpod_rl_campaign` runs share ONE session file → the finisher's
+  atexit kills the other's pod (this killed round 10 mid-GRPO). RULE: one campaign at a time; verify 0 pods before launch.
+  Hardening (per-launch session file / a lock) is deferred — discipline suffices for the autonomous run.
+- **[in progress, frac_bad-SAFE] turn/river gold skew.** The DSL gold is flop-heavy (flop 28421 / turn 575 / river 373).
+  A `research.mass_solve STREET=4` (turn) runs on the idle PC CPU → TexasSolver CACHE (not gold → zero risk to the running
+  RL). Convert via `from_solver` + VERIFY the format (byte-identical `format_spot` + reasoning-loop DSL only) BEFORE folding
+  into a NEXT run. Adding raw-text / PokerBench-prose / decorative completions = the frac_bad killer → never.
+- **[deferred] the SYSTEM_PROMPT is 1142 tokens** (the loss=0 truncation cause). A leaner system prompt frees token budget +
+  shrinks the truncation surface; MAX_LEN=2048 + the new guard cover it for now, but a trim is cheap future headroom.
+
 ## ★ Compute modes + math integration (2026-06-17) — the accuracy↔time trade-off, made explicit
 `pokerbot/brain/modes.py`: FAST(~1.5s)/STANDARD(~5s, live target)/DEEP(180s, R&D exact+sympy+trace)/TRAIN(RL
 throughput). Every accuracy knob is mode-set (MC `equity_iters`, EV `rollout_k`, gen `max_new_tokens`, decision

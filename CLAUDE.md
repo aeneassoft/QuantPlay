@@ -88,6 +88,19 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > teacher.** External assets (the 6 books, CFR/Pluribus/Supremus papers, PokerBench, Pluribus hands, frontier LLMs)
 > seed / validate / distill-UNDER-GATE — never an ungated training label.
 
+> **★★★★★ MILESTONE `v2` (git tag, 2026-07-05) — PRINCE v2.2 = the current shipped bot, PRECISION-MEASURED at
+> AIVAT −19.70 ± 4.37 bb/100 vs GTO Wizard (n=2,393, pre-registered; ZERO catastrophes ≤−50bb, per-hand SD 214 =
+> leaderboard-grade, body −6..−9).** This is the first bot the team versioned as a restore point (`git checkout v2`;
+> commits `6bbf1c3`+`a49e244`). Config = `POKERB_PRINCE=1` (20-flag profile, `pokerbot/strategy/gto_mode.py`). The
+> honest read: the DISTRIBUTION was transformed vs the old HEAD (tail eliminated, ± small) but the MEAN did not move
+> (HEAD was −20.09 ± 7.18; the −11.61 was a lucky n=100 draw) — discipline bought SAFETY, not μ. The remaining loss
+> is postflop (river −8.5 + flop −6.4, x-ray); mission = leaderboard #1 (beat −3.14), gap ≈ 16.5 bb/100 almost all
+> river+flop. Instruments built this generation (all reusable, all $0): `research/stress_suite.py` (constructed-
+> catastrophe gate), `research/replay_graded.py` (graded-hand regression gate), `research/freq_mine.py` (GTOW's
+> revealed per-node frequencies from 13.5k hands = free teacher). NEXT = μ-levers on the river (Q6 anchors:
+> `data/freq_targets/gtow_frequencies.json`), each gated stress→replay→canary→live. **The −20 in every block BELOW
+> is the SAME engine measured; v2 is that engine with the deception+eCall+line-U+size-inject layer, tail-fixed.**
+>
 > **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
 > the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the
 > ACTIVE BUILD CARD with the merged lever queue + measurement ladder). The measured stand: GTO-mode **−11.61** (n=100

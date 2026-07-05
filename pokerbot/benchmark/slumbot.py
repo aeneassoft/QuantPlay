@@ -204,6 +204,73 @@ def play_hand(bot: PokerBot, token: str | None, verbose: bool = False) -> tuple[
             return resp.get("winnings") or 0, token
 
 
+def play_hand_verbose(bot: PokerBot, token: str | None,
+                      verbose: bool = False) -> tuple[int, str | None, dict]:
+    """Like `play_hand` but ALSO returns a rich per-hand record for the variance-reducing analyzer (Req B/C).
+
+    Reuses the SAME client/protocol as play_hand (no fork) — it just wraps the identical loop and captures the final
+    /api/act response's revealing fields. The record holds: hero's hole cards, the FINAL board, the full action string,
+    realized winnings (chips), the won_pot (chips), and `bot_hole_cards` (Slumbot's cards) — which the API reveals ONLY
+    at showdown (verified 2026-06-18; absent => null when someone folded). Returns (winnings, token, record).
+    """
+    resp = _post("/api/new_hand", {"token": token} if token else {})
+    token = resp.get("token", token)
+    client_pos = resp.get("client_pos", 0)
+    first_action = resp.get("action", "")
+    button = client_pos if first_action == "" else 1 - client_pos
+    guard = 0
+    last_hole, last_board, last_cpos = [], [], client_pos
+
+    def record(r: dict, winnings: int) -> dict:
+        """Build the rich row from the FINAL response `r`. bot_hole_cards is present only at showdown."""
+        return {
+            "hole_cards": r.get("hole_cards", last_hole),
+            "board": r.get("board", last_board),
+            "bot_hole_cards": r.get("bot_hole_cards"),     # Slumbot's cards (showdown only) -> None when mucked/folded
+            "action": r.get("action", ""),
+            "winnings": winnings,
+            "won_pot": r.get("won_pot"),                   # total pot at the river/showdown (chips); None if unavailable
+            "client_pos": r.get("client_pos", last_cpos),
+            "button": button,
+        }
+
+    while True:
+        if "error_msg" in resp and resp["error_msg"]:
+            if verbose:
+                print("  ERROR:", resp["error_msg"], "| action:", resp.get("action"))
+            return 0, token, record(resp, 0)
+        if resp.get("winnings") is not None:
+            w = resp["winnings"]
+            try:                                           # LIVE-LEARNING parity with play_hand (opp-model feed)
+                if hasattr(bot, "observe_hand_end"):
+                    bot.observe_hand_end(build_state(last_hole, resp.get("board", last_board),
+                                                     resp.get("action", ""), last_cpos, button))
+            except Exception:  # noqa: BLE001
+                pass
+            return w, token, record(resp, w)
+        last_hole = resp["hole_cards"]
+        last_board = resp.get("board", last_board) or last_board
+        last_cpos = resp["client_pos"]
+        st = build_state(resp["hole_cards"], resp.get("board", []),
+                         resp.get("action", ""), resp["client_pos"], button)
+        if st is None:
+            if resp.get("winnings") is not None:
+                return resp["winnings"], token, record(resp, resp["winnings"])
+            return 0, token, record(resp, 0)
+        bot.hero_idx = resp["client_pos"]
+        dec = bot.decide(st)
+        incr = decision_to_incr(dec, st)
+        if verbose:
+            print(f"  [{st['street']}] hero {resp['hole_cards']} board {resp.get('board')} "
+                  f"-> {dec['action']} {dec.get('amount') or ''} (incr={incr})")
+        resp = _post("/api/act", {"token": token, "incr": incr})
+        token = resp.get("token", token)
+        guard += 1
+        if guard > 60:
+            w = resp.get("winnings") or 0
+            return w, token, record(resp, w)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--hands", type=int, default=300)

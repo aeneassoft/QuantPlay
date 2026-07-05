@@ -25,7 +25,16 @@ _FILE = "preflop_blueprint_solvergraft.json" if os.environ.get("POKERB_GRAFT", "
 _PATH = config.KNOWLEDGE_DIR / "ranges" / _FILE
 
 # blueprint action -> cumulative chips THIS player puts in, expressed in bb (None = not a sized raise)
-SIZES_BB = {"limp": 1.0, "open": 2.5, "iso": 4.5, "3bet": 10.0, "4bet": 24.0, "5bet": 60.0}
+# S3 (POKERB_GTOW_SIZES=1, GTOW-mode): GTO Wizard's MEASURED tree sizes instead (12.5k-hand census,
+# research/gtow_tree_census.py): open 2.25bb (66% share), 3bet 4x -> 9bb, 4bet 3x -> 27bb, 5bet ~2.5x -> 67.5bb.
+# Our sizes (2.5/10/24/60) put every preflop pot slightly off GTOW's tree. Honest caveat: the blueprint MIXES were
+# solved at the ORIGINAL sizes — re-sized play is slightly off-equilibrium; the census deltas are small, so
+# gradability should outweigh the mix drift (A/B-gated). Default OFF = byte-identical.
+from pokerbot.strategy.gto_mode import flag as _gto_flag
+if _gto_flag("POKERB_GTOW_SIZES", "0") == "1":
+    SIZES_BB = {"limp": 1.0, "open": 2.25, "iso": 4.5, "3bet": 9.0, "4bet": 27.0, "5bet": 67.5}
+else:
+    SIZES_BB = {"limp": 1.0, "open": 2.5, "iso": 4.5, "3bet": 10.0, "4bet": 24.0, "5bet": 60.0}
 RAISE_ACTIONS = set(SIZES_BB) | {"jam"}
 
 

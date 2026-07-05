@@ -37,8 +37,15 @@ def run_program(program: str, spot, timeout_s: float | None = None, strict: bool
         captured["size_bb"] = size_bb
 
     def decide_mix(mix, size=None):
-        captured["mix"] = {str(k): float(v) for k, v in dict(mix).items() if float(v) > 0}
+        # SOLVER-AWARE: api.solve_node(spot) returns {action: prob, '_sizes_bb': {verb: bb}} — a per-verb size hint, not
+        # an action. So `s = api.solve_node(spot); decide_mix(s)` (the program-of-thought "let the solver decide" pattern)
+        # must NOT treat '_sizes_bb' as a frequency (float(dict) -> TypeError -> a spurious frac_bad). Pop it, keep its
+        # per-action sizes, and fall back to the scalar `size=` for any verb the solver didn't size.
+        m = dict(mix)
+        sizes_bb = m.pop("_sizes_bb", None)
+        captured["mix"] = {str(k): float(v) for k, v in m.items() if float(v) > 0}
         captured["mix_size_bb"] = size
+        captured["mix_sizes_bb"] = dict(sizes_bb) if isinstance(sizes_bb, dict) else None
 
     if strict:
         ok_dsl, why = validate_program(program)
@@ -71,7 +78,12 @@ def run_program(program: str, spot, timeout_s: float | None = None, strict: bool
                     break
             captured.setdefault("action", max(mix, key=mix.get))
             chosen = captured["action"]
-            captured["size_bb"] = captured.get("mix_size_bb") if chosen in ("bet", "raise", "allin", "all-in") else None
+            if chosen in ("bet", "raise", "allin", "all-in"):
+                # prefer the solver's per-verb size (api.solve_node's '_sizes_bb'); else the scalar size= kwarg
+                per_verb = captured.get("mix_sizes_bb") or {}
+                captured["size_bb"] = per_verb.get(chosen, captured.get("mix_size_bb"))
+            else:
+                captured["size_bb"] = None
 
     if "action" in captured:
         act, amt = _api.legalize(spot, captured["action"], captured.get("size_bb"))
@@ -94,7 +106,12 @@ def _was_legal(spot, action: str) -> bool:
 def _alarm_available() -> bool:
     try:
         import signal
-        return hasattr(signal, "SIGALRM")
+        import threading
+        # SIGALRM (signal.signal + setitimer) only works in the MAIN thread of the main interpreter. In a WORKER thread
+        # (the gtow_client runs each decision via asyncio.to_thread; any threaded server is the same) it raises
+        # "signal only works in main thread" -> run_program would fail EVERY decision (the 2026-06-19 frac_bad=1.0 false
+        # alarm — the model's programs were perfect). Skip the alarm off-main-thread; the programs run in ms either way.
+        return hasattr(signal, "SIGALRM") and threading.current_thread() is threading.main_thread()
     except Exception:  # noqa: BLE001
         return False
 

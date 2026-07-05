@@ -24,7 +24,8 @@ _TORCH = None
 # Line-aware river advisor (POKERB_RIVER_LA, default OFF -> the old river_advisor.pt path = product unchanged). When
 # ON + a pot_type is supplied, p_bet routes the river to river_advisor_la.pt (21-dim: + pot-type one-hot) so it can
 # value-bet correctly per range (the under-value-betting fix; the micro-test: P_bet swings 17%->97% with the range).
-RIVER_LA = os.environ.get("POKERB_RIVER_LA", "0") == "1"
+from pokerbot.strategy.gto_mode import flag as _flag   # import-order-safe (GTOW-mode profile aware)
+RIVER_LA = _flag("POKERB_RIVER_LA", "0") == "1"
 POT_TYPES = ["srp", "3bet", "4bet"]      # one-hot order — MUST match research/train_river_la.POT_TYPES
 
 

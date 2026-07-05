@@ -92,6 +92,63 @@ def claude_json(
     raise RuntimeError(f"claude_json failed after retries: {last_err}")
 
 
+def ask_claude(
+    system: str,
+    user: str,
+    *,
+    model: str | None = None,
+    max_tokens: int = 4096,
+    thinking: bool = False,
+    temperature: float = 1.0,
+    cache_system: bool = True,
+) -> tuple[str, tuple[int, int, int]]:
+    """Plain-TEXT Claude call (vs claude_json's schema-constrained JSON), with retries + system-prompt caching.
+    Returns (text, (input_tokens, output_tokens, cache_read_tokens)). With `thinking=True` the model reasons in
+    internal thinking blocks (extended / "extra-high" reasoning — the GTOW-leaderboard recipe: GPT-5.x XHigh = −8..−9);
+    those blocks are DROPPED from the returned text, so only the visible answer comes back. Extended thinking forces
+    temperature=1, so `temperature` is honored only when thinking is OFF. Used by the Claude poker BRAIN
+    (`pokerbot/brain/claude_brain.py`)."""
+    client = anthropic_client()
+    model = model or config.CLAUDE_MODEL
+    sys_blocks: list[dict] = [{"type": "text", "text": system}]
+    if cache_system:
+        sys_blocks[-1]["cache_control"] = {"type": "ephemeral"}
+
+    kwargs: dict[str, Any] = dict(
+        model=model,
+        max_tokens=max_tokens,
+        system=sys_blocks,
+        messages=[{"role": "user", "content": user}],
+    )
+    if thinking:
+        kwargs["thinking"] = {"type": "adaptive"}        # extended thinking; temperature must stay default (1.0)
+    else:
+        kwargs["temperature"] = temperature
+
+    last_err: Exception | None = None
+    for attempt in range(6):
+        try:
+            if thinking or max_tokens >= 16000:          # stream long/thinking requests (avoids the non-stream limit)
+                with client.messages.stream(**kwargs) as stream:
+                    msg = stream.get_final_message()
+            else:
+                msg = client.messages.create(**kwargs)
+            text = "".join(b.text for b in msg.content if b.type == "text")
+            u = msg.usage
+            return text, (u.input_tokens, u.output_tokens, getattr(u, "cache_read_input_tokens", 0) or 0)
+        except (anthropic.RateLimitError, anthropic.InternalServerError,
+                anthropic.APIConnectionError) as e:
+            last_err = e
+            time.sleep(min(2 ** attempt, 30))
+        except anthropic.APIStatusError as e:
+            last_err = e
+            if e.status_code >= 500:
+                time.sleep(min(2 ** attempt, 30))
+            else:
+                raise
+    raise RuntimeError(f"ask_claude failed after retries: {last_err}")
+
+
 def openai_json(
     system: str,
     user: str,
@@ -100,17 +157,24 @@ def openai_json(
     *,
     model: str | None = None,
     max_tokens: int = 12000,
+    images: list[str] | None = None,
 ) -> tuple[dict, tuple[int, int]]:
-    """Call OpenAI with a strict JSON-schema response. Returns (parsed, (prompt, completion))."""
+    """Call OpenAI with a strict JSON-schema response. Returns (parsed, (prompt, completion)).
+    `images`: optional base64-PNG strings -> a VISION call (the screen-reader path, 2026-07-04)."""
     client = openai_client()
     model = model or config.OPENAI_MODEL or "gpt-5.1"
+    if images:
+        user_content: str | list = [{"type": "text", "text": user}] + [
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}} for b64 in images]
+    else:
+        user_content = user
     last_err: Exception | None = None
     for attempt in range(6):
         try:
             r = client.chat.completions.create(
                 model=model,
                 messages=[{"role": "system", "content": system},
-                          {"role": "user", "content": user}],
+                          {"role": "user", "content": user_content}],
                 response_format={"type": "json_schema",
                                  "json_schema": {"name": name, "schema": schema, "strict": True}},
                 max_completion_tokens=max_tokens,
