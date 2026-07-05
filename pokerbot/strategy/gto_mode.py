@@ -71,6 +71,8 @@ _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     # returns a resolver strategy where a cold slow solve times out into the floor fallback; ISO_CACHE
     # additionally re-keys every solve (canonical vs raw board). A run's grade must record their state.
     "POKERB_ISO_CACHE", "POKERB_SOLVE_CACHE",
+    # Princedarkness overbet menu (born 2026-07-06; standing rule: a flag's birth commit adds it here):
+    "POKERB_OVERBET_MENU",
 })
 
 

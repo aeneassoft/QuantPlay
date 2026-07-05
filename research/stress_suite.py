@@ -67,6 +67,8 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_v34": {"POKERB_PRINCE": "1", "POKERB_AUDIT_FIX": "1"},
     # v3.5 = advisor role by tree position (the training convention; inverts 3bet-pot advisor lookups)
     "prince_v35": {"POKERB_PRINCE": "1", "POKERB_ADVISOR_ROLE_POS": "1"},
+    # Princedarkness overbet menu (2026-07-06): eCall value-size menu + 2.0x/2.5x arms (selection-aware chooser)
+    "prince_obm": {"POKERB_PRINCE": "1", "POKERB_OVERBET_MENU": "1"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")

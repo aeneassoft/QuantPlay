@@ -260,6 +260,14 @@ def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stac
 # Known approximation (documented): per-pair blocker removal between the two ranges is skipped (hero's own combo
 # IS exact vs every villain combo); acceptable for a sizing gate, not for a solve.
 ECALL_SIZES = [0.35, 0.65, 1.0, 1.5]     # the census river grid (GTOW's own arms) + the jam added by the caller
+# PRINCEDARKNESS OVERBET MENU (2026-07-06, mined from the user's own 1,078-hand catalog: 43% of his river
+# bets are >1.5x pot, river-raises 62% — the +98bb-jam pattern): widen the VALUE-SIZE menu with 2.0x/2.5x
+# arms. NOT a frequency lever (the 4x-refuted class): the selection-aware eCall chooser still requires
+# eq-vs-the-range-that-CALLS-that-size to clear its threshold — bigger arms only win the argmax where the
+# tracked calling range stays beat. The <= jam stack filter applies unchanged; the 2.0 jam cap is untouched.
+_OVERBET_MENU = os.environ.get("POKERB_OVERBET_MENU", "0") == "1"
+if _OVERBET_MENU:
+    ECALL_SIZES = ECALL_SIZES + [2.0, 2.5]
 
 
 # v3.2 thin-value SELECTION thresholds: a bet is VALUE iff the range that actually CALLS is one we beat
@@ -326,6 +334,13 @@ def _ecall_rows(pot: int, hero_committed: int, hero_stack: int,
         win = sum(w for w, sv in callers if sv > hero_sc)
         tie = sum(w for w, sv in callers if sv == hero_sc)
         e_call = (win + 0.5 * tie) / cw                   # hero's equity vs the ACTUAL calling set
+        # OVERBET-MENU guard (stress catch 2026-07-06: sizer.*.thin went 73%-commit with a bare pair):
+        # the ADDED 2.0x/2.5x arms qualify only as STRONG value — the user's own overbet pattern is
+        # nutted/capped-range exploitation, never thin. One tune after the stress fail, per the ship
+        # rules. Flag-scoped: with the menu OFF this line is unreachable (2.0/2.5 not in ECALL_SIZES)
+        # and the natural short-stack jam path stays byte-identical.
+        if _OVERBET_MENU and s in (2.0, 2.5) and e_call < 0.70:
+            continue
         # called win nets 1+s (pot + villain's call); the bet s is spent whenever called (see value_score)
         sc = F + (1.0 - F) * (e_call * (1.0 + 2.0 * s) - s)
         rows.append((s, _to_amount_for_size(s, pot, hero_committed, hero_stack), F, e_call, cw / total_v, sc))
