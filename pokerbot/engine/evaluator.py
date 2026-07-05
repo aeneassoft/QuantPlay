@@ -10,13 +10,33 @@ _EV = Evaluator()
 RANK_ORDER = "23456789TJQKA"
 
 
+# CLEANUP 2026-07-05 (profiled: 645k evaluate calls / 70 decisions, 1.3M Card.new conversions): both are
+# pure -> memoized. The card table is complete after 52 entries; the evaluate memo is bounded + cleared
+# wholesale when full (combos repeat heavily within a decision's range walks).
+_CARD_INTS: dict = {}
+_EVAL_MEMO: dict = {}
+_EVAL_MEMO_MAX = 120_000
+
+
 def _t(cards: list[str]) -> list[int]:
-    return [Card.new(c) for c in cards]
+    out = []
+    for c in cards:
+        i = _CARD_INTS.get(c)
+        if i is None:
+            i = _CARD_INTS[c] = Card.new(c)
+        out.append(i)
+    return out
 
 
 def evaluate(board: list[str], hole: list[str]) -> int:
     """Score a hand. board+hole must total >= 5 cards. Lower is better (1 = royal flush)."""
-    return _EV.evaluate(_t(board), _t(hole))
+    key = (tuple(board), tuple(hole))
+    hit = _EVAL_MEMO.get(key)
+    if hit is None:
+        if len(_EVAL_MEMO) >= _EVAL_MEMO_MAX:
+            _EVAL_MEMO.clear()
+        hit = _EVAL_MEMO[key] = _EV.evaluate(_t(board), _t(hole))
+    return hit
 
 
 def hand_rank_name(score: int) -> str:

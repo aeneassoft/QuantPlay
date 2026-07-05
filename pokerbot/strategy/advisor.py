@@ -75,10 +75,30 @@ def available(street: str = "flop") -> bool:
     return bool(_load(street))
 
 
+# CLEANUP 2026-07-05 (profiled: p_bet = 57% of decide() runtime at 196k calls — the range tracker queries it
+# per combo per action, and the same (combo, board, street) recurs across a hand's walk): both query functions
+# are pure per their full argument tuple + fixed module state (nets load once, RIVER_LA reads once at import),
+# so results are memoized. Bounded dicts, cleared wholesale when full.
+_PBET_MEMO: dict = {}
+_PDEF_MEMO: dict = {}
+_MEMO_MAX = 120_000
+
+
 def p_bet(hole, board, role, street: str = "flop", pot_type: str | None = None) -> float | None:
     """Advisor P(bet) for this hand at the flop (OOP=donk / IP=c-bet), turn (OOP=lead / IP=barrel) or river node;
     None -> caller falls back to the heuristic floor. When RIVER_LA is ON and a pot_type is given, the river routes
     to the line-aware net river_advisor_la.pt (21-dim: + pot-type one-hot) = the under-value-betting fix."""
+    key = (tuple(hole), tuple(board), role, street, pot_type)
+    if key in _PBET_MEMO:
+        return _PBET_MEMO[key]
+    if len(_PBET_MEMO) >= _MEMO_MAX:
+        _PBET_MEMO.clear()
+    result = _p_bet_compute(hole, board, role, street, pot_type)
+    _PBET_MEMO[key] = result
+    return result
+
+
+def _p_bet_compute(hole, board, role, street, pot_type) -> float | None:
     strength = 1.0 - evaluate(board, hole) / 7462.0
     f = hand_features(hole, board)
     if street == "river" and RIVER_LA and pot_type is not None and _load("river_la"):
@@ -125,7 +145,19 @@ def p_defense(hole, board, role, size_faced: float, street: str = "flop"):
     """Solver (P_fold, P_call, P_raise) for this hand facing a bet of size_faced (× the pot it was bet into) on
     `street`, or None -> caller uses the heuristic. Trained on the flop+turn+river caches (turn added 2026-06-16)
     -> the caller gates to those streets. Feature vector EXACTLY matches extraction/train_defense_advisor.feat: tier, texture(flop), STREET,
-    role, bools, overcards, strength, size_faced. Texture is keyed on the flop (board[:3]) as in build_defense_data."""
+    role, bools, overcards, strength, size_faced. Texture is keyed on the flop (board[:3]) as in build_defense_data.
+    Memoized (pure per full argument tuple; the range tracker calls per combo)."""
+    key = (tuple(hole), tuple(board), role, size_faced, street)
+    if key in _PDEF_MEMO:
+        return _PDEF_MEMO[key]
+    if len(_PDEF_MEMO) >= _MEMO_MAX:
+        _PDEF_MEMO.clear()
+    result = _p_defense_compute(hole, board, role, size_faced, street)
+    _PDEF_MEMO[key] = result
+    return result
+
+
+def _p_defense_compute(hole, board, role, size_faced, street):
     net = _load_defense()
     if not net:
         return None

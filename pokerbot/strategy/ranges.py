@@ -74,9 +74,14 @@ def call_shove_fraction(eff_bb: float) -> float:
 
 
 def combos_for_classes(classes, dead) -> list[tuple[str, str]]:
+    """DETERMINISM FIX (2026-07-05, measured): `classes` is usually a SET of class strings (range_top) —
+    iterating it directly made the combo-list order PYTHONHASHSEED-dependent, so MC equity paired the same
+    rng draws with different villain combos per process -> mixed-strategy boundary decisions flipped between
+    otherwise-identical runs (caught by a run-to-run stress diff: 4/140 actions; PYTHONHASHSEED=0 -> 0 diffs).
+    sorted() pins ONE canonical order for every consumer (tracker priors, equity ranges, exports, live)."""
     dead = set(dead)
     out: list[tuple[str, str]] = []
-    for hc in classes:
+    for hc in sorted(classes):
         for combo in expand_class(hc):
             if not (set(combo) & dead):
                 out.append(combo)

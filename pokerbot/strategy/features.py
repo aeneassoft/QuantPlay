@@ -21,11 +21,8 @@ def _suit_counts(cards) -> dict:
     return d
 
 
-def _straight_outs(rank_idxs) -> int:
-    """Number of distinct ranks that complete a 5-straight from the given ranks (8+ outs -> OESD, 4 -> gutshot)."""
-    rs = set(rank_idxs)
-    if 12 in rs:                      # ace plays low too
-        rs.add(-1)
+def _straight_outs_compute(rs: frozenset) -> int:
+    """The original straight-outs logic over a canonical rank-set (ace-low already added by the caller)."""
     cnt = 0
     for r in set(range(-1, 13)) - rs:
         for lo in range(r - 4, r + 1):
@@ -36,8 +33,43 @@ def _straight_outs(rank_idxs) -> int:
     return cnt
 
 
+_STRAIGHT_MEMO: dict = {}         # frozenset(ranks) -> outs; domain <= 2^13 entries, exact + tiny
+
+
+def _straight_outs(rank_idxs) -> int:
+    """Number of distinct ranks that complete a 5-straight from the given ranks (8+ outs -> OESD, 4 -> gutshot).
+    CLEANUP 2026-07-05 (profiled: 30% of decide() runtime, 10M generator calls): memoized over the canonical
+    rank-set — the domain is all subsets of 13 ranks, so the cache is exact and bounded by construction."""
+    rs = set(rank_idxs)
+    if 12 in rs:                      # ace plays low too
+        rs.add(-1)
+    key = frozenset(rs)
+    hit = _STRAIGHT_MEMO.get(key)
+    if hit is None:
+        hit = _STRAIGHT_MEMO[key] = _straight_outs_compute(key)
+    return hit
+
+
+_FEATURES_MEMO: dict = {}
+_FEATURES_MEMO_MAX = 60_000       # bounded: per-combo-per-board entries; cleared wholesale when full
+
+
 def hand_features(hole, board) -> dict:
-    """Feature dict for (hole, board). Postflop only (board >= 3)."""
+    """Feature dict for (hole, board). Postflop only (board >= 3). Memoized (pure function of the cards;
+    profiled at 241k calls / 70 decisions via the range tracker's per-combo advisor queries). Returns a
+    fresh shallow copy so a caller mutating the dict can never corrupt the cache."""
+    key = (tuple(hole), tuple(board))
+    hit = _FEATURES_MEMO.get(key)
+    if hit is not None:
+        return dict(hit)
+    if len(_FEATURES_MEMO) >= _FEATURES_MEMO_MAX:
+        _FEATURES_MEMO.clear()
+    result = _hand_features_compute(hole, board)
+    _FEATURES_MEMO[key] = result
+    return dict(result)
+
+
+def _hand_features_compute(hole, board) -> dict:
     cards = list(hole) + list(board)
     made = best_five_name(board, hole)
     sc_all = _suit_counts(cards)
