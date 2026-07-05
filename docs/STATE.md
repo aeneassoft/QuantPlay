@@ -52,10 +52,17 @@ a hot-patched working-tree tarball) makes the fingerprint lie about instance fla
 measurement-only): fingerprint should also report the constructed agent's actual use_resolver /
 use_turn_resolver attributes.
 User strategy directive (2026-07-05 late): balanced approach, ONLY gated improvements, chase top-5, CS
-concepts first-class, short GTOW smoke soon. In flight: flop-library calibration pilot
-(`research/flop_pilot.py` → data/research_sweep/flop_pilot.json; re-runs need POKERB_SOLVE_CACHE=0);
-TurboReBeL theorem/review fetch (paper VERIFIED = ICLR26 sub REJECTED, ledger updated); library design
-hardened per panel (docs/FLOP_LIBRARY.md §Kritiker-Panel-Auflagen).
+concepts first-class, short GTOW smoke soon. **PLUS (2026-07-06): the AXIOM-KNOB track — conditions as
+tunable knobs, computation axioms sacred (docs/CONDITIONAL_POKER_LEMMAS.md). Knob queue (each full-ladder):
+L1 PURIFY (hours, next Analyzer round after the v3.x verdicts) → L2 MR-ORANGE (mini-CFR numpy + exact-BR
+river δ-sweep — the instrument doubles as the exact-exploitability gate AND the v4/Leduc-falsification
+core; 2-4 days, targets the river −8.5) → L3 v3.2b auto-unpark iff v3.3 promotes AND check-line
+check_range_l1 clears → L4 iso already binding in the flop library.** In flight: flop-library calibration
+pilot (`research/flop_pilot.py` → data/research_sweep/flop_pilot.json; re-runs need POKERB_SOLVE_CACHE=0);
+formula blind-verify campaign (78 fns, dual blind derivation + comparator); math suite live
+(tests/test_math_suite.py, 17/17 deep); fingerprint hardening queued (also log constructed agent use_*
+attrs — the family-1 lesson). TurboReBeL: theory deep-dive done (Thm 1 likely FALSE as stated —
+data/research_sweep/turborebel_theory.md; Leduc falsification harness = phase-5, shares the L2 mini-CFR).
 
 **★★ v3.2 REFUTED (Analyzer, paired seed-55): 26.14 vs v3's 17.93 (+8.21 WORSE — the worst arm of the whole
 family, below even v2.2's 20.66).** The SELECTION-aware thin-value gate (e_call>=0.5 vs the tracked calling
