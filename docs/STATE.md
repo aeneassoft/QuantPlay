@@ -4,10 +4,17 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
-**★ HANDOFF ACTIVE (2026-07-05 ~23:00): a new session starts at [`_SESSION_HANDOFF.md`](../_SESSION_HANDOFF.md)**
-— Priority 0 = adopt/harvest/KILL the running export pod (g5rke3x93p7eas, $2.24/hr); then the pod-arm Analyzer
-verdicts (v3.3/v3.4/v3.5 vs the FRESH pod anchor). GitHub MCP + Serena MCP configured (.mcp.json); branch +
-tag v2 pushed. This block supersedes itself once the pod is harvested.
+**★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms
+landed in `data/gtow_upload/pod/` (1500/1500 hands each, fingerprints verified per-arm — the audit fix works),
+pod g5rke3x93p7eas terminated, `--status` = no tracked pods, cost ~$3.10 (1.4h — the shared solve cache
+collapsed the 4-9h estimate). hu_{v3fresh,v33,v34,v35} copied to Desktop → NEXT: user uploads to the GTOW
+Analyzer; verdicts read vs the FRESH `hu_v3fresh` anchor ONLY (never the old-exporter 17.93). Promotion rule:
+≥ ~1.5 EV-loss better → into PRINCE_PROFILE + fingerprint + commit; worse → refute + park. Then the 300-hand
+tail-smoke on the FIXED harness (blinds-order fix: pre/post-fix live numbers NOT comparable — the −19.70
+anchor is pre-fix; a fresh 2,500 precision run must re-anchor). User strategy directive (2026-07-05 late):
+balanced approach, ONLY gated improvements, chase top-5, CS concepts first-class, short GTOW smoke soon.
+In flight: flop-library calibration pilot (`research/flop_pilot.py` → data/research_sweep/flop_pilot.json);
+strategy critic panel; TurboReBeL theorem/review fetch (paper VERIFIED = ICLR26 sub REJECTED, ledger updated).
 
 **★★ v3.2 REFUTED (Analyzer, paired seed-55): 26.14 vs v3's 17.93 (+8.21 WORSE — the worst arm of the whole
 family, below even v2.2's 20.66).** The SELECTION-aware thin-value gate (e_call>=0.5 vs the tracked calling
