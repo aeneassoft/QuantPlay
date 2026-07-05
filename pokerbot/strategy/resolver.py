@@ -58,6 +58,34 @@ else:
 _SOLVE_THREADS = 8        # TexasSolver worker threads per solve
 _MIN_SOLVE_CHIPS = 2.0    # degeneracy floor: never hand the solver a zero/near-zero pot or stack
 
+# EVPA PRINCIPLE (Li & Huang, ICLR 2025 — books/papers/CFR/'EVPA !.pdf'; gated POKERB_ARM_PRUNE, default
+# OFF): permanently remove DEGENERATE branches BEFORE the solve. EVPA proper prunes via a CFV-net ensemble
+# we don't have; the one bound-quality dominance argument available WITHOUT nets is GEOMETRY: a root-street
+# bet arm whose chip size lands at/near the effective all-in duplicates the tree's ALLIN child (the solver
+# still builds a full subtree per arm). Dropping it is lossless by degeneracy — strategy content unchanged,
+# tree multiplicatively smaller (a removed turn arm deletes its entire river subtree). Root street only:
+# deeper-street pots aren't known pre-solve, so pruning there would NOT be sound. Cache-safe (bets hashed).
+_ARM_PRUNE = _flag("POKERB_ARM_PRUNE", "0") == "1"
+_PRUNE_ALLIN_FRAC = 0.85  # an arm costing >= this fraction of the effective stack ~ duplicates the allin child
+
+
+def _prune_degenerate_arms(bets, street, pot, eff_stack):
+    """A NEW bets list with the root street's near-all-in BET/RAISE arms removed (see the flag block above).
+    Never touches deeper streets, never removes the allin lines, never empties a menu completely."""
+    if not _ARM_PRUNE or pot <= 0 or eff_stack <= 0:
+        return bets
+    out = []
+    for line in bets:
+        parts = line.split(",")
+        if len(parts) > 3 and parts[1] == street and parts[2] in ("bet", "raise"):
+            kept = [v for v in parts[3:]
+                    if (float(v) / 100.0) * pot < _PRUNE_ALLIN_FRAC * eff_stack]
+            if kept:                                   # a fully-degenerate menu falls back to allin alone
+                out.append(",".join(parts[:3] + kept))
+        else:
+            out.append(line)
+    return out
+
 
 # PRINCE v2 L2b (papers wave #1, Brown&Sandholm nested re-solving): insert the OBSERVED villain bet sizes into the
 # solve tree instead of letting _match_label ROUND them to the nearest grid arm (the census shows GTOW barrels
@@ -186,6 +214,7 @@ def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         return None
     try:
         bets = _inject_observed_sizes(state, "river", pot, _RIVER_BETS)   # L2b: solve with the TRUE observed sizes
+        bets = _prune_degenerate_arms(bets, "river", pot, eff_stack)      # EVPA-style lossless pre-solve prune
         root = O.solve(board, oop_str, ip_str, pot=max(_MIN_SOLVE_CHIPS, pot),
                        eff_stack=max(_MIN_SOLVE_CHIPS, eff_stack),
                        bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=_SOLVE_THREADS,
@@ -220,6 +249,7 @@ def turn_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         return None
     try:
         bets = _inject_observed_sizes(state, "turn", pot, _TURN_BETS)     # L2b: solve with the TRUE observed sizes
+        bets = _prune_degenerate_arms(bets, "turn", pot, eff_stack)       # EVPA-style lossless pre-solve prune
         root = O.solve(board, oop_str, ip_str, pot=max(_MIN_SOLVE_CHIPS, pot),
                        eff_stack=max(_MIN_SOLVE_CHIPS, eff_stack),
                        bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=_SOLVE_THREADS,

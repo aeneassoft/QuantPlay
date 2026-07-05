@@ -124,3 +124,17 @@ Autoren, IDs oder DOIs — die Verifikationspflicht war voll berechtigt. Kein Ei
 4. Paper-Queue: siehe Teil 2 nach Verifikation.
 5. **Paper-Beschaffung (User/Browser):** EVPA (OpenReview ICLR 2025) + TurboReBeL (openreview.net/forum?id=yMo7Z670f6, unbestätigt) + WEVA + MCCR (arXiv:1812.07351) + Safe-and-Nested (arXiv:1705.02955) + Stable-Predictive (arXiv:1902.04982) nach books/papers/CFR/ laden.
 6. **v4-Machbarkeitskarte** (auf User-Befehl): TurboReBeL zuerst lesen — wenn „250× Belief-Learning" hält, schrumpft die v4-Leaf-Netz-Hürde dramatisch.
+
+## EVPA + Embedding-CFR Implementierungs-Verdikte (2026-07-05, beide Paper agenten-gelesen)
+- **EVPA (ICLR 2025, verifiziert):** Kern = Ensemble-CFV-Pruning + Online-Bucketing VOR dem Solve (69-79%
+  Baumreduktion, spielbar bei 0.02s). OHNE die Netze ist nur GEOMETRIE-Pruning sound. GEBAUT: resolver.
+  _prune_degenerate_arms (POKERB_ARM_PRUNE, default OFF) — Mechanik korrekt, aber die gepaarte Battery MASS:
+  TexasSolver kollabiert Über-All-in-Arme INTERN bereits (eps identisch bis 1e-8, Zeit flach) -> **No-op vs
+  TexasSolver, behalten als v4-Baustein** (eigener CFR-Kern kontrolliert den Baum selbst). NICHT gebaut
+  (bewusst): Census-Frequenz-Pruning (Gegner-Policy != Dominanz — die GTO-Score-Lektion), Range-Hard-Zeroing
+  (o3-Schranke). v4-NOTIZ: EVPA-Datenkorpus (TexasSolver-gelabelte (Spot,Hand,Line)->EV-Paare) kann JETZT
+  gesammelt werden — der Solve-Cache ist der Anfang; das M=10-Ensemble ist billig (H100, ~Tage).
+- **Embedding CFR (arXiv:2511.12083, 17pp — nicht 182):** Soft-Karten-Abstraktion für Blueprint-Solves;
+  NICHT unser Problem (verlustfreie Subgames). EIN Baustein: HandEbdNet-Rezept (Per-Street-W/D/L-Profil-CNN)
+  als v4-Leaf-Netz-Featurization ('Schritt 0', optional, 3080Ti). Baureihenfolge unverändert.
+- **Flop-No-Go-Retest** mit EVPA-minimalem Menü (1 Size/Street): läuft (bwfga5qs2) — Ergebnis folgt.
