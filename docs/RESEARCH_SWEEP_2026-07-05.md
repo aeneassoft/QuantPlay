@@ -158,6 +158,27 @@ Autoren, IDs oder DOIs — die Verifikationspflicht war voll berechtigt. Kein Ei
   4. **Gate-Rezept:** Turn-Endgame mit EXAKTER Exploitability als billiges erstes Gate (= unsere
      Grounded-Gate-Doktrin); ihre Schwäche (kein LBR, kleine Abstraktion) nicht kopieren.
 
+## AIVAT verstanden (2026-07-06 ~01:00 — Paper arXiv:1612.06915 via ar5iv gelesen; Burch/Schmid/Moravčík/Bowling AAAI'18)
+- **Konstruktion:** Kontroll-Variaten an CHANCE-Knoten UND Entscheidungs-Knoten der analysierten Spieler;
+  Baseline = beliebige Value-Funktion ṽ; imaginary observations marginalisieren unbekannte Gegner-Karten.
+- **★ DAS NO-CHEESE-THEOREM (Thm 1):** E[Σ Korrekturen] = 0 UNABHÄNGIG von der Baseline-Qualität — Zitat:
+  *"a player cannot appear to do better by changing their play to take advantage of the estimation method."*
+  → **AIVATs Mittelwert ist nicht gambar.** Pre-registriert: jede künftige Idee "wir passen uns an die Metrik
+  an und gewinnen bb" ist per Theorem ein Artefakt. Anpassung an AIVAT ≠ Metrik-Gaming (unmöglich).
+- **Was Anpassung LEGITIM heißt (die 3 echten Hebel):** (1) Pures EV optimieren — Glück wird subtrahiert,
+  Gamble-Linien kriegen keinen Credit. (2) **Varianz-Seite gehört UNS:** Residual-SD hängt am Spielstil +
+  daran, wie gut GTOWs Baseline unsere Linien abdeckt → Tail-Kill + On-Tree-Sizings = engere SE = schnellere/
+  billigere Gates (gemessen: per-Hand-SD 1000-Ära → 214 heute; ±2SE@2500 skaliert mit SD). Lower-variance
+  style = cheaper truth. (3) Off-Tree-Linien = schlechterer Baseline-Fit = mehr RAUSCHEN (nie Bias) — ein
+  Mess-Speed-Argument für Census-Snapping zusätzlich zum EV-Argument.
+- **money_mine-KAVEAT (paper-bestätigt):** Das Paper stützt KEINE Unverzerrtheit für KONDITIONIERTE
+  Teilmengen (z.B. nur Fold-Hände) — Bucket-Summen mischen echtes EV mit Baseline-Residuen, die mit der
+  Konditionierung korrelieren. money_mine bleibt RANKING-Heuristik; Magnituden nicht wörtlich nehmen
+  (Caveat in Skript + JSON nachgezogen).
+- **Instrumenten-Kandidat (post-Ladder):** EIGENES lokales AIVAT für nicht-GTOW-Messungen (Canary/Slumbot/
+  Duplicate) — Unverzerrtheit gilt für JEDE Baseline → unsere Advisor/Solver-Values genügen; ~10× Varianz
+  auf unseren $0-Gates wäre ein Instrumenten-Durchbruch (NOTES' DIVAT-Notiz, jetzt paper-fundiert).
+
 ## TurboReBeL THEORIE-Tiefgang (2026-07-06 ~00:20 — Theoreme + alle 4 Reviews VERBATIM gesichert)
 Voller Report: `data/research_sweep/turborebel_theory.md` (+ Rebuttal-PDF + Reviews-Rohdaten ebenda;
 OpenReview ist inzwischen challenge-gesperrt — Quellen: 1× Live-API-Zugriff + Wayback-PDF + 2 unabhängige,

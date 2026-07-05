@@ -9,6 +9,12 @@ honest scoreboard, or he cannot know what prints).
 CAVEAT baked into the output: sessions span CONFIG ERAS (dead-code eras included) — the per-era block
 for the newest big file is the cleaner read; the all-files block is the wide net.
 
+AIVAT-ATTRIBUTION CAVEAT (paper-grounded, arXiv:1612.06915 read 2026-07-06): AIVAT is unbiased over ALL
+hands regardless of baseline quality (Thm 1), but the paper does NOT license unbiasedness for sums over
+CONDITIONED subsets (our buckets condition on terminal shape/street!) — bucket sums mix true EV with
+baseline residue correlated with the conditioning. Treat rankings as LEAD GENERATION, magnitudes as
+soft; every lead still passes the normal gate ladder before anything ships.
+
 Usage: python -m research.money_mine        -> data/research_sweep/money_mine.json + printed top tables
 """
 from __future__ import annotations
