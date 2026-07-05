@@ -8,7 +8,8 @@ VERIFIED against the cloned client (tools/gtow_client/src/models.py, June 2026):
               action_history[str], has_gto_wizard_folded, winnings, aivat_score
   - HERO = the player whose hole_cards is not None (villain's is None).
   - action_history tokens: 'f' fold, 'c' call, 'k' check, 'bX' bet-to-X (CUMULATIVE on the round), '_' round end.
-  - to_call = total_pot - common_pot ; HU: SB = button. winnings/aivat_score arrive on the final (is_hand_over) state.
+  - to_call = the committed-delta max(0, max(c_h,c_v)-c_h) (total_pot-common_pot INFLATED preflop — fixed 2026-06-21,
+    env POKERB_TOCALL_FIX=0 restores the old buggy form for the A/B). HU: SB = button. winnings/aivat on the final state.
   ActRequest: action in {f,c,k,b}, amount:int|None (REQUIRED for 'b'; cumulative street bet).
 
 PokerBotAgent.act_dict(gsr_dict) is the pure mapping (the client wraps it in async + Pydantic). A final legality
@@ -16,7 +17,14 @@ guard guarantees we never emit an illegal action. Run offline self-test (no key)
 """
 from __future__ import annotations
 
+import os
+
 from pokerbot import config
+from pokerbot.strategy.gto_mode import apply as _apply_gto_mode
+
+# GTOW mode (S1, plan 2026-07-04): POKERB_GTO_MODE=1 expands the anti-exploitability profile BEFORE any
+# pokerbot.strategy import (postflop/advisor read their flags at import time; PokerBot is imported lazily below).
+_apply_gto_mode()
 
 _STREETS = ["preflop", "flop", "turn", "river"]
 
@@ -59,7 +67,12 @@ def _parse_history(action_history, button_seat, blinds):
                 committed[actor] = float(tok[1:]) if tok[1:] else committed[actor]
             except ValueError:
                 pass
-            hist.append({"player": actor, "action": ("raise" if (bet_made or si == 0) else "bet"), "street": st})
+            # BUG-HUNT FIX (major, PRE-EXISTING): the entry carried NO amount, so resolver._match_label got
+            # amount=None -> "(amount or 0)" -> nearest-to-ZERO -> it navigated EVERY villain bet/raise onto the
+            # SMALLEST tree arm (defending vs a 1.5x overbet as if it were 0.35x). Also made the L2b size
+            # injection a silent no-op vs GTOW. `to` = the cumulative street bet-to, matching the engine's history.
+            hist.append({"player": actor, "action": ("raise" if (bet_made or si == 0) else "bet"),
+                         "street": st, "to": committed[actor]})
             bet_made = True
         actor = 1 - actor                         # turn passes to the other player
     return hist, committed[0], committed[1], si
@@ -70,7 +83,7 @@ def gtow_to_state(gsr: dict) -> dict:
     game = gsr.get("game") or {}
     gs = gsr.get("game_state") or gsr             # tolerate being handed game_state directly
     blinds = [int(x) for x in (game.get("blinds") or [50, 100])]
-    bb = blinds[1] if len(blinds) > 1 else 100
+    bb = max(blinds) if blinds else 100        # the BIG blind = max (GTOW returns [BB, SB]=[100,50]; blinds[1]=SB=50 was a 2x-bb bug)
     start = int(game.get("starting_stack") or 20000)
     players = gs.get("players") or []
     # HERO = the seat with hole_cards populated (villain's is None)
@@ -84,12 +97,22 @@ def gtow_to_state(gsr: dict) -> dict:
     street = gs.get("street") or (_STREETS[min(len(board) - 2, 3)] if len(board) >= 3 else "preflop")
     common_pot = int(gs.get("common_pot") or 0)
     total_pot = int(gs.get("total_pot") or common_pot)
-    to_call = max(0, total_pot - common_pot)
 
     # Reconstruct history in ENGINE seat space (hero=0). The actual play order is button-first preflop /
     # non-button-first postflop, which _parse_history replicates via button_seat -> the flat action_history
-    # attributes correctly (first preflop token = the button = engine seat `button_eng`).
+    # attributes correctly (first preflop token = the button = engine seat `button_eng`). c_h/c_v = the per-street
+    # committed (incl. the preflop blinds).
     hist_eng, c_h, c_v, _si = _parse_history(gs.get("action_history") or [], button_seat=button_eng, blinds=blinds)
+    # to_call = the UNMATCHED delta from the committed amounts, NOT total_pot - common_pot. The latter INFLATED
+    # preflop to_call to the WHOLE pot (GTOW's common_pot excludes the blinds during active preflop betting), so the
+    # logged required_equity ran ~0.22 too high in 100% of preflop facing-bet spots (study_grade audit 2026-06-21 — a
+    # co-cause of the GLM preflop over-fold; it's why blueprint-routing fixed it = bypasses this input). The
+    # committed-delta is correct on EVERY street (postflop common_pot already matched it, so this is a no-op there).
+    # POKERB_TOCALL_FIX=0 restores the old buggy form (the paired GTOW A/B that measures this fix's bb/100 effect).
+    if os.environ.get("POKERB_TOCALL_FIX", "1") == "1":
+        to_call = max(0, int(max(c_h, c_v)) - int(c_h))
+    else:
+        to_call = max(0, total_pot - common_pot)
 
     la_codes = [a.lower() for a in (gs.get("legal_actions") or [])]
     rr = gs.get("raise_range") or {}
@@ -105,6 +128,8 @@ def gtow_to_state(gsr: dict) -> dict:
     return {
         "street": street, "board": board, "pot": int(total_pot), "bb": int(bb),
         "current_bet": int(max(c_h, c_v)) if to_call > 0 else 0, "button": button_eng,
+        # hand_id: keys the L2a per-hand line-draw (H1 fix) — 8 concurrent hands share ONE bot instance
+        "hand_id": gsr.get("hand_id"),
         "hand_no": 0, "history": hist_eng, "to_act": 0, "hand_over": bool(gs.get("is_hand_over")),
         "players": [
             {"idx": 0, "hole": parse_cards(hero.get("hole_cards")), "stack": hero_stack,
@@ -156,6 +181,8 @@ class PokerBotAgent:
         import os
         from pokerbot.strategy.bot import PokerBot
         # env A/B toggles (default ON): POKERB_RESOLVER=0 / POKERB_TURN_RESOLVER=0 -> off (e.g. the floor baseline)
+        if os.environ.get("POKERB_EXPLOIT", "1") == "0":   # A/B: OFF -> pure GTO discipline (no exploit-primary deviation;
+            exploit = False                                # ~the pre-exploit chassis -- hypothesis: better vs near-Nash GTOW)
         if use_resolver is None:
             use_resolver = os.environ.get("POKERB_RESOLVER", "1") != "0"
         if use_turn_resolver is None:
@@ -163,6 +190,8 @@ class PokerBotAgent:
         self.bot = PokerBot(0, seed=seed, exploit=exploit)
         self.bot.use_resolver = use_resolver             # MVP#2 P1: real-time river re-solving
         self.bot.use_turn_resolver = use_turn_resolver   # MVP#2 P2: real-time turn re-solving
+        if os.environ.get("POKERB_GTO_MODE", "0") == "1":  # GTOW mode: no off-tree probing vs a near-GTO opponent
+            self.bot.use_probe = False
         if os.environ.get("POKERB_DEEPCFR", "0") == "1":  # our from-scratch HUNL Deep CFR net IS the strategy
             self.bot.use_deepcfr = True
         if os.environ.get("POKERB_BLUEPRINT", "1") == "0":  # A/B: OFF -> heuristic preflop (the -72 baseline)
@@ -230,6 +259,13 @@ def _selftest():
             rr = gsr["game_state"]["raise_range"]
             assert rr["min"] <= ar["amount"] <= rr["max"], (name, ar, rr)
         print(f"  {name:18s}: to_call={st['legal']['to_call']:5d} pot={st['pot']:5d} -> ActRequest {ar}")
+    # LOCK the to_call fix (study_grade audit 2026-06-21 — committed-delta, NOT total_pot-common_pot). The BB case
+    # uses common=0,total=325 so the OLD formula would yield 325 (the inflated bug) and FAIL this assert.
+    assert gtow_to_state(_gsr("preflop", 0, 325, "", ["f", "c", "b"], {"min": 450, "max": 19900}, ["b225"],
+                              hole="Ts9s", pos="BB"))["legal"]["to_call"] == 125, "BB vs 2.25bb open must be 1.25bb"
+    assert gtow_to_state(_gsr("preflop", 150, 150, "", ["f", "c", "b"], {"min": 300, "max": 19950}, [],
+                              hole="AsKd", pos="SB"))["legal"]["to_call"] == 50, "SB to open faces the BB (0.5bb)"
+    print("to_call fix locked: BB-vs-open=125 (was 325), SB-open=50 (was 0)")
     print("OK - adapter maps the REAL schema to legal ActRequests. Key present:", bool(config.GTOWIZARD_API_KEY))
 
 

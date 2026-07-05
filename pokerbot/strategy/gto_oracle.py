@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -41,6 +42,20 @@ def available() -> bool:
     return EXE.exists()
 
 
+# S5 (plan 2026-07-04): persistent DISK cache for solves. Semantics-neutral (the key covers every input that
+# shapes the solve), so it defaults ON; POKERB_SOLVE_CACHE=0 disables. Biggest payoff in the $0 loops
+# (duplicate.py mirrored decks hit the same boards twice; repeated grading runs re-hit spots).
+_CACHE_ON = os.environ.get("POKERB_SOLVE_CACHE", "1") == "1"
+_CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "_solve_cache"
+
+
+def _cache_key(board, oop, ip, pot, eff, bets, accuracy, max_iter, dump_rounds, mode) -> str:
+    import hashlib
+    blob = "|".join([",".join(board), oop, ip, f"{pot:.1f}", f"{eff:.1f}",
+                     ";".join(bets), f"{accuracy}", f"{max_iter}", f"{dump_rounds}", mode])
+    return hashlib.sha1(blob.encode("utf-8")).hexdigest()
+
+
 def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: float = 100.0,
           bets=None, accuracy: float = 0.5, max_iter: int = 150, threads: int = 8,
           allin_threshold: float = 0.67, dump_rounds: int = 2, timeout: int = 180,
@@ -58,6 +73,16 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
         raise FileNotFoundError(f"TexasSolver console binary not found at {EXE}")
     if mode not in ("holdem", "shortdeck"):
         raise ValueError(f"mode must be 'holdem' or 'shortdeck', got {mode!r}")
+    ck = None
+    if _CACHE_ON:
+        ck = _cache_key(board, oop_range, ip_range, pot, eff_stack, bets or _DEFAULT_BETS,
+                        accuracy, max_iter, dump_rounds, mode)
+        cpath = _CACHE_DIR / f"{ck}.json"
+        if cpath.exists():
+            try:
+                return json.loads(cpath.read_text(encoding="utf-8"))
+            except Exception:  # noqa: BLE001 — corrupt cache entry: fall through to a fresh solve
+                pass
     tag = tag if tag is not None else os.getpid()
     inp = SOLVER_DIR / f"_oracle_in_{tag}.txt"
     out = SOLVER_DIR / f"_oracle_out_{tag}.json"
@@ -70,7 +95,10 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
         f"set_allin_threshold {allin_threshold}",
         "build_tree",
         f"set_thread_num {threads}", f"set_accuracy {accuracy}",
-        f"set_max_iteration {max_iter}", "set_print_interval 100",
+        # BUG-HUNT FIX: interval was hardcoded 100 -> solves with max_iter<=100 recorded the ITER-0 (pre-solve)
+        # exploitability and bigger solves a mid-run value. Prints land at 0, k*I+1, ... — I=(max_iter-2)//2
+        # guarantees the last print sits near the END, so _exploitability_pct reflects achieved convergence.
+        f"set_max_iteration {max_iter}", f"set_print_interval {max(1, (max_iter - 2) // 2)}",
         "set_use_isomorphism 1", "start_solve",
         f"set_dump_rounds {dump_rounds}", f"dump_result {out.name}",
     ]
@@ -79,9 +107,17 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
     if mode != "holdem":                      # short-deck (6+) is a CLI flag; the input grammar is identical
         cmd += ["--mode", mode]
     try:
-        subprocess.run(cmd, cwd=str(SOLVER_DIR),
-                       capture_output=True, text=True, timeout=timeout)
+        proc = subprocess.run(cmd, cwd=str(SOLVER_DIR),
+                              capture_output=True, text=True, timeout=timeout)
         data = json.loads(out.read_text(encoding="utf-8"))
+        # P0-B convergence audit (plan 2026-07-04 #2): TexasSolver prints its achieved exploitability per
+        # print_interval; we previously DISCARDED it — so solve quality was never observed (Supremus's central
+        # lesson: unconverged solves are where re-solvers silently bleed). Parse the LAST reported value and
+        # attach it to the result (and thus the persistent cache). Consumers read data["_exploitability_pct"].
+        expl = _parse_exploitability(proc.stdout or "")
+        if expl is not None:
+            data["_exploitability_pct"] = expl
+            data["_solve_iters"] = max_iter
     finally:
         if not keep_files:
             for f in (inp, out):
@@ -89,7 +125,24 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
                     f.unlink()
                 except OSError:
                     pass
+    if _CACHE_ON and ck is not None:
+        try:
+            _CACHE_DIR.mkdir(parents=True, exist_ok=True)
+            tmp = _CACHE_DIR / f"_{ck}.{os.getpid()}.tmp"      # atomic-ish write (concurrent hands share the dir)
+            tmp.write_text(json.dumps(data), encoding="utf-8")
+            tmp.replace(_CACHE_DIR / f"{ck}.json")
+        except Exception:  # noqa: BLE001 — cache write failures never break a solve
+            pass
     return data
+
+
+def _parse_exploitability(stdout: str):
+    """Last exploitability the solver reported (percent-of-pot units as printed), or None.
+    TexasSolver prints progress lines per print_interval; the final one = the achieved convergence."""
+    last = None
+    for m in re.finditer(r"exploitability[^0-9\-]*([0-9]*\.?[0-9]+)", stdout, re.IGNORECASE):
+        last = float(m.group(1))
+    return last
 
 
 def _key(node: dict) -> dict:

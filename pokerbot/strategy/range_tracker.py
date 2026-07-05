@@ -58,6 +58,26 @@ WEIGHT_FLOOR = 1e-6        # prune microscopic mass (o3: avoid numerical cancell
 EMIT_FLOOR = 1e-4         # don't emit combos below this weight into the solver string
 CONF_THRESHOLD = 0.5      # resolver gate: min(conf_oop, conf_ip) below this -> fall back to floor (Claude)
 
+# ---- S2 (plan 2026-07-04): the two measured defects behind "the resolver fires 93% on a WRONG equilibrium" ----
+# (a) INVERSION: the advisor's p_bet is a MARGINAL bet-frequency; applying it multiplicatively per street
+#     compounds correlated evidence — after check/check a strong combo (p~0.9) is x0.01'd away, so the tracked
+#     range INVERTS toward air and the resolver over-bluffs/over-thin-values. Damping: d *= p^ALPHA (ALPHA<1
+#     softens each update while keeping its direction). Default 1.0 = today's behavior, byte-identical.
+# (b) DEAD GATE: confidence = 1 - 0.5*heur_ratio floors at exactly 0.5 — and `rconf < CONF_THRESHOLD(=0.5)`
+#     PASSES at 0.5, so even a 100%-unmodeled reconstruction was trusted. A steeper slope (0.7) gates
+#     heur_ratio >= ~0.72 reconstructions. Default 0.5 = today's behavior, byte-identical.
+# Both flipped by the GTOW-mode profile (gto_mode.PROFILE); overridable per-arm for the A/B.
+from pokerbot.strategy.gto_mode import flag as _flag
+TRACKER_ALPHA = float(_flag("POKERB_TRACKER_ALPHA", "1.0"))
+TRACKER_CONF_SLOPE = float(_flag("POKERB_TRACKER_CONF_SLOPE", "0.5"))
+# Aggression-conditional damping override (the Kc3h 200bb stack-off fix, 2026-07-05): the alpha damping was built
+# against the check/check OVER-narrowing — but it also under-narrows vs MULTI-STREET AGGRESSION (bluffs stay in the
+# barreler's range -> hero's bluffcatch equity over-rated -> the fat-tail call-downs; measured: PRINCE folds the
+# river with alpha=1, calls with alpha=0.5). From the seat's 2nd aggressive POSTFLOP action on, believe the
+# narrowing fully (alpha -> 1): repeated barrels are exactly where the marginal-frequency evidence stops being
+# "correlated noise" and starts being a story.
+TRACKER_AGGRO_FULL = _flag("POKERB_TRACKER_AGGRO_FULL", "0") == "1"
+
 
 def _board_at(board: list[str], street: str) -> list[str]:
     n = {"flop": 3, "turn": 4, "river": 5}.get(street, len(board))
@@ -86,6 +106,7 @@ class RangeTracker:
         self.range: dict[int, dict] = {}      # seat -> {combo(tuple): weight}
         self.heur: dict[int, int] = {0: 0, 1: 0}   # # of silent/unmodeled updates applied to each seat
         self.total: dict[int, int] = {0: 0, 1: 0}  # # of postflop updates applied to each seat
+        self.aggro: dict[int, int] = {0: 0, 1: 0}  # # of postflop aggressive actions per seat (alpha escalation)
 
     # ---- construction -------------------------------------------------------
     def _init_preflop(self, state) -> None:
@@ -158,11 +179,15 @@ class RangeTracker:
         d = self.range[seat]
         self.total[seat] += 1
         if action in ("bet",) and not facing:
+            # aggression-conditional damping: the seat's 2nd+ postflop aggressive action narrows at FULL strength
+            # (alpha=1) under TRACKER_AGGRO_FULL — repeated barrels are a story, not correlated noise.
+            alpha = 1.0 if (TRACKER_AGGRO_FULL and self.aggro.get(seat, 0) >= 1) else TRACKER_ALPHA
+            self.aggro[seat] = self.aggro.get(seat, 0) + 1
             modeled = False
             for c in list(d.keys()):
                 p = self._p_bet(seat, c, board, role, street)
                 if p is not None:
-                    d[c] *= max(0.0, min(1.0, p))
+                    d[c] *= max(0.0, min(1.0, p)) ** alpha
                     modeled = True
             if not modeled:
                 self.heur[seat] += 1          # advisor absent -> legality-only -> unmodeled
@@ -171,7 +196,7 @@ class RangeTracker:
             for c in list(d.keys()):
                 p = self._p_bet(seat, c, board, role, street)
                 if p is not None:
-                    d[c] *= max(0.0, min(1.0, 1.0 - p))
+                    d[c] *= max(0.0, min(1.0, 1.0 - p)) ** TRACKER_ALPHA
                     modeled = True
             if not modeled:
                 self.heur[seat] += 1
@@ -183,7 +208,7 @@ class RangeTracker:
             for c in list(d.keys()):
                 pc = self._p_call(seat, c, board, role, street)
                 if pc is not None:
-                    d[c] *= max(0.0, min(1.0, pc))
+                    d[c] *= max(0.0, min(1.0, pc)) ** TRACKER_ALPHA
                     modeled = True
             if not modeled:
                 self.heur[seat] += 1
@@ -242,7 +267,9 @@ class RangeTracker:
             return 0.0
         eff = 1.0 / sum(w * w for w in d.values())   # inverse Herfindahl = effective #combos (N for uniform)
         heur_ratio = self.heur[seat] / max(1, self.total[seat])
-        conf = 1.0 - 0.5 * heur_ratio
+        # slope 0.5 floors at exactly CONF_THRESHOLD -> `< 0.5` passes even a 100%-unmodeled reconstruction
+        # (the DEAD gate). The GTOW-mode slope 0.7 gates heur_ratio >= ~0.72 (S2, plan 2026-07-04).
+        conf = 1.0 - TRACKER_CONF_SLOPE * heur_ratio
         if eff < 10:                                 # range collapsed to a handful of combos -> distrust
             conf = min(conf, 0.4)
         return max(0.2, min(1.0, conf))

@@ -22,10 +22,40 @@ from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy import ranges as R
 from pokerbot.strategy.opponent import OpponentModel
 from pokerbot.strategy.postflop import LearnedFoldModel, PriorFoldModel
+from pokerbot.strategy.gto_mode import flag as _gto_flag
 import json
 from pokerbot import config
 
 EQUITY_ITERS = 1500
+
+# S3 (plan 2026-07-04, GTOW-mode; both default OFF = baseline byte-identical):
+_ONTREE_RAISES = _gto_flag("POKERB_ONTREE_RAISES", "0") == "1"   # snap postflop RAISES to GTOW's measured grid
+_GTOW_NOLIMP = _gto_flag("POKERB_GTOW_NOLIMP", "0") == "1"       # SB root: renormalize limp->open/fold (GTOW's
+                                                                 # tree has no limp -> limped pots are ungradeable)
+
+# PRINCE v2.2 (stress-suite finding: the MDF-defense cluster = 22/70 constructed catastrophes in EVERY config —
+# one-pair/weak-two-pair stacks off vs 3rd barrels + overbet jams on monotone/double-paired boards; the equity calc
+# "sees" board-straight danger but not flush/paired danger vs a barreling range; default OFF = byte-identical):
+_BARREL_DISCIPLINE = float(_gto_flag("POKERB_BARREL_DISCIPLINE", "0"))   # extra equity demanded in that exact class
+
+# PRINCE v2 L1 (books wave: ToP "equity when called"; default OFF = byte-identical):
+_RIVER_ECALL = _gto_flag("POKERB_RIVER_ECALL", "0") == "1"       # river value size from TRACKED-range e_call/F
+                                                                 # (replaces the e_call surrogate; the fix that
+                                                                 # makes thin max-value/overbet lines legal)
+
+# PRINCE v2 L2a (books wave: "Beyond GTO" balanced give-up profile; default OFF = byte-identical):
+_LINE_U = _gto_flag("POKERB_LINE_U", "0") == "1"                 # ONE uniform per hand shared by the three advisor
+                                                                 # bet/check gates -> monotone barrel/give-up lines
+                                                                 # (indep. draws made continuation incoherent: bet
+                                                                 # flop / random give-up turn = the "no plan" leak)
+
+# USER-FOUND leak fixes (2026-07-04, LEAK_MAP.md "USER-FOUND HU-bot leaks"; both default OFF = byte-identical):
+_TURN_DEFENSE = float(_gto_flag("POKERB_TURN_DEFENSE", "0"))     # call-threshold discount vs turn bets with a made
+                                                                 # pair+ (measured: 44% fold to a 1/2-pot stab vs
+                                                                 # 33% MDF -> any-two stabs print +0.16 pot on us)
+_SLOWPLAY = float(_gto_flag("POKERB_SLOWPLAY", "0"))             # trap frequency: check this fraction of strong flop
+                                                                 # hands (measured: P(check|top pair K)=23.6% vs GTO
+                                                                 # 30-50% -> P(K|check)=9% = a readable check range)
 
 _TEX_FREQS = None
 
@@ -60,6 +90,14 @@ class PokerBot:
     def __init__(self, hero_idx: int, seed: int | None = None, exploit: bool = True):
         self.hero_idx = hero_idx
         self.rng = random.Random(seed)
+        self._hand_u = 0.5           # L2a line-draw fallback (no hand_id contexts: HU server, tests — sequential)
+        self._hand_u_by_id = {}      # BUG-HUNT FIX (H1): per-hand line-draws — the GTOW client interleaves 8
+                                     # concurrent hands on ONE bot instance, so a shared scalar gets overwritten
+                                     # by other hands' preflop draws between our streets (verified live)
+        # BUG-HUNT FIX: consume the profile's exploit switch HERE via the import-order-safe flag — previously only
+        # benchmark/gtowizard.py read it (raw env), so runtimes that never call gto_mode.apply() got half-on states.
+        if _gto_flag("POKERB_EXPLOIT", "1") == "0":
+            exploit = False
         self.exploit = exploit
         self.opp = OpponentModel()
         self.fold_model = None   # set to a LearnedFoldModel to enable fold-equity-optimal sizing
@@ -112,10 +150,24 @@ class PokerBot:
         hero = state["players"][self.hero_idx]
         hole = hero["hole"]
         self._cur_street = state["street"]            # for _raise_to's POKERB_ONTREE postflop size-snap
+        self._cur_committed = hero.get("committed_street", 0) or 0   # S3: raise-snap needs the call level
         if self.use_deepcfr:                          # our from-scratch HUNL Deep CFR net IS the strategy
             return self._deepcfr(state, hole)
         if state["street"] == "preflop":
             self._river_keys = []                    # new hand -> reset the river-bet log
+            if _LINE_U:
+                # L2a: the hand's ONE line-draw (ONLY under the flag — an unconditional draw would shift the rng
+                # stream and break flags-OFF byte-identity). Keyed by hand_id when present (H1 fix: concurrent
+                # hands share this instance); scalar fallback for sequential contexts without ids.
+                u = self.rng.random()
+                hid = state.get("hand_id")
+                if hid is None:
+                    self._hand_u = u
+                else:
+                    self._hand_u_by_id[hid] = u
+                    if len(self._hand_u_by_id) > 64:                 # concurrency cap is 20; prune stale ids
+                        for k in list(self._hand_u_by_id)[:32]:
+                            del self._hand_u_by_id[k]
             return self._preflop(state, hole)
         return self._postflop(state, hole)
 
@@ -230,6 +282,20 @@ class PokerBot:
             tot = sum(safe.values())
             action = self.rng.choices(list(safe), weights=list(safe.values()))[0] if tot > 1e-9 else "fold"
             r["blueprint_clamp"] = True
+        # S3 (POKERB_GTOW_NOLIMP, GTOW-mode): GTOW's measured tree has NO SB limp (12.5k-hand census) -> our
+        # limped pots are 100% off-tree/ungradeable and postflop falls to wide-range guesses. Renormalize the
+        # root limp mass into open/fold (mirror of the jam-clamp pattern above).
+        if _GTOW_NOLIMP and action == "limp" and raises == 0:
+            # Renormalize the SB root limp mass into open/fold PROPORTIONALLY. NOTE (measured, GTOW Analyzer,
+            # paired seed-55, 2026-07-04): this over-folds the bottom of the limp range vs GTOW's frequencies
+            # (75o/85o etc graded as fold-BLUNDERS, ~0.1bb each -> tanks the GTO-SCORE). BUT a "limp->open" fix
+            # that opens those hands MEASURED WORSE on EV (Avg-EV-loss 19.56 vs this clamp's 15.42, paired):
+            # our postflop play with marginal SB hands vs a strong opponent is -EV, so the over-fold is
+            # EV-PROTECTIVE. Score != money; keep the EV-better fold-clamp. The real tie lever is POSTFLOP.
+            safe = {a: p for a, p in dist.items() if a != "limp"}
+            tot = sum(safe.values())
+            action = self.rng.choices(list(safe), weights=list(safe.values()))[0] if tot > 1e-9 else "fold"
+            r["limp_clamp"] = True
         r["blueprint"] = {"node": node, "picked": action, "pct": round(pct, 3),
                           "dist": {k: round(v, 3) for k, v in dist.items()}}
         to_call = la["to_call"]
@@ -358,10 +424,38 @@ class PokerBot:
         return self._mk("fold", None, r, f"Fold {hc} in an escalating re-raise war.")
 
     # ====================================================================== postflop
+    def _line_u(self, state: dict) -> float:
+        """The hand's line-draw for the advisor gates (H1 fix: per-hand keyed under concurrency)."""
+        hid = state.get("hand_id")
+        if hid is not None and hid in self._hand_u_by_id:
+            return self._hand_u_by_id[hid]
+        return self._hand_u
+
+    @staticmethod
+    def _villain_barrels(state, hero_ip: bool) -> int:
+        """The opponent's postflop aggressive-action count so far (incl. the bet being faced). HU postflop
+        actors strictly alternate starting OOP, so per-street index parity identifies the actor — hero is the
+        parity-0 actor iff hero is OOP (no per-entry seat field needed; mirrors resolver._observed_fracs)."""
+        count, street, i = 0, None, 0
+        for h in state.get("history", []) or []:
+            if h.get("action") == "deal":
+                street, i = h.get("street"), 0
+                continue
+            if street in ("flop", "turn", "river") and h.get("action") in (
+                    "check", "call", "bet", "raise", "allin", "fold"):
+                actor_is_hero = (i % 2 == 0) != hero_ip     # parity 0 = OOP = hero iff hero is NOT in position
+                if not actor_is_hero and h.get("action") in ("bet", "raise", "allin"):
+                    count += 1
+                i += 1
+        return count
+
     def _postflop(self, state: dict, hole: list[str]) -> dict:
         la = state["legal"]
         board = state["board"]
         pot = state["pot"]
+        # L1 river-eCall context: _value_to has 8 call sites (advisor/heuristic/exploit paths) — stash the decision
+        # context once here instead of threading it through every signature.
+        self._cur_state, self._cur_hole, self._cur_board = state, hole, board
         to_call = la["to_call"]
         hero = state["players"][self.hero_idx]
         hero_ip = self.hero_idx == state["button"]
@@ -410,7 +504,11 @@ class PokerBot:
             req = to_call / (pot + to_call)
             # ---- DEFENSE ADVISOR (MVP C2): solver (fold/call/raise) per hand = the #1-leak fix. Gated to its
             # coverage (flop, where it was trained); samples the GTO mix; raise keeps the anti-spew commitment cap.
-            if self.use_defense_advisor and street == "flop" and pf_advisor.defense_available():  # flop-only: river defense MEASURED -14 vs GTO Wizard (reverted)
+            # P6/3b: the defense advisor was trained flop+turn+river but hard-gated to the FLOP (river defense
+            # MEASURED -14 vs GTOW -> stays off). POKERB_TURN_DEF_ADVISOR opens the TURN head (hand-aware
+            # fold/call/raise beats the scalar MDF threshold exactly where the stress cluster lives).
+            _def_streets = ("flop", "turn") if _gto_flag("POKERB_TURN_DEF_ADVISOR", "0") == "1" else ("flop",)
+            if self.use_defense_advisor and street in _def_streets and pf_advisor.defense_available():
                 size_faced = to_call / max(1.0, pot - to_call)        # bet as a fraction of the pot it hit
                 pd = pf_advisor.p_defense(hole, board, "IP" if hero_ip else "OOP", size_faced, street=street)
                 if pd is not None:
@@ -418,7 +516,12 @@ class PokerBot:
                     r.update({"defense_advisor": [round(pf_, 2), round(pc_, 2), round(pr_, 2)],
                               "size_faced": round(size_faced, 2), "required_equity": round(req, 3)})
                     u = self.rng.random()
-                    if u < pf_ and eq < 0.80:     # follow the GTO fold — but NEVER fold a near-nut hand (advisor over-fold safety)
+                    # BUG-HUNT FIX: with _SLOWPLAY on, a trapped strong hand re-enters here facing the stab it
+                    # invited — the 0.80 guard sat ABOVE the 0.78 trap band (range-narrowed eq drifts a few pp),
+                    # so the advisor could FOLD the trap. Widen the never-fold band to value_raise_eq (0.72) only
+                    # under the flag (HEAD stays byte-identical).
+                    fold_guard = self.value_raise_eq if _SLOWPLAY > 0 else 0.80
+                    if u < pf_ and eq < fold_guard:   # follow the GTO fold — but NEVER fold a near-nut hand
                         return self._mk("fold", None, r, f"Defense advisor: GTO fold {pf_:.0%} vs {size_faced:.0%}-pot. {made}.")
                     if u >= pf_ + pc_ and la["can_raise"]:            # raise (value / semi-bluff); anti-spew cap
                         eff_d = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
@@ -437,6 +540,35 @@ class PokerBot:
                 rblk = self._river_blocker_signal(hole, board, vrange)
                 call_thresh = max(0.0, call_thresh - 0.06 * rblk)
                 r["river_blocker"] = round(rblk, 2)
+            # USER-FOUND leak fix: turn check-defense MDF calibration. Facing a small/medium turn STAB with a pair
+            # our own hole makes, our eq (computed vs a bluff-stripped narrowed range) over-rates villain -> we
+            # folded 44% vs the 33% MDF (probe n=686; weak pairs folded 33.9%). Discount the threshold there.
+            # BUG-HUNT FIXES: (a) best-five 'Pair' includes BOARD pairs -> require a HOLE-card pair (a paired board
+            # promoted pure air into the discount); (b) hero_committed == 0 -> only first-in stabs after we checked,
+            # never turn RAISES of our own bet (a far stronger range than the any-two stab the fix targets).
+            hole_pair = hole[0][0] == hole[1][0] or any(h[0] == b[0] for h in hole for b in board)
+            if (_TURN_DEFENSE > 0 and street == "turn" and hole_pair and hero_committed == 0
+                    and to_call / max(1.0, pot - to_call) <= 0.8):
+                call_thresh = max(0.0, call_thresh - _TURN_DEFENSE)
+                r["turn_defense"] = _TURN_DEFENSE
+            # PRINCE v2.2 BARREL DISCIPLINE (the stress-suite MDF cluster): facing the villain's 2nd+ barrel of
+            # >=0.5 pot on a MONOTONE or DOUBLE-PAIRED board with <= Two Pair, demand extra equity — the tracked
+            # range keeps his bluffs alive but repeated big bets on THESE textures are value-heavy (the Kc3h class:
+            # counterfeit/flush danger the raw equity calc can't see). Deliberately disjoint from TURN_DEFENSE
+            # (which targets single stabs <=0.8 pot after checking): 2nd+ barrel AND >=0.5 pot only.
+            if (_BARREL_DISCIPLINE > 0 and street in ("turn", "river")
+                    and made in ("High Card", "Pair", "Two Pair")
+                    and to_call / max(1.0, pot - to_call) >= 0.5
+                    and self._villain_barrels(state, hero_ip) >= 2):
+                board_ranks = [b[0] for b in board]
+                double_paired = len(board_ranks) - len(set(board_ranks)) >= 2
+                if tex.get("monotone") or double_paired:
+                    # Q6-calibrated STREET ASYMMETRY (GTOW's revealed play vs 2nd+ barrels with one pair, n=241:
+                    # turn top-pair CALL 84% but river top-pair FOLD 55% — "call the turn, release the river").
+                    # Full discipline on the river; a third of it on the turn.
+                    delta = _BARREL_DISCIPLINE if street == "river" else _BARREL_DISCIPLINE / 3.0
+                    call_thresh = call_thresh + delta
+                    r["barrel_discipline"] = round(delta, 3)
             r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call,
                       "call_threshold": round(call_thresh, 3), "villain_aggr": round(aggr_v, 2)})
             eff = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
@@ -476,6 +608,14 @@ class PokerBot:
         if not la["can_raise"]:
             return self._mk("check", None, r, "Check (cannot bet).")
 
+        # USER-FOUND leak fix: uncap the flop check range. We bet 76% of top-pair+ first-in -> a check told villain
+        # "no King" (P(K|check)=9.2% vs 18.2% prior). Trap a fixed fraction of STRONG hands instead: the check range
+        # keeps nutted combos (the read dies) and the existing facing-bet value-raise path IS the trap's second act.
+        # Intercepts ALL bet paths uniformly (advisor + heuristic floor). Flop-only: turn/turn+ traps forgo too much.
+        if _SLOWPLAY > 0 and street == "flop" and eq >= 0.78 and self.rng.random() < _SLOWPLAY:
+            r["slowplay"] = True
+            return self._mk("check", None, r, f"Trap: check a strong hand ({eq:.0%}) to protect the check range. {made}.")
+
         cb_s = pf.cbet_policy(board, hero_ip)[1] if street == "flop" else None  # texture c-bet size (flop)
 
         # EXPLOIT-PRIMARY river (#49): when the opponent model has CONFIDENT data at this node, play the max-EV
@@ -494,7 +634,7 @@ class PokerBot:
             pb = pf_advisor.p_bet(hole, board, role)
             if pb is not None:
                 r["advisor_pbet"] = round(pb, 2)
-                if self.rng.random() < pb:
+                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -512,7 +652,7 @@ class PokerBot:
             pb = pf_advisor.p_bet(hole, board, role, "turn")
             if pb is not None:
                 r["advisor_pbet_turn"] = round(pb, 2)
-                if self.rng.random() < pb:
+                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -533,7 +673,7 @@ class PokerBot:
                 if eq >= pf.RIVER_VALUE_FLOOR_EQ:          # value-floor: a clearly-strong final-card hand bets for
                     pb = max(pb, pf.RIVER_VALUE_BET_FREQ)  # value (no protection concern) -> don't under-bet it
                 r["advisor_pbet_river"] = round(pb, 2)
-                if self.rng.random() < pb:
+                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -672,6 +812,26 @@ class PokerBot:
             dead = set(hole) | set(board)
             vw = {c: w for c, w in t.range.get(v, {}).items() if w > 0 and not (set(c) & dead)}
             return vw or None
+        except Exception:  # noqa: BLE001
+            return None
+
+    def _tracked_ranges_both(self, state, board, hole):
+        """(villain_w, hero_w) from ONE tracker build for the L1 river-eCall gate, or None. hero_w = the
+        OPPONENT'S view of us (same Bayesian walk, hero seat) — deliberately NOT filtered by our hole (villain
+        can't see it), only by the board. Confidence-gated on BOTH seats (o3-safe)."""
+        if len(board) < 5:
+            return None
+        try:
+            from pokerbot.strategy.range_tracker import RangeTracker, CONF_THRESHOLD
+            v = 1 - self.hero_idx
+            t = RangeTracker().build(state)
+            if t.confidence(v) < CONF_THRESHOLD or t.confidence(self.hero_idx) < CONF_THRESHOLD:
+                return None
+            dead = set(hole) | set(board)
+            vw = {c: w for c, w in t.range.get(v, {}).items() if w > 0 and not (set(c) & dead)}
+            bd = set(board)
+            hw = {c: w for c, w in t.range.get(self.hero_idx, {}).items() if w > 0 and not (set(c) & bd)}
+            return (vw, hw) if vw and hw else None
         except Exception:  # noqa: BLE001
             return None
 
@@ -875,19 +1035,45 @@ class PokerBot:
         lo, hi = la["raise_min"], la["raise_max"]
         if lo is None:
             return hi
+        street = getattr(self, "_cur_street", "preflop")
+        postflop = street in ("flop", "turn", "river")
         # GTO-mode (POKERB_ONTREE): snap a postflop BET onto GTOW's discrete size tree (off-tree exploit-sizing
         # was ~the SRP UNSOLVED driver). Bets only (is_bet), never preflop (_cur_street). NEVER a jam/huge overbet:
         # the desired<=2*pot guard fixes the PROVEN bug where a 24x-pot jam (desired<hi because the resolver's eff
         # != raise_max) got snapped to 1.25x pot. snap=False lets a caller (the GTO resolver) keep its exact size.
-        if (snap and pf.ONTREE and getattr(self, "_cur_street", "preflop") in ("flop", "turn", "river")
+        if getattr(self, "_ecall_exact_to", None) == int(desired):
+            snap = False                                  # L1: the ecall-enumerated census size is exact — no re-snap
+        if (snap and pf.ONTREE and postflop
                 and la.get("is_bet") and la.get("pot", 0) > 0 and int(desired) < hi
                 and int(desired) <= 2.0 * la["pot"]):
-            desired = pf.snap_to_tree(int(desired), la["pot"])
+            desired = pf.snap_to_tree(int(desired), la["pot"], street)
+        # S3 (POKERB_ONTREE_RAISES, GTOW-mode): snap a postflop RAISE onto GTOW's measured raise grid — raises
+        # were the un-snapped 64-85% off-tree slice. Same jam guard idea: never touch an all-in-sized raise.
+        elif (snap and _ONTREE_RAISES and postflop
+              and not la.get("is_bet") and la.get("to_call", 0) > 0 and la.get("pot", 0) > 0
+              and int(desired) < hi):
+            call_level = int(getattr(self, "_cur_committed", 0)) + int(la["to_call"])
+            pot_after = la["pot"] + la["to_call"]
+            if desired - call_level <= 2.0 * pot_after:      # jam guard (mirror of the bet-snap's)
+                desired = pf.snap_raise_to_tree(int(desired), call_level, la["pot"], la["to_call"], street)
         return max(lo, min(int(desired), hi))
 
     def _value_to(self, pot, fm, street, hero_committed, hero_stack, eq):
         """Value-bet target (chips) + size_frac. fe-sizing = e_call-aware pick_value_size, unless toggled
-        off (floor-ablate) -> fixed 0.66-pot. Isolates whether the adaptive value sizing is a leak vs near-GTO."""
+        off (floor-ablate) -> fixed 0.66-pot. Isolates whether the adaptive value sizing is a leak vs near-GTO.
+        L1 (POKERB_RIVER_ECALL): on the river, prefer the TRACKED-range e_call/F sizer (exact enumeration,
+        largest size the calling range still pays) — falls back to the surrogate path when the tracker gates."""
+        self._ecall_exact_to = None                       # reset per call; set only on an ecall-enumerated size
+        if _RIVER_ECALL and street == "river" and getattr(self, "_cur_state", None) is not None:
+            both = self._tracked_ranges_both(self._cur_state, self._cur_board, self._cur_hole)
+            if both:
+                r = pf.pick_value_size_ecall(pot, hero_committed, hero_stack,
+                                             self._cur_hole, self._cur_board, both[0], both[1])
+                if r is not None and r[0] is not None:
+                    # BUG-HUNT FIX: the enumerated argmax size must survive _raise_to's ONTREE re-snap (the
+                    # generic grid would overwrite the census-arm choice) — mark it exempt (resolver precedent).
+                    self._ecall_exact_to = int(r[0])
+                    return r[0], r[2]
         if self.use_fe_sizing:
             to, _, sf = pf.pick_value_size(pot, fm, street, hero_committed, hero_stack, eq)
             return to, sf

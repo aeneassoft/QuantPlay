@@ -13,11 +13,16 @@ import argparse
 import datetime
 import os
 
+from pokerbot.strategy.gto_mode import apply as _apply_gto_mode, fingerprint
+
+# GTOW mode BEFORE any strategy import (flags are read at import time) — the export must grade the SAME
+# config that plays AIVAT (S1 parity fix, plan 2026-07-04; the old hero was hard-coded exploit=False/iters=120,
+# grading a config that never played live).
+_apply_gto_mode()
+
 from pokerbot.engine.game import HeadsUpGame
 
 import pokerbot.strategy.bot as botmod
-botmod.EQUITY_ITERS = 120          # match duplicate.py: fast-but-stable equity
-from pokerbot.strategy.bot import PokerBot
 from pokerbot.strategy.gto_baseline import GTOBaseline
 
 SB, BB, STACK = 50, 100, 20000     # 0.5/1, 200bb — the gtow benchmark stakes
@@ -32,10 +37,15 @@ def money(chips: int) -> str:
 
 
 # ---- bot deciders (uniform (action, amount) interface) ----
-def hero_decider(seat: int, seed: int, resolver: bool = False):
-    pb = PokerBot(seat, seed=seed, exploit=False)
-    pb.value_raise_eq = 0.72
-    pb.use_resolver = resolver        # river GTO re-solve for the targeted A/B (slow ~6s/river decision)
+def hero_decider(seat: int, seed: int, resolver: bool | None = None):
+    """Hero = EXACTLY the live GTOW agent (PokerBotAgent, incl. every env toggle) — never a diverging copy.
+    `resolver=None` keeps the live default (env POKERB_RESOLVER); True/False forces it for a targeted A/B."""
+    from pokerbot.benchmark.gtowizard import PokerBotAgent
+    assert seat == 0, "hero must sit at 0 (PokerBotAgent is seat-0 by construction)"
+    agent = PokerBotAgent(seed=seed)
+    if resolver is not None:
+        agent.bot.use_resolver = resolver
+    pb = agent.bot
     def d(st):
         pb.hero_idx = seat
         r = pb.decide(st)
@@ -51,7 +61,7 @@ def villain_decider(seat: int, seed: int):
     return d
 
 
-def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool = False):
+def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool | None = None):
     """Drive one hand to completion; return (holes, history, result, button)."""
     g.players[0].stack = g.players[1].stack = STACK     # cash-game reset to 200bb
     g.start_hand()
@@ -176,10 +186,15 @@ def main():
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--idbase", type=int, default=BASE_ID)   # offset so GTOW doesn't DEDUP vs a prior upload
     ap.add_argument("--dayoffset", type=int, default=0)      # shift timestamps too (unique hand identity)
-    ap.add_argument("--resolver", action="store_true")       # enable Hero's river GTO re-solver (targeted river A/B)
+    ap.add_argument("--resolver", choices=["on", "off", "live"], default="live",
+                    help="force Hero's river resolver on/off; 'live' = the env default (parity with AIVAT play)")
+    ap.add_argument("--fast", action="store_true", help="EQUITY_ITERS=120 for quick iteration (default = live 1500)")
     ap.add_argument("--river-only", action="store_true")     # emit only hands that reached the river (river-dense)
     ap.add_argument("--out", default="data/gtow_upload/bot_hands.txt")
     args = ap.parse_args()
+    if args.fast:
+        botmod.EQUITY_ITERS = 120
+    print("config fingerprint:", fingerprint(), "| EQUITY_ITERS:", botmod.EQUITY_ITERS)
 
     g = HeadsUpGame(names=("P0", "P1"), starting_stack=STACK, sb=SB, bb=BB, seed=args.seed)
     blocks = []
@@ -188,7 +203,8 @@ def main():
         # (i%2 would track the button in lockstep -> Hero stuck as SB; seat 0 fixed covers both).
         hero_seat = 0
         names = ["Hero" if k == hero_seat else "Villain" for k in (0, 1)]
-        holes, history, result, button = play_hand(g, hero_seat, i, resolver=args.resolver)
+        holes, history, result, button = play_hand(
+            g, hero_seat, i, resolver={"on": True, "off": False, "live": None}[args.resolver])
         if args.river_only and len(result["board"]) < 5:
             continue                                         # not a river hand -> skip (keep the upload river-dense)
         dt = BASE_DT + datetime.timedelta(days=args.dayoffset, minutes=3 * i)

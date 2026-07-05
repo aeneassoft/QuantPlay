@@ -21,6 +21,62 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > a from-scratch 6-max net is DEPRIORITIZED (no clean GTO benchmark + extreme complexity). Plan:
 > `.claude/plans/gut-dann-sind-wir-toasty-forest.md` · `docs/QWEN_6MAX_PLAN.md` · `docs/DATASET_SPEC.md`.
 >
+> **★★★ CURRENT TRUTH + VEHICLE (2026-07-04) — THE "−47 ENGINE" IS DEAD; the ENGINE-ALONE is the vehicle toward GTOW,
+> and it is FAR better than every number in this repo claimed.** Two things flipped this session:
+> **(1) The engine is NOT −47.** A fresh HEAD-default GTOW run (all flags OFF = the shipped `pokerbot/strategy/bot.py`)
+> measured **AIVAT −20.09 ± 7.18 bb/100 (n=974)**, BODY **−8 to −11** (5–10% trim), **0 catastrophes**. The −47.18 was
+> a STALE ACCOUNT AGGREGATE over dead code eras (the −106 jam-spew era etc.). The body is near the GTOW leaderboard
+> (best −3.14, frontier LLMs −9). CROSS-CHECKED: the GTOW-Analyzer per-decision HU EV-loss (**19.3 bb/100**) ≈ the live
+> AIVAT (−20) → two independent metrics agree → the loss is REAL deviation cost, not tail luck. The −20 lives entirely
+> POSTFLOP (river −8.6 + flop −8.3; preflop −1.6 = near-solved blueprint), in NORMAL pots (not jams).
+> **(2) Both disciplines are now ABSOLUTELY GTO-GRADED** (GTOW Analyzer, the repeatable Chrome loop; `research/
+> pokerstars_export.py` HU + `research/sixmax_export.py` 6-max): **HU 53.4% GTO-score / Freq-Diff 54.6%** (the shipped
+> EXPLOIT-PRIMARY engine deviates from GTO by design → −EV vs near-GTO GTOW) vs **6-max 85.9% / EV-loss 7.61** (the
+> `tag` core, far more GTO-aligned). The user chose the **ENGINE-ALONE path** (fast, $0/hand, fully ours); **the goal
+> (explicit, 2026-07-04): TIE GTOW (0 bb/100)** — staged via −10; the full ledger + path = `docs/TIE_GTOW.md`
+> (the 19.33 bb/100 gap decomposes into a spread exploit-frequency deviation ≈10.7 + named concentrated leaks ≈8.6:
+> BB-flop-over-fold 2.9, river-aggression 1.6, cbet-fold 1.3, river-value 1.0 …). **The active lever = `POKERB_GTO_MODE` (built this session, `pokerbot/strategy/gto_mode.py`, default
+> OFF): flip exploit OFF + play GTOW's MEASURED tree** (the 12.5k-hand census `data/census/gtow_tree.json` →
+> `research/gtow_tree_census.py`; sub-fixes S1–S5 in the plan: exploit-off, range-tracker fix, off-tree snap, river
+> guards, resolver-on-census-tree). Hypothesis (the next $0 deterministic test): exploit-OFF lifts the HU GTO-score
+> from 53% toward the 6-max 85% and shrinks the Freq-Diff. NOTE (measurement): engine GTOW runs are **effectively FREE**
+> (in-process from the PC, `--agent-type pokerbot`, no pod); the "$10 budget" is a statistical-honesty constraint, not
+> money. **Every "−47" reference below/elsewhere is STALE — read it as −20 raw / −8…−11 body.** Live detail + the S6
+> GTOW-mode A/B (must be gated vs −20.09, not −47): `docs/STATE.md`. Also built: `pokerbot/vision/screen_reader.py`
+> (universal VLM poker-table reader, any site).
+> **The BRAIN track (Claude/GLM below) is a PROVEN, still-valid asset — but SECONDARY now**: it BYPASSES the engine's
+> `bot.py` wins (drives `api.legalize` directly, [[brain-engine-two-products]]), and the engine-alone is the cheaper,
+> faster, fully-ours bet the user picked. Keep the brain for research + the teacher-gold loop; the engine is the product.
+>
+> **★ CURRENT BRAIN (2026-06-19, SECONDARY now — see the 2026-07-04 block above) — CLAUDE OPUS 4.8 is the brain; Claude-ONLY first, Qwen is Step 2 (decide later).**
+> Measured truth (GTOW leaderboard, read-only API): frontier LLMs with high reasoning play HUNL at ~−9 bb/100 AIVAT
+> (GPT-5.2 −8.26, GPT-5.5 −9.23) — ~5× better than the STALE −47 engine aggregate (the CURRENT engine is −20 raw /
+> −8…−11 body, see the 2026-07-04 block — the gap to the frontier is now small). So the brain is now a **frontier LLM prompted via program-of-thought**, NOT the (warm-start)
+> Qwen-8B: `pokerbot/brain/claude_brain.py` `ClaudeBrain` → emits a DSL program calling `api.*` (exact math / equity /
+> the live solver) → `executor.run_program` → an exact LEGAL action (gtow `--agent-type claude`; `research/llm.ask_claude`,
+> thinking=adaptive = the leaderboard's "extra-high reasoning"). **Judgment by Claude, math + legality by the engine; we
+> steer it in natural language → fast iteration.** ORDER: **Claude-only first DID prove the recipe** (−28.55 AIVAT —
+> the teacher + proof); **Step 2 — our own RL-able AI — is NOW IN EXECUTION = GLM-Z1-9B (THUDM, MIT; not Qwen) SFT→RL**
+> on a RunPod H100 SXM. Live status: `docs/STATE.md` (the SFT warm-start WORKS at 97.5% token-acc; the RL-lift is the
+> open question). Honestly capped LOWER (9B ≪ Opus). Imitation-cap (still true): TRAINING a small model on our data ≤ our −47; PROMPTING a
+> frontier model is NOT so capped (its own reasoning ~−9). Frontier API = PC-hub ONLY (never the pod). Honest ceiling:
+> nobody beats GTOW (best −3.14) — a too-good number (e.g. a "+" vs GTOW) is an ARTIFACT to debug, never a win.
+> **★ MEASURED (2026-06-21) — the GLM-Z1-9B brain (engine+brain) vs GTOW ≈ −17 bb/100 in the BODY (5%-trimmed, NEAR the leaderboard −3…−17) but a FAT TAIL of -EV postflop BETTING + coolers drags the RAW to −40/−68 (high variance; the anti-spew gate was REFUTED by a $0 counterfactual — STATE.md #3), via
+> INFERENCE-WIRING fixes, NOT weights.** The arc: pure engine −47 → GLM-GRPO −43.30 → two SERVE-TIME wiring fixes (the
+> `gtow_to_state` preflop `to_call` bug [inflated required_equity → over-fold] + the `format_spot` made-hand read [the GLM
+> mis-read its own hand], both OOD, NO retraining) → a **body ~−17** (5%-trimmed, near the leaderboard; the RAW is −40/−68 = a fat tail of -EV betting/coolers; the once-cited −28.36 was a LUCKY low-tail session — raw swings −28↔−90 at n≤1500, all tail).** ★ **THE RL-LIFT QUESTION IS NOW
+> ANSWERED (negatively, for this setup):** a re-SFT on made-hand-NATIVE gold + a fresh GRPO REGRESSED to −90.18 (postflop/
+> river spew; the self-play sixmax league ≠ GTOW → RL learned league-beating aggression that loses to GTOW). The
+> `gtow_glm_pod` A/B + the protected baseline = the "never ship a regression" gate. **THE LESSON: the wins are the WIRING
+> (what the engine feeds the LLM at serve time), not the weights; baking a serve-hint into TRAINING backfires.** A
+> separate cross-check found our solver/blueprint ORACLE is ~90% aligned with GTOW (NOT grossly broken) → the speculative
+> postflop-solver overhaul (the old "PLAN #2") is NOT justified by the data. The baseline (`models/grpo_slim.tgz`, ≈ −40 robust,
+> served `POKERB_MADE_HAND=1`+`POKERB_TOCALL_FIX=1`) is the PRODUCT. **NEXT (gated):** modest serve-time hints (the advisor
+> bet-frequency, A/B'd OFF/ON default-OFF) for the one remaining real leak (postflop turn UNDER-betting); the deeper RL
+> lever needs a BETTER REWARD (GTOW-anchored / stronger league), not more steps. Live detail: `docs/STATE.md`; harness
+> `infra/gtow_glm_pod.py`. (The SIGALRM-in-worker-thread bug that first hid the GLM as frac_bad=1.0 is fixed in
+> `executor._alarm_available`.)
+>
 > **Two-node system:** (1) **the PC (hub)** = the self-growing EV-gated dataset + a frontier-distillation loop
 > (OpenAI/Claude → a HARD-CODED deterministic EV-TRUTH filter → dataset) + CPU mass-solving + the training monitor +
 > scp-orchestration; (2) **RunPod** = Qwen SFT→GRPO (reward = 6-max self-play EV via `table.py` + the `sixmax`
@@ -32,6 +88,15 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > teacher.** External assets (the 6 books, CFR/Pluribus/Supremus papers, PokerBench, Pluribus hands, frontier LLMs)
 > seed / validate / distill-UNDER-GATE — never an ungated training label.
 
+> **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
+> the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the
+> ACTIVE BUILD CARD with the merged lever queue + measurement ladder). The measured stand: GTO-mode **−11.61** (n=100
+> smoke) / HEAD **−20.09** (n=974) = #11 leaderboard; the deception layer SHIPPED (turn-defense + slowplay, canary +
+> mechanics ✓, live in the HU app). Doctrine (measured): **the GTO-score is DEAD as a target — ONLY bb count**
+> (frequency-matching GTOW cost EV). Opponent intel: [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) — GTOW = the Ruse
+> REAL-TIME re-solver; bet-size/translation attacks REFUTED ($0, 13.5k hands). PRE-STAGED top-3 levers (flop-resolver
+> go/no-go · river-eCall · line-U + instruments first) await the user's build command.
+>
 > **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth. Live repo tree =
 > [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = what's happening now.
 >
@@ -41,6 +106,17 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 >
 > **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — approximations we ship now + should compute
 > exactly later. Add an entry when you ship a heuristic.
+>
+> **★ FORWARD PLAN — how to improve the bot + the personal coaching path:** [`docs/ROADMAP.md`](docs/ROADMAP.md). Two
+> tracks. **(A) Make the bot UNDERSTAND poker as well as possible** — the live lever is the consolidated
+> **understanding layer** (`pokerbot/brain/understanding.py::strategic_read` = SPR/position/pot-odds/MDF + board
+> texture + the made-hand read + the MEASURED GTO heuristics fused into ONE engine-computed frame, gated
+> `POKERB_UNDERSTANDING`, default OFF), so the brain reasons from first principles even on the ~60–85% of spots the
+> solver never covers; next = measure it (deterministic GTOW per-decision first), the river over-size fix, render the
+> solver's preferred SIZE. **(B) A Claude-API COACHING path for the user PERSONALLY** — review the user's own
+> CoinPoker/PokerStars hands, engine-grounded (`api.*` + the understanding layer) + GTO-anchored, personalized to their
+> tracked leaks; most machinery exists (`pokerbot/coach/coach.py` + `research/study_grade.py`). Honest: the
+> understanding layer is BUILT but EV-UNMEASURED; the coaching path is PROPOSED. Details + the reuse map in ROADMAP.md.
 
 ## Working discipline — Fable-5 verified mode (embedded from `github.com/fivetaku/fablize`)
 How to work on THIS project. Transfers PROCEDURE, not capability — *make the work reach its own ceiling, don't fake it.*
@@ -54,6 +130,20 @@ How to work on THIS project. Transfers PROCEDURE, not capability — *make the w
   check) gates a change. Single-rule raw-bb/100 A/B is too noisy (plausible fixes were REVERTED after measurement);
   small samples lie (n≤150 AIVAT lied as −13 vs the real −72). Paired/duplicate eval cancels card luck.
 
+## Style & communication standard (DEFAULT — `books/papers` / `aiStyle.pdf`, Stanford *Art of Elegant Coding*)
+How I write code AND talk about it — the standing default, every turn.
+- **Elegant code — 4 pillars.** (1) **Names** meaningful + accurate; a name must NEVER mislead about the type/content
+  it holds (`weight_str` holding a float is a leak). Descriptive, not over-verbose. (2) **Constants, not magic numbers**
+  — name them (UPPERCASE module-level) so intent + tunability are explicit (matches our `# a prior; RL tunes` idiom).
+  (3) **Comments** explain the WHY + the non-obvious (why `0.378`), never restate the code; one honest line beats three
+  hollow ones. (4) **Decomposition** — small single-purpose functions; split a function >~15 lines; extract a repeated
+  >~4-line block into a helper.
+- **Communication — be TIMELY, SPECIFIC, HONEST, CONSISTENT.** TIMELY: surface issues inline as I work, not deferred.
+  SPECIFIC: exact `file:line` + a concrete alternative + a one-line WHY. **HONEST: NO hollow praise / hallucinated
+  approval** — never call code good when it isn't, never claim a comment/test/result that isn't there (the paper's #1
+  LLM failure mode; this IS the Verification-grounding gate restated). CONSISTENT: uniform format; write code that reads
+  like the surrounding code (match its naming, comment density, idiom).
+
 ## Run / play
 - **6-max vs 5 bots (the app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 (launcher
   `PokerB 6max spielen.bat`). Logs each hand to `data/sessions/`; "Analyse" = end-of-session breakdown.
@@ -66,11 +156,16 @@ How to work on THIS project. Transfers PROCEDURE, not capability — *make the w
 - `pokerbot/strategy/` — the engine PRIMITIVES the brain calls: `preflop_blueprint.py`, `range_tracker.py`,
   `advisor.py` (solver-frequency MLPs), `opp_model.py` (Dirichlet exploit), `postflop.py` (sizing/texture), `bot.py`.
 - `pokerbot/brain/` — **the LLM-brain interface (NEW):** `api.py` (typed engine-API = the DSL vocabulary),
-  `format_spot.py` (canonical 6-max spot, PokerBench-aligned), `executor.py` (program-of-thought sandbox).
+  `format_spot.py` (canonical 6-max spot, PokerBench-aligned), `executor.py` (program-of-thought sandbox),
+  `understanding.py` (**the consolidated strategic read** — SPR/position/pot-odds/MDF + texture + made-hand +
+  measured GTO heuristics in one engine-computed frame, gated `POKERB_UNDERSTANDING`; lets the brain reason on
+  UNSOLVED spots), `claude_brain.py` (Claude-as-brain), `policy.py` (the shared SYSTEM_PROMPT + DSL).
 - `pokerbot/arena/` — `sixmax.py` (the opponent LEAGUE: TAG/LAG/nit/station/maniac profiles).
 - `pokerbot/{web,benchmark,coach,analysis}/` — apps; benchmarks (`slumbot.py`, `gtowizard.py`, `lbr.py`,
   `duplicate.py`); coaching; session analysis.
-- `dataset/` — **the GOLD (NEW):** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards.
+- `dataset/` — **the GOLD (NEW):** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards + **`registry.py`**
+  = the single source of truth for ALL data (every asset's role/schema/provenance; the training pipeline reads gold by
+  ROLE via `registry.sft_gold()`) → **[`CATALOG.md`](CATALOG.md)** the generated data map (`python -m dataset.build_manifest`).
 - `training/` — **Qwen (NEW):** `qwen_sft.py` (SFT, Qwen3-8B QLoRA on the DSL data), `qwen_grpo.py` (RL self-play),
   `qwen_eval.py` (PokerBench-acc + bb/100 + LBR).
 - `pipeline/` — **the PC-hub program (NEW):** `frontier_loop.py` (gated active distillation), `filter.py` (the
@@ -83,7 +178,7 @@ How to work on THIS project. Transfers PROCEDURE, not capability — *make the w
   `hand_histories/` (10k Pluribus). **Hard-referenced by `config.py` + strategy — do not move without updating both.**
 - `books/` — the 6 poker books (`poker/`: Mathematics of Poker, Beyond GTO, Exploitative Poker, Modern Poker Theory,
   NLHE Theory & Practice, Theory of Poker) + `papers/` (CFR, Pluribus, Supremus, the PokerBench-LLM + Nash-robustness PDFs).
-- `docs/` (`STATE.md` entry point + plans/consults) · `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client).
+- `docs/` (`STATE.md` entry point + `ROADMAP.md` forward plan + plans/consults) · `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client).
 
 ## The common language (DSL) — see [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md)
 Math (`knowledge_base/math/formulas.py`) ↔ Code (the `brain/api.py` engine-API) ↔ Language (concepts/prompt). A

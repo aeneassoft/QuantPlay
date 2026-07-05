@@ -1,27 +1,43 @@
 # PokerB — Repository Index (navigation map)
 
-> **Start here.** North star + conventions = [`CLAUDE.md`](CLAUDE.md); live state = [`docs/STATE.md`](docs/STATE.md);
-> current frontier = the **6-max GTO Qwen brain** ([`docs/QWEN_6MAX_PLAN.md`](docs/QWEN_6MAX_PLAN.md) +
-> [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md) + plan `.claude/plans/gut-dann-sind-wir-toasty-forest.md`).
-> **Goal = PLAY GTO / ACHIEVE TRUE GTO in 6-max** via a fine-tuned Qwen that drives our engine (program-of-thought).
+> **Start here.** ① [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) (the ROOT MARKER — the current mission in one
+> page) → ② [`docs/STATE.md`](docs/STATE.md) (live state) → ③ [`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md)
+> (**the ACTIVE BUILD CARD**: the next engine version + the merged lever queue + the pre-registered measurement
+> ladder). North star + conventions = [`CLAUDE.md`](CLAUDE.md).
+> **Current frontier (2026-07-04): the ENGINE-ALONE path vs GTO Wizard** — AIVAT −11.6 (GTO-mode smoke) / −20.09
+> (HEAD, n=974) = #11 of the public leaderboard; **goal: WIN bb** (doctrine: the GTO-score is DEAD as a target —
+> measured; only bb count). Key intel: [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) (the opponent),
+> [`docs/TIE_GTOW.md`](docs/TIE_GTOW.md) (the gap ledger), [`data/gtow_grades/LEAK_MAP.md`](data/gtow_grades/LEAK_MAP.md)
+> (per-decision leaks incl. the user-found + FIXED turn-defense/slowplay pair). The 6-max Qwen/GLM brain track is
+> SECONDARY/parked (`docs/QWEN_6MAX_PLAN.md`, baselines protected).
+>
+> **Where is which DATA ("the gold")?** → [`CATALOG.md`](CATALOG.md) — the generated map of every asset (shards /
+> advisors / models / KB) with role, size, schema, provenance. Built from [`dataset/registry.py`](dataset/registry.py),
+> the single source of truth the **training pipeline reads gold by ROLE** from (`registry.sft_gold()`). Refresh:
+> `python -m dataset.build_manifest`.
+>
+> **Where are we GOING?** → [`docs/ROADMAP.md`](docs/ROADMAP.md) — the forward plan: **(A)** how to make the bot
+> understand poker maximally (the new `understanding.py` strategic-read layer + the sizing fixes + the measurement
+> discipline) and **(B)** a **personal Claude-API coaching path** (review the user's own CoinPoker/PokerStars hands).
 
 ## Top-level map (post-reorg, 2026-06-17)
 | Dir / file | Purpose |
 |---|---|
 | `pokerbot/` | the engine + strategy + the LLM-brain interface |
 | `pokerbot/engine/` | cards, treys eval, MC `equity.py`, **`table.py` = the 6-max RL ENV** (start/legal/act/obs/result), HU `game.py` |
-| `pokerbot/strategy/` | engine PRIMITIVES the brain calls: `preflop_blueprint`, `range_tracker`, `advisor`, `opp_model`, `postflop`, `bot.py` |
-| `pokerbot/brain/` | **NEW — the LLM-brain interface:** `api.py` (engine-as-API), `format_spot.py` (canonical spot), `executor.py` (program-of-thought sandbox) |
+| `pokerbot/strategy/` | engine PRIMITIVES the brain calls: `preflop_blueprint`, `range_tracker`, `advisor`, `opp_model`, `postflop`, `bot.py`, **`gto_mode.py` (NEW — `POKERB_GTO_MODE` = exploit-OFF + GTOW-tree profile for min-exploitability vs GTOW), `resolver.py`, `gto_oracle.py` (TexasSolver wrapper + disk cache)** |
+| `pokerbot/brain/` | **the LLM-brain interface (SECONDARY now):** `api.py` (engine-as-API), `format_spot.py` (canonical spot), `executor.py` (program-of-thought sandbox), `understanding.py` (consolidated strategic read for UNSOLVED spots, gated `POKERB_UNDERSTANDING`), `claude_brain.py`, `policy.py` |
 | `pokerbot/arena/` | `sixmax.py` — the opponent LEAGUE (TAG/LAG/nit/station/maniac) |
+| `pokerbot/vision/` | **NEW — `screen_reader.py` = universal VLM poker-table reader** (any site/skin, dHash change-gate, `--watch`) |
 | `pokerbot/{web,benchmark,coach,analysis}/` | apps; benchmarks (`slumbot`,`gtowizard`,`lbr`,`duplicate`); coaching; analysis |
 | `dataset/` | **NEW — THE GOLD:** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards |
 | `training/` | **NEW — Qwen:** `qwen_sft.py` (SFT, 8B QLoRA), `qwen_grpo.py` (RL self-play, to build), `qwen_eval.py` |
 | `pipeline/` | **NEW — the PC-hub program:** frontier-loop + EV-truth filter + monitor + scp-orchestration (to build) |
-| `research/` | the one-off mining/consult/solve scripts (ex-`extraction/`, 91 files). Reusable: `llm.py` (OpenAI/Claude helpers), `mass_solve.py`, `preflop_*`, `cfv_*` |
+| `research/` | the one-off mining/consult/solve scripts. Reusable: `llm.py` (OpenAI/Claude helpers, +vision), `mass_solve.py`, `preflop_*`, `cfv_*`. **GTOW loop (NEW): `pokerstars_export.py` (HU) + `sixmax_export.py` (6-max) → GTOW-Analyzer per-decision grade; `gtow_xray.py`/`gtow_tail.py` (log decomposition); `gtow_tree_census.py` (GTOW's tree from logs); `gtow_ab.py` (interleaved AIVAT A/B); `duplicate_mode_ab.py` (local canary); `resolver_probe.py`/`check_range_l1.py` (S2 gates)** |
 | `infra/` | `runpod_run.py` (pod lifecycle) + `cfv_pod_campaign.py` + `pod_setup.sh` (scp-tarball, self-killing) |
 | `knowledge_base/` | extracted theory = the dataset SOURCE (`math/`,`concepts/`,`theory/`,`exploit/`,`ranges/`,`postflop/`,`hand_histories/`). **Hard-referenced by config+strategy — do not move.** |
 | `books/poker/` | the **6 poker books** (Mathematics of Poker, Beyond GTO, Exploitative Poker, Modern Poker Theory, NLHE T&P, Theory of Poker) · `books/papers/` (CFR, Pluribus, Supremus, PokerBench-LLM, Nash-robustness) |
-| `docs/` | live: `STATE.md`, `QWEN_6MAX_PLAN.md`, `DATASET_SPEC.md`, `qwen_train_*.md`, `NEXT_RUN_TODO.md`, `README.md`. `docs/archive/` = 57 historical consults/plans/reviews |
+| `docs/` | live: `STATE.md` (present), **`ROADMAP.md` (forward plan: bot-improvement tracks + the personal coaching path)**, `QWEN_6MAX_PLAN.md`, `DATASET_SPEC.md`, `qwen_train_*.md`, `README.md`. `docs/archive/` = historical consults/plans/reviews |
 | `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client) |
 | `CLAUDE.md` · `NOTES.md` · `README.md` · `START_HIER.md` | north star/conventions · deferred-precision log · overview · German quickstart |
 
