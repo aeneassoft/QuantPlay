@@ -138,3 +138,20 @@ Autoren, IDs oder DOIs — die Verifikationspflicht war voll berechtigt. Kein Ei
   NICHT unser Problem (verlustfreie Subgames). EIN Baustein: HandEbdNet-Rezept (Per-Street-W/D/L-Profil-CNN)
   als v4-Leaf-Netz-Featurization ('Schritt 0', optional, 3080Ti). Baureihenfolge unverändert.
 - **Flop-No-Go-Retest** mit EVPA-minimalem Menü (1 Size/Street): läuft (bwfga5qs2) — Ergebnis folgt.
+
+## NAL / "Reducing Variance 2025" Verdikt (2026-07-05 Nacht, inline VOLL gelesen — existenz-verifiziert)
+- **Paper:** Meng, Chen, Li, Yang, Zhang, Gao — *Reducing Variance of Stochastic Optimization for Approximating
+  Nash Equilibria in Normal-Form Games*, **ICML 2025 (PMLR 267)**. PDF: `books/papers/Variance/`.
+- **Kern:** Nash Advantage Loss (NAL) = Surrogat-Loss mit stop-gradient-Konstruktion, dessen Gradient
+  (F − ⟨F,x̂⟩·1 = der "Advantage") mit EINER Zufallsvariable unverzerrt schätzbar ist → Varianz O(σ) statt
+  O(σ²) der einzigen bisherigen unbiased Loss (Gemp 2024, Innenprodukt zweier unabhängiger Schätzer);
+  empirisch 2–6 Größenordnungen weniger Varianz. Entropie-Regularisierung (τ-Annealing) → inneres NE;
+  Dualitätslücke ≤ C·‖∇NAL‖ (Thm 4.2/4.3).
+- **VERDIKT: PARKEN — keine Anwendung bei uns.** (1) **Nur Normalform**: die Theorie (Lemma 4.1, Gradienten-
+  Gleichheit ⇔ NE) braucht Linearität der Utility über dem Strategie-SIMPLEX — gilt NICHT für Behavioral-
+  Strategien in Extensive-Form (multilinear); NFG-Konversion von Poker ist exponentiell. (2) Selbst im
+  winzigen Kuhn-Poker (NFG) konvergiert NAL bei kleinem S nicht exakt (Paper §5 selbst). (3) Trotz Ordner-
+  namens "Variance": das ist TRAININGS-Loss-Varianz beim NE-Berechnen, NICHT Mess-Varianz (AIVAT/paired
+  bleibt unser Werkzeug). (4) Nicht mit dem v4-Pfad (CFR-Familie) komponierbar. Randnotiz fürs Archiv:
+  n-Spieler-general-sum-NE via Adam wäre höchstens für kleine abstrahierte 6-max-NFGs interessant — kein
+  aktueller Bedarf (CFR+ deckt Preflop, Multiplayer-Stance bleibt CCE via Regret).
