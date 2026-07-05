@@ -39,7 +39,19 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
-**THE UPLOAD FAMILY (family 2, verified 2026-07-06 00:0x): internally VALID** — all 5 arms 1500/1500,
+**★ UPLOAD BLOCKED BY ANALYZER DEDUP → FAMILY 3 REGENERATING (2026-07-06 ~00:45).** The family-2 upload
+parsed fine (CRLF fix landed: exporter now pins newline="\r\n" on all platforms — the Analyzer cannot read
+LF-only HH) but returned **1,499 duplicate hands / 1 processed**: an earlier failed (LF) attempt had
+silently REGISTERED hand identities #303–#1801 in GTOW's registry (its upload row is not even listed —
+the registry outlives visible uploads!), choking only on the file-final hand #1802 — which is exactly the
+one hand analyzed (97o on AQ538, user-confirmed). LESSON (ledger rule hardened): **hand ids are burned on
+FIRST CONTACT with the Analyzer, even by failed uploads — NEVER re-upload the same idbase/dayoffset;
+every attempt gets fresh identities.** FAMILY 3 (local platform! → the pod→local promotion seam from the
+critic panel dissolves): hu_{v3fresh,v33,v34,v35}_b_1500.txt, idbase 320-323 / dayoffset 45-48
+(ledger now: 299-307/31-39 BURNED, 320-323/45-48 in flight), same turn-off configs, fixed exporter, CRLF.
+Watch-item: account shows 1.500 credits — if analysis stalls at ~1,500 processed across the new arms,
+credits are the binding constraint (Check usage).
+**(superseded) THE UPLOAD FAMILY (family 2, verified 2026-07-06 00:0x): internally VALID** — all 5 arms 1500/1500,
 per-log fingerprints show explicit POKERB_TURN_RESOLVER='0' (launch-env; the ~6-min pure-Python runtime
 matches), Desktop==pod-dir by md5. VERDICTS: within family 2 ONLY (arms vs its own hu_v3fresh anchor).
 ADDED CAVEAT (pre-registered): the family ran TURN-RESOLVER-OFF while production runs turn-ON — v3.4/v3.5
