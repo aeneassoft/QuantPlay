@@ -586,3 +586,14 @@ nutted (RANK4 cell: 7 hands x -13.8bb = ~-4 bb/100). Fix sketch: on raise-facing
 top-R% by board strength + a census-calibrated bluff share (R from GTOW's revealed raise frequency at that node
 class, data/freq_targets/gtow_frequencies.json); secondary root = the flat 50% bluffiness shading on jam nodes.
 Gate ladder as usual; ONE lever at a time (v3.2 thin-value is in flight first).
+
+### v3.3 calibration (mined 2026-07-05, $0, from data/freq_targets/gtow_frequencies.json = 13.5k hands)
+GTOW raise-range composition P(class|raise), all postflop facing-bet nodes (check-raises included):
+- FLOP: raises 8.9% of facing-bet nodes; composition air 49% / pair 17% / two-pair+ 17% / top-pair 15% / monster 2%
+- TURN: raises 6.1%; two-pair+ 32% / air 31% / pair 18% / top-pair 11% / monster 8%
+- RIVER: raises 12.2%; two-pair+ 38% / monster 18% / air 16% / pair 16% / top-pair 12%
+=> the raise range is POLARIZED, not uniformly nutted, and the polarity tightens by street. DESIGN CONSEQUENCE:
+the raise-facing-bet narrowing must be SIZE-AWARE (a normal raise keeps a large bluff share; a raise-ALL-IN in a
+3bet+/4bet pot is the nutted case that killed K2o). Build step: extend freq_mine with a raise-size split (jam vs
+normal) before wiring the filter — the 62-76 raise counts per street are too thin to split from the book alone,
+mine the raw logs (both holes are always logged).
