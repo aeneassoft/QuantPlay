@@ -139,6 +139,25 @@ Autoren, IDs oder DOIs — die Verifikationspflicht war voll berechtigt. Kein Ei
   als v4-Leaf-Netz-Featurization ('Schritt 0', optional, 3080Ti). Baureihenfolge unverändert.
 - **Flop-No-Go-Retest** mit EVPA-minimalem Menü (1 Size/Street): läuft (bwfga5qs2) — Ergebnis folgt.
 
+## TurboReBeL VERIFIZIERT (2026-07-05 Nacht, Agent mit direktem OpenReview-Browserzugriff)
+- **Referenz (verifiziert):** Boning Li, Longbo Huang, *"TurboReBeL: 250x Accelerated Belief Learning for
+  large Imperfect-Information Extensive-Form Games"*, ICLR-2026-Submission #5768, openreview.net/forum?id=yMo7Z670f6
+  — **REJECTED** (26.01.2026; Ratings 2/2/4/6, Soundness 1–2). Nicht auf arXiv, nicht in DBLP. Dieselben
+  Autoren wie unser v4-Paper (books/papers/CFR/2605.19928v1.pdf). Formal nur als "OpenReview preprint,
+  rejected" zitierbar; **die 250×/450×-Headline NIE zitieren** (Meta-Review: unbelegte Schätzung; Thm 1–2
+  fehlerhaft; SSMIG vs. Augmentation nie separat abliert).
+- **Trotzdem verwertbar (als A/B-gegatete Engineering-Experimente, eigene Messzahlen):**
+  1. **SSMIG:** pro Depth-Limited-Solve T Value-Targets ernten (eines je CFR-Iteration, gemittelte
+     Strategien) statt 1 → der größte Datenkosten-Hebel fürs v4-Leaf-Netz. (Ehrlich: TexasSolver exponiert
+     keine Per-Iteration-Dumps — greift erst im eigenen v4-CFR-Kern.)
+  2. **Iso-Augmentation:** Suit-Iso (unser `isomorph.py`!) + Chip/Stack-Skalierung als Trainingsdaten-
+     Multiplikator; korreliert → nie als unabhängige Samples zählen, Augmentation at-batch-time.
+  3. **Machbarkeits-Anker:** 10M (TurboReBeL) bzw. 60M Samples (Li et al. 2024, im Rebuttal) reichen
+     forumsbelegt für Slumbot-schlagende HUNL-Value-Netze — NICHT ReBeLs 4.5B. v4-Budget: zweistellige
+     Millionen solve-derived Samples = Desktop/1-Pod-Regime.
+  4. **Gate-Rezept:** Turn-Endgame mit EXAKTER Exploitability als billiges erstes Gate (= unsere
+     Grounded-Gate-Doktrin); ihre Schwäche (kein LBR, kleine Abstraktion) nicht kopieren.
+
 ## NAL / "Reducing Variance 2025" Verdikt (2026-07-05 Nacht, inline VOLL gelesen — existenz-verifiziert)
 - **Paper:** Meng, Chen, Li, Yang, Zhang, Gao — *Reducing Variance of Stochastic Optimization for Approximating
   Nash Equilibria in Normal-Form Games*, **ICML 2025 (PMLR 267)**. PDF: `books/papers/Variance/`.
