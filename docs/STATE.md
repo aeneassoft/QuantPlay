@@ -4,6 +4,19 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★★ v3.2 REFUTED (Analyzer, paired seed-55): 26.14 vs v3's 17.93 (+8.21 WORSE — the worst arm of the whole
+family, below even v2.2's 20.66).** The SELECTION-aware thin-value gate (e_call>=0.5 vs the tracked calling
+range) failed HARDER than v3.1's flat floor (19.76). **The refined lesson (4th refutation of the river-thin
+class):** selection via OUR TRACKED ranges is not the teacher's selection — the tracker's check-line narrowing
+(1-p_bet only) leaves villain's river range too wide/bluffy -> e_call systematically OVERESTIMATED -> "thin
+value" fired into ranges that actually beat us. The OpenAI consult had flagged the 0.5 threshold as too loose
+(exact threshold is HIGHER when villain can bet after our check) — measurement confirms, magnitude brutal.
+**DECISION: the river-thin-value class is PARKED entirely** (4 failed attempts: limp-fix, flat probe, flat
+floor, selection floor) until RANGE QUALITY improves (v3.3's raise-narrowing is the first range-quality lever;
+a check-line analog would be its sibling). POKERB_RIVER_THIN_SEL stays default-OFF forever-unpromoted; v3.2b
+(exact threshold) NOT attempted — same broken input (tracked e_call). The pod's v32 arm doubles as a platform
+replication only. Ladder continues: v3.3 -> v3.4 -> v3.5 verdicts from the pod family vs the fresh v3 anchor.
+
 **★ SESSION CLOSE-OUT (2026-07-05 late) — infrastructure + research, all committed:**
 (1) **CLEANUP: decide() 12.1× faster** (999→83ms; proven-pure memoization of p_bet/p_defense/hand_features/
 evaluate + the exhaustively-proven _straight_outs memo; commit 114e107) + the 5-agent clean-code pass
