@@ -57,6 +57,14 @@ a check-line analog would be its sibling). POKERB_RIVER_THIN_SEL stays default-O
 (exact threshold) NOT attempted — same broken input (tracked e_call). The pod's v32 arm doubles as a platform
 replication only. Ladder continues: v3.3 -> v3.4 -> v3.5 verdicts from the pod family vs the fresh v3 anchor.
 
+**★★ POD ARMS GENERATED (2026-07-05 late; pod r9wnalvxlzscju killed, ~$0.30, API-confirmed 0 pods): all 5 arms
+on the Desktop + data/gtow_upload/pod/ (fresh v3 anchor hu_v3fresh + v3.3/v3.4/v3.5 + v32-replication, 1500
+hands each). Turn-resolver-off fix made them pure-Python -> ~6 min total.** These are a SEPARATE paired family
+(POKERB_TURN_RESOLVER=0) — compare each lever ONLY vs hu_v3fresh, NOT vs the old turn-ON 17.93. AWAITING USER
+CHROME UPLOAD of hu_v3fresh + hu_v33 + hu_v34 + hu_v35; read verdicts from the Analyzer Uploads page (Avg. EV
+loss); promote a lever iff it beats the fresh anchor by >~1.5. Caveat: production runs turn-ON, so a promoted
+lever gets a 300-hand live tail-smoke before it sticks.
+
 **★ SESSION CLOSE-OUT (2026-07-05 late) — infrastructure + research, all committed:**
 (1) **CLEANUP: decide() 12.1× faster** (999→83ms; proven-pure memoization of p_bet/p_defense/hand_features/
 evaluate + the exhaustively-proven _straight_outs memo; commit 114e107) + the 5-agent clean-code pass
