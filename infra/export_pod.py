@@ -52,10 +52,14 @@ def build_tarball() -> None:
 
 def arm_cmd(name: str, extra: dict, idbase: int, dayoffset: int) -> str:
     env = " ".join([BASE_ENV] + [f"{k}={v}" for k, v in extra.items()])
-    return (f"cd /root/pokerb && nohup env {env} python3 -m research.pokerstars_export "
+    # DOUBLE-FORK ( ... & ): the async job's forked shell otherwise WAITS on python while holding the ssh
+    # pipes open -> sshd never returns (two measured 60s launch timeouts). The subshell exits instantly,
+    # orphaning python to init with all fds detached.
+    return (f"cd /root/pokerb && ( nohup env {env} python3 -m research.pokerstars_export "
             f"--n {N_HANDS} --seed {SEED} --fast --resolver off "
             f"--idbase {idbase} --dayoffset {dayoffset} "
-            f"--out /root/pokerb/hu_{name}_1500.txt < /dev/null > /root/arm_{name}.log 2>&1 & echo LAUNCHED_{name}")
+            f"--out /root/pokerb/hu_{name}_1500.txt < /dev/null > /root/arm_{name}.log 2>&1 & ) "
+            f"&& echo LAUNCHED_{name}")
 
 
 def main() -> None:
@@ -110,6 +114,12 @@ def main() -> None:
         for name, extra, idbase, dayoffset in ARMS:
             r = _ssh(ip, port, arm_cmd(name, extra, idbase, dayoffset), timeout=60)
             print(f"  {name}: {(r.stdout or '').strip()}", flush=True)
+        time.sleep(20)
+        alive = _ssh(ip, port, "pgrep -fc pokerstars_export", timeout=30)
+        print(f"  arms alive: {(alive.stdout or '').strip()}/5", flush=True)
+        if (alive.stdout or "").strip() != str(len(ARMS)):
+            head = _ssh(ip, port, "head -c 400 /root/arm_v3fresh.log", timeout=30)
+            print(f"  arm log head: {(head.stdout or '')[:400]}", flush=True)
 
         # poll until all five outputs exist (the export writes its .txt at the very end) or the wall cap
         done: set = set()
