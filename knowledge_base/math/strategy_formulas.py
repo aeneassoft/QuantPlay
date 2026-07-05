@@ -78,12 +78,19 @@ def short_stack_open_shove_fraction(position: str, effective_bb: float, ante_bb_
 
 
 def balanced_bluff_combos(value_combos: float, bet_size: float, pot_size: float, bluff_equity: float = 0.0) -> float:
-    """Bluff combos paired with value combos. Example: V=30, bet=75, pot=100, e=0 -> 12.8571428571."""
+    """Bluff combos paired with value combos. Example: V=30, bet=75, pot=100, e=0 -> 12.8571428571.
+
+    Caller indifference with bluff equity e when called: q*(1-e)*(P+2B) = B (q = bluff share of the
+    betting range) => r = q/(1-q) = B/((1-e)*(P+2B) - B); reduces to B/(P+B) at e=0 (doc example
+    unchanged). The previous alpha/(1-e) form broke indifference for e>0 (caller EV != 0, hand-verified
+    counterexample -- 2026-07-06 dual-blind re-derivation campaign)."""
     if value_combos < 0.0 or bet_size <= 0.0 or pot_size <= 0.0:
         raise ValueError("value must be nonnegative; bet and pot positive")
     e = max(0.0, min(0.999999, bluff_equity))
-    alpha = bet_size / (pot_size + bet_size)
-    return value_combos * alpha / (1.0 - e)
+    denom = (1.0 - e) * (pot_size + 2.0 * bet_size) - bet_size
+    if denom <= 0.0:                       # e so high the bluff beats a pure-calling range: unbounded
+        return float("inf")
+    return value_combos * bet_size / denom
 
 
 def polarization_degree(nut_combos: float, air_combos: float, medium_combos: float) -> float:
@@ -158,11 +165,15 @@ def barrel_continuation_frequency(previous_bet_frequency: float, equity_advantag
 
 
 def give_up_frequency(street_bet_frequency: float, showdown_value_fraction: float, fold_equity: float) -> float:
-    """Residual give-up frequency. Example: bet=.5, sdv=.4, FE=.3 -> .36."""
+    """Residual give-up frequency. Example: bet=.5, sdv=.4, FE=.3 -> .36.
+
+    Give-ups are a SUBSET of the non-betting mass: (1-b) * (1 - sdv*(1-fe)). The previous form
+    1 - b - 0.5*sdv*(1-fe) had the doc example's b=0.5 baked in as a constant (coincides only at
+    b=0.5, and could exceed the available non-betting mass) — 2026-07-06 dual-blind campaign."""
     b = max(0.0, min(1.0, street_bet_frequency))
     sdv = max(0.0, min(1.0, showdown_value_fraction))
     fe = max(0.0, min(1.0, fold_equity))
-    return max(0.0, min(1.0, 1.0 - b - 0.5 * sdv * (1.0 - fe)))
+    return max(0.0, min(1.0, (1.0 - b) * (1.0 - sdv * (1.0 - fe))))
 
 
 def range_advantage_to_bet_frequency(equity_advantage: float, nut_advantage: float, in_position: bool, street: int) -> float:

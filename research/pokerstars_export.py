@@ -214,6 +214,14 @@ def main():
         print("WARNING: default --idbase/--dayoffset — a prior default upload will DEDUP this one on the "
               "Analyzer. Pass a unique --idbase N --dayoffset M per arm (ledger: 299/31=v22 300/32=v3 "
               "301/33=v31 302/34=v32).")
+    # DEDUP LAW (measured 2026-07-06, the family-2/3 incident): the Analyzer burns hand IDENTITIES on
+    # FIRST CONTACT (even failed uploads) and dedups across ALL prior uploads — id RANGES must never
+    # overlap (idbase steps of +1 overlap 99.9% for n=1500; use >= 2000 spacing, ledger in STATE.md),
+    # and identical seeds re-upload only with fresh id blocks + fresh dayoffsets (belt + suspenders:
+    # a fresh SEED per re-upload family removes any content-keyed dedup risk too).
+    if args.idbase < 40000:
+        print(f"WARNING: idbase {args.idbase} is in the BURNED legacy range (299-1822+ used through "
+              "2026-07-06). New families start at 50000 with >=2000 spacing per arm.")
     print("config fingerprint:", fingerprint(), "| EQUITY_ITERS:", botmod.EQUITY_ITERS)
 
     g = HeadsUpGame(names=("P0", "P1"), starting_stack=STACK, sb=SB, bb=BB, seed=args.seed)

@@ -39,7 +39,21 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
-**★ UPLOAD BLOCKED BY ANALYZER DEDUP → FAMILY 3 REGENERATING (2026-07-06 ~00:45).** The family-2 upload
+**★★ DEDUP LAW CRACKED (2026-07-06 ~01:30) → FAMILY C (seed 56, id blocks 50000/52000/54000/56000, days
+50-53) GENERATING.** Family 3 (b) uploaded fine (1500 recognized, CRLF ok) but processed only 18/1/2/3 —
+expanded row: **1,482 Duplicate hands**. The id arithmetic matches exactly: legacy uploads burned ids
+299–1802; v3fresh_b (320–1819) had 17-18 free ids -> 18 processed; v33_b 1 more; etc. → **the Analyzer
+dedups against ALL prior uploads and the +1-idbase ledger convention created 99.9%-overlapping ranges —
+the design flaw was ours.** Law (now enforced by an exporter warning): id ranges NEVER overlap (>=2000
+spacing, families start at 50000), fresh dayoffset per file, and a fresh SEED per re-upload family
+(kills the competing content-dedup hypothesis for $0 — pairing lives WITHIN a family anyway). Quota is
+NOT the constraint: account shows 18k/150k hands used, reset 28.7 → ~131k hands = the real monthly
+screening budget (user's Chrome-channel insight scales: k×1500 per arm). Family-_b_ files deleted from
+Desktop (burned). **BLIND-CAMPAIGN CATCHES (dual blind re-derivation, 24 agents): 3 REAL formula bugs
+fixed + suite-pinned (20/20): bluff_to_value r=B/P → B/(P+B) (the 2026-06-20 audit fix had the wrong
+denominator!), balanced_bluff_combos e>0 indifference, give_up_frequency (doc example's b=0.5 baked in
+as a constant). All KB/brain-layer — engine decision path untouched. Ledger 72→69 unverified.**
+**(superseded) UPLOAD BLOCKED BY ANALYZER DEDUP → FAMILY 3 REGENERATING (2026-07-06 ~00:45).** The family-2 upload
 parsed fine (CRLF fix landed: exporter now pins newline="\r\n" on all platforms — the Analyzer cannot read
 LF-only HH) but returned **1,499 duplicate hands / 1 processed**: an earlier failed (LF) attempt had
 silently REGISTERED hand identities #303–#1801 in GTOW's registry (its upload row is not even listed —

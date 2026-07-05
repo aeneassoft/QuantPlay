@@ -195,6 +195,59 @@ def _eq_needed():
     return None
 
 
+@check("bluff-to-value ratio: r = B/(P+B); caller indifference EXACT (2026-07-06 blind-campaign fix pinned)")
+def _bluff_ratio():
+    from knowledge_base.math import formulas as F
+    rng = _rng()
+    for _ in range(FUZZ_N):
+        p, b = _fr(rng), _fr(rng)
+        r, n_bluff, _fb, f_bet, _pv = F.bluff_to_value_and_frequencies(float(p), float(b), 30.0, 100.0)
+        ref = b / (p + b)
+        if abs(r - float(ref)) > 1e-9:
+            return f"P={p} B={b}: r={r} ref={float(ref)}"
+        q = ref / (1 + ref)                                     # bluff share of the betting range
+        ev_call = q * (p + b) - (1 - q) * b                     # caller: wins P+B vs bluff, loses B vs value
+        if ev_call != 0:
+            return f"indifference broken: EV(call)={ev_call}"
+    VERIFIED_FORMULAS.add("bluff_to_value_and_frequencies")
+    return None
+
+
+@check("balanced_bluff_combos: caller indifference holds for bluff_equity > 0 (blind-campaign fix pinned)")
+def _bbc():
+    from knowledge_base.math.strategy_formulas import balanced_bluff_combos
+    rng = _rng()
+    for _ in range(FUZZ_N):
+        p, b = _fr(rng), _fr(rng)
+        e = Fr(rng.randint(0, 60), 100)
+        v = Fr(rng.randint(1, 60))
+        denom = (1 - e) * (p + 2 * b) - b
+        if denom <= 0:
+            continue
+        n = balanced_bluff_combos(float(v), float(b), float(p), float(e))
+        q = Fr(n).limit_denominator(10**12) / (Fr(n).limit_denominator(10**12) + v)
+        ev_call = q * ((1 - e) * (p + b) - e * b) - (1 - q) * b
+        if abs(float(ev_call)) > 1e-6:
+            return f"P={p} B={b} e={e} V={v}: n_bluff={n} EV(call)={float(ev_call)}"
+    VERIFIED_FORMULAS.add("balanced_bluff_combos")
+    return None
+
+
+@check("give_up_frequency: mass-coherent (1-b)*(1 - sdv*(1-fe)), never exceeds the non-betting mass")
+def _giveup():
+    from knowledge_base.math.strategy_formulas import give_up_frequency
+    rng = _rng()
+    if abs(give_up_frequency(0.5, 0.4, 0.3) - 0.36) > 1e-12:
+        return "documented example broken"
+    for _ in range(FUZZ_N):
+        b, sdv, fe = rng.random(), rng.random(), rng.random()
+        g = give_up_frequency(b, sdv, fe)
+        if g > (1 - b) + 1e-12 or abs(g - (1 - b) * (1 - sdv * (1 - fe))) > 1e-12:
+            return f"b={b} sdv={sdv} fe={fe}: g={g}"
+    VERIFIED_FORMULAS.add("give_up_frequency")
+    return None
+
+
 # ------------------------------------------------------------------- B. convention tests (the killer class)
 @check("resolver._observed_fracs: census conventions on constructed histories")
 def _observed_fracs_conventions():

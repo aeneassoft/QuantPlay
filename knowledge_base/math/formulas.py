@@ -191,10 +191,15 @@ def bluff_to_value_and_frequencies(P: float,
     hands (always winning when called) and pure bluffs (always losing when called).
 
     Under the standard GTO condition that makes Villain indifferent to calling
-    (EV(call) = EV(fold)), the value share of Hero's betting range must be
-    P/(P+B), so the optimal bluff-to-value ratio r = N_bluff/N_value is:
+    (EV(call) = EV(fold)): calling B wins P+B vs a bluff and loses B vs value, so
+    the bluff share of the betting range is q = B/(P+2B) and the ratio is
 
-        r = B / P
+        r = q/(1-q) = B / (P + B)
+
+    (textbook anchor: pot-sized bet B=P -> r = 1/2 -> bluffs = 1/3 of the betting
+    range. The previous r = B/P made villain's EV(call) = +P/2 at pot size, not 0
+    -- caught by the 2026-07-06 dual-blind re-derivation campaign; the 2026-06-20
+    audit had fixed the ratio's ORIENTATION but landed on the wrong denominator.)
 
     Given a chosen number of value combinations n_value in Hero's betting range
     and the total number of hand combinations n_total Hero can have in this spot,
@@ -226,12 +231,12 @@ def bluff_to_value_and_frequencies(P: float,
     if B <= 0:
         raise ValueError("Bet size B must be positive.")
     if P <= 0:
-        raise ValueError("Pot size P must be positive (r = B/P divides by it).")
+        raise ValueError("Pot size P must be positive.")
     if n_value < 0 or n_total <= 0:
         raise ValueError("n_value must be >= 0 and n_total must be > 0.")
 
-    # 1. GTO bluff-to-value ratio = B/P (Villain indifferent: value share of the bet range = P/(P+B))
-    r = B / P
+    # 1. GTO bluff-to-value ratio: caller indifference q*(P+B) = (1-q)*B  =>  q = B/(P+2B)  =>  r = B/(P+B)
+    r = B / (P + B)
 
     # 2. Number of bluff combos implied by r and n_value
     n_bluff = r * n_value
