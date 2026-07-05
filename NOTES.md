@@ -627,3 +627,20 @@ mine the raw logs (both holes are always logged).
   35mb/g exploitierbar — Kandidat fuer den River-Aggressions-Leak, braucht eigenen Mini-CFR (numpy, Hebel E).
 - Lokales DIVAT fuer nicht-GTOW-Messungen (Slumbot/Coaching) notiert; UCB1-Team-Coach nur bei nicht-stationaeren
   Gegnern relevant. Volle Analyse: Agent-Report (Task a33db0cea418f96e9).
+
+## 'Compact CFR' (Eric Jackson, AAAI-Workshop 2016 — inline gelesen 2026-07-05): die RAM-Achse von UNTEN
+Kern: 16 Bytes/Aktion -> **1 Byte** via (1) Follow-the-Leader statt Regret-Matching (nur argmax zaehlt ->
+Regrets als nicht-negative OFFSETS vom besten), (2) 1-Byte-Quantisierung (fixed-size fuer External-Sampling-
+Random-Access; kostet etwas Konvergenzzeit), (3) Current-Strategy-only statt Average (FTL -> automatisch PURE
+= 1 Bit/Aktion), (4) Checkpoint-MIXTURES retten die Exploitability teilweise (51 Blends: 21.7 vs 10.14 mbb/g).
+EHRLICHE Warnungen aus dem Paper selbst: FTL verliert die No-Regret-GARANTIE; Current-only = schlechte
+Exploitability (nur head-to-head ok) — fuer unsere Anti-GTOW-Mission ist Exploitability der Massstab, also
+Average/Mixtures behalten, die OFFSET+1-Byte-Regrets sind der sichere Teil.
+**DER RAM-ADAPTIVITAETS-DIAL (User-Wunsch, Design-Prinzip):** Johanson 2007 skaliert Qualitaet mit RAM nach
+OBEN (mehr Aufloesung = staerker), Jackson 2016 nach UNTEN (16x Kompression) — ein Kern, ein Regler:
+float32-Regrets (viel RAM) -> uint8-Offsets -> purified 1-Bit (wenig RAM). Einbauorte:
+- **flop_library (Queue #1):** Dumps als uint8-quantisierte Strategien (256 Stufen << Solver-Rauschen) statt
+  JSON-floats -> ~8-20x kleiner -> die 1755-Flop-Bibliothek passt in die realen 15.7GB RAM.
+- **v4-CFR-Kern:** Regret-Tabellen mit waehlbarer Praezision (der Dial als Konstruktor-Parameter).
+- Optional: der 12GB-Solve-Cache als npz/uint8 fuer RAM-Preload (Disk ist billig — nur bei Bedarf).
+Kein Live-Nutzen HEUTE (TexasSolver-Subgames sind zeit-, nicht RAM-gebunden). PDF: books/papers/CFR/.
