@@ -4,6 +4,28 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★ v3.1 REFUTED (Analyzer, paired seed-55): 19.76 vs v3's 17.93 (+1.83 WORSE, near v2.2's 20.66).** The bundle
+(river-thin pb-floor 0.40 + cbet-damp 0.28) is reverted from the queue — flags stay default-OFF, nothing shipped
+(the gate system caught it pre-promotion). **THE LESSON, now measured for the THIRD time (limp→open fix, flat
+turn-probe boost, river-thin floor): FREQUENCY-matching the teacher WITHOUT his SELECTION loses EV.** GTOW bets 43%
+of river pairs — but chooses WHICH by blockers/kicker/range-position; a blind pb-floor bets unselected pairs into a
+near-GTO caller. The principled reshape (queued as v3.2): make the bet/check DECISION selection-aware via the
+tracked-range machinery (bet thin iff eq-vs-CALLING-range ≥ ~0.5 at the smallest size — the eCall pattern extended
+from sizing to frequency). Ablation note: the bundle wasn't split; the damp may be innocent — the reshape supersedes
+both anyway. v3 REMAINS champion (17.93); tail-smoke pending → then v3 → PRINCE_PROFILE.
+**★★ v3 ANALYZER VERDICT (2026-07-05, paired seed-55, user-uploaded): v2.2 = 20.66 EV-loss vs v3 = 17.93
+(v3 at 1,305/1,500 processed — final may shift ±0.5) → THE BUNDLE DELIVERED −2.73, in the predicted −2.5..−4.5
+band.** Cross-check again beautiful: v2.2's 20.66 ↔ its live AIVAT −19.70. The 300 tail-smoke is the last gate
+before v3 → PRINCE_PROFILE.
+**★ v3 BUNDLE BUILT + COMMITTED (`aa7b755`, 2026-07-05 evening) — the top-2 over-fold classes:**
+`POKERB_PAIR_DEFENSE=0.10` (flop: advisor-fold cap 0.30 + MDF discount for hole-pairs vs single c-bet — the −5
+bb/100 class) + `POKERB_RIVER_DEFENSE=0.06` (river bluffcatchers vs ≤0.6-pot bets; barrel-discipline precedence).
+Gates: stress 20/20 unchanged · **replay flips 8/9 graded flop-fold blunders** (Kd6s/8d8c/4s3s/Qs6c→continue) ·
+canary in flight. **TURN-PROBE PARKED** (its live arm completed post-restart: −47.55 ± 21.08 n=296 BUT the probe
+CLASS itself was only −0.47bb/hand over n=18 = the flat +0.35 boost bets unselected air; needs selection-aware
+reshape; the −47 headline is n=296 noise, body −8.5 ≈ baseline). **THE AGREED TEST (memory: v3-test-protocol):
+paired seed-55 Analyzer exports (hu_v22_1500.txt + hu_v3_1500.txt → Desktop, generating) → the user uploads both →
+per-decision EV-loss diff decides (≈noise-free); a 300 live smoke only as tail check. NO long run before both.**
 **★★ THE PRECISION NUMBER (2026-07-05 15:13, pre-registered n=2500 → 2,393 ok/107 fails): PRINCE v2.2 =
 AIVAT −19.70 ± 4.37 bb/100.** ZERO catastrophes ≤−50bb over 2,393 (worst −38.2); per-hand SD 214 =
 leaderboard-grade; body −9.0/−6.3; RAW +1.94. **HONEST VERDICT: the distribution is transformed (tail dead,

@@ -42,6 +42,10 @@ PRINCE_PROFILE = {
     # The Kc3h 200bb-stack-off fix (2026-07-05; the fat-tail/leaderboard-std lever). Gates: disaster-hand probe
     # (river call->FOLD), replay (no regression), paired canary (+20.5 +/- 42.5, passes):
     "POKERB_TRACKER_AGGRO_FULL": "1",   # believe the narrowing fully (alpha->1) from a seat's 2nd barrel on
+    # v3 (2026-07-05): the top-2 over-fold classes. Gates: stress 20/20 · replay flips 8/9 graded flop-fold
+    # blunders · paired Analyzer 17.93 vs v2.2's 20.66 (-2.73 on identical deals) · tail-smoke 0 catastrophes:
+    "POKERB_PAIR_DEFENSE": "0.10",      # flop: advisor-fold cap 0.30 + MDF discount for hole-pairs vs single c-bet
+    "POKERB_RIVER_DEFENSE": "0.06",     # river: defend bluffcatchers vs <=0.6-pot bets (23% of folds were ahead)
 }
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number
