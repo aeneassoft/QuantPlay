@@ -61,6 +61,10 @@ _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     "POKERB_ADVISOR_ROLE_POS",
     # run-defining strategy swaps:
     "POKERB_DEEPCFR", "POKERB_GRAFT", "POKERB_RIVER_VALUE_FREQ", "POKERB_COMMIT_EQ",
+    # cache seams (2026-07-05 critic panel): NOT semantics-neutral at the timeout boundary — a cache hit
+    # returns a resolver strategy where a cold slow solve times out into the floor fallback; ISO_CACHE
+    # additionally re-keys every solve (canonical vs raw board). A run's grade must record their state.
+    "POKERB_ISO_CACHE", "POKERB_SOLVE_CACHE",
 })
 
 

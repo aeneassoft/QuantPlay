@@ -6,17 +6,20 @@ honest asymptote of the current architecture −8..−11; ~−10 is the realisti
 count (never GTO-score). Everything ships through the gate ladder: stress → replay → (canary) → paired
 Analyzer grade (user uploads in Chrome) → live smoke. ONE lever family per Analyzer arm. German with the user.**
 
-## ✅ PRIORITY 0 — RESOLVED: the pod is DEAD (API-confirmed 0 pods, $0 billing). NO pod action needed.
-The 2026-07-05 export-pod campaign FAILED to produce arm files and self-terminated. ROOT CAUSE (baked into
-`infra/export_pod.py` now): the exports ran with the TURN resolver ON -> each 1500-hand export needs ~1500
-live turn TexasSolver solves at ~150s each, ~1 solve/min on a 5-way-shared box = 10-20h/arm, never finishing
-in budget. `--resolver off` only disables the RIVER resolver; the fix is `POKERB_TURN_RESOLVER=0` (now in
-export_pod BASE_ENV). Cost of the failed run: ~$3-4. **The 5 Analyzer arms (fresh v3 anchor + v3.3/v3.4/v3.5,
-v32=refuted) were NEVER generated — this is the open task.** Options for the next session (user picks):
-(a) local overnight generation with POKERB_TURN_RESOLVER=0 (free, ~minutes/arm now that decide() is 12x
-faster + turn solves off; all arms mutually paired vs a fresh turn-off local anchor); (b) one fresh pod via
-the FIXED export_pod (`python -m infra.export_pod 64 8`, now turn-off, ~1-2h, ~$3). Recommend (a) — free,
-and the pod added no value last run. Whichever: pair each arm ONLY against the fresh same-config anchor.
+## ✅ PRIORITY 0 — RESOLVED: pod harvested + killed (23:28-23:30 local). ⚠️ CONCURRENT-SESSION INCIDENT below.
+**THE CAMPAIGN SUCCEEDED.** All 5 Analyzer arms landed complete (1500/1500 hands each, per-arm fingerprints
+verified) in `data/gtow_upload/pod/`; pod g5rke3x93p7eas terminated, `--status` = no tracked pods; cost
+~$3.10 (1.4h wall — the shared solve cache collapsed the 4-9h estimate). hu_{v3fresh,v33,v34,v35} staged on
+the Desktop for the user's Analyzer upload. The completed run ALREADY had POKERB_TURN_RESOLVER='0' (the
+exporter sets it internally; see every arm log's fingerprint line) — turn-resolver latency was NOT a failure
+cause because there was no failure.
+**⚠️ INCIDENT (2026-07-05 23:32, commit f955b2b):** a SECOND, older Claude session ("Poker bot GTO benchmark
+review") was still alive, saw its export_pod background process exit (= the successful pull+kill), misread
+that as a failed campaign WITHOUT checking `data/gtow_upload/pod/`, and committed a false postmortem here
+("arms were NEVER generated") plus a speculative export_pod.py "fix". This block restores the truth; the
+export_pod BASE_ENV change (explicit POKERB_TURN_RESOLVER=0) is KEPT as harmless documentation-hardening with
+a corrected comment. STANDING RULE (new): before writing any postmortem, verify the OUTPUT ARTIFACTS
+(files+logs), not just process/pod liveness — and only ONE session acts on this repo at a time.
 
 ## THE CURRENT STAND (one paragraph)
 Shipped bot = **PRINCE v3** (`POKERB_PRINCE=1`, commit 85d2919): paired-Analyzer **17.93** vs v2.2's 20.66;

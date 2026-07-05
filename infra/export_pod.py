@@ -36,11 +36,10 @@ ARMS = [
     ("v34",     {"POKERB_AUDIT_FIX": "1"},            306, 38),
     ("v35",     {"POKERB_ADVISOR_ROLE_POS": "1"},     307, 39),
 ]
-# DIAGNOSIS (2026-07-05): with the TURN resolver on, each 1500-hand export does live turn TexasSolver
-# solves (~150s each, cold cache) -> ~1 solve/min on a 5-way-shared 64-vCPU box -> 10-20h/arm = never
-# finishes in budget. --resolver off is RIVER-only; the turn resolver needs POKERB_TURN_RESOLVER=0.
-# All arms share this setting -> mutually paired + fast; NOT comparable to the old turn-on 17.93 file
-# (that is fine: promotion is decided by arm-vs-FRESH-anchor delta, both turn-off).
+# POKERB_TURN_RESOLVER=0 is DOCUMENTATION-hardening only: the exporter already sets it internally
+# (every 2026-07-05 arm-log fingerprint shows '0'), which is why the 5-arm campaign finished in 1.4h.
+# (A concurrent stale session mis-postmortemed that campaign as failed and added this line with a wrong
+# rationale, commit f955b2b — the arms were complete in data/gtow_upload/pod/ four minutes earlier.)
 BASE_ENV = "POKERB_PRINCE=1 POKERB_TURN_RESOLVER=0 PYTHONUTF8=1 PYTHONPATH=/root/pokerb TEXASSOLVER_DIR=/root/tsolver"
 
 

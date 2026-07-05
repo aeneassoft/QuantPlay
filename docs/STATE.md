@@ -8,13 +8,41 @@
 landed in `data/gtow_upload/pod/` (1500/1500 hands each, fingerprints verified per-arm — the audit fix works),
 pod g5rke3x93p7eas terminated, `--status` = no tracked pods, cost ~$3.10 (1.4h — the shared solve cache
 collapsed the 4-9h estimate). hu_{v3fresh,v33,v34,v35} copied to Desktop → NEXT: user uploads to the GTOW
-Analyzer; verdicts read vs the FRESH `hu_v3fresh` anchor ONLY (never the old-exporter 17.93). Promotion rule:
-≥ ~1.5 EV-loss better → into PRINCE_PROFILE + fingerprint + commit; worse → refute + park. Then the 300-hand
-tail-smoke on the FIXED harness (blinds-order fix: pre/post-fix live numbers NOT comparable — the −19.70
-anchor is pre-fix; a fresh 2,500 precision run must re-anchor). User strategy directive (2026-07-05 late):
-balanced approach, ONLY gated improvements, chase top-5, CS concepts first-class, short GTOW smoke soon.
-In flight: flop-library calibration pilot (`research/flop_pilot.py` → data/research_sweep/flop_pilot.json);
-strategy critic panel; TurboReBeL theorem/review fetch (paper VERIFIED = ICLR26 sub REJECTED, ledger updated).
+Analyzer; verdicts read vs the FRESH `hu_v3fresh` anchor ONLY (never the old-exporter 17.93).
+**★ VERDICT+SMOKE PROTOCOL (finalized 2026-07-05 night after the 3-critic adversarial panel — BINDING;
+raw panel: `data/research_sweep/strategy_critic_panel.json`):**
+(1) FIRST read the two replication diagnostics and log them as the instrument-shift ledger BEFORE any
+verdict: |pod-v3fresh grade − 17.93| (exporter+platform shift) and |pod-v32 grade − 26.14| (same, on a
+refuted lever = pure replication). If the shift itself exceeds ~1.5, the flat threshold is inside
+instrument noise → raise it. (2) Per arm: promotion needs Δ > max(1.5, 2·SE_diff) vs the pod anchor,
+computed on the INTERSECTION of Analyzer-processed hands; pull the per-street breakdown — the effect must
+sit in the targeted bucket (v3.3 raise-nodes, v3.4 its 9 fix classes, v3.5 3bet-pot postflop). (3) At most
+ONE winner ships directly; if ≥2 clear the bar, ONE combined confirmation arm vs the SAME pod anchor
+before the profile ships (unmeasured bundles are the v3.1 lesson). (4) Pod→local platform gate: the
+selected winner gets a LOCAL paired-Analyzer replication (fresh local anchor + local winner export,
+seed-55) before entering PRINCE_PROFILE. (5) SMOKE (n=300, fixed harness, key #2) = SCREEN only,
+count-based pre-registered criteria replacing the old SD/worst thresholds (the old ones would have failed
+the then-champion): FAIL iff ≥2 hands ≤−50bb OR ≥1 hand ≤−80bb; exactly 1 in (−80,−50] → EXTEND to
+n=1000, no verdict; mid-tail counts calibrated from gtow_hands_1783226155.jsonl (2,393 per-hand values on
+disk). The 2,500 run re-checks the same tail criteria as the BINDING test and becomes the new anchor.
+(6) Anchor discipline: the new 2,500 number is CONFOUNDED (blinds-harness-fix + v2.2→v3 + promoted levers)
+— comparable ONLY to future post-fix runs + the leaderboard, NEVER narrated vs −19.70 for lever efficacy;
+$0 decomposition first: replay the 2,393 logged hands through the FIXED _parse_history and count preflop
+decision flips (bounds the fix-alone effect; direction is UNKNOWN — wider BB defense pushes more hands
+into the postflop bleed, the SB-fold-clamp precedent says fixing an over-fold can WORSEN EV). (7)
+SERIALIZATION (CPU-CPU rule, new standing): NO batch solver job during ANY live measurement — a starved
+turn/river solve times out into the floor SILENTLY (= measuring a degraded bot); flop_pilot must be
+finished/stopped before the smoke fires. _FINGERPRINT_KEYS now carries ISO_CACHE+SOLVE_CACHE (cache seams
+are behavior at the timeout boundary).
+**⚠️ CONCURRENT-SESSION INCIDENT (23:32, commit f955b2b):** a stale second session ("Poker bot GTO
+benchmark review") mis-postmortemed the SUCCESSFUL pod campaign as failed (never checked the output dir)
+and falsified the handoff — corrected in f-followup; standing rule: verify OUTPUT ARTIFACTS before any
+postmortem; ONE acting session per repo.
+User strategy directive (2026-07-05 late): balanced approach, ONLY gated improvements, chase top-5, CS
+concepts first-class, short GTOW smoke soon. In flight: flop-library calibration pilot
+(`research/flop_pilot.py` → data/research_sweep/flop_pilot.json; re-runs need POKERB_SOLVE_CACHE=0);
+TurboReBeL theorem/review fetch (paper VERIFIED = ICLR26 sub REJECTED, ledger updated); library design
+hardened per panel (docs/FLOP_LIBRARY.md §Kritiker-Panel-Auflagen).
 
 **★★ v3.2 REFUTED (Analyzer, paired seed-55): 26.14 vs v3's 17.93 (+8.21 WORSE — the worst arm of the whole
 family, below even v2.2's 20.66).** The SELECTION-aware thin-value gate (e_call>=0.5 vs the tracked calling
