@@ -4,6 +4,26 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★★ FULL-BOT AUDIT (2026-07-05 evening, user-ordered, 90 agents / 9 dimensions / 3x adversarial verify):
+23 CONFIRMED finds, 4 refuted — ledger `data/audit/audit_result.json`, all fixes commit 8c827cc.** The two
+HIGH finds were MEASUREMENT-seam: (1) `gtowizard._parse_history` unpacked the live blinds [BB,SB] as [SB,BB]
+-> the preflop blind init was INVERTED in EVERY live AIVAT run (BB-facing-open to_call 175 instead of 125 =
++7pp required equity = a baked-in preflop over-fold; the self-test fixture had the same wrong order so the
+"locked" asserts never caught it — both fixed, re-locked on the production schema). Every live baseline
+(−19.70/−20.09) carried this; exports/Analyzer grades did NOT (different code path). (2) `_FINGERPRINT_KEYS`
+missed 13 run-defining flags incl. BOTH active gate flags -> lever-arm exports logged plain-v3 fingerprints
+(fixed). Also fixed live: export all-in run-out HH sections (future pairings need FRESH anchors — in-code
+note), replay_graded arm isolation (--env), Analyzer-dedup warning, corrupt-fold-model fallback.
+Version-separated behavior corrections (default OFF, own arms, stress+replay+activation-probe green):
+**v3.4 = POKERB_AUDIT_FIX** (9 finds: PAIR_DEFENSE fired on check-raises; TURN_DEFENSE fired on 2nd barrels
+and net-cancelled BARREL_DISCIPLINE on its target texture; RIVER_DEFENSE's bluffcatcher gate vacuous on
+paired boards; covered-stack required-equity; degenerate-threshold floor; phantom sizer candidates;
+raise=aggro for TRACKER_AGGRO_FULL) · **v3.5 = POKERB_ADVISOR_ROLE_POS** (advisors were queried by INITIATIVE
+but trained by tree POSITION -> inverted lookups in every 3bet pot — potentially large, own arm). Deferred
+(NOTES.md): slumbot-bridge deal rows, client terminal-state, cache-key allin_threshold (deliberate — a fix
+flushes the warm solve cache), twotone vacuity. Analyzer sequencing: v3.2 -> v3.3 -> v3.4 -> v3.5, one arm
+per upload, fresh anchors from the fixed exporter.
+
 **★★★ v3 PROMOTED (2026-07-05 evening) — PRINCE_PROFILE now = v3 (commit 85d2919).** The tail-smoke landed
 CLEAN: n=295, **0 catastrophes ≤−50bb, worst hand −19.3bb, per-hand SD ≈162** (tightest distribution yet). The
 smoke MEAN (−34.14 ± 9.44) is n≈300 noise per the pre-registered protocol — the DECISIVE gate was the paired
