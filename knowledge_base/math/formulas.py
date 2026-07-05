@@ -257,7 +257,13 @@ def required_future_winnings_for_implied_odds(pot_size: float, call_cost: float,
 
     The break-even condition (in chip-EV) for a pure drawing call is:
 
-        hit_probability * (pot_size + call_cost + F) = (1 - hit_probability) * call_cost
+        hit_probability * (pot_size + F) = (1 - hit_probability) * call_cost
+
+    (hero's call returns to him inside the pot he wins, so it must NOT appear in the
+    win branch — the +call_cost variant is exactly the double-count the 2026-06-20
+    audit already fixed in the CODE; the equation here previously showed that wrong
+    form while the implementation below was correct. Found + pinned by
+    tests/test_math_suite.py against the independent Fraction derivation.)
 
     Solving for F gives:
 

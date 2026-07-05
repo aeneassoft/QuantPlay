@@ -158,6 +158,19 @@ Autoren, IDs oder DOIs — die Verifikationspflicht war voll berechtigt. Kein Ei
   4. **Gate-Rezept:** Turn-Endgame mit EXAKTER Exploitability als billiges erstes Gate (= unsere
      Grounded-Gate-Doktrin); ihre Schwäche (kein LBR, kleine Abstraktion) nicht kopieren.
 
+## TurboReBeL THEORIE-Tiefgang (2026-07-06 ~00:20 — Theoreme + alle 4 Reviews VERBATIM gesichert)
+Voller Report: `data/research_sweep/turborebel_theory.md` (+ Rebuttal-PDF + Reviews-Rohdaten ebenda;
+OpenReview ist inzwischen challenge-gesperrt — Quellen: 1× Live-API-Zugriff + Wayback-PDF + 2 unabhängige,
+byte-identische HF-Mirrors). Kernbefund (eigene Analyse, deckt sich mit Reviewer uRCN/hYMG): **Theorem 1 ist
+wahrscheinlich FALSCH wie formuliert, nicht nur unterbewiesen** — Beweisschritt (C) behauptet uniforme
+per-Infoset-CFV-Konvergenz der CFR-Average-Strategie zu einem BELIEBIGEN Nash σ* mit O(1/√T); das garantiert
+CFR nicht (nicht-eindeutige NE ⇒ Ω(1)-Off-Path-CFV-Differenz — exakt der Grund, warum Safe-Resolving-Gadgets
+existieren; das nachgereichte Gift-Gadget zitiert zirkulär Thm 1). Thm 2 = konditional okay, aber leer, weil
+seine Prämisse Thm 1 IST. **$0-Falsifikationstests designed (Leduc):** T1 = zwei distinkte NEs erzeugen,
+max_I |v^σ̄T(I) − v^σ*(I)| über T plotten (Vorhersage: σ*-abhängiges Plateau statt O(1/√T)-Zerfall an
+Off-Path-Infosets); T2 = SSMIG-Pipeline-Exploitability vs die behauptete Schranke. Konsequenz für v4
+UNVERÄNDERT: SSMIG + Iso-Augmentation als gegatete Engineering-Hebel, Theorie nie zitieren.
+
 ## NAL / "Reducing Variance 2025" Verdikt (2026-07-05 Nacht, inline VOLL gelesen — existenz-verifiziert)
 - **Paper:** Meng, Chen, Li, Yang, Zhang, Gao — *Reducing Variance of Stochastic Optimization for Approximating
   Nash Equilibria in Normal-Form Games*, **ICML 2025 (PMLR 267)**. PDF: `books/papers/Variance/`.
