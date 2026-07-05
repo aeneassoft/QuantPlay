@@ -46,6 +46,12 @@ PRINCE_PROFILE = {
     # blunders · paired Analyzer 17.93 vs v2.2's 20.66 (-2.73 on identical deals) · tail-smoke 0 catastrophes:
     "POKERB_PAIR_DEFENSE": "0.10",      # flop: advisor-fold cap 0.30 + MDF discount for hole-pairs vs single c-bet
     "POKERB_RIVER_DEFENSE": "0.06",     # river: defend bluffcatchers vs <=0.6-pot bets (23% of folds were ahead)
+    # v3.3 -> PRINCE v4-candidate (2026-07-06): raise-facing-bet range narrowing toward the mined GTOW raise
+    # mix (Laplace-shrunk; the K2o-jam-call/RANK4 stack-off class). Gates: stress/replay green (2026-07-05) ·
+    # paired family-C Analyzer 19.41 vs anchor 24.90 (-5.49 on identical seed-56 deals, local platform) ·
+    # effect-locus: 65/65 diverging hands contain a raise (flop 32/turn 30/river 3). Siblings same round:
+    # v3.4 AUDIT_FIX REFUTED (+2.62), v3.5 ADVISOR_ROLE_POS neutral (+0.15) - both stay default-OFF.
+    "POKERB_RAISE_NARROW": "1",
 }
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number.

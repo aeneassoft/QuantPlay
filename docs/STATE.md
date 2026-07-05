@@ -39,6 +39,16 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★ v3.3 PROMOTED (2026-07-06 ~02:00) — PRINCE now carries POKERB_RAISE_NARROW=1.** Family-C verdicts
+(seed 56, local platform, all 1500/1500 processed — the dedup law held): anchor 24.90 · **v3.3 = 19.41
+(−5.49, the decisive winner)** · v3.4 AUDIT_FIX = 27.52 (+2.62 REFUTED — the 9 "bug fixes" were
+behaviorally load-bearing; parked, default-OFF forever pending re-analysis) · v3.5 ADVISOR_ROLE_POS =
+25.05 (+0.15 neutral, parked). Effect-locus check passed: 65/65 diverging hands contain a raise (flop
+32/turn 30/river 3) = exactly the targeted stack-off class (money_mine burn #2). Anchor-vs-17.93 is
+DIAGNOSTIC ONLY (different seed/exporter/turn-mode). **300-hand live tail-smoke FIRED** (key #2,
+resolvers ON = the binding turn-ON confirmation; pre-registered: FAIL iff ≥2 hands ≤−50bb OR ≥1 ≤−80bb;
+exactly 1 in (−80,−50] → EXTEND to 1000; mean reported, not interpreted). L3's auto-unpark condition
+(v3.3 promoted) is now HALF-met — check-line range quality (check_range_l1) is the remaining half.
 **★★ DEDUP LAW CRACKED (2026-07-06 ~01:30) → FAMILY C (seed 56, id blocks 50000/52000/54000/56000, days
 50-53) GENERATING.** Family 3 (b) uploaded fine (1500 recognized, CRLF ok) but processed only 18/1/2/3 —
 expanded row: **1,482 Duplicate hands**. The id arithmetic matches exactly: legacy uploads burned ids
