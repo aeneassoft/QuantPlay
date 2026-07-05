@@ -232,7 +232,10 @@ def main():
 
     text = "\n\n".join(blocks) + "\n"
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    with open(args.out, "w", encoding="utf-8") as f:
+    # newline="\r\n": the GTOW Analyzer only parses CRLF hand histories (2026-07-06: the first pod/Linux-
+    # generated upload produced LF-only files the Analyzer could not analyze; every prior local export was
+    # CRLF only because Windows text mode translated it silently). Pin CRLF on every platform.
+    with open(args.out, "w", encoding="utf-8", newline="\r\n") as f:
         f.write(text)
     print(f"WROTE {len(blocks)} of {args.n} played hands -> {args.out}  ({len(text)} chars)")
     if blocks:
