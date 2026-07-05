@@ -55,7 +55,7 @@ def arm_cmd(name: str, extra: dict, idbase: int, dayoffset: int) -> str:
     return (f"cd /root/pokerb && nohup env {env} python3 -m research.pokerstars_export "
             f"--n {N_HANDS} --seed {SEED} --fast --resolver off "
             f"--idbase {idbase} --dayoffset {dayoffset} "
-            f"--out /root/pokerb/hu_{name}_1500.txt > /root/arm_{name}.log 2>&1 & echo LAUNCHED_{name}")
+            f"--out /root/pokerb/hu_{name}_1500.txt < /dev/null > /root/arm_{name}.log 2>&1 & echo LAUNCHED_{name}")
 
 
 def main() -> None:
