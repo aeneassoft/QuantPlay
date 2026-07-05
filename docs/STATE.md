@@ -34,10 +34,23 @@ SERIALIZATION (CPU-CPU rule, new standing): NO batch solver job during ANY live 
 turn/river solve times out into the floor SILENTLY (= measuring a degraded bot); flop_pilot must be
 finished/stopped before the smoke fires. _FINGERPRINT_KEYS now carries ISO_CACHE+SOLVE_CACHE (cache seams
 are behavior at the timeout boundary).
-**⚠️ CONCURRENT-SESSION INCIDENT (23:32, commit f955b2b):** a stale second session ("Poker bot GTO
-benchmark review") mis-postmortemed the SUCCESSFUL pod campaign as failed (never checked the output dir)
-and falsified the handoff — corrected in f-followup; standing rule: verify OUTPUT ARTIFACTS before any
-postmortem; ONE acting session per repo.
+**⚠️ CONCURRENT-SESSION INCIDENT, ESCALATED (23:32 f955b2b + 23:49 bc97fe0):** the stale second session
+("Poker bot GTO benchmark review") FIRST mis-postmortemed the successful pod-1 campaign as failed, THEN
+launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
+family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
+acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**THE UPLOAD FAMILY (family 2, verified 2026-07-06 00:0x): internally VALID** — all 5 arms 1500/1500,
+per-log fingerprints show explicit POKERB_TURN_RESOLVER='0' (launch-env; the ~6-min pure-Python runtime
+matches), Desktop==pod-dir by md5. VERDICTS: within family 2 ONLY (arms vs its own hu_v3fresh anchor).
+ADDED CAVEAT (pre-registered): the family ran TURN-RESOLVER-OFF while production runs turn-ON — v3.4/v3.5
+touch turn nodes, so a winner's evidence is turn-off evidence; run the LOCAL paired replication (protocol
+step 4) turn-ON, and the live tail-smoke stays the binding turn-ON confirmation.
+**MEASUREMENT-SEAM LESSON (family-1 autopsy; evidence destroyed, mechanism proven):** pod 1 ran tsv
+TURN-solves at full load for 1.4h while its log fingerprint claimed TURN_RESOLVER='0' — fingerprint()
+reads os.environ at PRINT time, but agents BIND use_* flags at construction; a runtime env-set (pod 1 ran
+a hot-patched working-tree tarball) makes the fingerprint lie about instance flags. HARDENING (queued,
+measurement-only): fingerprint should also report the constructed agent's actual use_resolver /
+use_turn_resolver attributes.
 User strategy directive (2026-07-05 late): balanced approach, ONLY gated improvements, chase top-5, CS
 concepts first-class, short GTOW smoke soon. In flight: flop-library calibration pilot
 (`research/flop_pilot.py` → data/research_sweep/flop_pilot.json; re-runs need POKERB_SOLVE_CACHE=0);
