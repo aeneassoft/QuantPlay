@@ -41,7 +41,11 @@ def _parse_history(action_history, button_seat, blinds):
     CUMULATIVE bet on the round. Returns (history, committed_hero, committed_villain, current_street_idx)."""
     hist = []
     committed = {0: 0.0, 1: 0.0}
-    sb, bb = (blinds + [0, 0])[:2] if blinds else (0, 0)
+    # AUDIT FIX (2026-07-05, confirmed 3x): the live API returns blinds=[BB,SB]=[100,50] (thrice-documented
+    # by the earlier 2x-bb fix) but this positional unpack assumed [SB,BB] -> the preflop blind init was
+    # INVERTED in every live run (BB-facing-open to_call 175 instead of 125 = +7pp required equity).
+    # Unpack by MAGNITUDE — order-agnostic, correct for both the live API and older [SB,BB] fixtures.
+    sb, bb = (min(blinds), max(blinds)) if blinds else (0, 0)
     committed[button_seat] = float(sb)            # HU blinds (preflop)
     committed[1 - button_seat] = float(bb)
     si, actor = 0, button_seat                    # preflop first to act = button (SB)
@@ -217,7 +221,9 @@ class PokerBotAgent:
 # ----------------------------------------------------------------- offline self-test (no key)
 def _gsr(street, common, total, board, la, rr, hist, hole="QcQd", pos="SB", hstack=19700, vstack=19700, over=False):
     return {"hand_id": 1, "game": {"game_id": 1, "game_name": "HUNL 200BB", "game_format": "nlh",
-                                   "starting_stack": 20000, "blinds": [50, 100], "stack_reset_per_hand": True},
+                                   # LIVE order [BB,SB]=[100,50] — the fixture must match production, or the
+                                   # locked to_call asserts test a schema the API never sends (the audit catch)
+                                   "starting_stack": 20000, "blinds": [100, 50], "stack_reset_per_hand": True},
             "game_state": {"street": street, "common_pot": common, "total_pot": total, "board_cards": board,
                            "is_hand_over": over, "legal_actions": la, "raise_range": rr, "action_history": hist,
                            "has_gto_wizard_folded": False, "winnings": None, "aivat_score": None,

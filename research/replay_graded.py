@@ -304,14 +304,22 @@ def print_report(config: str, rows: list[dict], matched: dict[int, int], reports
 
 
 # --------------------------------------------------------------- entry
-def _bootstrap_env(config: str) -> None:
-    """Set the arm's env BEFORE any pokerbot import (strategy flags are read at import time)."""
-    for flag in _MODE_FLAGS:
-        os.environ.pop(flag, None)                  # a stray shell flag must not contaminate the arm
+def _bootstrap_env(config: str, extra: list[str]) -> None:
+    """Set the arm's env BEFORE any pokerbot import (strategy flags are read at import time).
+    AUDIT FIX (2026-07-05): popping only the 2 mode flags let a stray shell POKERB_* sub-flag silently
+    contaminate a head/gto arm — now EVERY POKERB_* is cleared and intentional sub-flags come in
+    explicitly via --env NAME=VALUE (printed, and visible in the fingerprint)."""
+    for key in [k for k in os.environ if k.startswith("POKERB_")]:
+        os.environ.pop(key, None)
     if config == "gto":
         os.environ["POKERB_GTO_MODE"] = "1"
     elif config == "prince":
         os.environ["POKERB_PRINCE"] = "1"
+    for kv in extra:
+        name, _, val = kv.partition("=")
+        name = name if name.startswith("POKERB_") else f"POKERB_{name}"
+        os.environ[name] = val
+        print(f"arm env: {name}={val}")
     os.environ["POKERB_RESOLVER"] = "0"             # forced OFF: speed + determinism (see module docstring)
     os.environ["POKERB_TURN_RESOLVER"] = "0"
 
@@ -319,9 +327,11 @@ def _bootstrap_env(config: str) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description="Regression gate: replay the GTOW-graded hands under a config.")
     ap.add_argument("--config", choices=CONFIGS, default="head")
+    ap.add_argument("--env", action="append", default=[], metavar="NAME=VALUE",
+                    help="explicit sub-flag(s) for this arm, e.g. --env POKERB_RAISE_NARROW=1 (repeatable)")
     ap.add_argument("--rescan", action="store_true", help="ignore the cached match index and rescan")
     args = ap.parse_args()
-    _bootstrap_env(args.config)
+    _bootstrap_env(args.config, args.env)
 
     import research.pokerstars_export as px         # AFTER env: this applies gto_mode + imports strategy
     from pokerbot.strategy.gto_mode import fingerprint

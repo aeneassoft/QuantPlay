@@ -67,6 +67,10 @@ def made_class(board: list[str], hole: list[str]) -> str:
     if name == "Three of a Kind":
         trip_rank = next(r for r in total_count if total_count[r] >= 3)
         return "air" if board_count[trip_rank] >= 3 else "two-pair+"
+    if name == "Four of a Kind":
+        quad_rank = next(r for r in total_count if total_count[r] >= 4)
+        if board_count[quad_rank] >= 4:            # board quads: everyone has them, hole = a kicker (also
+            return "air"                           # covers 4-card boards where the 5-card check can't run)
     # Straight and better: on a complete board, demote to air when the board alone plays.
     if len(board) == 5 and evaluate(board, hole) == evaluate(board, []):
         return "air"

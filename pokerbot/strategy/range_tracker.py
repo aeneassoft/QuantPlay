@@ -85,6 +85,9 @@ TRACKER_AGGRO_FULL = _flag("POKERB_TRACKER_AGGRO_FULL", "0") == "1"
 # / current_share)^lambda per made-hand class; lambda=1 reproduces the mined mix exactly. Never zeroes a combo
 # (every class has nonzero mined share) -> the o3 safety bound's "never multiply by 0" is respected.
 RAISE_NARROW = float(_flag("POKERB_RAISE_NARROW", "0"))
+# AUDIT-FIX bundle member (2026-07-05): count a raise-facing-bet as the seat's aggressive action for the
+# TRACKER_AGGRO_FULL alpha escalation, whether or not the v3.3 mix model applies (see _update_action).
+AUDIT_FIX = _flag("POKERB_AUDIT_FIX", "0") == "1"
 # Mined targets (data/freq_targets/gtow_raise_ranges.json, pooled): jams pooled across streets (n=29 — small,
 # but the classes agree: nutted); normal/huge raises pooled per street (huge folded into normal: river-huge is
 # AIR-heavy 47%, so treating it as normal is the conservative side).
@@ -230,14 +233,22 @@ class RangeTracker:
                     modeled = True
             if not modeled:
                 self.heur[seat] += 1
-        elif (RAISE_NARROW > 0 and action in ("raise", "allin") and facing
-              and street in RAISE_MIX and self._narrow_raise(seat, board, street, size_cls)):
-            # v3.3: raise-facing-bet reweighted toward the mined GTOW raise mix (see the flag block above);
-            # counts as a MODELED update (the mix is real evidence, so no heur bump). A raise is also
-            # aggression evidence for the alpha escalation, exactly like a barrel.
-            self.aggro[seat] = self.aggro.get(seat, 0) + 1
+        elif action in ("raise", "allin") and facing:
+            # AUDIT FIX (POKERB_AUDIT_FIX): a raise IS the seat's aggressive action — TRACKER_AGGRO_FULL's own
+            # contract says "from the 2nd aggressive POSTFLOP action on", but the bump only existed inside the
+            # v3.3 branch, so under v3-shipped a check-raise-then-barrel line stayed alpha-damped (the Kc3h
+            # class). Count it here regardless of whether the mix model applies.
+            if AUDIT_FIX:
+                self.aggro[seat] = self.aggro.get(seat, 0) + 1
+            if (RAISE_NARROW > 0 and street in RAISE_MIX
+                    and self._narrow_raise(seat, board, street, size_cls)):
+                # v3.3: reweighted toward the mined GTOW raise mix = a MODELED update (no heur bump)
+                if not AUDIT_FIX:
+                    self.aggro[seat] = self.aggro.get(seat, 0) + 1   # pre-bundle v3.3 semantics
+            else:
+                self.heur[seat] += 1                                 # legality-only (provably safe)
         else:
-            # other silent actions (an unmodeled size; raise/allin with the flag off): legality-only (provably safe).
+            # other silent actions (an unmodeled size): legality-only (provably safe).
             self.heur[seat] += 1
         self._normalize(seat)
 

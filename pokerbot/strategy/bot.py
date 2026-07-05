@@ -54,6 +54,16 @@ _CBET_DAMP = float(_gto_flag("POKERB_CBET_DAMP", "0"))           # multiplicativ
                                                                  # of the v3.1 BUNDLE (never split) — retest solo
                                                                  # before any promotion.
 
+# AUDIT-FIX bundle (2026-07-05; 9 multi-agent-audit finds, each 3x-adversarially-verified; default OFF =
+# byte-identical, ONE flag = ONE gated Analyzer arm). Members here: PAIR_DEFENSE scope guard (fired on
+# check-raises), TURN_DEFENSE scope guard (fired on 2nd barrels + cancelled BARREL_DISCIPLINE), RIVER_DEFENSE
+# bluffcatcher gate (board-made 'Pair' counted as a bluffcatcher), covered-stack required-equity clamp, and a
+# degenerate-threshold floor. Plus postflop.py (phantom sizer candidates) + range_tracker.py (raise = aggro).
+_AUDIT_FIX = _gto_flag("POKERB_AUDIT_FIX", "0") == "1"
+# Separate arm (bigger blast radius than the bundle): query the postflop advisors by tree POSITION (the
+# convention they were trained with) instead of initiative — inverts advisor lookups in 3bet pots.
+_ADVISOR_ROLE_POS = _gto_flag("POKERB_ADVISOR_ROLE_POS", "0") == "1"
+
 # PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
 # CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
 # there). OOP first-in on the turn AFTER villain checked back the flop -> boost the advisor's lead frequency by
@@ -549,7 +559,13 @@ class PokerBot:
              "opponent": self.opp.summary() if self.exploit else None}
 
         if to_call > 0:  # ---- facing a bet/raise ----
-            req = to_call / (pot + to_call)
+            if _AUDIT_FIX and to_call > hero_stack:
+                # AUDIT FIX: a bet that COVERS hero — he can only call his stack and the uncallable excess is
+                # refunded at settlement, so the raw formula systematically over-folds (price = stack into the
+                # STRIPPED pot). Unreachable vs GTOW/Slumbot (equal per-hand stacks); real in the HU app.
+                req = hero_stack / ((pot - (to_call - hero_stack)) + hero_stack)
+            else:
+                req = to_call / (pot + to_call)
             # v3 shared context: a pair OUR hole participates in + the villain's aggression count this hand
             hole_pair = hole[0][0] == hole[1][0] or any(hc[0] == b[0] for hc in hole for b in board)
             v_barrels = self._villain_barrels(state, hero_ip)
@@ -568,7 +584,11 @@ class PokerBot:
                     # advisor's fold at 0.30 (measured: we folded pairs 59% where GTOW folds 10%; the graded
                     # blunders folded TOP PAIR). The freed mass goes to CALL (never to raise — no new aggression).
                     if (_PAIR_DEFENSE > 0 and hole_pair and v_barrels <= 1 and size_faced <= 1.0
-                            and pf_ > 0.30):
+                            and pf_ > 0.30
+                            # AUDIT FIX: 'single c-bet' must exclude check-raises of hero's own bet — the
+                            # measured over-fold class (fold 59% vs 10%) is the CALLER-vs-c-bet node only;
+                            # a check-raise range is value-heavy and folding there is correct.
+                            and (not _AUDIT_FIX or hero_committed == 0)):
                         pc_ += pf_ - 0.30
                         pf_ = 0.30
                         r["pair_defense"] = True
@@ -604,7 +624,11 @@ class PokerBot:
             # folded 44% vs the 33% MDF (probe n=686; weak pairs folded 33.9%). Discount the threshold there.
             # (hole_pair excludes board-pairs; hero_committed==0 = stabs only, never raises of our own bet.)
             if (_TURN_DEFENSE > 0 and street == "turn" and hole_pair and hero_committed == 0
-                    and to_call / max(1.0, pot - to_call) <= 0.8):
+                    and to_call / max(1.0, pot - to_call) <= 0.8
+                    # AUDIT FIX: the calibration class was STABS (n=686 single turn stabs) — without a barrel
+                    # bound this also fired on value-weighted 2nd barrels AND net-cancelled BARREL_DISCIPLINE
+                    # on its own monotone/double-paired target texture (-0.07 + 0.18/3 = -0.01).
+                    and (not _AUDIT_FIX or v_barrels <= 1)):
                 call_thresh = max(0.0, call_thresh - _TURN_DEFENSE)
                 r["turn_defense"] = _TURN_DEFENSE
             # v3 LEVER 1 (MDF side): the FLOP pair over-fold when the defense advisor didn't decide — same class,
@@ -617,7 +641,10 @@ class PokerBot:
             # MDF (we continue 47% vs MDF 57%; 23% of folds were AHEAD; the -18pp gap is worst vs small sizes).
             # PRECEDENCE: the barrel-discipline danger class (monotone/double-paired vs 2nd+ barrel) keeps its
             # tightening — this lever explicitly skips those boards.
-            if (_RIVER_DEFENSE > 0 and street == "river" and made != "High Card"
+            #   AUDIT FIX: `made != "High Card"` is VACUOUS on paired boards (every two cards make board-
+            #   'Pair') — the measured class was bluffcatchers whose HOLE adds showdown value -> hole_pair.
+            _rd_bluffcatcher = hole_pair if _AUDIT_FIX else (made != "High Card")
+            if (_RIVER_DEFENSE > 0 and street == "river" and _rd_bluffcatcher
                     and to_call / max(1.0, pot - to_call) <= 0.6):
                 board_ranks_rd = [b[0] for b in board]
                 danger = tex.get("monotone") or (len(board_ranks_rd) - len(set(board_ranks_rd)) >= 2
@@ -643,6 +670,11 @@ class PokerBot:
                     delta = _BARREL_DISCIPLINE if street == "river" else _BARREL_DISCIPLINE / 3.0
                     call_thresh = call_thresh + delta
                     r["barrel_discipline"] = round(delta, 3)
+            if _AUDIT_FIX:
+                # AUDIT FIX: stacked discounts (shade + blocker + river/turn/pair defense) could drive the
+                # threshold to a degenerate 0 = 100%-range defense vs small bets. Floor at half the raw pot
+                # odds — discounts may widen defense, never abolish the price of calling.
+                call_thresh = max(call_thresh, req / 2.0)
             r.update({"required_equity": round(req, 3), "mdf": round(mdf, 2), "facing_bet": to_call,
                       "call_threshold": round(call_thresh, 3), "villain_aggr": round(aggr_v, 2)})
             eff = min(hero_stack, state["players"][1 - self.hero_idx].get("stack", hero_stack))
@@ -704,7 +736,12 @@ class PokerBot:
         # heuristic. Falls back to the heuristic floor below for turn/river or if the advisor is unavailable.
         # The bounded exploit overlay still applies on top of this floor.
         if street == "flop" and pf_advisor.available():
-            role = "IP" if self._has_initiative(state) else "OOP"
+            # AUDIT FIND (own arm, POKERB_ADVISOR_ROLE_POS): the advisor nets were TRAINED with role = tree
+            # POSITION (OOP = first-to-act root, IP = the node after OOP's check — build_advisor_data.py:33),
+            # but this queried by INITIATIVE — the conventions coincide in SRP/4bet pots and INVERT in 3bet
+            # pots (the 3-bettor is the OOP BB). _river_floor_kind already keys by position.
+            role = (("IP" if hero_ip else "OOP") if _ADVISOR_ROLE_POS
+                    else ("IP" if self._has_initiative(state) else "OOP"))
             pb = pf_advisor.p_bet(hole, board, role)
             if pb is not None:
                 if _CBET_DAMP > 0 and self._has_initiative(state):
@@ -725,7 +762,12 @@ class PokerBot:
         # from the turn-trained solver-advisor. Bluff size = 75% pot (the solver's turn size); value via the
         # heuristic value-sizer. Falls through to the heuristic for the river or if the turn advisor is absent.
         if street == "turn" and self.use_turn_advisor and pf_advisor.available("turn"):
-            role = "IP" if self._has_initiative(state) else "OOP"
+            # AUDIT FIND (own arm, POKERB_ADVISOR_ROLE_POS): the advisor nets were TRAINED with role = tree
+            # POSITION (OOP = first-to-act root, IP = the node after OOP's check — build_advisor_data.py:33),
+            # but this queried by INITIATIVE — the conventions coincide in SRP/4bet pots and INVERT in 3bet
+            # pots (the 3-bettor is the OOP BB). _river_floor_kind already keys by position.
+            role = (("IP" if hero_ip else "OOP") if _ADVISOR_ROLE_POS
+                    else ("IP" if self._has_initiative(state) else "OOP"))
             pb = pf_advisor.p_bet(hole, board, role, "turn")
             if pb is not None:
                 # v2.4 TURN-PROBE: OOP first-in vs a flop that checked through -> villain's range is capped, lead
@@ -750,7 +792,12 @@ class PokerBot:
         # Runs AFTER the exploit-primary river engine (so the exploit fires first) and supersedes the #40 bluff-
         # SELECTION heuristic when present; the #40 bluffcatch (facing a bet) is a disjoint node and stays active.
         if street == "river" and self.use_river_advisor and pf_advisor.available("river"):
-            role = "IP" if self._has_initiative(state) else "OOP"
+            # AUDIT FIND (own arm, POKERB_ADVISOR_ROLE_POS): the advisor nets were TRAINED with role = tree
+            # POSITION (OOP = first-to-act root, IP = the node after OOP's check — build_advisor_data.py:33),
+            # but this queried by INITIATIVE — the conventions coincide in SRP/4bet pots and INVERT in 3bet
+            # pots (the 3-bettor is the OOP BB). _river_floor_kind already keys by position.
+            role = (("IP" if hero_ip else "OOP") if _ADVISOR_ROLE_POS
+                    else ("IP" if self._has_initiative(state) else "OOP"))
             pb = pf_advisor.p_bet(hole, board, role, "river", pot_type=self._pot_type(state))  # line-aware (POKERB_RIVER_LA)
             if pb is not None:
                 thin_to = None

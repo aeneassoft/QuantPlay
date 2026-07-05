@@ -26,8 +26,10 @@ SSH = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "
 
 
 def _ssh(ip, port, cmd, timeout=None):
+    # decode the pod's stdout as UTF-8 (it prints → / — / bb symbols); errors="replace" so a stray byte never crashes
+    # the local reader. Windows defaults to cp1252 -> a mid-stream UnicodeDecodeError once buried a real SFT result.
     return subprocess.run(["ssh", "-i", KEY, "-p", str(port), *SSH, f"root@{ip}", cmd],
-                          capture_output=True, text=True, timeout=timeout)
+                          capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
 
 
 def _scp_up(ip, port, locals_, remote):

@@ -34,17 +34,51 @@ def _villain_frac(spot) -> float:
 def _derive(spot, frac):
     """The reasoning-loop program + the action it DERIVES + a clarity score. The villain range is emitted COMPACTLY as
     `api.range_top(frac)` (a short program -> fits the RL token budget + keeps the read-branch salient)."""
+    # PREFLOP (HU): emit the EXACT near-Nash HU-200bb blueprint mix as a DICT LITERAL (the grammar requires a literal,
+    # not decide_mix(var); same proven form as from_solver). The equity-logic below OVER-FOLDS preflop (the −41 bb/hand
+    # GTOW leak). preflop_solve is n_active==2-gated, so this only fires for HU spots that map to a blueprint node; the
+    # rest fall through to equity-logic. (Spots that DON'T map at gen-time still get the blueprint at GTOW inference,
+    # where spot_from_slumbot maps ~100% — but for the GOLD we need a literal, so we emit only the mapped ones.)
+    if spot.street == "preflop":
+        pm = _api.preflop_solve(spot)
+        if pm:
+            sizes = pm.get("_sizes_bb") or {}
+            mix = {k: round(float(v), 3) for k, v in pm.items() if k != "_sizes_bb" and float(v) > 0.01}
+            if mix:
+                modal = max(mix, key=mix.get)
+                size = sizes.get("raise") if any(a in mix for a in ("raise", "bet", "allin")) else None
+                size_arg = f", size={size}" if size else ""
+                mix_repr = "{" + ", ".join(f"'{k}': {v}" for k, v in mix.items()) + "}"
+                prog = ("# preflop: the EXACT near-Nash HU-200bb blueprint mix (api.preflop_solve), not equity-logic\n"
+                        f"decide_mix({mix_repr}{size_arg})")
+                return prog, modal, (size if modal in ("raise", "bet", "allin") else None), max(mix.values())
     pot_bb = spot.b(spot.pot)
     vr = _api.range_top(frac)
     eq = float(_api.equity(spot.hero_hole, vr, spot.board))
-    if spot.to_call <= 0:                                    # checked to us: MIX value-bet / check by equity
+    if spot.to_call <= 0:                                    # checked to us: MIX value-bet / check
         bet = round(max(1.0, 0.6 * pot_bb), 1)
-        prog = (f"# read: no bet to face; MIX value-bet vs check by equity (a frequency, not a pure line)\n"
-                f"vr = api.range_top({frac})\n"
-                f"eq = api.equity(spot.hero_hole, vr, spot.board)\n"
-                f"if eq >= {BET_BAR}:\n    decide_mix({{'bet': 0.8, 'check': 0.2}}, size={bet})\n"
-                f"else:\n    decide_mix({{'check': 0.85, 'bet': 0.15}}, size={bet})")
-        action, size, clarity = ("bet" if eq >= BET_BAR else "check"), (bet if eq >= BET_BAR else None), abs(eq - BET_BAR)
+        role = "ip" if spot.hero_pos in ("BTN", "CO") else "oop"
+        # POSTFLOP: PREFER the TRAINED flop/turn/river GTO advisor (api.solver_freq) over raw equity — the consult+repo
+        # finding: the advisors (+46% turn) were our underused gold, never wired into the emitted DSL. Wire it here.
+        f_val = _api.solver_freq(spot.hero_hole, spot.board, role, spot.street) if spot.board else None
+        if f_val is not None:
+            prog = (f"# postflop: PREFER the trained GTO bet-frequency advisor; fall back to equity\n"
+                    f"f = api.solver_freq(spot.hero_hole, spot.board, '{role}', '{spot.street}')\n"
+                    f"vr = api.range_top({frac})\n"
+                    f"eq = api.equity(spot.hero_hole, vr, spot.board)\n"
+                    f"if f is not None and f >= 0.5:\n    decide_mix({{'bet': 0.8, 'check': 0.2}}, size={bet})\n"
+                    f"elif f is not None:\n    decide_mix({{'check': 0.8, 'bet': 0.2}}, size={bet})\n"
+                    f"elif eq >= {BET_BAR}:\n    decide_mix({{'bet': 0.75, 'check': 0.25}}, size={bet})\n"
+                    f"else:\n    decide_mix({{'check': 0.85, 'bet': 0.15}})")
+            action, size = ("bet", bet) if f_val >= 0.5 else ("check", None)
+            clarity = abs(f_val - 0.5)
+        else:                                                # preflop / advisor uncovered: the equity form
+            prog = (f"# read: no bet to face; MIX value-bet vs check by equity (a frequency, not a pure line)\n"
+                    f"vr = api.range_top({frac})\n"
+                    f"eq = api.equity(spot.hero_hole, vr, spot.board)\n"
+                    f"if eq >= {BET_BAR}:\n    decide_mix({{'bet': 0.8, 'check': 0.2}}, size={bet})\n"
+                    f"else:\n    decide_mix({{'check': 0.85, 'bet': 0.15}}, size={bet})")
+            action, size, clarity = ("bet" if eq >= BET_BAR else "check"), (bet if eq >= BET_BAR else None), abs(eq - BET_BAR)
     else:                                                    # facing a bet: MIX raise / call / fold by equity vs price
         req = float(_api.required_equity(spot.to_call, spot.pot))
         raise_to = round(pot_bb + 2.0 * spot.b(spot.to_call), 1)

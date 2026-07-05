@@ -48,10 +48,19 @@ PRINCE_PROFILE = {
     "POKERB_RIVER_DEFENSE": "0.06",     # river: defend bluffcatchers vs <=0.6-pot bets (23% of folds were ahead)
 }
 
-# every flag that defines a run — logged as the config fingerprint next to any measured number
+# every flag that defines a run — logged as the config fingerprint next to any measured number.
+# AUDIT FIX (2026-07-05, confirmed 3x): gate/lever flags OUTSIDE the profiles were invisible here, so a
+# lever arm's export printed a fingerprint byte-identical to plain v3 — the graded artifact carried no
+# record of the lever under test. Every behavior-changing flag must be listed, profile-carried or not.
 _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     "POKERB_GTO_MODE", "POKERB_PRINCE", "POKERB_TOCALL_FIX", "POKERB_RESOLVER", "POKERB_TURN_RESOLVER",
     "POKERB_BLUEPRINT", "POKERB_RANGE_TRACKER", "POKERB_COMMIT_CAP", "POKERB_ONTREE_RAISES",
+    # gate/lever flags (default OFF, tested as their own arms):
+    "POKERB_RIVER_THIN_SEL", "POKERB_RAISE_NARROW", "POKERB_BARREL_DISCIPLINE", "POKERB_TURN_PROBE",
+    "POKERB_CBET_DAMP", "POKERB_TURN_DEF_ADVISOR", "POKERB_TURN_OVERBET", "POKERB_AUDIT_FIX",
+    "POKERB_ADVISOR_ROLE_POS",
+    # run-defining strategy swaps:
+    "POKERB_DEEPCFR", "POKERB_GRAFT", "POKERB_RIVER_VALUE_FREQ", "POKERB_COMMIT_EQ",
 })
 
 

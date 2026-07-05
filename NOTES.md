@@ -597,3 +597,14 @@ the raise-facing-bet narrowing must be SIZE-AWARE (a normal raise keeps a large 
 3bet+/4bet pot is the nutted case that killed K2o). Build step: extend freq_mine with a raise-size split (jam vs
 normal) before wiring the filter — the 62-76 raise counts per street are too thin to split from the book alone,
 mine the raw logs (both holes are always logged).
+
+## Audit 2026-07-05 — deferred confirmed finds (fix when convenient; full ledger data/audit/audit_result.json)
+- slumbot.py bridge emits no 'deal' history rows -> the range tracker walks nothing postflop yet reports
+  confidence ~1.0 (resolver fires line-blind) — Slumbot is background-validation only, fix before the next
+  Slumbot campaign.
+- tools/gtow_client main.py act-loop never presents the terminal state -> observe_hand_end/live-learning is
+  dead code in live runs (irrelevant under exploit-OFF profiles; matters if an exploit arm ever runs live).
+- gto_oracle _cache_key omits allin_threshold — DELIBERATELY deferred: adding it invalidates the warm solve
+  cache (hours of re-solves); include it only when != default at the next planned cache flush.
+- classify_board 'twotone' (maxsuit==2) is true on ~every 5-card board -> tex['dynamic'] vacuous on rivers.
+- v3.2 thin_to can be clamped up by raise_min in sub-3bb pots (unreachable in practice; noted for completeness).

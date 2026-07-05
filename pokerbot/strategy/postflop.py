@@ -184,8 +184,8 @@ class LearnedFoldModel:
         try:
             with open(path, encoding="utf-8") as f:
                 return cls(json.load(f))
-        except OSError:
-            return None
+        except (OSError, ValueError):     # ValueError covers JSONDecodeError: a corrupt model file must
+            return None                   # degrade to the documented None fallback, never crash the bot
 
     def fold(self, street: str, s: float) -> float:
         rows = self.table.get(street) or self.table.get("all") or []
@@ -204,11 +204,28 @@ def _to_amount_for_size(s: float, pot: int, hero_committed: int, hero_stack: int
     return hero_committed + bet
 
 
+# AUDIT-FIX bundle (2026-07-05, default OFF = byte-identical; ONE flag = ONE gated Analyzer arm). The two
+# sizers below shared the eCall sizer's PHANTOM-SIZE defect (fixed there 2026-07-05): candidates the stack
+# cannot realize all map to the same all-in amount but were scored at their phantom fold rate F(s) — the
+# argmax then fires all-in bluffs/value on a fold rate villain never faces. Same remedy: realizable
+# candidates only + the true jam, jam capped at 2x pot (the eCall precedent).
+AUDIT_FIX = _flag("POKERB_AUDIT_FIX", "0") == "1"
+SIZER_JAM_CAP = 2.0
+
+
+def _candidate_sizes(pot: int, hero_stack: int) -> list[float]:
+    if not pot:
+        return list(CANDIDATE_SIZES)
+    jam = hero_stack / pot
+    if not AUDIT_FIX:
+        return CANDIDATE_SIZES + [jam]
+    return [s for s in CANDIDATE_SIZES if s <= jam] + ([jam] if jam <= SIZER_JAM_CAP else [])
+
+
 def pick_bluff_size(pot: int, model, street: str, hero_committed: int, hero_stack: int):
     """Return (to_amount, best_ev, size_frac). best_ev<=0 means no profitable bluff."""
     best = (None, -1e9, 0.0)
-    sizes = CANDIDATE_SIZES + [hero_stack / pot] if pot else CANDIDATE_SIZES
-    for s in sizes:
+    for s in _candidate_sizes(pot, hero_stack):
         if s <= 0 or s * pot < 1:
             continue
         F = model.fold(street, min(s, 3.0))
@@ -221,8 +238,7 @@ def pick_bluff_size(pot: int, model, street: str, hero_committed: int, hero_stac
 def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stack: int, eq: float):
     """Return (to_amount, score, size_frac) maximizing the exact value_score(s) (fold-win + showdown)."""
     best = (None, -1e9, 0.0)
-    sizes = CANDIDATE_SIZES + [hero_stack / pot] if pot else CANDIDATE_SIZES
-    for s in sizes:
+    for s in _candidate_sizes(pot, hero_stack):
         if s <= 0 or s * pot < 1:
             continue
         F = model.fold(street, min(s, 3.0))

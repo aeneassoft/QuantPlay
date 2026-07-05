@@ -58,7 +58,8 @@ def _heldout(n):
 
 def _gen(model, tok, prompt):
     msgs = [{"role": "user", "content": prompt}]
-    enc = tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt", return_dict=True)
+    enc = tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt", return_dict=True,
+                                  enable_thinking=False)  # non-thinking (see policy.py)
     enc = {k: v.to(model.device) for k, v in enc.items()}
     n_in = enc["input_ids"].shape[1]
     with torch.no_grad():

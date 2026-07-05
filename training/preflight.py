@@ -31,6 +31,16 @@ def main():
     print("PRE GRPOConfig(loss_type=dapo, epsilon_high, scale_rewards, vllm_structured_outputs_regex) constructs OK",
           flush=True)
 
+    # SFTConfig ALSO drifts across trl (the first pod run died on a removed `train_sampling_strategy` kwarg AFTER loading
+    # the 8B) — construct it here with our exact SFT-specific knobs so any further drift fails in the ~30s preflight, not
+    # after the expensive model load. Mirrors qwen_sft.main()'s SFTConfig.
+    from trl import SFTConfig
+    SFTConfig(output_dir="/tmp/_pf_sft", per_device_train_batch_size=2, gradient_accumulation_steps=2,
+              num_train_epochs=1, learning_rate=2e-4, bf16=True, logging_steps=5, logging_first_step=True,
+              max_steps=-1, save_steps=500, max_length=1024, dataset_num_proc=1, packing=False, assistant_only_loss=True,
+              warmup_ratio=0.03, lr_scheduler_type="cosine", report_to="none")
+    print("PRE SFTConfig(max_length, packing, assistant_only_loss) constructs OK", flush=True)
+
     from pokerbot.brain.format_spot import spot_from_table
     states = build_state_buffer(1, oversample=3.0, k_screen=4, spread_eps=0.0, seed=0)
     assert states, "state buffer empty"

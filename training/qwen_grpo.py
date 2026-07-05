@@ -26,11 +26,17 @@ from training.pilot import rank_state
 from training.rl_env import TRAIN_LEAGUE, gen_decision_states, league_policy, rollout_action_ev
 
 HERO_SEAT = 0
-R_BAD = float(os.environ.get("R_BAD", "-30"))      # grammar-reject/illegal/no-decide: a TRUE floor BELOW -(R_CLIP+R_FMT+GROUND_B0)
+R_BAD = float(os.environ.get("R_BAD", "-3"))       # grammar-reject/illegal/no-decide. WAS -30 (a floor BELOW all EV) -> with ~50%
+#                                                    bad completions, -30 SWAMPED the EV signal: Dr.GRPO advantage = R_i-mean(R), so
+#                                                    the ~33-wide valid/invalid gap dominated the ~5-bb EV spread -> the group learned
+#                                                    "be valid" not "play well" -> reward FLAT at -17.6 (first run, 57 steps). -3 (just
+#                                                    below typical bad-EV) lets the valid-EV spread DRIVE the advantage; a clipped -25
+#                                                    cooler now ranks below garbage (rare, CRN-cancelled) = the right trade. (2026-06-18)
 R_CLIP = float(os.environ.get("R_CLIP", "25"))     # clip EV (scale_rewards=False -> an all-in cooler must not swamp a group)
-R_FMT = float(os.environ.get("R_FMT", "2.0"))      # binary FORMAT reward: +R_FMT for a parsed+grammar+decide() program. With
-#                                                    R_BAD a true floor, a valid-but-bad action ALWAYS beats garbage -> format is
-#                                                    never the EV-wrong choice (R_BAD=-10 > min EV -25 was a latent bug). Fast-converging.
+R_FMT = float(os.environ.get("R_FMT", "2.0"))      # binary FORMAT reward: +R_FMT for a parsed+grammar+decide() program = a SMALL edge
+#                                                    favoring a valid program over garbage at EQUAL EV. With R_BAD now -3 (not a hard
+#                                                    floor below all EV), the clipped-EV SPREAD — not the format cliff — drives the
+#                                                    Dr.GRPO advantage (the whole point of the R_BAD fix above).
 K_ROLL = int(os.environ.get("K_ROLL", "16"))       # rollouts per completion (reward variance vs cost)
 # Aggressive pretrained-PRIOR suppression (user directive): a SMALL, DECAYING shaping term that rewards engine-grounded
 # programs (an api.* call before decide) over gut decides -> suppresses poker-folklore reliance while realized-EV stays
@@ -156,10 +162,27 @@ def make_ev_reward(snapshots: list, hero_seat: int = HERO_SEAT, profiles=TRAIN_L
     return ev_reward
 
 
-def build_dataset(states: list, seed: int = 0):
-    """(Dataset with 'prompt'+'sid'+'base_seed', snapshots side-table). 'prompt' is conversational (build_messages)."""
+def build_dataset(states: list, tok=None, seed: int = 0):
+    """(Dataset with 'prompt'+'sid'+'base_seed', snapshots side-table). With `tok`, the 'prompt' is PRE-RENDERED to a
+    NON-THINKING string (enable_thinking=False) so TRL does not re-template it WITH Qwen3 thinking — else the model
+    emits a long <think> ramble that fills the token cap before any decide() -> clipped -> frac_bad=0.93 (2026-06-18).
+    tok=None keeps the old conversational form (back-compat)."""
     from datasets import Dataset
-    rows = [{"prompt": build_messages(spot), "sid": i, "base_seed": seed + i}
+
+    def _prompt(spot):
+        msgs = build_messages(spot)
+        if tok is None:
+            return msgs
+        if "glm" in str(getattr(tok, "name_or_path", "")).lower():    # GLM-Z1: the template appends "<think>" on
+            s = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)   # add_generation_prompt, but our
+            # SFT is PROGRAM-ONLY ("<|assistant|>\n{program}" — the GLM template strips <think> from assistant content), so
+            # the forced "<think>" is OOD vs the SFT -> frac_bad 0.94 (measured). STRIP it so the prompt ends
+            # "<|assistant|>\n" = byte-aligned with the SFT -> the model emits the program directly.
+            i = s.rfind("<think>")
+            return s[:i] if i != -1 else s
+        return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True, enable_thinking=False)  # Qwen: non-thinking
+
+    rows = [{"prompt": _prompt(spot), "sid": i, "base_seed": seed + i}
             for i, (snap, spot) in enumerate(states)]
     snapshots = [snap for snap, _ in states]
     return Dataset.from_list(rows), snapshots
@@ -173,12 +196,16 @@ def make_config(out_dir: str):
     from trl import GRPOConfig
     want = dict(
         output_dir=out_dir,
-        loss_type="dapo", epsilon=0.2, epsilon_high=0.28, beta=0.0,
+        loss_type="dapo", epsilon=0.2, epsilon_high=0.28,
+        beta=float(os.environ.get("BETA", "0.0")),     # KL coef. 0 = DAPO (no ref model, RL diverges from the SFT teacher).
+        #                                                Poker reward is noisy + reward-hacking-prone (qwen_train_claude.md
+        #                                                recommends 0.04-0.1) -> raise BETA if GATE-5/entropy shows collapse
+        #                                                (costs a ref model in memory). See docs/RL_RUNCARD.md.
         scale_rewards=False, mask_truncated_completions=True, num_iterations=1,
         num_generations=int(os.environ.get("NUM_GEN", "8")),
         generation_batch_size=int(os.environ.get("GEN_BATCH", "64")),
         max_completion_length=int(os.environ.get("MAX_COMP", "384")),
-        temperature=1.0, top_p=1.0,
+        temperature=float(os.environ.get("TEMP", "1.0")), top_p=1.0,   # TEMP=0.8 for GLM-Z1 (reasoning model; 1.0 inflates frac_bad)
         learning_rate=1e-6, lr_scheduler_type="constant_with_warmup", warmup_ratio=0.03,
         per_device_train_batch_size=int(os.environ.get("PD_BATCH", "8")),
         gradient_accumulation_steps=1, gradient_checkpointing=True, bf16=True, max_grad_norm=1.0,
@@ -194,7 +221,9 @@ def make_config(out_dir: str):
         want["use_vllm"] = True
         want["vllm_gpu_memory_utilization"] = float(os.environ.get("VLLM_MEM", "0.3"))
         if os.environ.get("STRUCTURED", "1") == "1":
-            want["vllm_structured_outputs_regex"] = dsl_grammar.vllm_regex()
+            _cap = os.environ.get("THINK_CAP_CHARS")     # GLM-Z1: bound the <think> at the sampler (e.g. 1500) so </think>
+            want["vllm_structured_outputs_regex"] = dsl_grammar.vllm_regex(  # + the program fit in MAX_COMP; None = Qwen non-thinking
+                think_cap_chars=int(_cap) if _cap else None)
     else:
         want["use_vllm"] = False
     valid = set(inspect.signature(GRPOConfig).parameters)
@@ -205,16 +234,25 @@ def make_config(out_dir: str):
 
 
 def load_policy_model(base: str, adapter: str):
-    """nf4 base + the SFT LoRA loaded is_trainable (CONTINUE the adapter — RL lifts the SFT init)."""
+    """base + the SFT LoRA loaded is_trainable (CONTINUE the adapter — RL lifts the SFT init). DEFAULT = bf16 LoRA (the
+    RTX PRO 6000, 96 GB — no bnb-on-Blackwell-sm_120 risk); `QLORA=1` = nf4 QLoRA (the $50 pod / a small card).
+    `trust_remote_code` for GLM-4/Z1 (custom modeling). `ATTN` = sdpa (default) or flash_attention_2 (cu128 box)."""
     import torch
-    from peft import PeftModel, prepare_model_for_kbit_training
-    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-    tok = AutoTokenizer.from_pretrained(base)
+    from peft import PeftModel
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    tok = AutoTokenizer.from_pretrained(base, trust_remote_code=True)
     tok.padding_side = "left"
-    qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
-                            bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True)
-    model = AutoModelForCausalLM.from_pretrained(base, quantization_config=qc, device_map="cuda")
-    model = prepare_model_for_kbit_training(model)
+    common = dict(device_map="cuda", trust_remote_code=True,
+                  attn_implementation=os.environ.get("ATTN", "sdpa"))
+    if os.environ.get("QLORA", "0") == "1":          # nf4 QLoRA — the pod / a small card (Blackwell bnb needs a cu128 build)
+        from peft import prepare_model_for_kbit_training
+        from transformers import BitsAndBytesConfig
+        qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True)
+        model = AutoModelForCausalLM.from_pretrained(base, quantization_config=qc, **common)
+        model = prepare_model_for_kbit_training(model)
+    else:                                            # bf16 LoRA — the RTX PRO 6000 (96 GB), no bnb risk on Blackwell
+        model = AutoModelForCausalLM.from_pretrained(base, torch_dtype=torch.bfloat16, **common)
     model = PeftModel.from_pretrained(model, adapter, is_trainable=True)
     return model, tok
 
@@ -253,11 +291,26 @@ def _callbacks(wallclock_s: float, metrics_path: str):
             except Exception:  # noqa: BLE001 — never let logging crash training
                 pass
 
+    class EarlyAbort(TrainerCallback):
+        """Kill a broken run CHEAP (both RL consults): after check_step, if frac_bad > ABORT_FRAC_BAD -> stop. 0.75
+        default — ~0.5 is normal SAMPLED exploration, so 0.5 risks a FALSE abort (the 2026-06-18 finding). Local: a
+        broken run dies in minutes of YOUR time; pod: ~$3 not 8h."""
+        def __init__(self, check_step=5, frac_bad_max=0.75):
+            self.cs, self.fbm = check_step, frac_bad_max
+
+        def on_log(self, args, state, control, logs=None, **kw):
+            if logs and state.global_step >= self.cs and logs.get("frac_bad", 0.0) > self.fbm:
+                print(f"EARLY ABORT: frac_bad={logs['frac_bad']:.2f} > {self.fbm} @ step {state.global_step}", flush=True)
+                control.should_training_stop = True
+            return control
+
     cbs = []
     if wallclock_s and wallclock_s > 0:
         cbs.append(WallClockStop(wallclock_s))
     if metrics_path:
         cbs.append(JsonlMetrics(metrics_path))
+    if os.environ.get("EARLY_ABORT", "1") == "1":
+        cbs.append(EarlyAbort(frac_bad_max=float(os.environ.get("ABORT_FRAC_BAD", "0.75"))))
     return cbs
 
 
@@ -289,7 +342,9 @@ def main():
     metrics_path = os.environ.get("METRICS_PATH", "/root/grpo_metrics.jsonl")
     print(f"building state buffer (n={n_states}) ...", flush=True)
     states = build_state_buffer(n_states, seed=seed)
-    ds, snapshots = build_dataset(states, seed=seed)
+    from transformers import AutoTokenizer
+    _tok = AutoTokenizer.from_pretrained(base)                      # pre-render prompts NON-thinking (build_dataset fix)
+    ds, snapshots = build_dataset(states, _tok, seed=seed)
     print(f"state buffer: {len(states)} learnable spots | dataset rows: {len(ds)}", flush=True)
     model, tok = load_policy_model(base, adapter)
     reward = make_ev_reward(snapshots)

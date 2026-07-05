@@ -164,11 +164,65 @@ def build(boards=None, oop_range: str = _BB_DEF, ip_range: str = _BTN_OR, pot_bb
                                meta={"solver": True, "board": "".join(board), "mix": mix, "n_actions": len(mix)})
 
 
+def _diverse_flops(n: int, seed: int = 0) -> list:
+    """n distinct random flops (3-card boards) — random sampling naturally spans textures (dry/wet/paired/mono/etc.)."""
+    import random
+    rd = random.Random(seed)
+    deck = [r + s for r in "23456789TJQKA" for s in "cdhs"]
+    seen, out = set(), []
+    while len(out) < n:
+        b = tuple(sorted(rd.sample(deck, 3)))
+        if b in seen:
+            continue
+        seen.add(b)
+        out.append(list(b))
+    return out
+
+
+def mass_solve(n: int, out_path, wall_s: float = 0.0, seed: int = 0, accuracy: float = 0.3, max_iter: int = 120):
+    """LOCAL CPU mass-solve (the 2-node split: CPU solves while the GPU does teacher-gen). Solve n diverse flops, gate to
+    DSL, APPEND each board's rows incrementally (crash-safe) until n boards OR the wall-clock. Returns kept count."""
+    import time
+    boards = _diverse_flops(n, seed=seed)
+    open(out_path, "w", encoding="utf-8").close()                 # truncate
+    t0 = time.time()
+    kept = solved = 0
+    for i, board in enumerate(boards):
+        if wall_s and (time.time() - t0) > wall_s:
+            print(f"  wall-clock {wall_s:.0f}s hit -> stop ({solved} boards solved)", flush=True)
+            break
+        try:
+            rows = list(build(boards=[board], accuracy=accuracy, max_iter=max_iter))
+        except Exception as e:  # noqa: BLE001 — one board failing must not kill the campaign
+            print(f"  board {''.join(board)} FAILED: {type(e).__name__}: {e}", flush=True)
+            continue
+        with open(out_path, "a", encoding="utf-8") as f:
+            for ex in rows:
+                f.write(json.dumps(ex, ensure_ascii=False) + "\n")
+        kept += len(rows)
+        solved += 1
+        if solved % 5 == 0:
+            print(f"  {solved}/{len(boards)} boards | {kept} examples | {time.time()-t0:.0f}s elapsed", flush=True)
+    print(f"MASS_SOLVE_DONE: {kept} solver-mixed examples from {solved} boards -> {out_path} | {time.time()-t0:.0f}s",
+          flush=True)
+    return kept
+
+
 def main():
-    import sys
+    import argparse
     from collections import Counter
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mass", type=int, default=0, help="LOCAL CPU mass-solve this many diverse flops (0 = the 8-board demo set)")
+    ap.add_argument("--out", default=None, help="output shard (default solver.jsonl, or solver_mass.jsonl for --mass)")
+    ap.add_argument("--wall", type=float, default=0.0, help="wall-clock cap seconds (e.g. 9000 = 2.5h, to match the GPU run)")
+    ap.add_argument("--seed", type=int, default=0)
+    a = ap.parse_args()
+    if a.mass:
+        out = a.out or str(config.ROOT / "dataset" / "shards" / "solver_mass.jsonl")
+        mass_solve(a.mass, out, wall_s=a.wall, seed=a.seed)
+        return
     rows = list(build())
-    out = config.ROOT / "dataset" / "shards" / "solver.jsonl"
+    out = a.out or (config.ROOT / "dataset" / "shards" / "solver.jsonl")
     with open(out, "w", encoding="utf-8") as f:
         for ex in rows:
             f.write(json.dumps(ex, ensure_ascii=False) + "\n")

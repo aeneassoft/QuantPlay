@@ -37,6 +37,6 @@ fi
 if [ "${TEACHER:-0}" = "1" ]; then
   python3 -c "import torch,transformers,vllm; cap=torch.cuda.get_device_capability(0); x=torch.randn(2048,2048,device='cuda',dtype=torch.bfloat16); assert torch.isfinite((x@x).float().sum()), 'matmul NaN'; print(f'TEACHER deps OK | torch {torch.__version__} | cuda {torch.version.cuda} | sm_{cap[0]}{cap[1]} | {torch.cuda.get_device_name(0)} | vllm {vllm.__version__} | transformers {transformers.__version__} | bf16 OK')"
 else
-  python3 -c "import torch,transformers,trl,peft,bitsandbytes,datasets,vllm; cap=torch.cuda.get_device_capability(0); x=torch.randn(2048,2048,device='cuda',dtype=torch.bfloat16); assert torch.isfinite((x@x).float().sum()), 'matmul NaN'; print(f'RL deps OK | torch {torch.__version__} | cuda {torch.version.cuda} | sm_{cap[0]}{cap[1]} | {torch.cuda.get_device_name(0)} | trl {trl.__version__} | vllm {vllm.__version__} | bf16 OK')"
+  python3 -c "import torch,transformers,trl,peft,datasets,vllm,importlib.util; cap=torch.cuda.get_device_capability(0); x=torch.randn(2048,2048,device='cuda',dtype=torch.bfloat16); assert torch.isfinite((x@x).float().sum()), 'matmul NaN'; bnb=importlib.util.find_spec('bitsandbytes') is not None; print(f'RL deps OK | torch {torch.__version__} | cuda {torch.version.cuda} | sm_{cap[0]}{cap[1]} | {torch.cuda.get_device_name(0)} | trl {trl.__version__} | vllm {vllm.__version__} | bnb_available={bnb} (bf16/QLORA=0 needs none) | bf16 OK')"
 fi
 echo "RL_SETUP_OK"

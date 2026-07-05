@@ -19,11 +19,12 @@ from training.rl_env import HELDOUT_LEAGUE, evaluate_policy
 def league_eval(policy, league=HELDOUT_LEAGUE, n_hands: int = 2000, seed: int = 0, hero_seat: int = 0) -> dict:
     """bb/100 vs EACH held-out opponent type (all 5 seats that type) + a MIXED league. Returns per-type, mixed,
     worst-case and spread = the robustness picture."""
-    per = {t: evaluate_policy(policy, profiles=(t,), n_hands=n_hands, seed=seed, hero_seat=hero_seat)["bb_per_100"]
-           for t in league}
+    mixed_only = os.environ.get("EVAL_MIXED_ONLY", "0") == "1"   # GATE-2 needs only the MIXED bb/100 -> skip the 5x per-type
+    per = {} if mixed_only else {t: evaluate_policy(policy, profiles=(t,), n_hands=n_hands, seed=seed, hero_seat=hero_seat)["bb_per_100"]
+                                 for t in league}                # loop (the eval-timeout cause: per-type x mixed x BOTH adapters)
     mixed = evaluate_policy(policy, profiles=tuple(league), n_hands=n_hands, seed=seed + 1,
                             hero_seat=hero_seat)["bb_per_100"]
-    vals = list(per.values())
+    vals = list(per.values()) or [mixed]   # mixed-only -> worst/spread fall back to the mixed value (no per-type data)
     return {"per_type": per, "mixed_bb100": mixed, "worst_bb100": min(vals),
             "spread_bb100": round(max(vals) - min(vals), 2)}
 
@@ -55,7 +56,8 @@ def pokerbench_acc(model, tok, n: int = 200) -> tuple[float, float]:
     for prompt, gold in data:
         # PokerBench prompts are prose; wrap as a minimal user message (no structured Spot) -> generate -> parse text
         msgs = [{"role": "user", "content": prompt}]
-        enc = tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt", return_dict=True)
+        enc = tok.apply_chat_template(msgs, add_generation_prompt=True, return_tensors="pt", return_dict=True,
+                                      enable_thinking=False)  # non-thinking (see policy.py)
         import torch
         enc = {k: v.to(model.device) for k, v in enc.items()}
         n_in = enc["input_ids"].shape[1]

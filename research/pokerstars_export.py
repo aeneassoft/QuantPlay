@@ -104,10 +104,12 @@ def format_hand(hand_id, dt, names, button, holes, history, result, hero_seat) -
     fold_street = "preflop"
 
     HEADER = {"flop": "*** FLOP ***", "turn": "*** TURN ***", "river": "*** RIVER ***"}
+    dealt_streets = set()
     for ev in history:
         act = ev["action"]
         if act == "deal":
             board = ev["board"]
+            dealt_streets.add(ev["street"])
             if ev["street"] == "flop":
                 L.append(f"{HEADER['flop']} [{' '.join(board[:3])}]")
             elif ev["street"] == "turn":
@@ -146,6 +148,18 @@ def format_hand(hand_id, dt, names, button, holes, history, result, hero_seat) -
 
     winner = result["winner"]
     board = result["board"]
+    # AUDIT FIX (2026-07-05): all-in RUN-OUT streets are dealt silent=True by the engine (no deal events) ->
+    # the exported HH omitted *** FLOP/TURN/RIVER *** sections on exactly the stack-off hands. Emit the
+    # missing sections here (after the uncalled-refund line, before SHOW DOWN — real PokerStars order).
+    # NOTE (pairing): exports BEFORE this fix (hu_v22/v3/v31/v32) lack the sections consistently — comparable
+    # among themselves; any NEW arm must be paired against a freshly regenerated anchor, not the old files.
+    if result["reason"] == "showdown" and board:
+        if len(board) >= 3 and "flop" not in dealt_streets:
+            L.append(f"{HEADER['flop']} [{' '.join(board[:3])}]")
+        if len(board) >= 4 and "turn" not in dealt_streets:
+            L.append(f"{HEADER['turn']} [{' '.join(board[:3])}] [{board[3]}]")
+        if len(board) >= 5 and "river" not in dealt_streets:
+            L.append(f"{HEADER['river']} [{' '.join(board[:4])}] [{board[4]}]")
     if result["reason"] == "showdown":
         L.append("*** SHOW DOWN ***")
         for k in (hi, lo):
@@ -194,6 +208,12 @@ def main():
     args = ap.parse_args()
     if args.fast:
         botmod.EQUITY_ITERS = 120
+    if args.idbase == BASE_ID and args.dayoffset == 0:
+        # AUDIT FIX (2026-07-05): default identity constants -> two default exports carry IDENTICAL hand
+        # ids/timestamps and the Analyzer silently DEDUPS the second upload against the first.
+        print("WARNING: default --idbase/--dayoffset — a prior default upload will DEDUP this one on the "
+              "Analyzer. Pass a unique --idbase N --dayoffset M per arm (ledger: 299/31=v22 300/32=v3 "
+              "301/33=v31 302/34=v32).")
     print("config fingerprint:", fingerprint(), "| EQUITY_ITERS:", botmod.EQUITY_ITERS)
 
     g = HeadsUpGame(names=("P0", "P1"), starting_stack=STACK, sb=SB, bb=BB, seed=args.seed)

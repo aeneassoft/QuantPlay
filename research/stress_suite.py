@@ -63,6 +63,10 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_v32": {"POKERB_PRINCE": "1", "POKERB_RIVER_THIN_SEL": "0.40"},
     # v3.3 = raise-facing-bet range narrowing toward GTOW's mined raise mix (RANK4 stack-off fix)
     "prince_v33": {"POKERB_PRINCE": "1", "POKERB_RAISE_NARROW": "1"},
+    # v3.4 = the 9-find AUDIT-FIX bundle (scope guards + covered-stack clamp + phantom sizers + raise-aggro)
+    "prince_v34": {"POKERB_PRINCE": "1", "POKERB_AUDIT_FIX": "1"},
+    # v3.5 = advisor role by tree position (the training convention; inverts 3bet-pot advisor lookups)
+    "prince_v35": {"POKERB_PRINCE": "1", "POKERB_ADVISOR_ROLE_POS": "1"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")

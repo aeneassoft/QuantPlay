@@ -1,0 +1,551 @@
+[
+  {
+    "key": "shard.a_contract",
+    "path": "dataset/shards/a_contract.jsonl",
+    "role": "sft_gold",
+    "stage": "a_contract",
+    "desc": "highest-clarity reasoning-loop decisions; ~57% drive the trained advisor (api.solver_freq)",
+    "schema": "DSL decision (spot->program)",
+    "provenance": "dataset.build.from_selfplay (advisor-wired)",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 1890272,
+      "rows": 1750,
+      "action_mix": {
+        "raise": 344,
+        "check": 993,
+        "fold": 347,
+        "bet": 4,
+        "call": 62
+      }
+    }
+  },
+  {
+    "key": "shard.c_decide",
+    "path": "dataset/shards/c_decide.jsonl",
+    "role": "sft_gold",
+    "stage": "c_decide",
+    "desc": "reasoning-loop decisions + opponent-read conditioning",
+    "schema": "DSL decision (spot->program)",
+    "provenance": "from_pokerbench + from_selfplay",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 3349171,
+      "rows": 3250,
+      "action_mix": {
+        "call": 1333,
+        "fold": 1309,
+        "check": 67,
+        "raise": 520,
+        "bet": 21
+      }
+    }
+  },
+  {
+    "key": "shard.solver",
+    "path": "dataset/shards/solver.jsonl",
+    "role": "sft_gold",
+    "stage": "solver",
+    "desc": "TexasSolver GTO mixed-frequency decisions (curated board set)",
+    "schema": "DSL decision (decide_mix)",
+    "provenance": "dataset.build.from_solver",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 1743795,
+      "rows": 2617,
+      "action_mix": {
+        "bet": 1294,
+        "check": 1323
+      }
+    }
+  },
+  {
+    "key": "shard.solver_mass",
+    "path": "dataset/shards/solver_mass.jsonl",
+    "role": "sft_gold",
+    "stage": "solver",
+    "desc": "TexasSolver mass-solve GTO mixes (the local CPU mass_solve gold)",
+    "schema": "DSL decision (decide_mix)",
+    "provenance": "dataset.build.from_solver --mass",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 17020278,
+      "rows": 25586,
+      "action_mix": {
+        "bet": 12080,
+        "check": 13506
+      }
+    }
+  },
+  {
+    "key": "shard.hu_blueprint",
+    "path": "dataset/shards/hu_blueprint.jsonl",
+    "role": "sft_gold",
+    "stage": "hu_blueprint",
+    "desc": "HU 200bb near-Nash BLUEPRINT preflop (api.preflop_solve, decide_mix literals) + HU postflop \u2014 the flywheel fix for the GTOW HU preflop over-fold leak (the \u221243.30\u2192? lever)",
+    "schema": "DSL decision (decide_mix)",
+    "provenance": "dataset.build.from_hu",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 6900252,
+      "rows": 12168,
+      "action_mix": {
+        "raise": 2856,
+        "call": 4956,
+        "fold": 3204,
+        "check": 972,
+        "allin": 180
+      }
+    }
+  },
+  {
+    "key": "shard.teacher",
+    "path": "dataset/shards/teacher.jsonl",
+    "role": "sft_gold",
+    "stage": "teacher",
+    "desc": "distilled frontier-teacher DSL (gated; present only AFTER a teacher run)",
+    "schema": "DSL decision",
+    "provenance": "pipeline.distill_teacher",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": false
+    }
+  },
+  {
+    "key": "shard.decisions",
+    "path": "dataset/shards/decisions.jsonl",
+    "role": "raw_shard",
+    "stage": "",
+    "desc": "from_selfplay default sample output (a_contract/c_decide are the staged gold)",
+    "schema": "DSL decision",
+    "provenance": "from_selfplay main()",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 119163,
+      "rows": 200,
+      "action_mix": {
+        "raise": 79,
+        "fold": 62,
+        "call": 23,
+        "allin": 22,
+        "check": 14
+      }
+    }
+  },
+  {
+    "key": "shard.local_kb",
+    "path": "dataset/shards/local_kb.jsonl",
+    "role": "raw_shard",
+    "stage": "",
+    "desc": "OLD blended KB shard (math+exploit+concepts) \u2014 the original frac_bad=0.97 cause; NOT the gold",
+    "schema": "mixed comment/decision",
+    "provenance": "dataset.build.run",
+    "current": false,
+    "note": "superseded for SFT by the reasoning-loop shards; kept for reference",
+    "stats": {
+      "exists": true,
+      "bytes": 11228991,
+      "rows": 11599
+    }
+  },
+  {
+    "key": "shard.sample",
+    "path": "dataset/shards/sample.jsonl",
+    "role": "raw_shard",
+    "stage": "",
+    "desc": "253-row verification downsample of local_kb",
+    "schema": "mixed",
+    "provenance": "manual",
+    "current": false,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 262307,
+      "rows": 253,
+      "action_mix": {
+        "bet": 6,
+        "raise": 5,
+        "check": 16,
+        "call": 7,
+        "fold": 6
+      }
+    }
+  },
+  {
+    "key": "shard.b_ground",
+    "path": "dataset/shards/b_ground.jsonl",
+    "role": "raw_shard",
+    "stage": "b_ground",
+    "desc": "EMPTY placeholder (curriculum stage b)",
+    "schema": "",
+    "provenance": "curriculum.py",
+    "current": false,
+    "note": "0 rows \u2014 from_calc/from_math not wired into the stage",
+    "stats": {
+      "exists": true,
+      "bytes": 0,
+      "rows": 0
+    }
+  },
+  {
+    "key": "shard.d_exploit",
+    "path": "dataset/shards/d_exploit.jsonl",
+    "role": "raw_shard",
+    "stage": "d_exploit",
+    "desc": "EMPTY placeholder (curriculum stage d)",
+    "schema": "",
+    "provenance": "curriculum.py",
+    "current": false,
+    "note": "0 rows",
+    "stats": {
+      "exists": true,
+      "bytes": 0,
+      "rows": 0
+    }
+  },
+  {
+    "key": "advisor.flop",
+    "path": "knowledge_base/postflop/advisor.pt",
+    "role": "kb_advisor",
+    "stage": "flop",
+    "desc": "trained flop GTO bet-frequency MLP (+63% vs strength-only)",
+    "schema": "torch MLP",
+    "provenance": "solver-imitation (strategy/advisor.py)",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 24469
+    }
+  },
+  {
+    "key": "advisor.turn",
+    "path": "knowledge_base/postflop/turn_advisor.pt",
+    "role": "kb_advisor",
+    "stage": "turn",
+    "desc": "trained turn GTO bet-frequency MLP (+46%)",
+    "schema": "torch MLP",
+    "provenance": "solver-imitation",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 24442
+    }
+  },
+  {
+    "key": "advisor.river",
+    "path": "knowledge_base/postflop/river_advisor.pt",
+    "role": "kb_advisor",
+    "stage": "river",
+    "desc": "trained river GTO bet-frequency MLP (+18%)",
+    "schema": "torch MLP",
+    "provenance": "solver-imitation",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 24861
+    }
+  },
+  {
+    "key": "advisor.defense",
+    "path": "knowledge_base/postflop/defense_advisor.pt",
+    "role": "kb_advisor",
+    "stage": "defense",
+    "desc": "trained defense-frequency net (facing aggression)",
+    "schema": "torch MLP",
+    "provenance": "research/build_defense_data.py",
+    "current": true,
+    "note": "verify live wiring",
+    "stats": {
+      "exists": true,
+      "bytes": 26421
+    }
+  },
+  {
+    "key": "kb.playbook",
+    "path": "knowledge_base/exploit/playbook.jsonl",
+    "role": "kb_playbook",
+    "stage": "",
+    "desc": "the exploit playbook \u2014 opponent-leak directives (large)",
+    "schema": "jsonl directives",
+    "provenance": "research/exploit_playbook.py",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 7523400,
+      "rows": 11520
+    }
+  },
+  {
+    "key": "kb.postflop_playbook",
+    "path": "knowledge_base/postflop/openai_strategy.json",
+    "role": "kb_playbook",
+    "stage": "",
+    "desc": "the 62-rule postflop strategy playbook",
+    "schema": "json rules",
+    "provenance": "OpenAI distill (gated)",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 31443
+    }
+  },
+  {
+    "key": "kb.preflop_blueprint",
+    "path": "knowledge_base/ranges/preflop_blueprint.json",
+    "role": "kb_ranges",
+    "stage": "",
+    "desc": "near-Nash 6-max preflop blueprint (RFI / vs-raise)",
+    "schema": "json ranges",
+    "provenance": "research/preflop_*",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 87909
+    }
+  },
+  {
+    "key": "kb.pushfold",
+    "path": "knowledge_base/cfr/preflop_pushfold.json",
+    "role": "kb_ranges",
+    "stage": "",
+    "desc": "Nash push-fold blueprint (HU endgame)",
+    "schema": "json ranges",
+    "provenance": "cfr solve",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 172237
+    }
+  },
+  {
+    "key": "kb.formulas",
+    "path": "knowledge_base/math/formulas.py",
+    "role": "kb_math",
+    "stage": "",
+    "desc": "engine-verified poker formulas = the DSL math primitives (pot-odds, MDF, SPR, outs)",
+    "schema": "python",
+    "provenance": "verified",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 27417
+    }
+  },
+  {
+    "key": "data.defense",
+    "path": "data/defense_data.jsonl",
+    "role": "train_data",
+    "stage": "",
+    "desc": "defense-strategy training sequences (feeds advisor.defense)",
+    "schema": "jsonl sequences",
+    "provenance": "research/build_defense_data.py",
+    "current": true,
+    "note": "~845MB, gitignored",
+    "stats": {
+      "exists": true,
+      "bytes": 845218860,
+      "rows_uncounted": true
+    }
+  },
+  {
+    "key": "data.advisor",
+    "path": "data/advisor_data.jsonl",
+    "role": "train_data",
+    "stage": "",
+    "desc": "turn/river advisor training sequences",
+    "schema": "jsonl sequences",
+    "provenance": "research/build_advisor_data.py",
+    "current": true,
+    "note": "gitignored",
+    "stats": {
+      "exists": true,
+      "bytes": 88945399,
+      "rows_uncounted": true
+    }
+  },
+  {
+    "key": "data.river",
+    "path": "data/river_data.jsonl",
+    "role": "train_data",
+    "stage": "",
+    "desc": "river advisor training sequences",
+    "schema": "jsonl sequences",
+    "provenance": "research/build_river_data.py",
+    "current": true,
+    "note": "gitignored",
+    "stats": {
+      "exists": true,
+      "bytes": 81633953,
+      "rows_uncounted": true
+    }
+  },
+  {
+    "key": "data.sd_advisor",
+    "path": "data/sd_advisor_data.jsonl",
+    "role": "train_data",
+    "stage": "",
+    "desc": "short-deck advisor training sequences",
+    "schema": "jsonl sequences",
+    "provenance": "research/build_sd_advisor_data.py",
+    "current": true,
+    "note": "gitignored",
+    "stats": {
+      "exists": true,
+      "bytes": 17801128,
+      "rows": 199720
+    }
+  },
+  {
+    "key": "net.deepcfr_hunl",
+    "path": "knowledge_base/postflop/deepcfr_hunl.pt",
+    "role": "model",
+    "stage": "",
+    "desc": "Deep-CFR HUNL value net (SHELVED \u2014 the -212 fcpa era)",
+    "schema": "torch net",
+    "provenance": "research/train_cfv_net.py",
+    "current": false,
+    "note": "superseded per CLAUDE.md history",
+    "stats": {
+      "exists": true,
+      "bytes": 555731
+    }
+  },
+  {
+    "key": "model.local_sft",
+    "path": "models/qwen_local_sft",
+    "role": "model",
+    "stage": "",
+    "desc": "Qwen3-1.7B SFT adapter (the local frac_bad-fix proof)",
+    "schema": "LoRA adapter",
+    "provenance": "training.qwen_sft",
+    "current": true,
+    "note": "6 checkpoints",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 73,
+      "bytes": 2732344533
+    }
+  },
+  {
+    "key": "model.local_grpo",
+    "path": "models/qwen_local_grpo",
+    "role": "model",
+    "stage": "",
+    "desc": "Qwen3-1.7B GRPO adapter (local RL proof)",
+    "schema": "LoRA adapter",
+    "provenance": "training.qwen_grpo",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 31,
+      "bytes": 1011449011
+    }
+  },
+  {
+    "key": "model.poker_ckpt500",
+    "path": "models/qwen_poker_ckpt500",
+    "role": "model",
+    "stage": "",
+    "desc": "early 8B LoRA checkpoint (historical)",
+    "schema": "LoRA adapter",
+    "provenance": "training.qwen_sft",
+    "current": false,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 3,
+      "bytes": 698429596
+    }
+  },
+  {
+    "key": "model.smoke",
+    "path": "models/qwen_smoke",
+    "role": "model",
+    "stage": "",
+    "desc": "smoke-test adapter",
+    "schema": "LoRA adapter",
+    "provenance": "smoke",
+    "current": false,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 18,
+      "bytes": 581177949
+    }
+  },
+  {
+    "key": "model.combined_sft",
+    "path": "models/qwen_combined_sft",
+    "role": "model",
+    "stage": "",
+    "desc": "EMPTY placeholder dir",
+    "schema": "",
+    "provenance": "",
+    "current": false,
+    "note": "empty",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 0,
+      "bytes": 0
+    }
+  },
+  {
+    "key": "model.sft_aligned",
+    "path": "models/qwen_local_sft_aligned",
+    "role": "model",
+    "stage": "",
+    "desc": "EMPTY (aligned re-SFT was killed; the pod run superseded it)",
+    "schema": "",
+    "provenance": "training.qwen_sft",
+    "current": false,
+    "note": "empty",
+    "stats": {
+      "exists": true,
+      "is_dir": true,
+      "n_files": 18,
+      "bytes": 581178017
+    }
+  },
+  {
+    "key": "kb.scorecard",
+    "path": "knowledge_base/scorecard.json",
+    "role": "eval",
+    "stage": "",
+    "desc": "latest grounded scorecard (gto_gap / exploit_edge bb/100)",
+    "schema": "json metrics",
+    "provenance": "research/bot_audit.py",
+    "current": true,
+    "note": "",
+    "stats": {
+      "exists": true,
+      "bytes": 2926
+    }
+  }
+]

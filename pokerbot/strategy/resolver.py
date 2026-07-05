@@ -26,7 +26,8 @@ if _CENSUS:
     ]
     # P6/3b (papers wave #5, Supremus rich-first-action sizing): +150 turn arm — the census shows GTOW barrels
     # 1.35-1.75x on turns ~10% of the time; without the arm our own solves cannot FIND the polarized barrel line
-    # (feeds the river-value/aggression leaks). Gated POKERB_TURN_OVERBET (default ON only in the PRINCE profile).
+    # (feeds the river-value/aggression leaks). Gated POKERB_TURN_OVERBET (default OFF; in NO profile — built
+    # as the P6 fallback-3b arm, never promoted; audit 2026-07-05 corrected this comment).
     _TURN_OB = ",150" if _flag("POKERB_TURN_OVERBET", "0") == "1" else ""
     _TURN_BETS = [
         f"set_bet_sizes oop,turn,bet,35,75{_TURN_OB}", "set_bet_sizes oop,turn,raise,75", "set_bet_sizes oop,turn,allin",
