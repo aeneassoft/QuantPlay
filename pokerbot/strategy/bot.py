@@ -43,6 +43,15 @@ _RIVER_DEFENSE = float(_gto_flag("POKERB_RIVER_DEFENSE", "0"))   # RIVER vs SMAL
                                                                  # vs MDF 57% and 23% of our folds were AHEAD —
                                                                  # defend bluffcatchers closer to MDF (-18pp gap).
 
+# PRINCE v3.1 (error-budget classes 3+6; both default OFF = byte-identical):
+_RIVER_THIN = float(_gto_flag("POKERB_RIVER_THIN", "0"))         # river first-in pb FLOOR for thin made hands
+                                                                 # (we bet pairs 11% vs GTOW 43% -- the missed-value
+                                                                 # class; the 0.75-eq value floor covers only nuts)
+_CBET_DAMP = float(_gto_flag("POKERB_CBET_DAMP", "0"))           # multiplicative flop-c-bet damp as the AGGRESSOR
+                                                                 # (we c-bet 75-79% vs GTOW 52-56% -- many small -EV
+                                                                 # bets + a capped check-back range; multiplicative
+                                                                 # keeps the advisor's per-hand selection intact)
+
 # PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
 # CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
 # there). OOP first-in on the turn AFTER villain checked back the flop -> boost the advisor's lead frequency by
@@ -694,6 +703,9 @@ class PokerBot:
             role = "IP" if self._has_initiative(state) else "OOP"
             pb = pf_advisor.p_bet(hole, board, role)
             if pb is not None:
+                if _CBET_DAMP > 0 and self._has_initiative(state):
+                    pb *= (1.0 - _CBET_DAMP)               # v3.1: c-bet 75->~54% (GTOW's mix); selection preserved
+                    r["cbet_damp"] = _CBET_DAMP
                 r["advisor_pbet"] = round(pb, 2)
                 if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
@@ -739,6 +751,11 @@ class PokerBot:
             if pb is not None:
                 if eq >= pf.RIVER_VALUE_FLOOR_EQ:          # value-floor: a clearly-strong final-card hand bets for
                     pb = max(pb, pf.RIVER_VALUE_BET_FREQ)  # value (no protection concern) -> don't under-bet it
+                elif _RIVER_THIN > 0 and eq >= 0.55 and made != "High Card":
+                    # v3.1: THIN value floor -- we bet made pairs 11% first-in vs GTOW's 43% (the missed-value
+                    # class). Floor the frequency for hands that beat half his range; sizes stay advisor/eCall-led.
+                    pb = max(pb, _RIVER_THIN)
+                    r["river_thin"] = _RIVER_THIN
                 r["advisor_pbet_river"] = round(pb, 2)
                 if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:

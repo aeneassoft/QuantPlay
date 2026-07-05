@@ -58,6 +58,8 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_probe": {"POKERB_PRINCE": "1", "POKERB_TURN_PROBE": "0.35"},
     # v3 bundle = the top-2 over-fold classes (pair-defense flop + river bluffcatch defense)
     "prince_v3": {"POKERB_PRINCE": "1", "POKERB_PAIR_DEFENSE": "0.10", "POKERB_RIVER_DEFENSE": "0.06"},
+    "prince_v31": {"POKERB_PRINCE": "1", "POKERB_PAIR_DEFENSE": "0.10", "POKERB_RIVER_DEFENSE": "0.06",
+                   "POKERB_RIVER_THIN": "0.40", "POKERB_CBET_DAMP": "0.28"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")
