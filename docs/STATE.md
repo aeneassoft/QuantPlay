@@ -4,6 +4,15 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★★★ v3 PROMOTED (2026-07-05 evening) — PRINCE_PROFILE now = v3 (commit 85d2919).** The tail-smoke landed
+CLEAN: n=295, **0 catastrophes ≤−50bb, worst hand −19.3bb, per-hand SD ≈162** (tightest distribution yet). The
+smoke MEAN (−34.14 ± 9.44) is n≈300 noise per the pre-registered protocol — the DECISIVE gate was the paired
+Analyzer: **v3 = 17.93 vs v2.2 = 20.66 (−2.73 on identical seed-55 deals)**. Shipped into the profile:
+`POKERB_PAIR_DEFENSE=0.10` (flop hole-pair over-fold fix, fold 59%→10% class) + `POKERB_RIVER_DEFENSE=0.06`
+(river bluffcatch, 23%-of-folds-were-ahead class). The confirmation of the MEAN stays the pre-registered 7.5k/arm
+bundle A/B (on user command). Next lever queue: v3.2 selection-aware thin-value (the eCall pattern extended to the
+bet/check DECISION) · 4bet stack-off discipline · preflop BB-defend delta.
+
 **★ v3.1 REFUTED (Analyzer, paired seed-55): 19.76 vs v3's 17.93 (+1.83 WORSE, near v2.2's 20.66).** The bundle
 (river-thin pb-floor 0.40 + cbet-damp 0.28) is reverted from the queue — flags stay default-OFF, nothing shipped
 (the gate system caught it pre-promotion). **THE LESSON, now measured for the THIRD time (limp→open fix, flat
