@@ -4,6 +4,11 @@
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
+**★ HANDOFF ACTIVE (2026-07-05 ~23:00): a new session starts at [`_SESSION_HANDOFF.md`](../_SESSION_HANDOFF.md)**
+— Priority 0 = adopt/harvest/KILL the running export pod (g5rke3x93p7eas, $2.24/hr); then the pod-arm Analyzer
+verdicts (v3.3/v3.4/v3.5 vs the FRESH pod anchor). GitHub MCP + Serena MCP configured (.mcp.json); branch +
+tag v2 pushed. This block supersedes itself once the pod is harvested.
+
 **★★ v3.2 REFUTED (Analyzer, paired seed-55): 26.14 vs v3's 17.93 (+8.21 WORSE — the worst arm of the whole
 family, below even v2.2's 20.66).** The SELECTION-aware thin-value gate (e_call>=0.5 vs the tracked calling
 range) failed HARDER than v3.1's flat floor (19.76). **The refined lesson (4th refutation of the river-thin
