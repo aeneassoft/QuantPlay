@@ -12,6 +12,6 @@ CS=$(find /root -iname console_solver -type f 2>/dev/null | head -1)
 if [ -z "$CS" ]; then echo "NO_SOLVER_BINARY_FOUND"; ls -R /root | head -40; exit 1; fi
 chmod +x "$CS"
 ln -sfn "$(dirname "$CS")" /root/tsolver
-pip install -q treys numpy
+pip install -q --break-system-packages treys numpy 2>/dev/null || pip install -q treys numpy
 python3 -c "import treys, numpy"          # hard-fail if the deps did not actually install
 echo "SETUP_OK CS=$CS"

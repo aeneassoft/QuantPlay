@@ -92,7 +92,7 @@ def main() -> None:
         if not setup_pod(ip, port):
             return
         # torch CPU for the advisor nets (pod_setup.sh installs only treys/numpy)
-        r = _ssh(ip, port, "pip install -q torch --index-url https://download.pytorch.org/whl/cpu "
+        r = _ssh(ip, port, "pip install -q --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu "
                            "&& python3 -c 'import torch; print(\"TORCH\", torch.__version__)'", timeout=900)
         if "TORCH" not in (r.stdout or ""):
             print(f"torch install FAILED: {((r.stderr or '') + (r.stdout or ''))[-200:]}", flush=True)
