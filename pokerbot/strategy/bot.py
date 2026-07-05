@@ -43,14 +43,16 @@ _RIVER_DEFENSE = float(_gto_flag("POKERB_RIVER_DEFENSE", "0"))   # RIVER vs SMAL
                                                                  # vs MDF 57% and 23% of our folds were AHEAD —
                                                                  # defend bluffcatchers closer to MDF (-18pp gap).
 
-# PRINCE v3.1 (error-budget classes 3+6; both default OFF = byte-identical):
-_RIVER_THIN = float(_gto_flag("POKERB_RIVER_THIN", "0"))         # river first-in pb FLOOR for thin made hands
-                                                                 # (we bet pairs 11% vs GTOW 43% -- the missed-value
-                                                                 # class; the 0.75-eq value floor covers only nuts)
+# PRINCE v3.2 (error-budget class 3, missed river thin value — the SELECTION-AWARE rebuild of the REFUTED v3.1
+# flat pb-floor, paired-Analyzer 19.76 vs 17.93: frequency-matching without the teacher's hand selection loses):
+_RIVER_THIN_SEL = float(_gto_flag("POKERB_RIVER_THIN_SEL", "0")) # river first-in pb floor, applied ONLY when the
+                                                                 # tracked-range probe confirms hero beats the range
+                                                                 # that actually CALLS the smallest size (postflop.
+                                                                 # thin_value_probe; e_call>=0.5 + real call share)
 _CBET_DAMP = float(_gto_flag("POKERB_CBET_DAMP", "0"))           # multiplicative flop-c-bet damp as the AGGRESSOR
-                                                                 # (we c-bet 75-79% vs GTOW 52-56% -- many small -EV
-                                                                 # bets + a capped check-back range; multiplicative
-                                                                 # keeps the advisor's per-hand selection intact)
+                                                                 # (we c-bet 75-79% vs GTOW 52-56%). REFUTED as part
+                                                                 # of the v3.1 BUNDLE (never split) — retest solo
+                                                                 # before any promotion.
 
 # PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
 # CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
@@ -176,6 +178,8 @@ class PokerBot:
         hole = hero["hole"]
         self._cur_street = state["street"]            # for _raise_to's POKERB_ONTREE postflop size-snap
         self._cur_committed = hero.get("committed_street", 0) or 0   # S3: raise-snap needs the call level
+        self._ecall_exact_to = None                   # staleness guard: a prior decision's exact-size exemption
+                                                      # must never leak into this one's _raise_to snap check
         if self.use_deepcfr:                          # our from-scratch HUNL Deep CFR net IS the strategy
             return self._deepcfr(state, hole)
         if state["street"] == "preflop":
@@ -749,18 +753,29 @@ class PokerBot:
             role = "IP" if self._has_initiative(state) else "OOP"
             pb = pf_advisor.p_bet(hole, board, role, "river", pot_type=self._pot_type(state))  # line-aware (POKERB_RIVER_LA)
             if pb is not None:
+                thin_to = None
                 if eq >= pf.RIVER_VALUE_FLOOR_EQ:          # value-floor: a clearly-strong final-card hand bets for
                     pb = max(pb, pf.RIVER_VALUE_BET_FREQ)  # value (no protection concern) -> don't under-bet it
-                elif _RIVER_THIN > 0 and eq >= 0.55 and made != "High Card":
-                    # v3.1: THIN value floor -- we bet made pairs 11% first-in vs GTOW's 43% (the missed-value
-                    # class). Floor the frequency for hands that beat half his range; sizes stay advisor/eCall-led.
-                    pb = max(pb, _RIVER_THIN)
-                    r["river_thin"] = _RIVER_THIN
+                elif _RIVER_THIN_SEL > 0 and eq >= 0.55 and made != "High Card":
+                    # v3.2 SELECTION-AWARE thin value (v3.1's flat floor REFUTED, 19.76 vs 17.93). eq vs the
+                    # FULL range counts all his folded air; the probe asks the value question GTOW answers per
+                    # combo: does the range that actually CALLS the smallest size pay us off (e_call >= 0.5)?
+                    both = self._tracked_ranges_both(state, board, hole)
+                    probe = (pf.thin_value_probe(pot, hero_committed, hero_stack, hole, board,
+                                                 both[0], both[1]) if both else None)
+                    if (probe is not None and probe[1] >= pf.THIN_ECALL_MIN
+                            and probe[2] >= pf.THIN_CALL_SHARE_MIN):
+                        pb = max(pb, _RIVER_THIN_SEL)
+                        thin_to = int(probe[0])            # bet the PROBE size — the size the selection validated
+                        r["river_thin_sel"] = round(probe[1], 2)
                 r["advisor_pbet_river"] = round(pb, 2)
                 if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
+                    elif thin_to is not None:
+                        self._ecall_exact_to = thin_to     # census size — exempt from re-snap (eCall precedent)
+                        size = self._raise_to(la, thin_to)
                     else:
                         size = self._raise_to(la, hero_committed + round(0.66 * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,

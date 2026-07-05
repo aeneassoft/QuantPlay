@@ -242,10 +242,18 @@ def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stac
 ECALL_SIZES = [0.35, 0.65, 1.0, 1.5]     # the census river grid (GTOW's own arms) + the jam added by the caller
 
 
-def pick_value_size_ecall(pot: int, hero_committed: int, hero_stack: int,
-                          hole: list, board: list, villain_w: dict, hero_w: dict):
-    """(to_amount, score, size_frac) from tracked-range e_call/F on the RIVER, or None (caller falls back).
-    villain_w/hero_w: {combo: weight} from the range tracker (both already confidence-gated by the caller)."""
+# v3.2 thin-value SELECTION thresholds: a bet is VALUE iff the range that actually CALLS is one we beat
+# (e_call >= 0.5 = the textbook definition), and the calling set must be a real share of his range (else the
+# "value" read rests on a sliver of the tracked range = noise, and the bet is really a bluff decision).
+THIN_ECALL_MIN = 0.50
+THIN_CALL_SHARE_MIN = 0.15
+
+
+def _ecall_rows(pot: int, hero_committed: int, hero_stack: int,
+                hole: list, board: list, villain_w: dict, hero_w: dict):
+    """Per-candidate-size eCall analysis [(size_frac, to_amount, F, e_call, call_share, score)], smallest size
+    first, or None (tracked ranges can't support the enumeration). Shared by the value SIZER (argmax by score)
+    and the thin-value SELECTION probe (the smallest size's e_call)."""
     from pokerbot.engine.evaluator import evaluate
     if not villain_w or not hero_w or len(board) < 5 or not pot:
         return None
@@ -276,7 +284,7 @@ def pick_value_size_ecall(pot: int, hero_committed: int, hero_stack: int,
     total_v = sum(w for w, _ in vil)
     if not vil or total_v <= 0:
         return None
-    best = (None, -1e9, 0.0)
+    rows = []
     jam = hero_stack / pot
     # BUG-HUNT FIX: candidates the stack cannot realize all map to the same all-in amount but were scored at
     # their PHANTOM size (fold equity of a bet villain never faces) — drop them; the jam covers all-in.
@@ -300,6 +308,29 @@ def pick_value_size_ecall(pot: int, hero_committed: int, hero_stack: int,
         e_call = (win + 0.5 * tie) / cw                   # hero's equity vs the ACTUAL calling set
         # called win nets 1+s (pot + villain's call); the bet s is spent whenever called (see value_score)
         sc = F + (1.0 - F) * (e_call * (1.0 + 2.0 * s) - s)
-        if sc > best[1]:
-            best = (_to_amount_for_size(s, pot, hero_committed, hero_stack), sc, s)
-    return best if best[0] is not None else None
+        rows.append((s, _to_amount_for_size(s, pot, hero_committed, hero_stack), F, e_call, cw / total_v, sc))
+    return rows or None
+
+
+def pick_value_size_ecall(pot: int, hero_committed: int, hero_stack: int,
+                          hole: list, board: list, villain_w: dict, hero_w: dict):
+    """(to_amount, score, size_frac) from tracked-range e_call/F on the RIVER, or None (caller falls back).
+    villain_w/hero_w: {combo: weight} from the range tracker (both already confidence-gated by the caller)."""
+    rows = _ecall_rows(pot, hero_committed, hero_stack, hole, board, villain_w, hero_w)
+    if not rows:
+        return None
+    s, to, _F, _e, _share, sc = max(rows, key=lambda row: row[5])
+    return (to, sc, s)
+
+
+def thin_value_probe(pot: int, hero_committed: int, hero_stack: int,
+                     hole: list, board: list, villain_w: dict, hero_w: dict):
+    """(to_amount, e_call, call_share, size_frac) at the SMALLEST viable size, or None. The v3.2 thin-value
+    SELECTION gate: the smallest size has the WIDEST calling set — if hero doesn't beat even that set
+    (e_call < THIN_ECALL_MIN), no thin value exists at any size. This is the selection v3.1's flat frequency
+    floor lacked (paired-Analyzer REFUTED 19.76 vs 17.93: GTOW bets 43% of river pairs but CHOOSES which)."""
+    rows = _ecall_rows(pot, hero_committed, hero_stack, hole, board, villain_w, hero_w)
+    if not rows:
+        return None
+    s, to, _F, e_call, share, _sc = rows[0]
+    return (to, e_call, share, s)
