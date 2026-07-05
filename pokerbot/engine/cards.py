@@ -90,7 +90,3 @@ def expand_class(hc: str) -> list[tuple[str, str]]:
         return [(hi + s, lo + s) for s in SUITS]
     # offsuit -> 12 combos
     return [(hi + s1, lo + s2) for s1 in SUITS for s2 in SUITS if s1 != s2]
-
-
-def card_str(cards: list[str]) -> str:
-    return " ".join(cards)

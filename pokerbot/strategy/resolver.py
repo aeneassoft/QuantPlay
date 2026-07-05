@@ -54,6 +54,10 @@ else:
     _RIVER_ACC, _RIVER_ITERS, _RIVER_TIMEOUT = 0.5, 80, 40
     _TURN_ACC, _TURN_ITERS, _TURN_TIMEOUT = 0.5, 60, 60
 
+# Shared solve knobs (identical for the turn + river solves).
+_SOLVE_THREADS = 8        # TexasSolver worker threads per solve
+_MIN_SOLVE_CHIPS = 2.0    # degeneracy floor: never hand the solver a zero/near-zero pot or stack
+
 
 # PRINCE v2 L2b (papers wave #1, Brown&Sandholm nested re-solving): insert the OBSERVED villain bet sizes into the
 # solve tree instead of letting _match_label ROUND them to the nearest grid arm (the census shows GTOW barrels
@@ -182,8 +186,9 @@ def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         return None
     try:
         bets = _inject_observed_sizes(state, "river", pot, _RIVER_BETS)   # L2b: solve with the TRUE observed sizes
-        root = O.solve(board, oop_str, ip_str, pot=max(2.0, pot), eff_stack=max(2.0, eff_stack),
-                       bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=8,
+        root = O.solve(board, oop_str, ip_str, pot=max(_MIN_SOLVE_CHIPS, pot),
+                       eff_stack=max(_MIN_SOLVE_CHIPS, eff_stack),
+                       bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=_SOLVE_THREADS,
                        timeout=timeout, tag="rsv" + "".join(board))
     except Exception:  # noqa: BLE001
         return None
@@ -215,8 +220,9 @@ def turn_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         return None
     try:
         bets = _inject_observed_sizes(state, "turn", pot, _TURN_BETS)     # L2b: solve with the TRUE observed sizes
-        root = O.solve(board, oop_str, ip_str, pot=max(2.0, pot), eff_stack=max(2.0, eff_stack),
-                       bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=8,
+        root = O.solve(board, oop_str, ip_str, pot=max(_MIN_SOLVE_CHIPS, pot),
+                       eff_stack=max(_MIN_SOLVE_CHIPS, eff_stack),
+                       bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=_SOLVE_THREADS,
                        timeout=timeout, tag="tsv" + "".join(board))
     except Exception:  # noqa: BLE001
         return None

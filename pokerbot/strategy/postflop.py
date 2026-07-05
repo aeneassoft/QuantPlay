@@ -71,7 +71,6 @@ def snap_raise_to_tree(desired_to: int, call_level: int, pot: int, to_call: int,
 
 VALUE_EQ = 0.58      # bet for value at/above this equity vs the continuing range
 BLUFF_EQ = 0.38      # only bluff below this equity
-THIN_BAND = (0.45, 0.58)
 
 
 def classify_board(board: list[str]) -> dict:
@@ -222,13 +221,18 @@ def _candidate_sizes(pot: int, hero_stack: int) -> list[float]:
     return [s for s in CANDIDATE_SIZES if s <= jam] + ([jam] if jam <= SIZER_JAM_CAP else [])
 
 
+# fold-curve queries are clamped at 3x pot: an all-in candidate can be many multiples of the pot,
+# and beyond 3x the model's F(s) is pure extrapolation
+FOLD_QUERY_SIZE_CAP = 3.0
+
+
 def pick_bluff_size(pot: int, model, street: str, hero_committed: int, hero_stack: int):
     """Return (to_amount, best_ev, size_frac). best_ev<=0 means no profitable bluff."""
     best = (None, -1e9, 0.0)
     for s in _candidate_sizes(pot, hero_stack):
         if s <= 0 or s * pot < 1:
             continue
-        F = model.fold(street, min(s, 3.0))
+        F = model.fold(street, min(s, FOLD_QUERY_SIZE_CAP))
         ev = ev_bluff(s, F)
         if ev > best[1]:
             best = (_to_amount_for_size(s, pot, hero_committed, hero_stack), ev, s)
@@ -241,7 +245,7 @@ def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stac
     for s in _candidate_sizes(pot, hero_stack):
         if s <= 0 or s * pot < 1:
             continue
-        F = model.fold(street, min(s, 3.0))
+        F = model.fold(street, min(s, FOLD_QUERY_SIZE_CAP))
         sc = value_score(s, F, eq)
         if sc > best[1]:
             best = (_to_amount_for_size(s, pot, hero_committed, hero_stack), sc, s)

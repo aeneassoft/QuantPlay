@@ -216,7 +216,6 @@ class PokerBot:
         strategy -> maps to the engine's (action, amount)."""
         from pokerbot.strategy import deepcfr_adapter as dca
         if self._deepcfr_policy is None:
-            from pokerbot import config
             self._deepcfr_policy = dca.LoadedPolicy(
                 str(config.KNOWLEDGE_DIR / "postflop" / "deepcfr_hunl.pt"), device="cpu")
         la = state["legal"]

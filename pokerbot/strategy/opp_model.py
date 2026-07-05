@@ -49,14 +49,14 @@ class OppModel:
         return [a / s for a in alpha], sum(c)
 
     def save(self, path=None) -> None:
-        path = path or (config.DATA_DIR / "opp_model.json")
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(dict(self.counts)), encoding="utf-8")
+        out_path = path or (config.DATA_DIR / "opp_model.json")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(dict(self.counts)), encoding="utf-8")
 
     def load(self, path=None) -> None:
-        path = path or (config.DATA_DIR / "opp_model.json")
+        in_path = path or (config.DATA_DIR / "opp_model.json")
         try:
-            d = json.loads(path.read_text(encoding="utf-8"))
+            d = json.loads(in_path.read_text(encoding="utf-8"))
             self.counts = defaultdict(lambda: [0.0, 0.0, 0.0], {k: list(v) for k, v in d.items()})
         except Exception:  # noqa: BLE001
             pass
@@ -66,10 +66,9 @@ def seed_from_fold_curve(model: OppModel, curve_path=None, street: str = "river"
     """Seed the Dirichlet model's per-size river buckets from a MEASURED fold-curve [size, fold_prob, n]
     (e.g. knowledge_base/exploit/slumbot_fold.json), applied across board-classes + roles (an aggregate prior;
     live play would refine per-bucket). n_eff sets the seed confidence = the LCB driver. Returns #buckets seeded."""
-    import json as _json
-    curve_path = curve_path or (config.KNOWLEDGE_DIR / "exploit" / "slumbot_fold.json")
+    curve_file = curve_path or (config.KNOWLEDGE_DIR / "exploit" / "slumbot_fold.json")
     try:
-        data = _json.loads(open(curve_path, encoding="utf-8").read())
+        data = json.loads(open(curve_file, encoding="utf-8").read())
     except Exception:  # noqa: BLE001
         return 0
     seeded = 0

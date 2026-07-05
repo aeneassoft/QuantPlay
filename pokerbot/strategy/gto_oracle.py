@@ -83,9 +83,9 @@ def solve(board, oop_range: str, ip_range: str, pot: float = 20.0, eff_stack: fl
                 return json.loads(cpath.read_text(encoding="utf-8"))
             except Exception:  # noqa: BLE001 — corrupt cache entry: fall through to a fresh solve
                 pass
-    tag = tag if tag is not None else os.getpid()
-    inp = SOLVER_DIR / f"_oracle_in_{tag}.txt"
-    out = SOLVER_DIR / f"_oracle_out_{tag}.json"
+    file_tag = tag if tag is not None else os.getpid()
+    inp = SOLVER_DIR / f"_oracle_in_{file_tag}.txt"
+    out = SOLVER_DIR / f"_oracle_out_{file_tag}.json"
     lines = [
         f"set_pot {pot}", f"set_effective_stack {eff_stack}",
         "set_board " + ",".join(board),

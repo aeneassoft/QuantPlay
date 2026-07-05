@@ -104,10 +104,6 @@ def _board_at(board: list[str], street: str) -> list[str]:
     return list(board[:n])
 
 
-def _combo_str(combo) -> str:
-    return combo[0] + combo[1]
-
-
 class RangeTracker:
     """Per-combo Bayesian range tracker for HU. Walks the postflop betting line and reweights each player's
     1326-combo range by the observed action's likelihood — via the advisor for bet/check, legality-only for the
@@ -184,11 +180,11 @@ class RangeTracker:
                 self.range[seat][c] /= s2
 
     def _remove_dead(self, dead) -> None:
-        dead = set(dead)
+        dead_cards = set(dead)
         for seat in (0, 1):
             d = self.range[seat]
             for c in list(d.keys()):
-                if c[0] in dead or c[1] in dead:
+                if c[0] in dead_cards or c[1] in dead_cards:
                     del d[c]
             self._normalize(seat)
 
@@ -366,10 +362,10 @@ class RangeTracker:
         per-combo internally (advisor P(bet) + exact dead-card removal) but AGGREGATE to class-mean weights on
         emit. Cost: within-class weight variation is lost; the solver still does per-card removal during the
         solve. Weights are normalised to max=1 (TexasSolver weights are relative within a range)."""
-        dead = set(dead)
+        dead_cards = set(dead)
         cls_w: dict[str, list] = defaultdict(list)
         for c, w in self.range.get(seat, {}).items():
-            if c[0] in dead or c[1] in dead:        # exact per-combo dead-card removal (drops 1..3 of a class)
+            if c[0] in dead_cards or c[1] in dead_cards:   # exact per-combo dead-card removal (drops 1..3 of a class)
                 continue
             cls_w[hand_class(c[0], c[1])].append(w)
         entries = [(hc, sum(ws) / len(ws)) for hc, ws in cls_w.items()]

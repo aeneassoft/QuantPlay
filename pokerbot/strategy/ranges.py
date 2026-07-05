@@ -79,11 +79,11 @@ def combos_for_classes(classes, dead) -> list[tuple[str, str]]:
     rng draws with different villain combos per process -> mixed-strategy boundary decisions flipped between
     otherwise-identical runs (caught by a run-to-run stress diff: 4/140 actions; PYTHONHASHSEED=0 -> 0 diffs).
     sorted() pins ONE canonical order for every consumer (tracker priors, equity ranges, exports, live)."""
-    dead = set(dead)
+    dead_cards = set(dead)
     out: list[tuple[str, str]] = []
     for hc in sorted(classes):
         for combo in expand_class(hc):
-            if not (set(combo) & dead):
+            if not (set(combo) & dead_cards):
                 out.append(combo)
     return out
 

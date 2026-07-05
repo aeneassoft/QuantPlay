@@ -51,9 +51,6 @@ class HeadsUpGame:
     def pot(self) -> int:
         return sum(p.committed_total for p in self.players)
 
-    def effective_stack(self) -> int:
-        return min(p.stack + p.committed_total for p in self.players)
-
     def match_over(self) -> bool:
         return any(p.stack <= 0 for p in self.players) and self.hand_over
 

@@ -8,15 +8,18 @@ from pokerbot.engine.evaluator import evaluate
 
 _FULL = make_deck()
 
+BOARD_SIZE = 5           # cards on a complete board; remaining streets = BOARD_SIZE - len(board)
+DEFAULT_ITERS = 3000     # default MC sample count (~0.9pp standard error; fast enough per decision)
+
 
 def equity_vs_hand(hero: list[str], villain: list[str],
-                   board: list[str] | None = None, iters: int = 3000,
+                   board: list[str] | None = None, iters: int = DEFAULT_ITERS,
                    rng: random.Random | None = None) -> float:
     rng = rng or random.Random()
     board = list(board or [])
     dead = set(hero) | set(villain) | set(board)
     deck = [c for c in _FULL if c not in dead]
-    need = 5 - len(board)
+    need = BOARD_SIZE - len(board)
     if need == 0:                       # river: one exact comparison, not `iters` identical samples
         hs, vs = evaluate(board, hero), evaluate(board, villain)
         return 1.0 if hs < vs else (0.5 if hs == vs else 0.0)
@@ -33,7 +36,7 @@ def equity_vs_hand(hero: list[str], villain: list[str],
 
 
 def equity_vs_range(hero: list[str], villain_combos: list[tuple[str, str]],
-                    board: list[str] | None = None, iters: int = 3000,
+                    board: list[str] | None = None, iters: int = DEFAULT_ITERS,
                     rng: random.Random | None = None) -> float:
     rng = rng or random.Random()
     board = list(board or [])
@@ -41,7 +44,7 @@ def equity_vs_range(hero: list[str], villain_combos: list[tuple[str, str]],
     vc = [v for v in villain_combos if not (set(v) & base_dead)]
     if not vc:
         return float("nan")
-    need = 5 - len(board)
+    need = BOARD_SIZE - len(board)
     win = tie = 0
     # RIVER: the board is complete -> ENUMERATE the villain range EXACTLY. Zero variance, no sampling noise,
     # and cheaper when len(vc) < iters. (MC here sampled a finite combo set WITH replacement = pure waste and
@@ -74,7 +77,7 @@ def equity_vs_range(hero: list[str], villain_combos: list[tuple[str, str]],
 
 
 def equity_vs_weighted_range(hero: list[str], combo_weights: dict, board: list[str] | None = None,
-                             iters: int = 3000, rng: random.Random | None = None) -> float:
+                             iters: int = DEFAULT_ITERS, rng: random.Random | None = None) -> float:
     """Hero equity vs a WEIGHTED villain range {combo(tuple of two card-strs): weight}. The weighted analogue of
     equity_vs_range, for the per-combo Bayesian range tracker (combos carry the tracker's action-consistent
     weight, not a flat 1). RIVER -> exact weighted enumeration (zero variance); pre-river -> MC with the villain
@@ -85,7 +88,7 @@ def equity_vs_weighted_range(hero: list[str], combo_weights: dict, board: list[s
     items = [(v, w) for v, w in combo_weights.items() if w > 0 and not (set(v) & base_dead)]
     if not items:
         return float("nan")
-    need = 5 - len(board)
+    need = BOARD_SIZE - len(board)
     if need == 0:                                   # river: exact weighted enumeration (hero rank fixed)
         hs = evaluate(board, hero)
         win = tie = tot = 0.0
@@ -115,7 +118,7 @@ def equity_vs_weighted_range(hero: list[str], combo_weights: dict, board: list[s
 
 
 def equity_vs_class_range(hero: list[str], classes: list[str],
-                          board: list[str] | None = None, iters: int = 3000,
+                          board: list[str] | None = None, iters: int = DEFAULT_ITERS,
                           rng: random.Random | None = None) -> float:
     combos: list[tuple[str, str]] = []
     for hc in classes:
