@@ -4,6 +4,31 @@
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the
 scaffold** the brain drives. Built across many sessions — see the user memory + `docs/STATE.md` for history.
 
+> **★★★★★ OPERATIVE DOKTRIN (User, 2026-07-06) — PROFIT-EMPIRISMUS. ZIEL: GTOW-LEADERBOARD TOP 5.**
+> Wir sind zuerst eine **statistische Mustererkennungs-Maschine über Millionen Händen**: es zählt
+> ausschließlich, was bb druckt ("nur bb zählen", jetzt radikalisiert). **Formeln sind SUPPENFLEISCH** —
+> MDF/Pot-Odds/e_call/Blocker schwimmen als Features/Prioren IN den empirisch abgeschmeckten Deciders
+> (die Advisor-MLPs sind das Muster), nie als Dogma darüber. Mathematisch elegant + druckt nicht = Tonne
+> (gemessen: frequency-matching 3× refuted). Mathematisch "falsch" + druckt = shipped (gemessen: SB-fold-clamp).
+> **Axiome als Knöpfe:** MODELL-Annahmen/Gleichgewichts-Begriffe/Präzisions-Budgets/Spiel-Perturbationen sind
+> frei drehbar mit explizitem Bedingungs-Test (`docs/CONDITIONAL_POKER_LEMMAS.md`: L1 Purify, L2 Mr-Orange,
+> L3 v3.2b, L4 Iso). NICHT drehbar (nicht aus Dogma — es ist das Scoreboard selbst): Chip-Erhaltung,
+> Σp=1, EV-Linearität (`tests/test_math_suite.py` bewacht; 17/17 deep). Lead-Generator: `research/money_mine.py`
+> (AIVAT-gewichtete P&L-Attribution; Buckets = Leads, nicht Beweise — konditionierte Teilmengen sind nicht
+> unverzerrt). Der einzige Geschmackstest bleibt die Gate-Leiter — ein Degenerierter ohne ehrliches
+> Scoreboard weiß nicht, was druckt.
+> **AIVAT-ADAPTED (Paper arXiv:1612.06915 gelesen, Ledger):** der Mittelwert ist per Theorem NICHT gambar
+> ("cannot appear to do better by changing play") → Metrik-Gaming-Ideen sind Artefakte per Konstruktion.
+> Legitime Anpassung: (1) pures EV, (2) niedrigvarianter Stil = engere SE = billigere Wahrheit (per-Hand-SD
+> 1000→214 gemessen), (3) On-Tree-Sizings = besserer Baseline-Fit = weniger Mess-Rauschen.
+> **MESS-ÖKONOMIE (User-Beobachtung 2026-07-06, hart):** der **Chrome/Analyzer-Kanal ist um Größenordnungen
+> schneller als die API** — Export 1500 Hände ≈ 4 min lokal (post-Memoisierung), Analyzer graded sie in
+> Minuten; die Live-API braucht ~8-9h für 2500. → **Analyzer-first**: μ-Vergleiche/Arm-Verdikte laufen über
+> gepaarte seed-Exports + Chrome-Upload (skalierbar: mehrere 1500er-Blöcke pro Arm = SE/√k); die API ist der
+> knappe Kanal NUR für Live-Anker, Tail-Smokes und Leaderboard-Einträge. Upload-Regeln: CRLF pflicht,
+> Hand-IDs verbrennen beim ERSTEN Kontakt (auch bei gescheiterten Uploads — nie idbase/dayoffset wiederholen;
+> Ledger in STATE).
+
 > **★ NORTH STAR (2026-06-17) — PLAY GTO / ACHIEVE TRUE GTO, in 6-max NLHE.**
 > Rigorous target = the **robust correlated equilibrium**. (Einy–Haimanko–Lagziel, *Economic Theory* 2022,
 > `books/papers/Springer - Nash + Incomplete Information.pdf`: a Nash eq is *strongly robust to incomplete

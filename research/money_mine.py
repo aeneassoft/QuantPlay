@@ -29,7 +29,10 @@ from treys import Card, Evaluator
 from research.freq_mine import hand_class  # reuse the mined-era hand classifier (board+hole -> class)
 
 OUT = Path("data/research_sweep/money_mine.json")
-BB_CHIPS = 50.0        # GTOW client logs are in GTOW chip units, bb = 50 (analyze_gtow_hands.py, measured)
+# bb is detected EMPIRICALLY per file: min |nonzero winnings| = the open-fold SB loss => bb = 2x that.
+# (analyze_gtow_hands.py hardcodes BB=50 — measured WRONG for the current era: smallest loss 50 => bb=100.
+# The 2026-07-06 first-run numbers were 2x inflated; rankings unaffected, magnitudes halved.)
+BB_FALLBACK = 100.0
 POT_BUCKETS = ((2.0, "limp/mini"), (8.0, "small"), (25.0, "mid"), (80.0, "big"), (1e9, "huge"))
 _EV = Evaluator()
 
@@ -68,8 +71,8 @@ def _terminal_shape(h: dict) -> str:
     return "showdown_win" if (h.get("winnings") or 0) > 0 else ("showdown_push" if (h.get("winnings") or 0) == 0 else "showdown_loss")
 
 
-def _pot_bucket(h: dict) -> str:
-    pot_bb = abs(h.get("winnings") or 0.0) / BB_CHIPS * 2  # crude: |result| ~ half the contested pot
+def _pot_bucket(h: dict, bb: float) -> str:
+    pot_bb = abs(h.get("winnings") or 0.0) / bb * 2  # crude: |result| ~ half the contested pot
     return next(lbl for cap, lbl in POT_BUCKETS if pot_bb <= cap)
 
 
@@ -86,16 +89,31 @@ def _rows(files: list[str]):
             yield f, h
 
 
+def _bb_of(path: str) -> float:
+    """Empirical bb: the smallest nonzero |winnings| is the open-fold SB loss => bb = 2x."""
+    lo = None
+    for line in open(path, encoding="utf-8"):
+        try:
+            w = abs(json.loads(line).get("winnings") or 0.0)
+        except Exception:  # noqa: BLE001
+            continue
+        if w and (lo is None or w < lo):
+            lo = w
+    return 2.0 * lo if lo else BB_FALLBACK
+
+
 def mine(files: list[str]) -> dict:
     agg = defaultdict(lambda: [0.0, 0.0, 0])           # key -> [sum_aivat_bb, sum_win_bb, n]
+    bbs = {f: _bb_of(f) for f in files}
     for _f, h in _rows(files):
+        bb = bbs[_f]
         board = [h["board"][i:i + 2] for i in range(0, len(h.get("board") or ""), 2)]
         hole = _hero_hole(h)                            # exact or None — never a coin-flip guess
         cls = hand_class(board, hole) if (hole and board) else ("preflop" if not board else "n/a")
-        key = "|".join([h.get("street") or "?", _terminal_shape(h), cls, _pot_bucket(h)])
+        key = "|".join([h.get("street") or "?", _terminal_shape(h), cls, _pot_bucket(h, bb)])
         a = agg[key]
-        a[0] += (h.get("aivat") or 0.0) / BB_CHIPS
-        a[1] += (h.get("winnings") or 0.0) / BB_CHIPS
+        a[0] += (h.get("aivat") or 0.0) / bb
+        a[1] += (h.get("winnings") or 0.0) / bb
         a[2] += 1
     return {k: {"aivat_bb": round(v[0], 1), "win_bb": round(v[1], 1), "n": v[2]} for k, v in agg.items()}
 

@@ -63,6 +63,16 @@ reads os.environ at PRINT time, but agents BIND use_* flags at construction; a r
 a hot-patched working-tree tarball) makes the fingerprint lie about instance flags. HARDENING (queued,
 measurement-only): fingerprint should also report the constructed agent's actual use_resolver /
 use_turn_resolver attributes.
+**★ DOKTRIN-UPDATE (User 2026-07-06, CLAUDE.md ★★★★★-Block): PROFIT-EMPIRISMUS — Top 5, Formeln als
+Suppenfleisch (Features in empirischen Deciders), AIVAT-adapted (no-cheese-Theorem), MESS-ÖKONOMIE:
+Analyzer/Chrome = Schnellkanal (Export 4min + Grading Minuten; skalierbar k×1500 pro Arm = SE/√k), API =
+knapper Kanal nur für Anker/Smokes/Leaderboard.** money_mine LEADS (bb-Einheiten EMPIRISCH korrigiert —
+bb=100, analyze_gtow_hands' BB=50 war falsch, erste Miner-Zahlen waren 2× inflationiert; Rankings
+unverändert): **#1 Flop-Folds vs KLEINE Bets (≤0.40 Pot): −127.5bb/207 Folds im v2.2-Ära-Lauf; vs 0.65+
+fast sauber (−4.2)** → die nächste Hebelfamilie nach den v3.x-Verdikten = Flop-Defense-vs-Small-Stabs
+(breiter als PAIR_DEFENSE; MDF-Zutat sagt ~74% Defense vs 0.35×). #2/#3: River-Huge-Showdown-Verluste +
+River-Huge-Folds (L2-Mr-Orange-Territorium). Alte-Ära-Unter-Extraktion (Pot gewonnen, AIVAT rot) von der
+aktuellen Generation GEFIXT bestätigt (river|villain_folded|huge jetzt Top-Drucker).
 User strategy directive (2026-07-05 late): balanced approach, ONLY gated improvements, chase top-5, CS
 concepts first-class, short GTOW smoke soon. **PLUS (2026-07-06): the AXIOM-KNOB track — conditions as
 tunable knobs, computation axioms sacred (docs/CONDITIONAL_POKER_LEMMAS.md). Knob queue (each full-ladder):
