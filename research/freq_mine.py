@@ -24,7 +24,7 @@ import os
 import time
 from collections import Counter, defaultdict
 
-from pokerbot.engine.evaluator import best_five_name, evaluate
+from pokerbot.engine.evaluator import best_five_name, evaluate, made_class
 from research.gtow_tree_census import BB, SB, _STREETS, _parse_cards, hero_seat_of, pot_type_of, replay
 
 RANK_ORDER = "23456789TJQKA"
@@ -46,48 +46,11 @@ def board_texture(board: list[str]) -> str:
     return "other"
 
 
-def _one_pair_class(pair_rank: str, board_ranks: list[str]) -> str:
-    """Top pair = pair rank at/above the highest board rank (includes overpairs)."""
-    top_board = max(RANK_ORDER.index(r) for r in board_ranks)
-    return "top-pair" if RANK_ORDER.index(pair_rank) >= top_board else "pair"
-
-
 def hand_class(board: list[str], hole: list[str]) -> str:
-    """air / pair / top-pair / two-pair+ / monster at the board-so-far.
-
-    Built on treys best_five_name, DEMOTED when the board makes the hand for us (board pair counted as
-    'Pair', a double-paired board counted as 'Two Pair', board trips, a 5-card board that plays alone):
-    those are air/one-pair in the poker sense, and question (1) hinges on 'one pair' being honest.
-    """
-    if len(board) < 3:
-        return "preflop"
-    name = best_five_name(board, hole)
-    b_ranks = [c[0] for c in board]
-    h_ranks = [c[0] for c in hole]
-    board_count, total_count = Counter(b_ranks), Counter(b_ranks + h_ranks)
-    if name == "High Card":
-        return "air"
-    if name == "Pair":
-        pair_rank = next(r for r in total_count if total_count[r] >= 2)
-        if pair_rank not in h_ranks:                       # the pair lives on the board
-            return "air"
-        return _one_pair_class(pair_rank, b_ranks)
-    if name == "Two Pair":
-        pairs = sorted((r for r in total_count if total_count[r] == 2),
-                       key=RANK_ORDER.index, reverse=True)[:2]
-        hero_made = [r for r in pairs if r in h_ranks]
-        if not hero_made:                                  # double-paired board plays
-            return "air"
-        if len(hero_made) == 1:                            # e.g. Qx on KKQ72: really one pair
-            return _one_pair_class(hero_made[0], b_ranks)
-        return "two-pair+"
-    if name == "Three of a Kind":
-        trip_rank = next(r for r in total_count if total_count[r] >= 3)
-        return "air" if board_count[trip_rank] >= 3 else "two-pair+"
-    # Straight and better: on a complete board, demote to air when the board alone plays.
-    if len(board) == 5 and evaluate(board, hole) == evaluate(board, []):
-        return "air"
-    return "two-pair+" if name == "Straight" else "monster"
+    """Alias: the taxonomy moved to pokerbot.engine.evaluator.made_class (2026-07-05) so the range
+    tracker's raise narrowing and this mining classify IDENTICALLY (the mined mixes calibrate that
+    lever). Semantics verified byte-identical on relocation."""
+    return made_class(board, hole)
 
 
 # ---------------------------------------------------------------- decision walk

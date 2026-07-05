@@ -61,6 +61,8 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_v3": {"POKERB_PRINCE": "1", "POKERB_PAIR_DEFENSE": "0.10", "POKERB_RIVER_DEFENSE": "0.06"},
     # v3.2 = the selection-aware thin-value rebuild (v3.1's flat RIVER_THIN floor was Analyzer-REFUTED 19.76)
     "prince_v32": {"POKERB_PRINCE": "1", "POKERB_RIVER_THIN_SEL": "0.40"},
+    # v3.3 = raise-facing-bet range narrowing toward GTOW's mined raise mix (RANK4 stack-off fix)
+    "prince_v33": {"POKERB_PRINCE": "1", "POKERB_RAISE_NARROW": "1"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")

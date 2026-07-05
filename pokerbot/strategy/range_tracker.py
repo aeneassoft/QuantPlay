@@ -77,6 +77,23 @@ TRACKER_CONF_SLOPE = float(_flag("POKERB_TRACKER_CONF_SLOPE", "0.5"))
 # narrowing fully (alpha -> 1): repeated barrels are exactly where the marginal-frequency evidence stops being
 # "correlated noise" and starts being a story.
 TRACKER_AGGRO_FULL = _flag("POKERB_TRACKER_AGGRO_FULL", "0") == "1"
+# v3.3 (2026-07-05): a raise FACING A BET was legality-only (the provably-safe v0 default) — but that leaves a
+# check-raise-JAM range as wide as before the raise, so hero's bluffcatch equity is a fiction (RANK4: 30/30
+# seeds called a 4bet-pot turn jam with K2o at "37%" vs a range that is really ~62% two-pair+). Reweight the
+# raiser's range toward GTOW's MINED raise-range class mix (research/raise_mine.py; 488 raises / 17,132 logged
+# hands, both holes always logged = exact). Flag value = blend strength lambda in (0,1]: weight *= (target_share
+# / current_share)^lambda per made-hand class; lambda=1 reproduces the mined mix exactly. Never zeroes a combo
+# (every class has nonzero mined share) -> the o3 safety bound's "never multiply by 0" is respected.
+RAISE_NARROW = float(_flag("POKERB_RAISE_NARROW", "0"))
+# Mined targets (data/freq_targets/gtow_raise_ranges.json, pooled): jams pooled across streets (n=29 — small,
+# but the classes agree: nutted); normal/huge raises pooled per street (huge folded into normal: river-huge is
+# AIR-heavy 47%, so treating it as normal is the conservative side).
+RAISE_MIX = {
+    "flop":  {"air": 0.529, "two-pair+": 0.160, "pair": 0.160, "top-pair": 0.137, "monster": 0.015},
+    "turn":  {"air": 0.333, "two-pair+": 0.271, "pair": 0.188, "top-pair": 0.125, "monster": 0.083},
+    "river": {"two-pair+": 0.350, "air": 0.210, "monster": 0.210, "pair": 0.130, "top-pair": 0.100},
+}
+RAISE_MIX_JAM = {"two-pair+": 0.414, "monster": 0.207, "pair": 0.172, "top-pair": 0.138, "air": 0.069}
 
 
 def _board_at(board: list[str], street: str) -> list[str]:
@@ -172,10 +189,11 @@ class RangeTracker:
                     del d[c]
             self._normalize(seat)
 
-    def _update_action(self, seat, action, facing, board, role, street) -> None:
+    def _update_action(self, seat, action, facing, board, role, street, size_cls=None) -> None:
         """Reweight `seat`'s range by the likelihood of the observed action.
-        bet/check (not facing) -> advisor P(bet); call/raise/allin (facing or first-in raise) -> legality-only
-        (multiply by 1; o3-safe). Fold ends the hand (not seen in a live line). Counts silent updates for conf."""
+        bet/check (not facing) -> advisor P(bet); call -> defense advisor P(call); raise/allin facing a bet ->
+        the mined GTOW raise-mix reweight under RAISE_NARROW (else legality-only; o3-safe). Fold ends the hand
+        (not seen in a live line). Counts silent updates for conf. size_cls: 'jam'|'normal' from the build walk."""
         d = self.range[seat]
         self.total[seat] += 1
         if action in ("bet",) and not facing:
@@ -212,10 +230,41 @@ class RangeTracker:
                     modeled = True
             if not modeled:
                 self.heur[seat] += 1
+        elif (RAISE_NARROW > 0 and action in ("raise", "allin") and facing
+              and street in RAISE_MIX and self._narrow_raise(seat, board, street, size_cls)):
+            # v3.3: raise-facing-bet reweighted toward the mined GTOW raise mix (see the flag block above);
+            # counts as a MODELED update (the mix is real evidence, so no heur bump). A raise is also
+            # aggression evidence for the alpha escalation, exactly like a barrel.
+            self.aggro[seat] = self.aggro.get(seat, 0) + 1
         else:
-            # other silent actions (raise/allin facing a bet, or an unmodeled size): legality-only (provably safe).
+            # other silent actions (an unmodeled size; raise/allin with the flag off): legality-only (provably safe).
             self.heur[seat] += 1
         self._normalize(seat)
+
+    def _narrow_raise(self, seat, board, street, size_cls) -> bool:
+        """Blend `seat`'s class mix toward the mined raise-range target: weight *= (target/current)^lambda per
+        made-hand class. True iff applied (guards: empty range / no class overlap -> caller falls to heur)."""
+        from pokerbot.engine.evaluator import made_class
+        d = self.range[seat]
+        if not d:
+            return False
+        target = RAISE_MIX_JAM if size_cls == "jam" else RAISE_MIX[street]
+        cls_of, mass = {}, defaultdict(float)
+        for c in d:
+            cls_of[c] = made_class(list(board), list(c))
+            mass[cls_of[c]] += d[c]
+        total = sum(mass.values())
+        avail = {k: v for k, v in target.items() if mass.get(k, 0.0) > 0.0}
+        z = sum(avail.values())
+        if total <= 0 or z <= 0:
+            return False
+        for c in d:
+            cls = cls_of[c]
+            if cls in avail:
+                ratio = (avail[cls] / z) / (mass[cls] / total)
+                d[c] *= ratio ** RAISE_NARROW
+            # a class outside the mined mix keeps its weight: never zero a live combo (the o3 bound)
+        return True
 
     def build(self, state) -> "RangeTracker":
         """Walk preflop priors + the postflop betting line, reweighting both seats' ranges. Defensive: any
@@ -226,6 +275,15 @@ class RangeTracker:
         try:
             cur_street = None
             street_bet = 0          # outstanding amount to call on the current street (0 = no bet yet)
+            # commitment walk for the v3.3 jam read: blinds are absorbed into commitments (no history rows);
+            # 'to' on aggressive rows = the street-CUMULATIVE round level (engine + gtowizard parity, verified)
+            bb = float(state.get("bb", 100))
+            btn = state.get("button", 0)
+            players = state.get("players", [])
+            starts = {s: float(players[s].get("stack", 0)) + float(players[s].get("committed_total", 0))
+                      for s in (0, 1)} if len(players) >= 2 else {0: float("inf"), 1: float("inf")}
+            committed = {btn: bb / 2.0, 1 - btn: bb}
+            round_c = dict(committed)
             for h in history:
                 act = h.get("action")
                 if act == "deal":
@@ -234,18 +292,31 @@ class RangeTracker:
                         cur_street = st
                         street_bet = 0
                         self._remove_dead(_board_at(board, st))
-                    continue
-                if cur_street is None or h.get("street") != cur_street:
-                    continue
-                if act not in ("bet", "raise", "allin", "check", "call", "fold"):
+                    round_c = {0: 0.0, 1: 0.0}               # new betting round
                     continue
                 seat = h.get("player")
                 if seat not in (0, 1):
                     continue
+                size_cls = None
+                if act in ("bet", "raise", "allin"):
+                    to = float(h.get("to") or h.get("amount") or 0.0)
+                    inc = max(0.0, to - round_c[seat])
+                    # a missing amount degrades to inc=0 -> 'normal' (never a false jam read)
+                    size_cls = "jam" if committed[seat] + inc >= starts[seat] - 1.0 else "normal"
+                    committed[seat] += inc
+                    round_c[seat] = max(round_c[seat], to)
+                elif act == "call":
+                    lvl = max(round_c.values())
+                    committed[seat] += max(0.0, lvl - round_c[seat])
+                    round_c[seat] = lvl
+                if cur_street is None or h.get("street") != cur_street:
+                    continue
+                if act not in ("bet", "raise", "allin", "check", "call", "fold"):
+                    continue
                 facing = street_bet > 0
                 if act != "fold":
                     self._update_action(seat, act, facing, _board_at(board, cur_street),
-                                        self._role(seat, state), cur_street)
+                                        self._role(seat, state), cur_street, size_cls)
                 # track the outstanding bet within the street
                 if act in ("bet", "raise", "allin"):
                     street_bet = max(street_bet, h.get("to") or h.get("amount") or 1)
