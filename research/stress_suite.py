@@ -55,6 +55,7 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_bd": {"POKERB_PRINCE": "1", "POKERB_BARREL_DISCIPLINE": "0.18"},
     "prince_v23": {"POKERB_PRINCE": "1", "POKERB_BARREL_DISCIPLINE": "0.18",
                    "POKERB_TURN_DEF_ADVISOR": "1", "POKERB_TURN_OVERBET": "1"},
+    "prince_probe": {"POKERB_PRINCE": "1", "POKERB_TURN_PROBE": "0.35"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")

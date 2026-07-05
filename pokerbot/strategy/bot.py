@@ -33,6 +33,12 @@ _ONTREE_RAISES = _gto_flag("POKERB_ONTREE_RAISES", "0") == "1"   # snap postflop
 _GTOW_NOLIMP = _gto_flag("POKERB_GTOW_NOLIMP", "0") == "1"       # SB root: renormalize limp->open/fold (GTOW's
                                                                  # tree has no limp -> limped pots are ungradeable)
 
+# PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
+# CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
+# there). OOP first-in on the turn AFTER villain checked back the flop -> boost the advisor's lead frequency by
+# this additive amount (capped at 0.85). Default OFF = byte-identical. This is a +EV correction, not a blind exploit.
+_TURN_PROBE = float(_gto_flag("POKERB_TURN_PROBE", "0"))
+
 # PRINCE v2.2 (stress-suite finding: the MDF-defense cluster = 22/70 constructed catastrophes in EVERY config —
 # one-pair/weak-two-pair stacks off vs 3rd barrels + overbet jams on monotone/double-paired boards; the equity calc
 # "sees" board-straight danger but not flush/paired danger vs a barreling range; default OFF = byte-identical):
@@ -432,6 +438,25 @@ class PokerBot:
         return self._hand_u
 
     @staticmethod
+    def _flop_checked_through(state) -> bool:
+        """True iff the FLOP betting round completed with NO bet (both players checked) — this caps the IP
+        preflop-raiser's range (Q6: GTOW check-backs 63% air, 1.9% traps), the turn-probe trigger."""
+        seen_flop, acted = False, 0
+        for h in state.get("history", []) or []:
+            a, s = h.get("action"), h.get("street")
+            if a == "deal" and s == "flop":
+                seen_flop, acted = True, 0
+                continue
+            if a == "deal" and s == "turn":
+                break
+            if seen_flop and s == "flop":
+                if a in ("bet", "raise", "allin"):
+                    return False                       # someone bet the flop -> not checked through
+                if a == "check":
+                    acted += 1
+        return acted >= 2                              # both players checked
+
+    @staticmethod
     def _villain_barrels(state, hero_ip: bool) -> int:
         """The opponent's postflop aggressive-action count so far (incl. the bet being faced). HU postflop
         actors strictly alternate starting OOP, so per-street index parity identifies the actor — hero is the
@@ -651,6 +676,12 @@ class PokerBot:
             role = "IP" if self._has_initiative(state) else "OOP"
             pb = pf_advisor.p_bet(hole, board, role, "turn")
             if pb is not None:
+                # v2.4 TURN-PROBE: OOP first-in vs a flop that checked through -> villain's range is capped, lead
+                # wider (Q6). Disjoint from every other lever (turn, first-in, OOP-caller, check-through only).
+                if (_TURN_PROBE > 0 and role == "OOP" and la.get("to_call", 0) == 0
+                        and not self._has_initiative(state) and self._flop_checked_through(state)):
+                    pb = min(0.85, pb + _TURN_PROBE)
+                    r["turn_probe"] = _TURN_PROBE
                 r["advisor_pbet_turn"] = round(pb, 2)
                 if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
