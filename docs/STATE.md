@@ -39,6 +39,18 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★ CLOSING MEASUREMENT — HONEST READ (2026-07-06 ~06:30): hu_final_1500 = EV-loss 20.71, GTO-score
+831/355/314 (n=1500, seed 61).** Score = the BEST of the night (831 correct > v5c 826 > purify 822 >
+anchor_f 809) — full modal stacking maximizes GTOW agreement. EV-loss 20.71 is UNPAIRED on a fresh seed
+(no seed-61 anchor exists; night anchors drifted 17.5-21.3 for the same profile) → sits inside the anchor
+band, so it demonstrates NEITHER an EV gain NOR a loss in isolation. HONEST CAVEAT: this is the FIRST run
+of the full stack together; each lever was paired vs a DIFFERENT anchor/seed, and the family-E lesson
+proved levers don't always compose (tob/bd vanished in-stack). Best-score + high-EV-loss = the documented
+score-vs-EV tension ([[gto-score-vs-ev-tradeoff]]) — a composition-drag risk that is NOT ruled out. The
+ONLY clean resolution = a paired ABLATION on seed 61 (final / final-purify / final-v5c) — NOT SHIPPED,
+offered to the user. Profile stays as promoted (each lever won its OWN paired gate); the closing number
+is a score win + an EV non-result, reported without spin. ID ledger: 92000+1500 burned; next free 94000+.
+
 **★★★★★ THE FINAL PROFILE OF THE NIGHT (2026-07-06 ~06:00) — PRINCE = GTO_MODE + deception + v3 +
 v3.3 RAISE_NARROW + OVERBET_MENU + PURIFY + TURN_DEF_ADVISOR (v5C, family-F winner 17.19 vs 19.06 =
 -1.87). Family F also: v5A PURIFY2 neutral (-0.41, parked), v5B OBM=2+BD refuted (+1.33, parked; 3.0x
