@@ -39,6 +39,18 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★★★ PURIFY PROMOTED + THE DANGER MAP (2026-07-06 ~04:00). Ladder tonight: 24.90 → 19.41 (v3.3) →
+16.45 (OBM) → 14.80 (PURIFY) — three promotions in one night, all family-paired.** PURIFY 14.80 vs
+anchor 16.45 = −1.65 BORDERLINE over the 1.5 screen, promoted on the independent SCORE confirmation
+(822/358 correct/wrong vs 792/378 — the modality mechanism is real; replay had it 19<25 too). Next
+family's anchor re-verifies (rollback = one env flag). **THE DANGER MAP (hu_danger_1500: 1,500 hardest
+spots from 6,000 champion hands; EV-loss 50.18 BY DESIGN — never compare to normal sets): 591 Wrong >
+559 Correct in the danger zone; top losers are a razor-sharp CLASS: bloated-pot marginal-hand
+RAISE-confrontations (98o 287bb-pot river x-b-R −84bb! · Q7o river bet-raise-call −29 · A2o/A6o
+check-raise-line call-downs −28/−21 · A9o 3bet barrel-then-river-fold −19). v3.3 narrows raise RANGES;
+the CALL/commit thresholds in already-bloated pots are the remaining mega-burn → NEXT LEVER FAMILY =
+commit-discipline vs raises in big pots (corset/Mr-Orange exact-BR territory). ID-Ledger: 66000-72009
+danger (sparse), 74000+ purify; next free block 76000+.**
 **★★★★ OVERBET_MENU PROMOTED (2026-07-06 ~03:00) — the Princedarkness lever wins family D: 16.45 vs
 anchor 21.27 (−4.82, seed-57 paired; anchor already carries v3.3!).** ALL THREE style arms cleared the
 screen (TURN_OVERBET −4.17, BARREL_DISCIPLINE −3.55 → QUEUED for family E vs the new anchor, one-winner

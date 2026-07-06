@@ -59,6 +59,13 @@ PRINCE_PROFILE = {
     # (-4.82, seed-57; the round's single best - TURN_OVERBET -4.17 and BARREL_DISCIPLINE -3.55 also
     # cleared and are QUEUED for family E vs the new anchor, per the one-winner rule).
     "POKERB_OVERBET_MENU": "1",
+    # L1 PURIFY (2026-07-06 ~04:00): modal action at the 8 big mixing gates — the conditional-lemma knob
+    # (vs the STATIC GTOW mixing is pure variance). Gates: stress 20=baseline · replay 19<25 BETTER ·
+    # paired Analyzer 14.80 vs anchor 16.45 (seed-57; -1.65 = a BORDERLINE pass over the 1.5 screen,
+    # promoted because the independent SCORE dimension confirms the mechanism: 822/358 correct/wrong vs
+    # the anchor's 792/378 — modality itself is what the grader rewards; next family's anchor re-verifies).
+    # GTOW-LADDER ONLY by doctrine: vs humans mixing must stay (this profile is the GTOW benchmark profile).
+    "POKERB_PURIFY": "1",
 }
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number.
