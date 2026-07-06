@@ -39,6 +39,12 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★ THE BOT IS NAMED: QUANTPLAY V8 (user, 2026-07-06 ~09:00) — git tag `quantplay-v8` = the converged
+final profile (GTO_MODE base + deception + v3 + RAISE_NARROW + OVERBET_MENU + PURIFY + TURN_DEF_ADVISOR;
+fingerprint in gto_mode.PRINCE_PROFILE). Leaderboard expectation pre-registered: live AIVAT central
+estimate −15..−20 bb/100 (band −12..−25 incl. tail exposure) ≈ rank #8-12 — NOT yet top 5; the claim
+instrument = the 2,500-hand live precision run (turn-ON, fixed harness), nothing tonight was
+live-measured (the v3.3 smoke never reported). Anything better than −8 = artifact-suspect by doctrine.**
 **★★★ THE LAST WORD (2026-07-06 ~08:30): RAISE_COMMIT DANGER-PAIRED = REFUTED, decisively. On the
 1,500 anchor-dangerous deals (same indices both arms, the danger_pair.py instrument): anchor 47.41 vs
 rcd 55.37 = +7.96 WORSE. The flat +0.07 raise-respect folds away the CORRECT call-downs too (642->611
