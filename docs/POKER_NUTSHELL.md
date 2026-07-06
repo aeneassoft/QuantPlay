@@ -53,3 +53,23 @@ VERIFIZIERT — echte Unvorhersehbarkeit menschlichen Verhaltens ist erreichbar/
 - **Determinismus-Tension:** wir seeden die RNG BEWUSST für Reproduzierbarkeit (Byte-Identität, deterministische
   Messung). CSPRNG bricht das. Auflösung = Kontext-Split (wie Purify): geseedet fürs MESSEN/Analysieren, CSPRNG
   fürs LIVE-Spiel vs Menschen. Low-Prio vs der River/Range-Arbeit; notiert als Deception-Layer-Upgrade.
+
+## WELLEN-SUPERPOSITION (User-Zeichnung #2, 2026-07-06) — der messbare Formalismus
+These: Bluffing + Bet-Sizings = überlagerte Wellen; Superposition erzeugt eine Gesamt-Varianz "bigger than
+the sum". Mathematisch exakt: Var(X+Y) = Var(X)+Var(Y)+2·Cov(X,Y) → positive Korrelation = größer als Summe.
+**ZWEI ACHSEN, entgegengesetzte Rezepte (die eigentliche Vereinigung):**
+- **Innerhalb der Hand (die Linie über Straßen): KONSTRUKTIVE Interferenz gewollt.** Ein kohärenter Barrel-
+  Plan (Flop→Turn→River als EINE Welle) erzeugt mehr Fold-Equity als 3 unabhängige Bets = "bigger than the
+  sum" als MACHT. = unser LINE_U / Line-Coherence. Straßen-Wellen phasengleich.
+- **Über Hände (der beobachtete Aktions-Stream): WEISSES Spektrum gewollt.** Stream soll wie Rauschen
+  aussehen → kein Adversar findet eine Frequenz. = Obfuscation, jetzt MESSBAR via Leistungs-Spektraldichte /
+  spektrale Flachheit (Wiener-Entropie) / Autokorrelation. Spitzen = ausbeutbares Muster; flach = unlesbar.
+Ein Formalismus, der Line-Coherence + Obfuscation + Polarisierung (die zwei Amplituden des V) + Seesaw eint.
+
+**PROOF OF CONCEPT (2026-07-06, $0):** Spektralanalyse unseres Aktions-Streams (14.941 Entscheidungen):
+lag-1-Autokorr −0.34, spektrale Flachheit 0.48 (weit von weiß 1.0), größte Spitze 13.8× Mittel = REALE
+Struktur → das Instrument feuert, die Achse ist real. KAVEAT: der Rohstream ist durch Setz-Runden-Mechanik
+konfundiert; das PROPER-Instrument (research/strategy_spectrum.py, geplant) isoliert per-Spot-Typ nur die
+echten MIXING-Entscheidungen. GRENZE: misst REALISIERTE Vorhersehbarkeit (vs ADAPTIVE Beobachter) = der
+Deception/Obfuscation-Track (vs Menschen), NICHT der GTOW-bb-Track (statisch, pattern-matcht unseren Stream
+nicht). Aber es IST die rigorose Form von "sei ein sauberes Seesaw".
