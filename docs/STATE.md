@@ -39,6 +39,17 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★ THE CLOSING DOUBLE-VERDICT (2026-07-06 ~07:30): final_a (seed 62) = 18.33 IN-BAND · final_b
+(seed 63) = 39.87 — and the per-hand drill PROVES the tail thesis: KJ top-pair called through flop
+check-raise AND river raise into a 400bb pot (−200bb real, 39.86 EV-loss in ONE hand) + J9 analog
+(345bb, 38.25) = two hands ≈ 10bb/100 of the seed gap; the coolers (85s, KK-pre) graded ~0 EV-loss =
+the grader separates coolers from crimes. CONCLUSION, sharpened: the converged bot's mean is
+seed-hostage to the BLOATED-POT RAISE-CONFRONTATION class — scoreboard-proven at n=3000. The final
+tweak candidate is now EMPIRICALLY MOTIVATED: RAISE_COMMIT (parked in family E because normal sets
+cannot see the class) must be tested DANGER-PAIRED (both arms danger-filtered, same seed) — the class
+costs ~20bb/100 when deals serve it, and vs the static GTOW an over-tight raise-respond is nearly
+free (dossier: GTOW does not exploit adaptation). Combined closing read: (18.33+39.87)/2 ≈ 29 over
+3,000 = the honest wide-band estimate; the night's paired DELTAS stay valid.**
 **★★★★★ CONVERGED FINAL BOT + THE 3000-HAND CLOSING SET (2026-07-06 ~07:00).** DECISION: the final
 bot = the CURRENT profile, ZERO changes — the promotion chain is LINK-WISE PAIRED-VALIDATED (v3.3 on v3 ·
 OBM on v3.3 · PURIFY on v3.3+OBM vs obm_d · TDA on the full stack in family F), so the stack is NOT an
