@@ -31,7 +31,7 @@ from pokerbot.benchmark.slumbot import BB, SB, STACK, STREETS, parse_tokens
 from pokerbot.engine.equity import equity_vs_hand
 
 # Board-card counts revealed at the START of each postflop street's betting (the cards out when an all-in lands there).
-_BOARD_AT = {"flop": 3, "turn": 4, "river": 5}
+_BOARD_AT = {"preflop": 0, "flop": 3, "turn": 4, "river": 5}   # cards out when the chips went in (preflop all-in = 0)
 
 
 def _reconstruct(action: str, button: int) -> dict:
