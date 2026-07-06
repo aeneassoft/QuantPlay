@@ -73,3 +73,26 @@ konfundiert; das PROPER-Instrument (research/strategy_spectrum.py, geplant) isol
 echten MIXING-Entscheidungen. GRENZE: misst REALISIERTE Vorhersehbarkeit (vs ADAPTIVE Beobachter) = der
 Deception/Obfuscation-Track (vs Menschen), NICHT der GTOW-bb-Track (statisch, pattern-matcht unseren Stream
 nicht). Aber es IST die rigorose Form von "sei ein sauberes Seesaw".
+
+## FREQUENZBAND-ARCHITEKTUR — die echte Struktur-Einsicht der Wellen-Sicht (2026-07-06)
+Die Strategie zerlegt in drei Bänder, jedes mit eigenem Mechanismus/Hebel/Messung:
+- **NIEDRIG (DC):** Baseline, handstärke-proportional. Blueprint + Census-Tree. Fast gelöst; TexasSolvers
+  Bet-Menü-ABSTRAKTION lebt hier (beschränkter Leak, teils via GTOW_TREE geschlossen).
+- **MITTEL:** strategische Welle (Over/Underbet für Fold-Equity + Extraction). Resolver-Deviations.
+  RANGE-abhängig = DER bb-Hebel. Hier lebt auch die Polarisierung (B/(P+B)).
+- **HOCH:** Mixing/Randomisierung (Seesaw-Rauschen). Soll WEISS sein → CSPRNG vs adaptive Gegner.
+
+**★ DIE TRÄGERWELLEN-EINSICHT (der Mechanismus hinter "Range-Qualität multipliziert alles"):** die Range
+ist die TRÄGERWELLE; die strategische Mittelband-Welle ist eine FUNKTION der Range. Falsche Range =
+richtige Frequenzen auf falsches Trägersignal moduliert → der Fehler korrumpiert die GANZE Welle, nicht
+eine Entscheidung. Das ist die spektrale Erklärung, warum Range-Fehler jedes Organ multiplizieren (OpenAI
+4× bestätigt, hier MECHANISTISCH begründet). → Range-Kalibrierung säubert die Trägerwelle = zugleich der
+größte bb-Hebel UND der TexasSolver-Divergenz-Fix (dieselbe Stelle).
+
+## TEXASSOLVER-DIVERGENZ vs GTOW — ehrlicher Stand (2026-07-06)
+NICHT sauber gemessen (die 91.63 waren River-Only-Confound; 2,2%/Entscheidung = gut; Version A vermischt
+Abstraktion + Range-Fehler + rohe GTO-Basis). Konstruktionsbedingte echte Divergenz, Reihenfolge:
+RANGE-Fehler (unser Leak, dominant → Kalibrierung) ≫ Konvergenz (messbar via _exploitability_pct →
+Iterationen hoch) > Bet-Menü-Abstraktion (beschränkt → Census-Menü, Gefahr Über-Anreichern). Saubere
+Messung = der laufende river_coherence-Diagnose-Score + das Off-Tree-Kreuz-Experiment. Ehrliche Decke: wir
+erben TexasSolvers abstraktions-limitierte Exploitability, aber Ranges dominieren.
