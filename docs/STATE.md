@@ -39,6 +39,18 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★ THE LAST WORD (2026-07-06 ~08:30): RAISE_COMMIT DANGER-PAIRED = REFUTED, decisively. On the
+1,500 anchor-dangerous deals (same indices both arms, the danger_pair.py instrument): anchor 47.41 vs
+rcd 55.37 = +7.96 WORSE. The flat +0.07 raise-respect folds away the CORRECT call-downs too (642->611
+correct) — GTOW raise ranges are POLARIZED (census: river raises 16% air), so blanket extra respect
+pays out the bluffs and costs ~8/100 on the danger class it was meant to protect. The 5th refutation
+of the flat-adjustment family (frequency/threshold WITHOUT selection loses — now proven on a
+class-dense paired instrument too). The KJ/J9 mega-blunders need a SELECTIVE fix (blocker/hand-aware
+raise-response = the Mr-Orange/exact-BR future), not a threshold. POKERB_RAISE_COMMIT stays
+default-OFF forever-unpromoted. **THE CONVERGED PROFILE FROM ~07:00 STANDS AS THE FINAL BOT OF THIS
+CAMPAIGN** — every in-profile lever paired-won, every parked candidate honestly measured out. Session
+complete; the map for the next one: local live anchor (2,500 turn-ON), selective raise-response
+(Mr-Orange exact-BR), flop library (pod-scale), local-AIVAT instrument.**
 **★★ THE CLOSING DOUBLE-VERDICT (2026-07-06 ~07:30): final_a (seed 62) = 18.33 IN-BAND · final_b
 (seed 63) = 39.87 — and the per-hand drill PROVES the tail thesis: KJ top-pair called through flop
 check-raise AND river raise into a 400bb pot (−200bb real, 39.86 EV-loss in ONE hand) + J9 analog
