@@ -63,3 +63,17 @@ Phase 1 (Range-Wahrheit) IST der River-Engpass-Fix. NEU eingereiht: Polarisierun
 sofort baubar) + River-Diagnose-Score (Messung vor jedem River-Hebel) + uint8-River-Cache (Compact CFR).
 Das River-CFV-Netz ist der ERSTE Pflaster-Netz-Kandidat (Supremus river-first), aber nachrangig — nach
 Range-Wahrheit, als schmaler Fallback, nicht als Motor.
+
+## PARAMETRISCHE RANGE-WELLE — die konkrete Methode für Range-Kalibrierung (User + Brokos, 2026-07-06)
+Quelle: Brokos "Play Optimal Poker 2: Range Construction" (S.4): River-Ranges sind polarized/condensed
+(saubere 1D-Wellen über Stärke); VOR dem River evolvieren Ranges mit der Zukunftskarte ("hands change
+value") = KEINE statische Welle → der mathematische Grund für die Straßen-Doktrin.
+**METHODE (Phase 1, River zuerst):** Repräsentiere die River-Range als GLATTE POLARISIERTE FUNKTION
+(Achsen: Stärke × Blocker-Dimension, Polarisierungs-Grad, Value/Bluff/Medium-Massen) statt als 1326 freie
+Gewichte → GLATTHEITS-PRIOR regularisiert die Rekonstruktion (kann nicht mehr überkonfident-zackig werden
+= greift die "confident-wrong"-Quelle an) → kalibriere gegen GTOW-Reveals → optimiere GEMEINSAM mit der
+Bet-Frequenz-Welle ("Harmonie" = Polarisierungs-Konsistenz = der B/(P+B)-Fix als Wellen-Ko-Optimierung).
+**GRENZEN (ehrlich):** (a) 1D-Stärke verliert Blocker-Info → mind. 2 Achsen (Stärke+Blocker), sonst
+Suit-Aliasing; (b) TURN/FLOP: Range evolviert mit der Karte → statische Welle unvollständig, bräuchte die
+Range-Welle als Funktion der Zukunftskarte (schwerer). (c) Glattheits-Gewinn vs Blocker-Verlust = EMPIRISCH,
+via Reveal-Daten messbar. Strongest auf dem River (Brokos: dort saubere Wellen) = genau der Fokus.
