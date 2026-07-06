@@ -94,7 +94,9 @@ _SLOWPLAY = float(_gto_flag("POKERB_SLOWPLAY", "0"))
 # L1 PURIFY (conditional lemma, 2026-07-06): vs a STATIC near-GTO opponent mixing is pure variance ->
 # substitute the modal action (draw u == 0.5) at the big mixing gates. GTOW-ladder arm ONLY (vs humans
 # mixing stays). v0 scope: 3 advisor bet/check gates + 3 cbet gates + slowplay + blueprint call/jam.
-_PURIFY = _gto_flag("POKERB_PURIFY", "0") == "1"             # trap frequency: check this fraction of strong flop
+_PURIFY = _gto_flag("POKERB_PURIFY", "0") == "1"
+# DANGER-MAP lever (2026-07-06): extra equity demanded when facing a RAISE of our own street action
+_RAISE_COMMIT = float(_gto_flag("POKERB_RAISE_COMMIT", "0"))             # trap frequency: check this fraction of strong flop
                                                                  # hands (measured: P(check|top pair K)=23.6% vs GTO
                                                                  # 30-50% -> P(K|check)=9% = a readable check range)
 
@@ -640,6 +642,14 @@ class PokerBot:
                     and to_call / max(1.0, pot - to_call) <= 1.0):
                 call_thresh = max(0.0, call_thresh - _PAIR_DEFENSE)
                 r["pair_defense_mdf"] = _PAIR_DEFENSE
+            # DANGER-MAP LEVER (2026-07-06, hu_danger top burns: Q7o river bet-raise-call -29bb, A2o/A6o
+            # check-raise-line call-downs -28/-21bb in 100-290bb pots): facing a RAISE of our own street
+            # action (hero_committed > 0) in an already-BLOATED pot (>=25bb), demand extra equity on the
+            # MDF path - v3.3 narrows the raise RANGE, this prices the CALL on top. v0 scope: the MDF
+            # branch only (turn/river raises; flop raises resolve in the defense-advisor branch above).
+            if _RAISE_COMMIT > 0 and hero_committed > 0 and pot >= 2500:
+                call_thresh = min(1.0, call_thresh + _RAISE_COMMIT)
+                r["raise_commit"] = _RAISE_COMMIT
             # v3 LEVER 2 (river bluffcatch): vs SMALL river bets (<=0.6 pot) with a bluffcatcher, defend closer to
             # MDF (we continue 47% vs MDF 57%; 23% of folds were AHEAD; the -18pp gap is worst vs small sizes).
             # PRECEDENCE: the barrel-discipline danger class (monotone/double-paired vs 2nd+ barrel) keeps its

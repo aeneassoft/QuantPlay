@@ -71,6 +71,8 @@ CONFIGS: dict[str, dict[str, str]] = {
     "prince_obm": {"POKERB_PRINCE": "1", "POKERB_OVERBET_MENU": "1"},
     # L1 purify (2026-07-06): modal action at the 8 big mixing gates (score-experiment arm, GTOW-only)
     "prince_pur": {"POKERB_PRINCE": "1", "POKERB_PURIFY": "1"},
+    # danger-map raise-commit discipline (2026-07-06)
+    "prince_rcd": {"POKERB_PRINCE": "1", "POKERB_RAISE_COMMIT": "0.07"},
 }
 BASE_ENV = {"POKERB_RESOLVER": "0", "POKERB_TURN_RESOLVER": "0"}
 ACTS_CONTINUE = ("call", "bet", "raise", "allin")
