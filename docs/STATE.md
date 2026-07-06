@@ -39,6 +39,15 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★★★ CONVERGED FINAL BOT + THE 3000-HAND CLOSING SET (2026-07-06 ~07:00).** DECISION: the final
+bot = the CURRENT profile, ZERO changes — the promotion chain is LINK-WISE PAIRED-VALIDATED (v3.3 on v3 ·
+OBM on v3.3 · PURIFY on v3.3+OBM vs obm_d · TDA on the full stack in family F), so the stack is NOT an
+untested bundle; only the 20.71 was unpaired noise. The 91.5%-confidence bar was applied to every parked
+candidate and NONE clears it (bd +0.19 coin-flip, purify2 -0.41 neutral + untested-with-TDA, rcd/tob
+wrong-signed) -> converge, don't gamble. CONVERGENCE CERTIFICATE (fresh, this profile): math suite 20/20 ·
+stress 18 irr/0 nit/0 err (BETTER than the 20-spot baseline - TDA heals 2) · replay in-band · tree clean.
+Closing set = 2x1500 (seeds 62+63, ids 94000/96000) = two deal-sets, upload-safe; final-tweak option
+stays open after the user's verdict. ID ledger: next free 98000+.
 **★ CLOSING MEASUREMENT — HONEST READ (2026-07-06 ~06:30): hu_final_1500 = EV-loss 20.71, GTO-score
 831/355/314 (n=1500, seed 61).** Score = the BEST of the night (831 correct > v5c 826 > purify 822 >
 anchor_f 809) — full modal stacking maximizes GTOW agreement. EV-loss 20.71 is UNPAIRED on a fresh seed
