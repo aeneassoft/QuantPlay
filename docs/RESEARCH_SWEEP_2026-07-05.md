@@ -221,3 +221,16 @@ UNVERÄNDERT: SSMIG + Iso-Augmentation als gegatete Engineering-Hebel, Theorie n
   Flop selbst lösen (aber Roadmap = Library + Leaf-Netz, nicht MCCFR) oder (b) einen v4-Label-Gen-Kern bauen
   (deep_cfr.py, getrennt von TexasSolver). Die CFR-Variante ist NICHT der Engpass; Range-Qualität + Flop-
   Abdeckung sind es (Präzisions-Doktrin: wir nutzen bereits die präzisere Full-Width-Variante).
+
+## "Quantized Poker" (Bleiler 2009, arXiv:0902.2196) — VERIFIZIERT, überträgt NICHT
+- Quanten-Spieltheorie (Meyer/EWL-Tradition): Poker-Endgames im Quanten-Realm; "entangled poker"
+  schlägt Real-Life-Ergebnisse — ABER nur "when played in the coming quantum computation environment or
+  with quantum information". Vorteil hängt an VERSCHRÄNKUNG + Quanten-Protokoll zwischen den Spielern.
+- **VERDIKT: kein Transfer auf unseren klassischen Bot vs GTOW.** Online-Poker hat keinen Quanten-Kanal,
+  keine Verschränkung — wir können Bet-Aktionen nicht als verschränkte Amplituden spielen. Das Paper
+  bestätigt SELBST die Grenze (der Vorteil existiert per Konstruktion nur im Quanten-Realm). Definitive
+  Zitation, dass der Quanten-FORMALISMUS nicht überträgt; Poker-Mixing = klassische Wahrscheinlichkeit.
+  Schatten: Verschränkung erreicht korr. GG ohne Mediator — aber HU: CE=Nash (kein Gewinn); 6-max: CE
+  schlägt Nash-Produkt, doch wir können Verschränkung nicht nutzen (kein Kanal). Kein operatives Werkzeug.
+- Übertragbar bleibt NUR die klassische harmonische Analyse (Fourier/Spektral = Obfuscation-Metrik +
+  Trägerwellen-Einsicht, docs/POKER_NUTSHELL.md). Der Wellen-Kern ist klassisch, nicht quanten.
