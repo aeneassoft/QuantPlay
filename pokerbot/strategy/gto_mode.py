@@ -66,6 +66,11 @@ PRINCE_PROFILE = {
     # the anchor's 792/378 — modality itself is what the grader rewards; next family's anchor re-verifies).
     # GTOW-LADDER ONLY by doctrine: vs humans mixing must stay (this profile is the GTOW benchmark profile).
     "POKERB_PURIFY": "1",
+    # v5C "Defense Complete" -> THE FINAL PROMOTION of the 2026-07-06 night (family F: 17.19 vs anchor
+    # 19.06 = -1.87 paired seed-60; the trained turn-defense head finally gets its arm and wins; siblings:
+    # v5A PURIFY2 neutral -0.41, v5B OBM=2+BD refuted +1.33 - both parked). Hand-aware turn fold/call/raise
+    # replaces the scalar MDF threshold exactly where the stress cluster lives.
+    "POKERB_TURN_DEF_ADVISOR": "1",
 }
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number.

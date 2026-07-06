@@ -39,6 +39,13 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★★★ THE FINAL PROFILE OF THE NIGHT (2026-07-06 ~06:00) — PRINCE = GTO_MODE + deception + v3 +
+v3.3 RAISE_NARROW + OVERBET_MENU + PURIFY + TURN_DEF_ADVISOR (v5C, family-F winner 17.19 vs 19.06 =
+-1.87). Family F also: v5A PURIFY2 neutral (-0.41, parked), v5B OBM=2+BD refuted (+1.33, parked; 3.0x
+arm too far). Night ladder: 24.90 -> 19.41 -> 16.45 -> 14.80 (seed-57 scale) + v5C on top. FINAL SET
+hu_final_1500 (seed 61, ids 92000+) = the complete bot, user-analyzed as the closing measurement.
+Next session: fresh live anchor (2,500 turn-ON), danger-paired RAISE_COMMIT, river-raise-overbet build,
+Mr-Orange. ID ledger: 84000-91500 burned by family F; 92000+ = final set; next free 94000+.**
 **★ FAMILY E: NO PROMOTION (2026-07-06 ~05:00) — the one-winner rule VINDICATED.** anchor_e
 (v3.3+OBM+PURIFY, seed 59) = 17.54; bd_e +0.19 neutral · rcd_e +1.22 · tob_e +1.95 → all parked. The
 family-D "winners" tob (−4.17) / bd (−3.55) DID NOT replicate against the base that now carries
