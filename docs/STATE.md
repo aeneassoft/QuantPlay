@@ -39,6 +39,14 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★★★ NEW GOVERNING DOCTRINE (User, 2026-07-06): PRECISION, NOT BEHAVIOR — docs/PRECISION_DOCTRINE.md.**
+Optimize decisions by computing them MORE ACCURATELY (solver convergence, exact enumeration, truer
+ranges vs revealed cards, precompute, small PATCH value-nets that deepen solves); behavioral levers
+(thresholds/menus/modality) demoted to gated exceptions, never stacked. The −19.70 tag-v2 bot = the ONLY
+validated benchmark; every step measures against it. Net track reframed per user: NO primary net — patch
+nets only; first patch = turn-boundary CFV net to unlock the flop resolver (Gate 0 Leduc iterating:
+first run FAIL 871 vs bar 10 mbb, cause isolated = 90-situation data starvation + unconverged labels;
+oracle-trunk 53.9 proves the machinery; iteration with 3-5k situations/1k-iter labels running).
 **★★★ THE LIVE BREAKAGE + THE ISOLATION CAMPAIGN (2026-07-06 afternoon).** The 2,500 live run was
 ABORTED at 1,375 hands: AIVAT −58..−63 (band was −12..−25) — systemic from hand 1 + a −271/100 disaster
 block. DIAGNOSIS (ranked candidates, full analysis in chat/commit): K1 PURIFY×resolver hero-range
