@@ -37,3 +37,19 @@ Nie in einem Modus verharren; ewig oszillieren, sonst wird man lesbar.
   wird das Umschalten über Zeit (Red Queen) zum Exploit.
 - Bankroll/Varianz = bewusste Achse (mehr Bluffen = mehr Varianz). Noch NICHT als expliziter Regler
   formalisiert — Kandidat: ein Varianz/Bankroll-Dial über der Bluff-Frequenz.
+
+## OBFUSCATION / kryptografische Unvorhersehbarkeit (User, 2026-07-06)
+Papers: Suppes, "On an Example of Unpredictability in Human Behavior" (Philosophy of Science 31(2), 1964,
+VERIFIZIERT — echte Unvorhersehbarkeit menschlichen Verhaltens ist erreichbar/wertvoll) + biorxiv
+2025.11.16.688665 (403-blockiert, UNGEPRÜFT).
+- **Kern:** das Seesaw braucht ZWEI Dinge — (a) balancierte FREQUENZEN (Spieltheorie, nicht-verhandelbar) UND
+  (b) unvorhersehbare REALISIERUNG. Unsere Mischung nutzt `random.Random` (Mersenne-Twister, NICHT
+  kryptografisch); ein Gegner, der genug unseres Aktions-Streams sieht, könnte künftige "Zufalls"-Wahlen
+  prinzipiell vorhersagen. CSPRNG (secrets/os.urandom) macht die Realisierung unvorhersehbar SELBST für einen
+  Gegner, der unsere Strategie kennt.
+- **EHRLICHE Grenze:** obfuscation ≠ balance. Man kann eine UN-balancierte Range nicht wegobfuskieren — GTOW &
+  Re-Solver exploiten die RANGE, nicht die RNG-Sequenz. Also: zweit-Ordnung ÜBER der Balance, relevant vs
+  ADAPTIVE Mustererkenner (Menschen/adaptive Bots), IRRELEVANT vs statischen GTOW (Benchmark).
+- **Determinismus-Tension:** wir seeden die RNG BEWUSST für Reproduzierbarkeit (Byte-Identität, deterministische
+  Messung). CSPRNG bricht das. Auflösung = Kontext-Split (wie Purify): geseedet fürs MESSEN/Analysieren, CSPRNG
+  fürs LIVE-Spiel vs Menschen. Low-Prio vs der River/Range-Arbeit; notiert als Deception-Layer-Upgrade.

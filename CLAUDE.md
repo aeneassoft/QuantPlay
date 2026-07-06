@@ -4,6 +4,22 @@
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the
 scaffold** the brain drives. Built across many sessions — see the user memory + `docs/STATE.md` for history.
 
+> **★★★★★ POKER IN A NUTSHELL — DIE FUNDAMENTALE LINIE (User-Zeichnung, 2026-07-06; docs/POKER_NUTSHELL.md).**
+> Poker = die UNVORHERSEHBARE WELLE (Over/Underbet) um die Handstärke, gerahmt von zwei berechenbaren Ankern
+> (Preflop = pure Statistik; River = „The Bill", wo alles beglichen wird). Die Welle (Flop/Turn = Spieltheorie)
+> dient zwei Zwecken: FOLD EQUITY (mehr betten → Folds) + EXTRACTION/Milking (weniger betten → Gegner melken).
+> Das Ganze MUSS ein SEESAW sein (always switching up → unpredictable + noise) — hörst du auf zu schaukeln,
+> wirst du lesbar. **DIESES MODELL IST PRÄDIKTIV:** es erklärt den v8-Live-Bruch (Purify flachte das Seesaw ab →
+> Check-Range transparent → −20 auf −58), die Value/Bluff-Polarisierung (Gewicht je Ast am Bill), die Straßen-
+> Doktrin (Preflop/River rechnen, Flop/Turn = Welle, Fold-Equity-Job) und die River-Primacy. **BINDEND: der Bot
+> ist ein Seesaw, kein Fixpunkt — das Mixing/die Deception NIE abflachen. Balance = nicht-verhandelbar; das
+> Schaukeln SELBST ist der Edge; gegen adaptive Gegner wird das Umschalten über Zeit (Red Queen) zum Exploit.
+> Bankroll/Varianz (mehr Bluffen = mehr Varianz) = eine noch un-formalisierte Achse.** OBFUSCATION-Erweiterung
+> (User): kryptografische Unvorhersehbarkeit der REALISIERUNG (CSPRNG statt Mersenne-Twister) für maximale
+> Uneinsichtbarkeit — relevant vs ADAPTIVE Gegner (Menschen), irrelevant vs statischen GTOW (der die RANGE
+> exploitet, nicht die RNG-Sequenz); zweit-Ordnung ÜBER der Balance (obfuscation ≠ balance). Determinismus-
+> Tension: geseedete RNG fürs MESSEN, CSPRNG fürs LIVE-Spiel vs Menschen (Kontext-Split, wie Purify).
+>
 > **★★★★★ OPERATIVE DOKTRIN (User, 2026-07-06) — PROFIT-EMPIRISMUS. ZIEL: GTOW-LEADERBOARD TOP 5.**
 > Wir sind zuerst eine **statistische Mustererkennungs-Maschine über Millionen Händen**: es zählt
 > ausschließlich, was bb druckt ("nur bb zählen", jetzt radikalisiert). **Formeln sind SUPPENFLEISCH** —
