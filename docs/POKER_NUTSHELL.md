@@ -96,3 +96,18 @@ RANGE-Fehler (unser Leak, dominant → Kalibrierung) ≫ Konvergenz (messbar via
 Iterationen hoch) > Bet-Menü-Abstraktion (beschränkt → Census-Menü, Gefahr Über-Anreichern). Saubere
 Messung = der laufende river_coherence-Diagnose-Score + das Off-Tree-Kreuz-Experiment. Ehrliche Decke: wir
 erben TexasSolvers abstraktions-limitierte Exploitability, aber Ranges dominieren.
+
+## RANGE-BESTIMMUNG: zwei Achsen + die EV-Präzisierung (User, 2026-07-06)
+- **VPIP-basiert = VILLAINS Range (EXPLOIT-Achse).** Populations-/Stats-Prior = der DC-Grundton der
+  gegnerischen Range, bevor die Linie ihn updated (unsere opp_model/Dirichlet). Nützlich vs MENSCHEN,
+  ~0 vs GTOW (statisch). KOMBINIEREN nicht ersetzen: Prior → per beobachtete Linie updaten (= der Tracker).
+- **Preflop-Portfolio + diverse Postflop = UNSERE Range (GTO-Achse, Brokos).** Man "kauft sich in" ein
+  Hand-Portfolio ein, das postflop diverse Linien (Value/Bluff/Protection/Trap) fahren kann.
+- **★ EV-PRÄZISIERUNG (User-Formulierung geschärft):** Diversität ERHÖHT NICHT den spieltheoretischen Wert
+  (gegen GTO ist der Spielwert fest). Sie kauft: (1) EV-SCHUTZ (Balance = unausbeutbar, kein Angriffspunkt),
+  (2) EV-REALISIERUNG (Equity besser einlösen), (3) EV-CAPTURE nur vs SCHWACHE Gegner (richtige Linie pro
+  Gegner = Exploit). Präzise: unausbeutbarer + bessere Realisierung, NICHT höherer Spielwert.
+- **★ WELLEN-VERBINDUNG:** die Preflop-Range setzt die BANDBREITE der postflop-Welle. Reiches Portfolio =
+  weite Bandbreite = volle Over/Under-Bet-Welle (Fold-Equity + Extraction, das ganze V) spielbar. Enges
+  Portfolio = schmale Bandbreite = vorhersehbar = ausbeutbar. VPIP verfeinert die GEGNER-Trägerwelle
+  (Exploit-Prior); das Portfolio setzt die EIGENE Bandbreite (GTO-Konstruktion).
