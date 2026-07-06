@@ -39,6 +39,24 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★ THE LIVE BREAKAGE + THE ISOLATION CAMPAIGN (2026-07-06 afternoon).** The 2,500 live run was
+ABORTED at 1,375 hands: AIVAT −58..−63 (band was −12..−25) — systemic from hand 1 + a −271/100 disaster
+block. DIAGNOSIS (ranked candidates, full analysis in chat/commit): K1 PURIFY×resolver hero-range
+poisoning (tracker hands the resolver hero's MIXED range, hero plays MODAL) · K2 PURIFY silently KILLED
+SLOWPLAY (0.5<0.25 never fires → the live-validated deception layer off; the Analyzer is structurally
+BLIND to range-transparency costs — per-decision grading vs GTO ranges; the L1 condition-test checked
+cross-hand adaptation but the live re-solver updates beliefs WITHIN the hand) · K3 RAISE_NARROW×resolver
+villain-range poisoning (−72-era precedent) · K4 OBM live amplifies e_call errors ×2.5 · K5 TDA · K6
+blinds-fix (few bb). METHOD LESSON: the fast Analyzer channel outran the slow live channel; the binding
+turn-ON confirmation died to the backlog and was never replaced while levers stacked. The −19.70 bot is
+SAFE (tag v2 verified; flags also env-reachable). **READY, NOT LAUNCHED: infra/ablation_pod.py** =
+resolver-ON 4-arm isolation on a 64-vCPU pod (~45min+setup, ~$3): a1_v8 / a2_nopurify / a3_nonarrow /
+a4_v22-flags, seed 70, ids 120000-126000, days 80-83 — fires ONLY on the user's go. Analyzer prices
+K1/K3 damage; K2 needs the later live smoke (user: 1,000 hands suffice, not 2,500). HYBRID SKETCH
+("Quantplay v9", best of both worlds): v2.2 live-core incl. deception ALIVE + v3 (live-smoked) +
+resolver-safe v8 parts + RAISE_NARROW SPLIT (narrowed range for floor equity only; resolver gets the
+un-narrowed range — ~5 lines) + PURIFY context-split (live OFF / Analyzer-study ON); hero-purified-range
+tracker emit = the deeper fix if purify ever goes live again. Build AFTER the ablation data.**
 **★ THE BOT IS NAMED: QUANTPLAY V8 (user, 2026-07-06 ~09:00) — git tag `quantplay-v8` = the converged
 final profile (GTO_MODE base + deception + v3 + RAISE_NARROW + OVERBET_MENU + PURIFY + TURN_DEF_ADVISOR;
 fingerprint in gto_mode.PRINCE_PROFILE). Leaderboard expectation pre-registered: live AIVAT central
