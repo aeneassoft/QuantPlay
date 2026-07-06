@@ -208,3 +208,16 @@ UNVERÄNDERT: SSMIG + Iso-Augmentation als gegatete Engineering-Hebel, Theorie n
   bleibt unser Werkzeug). (4) Nicht mit dem v4-Pfad (CFR-Familie) komponierbar. Randnotiz fürs Archiv:
   n-Spieler-general-sum-NE via Adam wäre höchstens für kleine abstrahierte 6-max-NFGs interessant — kein
   aktueller Bedarf (CFR+ deckt Preflop, Multiplayer-Stance bleibt CCE via Regret).
+
+## MCCFR-Linie geprüft (2026-07-06, User-Links, alle existenz-verifiziert)
+- Lanctot/Waugh/Zinkevich/Bowling, "Monte Carlo Sampling for Regret Minimization in Extensive Games"
+  (NeurIPS 2009) = das kanonische MCCFR (zwei Spiegel-Links). + MCCFVFP (Ju et al., NeurIPS 2024):
+  MCCFR + Fictitious Play, ~20-50% schneller IN MC-Settings.
+- **VERDIKT: kein Upgrade für uns, wäre ein DOWNGRADE fürs TexasSolver-Teil.** MCCFR gewinnt nur bei
+  Bäumen zu groß fürs Full-Traversal; ein Postflop-Subgame ist klein, TexasSolvers full-width VEKTORISIERTES
+  DCFR verarbeitet alle 1326 Combos gleichzeitig (Amortisierung) -> Sampling verliert genau das = langsamer.
+  Gemessen im Code: Preflop = EXAKTES CFR+ (bewusst nicht gesampelt), Postflop = TexasSolver vektorisiert,
+  MCCFR nur im geshelvten deep_cfr.py (plateaute ~1500 mbb). Sampling-CFR nur relevant, falls wir je (a) den
+  Flop selbst lösen (aber Roadmap = Library + Leaf-Netz, nicht MCCFR) oder (b) einen v4-Label-Gen-Kern bauen
+  (deep_cfr.py, getrennt von TexasSolver). Die CFR-Variante ist NICHT der Engpass; Range-Qualität + Flop-
+  Abdeckung sind es (Präzisions-Doktrin: wir nutzen bereits die präzisere Full-Width-Variante).
