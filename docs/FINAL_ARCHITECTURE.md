@@ -71,3 +71,20 @@ statistische KALIBRIERUNG, kein Netz:
 5. **Pflaster-Netze** zuletzt, schmal: Turn-Boundary (Flop-Resolve ermöglichen) / River-Cut / Range-Residual.
 Nichts davon ÄNDERT eine Entscheidung; alles berechnet sie GENAUER. Die finale Version ist dieses Skelett
 verdrahtet — sie muss nicht perfekt spielen, sie muss die richtige Architektur SEIN.
+
+## STRASSEN-DOKTRIN (User, 2026-07-06) — wo Compute vs. Spieltheorie hingehört
+Die Straßen unterscheiden sich fundamental in ihrer LÖSBARKEIT, und das bestimmt die Organ-Zuweisung:
+- **Preflop = reine BERECHNUNG.** Klein, near-Nash, gelöst (Blueprint). Kein Theory-of-Mind.
+- **River = BERECHNUNG (Pfad bereits gegangen).** Terminal, ankommende Range definiert, Subgame klein →
+  in Sekunden lösbar. Der Rechen-Fokus (docs/RIVER_SYSTEM.md).
+- **Flop/Turn = SPIELTHEORIE / Strategie / Theory of Mind.** Hier explodiert der Baum (48 Turns × 44 River
+  voraus), hier leben Mehrstraßen-Pläne, Range-Shaping und Fold-Equity. NICHT durch River-Spiel reparierbar:
+  Über-Fold/Über-Commit/Range-Schaden VOR dem River (OpenAI-Konsult Q1). → Flop/Turn-JOB = Range nicht
+  beschädigen, nicht übercommitten, FOLD-EQUITY maximieren, an einem nicht-verlorenen River ankommen.
+KONSEQUENZ (= die gemessene Architektur, jetzt begründet): Blueprint preflop (rechnen), Advisors flop/turn
+(schnelle destillierte Heuristik = die "strategische" Schicht — man kommt hier GÜNSTIG davon ohne perfekten
+Solve), Live-Solver river (rechnen). Compute-Budget gehört an die BERECHENBAREN Straßen (Preflop erledigt,
+River der Fokus); Flop/Turn wird strategisch/heuristisch mit Fold-Equity-Ziel gehandhabt, nicht perfekt gelöst.
+DATENDICHTE-SEQUENZ (Pod-Compute): QUALITÄT VOR DICHTE. Range-Kalibrierung ($0, lokal) ZUERST; erst wenn der
+River-Diagnose-Score nach der Kalibrierung Coverage als Rest-Bleed zeigt, ist Pod-Massen-Solving (Flop/River-
+Library, uint8) begründet — sonst baut man teure Bibliotheken auf un-kalibrierten Ranges, die veralten.
