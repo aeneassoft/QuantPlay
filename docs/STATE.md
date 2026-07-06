@@ -39,6 +39,16 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★ FAMILY E: NO PROMOTION (2026-07-06 ~05:00) — the one-winner rule VINDICATED.** anchor_e
+(v3.3+OBM+PURIFY, seed 59) = 17.54; bd_e +0.19 neutral · rcd_e +1.22 · tob_e +1.95 → all parked. The
+family-D "winners" tob (−4.17) / bd (−3.55) DID NOT replicate against the base that now carries
+purify+obm — the interaction risk the critic panel named (had family D shipped as a bundle, we'd have
+shipped noise). RAISE_COMMIT: wrong-signed on a NORMAL set where its class is rare — the danger-class
+thesis is untested, not refuted; METHOD INSIGHT: rare-class levers need CLASS-DENSE PAIRED sets → next
+round = danger-filtered PAIRS (same seed, anchor+lever both danger-filtered) as the instrument. Anchor
+scale drift across seeds confirmed again (14.80 s57 vs 17.54 s59 for the same profile) — cross-family
+comparisons stay forbidden; PROFILE UNCHANGED = v3.3+OBM+PURIFY. ID ledger: 76000-82000+1500 burned;
+next free 84000+.
 **★★★★★ PURIFY PROMOTED + THE DANGER MAP (2026-07-06 ~04:00). Ladder tonight: 24.90 → 19.41 (v3.3) →
 16.45 (OBM) → 14.80 (PURIFY) — three promotions in one night, all family-paired.** PURIFY 14.80 vs
 anchor 16.45 = −1.65 BORDERLINE over the 1.5 screen, promoted on the independent SCORE confirmation
