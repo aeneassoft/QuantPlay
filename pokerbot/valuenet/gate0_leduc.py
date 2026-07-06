@@ -11,9 +11,16 @@ best response). Phases, each persisted to data/research_sweep/gate0_leduc.json a
                Huber loss, train/holdout split, holdout MAE in pot fractions.
   3. RESOLVE — vector-form trunk CFR on round 0 that never descends into round 1: at the round
                boundary it maps the current reach vectors to beliefs and queries the net for leaf
-               CFVs. Round-1 infosets of the FULL policy are then filled by exact `vanilla_cfr`
-               re-solves on the beliefs the trunk policy induces (the "re-solve at play time"
-               construction, done exhaustively because Leduc has only 15 reachable subgames).
+               CFVs. SAFETY (iteration 3): the whole construction runs through DeepStack's CFR-D
+               re-solving GADGET (supplementary p.24/p.28-29). (a) TWO trunks, one per re-solving
+               player; in each, the OPPONENT's boundary leaf value is max(follow-CFV, constraint)
+               — the T/F gadget choice — with the constraint = the t-weighted running average of
+               that opponent's own leaf evaluations there (the trunk solve's own evaluations, in
+               per-rank normalized units). (b) Round-1 infosets are filled by GADGET re-solves:
+               per boundary x public x player, the opponent is dealt each rank and regret-matches
+               terminate-for-constraint vs follow-into-the-subgame against hero's fixed range —
+               no opponent range enters (the unsafe range-re-solve fill was iteration 2's ~38 mbb
+               composition cost, plus the spurious-equilibrium trunk cost the gadget removes).
   4. GATE    — exact exploitability: full vanilla_cfr solve (baseline) vs the net-resolved policy.
                PASS bar (pre-registered, NOT tuned after seeing numbers): resolved exploitability
                within GATE_PASS_DELTA_MBB of the full solve. Units: milli-antes/hand (ante = 1,
@@ -310,12 +317,25 @@ class TrunkResolver:
     """Vector-form linear CFR+ on Leduc round 0 only; the round boundary is a value-net leaf.
 
     Reach vectors s0/s1 carry per-rank STRATEGY reach (the uniform deal prior and card removal
-    live in M2/MULT), exactly the quantities a real re-solver would map to belief vectors."""
+    live in M2/MULT), exactly the quantities a real re-solver would map to belief vectors.
 
-    def __init__(self, leaf_fn):
+    `hero` selects the re-solving player (DeepStack: each player runs their own re-solver): the
+    OPPONENT's boundary values then pass through the CFR-D gadget choice max(follow-CFV,
+    terminate-for-constraint), so hero's trunk strategy is solved against an opponent who can
+    always bank their bound — the safety that kills the spurious-equilibrium channel. hero=None
+    keeps the iteration-2 unconstrained trunk (both players take raw leaf values)."""
+
+    def __init__(self, leaf_fn, hero: int | None = None):
         self.leaf_fn = leaf_fn
+        self.hero = hero
         self.regret: dict = {}    # (player, hist) -> (RANKS, NACT) cumulative regrets
         self.ssum: dict = {}      # (player, hist) -> [legal, (RANKS, NACT) weighted strat sum]
+        self._constraint: dict = {}   # (hist, pub) -> [t-weighted sum of opp per-rank CFVs, weight]
+
+    def opponent_constraints(self) -> dict:
+        """(hist, pub) -> the opponent's constraint CFVs (per-rank normalized chips) — the
+        continual-re-solving state this trunk carries forward into the round-1 gadget fills."""
+        return {k: wsum / wt for k, (wsum, wt) in self._constraint.items()}
 
     def run(self, iters: int):
         for t in range(1, iters + 1):
@@ -327,7 +347,7 @@ class TrunkResolver:
             u0 = s.util0()
             return u0 * (M2 @ s1), -u0 * (M2 @ s0)
         if s.need_public:
-            return self._boundary(s, s0, s1)
+            return self._boundary(s, s0, s1, t)
         p = s.to_act
         legal = s.legal()
         k = (p, s.hist)
@@ -355,11 +375,14 @@ class TrunkResolver:
         np.maximum(reg, 0.0, out=reg)                # CFR+ clamp, same as vanilla_cfr
         return v0, v1
 
-    def _boundary(self, s: State, s0: np.ndarray, s1: np.ndarray):
+    def _boundary(self, s: State, s0: np.ndarray, s1: np.ndarray, t: int):
         """Round-0 betting done -> map reaches to beliefs, query the leaf for all 3 public cards.
 
         De-normalization: cfv0[a] = sum_b r1[b] mult u0* / Z (pot units), so the true
-        counterfactual leaf value is sum_b M3 * s1[b] * u0* = (S1 * Z / 60) * cfv0[a] * pot."""
+        counterfactual leaf value is sum_b M3 * s1[b] * u0* = (S1 * Z / 60) * cfv0[a] * pot.
+        With a hero set, the opponent's side is gadget-clipped in per-rank NORMALIZED units
+        (chips given the rank, hero playing their belief) so the T/F comparison is independent
+        of the trunk's reach magnitudes, then de-normalized back into the value stream."""
         pot_half = float(s.contrib[0])
         pot = 2.0 * pot_half
         sum0, sum1 = s0.sum(), s1.sum()
@@ -369,9 +392,31 @@ class TrunkResolver:
         v1 = np.zeros(RANKS)
         for pub in range(RANKS):
             z = float(r0 @ MULT[pub] @ r1)
-            v0 += (sum1 * z / 60.0) * cfv0_all[pub] * pot
-            v1 += (sum0 * z / 60.0) * cfv1_all[pub] * pot
+            f0 = (sum1 * z / 60.0) * cfv0_all[pub] * pot
+            f1 = (sum0 * z / 60.0) * cfv1_all[pub] * pot
+            if self.hero == 0:      # opponent = P1; d1[b] = sum_a r0[a] mult(a,b|pub)
+                f1 = (sum0 / 60.0) * self._gadget_clip(
+                    s.hist, pub, z * pot * cfv1_all[pub], r0 @ MULT[pub], t)
+            elif self.hero == 1:    # opponent = P0; d0[a] = sum_b r1[b] mult(a,b|pub)
+                f0 = (sum1 / 60.0) * self._gadget_clip(
+                    s.hist, pub, z * pot * cfv0_all[pub], MULT[pub] @ r1, t)
+            v0 += f0
+            v1 += f1
         return v0, v1
+
+    def _gadget_clip(self, hist: str, pub: int, raw_cfv: np.ndarray, d: np.ndarray, t: int):
+        """CFR-D gadget at the boundary: the opponent may TERMINATE for their constraint CFV
+        (t-weighted running average of their own leaf evaluations here, matching the trunk's
+        linear averaging) instead of following into the subgame -> per-rank max(follow, w).
+
+        Returns d * max(n, w) where n = raw_cfv / d is the normalized follow value; the caller
+        multiplies by hero_reach_sum / 60 to restore the counterfactual value stream."""
+        n = np.where(d > 0.0, raw_cfv / np.maximum(d, 1e-12), 0.0)
+        rec = self._constraint.setdefault((hist, pub), [np.zeros(RANKS), 0.0])
+        clipped = n if rec[1] <= 0.0 else np.maximum(n, rec[0] / rec[1])
+        rec[0] += t * n              # constraint tracks the RAW follow values (no ratchet)
+        rec[1] += t
+        return d * clipped
 
     def policy(self) -> dict:
         """Average round-0 policy in full-game key format ('{rank}|-1|{hist}')."""
@@ -403,16 +448,111 @@ def _boundaries(pol0: dict):
     return out
 
 
-def fill_round1(pol0: dict, fill_iters: int) -> dict:
-    """Complete the policy: exact re-solve of every reachable round-1 subgame on trunk beliefs."""
+GADGET_T, GADGET_F = 0, 1        # opponent's gadget actions: terminate / follow
+
+
+def resolve_subgame_gadget(hero: int, pub: int, pot_half: int, r_hero: np.ndarray,
+                           w_opp: np.ndarray, iters: int, hist: str) -> dict:
+    """DeepStack's CFR-D re-solving gadget for ONE round-1 subgame (supplementary p.24, p.28-29).
+
+    The opponent is dealt each rank (uniform gadget deal = the conservative option, guarantees
+    kept) and regret-matches between TERMINATE — banking that rank's constraint CFV `w_opp`
+    carried from hero's trunk — and FOLLOW into the subgame against hero's FIXED range `r_hero`.
+    T/F values are compared in per-rank normalized chips (u per rank given hero plays r_hero),
+    the same units the trunk stored. Hero's average strategy is then safe by construction
+    (Lemma 3: each opponent rank is held to <= max(w, BV)); no opponent range enters at all.
+    Returns ONLY hero's round-1 policy — the opponent's gadget strategy is a solving device."""
+    opp = 1 - hero
+    regret: dict = {}
+    ssum: dict = {}
+    gadget_regret = np.zeros((RANKS, 2))
+    # opponent counterfactual reach per rank (hero range x card removal) -> the F-value normalizer
+    denom = r_hero @ MULT[pub] if opp == 1 else MULT[pub] @ r_hero
+    for t in range(1, iters + 1):
+        pos = np.maximum(gadget_regret, 0.0)
+        tot = pos.sum(axis=1)
+        q_follow = np.where(tot > 1e-12, pos[:, GADGET_F] / np.maximum(tot, 1e-12), 0.5)
+        follow_raw = np.zeros(RANKS)
+        for a in range(RANKS):
+            for b in range(RANKS):
+                if MULT[pub][a, b] <= 0.0:
+                    continue
+                hero_rank, opp_rank = (a, b) if hero == 0 else (b, a)
+                rc = r_hero[hero_rank] * MULT[pub][a, b] / 60.0
+                reach0 = 1.0 if hero == 0 else q_follow[a]      # opponent's F prob is their
+                reach1 = q_follow[b] if hero == 0 else 1.0      # strategy reach into the subgame
+                u0 = vanilla_cfr(_subgame_root(a, b, pub, pot_half, hist), t,
+                                 reach0, reach1, rc, regret, ssum)
+                follow_raw[opp_rank] += r_hero[hero_rank] * MULT[pub][a, b] * (u0 if opp == 0 else -u0)
+        follow = np.where(denom > 0.0, follow_raw / np.maximum(denom, 1e-12), w_opp)
+        node = q_follow * follow + (1.0 - q_follow) * w_opp
+        gadget_regret[:, GADGET_F] += follow - node
+        gadget_regret[:, GADGET_T] += w_opp - node
+        np.maximum(gadget_regret, 0.0, out=gadget_regret)      # CFR+ clamp, same as vanilla_cfr
+    pol = _avg(ssum)
+    # round-1 actor alternates from P0: hero's infosets are those at hero's parity in the suffix
+    return {k: v for k, v in pol.items()
+            if (len(k.split("|")[2]) - len(hist)) % 2 == hero}
+
+
+def gadget_fill(pol0: dict, constraints_by_hero: dict, fill_iters: int) -> dict:
+    """SAFE round-1 completion: per boundary x public x player, a gadget re-solve on that
+    player's OWN trunk range with the opponent constraint CFVs their trunk carried forward.
+    Replaces the unsafe range-re-solve fill (iteration 2's measured ~38 mbb composition cost)."""
     pol = dict(pol0)
+    for hist, pot_half, s0, s1 in _boundaries(pol0):
+        for hero in (0, 1):
+            r_hero = _floor_norm(s0 if hero == 0 else s1, FILL_BELIEF_FLOOR)
+            for pub in range(RANKS):
+                w_opp = constraints_by_hero[hero][(hist, pub)]
+                pol.update(resolve_subgame_gadget(hero, pub, pot_half, r_hero, w_opp,
+                                                  fill_iters, hist))
+    return pol
+
+
+def _compose_round0(pol_a: dict, pol_b: dict) -> dict:
+    """Each player's round-0 strategy from THEIR OWN re-solving trunk (hero=0 -> pol_a)."""
+    out = {}
+    for k in sorted(set(pol_a) | set(pol_b)):    # sorted: no set-iteration order in outputs
+        actor = len(k.split("|")[2]) % 2
+        out[k] = (pol_a if actor == 0 else pol_b)[k]
+    return out
+
+
+def exact_constraints(pol_full: dict) -> dict:
+    """Gadget constraints for the full-solve ablation: each opponent's per-rank normalized CFVs
+    under the full policy's OWN round-1 play — the exact analogue of the trunk's leaf
+    evaluations. Full trunk + gadget fill on these isolates the fill construction alone."""
+    pol0 = _round0_only(pol_full)
+    out: dict = {0: {}, 1: {}}
     for hist, pot_half, s0, s1 in _boundaries(pol0):
         r0 = _floor_norm(s0, FILL_BELIEF_FLOOR)
         r1 = _floor_norm(s1, FILL_BELIEF_FLOOR)
         for pub in range(RANKS):
-            sub_pol, _ = solve_subgame(pub, pot_half, r0, r1, fill_iters, hist=hist)
-            pol.update(sub_pol)
-    return pol
+            u0 = np.zeros((RANKS, RANKS))
+            for a in range(RANKS):
+                for b in range(RANKS):
+                    if MULT[pub][a, b] > 0.0:
+                        u0[a, b] = _policy_ev0(_subgame_root(a, b, pub, pot_half, hist), pol_full)
+            wu = MULT[pub] * u0
+            d1, d0 = r0 @ MULT[pub], MULT[pub] @ r1
+            out[0][(hist, pub)] = np.where(d1 > 0.0, -(r0 @ wu) / np.maximum(d1, 1e-12), 0.0)
+            out[1][(hist, pub)] = np.where(d0 > 0.0, (wu @ r1) / np.maximum(d0, 1e-12), 0.0)
+    return out
+
+
+def gadget_resolve(leaf_fn, trunk_iters: int, fill_iters: int):
+    """The full iteration-3 construction: two gadget trunks (one per re-solving player),
+    composed round-0 policy, and gadget fills on each trunk's carried constraints.
+
+    Returns (full policy, composed round-0 policy)."""
+    trunks = {}
+    for hero in (0, 1):
+        trunks[hero] = TrunkResolver(leaf_fn, hero=hero)
+        trunks[hero].run(trunk_iters)
+    pol0 = _compose_round0(trunks[0].policy(), trunks[1].policy())
+    constraints = {hero: trunks[hero].opponent_constraints() for hero in (0, 1)}
+    return gadget_fill(pol0, constraints, fill_iters), pol0
 
 
 # ---------------- phase 4: baseline + gate ----------------
@@ -490,13 +630,13 @@ def main():
 
     if args.stage == "oracle":
         t0 = time.time()
-        print(f"[oracle] trunk {ORACLE_TRUNK_ITERS} iters, exact {ORACLE_LEAF_ITERS}-iter leaf ...")
-        otrunk = TrunkResolver(_oracle_leaf_fn(ORACLE_LEAF_ITERS))
-        otrunk.run(ORACLE_TRUNK_ITERS)
-        expl_oracle = exploitability(fill_round1(otrunk.policy(), args.fill_iters))
-        results.setdefault("resolve", {})["exploitability_oracle_trunk_mbb"] = expl_oracle
+        print(f"[oracle] 2x gadget trunk {ORACLE_TRUNK_ITERS} iters, exact {ORACLE_LEAF_ITERS}-iter leaf ...")
+        pol_o, _ = gadget_resolve(_oracle_leaf_fn(ORACLE_LEAF_ITERS),   # one shared leaf cache
+                                  ORACLE_TRUNK_ITERS, args.fill_iters)
+        expl_oracle = exploitability(pol_o)
+        results.setdefault("resolve", {})["exploitability_oracle_trunk_gadget_mbb"] = expl_oracle
         _persist(results)
-        print(f"      oracle-resolved exploitability {expl_oracle:.2f} mbb/hand "
+        print(f"      oracle+gadget exploitability {expl_oracle:.2f} mbb/hand "
               f"({time.time() - t0:.0f}s) | results -> {RESULTS_PATH}")
         return
 
@@ -544,36 +684,40 @@ def main():
     print(f"      baseline exploitability {expl_full:.2f} mbb/hand ({time.time() - t0:.0f}s)")
 
     t0 = time.time()
-    print(f"[3/4] resolve: depth-limited trunk CFR ({args.trunk_iters} iters, net leaf) ...")
-    trunk = TrunkResolver(_net_leaf_fn(net))
-    trunk.run(args.trunk_iters)
-    pol0_net = trunk.policy()
-    pol_resolved = fill_round1(pol0_net, args.fill_iters)
+    print(f"[3/4] resolve: 2x gadget trunk CFR ({args.trunk_iters} iters, net leaf) + gadget fill ...")
+    pol_resolved, pol0_net = gadget_resolve(_net_leaf_fn(net), args.trunk_iters, args.fill_iters)
     expl_resolved = exploitability(pol_resolved)
-    print(f"      net-resolved exploitability {expl_resolved:.2f} mbb/hand ({time.time() - t0:.0f}s)")
+    print(f"      net+gadget exploitability {expl_resolved:.2f} mbb/hand ({time.time() - t0:.0f}s)")
 
-    # ablation: the SAME fill-in construction under the full solve's trunk -> isolates how much
-    # of any gap is the depth-limit/net (trunk) vs the unsafe range-re-solve fill itself.
-    pol_ablation = fill_round1(_round0_only(pol_full), args.fill_iters)
+    # ablation: gadget fill under the full solve's trunk with EXACT constraints -> isolates the
+    # fill construction alone (should sit at the baseline if the gadget composition is safe).
+    pol_ablation = gadget_fill(_round0_only(pol_full), exact_constraints(pol_full), args.fill_iters)
     expl_ablation = exploitability(pol_ablation)
-    print(f"      ablation (full trunk + re-solve fill) {expl_ablation:.2f} mbb/hand")
+    print(f"      ablation (full trunk + gadget fill) {expl_ablation:.2f} mbb/hand")
 
     expl_oracle = None
     if args.oracle_trunk:
         t0 = time.time()
-        print(f"[3/4] oracle trunk (diagnostic): {ORACLE_TRUNK_ITERS} iters, exact leaf ...")
-        otrunk = TrunkResolver(_oracle_leaf_fn(ORACLE_LEAF_ITERS))
-        otrunk.run(ORACLE_TRUNK_ITERS)
-        pol_o = fill_round1(otrunk.policy(), args.fill_iters)
+        print(f"[3/4] oracle+gadget trunk (diagnostic): {ORACLE_TRUNK_ITERS} iters, exact leaf ...")
+        pol_o, _ = gadget_resolve(_oracle_leaf_fn(ORACLE_LEAF_ITERS),
+                                  ORACLE_TRUNK_ITERS, args.fill_iters)
         expl_oracle = exploitability(pol_o)
-        print(f"      oracle-resolved exploitability {expl_oracle:.2f} mbb/hand "
+        print(f"      oracle+gadget exploitability {expl_oracle:.2f} mbb/hand "
               f"({time.time() - t0:.0f}s)")
 
+    prev = results.get("resolve", {})            # iteration-2 (no-gadget) numbers, kept as contrast
+    no_gadget = prev.get("no_gadget_iteration2") or {
+        "resolved": prev.get("exploitability_resolved_mbb"),
+        "ablation_unsafe_fill": prev.get("exploitability_ablation_fulltrunk_fill_mbb"),
+        "oracle_trunk": prev.get("exploitability_oracle_trunk_mbb"),
+    }
+    results["iteration"] = 3
     results["resolve"] = {
         "exploitability_full_mbb": expl_full,
         "exploitability_resolved_mbb": expl_resolved,
-        "exploitability_ablation_fulltrunk_fill_mbb": expl_ablation,
-        "exploitability_oracle_trunk_mbb": expl_oracle,
+        "exploitability_ablation_fulltrunk_gadget_fill_mbb": expl_ablation,
+        "exploitability_oracle_trunk_gadget_mbb": expl_oracle,
+        "no_gadget_iteration2": no_gadget,
     }
     _persist(results)
 
