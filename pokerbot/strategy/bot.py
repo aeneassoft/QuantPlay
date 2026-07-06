@@ -96,7 +96,8 @@ _SLOWPLAY = float(_gto_flag("POKERB_SLOWPLAY", "0"))
 # mixing stays). v0 scope: 3 advisor bet/check gates + 3 cbet gates + slowplay + blueprint call/jam.
 _PURIFY = _gto_flag("POKERB_PURIFY", "0") == "1"
 # DANGER-MAP lever (2026-07-06): extra equity demanded when facing a RAISE of our own street action
-_RAISE_COMMIT = float(_gto_flag("POKERB_RAISE_COMMIT", "0"))             # trap frequency: check this fraction of strong flop
+_RAISE_COMMIT = float(_gto_flag("POKERB_RAISE_COMMIT", "0"))
+_PURIFY2 = _gto_flag("POKERB_PURIFY2", "0") == "1"   # v5A: modality on the REMAINING gates too             # trap frequency: check this fraction of strong flop
                                                                  # hands (measured: P(check|top pair K)=23.6% vs GTO
                                                                  # 30-50% -> P(K|check)=9% = a readable check range)
 
@@ -285,7 +286,7 @@ class PokerBot:
                 size = self._raise_to(la, round(4.0 * bb))
                 return self._mk("raise", size, r,
                                 f"Raise the limp: {hc} is strong enough to isolate and build a pot in position-disadvantaged BB.")
-            if pct >= 0.55 and self.rng.random() < 0.4:
+            if pct >= 0.55 and (0.5 if _PURIFY2 else self.rng.random()) < 0.4:
                 size = self._raise_to(la, round(3.5 * bb))
                 return self._mk("raise", size, r, f"Raise the limp as a semi-bluff with {hc}.")
             return self._mk("check", None, r, "Check the option and see a flop.")
@@ -428,7 +429,7 @@ class PokerBot:
         # polarized 3bet bluff (more if villain folds a lot; aggregate fold-to-bet is our best proxy
         # here — we don't track a separate fold-to-3bet stat, so this slightly under-bluffs vs a folder)
         bluff_p = 0.30 + conf * (fold_to_bet - 0.5)
-        if hc in R.bluff_band() and self.rng.random() < max(0.0, bluff_p):
+        if hc in R.bluff_band() and (0.5 if _PURIFY2 else self.rng.random()) < max(0.0, bluff_p):
             size = self._raise_to(la, round(state["current_bet"] * 3.2))
             return self._mk("raise", size, r, f"3-bet bluff with {hc}: polarized re-raise; "
                             f"villain folds to bets ~{fold_to_bet:.0%}.")
@@ -448,7 +449,7 @@ class PokerBot:
             size = self._raise_to(la, round(state["current_bet"] * 2.3))
             return self._mk("raise", size, r, f"4-bet for value with {hc} (top "
                             f"{int(R.SB_4BET_VALUE_FRAC*100)}%).")
-        if hc in R.bluff_band() and self.rng.random() < 0.22:
+        if hc in R.bluff_band() and (0.5 if _PURIFY2 else self.rng.random()) < 0.22:
             size = self._raise_to(la, round(state["current_bet"] * 2.3))
             return self._mk("raise", size, r, f"4-bet bluff with {hc} (blocker-driven).")
         if eq * 0.95 >= req or pct >= (1 - R.SB_CALL_3BET_FRAC):
@@ -848,7 +849,7 @@ class PokerBot:
         # Exact per-texture donk frequencies are a deferred refinement (NOTES.md).
         if street == "flop" and not self._has_initiative(state):
             donk_rate = min(1.0, self.oop_donk_freq * 4.0 * _texture_freq(board, "OOP"))  # per-texture GTO donk freq
-            if eq >= pf.VALUE_EQ and self.rng.random() < donk_rate:
+            if eq >= pf.VALUE_EQ and (0.5 if _PURIFY2 else self.rng.random()) < donk_rate:
                 to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                 return self._mk("bet" if la["is_bet"] else "raise", self._raise_to(la, to or la["raise_min"]),
                                 r, f"Donk for value OOP ({eq:.0%}), capped frequency. {made}.")
@@ -905,7 +906,7 @@ class PokerBot:
                                 f"Range c-bet ({int(f_cbet*100)}% texture freq, {eq:.0%}) — solver-calibrated. {made}.")
             return self._mk("check", None, r, f"Check back this share ({eq:.0%}, {made}).")
         # turn/river or no initiative: thin value IP on dynamic boards, else pot control
-        if hero_ip and tex["dynamic"] and self.rng.random() < 0.5:
+        if hero_ip and tex["dynamic"] and (0.5 if _PURIFY2 else self.rng.random()) < 0.5:
             size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
             return self._mk("bet" if la["is_bet"] else "raise", size, r,
                             f"Thin bet/protection IP ({eq:.0%}) on a "

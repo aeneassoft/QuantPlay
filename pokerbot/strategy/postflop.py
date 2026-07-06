@@ -265,9 +265,10 @@ ECALL_SIZES = [0.35, 0.65, 1.0, 1.5]     # the census river grid (GTOW's own arm
 # arms. NOT a frequency lever (the 4x-refuted class): the selection-aware eCall chooser still requires
 # eq-vs-the-range-that-CALLS-that-size to clear its threshold — bigger arms only win the argmax where the
 # tracked calling range stays beat. The <= jam stack filter applies unchanged; the 2.0 jam cap is untouched.
-_OVERBET_MENU = os.environ.get("POKERB_OVERBET_MENU", "0") == "1"
+_OBM_LEVEL = os.environ.get("POKERB_OVERBET_MENU", "0")
+_OVERBET_MENU = _OBM_LEVEL in ("1", "2")
 if _OVERBET_MENU:
-    ECALL_SIZES = ECALL_SIZES + [2.0, 2.5]
+    ECALL_SIZES = ECALL_SIZES + ([2.0, 2.5, 3.0] if _OBM_LEVEL == "2" else [2.0, 2.5])
 
 
 # v3.2 thin-value SELECTION thresholds: a bet is VALUE iff the range that actually CALLS is one we beat
@@ -339,7 +340,7 @@ def _ecall_rows(pot: int, hero_committed: int, hero_stack: int,
         # nutted/capped-range exploitation, never thin. One tune after the stress fail, per the ship
         # rules. Flag-scoped: with the menu OFF this line is unreachable (2.0/2.5 not in ECALL_SIZES)
         # and the natural short-stack jam path stays byte-identical.
-        if _OVERBET_MENU and s in (2.0, 2.5) and e_call < 0.70:
+        if _OVERBET_MENU and s in (2.0, 2.5, 3.0) and e_call < 0.70:
             continue
         # called win nets 1+s (pot + villain's call); the bet s is spent whenever called (see value_score)
         sc = F + (1.0 - F) * (e_call * (1.0 + 2.0 * s) - s)
