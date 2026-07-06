@@ -80,6 +80,8 @@ _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     "POKERB_ISO_CACHE", "POKERB_SOLVE_CACHE",
     # Princedarkness overbet menu (born 2026-07-06; standing rule: a flag's birth commit adds it here):
     "POKERB_OVERBET_MENU",
+    # L1 purification (born 2026-07-06; GTOW-ladder experiment arm — modal action at the mixing gates):
+    "POKERB_PURIFY",
 })
 
 

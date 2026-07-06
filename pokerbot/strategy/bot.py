@@ -90,7 +90,11 @@ _LINE_U = _gto_flag("POKERB_LINE_U", "0") == "1"                 # ONE uniform p
 _TURN_DEFENSE = float(_gto_flag("POKERB_TURN_DEFENSE", "0"))     # call-threshold discount vs turn bets with a made
                                                                  # pair+ (measured: 44% fold to a 1/2-pot stab vs
                                                                  # 33% MDF -> any-two stabs print +0.16 pot on us)
-_SLOWPLAY = float(_gto_flag("POKERB_SLOWPLAY", "0"))             # trap frequency: check this fraction of strong flop
+_SLOWPLAY = float(_gto_flag("POKERB_SLOWPLAY", "0"))
+# L1 PURIFY (conditional lemma, 2026-07-06): vs a STATIC near-GTO opponent mixing is pure variance ->
+# substitute the modal action (draw u == 0.5) at the big mixing gates. GTOW-ladder arm ONLY (vs humans
+# mixing stays). v0 scope: 3 advisor bet/check gates + 3 cbet gates + slowplay + blueprint call/jam.
+_PURIFY = _gto_flag("POKERB_PURIFY", "0") == "1"             # trap frequency: check this fraction of strong flop
                                                                  # hands (measured: P(check|top pair K)=23.6% vs GTO
                                                                  # 30-50% -> P(K|check)=9% = a readable check range)
 
@@ -367,7 +371,7 @@ class PokerBot:
         if villain_allin or (raises >= 1 and la["to_call"] > 0 and not la["can_raise"]):
             if bp is not None and villain_allin:
                 r["cfr"] = bp
-                if self.rng.random() < bp["call"]:
+                if (0.5 if _PURIFY else self.rng.random()) < bp["call"]:
                     return self._mk("call", None, r, f"Call the shove: CFR push/fold blueprint calls "
                                     f"{hc} {bp['call']:.0%} at {eff_bb:.0f}bb.")
                 return self._mk("fold", None, r, f"Fold to the shove: CFR calls {hc} only "
@@ -386,7 +390,7 @@ class PokerBot:
         if is_sb and raises == 0:
             if bp is not None:
                 r["cfr"] = bp
-                if self.rng.random() < bp["jam"]:
+                if (0.5 if _PURIFY else self.rng.random()) < bp["jam"]:
                     return self._mk("allin", None, r, f"Open-shove {hc} ({eff_bb:.0f}bb): CFR push/fold "
                                     f"blueprint jams this {bp['jam']:.0%}.")
                 return self._mk("fold", None, r, f"Fold {hc}: CFR push/fold jams only {bp['jam']:.0%} "
@@ -717,7 +721,7 @@ class PokerBot:
         # "no King" (P(K|check)=9.2% vs 18.2% prior). Trap a fixed fraction of STRONG hands instead: the check range
         # keeps nutted combos (the read dies) and the existing facing-bet value-raise path IS the trap's second act.
         # Intercepts ALL bet paths uniformly (advisor + heuristic floor). Flop-only: turn/turn+ traps forgo too much.
-        if _SLOWPLAY > 0 and street == "flop" and eq >= 0.78 and self.rng.random() < _SLOWPLAY:
+        if _SLOWPLAY > 0 and street == "flop" and eq >= 0.78 and (0.5 if _PURIFY else self.rng.random()) < _SLOWPLAY:
             r["slowplay"] = True
             return self._mk("check", None, r, f"Trap: check a strong hand ({eq:.0%}) to protect the check range. {made}.")
 
@@ -747,7 +751,7 @@ class PokerBot:
                     pb *= (1.0 - _CBET_DAMP)               # v3.1: c-bet 75->~54% (GTOW's mix); selection preserved
                     r["cbet_damp"] = _CBET_DAMP
                 r["advisor_pbet"] = round(pb, 2)
-                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
+                if (0.5 if _PURIFY else (self._line_u(state) if _LINE_U else self.rng.random())) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -776,7 +780,7 @@ class PokerBot:
                     pb = min(0.85, pb + _TURN_PROBE)
                     r["turn_probe"] = _TURN_PROBE
                 r["advisor_pbet_turn"] = round(pb, 2)
-                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
+                if (0.5 if _PURIFY else (self._line_u(state) if _LINE_U else self.rng.random())) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -815,7 +819,7 @@ class PokerBot:
                         thin_to = int(probe[0])            # bet the PROBE size — the size the selection validated
                         r["river_thin_sel"] = round(probe[1], 2)
                 r["advisor_pbet_river"] = round(pb, 2)
-                if (self._line_u(state) if _LINE_U else self.rng.random()) < pb:  # L2a: per-hand line-draw
+                if (0.5 if _PURIFY else (self._line_u(state) if _LINE_U else self.rng.random())) < pb:  # L2a: per-hand line-draw
                     if eq >= pf.VALUE_EQ:
                         to, _ = self._value_to(pot, fm, street, hero_committed, hero_stack, eq)
                         size = self._raise_to(la, to or la["raise_min"])
@@ -861,7 +865,7 @@ class PokerBot:
             # facing-bet raise), so it closes the under-c-bet gap without the stack-off spew the anti-spew fix killed.
             if self.range_cbet and street == "flop" and self._has_initiative(state):
                 f_cbet, size_frac = pf.cbet_policy(board, hero_ip)
-                if self.rng.random() < f_cbet:
+                if (0.5 if _PURIFY else self.rng.random()) < f_cbet:
                     size = self._raise_to(la, hero_committed + round(size_frac * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                     f"Range c-bet air ({int(f_cbet*100)}% texture freq, small size, {eq:.0%}). {made}.")
@@ -873,7 +877,7 @@ class PokerBot:
             if street == "river" and self.use_river_blocker:
                 rblk = self._river_blocker_signal(hole, board, vrange)
                 bf = max(0.0, min(0.95, bluff_base * (1.0 + 0.6 * rblk)))
-            if self.rng.random() < bf:
+            if (0.5 if _PURIFY else self.rng.random()) < bf:
                 size = self._raise_to(la, round((cb_s or 0.6) * pot) or la["raise_min"])
                 return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                 f"Bluff ~60% pot ({eq:.0%}): controlled frequency"
@@ -885,7 +889,7 @@ class PokerBot:
         # SIZE and range-bet medium hands via a crude "IP + dynamic + 50%" rule -> it under-c-bet vs solver GTO.
         if self.range_cbet and street == "flop" and self._has_initiative(state):
             f_cbet, size_frac = pf.cbet_policy(board, hero_ip)
-            if self.rng.random() < f_cbet:
+            if (0.5 if _PURIFY else self.rng.random()) < f_cbet:
                 size = self._raise_to(la, hero_committed + round(size_frac * pot) or la["raise_min"])
                 return self._mk("bet" if la["is_bet"] else "raise", size, r,
                                 f"Range c-bet ({int(f_cbet*100)}% texture freq, {eq:.0%}) — solver-calibrated. {made}.")
