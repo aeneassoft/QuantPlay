@@ -39,6 +39,19 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
+**★★★★ OVERBET_MENU PROMOTED (2026-07-06 ~03:00) — the Princedarkness lever wins family D: 16.45 vs
+anchor 21.27 (−4.82, seed-57 paired; anchor already carries v3.3!).** ALL THREE style arms cleared the
+screen (TURN_OVERBET −4.17, BARREL_DISCIPLINE −3.55 → QUEUED for family E vs the new anchor, one-winner
+rule; the aggression direction is systematically green = the user's style catalog points at the mission
+gap). Anchor-audit run (protocol): arms rank consistently, family-C v35 arm (+0.15) pins the noise floor
+~±1 → −4.82 decisive. Gates were: stress 20=baseline after ONE tune (strong-value guard e_call≥0.70 —
+the suite caught sizer.*.thin at 73% commit with a bare pair), replay delta 0. **INSTRUMENT FINDING (the
+locus-check autopsy):** exports carry an UNSEEDED GLOBAL rng stream — villain's mixed-strategy draws
+realize differently per RUN (first divergence = villain's action at hand 1 with zero prior hero diff)
+→ export runs are NOT byte-deterministic; pairing over identical deals stays valid (symmetric unbiased
+mixing noise), but divergence-street attribution is causal only for hero-action diffs; TODO instruments:
+seed the global stream or thread rngs (find the consumer: likely GTOBaseline/equity global random).
+Ladder cumulative tonight: anchor 24.90 → v3.3 19.41 → (new anchor 21.27 seed-57) → +OBM 16.45.
 **★★★ v3.3 PROMOTED (2026-07-06 ~02:00) — PRINCE now carries POKERB_RAISE_NARROW=1.** Family-C verdicts
 (seed 56, local platform, all 1500/1500 processed — the dedup law held): anchor 24.90 · **v3.3 = 19.41
 (−5.49, the decisive winner)** · v3.4 AUDIT_FIX = 27.52 (+2.62 REFUTED — the 9 "bug fixes" were

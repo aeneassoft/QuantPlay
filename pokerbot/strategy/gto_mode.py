@@ -52,6 +52,13 @@ PRINCE_PROFILE = {
     # effect-locus: 65/65 diverging hands contain a raise (flop 32/turn 30/river 3). Siblings same round:
     # v3.4 AUDIT_FIX REFUTED (+2.62), v3.5 ADVISOR_ROLE_POS neutral (+0.15) - both stay default-OFF.
     "POKERB_RAISE_NARROW": "1",
+    # Princedarkness overbet menu (2026-07-06, mined from the user's own 1,078-hand sizing catalog:
+    # 43% of his river bets >1.5x pot): eCall value menu + 2.0x/2.5x arms, STRONG-value guard
+    # e_call>=0.70 on the added arms (the one post-stress tune; sizer.*.thin catastrophes gone).
+    # Gates: stress 20=baseline · replay delta 0 · family-D paired Analyzer 16.45 vs anchor 21.27
+    # (-4.82, seed-57; the round's single best - TURN_OVERBET -4.17 and BARREL_DISCIPLINE -3.55 also
+    # cleared and are QUEUED for family E vs the new anchor, per the one-winner rule).
+    "POKERB_OVERBET_MENU": "1",
 }
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number.
