@@ -28,9 +28,17 @@ PROFILE = {
     "POKERB_RSV_CENSUS": "1",
 }
 
-# VERSION "PRINCE" (docs/VERSION_PRINCE.md): the GTO-mode base + the deception layer (the user-found leak fixes,
-# 2026-07-04: turn over-fold 44% vs 33% MDF; transparent check range P(K|check)=9%). POKERB_PRINCE=1 expands to
-# GTO_MODE + these. Gated: canary PASSED (paired +39.1 +/- 19.9); enters the product only after the mechanics probe.
+# ==================================================================================================
+# THE FINAL BOT — PRINCE v2.2 (git tag `v2`, commit 01ecf95): the ONLY config validated at
+# AIVAT -19.70 +/- 4.37 (n=2393, 0 catastrophes, per-hand SD 214 = leaderboard-grade). THIS is the
+# rank-#11 / -20bb anchor. POKERB_PRINCE=1 (and the alias POKERB_FINAL=1) expand to exactly this set.
+#
+# DISCIPLINE (user, 2026-07-06): the final bot ships ONLY what is KNOWN to fix a bug or add +EV at
+# >=90% confidence. Every flag below cleared that bar in the n=2393 live AIVAT run. Every lever added
+# AFTER v2.2 is EXCLUDED (see the block beneath) — the v8 stack of them broke live at AIVAT -58,
+# because the fast Analyzer channel that promoted them is BLIND to the resolver-ON interaction that
+# dominates live play. When in doubt, the validated anchor wins.
+# ==================================================================================================
 PRINCE_PROFILE = {
     "POKERB_GTO_MODE": "1",
     "POKERB_TURN_DEFENSE": "0.07",  # MDF-calibrated turn defense (canary+mechanics PASSED 2026-07-04)
@@ -42,48 +50,34 @@ PRINCE_PROFILE = {
     # The Kc3h 200bb-stack-off fix (2026-07-05; the fat-tail/leaderboard-std lever). Gates: disaster-hand probe
     # (river call->FOLD), replay (no regression), paired canary (+20.5 +/- 42.5, passes):
     "POKERB_TRACKER_AGGRO_FULL": "1",   # believe the narrowing fully (alpha->1) from a seat's 2nd barrel on
-    # v3 (2026-07-05): the top-2 over-fold classes. Gates: stress 20/20 · replay flips 8/9 graded flop-fold
-    # blunders · paired Analyzer 17.93 vs v2.2's 20.66 (-2.73 on identical deals) · tail-smoke 0 catastrophes:
-    "POKERB_PAIR_DEFENSE": "0.10",      # flop: advisor-fold cap 0.30 + MDF discount for hole-pairs vs single c-bet
-    "POKERB_RIVER_DEFENSE": "0.06",     # river: defend bluffcatchers vs <=0.6-pot bets (23% of folds were ahead)
-    # v3.3 -> PRINCE v4-candidate (2026-07-06): raise-facing-bet range narrowing toward the mined GTOW raise
-    # mix (Laplace-shrunk; the K2o-jam-call/RANK4 stack-off class). Gates: stress/replay green (2026-07-05) ·
-    # paired family-C Analyzer 19.41 vs anchor 24.90 (-5.49 on identical seed-56 deals, local platform) ·
-    # effect-locus: 65/65 diverging hands contain a raise (flop 32/turn 30/river 3). Siblings same round:
-    # v3.4 AUDIT_FIX REFUTED (+2.62), v3.5 ADVISOR_ROLE_POS neutral (+0.15) - both stay default-OFF.
-    "POKERB_RAISE_NARROW": "1",
-    # Princedarkness overbet menu (2026-07-06, mined from the user's own 1,078-hand sizing catalog:
-    # 43% of his river bets >1.5x pot): eCall value menu + 2.0x/2.5x arms, STRONG-value guard
-    # e_call>=0.70 on the added arms (the one post-stress tune; sizer.*.thin catastrophes gone).
-    # Gates: stress 20=baseline · replay delta 0 · family-D paired Analyzer 16.45 vs anchor 21.27
-    # (-4.82, seed-57; the round's single best - TURN_OVERBET -4.17 and BARREL_DISCIPLINE -3.55 also
-    # cleared and are QUEUED for family E vs the new anchor, per the one-winner rule).
-    "POKERB_OVERBET_MENU": "1",
-    # L1 PURIFY (2026-07-06 ~04:00): modal action at the 8 big mixing gates — the conditional-lemma knob
-    # (vs the STATIC GTOW mixing is pure variance). Gates: stress 20=baseline · replay 19<25 BETTER ·
-    # paired Analyzer 14.80 vs anchor 16.45 (seed-57; -1.65 = a BORDERLINE pass over the 1.5 screen,
-    # promoted because the independent SCORE dimension confirms the mechanism: 822/358 correct/wrong vs
-    # the anchor's 792/378 — modality itself is what the grader rewards; next family's anchor re-verifies).
-    # GTOW-LADDER ONLY by doctrine: vs humans mixing must stay (this profile is the GTOW benchmark profile).
-    "POKERB_PURIFY": "1",
-    # v5C "Defense Complete" -> THE FINAL PROMOTION of the 2026-07-06 night (family F: 17.19 vs anchor
-    # 19.06 = -1.87 paired seed-60; the trained turn-defense head finally gets its arm and wins; siblings:
-    # v5A PURIFY2 neutral -0.41, v5B OBM=2+BD refuted +1.33 - both parked). Hand-aware turn fold/call/raise
-    # replaces the scalar MDF threshold exactly where the stress cluster lives.
-    "POKERB_TURN_DEF_ADVISOR": "1",
 }
+FINAL_PROFILE = PRINCE_PROFILE          # canonical name for the shipped bot; POKERB_FINAL aliases POKERB_PRINCE
+
+# EXCLUDED — post-v2.2 levers, each removed from the shipped profile per the 90%-confidence rule. They
+# stay as default-OFF flags (available as their OWN ablation arm for a FUTURE live/resolver-ON re-test),
+# but are NEVER stacked into the product again without that live gate. WHY each is out:
+#   POKERB_PURIFY            v8 K1/K2: modal action at the mixing gates ALSO silently killed SLOWPLAY
+#                            (bot.py: `0.5 < _SLOWPLAY(0.25)` never fires) -> transparent check-range -> -58 live.
+#   POKERB_RAISE_NARROW      v8 K3: narrowed villain range poisons the live resolver (the -72-era precedent).
+#   POKERB_OVERBET_MENU      Analyzer-only win (-4.82 resolver-OFF); resolver-ON interaction never tested.
+#   POKERB_TURN_DEF_ADVISOR  Analyzer-only win (v5C -1.87 resolver-OFF); never validated live.
+#   POKERB_PAIR_DEFENSE /    v3 (commit 85d2919): Analyzer-promoted -2.73 vs v2.2 but never validated at the
+#   POKERB_RIVER_DEFENSE     n=2393 live bar. Defensive (fold less in named over-fold spots) => LOWEST-risk =>
+#                            the RECOMMENDED first candidates for the next gated live re-test. OFF until then.
 
 # every flag that defines a run — logged as the config fingerprint next to any measured number.
 # AUDIT FIX (2026-07-05, confirmed 3x): gate/lever flags OUTSIDE the profiles were invisible here, so a
 # lever arm's export printed a fingerprint byte-identical to plain v3 — the graded artifact carried no
 # record of the lever under test. Every behavior-changing flag must be listed, profile-carried or not.
 _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
-    "POKERB_GTO_MODE", "POKERB_PRINCE", "POKERB_TOCALL_FIX", "POKERB_RESOLVER", "POKERB_TURN_RESOLVER",
+    "POKERB_GTO_MODE", "POKERB_PRINCE", "POKERB_FINAL", "POKERB_TOCALL_FIX", "POKERB_RESOLVER", "POKERB_TURN_RESOLVER",
     "POKERB_BLUEPRINT", "POKERB_RANGE_TRACKER", "POKERB_COMMIT_CAP", "POKERB_ONTREE_RAISES",
     # gate/lever flags (default OFF, tested as their own arms):
     "POKERB_RIVER_THIN_SEL", "POKERB_RAISE_NARROW", "POKERB_BARREL_DISCIPLINE", "POKERB_TURN_PROBE",
     "POKERB_CBET_DAMP", "POKERB_TURN_DEF_ADVISOR", "POKERB_TURN_OVERBET", "POKERB_AUDIT_FIX",
     "POKERB_ADVISOR_ROLE_POS",
+    # v3 defensive levers (excluded from the shipped v2.2 profile; tracked so a re-test arm is recorded):
+    "POKERB_PAIR_DEFENSE", "POKERB_RIVER_DEFENSE",
     # run-defining strategy swaps:
     "POKERB_DEEPCFR", "POKERB_GRAFT", "POKERB_RIVER_VALUE_FREQ", "POKERB_COMMIT_EQ",
     # cache seams (2026-07-05 critic panel): NOT semantics-neutral at the timeout boundary — a cache hit
@@ -107,7 +101,8 @@ def enabled() -> bool:
 
 
 def prince_enabled() -> bool:
-    return os.environ.get("POKERB_PRINCE", "0") == "1"
+    # POKERB_FINAL is the canonical name for the shipped bot; it aliases POKERB_PRINCE (same v2.2 profile).
+    return os.environ.get("POKERB_PRINCE", "0") == "1" or os.environ.get("POKERB_FINAL", "0") == "1"
 
 
 def flag(name: str, default: str) -> str:
