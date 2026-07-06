@@ -142,6 +142,10 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > `data/freq_targets/gtow_frequencies.json`), each gated stress→replay→canary→live. **The −20 in every block BELOW
 > is the SAME engine measured; v2 is that engine with the deception+eCall+line-U+size-inject layer, tail-fixed.**
 >
+> **⟵ SUPERSEDED (2026-07-06): the shipped profile was REVERTED to PRINCE v2.2 — the validated −19.70/rank-#11
+> anchor. v3 (PAIR/RIVER_DEFENSE) and every later lever (RAISE_NARROW/OVERBET_MENU/PURIFY/TURN_DEF_ADVISOR) are
+> Analyzer-only and/or the v8 live-breakers (−58); by the user's 90%-confidence rule they are EXCLUDED from the
+> final bot and demoted to default-OFF re-test arms. See STATE.md's top block. The v3 record below is history.**
 > **★★★★★ PRINCE v3 SHIPPED + THE LEVER PIPELINE + THE INFRASTRUCTURE LEAP (2026-07-05 evening).** The shipped
 > bot is now **PRINCE v3** (commit 85d2919): the v2.2 profile + PAIR_DEFENSE 0.10 + RIVER_DEFENSE 0.06 — gated by
 > the agreed v3-test-protocol (**paired Analyzer 17.93 vs v2.2's 20.66 on identical seed-55 deals** = the decisive

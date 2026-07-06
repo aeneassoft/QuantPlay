@@ -1,7 +1,25 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-06-29**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-07-06**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★★★ FINAL BOT LOCKED TO THE VALIDATED ANCHOR (user, 2026-07-06): "orientiere dich an Platz 11 −20BB; implementiere nur was Fehler behebt oder +EV bringt mit 90% Konfidenz."
+**The shipped profile is now PRINCE v2.2** (`git tag v2`, commit 01ecf95) = the ONLY config precision-measured
+at **AIVAT −19.70 ± 4.37 (n=2393, 0 catastrophes, per-hand SD 214)** = the rank-#11 / −20bb anchor.
+`pokerbot/strategy/gto_mode.py::PRINCE_PROFILE` was **reverted** to exactly this 7-flag set (GTO_MODE base +
+TURN_DEFENSE 0.07 + SLOWPLAY 0.25 + LINE_U + RIVER_ECALL + SIZE_INJECT + TRACKER_AGGRO_FULL). **WHY:** the
+profile had been polluted during the v8 session with the very levers that broke live at −58 — PURIFY (K1/K2:
+also silently killed SLOWPLAY → transparent check-range), RAISE_NARROW (K3: resolver range-poisoning),
+OVERBET_MENU + TURN_DEF_ADVISOR (Analyzer-only, resolver-ON untested), and v3 PAIR/RIVER_DEFENSE (Analyzer
+−2.73 but never live-validated). All are now **default-OFF flags**, each available as its own re-test arm;
+**PAIR/RIVER_DEFENSE = the LOWEST-risk first live re-test candidate** (defensive over-fold fixes). Added
+`POKERB_FINAL` alias (= POKERB_PRINCE). Verified: clean fingerprint (0 v8 breakers), `_PURIFY=False` →
+SLOWPLAY fires, decide smoke to showdown, process-deterministic. NEXT (gated, needs key #2 + user): a live
+smoke of the reverted profile to re-confirm the −20 band before any single re-test lever is layered back.
+**★ Also this session:** `research/theory_duel.py` + `benchmark/gto_oracle_match` = "our bot vs poker-theory
+itself" ($0 in-engine duels: analytic GTOBaseline mirror + live TexasSolver oracle) — running; the mirror
+null-test validates at +0.00, and the duel exposes the irreducible all-in STRATEGY-variance the mirror can't
+cancel (why AIVAT, not raw bb/100, is the live gate).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms
