@@ -20,6 +20,19 @@ smoke of the reverted profile to re-confirm the −20 band before any single re-
 itself" ($0 in-engine duels: analytic GTOBaseline mirror + live TexasSolver oracle) — running; the mirror
 null-test validates at +0.00, and the duel exposes the irreducible all-in STRATEGY-variance the mirror can't
 cancel (why AIVAT, not raw bb/100, is the live gate).
+**★★★ LIVE LEADERBOARD RESULT (2026-07-07, fresh key #3 account "Quantplay v8", clean v2.2 POKERB_PRINCE=1,
+exploit OFF, FIXED blinds-order harness): AIVAT −30.11 ± 5.51 (n=2899) → RANK 24/64 (ON the board).** Batch
+−31.28 ± 5.92 (n=2600, 101 failed to GTOW 503-throttle, excluded). HONEST: this is ~1.5–1.9 SE WORSE than the
+celebrated tag-v2 −19.70 (n=2393) and the −16.84/−19.99 key-#3 smokes. Three unresolved causes, can't cleanly
+separate: (1) unlucky tail session; (2) both prior numbers were favorable draws → true level ~−25±5; (3) ★ most
+likely — this run used the FIXED blinds-order unpack (magnitude-based, gtowizard.py L48), whereas the −19.70
+anchor may have carried the EV-PROTECTIVE over-fold bug (the SB-fold-clamp precedent: fixing an over-fold
+WORSENS EV) → −30 may be the MORE HONEST number and −19.70 was bug-inflated. Tell: Quantplay v8 (−30.11) landed
+adjacent to the old polluted Quantplay (−30.40, key #2) — both ~−30, favoring (2)/(3) over pure variance.
+CONCLUSION: the true live level is probably ~−25 to −30, NOT −20; #11 (needs ~−15.6) is not realistic with this
+bot; ~#24 is honest. To pin down: 2–3 more clean runs on the fixed harness. Leaderboard min-hands threshold ≈
+1000 (smallest shown ~1070). The $108 tournament coaching reports (`research/tourney_report.py`, DE+EN premium
+PDFs) also shipped this session.
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms
