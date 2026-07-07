@@ -14,16 +14,19 @@ HH = (r"C:\Users\hampe\Documents\1# Personal Poker Hand Histories + reports"
       r"\GG20260706-2110 - Speed Racer Bounty 108 [10 BB].txt")
 OUTDIR = r"C:\Users\hampe\Documents\1# Personal Poker Hand Histories + reports"
 
-# ---- palette: WHITE ON BLACK, colored accents ----
-BG     = (0.047, 0.047, 0.055)   # near-black background
-PANEL  = (0.105, 0.105, 0.125)   # dark panels
-PANEL2 = (0.160, 0.160, 0.190)   # lighter panel / medallion inner
-GRID   = (0.200, 0.200, 0.235)
-GOLD   = (0.905, 0.745, 0.235)
-CREAM  = (0.965, 0.965, 0.965)   # near-white text
-REDC   = (0.925, 0.310, 0.270)   # hearts/diamonds
-MUTE   = (0.620, 0.620, 0.660)
-TEAL   = (0.145, 0.820, 0.680)
+# ---- palette: DARK ON WHITE, colored accents ----
+BG         = (1.000, 1.000, 1.000)   # white background
+INK        = (0.130, 0.140, 0.170)   # dark main text
+CREAM      = INK                     # legacy alias: "main text" is dark ink on white
+CARD       = (1.000, 1.000, 1.000)   # card face (bordered)
+CARDBORDER = (0.780, 0.790, 0.820)
+PANEL      = (0.960, 0.963, 0.972)   # very light gray panels
+PANEL2     = (0.928, 0.933, 0.947)
+GRID       = (0.860, 0.870, 0.890)
+GOLD       = (0.820, 0.620, 0.120)
+REDC       = (0.820, 0.240, 0.190)   # hearts/diamonds
+MUTE       = (0.450, 0.460, 0.500)
+TEAL       = (0.055, 0.560, 0.460)
 
 W, H = A4
 
@@ -138,11 +141,13 @@ def text(c, x, y, s, size, col=CREAM, font="Helvetica", center=False, right=Fals
 
 
 def panel(c, x, y, w, h, fill=PANEL, radius=6):
-    c.setFillColorRGB(*fill); c.roundRect(x, y, w, h, radius, fill=1, stroke=0)
+    c.setFillColorRGB(*fill); c.setStrokeColorRGB(*GRID); c.setLineWidth(0.7)
+    c.roundRect(x, y, w, h, radius, fill=1, stroke=1)
 
 
 def card(c, x, y, rank, suit, w=15 * mm, h=21 * mm):
-    c.setFillColorRGB(*CREAM); c.roundRect(x, y, w, h, 2.5, fill=1, stroke=0)
+    c.setFillColorRGB(*CARD); c.setStrokeColorRGB(*CARDBORDER); c.setLineWidth(0.7)
+    c.roundRect(x, y, w, h, 2.5, fill=1, stroke=1)
     col = REDC if suit in "hd" else (0.10, 0.10, 0.12)
     sym = {"h": "♥", "d": "♦", "s": "♠", "c": "♣"}[suit]
     r = {"T": "10"}.get(rank, rank)
@@ -159,7 +164,7 @@ def hand_cards(c, x, y, cards, scale=1.0):
 
 def chip(c, cx, cy, r, col=GOLD):
     c.setFillColorRGB(*col); c.circle(cx, cy, r, fill=1, stroke=0)
-    c.setStrokeColorRGB(*CREAM); c.setLineWidth(1); c.setDash(2, 2)
+    c.setStrokeColorRGB(*CARD); c.setLineWidth(1); c.setDash(2, 2)
     c.circle(cx, cy, r * 0.72, fill=0, stroke=1); c.setDash()
 
 
@@ -224,7 +229,7 @@ def run_page(c, arc, L):
     p = c.beginPath(); p.moveTo(px(xs[0]), py(0))
     for i, v in zip(xs, ys): p.lineTo(px(i), py(v))
     p.lineTo(px(xs[-1]), py(0)); p.close()
-    c.saveState(); c.setFillColorRGB(*GOLD); c.setFillAlpha(0.14); c.drawPath(p, fill=1, stroke=0); c.restoreState()
+    c.saveState(); c.setFillColorRGB(*GOLD); c.setFillAlpha(0.16); c.drawPath(p, fill=1, stroke=0); c.restoreState()
     c.setStrokeColorRGB(*GOLD); c.setLineWidth(2.2)
     p2 = c.beginPath(); p2.moveTo(px(xs[0]), py(ys[0]))
     for i, v in zip(xs, ys): p2.lineTo(px(i), py(v))
