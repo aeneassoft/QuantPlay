@@ -172,6 +172,19 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > LSP symbol navigation, active from the next session). Analyzer sequencing: v3.2 → v3.3 → v3.4 → v3.5, one arm
 > per user upload, fresh anchors from the fixed exporter.
 >
+> **★ FUTURE BUILD CANDIDATE (user-flagged 2026-07-07, deferred) — the VALUE-OF-COMPUTATION ARBITER**
+> ([`docs/SURFING_CONSULT.md`](docs/SURFING_CONSULT.md), memory [[value-of-computation-arbiter]]). From extracting
+> Andy Clark's *Surfing Uncertainty* (predictive processing) + a GPT-5.5 math/CS translation: PP is mostly an
+> elegant re-description of RL/solver methods (NO new poker objective — poker stays chip-EV, not prediction-error
+> min), BUT 3 concepts converge on ONE buildable high-leverage lever = **precision-weighted value-of-computation
+> control**: spend resolver/CFR budget ONLY where the fast cached policy is likely wrong or the top-2 EV gap is
+> small AND the pot is large. Build: a calibrated **ΔEV = EV(resolved) − EV(fast)** quantile regressor over cheap
+> features (advisor policy+entropy, range-confidence, pot/SPR, top-2 margin, cache age, board texture, opponent
+> line-surprise) → invoke the resolver iff `E[ΔEV] − λ·solve_ms > threshold` (+ river-all-in triggers). This is the
+> IMPLEMENTABLE core of the v4 path (it decides WHERE the real-time CFR runs) and attacks the −20 postflop leak
+> directly; aligns with `docs/PRECISION_DOCTRINE.md`. The transferable book-insight: the brain rivals machines at
+> poker via metareasoning EFFICIENCY (optimal scarce-compute allocation), not raw compute or a better objective.
+>
 > **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
 > the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the
 > ACTIVE BUILD CARD with the merged lever queue + measurement ladder). The measured stand: GTO-mode **−11.61** (n=100
