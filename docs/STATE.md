@@ -61,6 +61,17 @@ der HU-84%-Prioren, 1 board-disjunkter Repräsentant/Klasse × Combo-Gewicht = b
 Gegner-Range-Mix (Treffer/Luft via made_class) + Hero-Equity (equity_vs_weighted_range, spot_fp-geseedet)
 je Straße, DU-Kohärenz-Zeile (repräsentiert vs. gehalten) und SHOWDOWN-Wahrheitscheck (result["shown"]).
 Warm ~6-160 ms; Kalt-Load (~1.4 s) im grader.prewarm() abgefangen. Fail-soft → Heuristik-Fallback.
+**UX-PAKET 2 (User-Feedback, 2026-08-02):** (1) REAL-FLOW-Modus — `/api/step` spielt pro Request EINE
+Bot-Aktion, der Client animiert sequenziell (UTG zuerst, ~420 ms/Aktion, Straßenpause 650 ms); nie mehr
+Solver-Einstieg mid-hand; Hero-Fold spult die Resthand durch (step-Flag opt-in, six.html byte-identisch).
+(2) Slider EXPONENTIELL (halbe Breite = 2-14bb) + 0.25bb-Snap + ±0.5bb-Stepper + Kontext-Presets
+(preflop 2/2.5/3/4bb bzw. 2.5x/3x/4x/Pot, Start 2.5bb). (3) Blinken entfernt (turnpulse/barpulse →
+statisches Leuchten), Button-Gold entschärft (#bda15f), Nächste-Hand kleiner. (4) Gewonnen/Verloren-
+Anzeige ERSETZT durch Qualitäts-Banner (✓ Gut gespielt / ～ nicht optimal / ✗ signifikanter Fehler —
+nie das Ergebnis benoten). (5) Sizing-Korrektur in Prozent im Feedback (`→ wähle die Bet ~96 % kleiner`,
+ab 2x als Faktor; preflop in bb, Toleranz 15%). (6) Replay-„Weiter" springt zur nächsten EIGENEN
+Entscheidung (Blinds zählen nicht; Zwischenschritte 220 ms) + voller individueller Coaching-Text pro
+Entscheidung (replay._coach_from rendert via templates_de). Gates: alle Selftests + Autotest 7/1/0 grün.
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms

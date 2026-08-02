@@ -147,36 +147,54 @@ class Session:
         for b in self.bots.values():
             b.observe(actor, street, act, to_call, preflop_raises)
 
+    def _bot_act(self) -> dict:
+        """Play exactly ONE bot action (caller guarantees a bot is to act) and return its event."""
+        t = self.table
+        seat = t.to_act
+        obs = t.obs_for(seat)
+        street, to_call, praises = t.street, obs["to_call"], obs["preflop_raises"]
+        try:
+            dec = self.bots[seat].decide(obs)
+            action, amount = dec["action"], dec["amount"]
+            t.act(action, amount)
+        except Exception:  # noqa: BLE001 — defensive: never crash the table on a bot
+            la = t.legal_actions()
+            action = "check" if la.get("can_check") else ("call" if la.get("can_call") else "fold")
+            t.act(action)
+            amount = None
+        self._observe_all(seat, street, action, to_call, praises)
+        return {"seat": seat, "name": t.seats[seat].name, "pos": t.position_label(seat),
+                "action": action, "amount": amount, "street": street}
+
     def advance(self) -> list[dict]:
         t = self.table
         events: list[dict] = []
         while not t.hand_over and t.to_act is not None and not t.seats[t.to_act].is_human:
-            seat = t.to_act
-            obs = t.obs_for(seat)
-            street, to_call, praises = t.street, obs["to_call"], obs["preflop_raises"]
-            try:
-                dec = self.bots[seat].decide(obs)
-                action, amount = dec["action"], dec["amount"]
-                t.act(action, amount)
-            except Exception:  # noqa: BLE001 — defensive: never crash the table on a bot
-                la = t.legal_actions()
-                action = "check" if la.get("can_check") else ("call" if la.get("can_call") else "fold")
-                t.act(action)
-                amount = None
-            self._observe_all(seat, street, action, to_call, praises)
-            events.append({"seat": seat, "name": t.seats[seat].name, "pos": t.position_label(seat),
-                           "action": action, "amount": amount, "street": street})
+            events.append(self._bot_act())
         self._log_if_done()
         return events
 
-    def start_hand(self) -> list[dict]:
+    def step(self) -> list[dict]:
+        """Trainer real-flow mode: ONE bot action per request — the client animates each in seat order
+        (UTG first) like a normal online poker game, instead of jumping to the hero-to-act state."""
+        t = self.table
+        events: list[dict] = []
+        if not t.hand_over and t.to_act is not None and not t.seats[t.to_act].is_human:
+            events.append(self._bot_act())
+        self._log_if_done()
+        return events
+
+    def start_hand(self, auto_advance: bool = True) -> list[dict]:
         self._pending_decisions = []
         self.table.start_hand()
         for b in self.bots.values():
             b.new_hand(list(range(self.table.n)))
+        if not auto_advance:                      # step mode: the client drives bots via /api/step
+            self._log_if_done()
+            return []
         return self.advance()
 
-    def human_action(self, action: str, amount):
+    def human_action(self, action: str, amount, step_mode: bool = False):
         t = self.table
         street, praises = t.street, t.preflop_raises
         to_call = t.legal_actions().get("to_call", 0) or 0
@@ -193,6 +211,11 @@ class Session:
         if rec is not None:
             self._pending_decisions.append(rec)
         self._observe_all(HUMAN, street, action, to_call, praises)
+        # Step mode plays like real online poker EXCEPT after a hero fold: then the rest of the hand is
+        # not worth watching — fast-forward to the end so the next hand is one click away (user rule).
+        if step_mode and action != "fold":
+            self._log_if_done()                   # the hero action itself may close the hand (river call)
+            return []
         return self.advance()
 
     def view(self, events=None) -> dict:
@@ -239,11 +262,17 @@ SESSION: Session | None = None
 class NewReq(BaseModel):
     stack_bb: int = 100
     mode: str = "gto"               # P0-0: 'gto' | 'exploit'
+    step: bool = False              # real-flow mode: client animates bots one action at a time (/api/step)
 
 
 class ActionReq(BaseModel):
     action: str
     amount: int | None = None
+    step: bool = False
+
+
+class HandReq(BaseModel):
+    step: bool = False
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -273,15 +302,15 @@ def new_session(req: NewReq) -> JSONResponse:
         except Exception:  # noqa: BLE001
             pass
     SESSION = Session(stack=req.stack_bb * 100, sb=50, bb=100, mode=req.mode)
-    ev = SESSION.start_hand()
+    ev = SESSION.start_hand(auto_advance=not req.step)
     return JSONResponse(SESSION.view(ev))
 
 
 @app.post("/api/hand")
-def next_hand() -> JSONResponse:
+def next_hand(req: HandReq | None = None) -> JSONResponse:
     if SESSION is None:
         return JSONResponse({"error": "no session"}, status_code=400)
-    ev = SESSION.start_hand()
+    ev = SESSION.start_hand(auto_advance=not (req is not None and req.step))
     return JSONResponse(SESSION.view(ev))
 
 
@@ -293,9 +322,18 @@ def action(req: ActionReq) -> JSONResponse:
     if t.hand_over or t.to_act != HUMAN:
         return JSONResponse({"error": "not your turn"}, status_code=400)
     try:
-        ev = SESSION.human_action(req.action, req.amount)
+        ev = SESSION.human_action(req.action, req.amount, step_mode=req.step)
     except (ValueError, RuntimeError) as e:
         return JSONResponse({"error": str(e)}, status_code=400)
+    return JSONResponse(SESSION.view(ev))
+
+
+@app.post("/api/step")
+def step() -> JSONResponse:
+    """Real-flow mode: advance exactly one bot action (empty events = hero's turn or hand over)."""
+    if SESSION is None:
+        return JSONResponse({"error": "no session"}, status_code=400)
+    ev = SESSION.step()
     return JSONResponse(SESSION.view(ev))
 
 

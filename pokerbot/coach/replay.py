@@ -53,11 +53,24 @@ def _coach_from(dec: dict) -> dict:
     if rec_action is None:                       # P0-3 stores the oracle verdict nested under 'oracle'
         orc = dec.get("oracle") or {}
         rec_action = orc.get("oracle_action") or orc.get("action")
+    # Voller Coaching-Text PRO Entscheidung (User-QA 2026-08-02): derselbe Renderer wie das Hand-Feedback
+    # macht jeden Replay-Schritt einzigartig (Grund + Alternative + Bot-Frequenzen), statt nur one_liner.
+    # Lazy + guarded: replay bleibt ohne templates_de lauffähig (Modul-Doktrin: pure, unit-testbar).
+    text = None
+    try:
+        from pokerbot.coach import templates_de as _tp
+        text = _tp.render_decision_feedback(dec)["text"]
+        dist = _tp._dist_str(dec)
+        if dist:
+            text += dist
+    except Exception:  # noqa: BLE001 — one_liner bleibt der Fallback im UI
+        text = None
     return {
         "played": _readable_action(dec.get("human_action")),
         "recommended": _readable_action(rec_action),
         "grade": dec.get("grade"),
         "one_liner": one_liner,
+        "text": text,
     }
 
 

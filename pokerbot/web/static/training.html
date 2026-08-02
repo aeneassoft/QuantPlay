@@ -21,6 +21,7 @@
     --bg1:#0a1020; --bg2:#060a14; --rail:#1a2740; --rail2:#0f1830;
     --felt1:#1e7a63; --felt2:#0d4d3e; --gold:#f0c860; --cyan:#37e0c8; --red:#ff5d52;
     --card:#f7f6f1; --ink:#10151f; --cardred:#d23b2c; --muted:#8aa0b8; --win:#43d17a;
+    --btngold:#bda15f;   /* Buttons: gedämpftes Gold — das grelle #f0c860 hatte zu viel Kontrast (User-QA) */
   }
   *{box-sizing:border-box;-webkit-user-select:none;user-select:none}
   html,body{margin:0;height:100%;background:radial-gradient(ellipse at 50% 30%,var(--bg1),var(--bg2));
@@ -76,10 +77,9 @@
   .seat{position:absolute;width:190px;transform:translate(-50%,-50%);text-align:center;transition:opacity .25s}
   .pod{background:linear-gradient(180deg,#16223acc,#0c1626ee);border:1px solid #2c3f5e;border-radius:14px;
     padding:7px 9px 8px;position:relative;box-shadow:0 6px 16px #0006;transition:box-shadow .2s,border-color .2s}
-  .seat.turn .pod{border-color:var(--cyan);animation:turnpulse 1.05s ease-in-out infinite}
+  /* STATISCH leuchten, nie blinken (User-QA 2026-08-02): Puls-Animationen lenken beim Nachdenken ab */
+  .seat.turn .pod{border-color:var(--cyan);box-shadow:0 0 0 2px var(--cyan),0 0 18px #37e0c899}
   .seat.turn .nm{color:var(--cyan);font-size:22px}     /* actor name emphasis (P2-4) */
-  @keyframes turnpulse{0%,100%{box-shadow:0 0 0 2px var(--cyan),0 0 9px #37e0c855}
-    50%{box-shadow:0 0 0 2px var(--cyan),0 0 26px #37e0c8dd}}
   .seat.win .pod{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 26px #f0c860bb}
   .seat.folded{opacity:.4}
   .av{width:34px;height:34px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;
@@ -118,17 +118,17 @@
 
   .bar{position:absolute;left:20px;top:906px;width:1400px;height:120px;background:#0b1424cc;border:1px solid #24344f;
     border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px}
-  .bar.myturn{animation:barpulse 1.1s ease-in-out infinite}   /* the eye lands on the action bar (P2-4) */
-  @keyframes barpulse{0%,100%{box-shadow:0 0 0 1px #37e0c855}50%{box-shadow:0 0 0 3px #37e0c8cc}}
+  .bar.myturn{box-shadow:0 0 0 2px #37e0c890;border-color:#37e0c866}   /* statisch, nie blinkend */
   .bar .wait{color:var(--muted);text-align:center;font-size:24px}
-  .big{font-size:30px;padding:20px 52px;background:var(--gold)}
+  /* bewusst dezenter: der große Deal-Button lenkte vom Feedback-Text ab (User-QA 2026-08-02) */
+  .big{font-size:24px;padding:13px 32px}
   .autodeal{display:inline-flex;align-items:center;gap:10px;margin-left:24px;font-size:22px;color:var(--muted);
     cursor:pointer;-webkit-user-select:none}
   .autodeal input{width:18px;height:18px;cursor:pointer}
   .btnrow{display:flex;gap:12px;align-items:center;justify-content:center}
-  button{cursor:pointer;border:none;border-radius:10px;padding:16px 30px;font-weight:800;font-size:23px;color:#06121f;
-    background:var(--gold);transition:transform .05s,filter .15s}
-  button:hover{filter:brightness(1.08)} button:active{transform:translateY(1px)}
+  button{cursor:pointer;border:none;border-radius:10px;padding:16px 30px;font-weight:800;font-size:23px;color:#0c1322;
+    background:var(--btngold);transition:transform .05s,filter .15s}
+  button:hover{filter:brightness(1.12)} button:active{transform:translateY(1px)}
   button.fold{background:#e2554a;color:#fff} button.check{background:var(--cyan)}
   button.call{background:#3fae6b;color:#04140b} button.sec{background:#26405f;color:#dff}
   .kbd{opacity:.6;font-size:11px;font-weight:600;margin-left:5px}
@@ -136,7 +136,8 @@
   input[type=range]{width:420px;accent-color:var(--gold)}
   .amt{min-width:110px;text-align:center;font-weight:800;color:var(--gold);font-size:18px}
   .amt.armed{text-shadow:0 0 10px var(--gold)}
-  .qz{display:flex;gap:7px}.qz button{padding:8px 12px;font-size:13px;background:#26405f;color:#dff;border-radius:8px}
+  .qz{display:flex;gap:7px}.qz button{padding:8px 12px;font-size:15px;background:#26405f;color:#dff;border-radius:8px}
+  .stp{padding:8px 16px;font-size:22px;background:#26405f;color:#dff;border-radius:8px;line-height:1}
 
   /* ── coaching panel RIGHT ~40% ────────────────────────────────────── */
   .panel{position:absolute;left:1450px;top:48px;width:930px;height:1240px;background:#0b1424cc;border:1px solid #24344f;
@@ -249,7 +250,8 @@
 'use strict';
 const $=id=>document.getElementById(id);
 // ── timing constants: everything gating input <=300ms; POP is a non-blocking floater; AUTODEAL per plan (P2-3) ──
-const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000};
+// STEP/STREETPAUSE: real-flow bot pacing — schneller als ein Mensch, aber jede Aktion einzeln sichtbar
+const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000, STEP:420, STREETPAUSE:650};
 const SUIT={s:'♠',h:'♥',d:'♦',c:'♣'},RED={h:1,d:1};
 const SC=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];          // seat -> %x,%y of felt
 const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066'];
@@ -435,6 +437,7 @@ function renderCoach(c){
     `<div class="fbbody">${body}</div>`+
     `<button id="b-weiter">Weiter <span class="kbd">Leertaste</span></button>`;
   $('b-weiter').onclick=dealNow;
+  qualityBanner(c);                              // Fallback-Pfad (fetchFeedback) aktualisiert das Banner mit
 }
 function coachPlaceholder(v){
   const my=v.legal&&v.legal.to_act===v.human_seat;
@@ -525,9 +528,8 @@ function render(v){
       if(w && w.rank){const r=document.createElement('div');r.className='rank';
         r.textContent=RANK_DE[w.rank]||w.rank; el.querySelector('.pod').appendChild(r);}
     }
-    if(v.hand_over && s.is_human && s.net){const p=document.createElement('div');
-      p.className='pop '+(s.net>0?'win':'lose'); p.textContent=(s.net>0?'+':'')+bbs(s.net)+' bb';
-      p.style.left=x+'%'; p.style.top=(y-9)+'%'; $('felt').appendChild(p);}
+    // KEIN ±bb-Pop mehr am Hero-Sitz (User-QA 2026-08-02): das Ergebnis wird nie prominent gefeiert/betrauert —
+    // prominent ist nur die SPIELQUALITÄT (Banner); das Netto steht klein im Verlauf + Session-Zähler.
     if(s.committed_street>0){const [bx,by]=lerp(SC[s.seat],0.44);const b=document.createElement('div');
       b.className='bet';b.style.left=bx+'%';b.style.top=by+'%';b.innerHTML=chipStack(s.committed_street);
       $('felt').appendChild(b);}
@@ -567,6 +569,20 @@ function flyToWinner(seat){const [x,y]=SC[seat];const f=document.createElement('
 function cancelAutodeal(){if(advTimer){clearTimeout(advTimer);advTimer=null;}}
 function dealNow(){cancelAutodeal();if(!replayMode)nextHand();}
 
+// Qualitäts-Banner (User-QA 2026-08-02): prominent ist WIE du gespielt hast, nie OB du gewonnen hast —
+// das Ergebnis benoten wäre Ergebnis-Orientierung (Anti-Tilt-Doktrin §1.1).
+const QUALITY_BANNER={
+  ok:   {txt:'✓ Gut gespielt',                        col:'var(--win)'},
+  teuer:{txt:'～ Nicht ganz optimal — sieh ins Feedback', col:'var(--gold)'},
+  leak: {txt:'✗ Signifikanter Fehler — sieh ins Feedback', col:'var(--red)'},
+};
+function qualityBanner(c){
+  const ban=$('banner');
+  if(!c||!view||!view.hand_over){return;}
+  if(!(c.grades||[]).length){ban.classList.remove('show');return;}
+  const q=QUALITY_BANNER[worstGrade(c.grades)];
+  ban.textContent=q.txt; ban.style.color=q.col; ban.classList.add('show');
+}
 function renderEnd(v){
   cancelAutodeal();
   const ban=$('banner');
@@ -574,12 +590,8 @@ function renderEnd(v){
   if(lastEndHand!==v.hand_no){lastEndHand=v.hand_no;handEndTimes.push(Date.now());}
   (v.result.winners||[]).forEach(w=>flyToWinner(w.seat));
   const me=v.seats[v.human_seat], net=me.net||0;
-  const myWin=(v.result.winners||[]).find(w=>w.seat===v.human_seat);
-  let txt='';
-  if(net>0) txt=`Du gewinnst +${bbs(net)} bb${myWin&&myWin.rank?' · '+(RANK_DE[myWin.rank]||myWin.rank):''} 🎉`;
-  else if(net<0) txt=`Du verlierst ${bbs(net)} bb`;
-  ban.textContent=txt; ban.classList.toggle('show', net!==0);
-  ban.style.color = net>0?'var(--win)':'var(--red)';
+  ban.classList.remove('show');
+  qualityBanner(v.coach);                        // Grading läuft serverseitig synchron -> meist sofort da
   const wl=(v.result.winners||[]).map(w=>`${v.seats[w.seat].name}${w.rank?' ('+(RANK_DE[w.rank]||w.rank)+')':''}`).join(', ');
   log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
   if(!v.coach)fetchFeedback();
@@ -609,22 +621,55 @@ function renderBar(v){
   if(L.can_fold)row.appendChild(mk('Fold','F','fold',()=>send('fold')));
   if(L.can_check)row.appendChild(mk('Check','C','check',()=>send('check')));
   if(L.can_call)row.appendChild(mk('Call '+bbs(L.call_amount)+'bb','C','call',()=>send('call')));
-  if(L.can_raise){row.appendChild(mk((L.is_bet?'Bet':'Raise')+' ▸','R','',()=>send('raise',parseInt($('sl').value))));
+  if(L.can_raise){row.appendChild(mk((L.is_bet?'Bet':'Raise')+' ▸','R','',()=>send('raise',amtChips)));
     row.appendChild(mk('All-in','A','sec',()=>send('allin')));}
   bar.appendChild(row);
   if(L.can_raise){const sr=document.createElement('div');sr.className='sizerow';
-    sr.innerHTML=`<div class="qz" id="qz"></div><input type="range" id="sl"><span class="amt" id="amt"></span>`;
+    sr.innerHTML=`<div class="qz" id="qz"></div><button id="am-dn" class="stp">−</button>`+
+      `<input type="range" id="sl" min="0" max="1000" step="1"><button id="am-up" class="stp">+</button>`+
+      `<span class="amt" id="amt"></span>`;
     bar.appendChild(sr);
-    const sl=$('sl');sl.min=L.raise_min;sl.max=L.raise_max;sl.step=Math.max(1,Math.round(bb/4));sl.value=L.raise_min;
-    const upd=()=>$('amt').textContent=bbs(parseInt(sl.value))+'bb';sl.oninput=upd;upd();
+    slMin=L.raise_min;slMax=L.raise_max;
+    $('sl').oninput=()=>{amtChips=snapChips(tToChips(parseInt($('sl').value)));updAmt();};
+    $('am-dn').onclick=()=>bumpAmt(-bb/2);       // Feinstufen ±0.5bb — 2.5bb/3bb exakt treffbar
+    $('am-up').onclick=()=>bumpAmt(bb/2);
+    const pot=v.pot,call=L.to_call||0,cur=v.current_bet||0;
     const q=(t,kbd,to)=>{const b=document.createElement('button');
       b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');
-      b.onclick=()=>{sl.value=Math.max(L.raise_min,Math.min(Math.round(to),L.raise_max));upd();};return b;};
-    const pot=v.pot,call=L.to_call||0,cur=v.current_bet||0;
-    $('qz').append(q('Min','',L.raise_min),q('⅓','1',cur+(pot+call)/3),q('½','2',cur+0.5*(pot+call)),
-      q('¾','3',cur+0.75*(pot+call)),q('Pot','4',cur+(pot+call)));
+      b.onclick=()=>setAmt(to);return b;};
+    // Presets nach Kontext: preflop denkt man in bb (2/2.5/3/4), nicht in Pot-Bruchteilen (User-QA)
+    if(v.street==='preflop'&&cur<=bb){
+      quickTargets=[2*bb,2.5*bb,3*bb,4*bb];
+      $('qz').append(q('2bb','1',quickTargets[0]),q('2.5bb','2',quickTargets[1]),
+        q('3bb','3',quickTargets[2]),q('4bb','4',quickTargets[3]));
+      setAmt(2.5*bb);                            // Standard-Open als Startwert
+    }else if(v.street==='preflop'){
+      quickTargets=[2.5*cur,3*cur,4*cur,cur+(pot+call)];
+      $('qz').append(q('2.5x','1',quickTargets[0]),q('3x','2',quickTargets[1]),
+        q('4x','3',quickTargets[2]),q('Pot','4',quickTargets[3]));
+      setAmt(3*cur);                             // Standard-3-Bet/-Raise als Startwert
+    }else{
+      quickTargets=[cur+(pot+call)/3,cur+0.5*(pot+call),cur+0.75*(pot+call),cur+(pot+call)];
+      $('qz').append(q('⅓','1',quickTargets[0]),q('½','2',quickTargets[1]),
+        q('¾','3',quickTargets[2]),q('Pot','4',quickTargets[3]));
+      setAmt(cur+2/3*(pot+call));                // Standard-C-Bet als Startwert
+    }
   }
 }
+/* Slider-Kennlinie EXPONENTIELL (User-QA 2026-08-02): linear waren 2.5bb auf 2-100bb ~1 Pixel breit.
+   Exponentiell deckt die halbe Slider-Breite ~2-14bb ab; Snap aufs 0.25bb-Raster (ab 10bb: ganze bb). */
+let slMin=0,slMax=0,amtChips=0,quickTargets=[];
+function tToChips(t){if(slMax<=slMin)return slMin;
+  return slMin*Math.pow(slMax/slMin,t/1000);}
+function chipsToT(c){if(slMax<=slMin||c<=slMin)return 0;
+  return Math.round(1000*Math.log(c/slMin)/Math.log(slMax/slMin));}
+function snapChips(c){
+  const grid=(c<10*bb)?bb/4:bb;
+  return Math.max(slMin,Math.min(slMax,Math.round(c/grid)*grid));}
+function setAmt(c){amtChips=snapChips(c);const sl=$('sl');if(sl)sl.value=chipsToT(amtChips);updAmt();}
+function bumpAmt(d){setAmt(Math.max(slMin,Math.min(slMax,amtChips+d)));}
+function updAmt(){const a=$('amt');if(!a)return;
+  const v=amtChips/bb;a.textContent=(v%1?v.toFixed(v<10?2:1).replace(/0$/,''):v)+'bb';}
 function mk(t,kbd,c,fn){const b=document.createElement('button');
   b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');if(c)b.className=c;b.onclick=fn;return b;}
 
@@ -638,31 +683,54 @@ async function api(p,b){
   }catch(err){return {error:String(err)};}
   finally{busy=false;}
 }
+/* ── real-flow step loop (User-QA 2026-08-02): der Server spielt pro /api/step genau EINE Bot-Aktion —
+   das Spiel läuft wie echtes Online-Poker (UTG zuerst, jede Aktion einzeln animiert), nie Solver-Sprung.
+   Token-guarded: neue Hand / neues Spiel / Replay bricht eine laufende Schleife sauber ab. ── */
+let stepToken=0;
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function botsToAct(){return view&&!view.hand_over&&view.to_act!=null&&view.to_act!==view.human_seat;}
+async function runSteps(){
+  const tok=++stepToken;
+  while(botsToAct()&&!replayMode){
+    const prevStreet=view.street;
+    await sleep(T.STEP);
+    if(tok!==stepToken)return;
+    const v=await api('/api/step',{});
+    if(tok!==stepToken)return;
+    if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+    render(v);
+    if(v.street!==prevStreet&&botsToAct())await sleep(T.STREETPAUSE-T.STEP);
+    if(tok!==stepToken)return;
+  }
+}
 async function startSession(){
-  replayMode=false;replayData=null;
+  stepToken++;replayMode=false;replayData=null;
   $('log').innerHTML='';log('— Neues Spiel ('+MODE.toUpperCase()+') —','s');
   sessionStart=Date.now();handEndTimes=[];lastEndHand=null;coachHand=null;fbRequestedHand=null;
   // P0-0: mode travels in the request; servers without the field ignore the extra key
-  const v=await api('/api/new_session',{stack_bb:100, mode:MODE});
+  const v=await api('/api/new_session',{stack_bb:100, mode:MODE, step:true});
   if(v.error){log('Fehler: '+v.error,'s');return;}
   render(v);
+  runSteps();
 }
 async function nextHand(){
   if(replayMode)return;                          // no live actions from inside a replay
-  advTimer=null;
-  const v=await api('/api/hand',{});
+  stepToken++;advTimer=null;
+  const v=await api('/api/hand',{step:true});
   if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
   render(v);
+  runSteps();
 }
 async function send(a,amt){
   if(replayMode)return;                          // no live actions from inside a replay
-  cancelAutodeal();
+  cancelAutodeal();stepToken++;
   const street=view?view.street:null;
-  const v=await api('/api/action',{action:a,amount:amt});
+  const v=await api('/api/action',{action:a,amount:amt,step:true});
   if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
   pushTicker(street,'Du '+(VERB2[a]||a)+(amt?' '+bbs(amt)+'bb':''));
   log(`<span class="y">Du</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');
   render(v);
+  runSteps();
 }
 async function analyze(){
   $('out').textContent='… analysiere …';
@@ -679,7 +747,7 @@ async function analyze(){
 /* ── replay (P2-6): step-through from GET /api/replay/last ───────────── */
 async function enterReplay(){
   if(replayMode)return;
-  cancelAutodeal();                              // FIRST — the hand must not auto-advance under the walkthrough
+  cancelAutodeal();stepToken++;                  // FIRST — the hand must not auto-advance under the walkthrough
   try{
     const r=await fetch('/api/replay/last');
     if(!r.ok){log('Replay nicht verfügbar ('+r.status+')','s');return;}
@@ -781,9 +849,11 @@ function renderReplayCoach(st){
     const d=st.decision||st.coach;    // plan name 'decision'; the live server ships 'coach'
     h+=`<div>Gespielt: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
     if(d){
-      const oaTxt=actionTxt(d.oracle_action);
+      const oaTxt=d.recommended!=null?d.recommended:actionTxt(d.oracle_action);
       h+=`<div>Empfohlen: <b>${esc(oaTxt)}</b> <span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span></div>`;
-      if(d.erklaerung_kurz)h+=`<div class="fbbody">${markTerms(d.erklaerung_kurz)}</div>`;
+      // der volle Coaching-Text pro Entscheidung (replay.py rendert via templates_de); one_liner = Fallback
+      const txt=d.text||d.one_liner||d.erklaerung_kurz;
+      if(txt)h+=`<div class="fbbody">${markTerms(txt)}</div>`;
       const nums=[];
       if(d.equity!=null)nums.push('Equity '+pct(d.equity));
       if(d.pot_odds!=null)nums.push('benötigt '+pct(d.pot_odds));
@@ -795,14 +865,38 @@ function renderReplayCoach(st){
   }
   $('coach').innerHTML=h;
 }
-function replayNext(){if(replayMode&&replayIdx<replayData.steps.length-1){replayIdx++;renderReplayState(replayIdx);}}
-function replayPrev(){if(replayMode&&replayIdx>0){replayIdx--;renderReplayState(replayIdx);}}
+/* „Weiter" springt IMMER zur nächsten eigenen Entscheidung (User-QA 2026-08-02) — die Bot-Aktionen
+   dazwischen laufen schnell durch (220ms), damit der Kontext sichtbar bleibt; „Zurück" analog rückwärts. */
+let replayTimer=null;
+function replayStepThrough(target){
+  if(!replayMode||replayIdx>=target)return;
+  replayIdx++;renderReplayState(replayIdx);
+  if(replayIdx<target)replayTimer=setTimeout(()=>replayStepThrough(target),220);
+}
+function isHeroDecision(s){return s.type==='action'&&isHeroStep(s);}   // Blind setzen ist KEINE Entscheidung
+function replayNext(){
+  if(!replayMode||replayIdx>=replayData.steps.length-1)return;
+  if(replayTimer){clearTimeout(replayTimer);replayTimer=null;}
+  const steps=replayData.steps;
+  let target=replayIdx+1;
+  while(target<steps.length-1&&!isHeroDecision(steps[target]))target++;
+  replayStepThrough(target);
+}
+function replayPrev(){
+  if(!replayMode||replayIdx<=0)return;
+  if(replayTimer){clearTimeout(replayTimer);replayTimer=null;}
+  let target=replayIdx-1;
+  while(target>0&&!isHeroDecision(replayData.steps[target]))target--;
+  replayIdx=target;renderReplayState(replayIdx);
+}
 function exitReplay(){
   if(!replayMode)return;
+  if(replayTimer){clearTimeout(replayTimer);replayTimer=null;}
   replayMode=false;replayData=null;
   suppressAutodeal=true;                         // post-replay reflection: the user deals with Space/N
   if(liveView)render(liveView);
   suppressAutodeal=false;
+  runSteps();                                    // Replay mitten in einer Hand betreten? Bots spielen weiter
 }
 
 /* ── hotkeys (P2-3): F/C/R/A, 1-4 sizes, Space/N deal, G glossary, P replay ── */
@@ -836,26 +930,21 @@ function onKey(e){
   else if(k==='r'||k==='R'){
     if(!L.can_raise)return;
     if(!armedRaise){armedRaise=true;const a=$('amt');if(a)a.classList.add('armed');const sl=$('sl');if(sl)sl.focus();}
-    else send('raise',parseInt($('sl').value));
+    else send('raise',amtChips);
   }
-  else if(k==='Enter'){if(L.can_raise&&armedRaise)send('raise',parseInt($('sl').value));}
+  else if(k==='Enter'){if(L.can_raise&&armedRaise)send('raise',amtChips);}
   else if(k==='1')setQuick(1);
   else if(k==='2')setQuick(2);
   else if(k==='3')setQuick(3);
   else if(k==='4')setQuick(4);
   else if(k==='ArrowUp'||k==='Up'||k==='ArrowDown'||k==='Down'){
-    const sl=$('sl');if(!sl)return;e.preventDefault();
-    sl.value=parseInt(sl.value)+((k==='ArrowUp'||k==='Up')?1:-1)*parseInt(sl.step);
-    sl.dispatchEvent(new Event('input'));
+    if(!$('sl'))return;e.preventDefault();
+    bumpAmt(((k==='ArrowUp'||k==='Up')?1:-1)*bb/2);   // ±0.5bb Feinstufen, wie die −/+ Buttons
   }
 }
 function setQuick(n){
   if(!view||!view.legal||!view.legal.can_raise)return;
-  const L=view.legal,sl=$('sl');if(!sl)return;
-  const pot=view.pot,call=L.to_call||0,cur=view.current_bet||0;
-  const f=[null,1/3,0.5,0.75,1][n];              // keys 1-4 = ⅓ / ½ / ¾ / Pot
-  sl.value=Math.max(L.raise_min,Math.min(Math.round(cur+f*(pot+call)),L.raise_max));
-  sl.dispatchEvent(new Event('input'));
+  if(quickTargets[n-1]!=null)setAmt(quickTargets[n-1]);   // Tasten 1-4 = die vier Kontext-Presets
 }
 document.addEventListener('keydown',onKey);
 

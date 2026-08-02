@@ -252,6 +252,39 @@ def _sizing_worte(rec: dict, hf, sf) -> tuple[str, str]:
     return gespielt, "eine Standard-Open-Größe (2–3bb, gegen einen Raise ~3x)"
 
 
+def _sizing_ratio(rec: dict, hf, sf):
+    """Plan/gespielt als Faktor (>1 = größer wählen): postflop aus den Pot-Fraktionen des Sizing-Checks,
+    preflop in bb (Open-Plan 2.5bb; gegen einen Raise ~3x dessen Höhe). None = nicht rekonstruierbar."""
+    if str(rec.get("street", "")).lower() == "preflop":
+        bbv = _num((rec.get("obs") or {}).get("bb")) or 100
+        ha = rec.get("human_action") or {}
+        amt = _num(ha.get("amount")) if isinstance(ha, dict) else None
+        if not amt or amt <= 0:
+            return None
+        pre = [h for h in (rec.get("history") or []) if str(h.get("street")) == "preflop"
+               and h.get("action") in ("bet", "raise", "allin")]
+        plan = 3.0 * (_num(pre[-1].get("to"), pre[-1].get("amount")) or 0) if pre else 2.5 * bbv
+        return (plan / amt) if plan > 0 else None
+    if isinstance(hf, (int, float)) and isinstance(sf, (int, float)) and hf > 0 and sf > 0:
+        return sf / hf
+    return None
+
+
+SIZING_TOLERANZ = 0.15        # <15% Abweichung: keine Prozent-Korrektur — das wäre Präzisions-Theater
+
+
+def _sizing_korrektur(ratio) -> str:
+    """'→ wähle die Bet ~45 % kleiner' — die konkrete Prozent-Korrektur (User-QA 2026-08-02: gut
+    sichtbar zeigen, um wie viel die Bet höher/niedriger gehört; ab 2x als Faktor, Prozente >100 lügen)."""
+    if ratio is None or (1 - SIZING_TOLERANZ) <= ratio <= (1 + SIZING_TOLERANZ):
+        return ""
+    if ratio >= 2:
+        return f" → wähle die Bet ~{ratio:.1f}-mal so groß."
+    if ratio > 1:
+        return f" → wähle die Bet ~{(ratio - 1) * 100:.0f} % größer."
+    return f" → wähle die Bet ~{(1 - ratio) * 100:.0f} % kleiner."
+
+
 def _fb_sizing(rec: dict, grade: str) -> str:
     sz = _check(rec, "sizing")
     hf, sf = _num(sz.get("human_frac")), _num(sz.get("snapped_frac"))
@@ -260,11 +293,12 @@ def _fb_sizing(rec: dict, grade: str) -> str:
         return f"Sauberes Sizing: {gespielt} passt hier — so bleibt deine Value-Bet glaubwürdig."
     # Plan-Größe nur EINMAL nennen — die preflop-Variante ist lang ('Standard-Open-Größe (2–3bb …)') und
     # las sich doppelt genannt wie ein Stottern (User-QA 2026-08-02).
+    korrektur = _sizing_korrektur(_sizing_ratio(rec, hf, sf))
     if grade == "teuer":
         return (f"Dein Sizing war etwas daneben: gespielt {gespielt}, der Plan sieht {plan} vor — "
-                f"die Größe erzählt die stimmigere Geschichte.")
+                f"die Größe erzählt die stimmigere Geschichte.{korrektur}")
     return (f"Teurer Kauf beim Sizing: {gespielt}, der Plan sieht {plan} vor — "
-            f"die Geometrie gibt die Größe vor, nicht das Bauchgefühl.")
+            f"die Geometrie gibt die Größe vor, nicht das Bauchgefühl.{korrektur}")
 
 
 def _fb_advisor_freq(rec: dict, grade: str) -> str:
@@ -569,6 +603,13 @@ def _selftest() -> None:
     # 3) Bot-Einschaetzung sichtbar gelabelt
     bot_out = render_decision_feedback(_rec(None, "teuer", conf="Bot-Einschätzung"))
     assert "Bot-Einschätzung" in bot_out["text"]
+    # 3b) Sizing-Korrektur in Prozent (User-QA 2026-08-02): 1.6x Pot statt 0.75 -> '~53 % kleiner';
+    #     0.1 statt 0.75 -> Faktor-Wortlaut; Preflop 12bb-Open vs 2.5bb-Plan -> '% kleiner' in bb-Logik
+    assert "% kleiner" in render_decision_feedback(fixtures[7])["text"], fixtures[7]
+    assert "-mal so groß" in render_decision_feedback(fixtures[8])["text"], fixtures[8]
+    pre_sz = _rec("sizing", "leak", ha="raise", amount=1200, street="preflop",
+                  obs={"bb": 100}, history=[], checks={"sizing": {"human_frac": 8.0, "snapped_frac": 1.0}})
+    assert "% kleiner" in render_decision_feedback(pre_sz)["text"], render_decision_feedback(pre_sz)["text"]
     # 4) Hand-Feedback (Lern-Impuls-Struktur, User-QA 2026-08-02): NUR suboptimale Entscheidungen, je eine
     #    Zeile mit STRASSEN-TAG + Bot-Frequenzen, danach der Strategie-Abschnitt; KEIN Lob, KEIN Ergebnis-Text.
     hand = render_hand_feedback([fixtures[0], fixtures[7], fixtures[9]], {"pot": 2400}, "gto")
