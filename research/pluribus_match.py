@@ -124,10 +124,12 @@ class HandSim:
             self.pf_aggressor = seat
 
 
-def match_hand(hand: dict, knobs, stats: dict) -> None:
-    """Replay eine Hand; an jedem Pluribus-Entscheidungspunkt unseren Kern fragen und vergleichen."""
+def match_hand(hand: dict, knobs, stats: dict, hero_name: str = HERO_NAME) -> None:
+    """Replay eine Hand; an jedem Entscheidungspunkt des `hero_name`-Sitzes unseren Kern fragen.
+    hero_name='Pluribus' misst Bot↔Pluribus; ein Profi-Alias (MrBlue, Eddie, …) misst Bot↔ELITE-PROFI —
+    die Aliasse sind die anonymisierten Profis des Science-Experiments, alle Hole Cards liegen offen."""
     sim = HandSim(hand)
-    hero = hand["players"].index(HERO_NAME)
+    hero = hand["players"].index(hero_name)
     hero_hole = [hand["holes"][str(hero)][:2], hand["holes"][str(hero)][2:]]
     board = hand["board"]
     for act in hand["actions"]:
@@ -165,14 +167,14 @@ def match_hand(hand: dict, knobs, stats: dict) -> None:
         sim.apply(seat, verb, act["amount"])
 
 
-def run(n_hands: int, json_out: Path | None) -> dict:
+def run(n_hands: int, json_out: Path | None, hero_name: str = HERO_NAME) -> dict:
     knobs = PROFILES["tag"]
     stats = {"rows": [], "errors": 0}
     lines = HH_PATH.read_text(encoding="utf-8").splitlines()
     for ln in lines[:n_hands]:
         hand = json.loads(ln)
-        if HERO_NAME in hand["players"]:
-            match_hand(hand, knobs, stats)
+        if hero_name in hand["players"]:
+            match_hand(hand, knobs, stats, hero_name)
     rows = stats["rows"]
     n = len(rows)
     agree = sum(r["agree"] for r in rows)
@@ -245,12 +247,14 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=10_000)
     ap.add_argument("--json", default="data/pluribus_match.json")
+    ap.add_argument("--hero", default=HERO_NAME, help="Pluribus ODER ein Profi-Alias (MrBlue, Eddie, ...)")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
     if args.selftest:
         _selftest()
         return
-    out = run(args.n, Path(args.json))
+    out = run(args.n, Path(args.json), args.hero)
+    out["hero"] = args.hero
     _report(out)
 
 
