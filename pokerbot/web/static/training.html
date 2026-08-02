@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<!--
+  training.html — PokerB TRAINER UI (Snowie-Layout 2560x1440): Tisch links ~60%, Coaching-Panel rechts ~40%.
+  WHY a fork of six.html: the plain play app at GET / stays byte-identical; six_server serves this file
+  fresh per request at GET /training (read-fresh pattern), so HTML/JS edits need no server restart.
+  Single file, no frameworks, request-driven (every POST returns the full view; render(v) redraws all).
+  Server contract (all fetches degrade gracefully — 404/missing fields render a placeholder or "–"):
+    POST /api/new_session {stack_bb, mode}   POST /api/action {action, amount}   POST /api/hand {}
+    POST /api/analyze {}                     POST /api/feedback (fallback GET /api/feedback/last)
+    GET  /api/glossary (fallback /api/glossar)   GET /api/replay/last   GET /api/bot_read (fallback /api/opponent_panel)
+  view fields consumed: hand_no button sb bb street board pot current_bet to_act hand_over result human_seat
+    session_net hands_done seats[] legal bot_events + optional: mode, coach, difficulty.
+-->
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PokerB — Trainer</title>
+<style>
+  :root{
+    --bg1:#0a1020; --bg2:#060a14; --rail:#1a2740; --rail2:#0f1830;
+    --felt1:#1e7a63; --felt2:#0d4d3e; --gold:#f0c860; --cyan:#37e0c8; --red:#ff5d52;
+    --card:#f7f6f1; --ink:#10151f; --cardred:#d23b2c; --muted:#8aa0b8; --win:#43d17a;
+  }
+  *{box-sizing:border-box;-webkit-user-select:none;user-select:none}
+  html,body{margin:0;height:100%;background:radial-gradient(ellipse at 50% 30%,var(--bg1),var(--bg2));
+    font-family:"Segoe UI",system-ui,sans-serif;color:#eaf2ff;overflow:hidden}
+  /* stage 2400x1330: native 1:1 at 2560x1440, uniform downscale below (fit()) */
+  #stage{position:absolute;left:50%;top:50%;width:2400px;height:1330px;transform-origin:center}
+  .hdr{position:absolute;top:0;left:20px;width:1400px;height:40px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 10px;font-size:15px;color:var(--muted)}
+  .hdr b{color:#eaf2ff}.hdr .g{color:var(--gold)}
+  .hdr .right{display:flex;gap:18px;align-items:center}
+  #modebadge{font-weight:800;font-size:12px;color:#06121f;background:var(--cyan);border-radius:8px;padding:1px 8px}
+  #modebadge.exploit{background:var(--gold)}
+
+  /* ── table zone LEFT ~60% ─────────────────────────────────────────── */
+  .table{position:absolute;left:20px;top:48px;width:1400px;height:830px;border-radius:415px/248px;
+    background:linear-gradient(180deg,var(--rail),var(--rail2));padding:34px;
+    box-shadow:0 18px 50px #000a, inset 0 2px 4px #ffffff10}
+  .felt{position:relative;width:100%;height:100%;border-radius:390px/230px;
+    background:radial-gradient(ellipse at 50% 42%,var(--felt1),var(--felt2));
+    box-shadow:inset 0 0 70px #00000070, inset 0 0 0 2px #ffffff14}
+  .felt::after{content:"";position:absolute;inset:40px;border-radius:330px/190px;border:1px dashed #ffffff18}
+
+  .center{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);text-align:center;width:560px}
+  /* permanent pot, big (P2-4) */
+  .pot{display:inline-block;background:#0008;border:1px solid #ffffff22;color:var(--gold);font-weight:800;
+    font-size:28px;padding:5px 22px;border-radius:20px}
+  #potdetail{font-size:15px;color:var(--muted);min-height:20px;margin-top:3px;font-weight:700}
+  .board{display:flex;gap:8px;justify-content:center;margin-top:12px;min-height:80px}
+  .banner{position:absolute;left:50%;top:72%;transform:translate(-50%,-50%);font-size:30px;font-weight:800;
+    text-shadow:0 2px 10px #000;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+  .banner.show{opacity:1;animation:bpop .25s ease-out}
+  @keyframes bpop{0%{transform:translate(-50%,-50%) scale(.7)}100%{transform:translate(-50%,-50%) scale(1)}}
+
+  .card{width:52px;height:74px;border-radius:8px;background:linear-gradient(180deg,#fff,var(--card));
+    color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-weight:800;font-size:24px;box-shadow:0 3px 8px #0007;line-height:1}
+  .card .s{font-size:20px}
+  .card.red{color:var(--cardred)}
+  .card.sm{width:40px;height:56px;font-size:18px}.card.sm .s{font-size:15px}
+  .card.hero{width:62px;height:86px;font-size:28px;box-shadow:0 4px 12px #000a,0 0 0 2px var(--gold)}
+  .card.hero .s{font-size:24px}
+  .board .card{width:56px;height:78px;font-size:25px}
+  .card.back{background:repeating-linear-gradient(45deg,#21406b,#21406b 6px,#2d5790 6px,#2d5790 12px);
+    box-shadow:0 3px 8px #0007, inset 0 0 0 2px #ffffff22}
+  .card.new{animation:cardpop .25s ease-out}          /* newly revealed street cards pop (P2-4) */
+  @keyframes cardpop{0%{transform:translateY(-8px) scale(.85);opacity:0}100%{transform:none;opacity:1}}
+
+  .seat{position:absolute;width:190px;transform:translate(-50%,-50%);text-align:center;transition:opacity .25s}
+  .pod{background:linear-gradient(180deg,#16223acc,#0c1626ee);border:1px solid #2c3f5e;border-radius:14px;
+    padding:7px 9px 8px;position:relative;box-shadow:0 6px 16px #0006;transition:box-shadow .2s,border-color .2s}
+  .seat.turn .pod{border-color:var(--cyan);animation:turnpulse 1.05s ease-in-out infinite}
+  .seat.turn .nm{color:var(--cyan);font-size:16px}     /* actor name emphasis (P2-4) */
+  @keyframes turnpulse{0%,100%{box-shadow:0 0 0 2px var(--cyan),0 0 9px #37e0c855}
+    50%{box-shadow:0 0 0 2px var(--cyan),0 0 26px #37e0c8dd}}
+  .seat.win .pod{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 26px #f0c860bb}
+  .seat.folded{opacity:.4}
+  .av{width:34px;height:34px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;
+    font-weight:800;font-size:15px;line-height:34px;color:#06121f;text-align:center}
+  .who{display:flex;align-items:center;justify-content:center;gap:2px}
+  .nm{font-weight:700;font-size:14px}
+  .pos{font-size:11px;color:var(--gold);background:#0006;border-radius:6px;padding:0 6px;margin-left:4px}
+  .stk{font-size:14px;color:#bfe9dd;margin-top:2px}
+  .holes{display:flex;gap:5px;justify-content:center;margin:3px 0 2px;min-height:60px;align-items:flex-end}
+  .rank{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:5px;white-space:nowrap;
+    background:var(--gold);color:#06121f;font-weight:800;font-size:13px;padding:2px 10px;border-radius:10px;
+    box-shadow:0 3px 10px #0009;animation:bpop .25s ease-out}
+
+  #dealer{position:absolute;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dcdcdc);
+    color:#111;font-weight:900;font-size:16px;line-height:32px;text-align:center;z-index:9;transform:translate(-50%,-50%);
+    box-shadow:0 2px 7px #000b,0 0 0 2px #00000022;transition:left .26s cubic-bezier(.34,1.4,.5,1),top .26s cubic-bezier(.34,1.4,.5,1)}
+
+  .bet{position:absolute;transform:translate(-50%,-50%);z-index:7;display:flex;align-items:center;gap:8px;
+    animation:betpop .18s ease-out}
+  @keyframes betpop{0%{opacity:0}100%{opacity:1}}
+  .chips{position:relative;display:inline-block;width:24px;height:26px}
+  .cd{position:absolute;left:0;width:24px;height:10px;border-radius:50%;border:2px solid #ffffffcc;box-shadow:0 1px 3px #000b}
+  /* bet amounts BIG at the chips (P2-4) */
+  .camt{font-weight:800;font-size:20px;color:#fff;background:#000b;border:1px solid #ffffff33;border-radius:12px;padding:2px 10px}
+
+  .flychip{position:absolute;width:24px;height:24px;border-radius:50%;z-index:12;transform:translate(-50%,-50%);
+    background:radial-gradient(circle at 35% 30%,#ffe9a8,#d8a72a);border:2px solid #fff8;box-shadow:0 2px 8px #000a}
+  .pop{position:absolute;transform:translate(-50%,-50%);font-weight:800;font-size:21px;text-shadow:0 2px 6px #000;
+    z-index:13;pointer-events:none;animation:rise .9s ease-out forwards}
+  .pop.win{color:var(--win)} .pop.lose{color:var(--red)}
+  @keyframes rise{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-160%)}}
+
+  /* one-line action ticker between table and bar (P2-4) */
+  #ticker{position:absolute;left:20px;top:880px;width:1400px;height:24px;padding:0 12px;font-size:16px;
+    color:#cfe3f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .bar{position:absolute;left:20px;top:906px;width:1400px;height:120px;background:#0b1424cc;border:1px solid #24344f;
+    border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .bar.myturn{animation:barpulse 1.1s ease-in-out infinite}   /* the eye lands on the action bar (P2-4) */
+  @keyframes barpulse{0%,100%{box-shadow:0 0 0 1px #37e0c855}50%{box-shadow:0 0 0 3px #37e0c8cc}}
+  .bar .wait{color:var(--muted);text-align:center;font-size:17px}
+  .btnrow{display:flex;gap:12px;align-items:center;justify-content:center}
+  button{cursor:pointer;border:none;border-radius:10px;padding:14px 26px;font-weight:800;font-size:17px;color:#06121f;
+    background:var(--gold);transition:transform .05s,filter .15s}
+  button:hover{filter:brightness(1.08)} button:active{transform:translateY(1px)}
+  button.fold{background:#e2554a;color:#fff} button.check{background:var(--cyan)}
+  button.call{background:#3fae6b;color:#04140b} button.sec{background:#26405f;color:#dff}
+  .kbd{opacity:.6;font-size:11px;font-weight:600;margin-left:5px}
+  .sizerow{display:flex;gap:12px;align-items:center;justify-content:center}
+  input[type=range]{width:420px;accent-color:var(--gold)}
+  .amt{min-width:110px;text-align:center;font-weight:800;color:var(--gold);font-size:18px}
+  .amt.armed{text-shadow:0 0 10px var(--gold)}
+  .qz{display:flex;gap:7px}.qz button{padding:8px 12px;font-size:13px;background:#26405f;color:#dff;border-radius:8px}
+
+  /* ── coaching panel RIGHT ~40% ────────────────────────────────────── */
+  .panel{position:absolute;left:1450px;top:48px;width:930px;height:1240px;background:#0b1424cc;border:1px solid #24344f;
+    border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .net{display:flex;align-items:baseline;justify-content:center;gap:14px}
+  .net .v{font-size:32px;font-weight:900}.net .v.pos{color:var(--win)}.net .v.neg{color:var(--red)}
+  .net .l{font-size:13px;color:var(--muted)}
+  .panel h3{margin:0;font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+  .log{background:#070d18;border-radius:8px;padding:8px;flex:1;min-height:120px;overflow:auto;font-size:13px;line-height:1.5}
+  .log .b{color:#ffe1a3}.log .y{color:#9af7d3}.log .r{color:#fff;font-weight:700}.log .s{color:var(--muted)}
+  .out{background:#070d18;border-radius:8px;padding:10px;font-size:14px;line-height:1.55;white-space:pre-wrap;
+    max-height:220px;overflow:auto}
+  #coach{background:#070d18;border-radius:8px;padding:12px;font-size:15px;line-height:1.6;max-height:400px;
+    overflow:auto;white-space:normal}
+  #coach .ph{color:var(--muted)}
+  .fbhead{font-weight:800;font-size:16px;margin-bottom:5px}
+  .fbbody{margin-top:5px}
+  .badges{margin:4px 0}
+  .badge{display:inline-block;font-weight:800;font-size:12px;padding:1px 8px;border-radius:8px;background:#0006;margin:2px 4px 2px 0}
+  .badge.ok{color:var(--win)} .badge.teuer{color:var(--gold)} .badge.leak{color:var(--red)}
+  .muted{color:var(--muted)}
+  .mini{display:flex;gap:8px}.mini button{flex:1;padding:10px;font-size:14px}
+  #b-weiter{margin-top:8px;padding:10px 18px;font-size:15px}
+
+  /* glossary terms: dotted underline, clickable (P2-2) */
+  .term{color:var(--cyan);text-decoration:underline dotted;cursor:help}
+  #gloss,#botread{background:#070d18;border-radius:8px}
+  #gloss summary,#botread summary{cursor:pointer;color:var(--gold);font-weight:700;padding:8px;font-size:13px;list-style-position:inside}
+  #gfilter{user-select:text;-webkit-user-select:text;width:calc(100% - 16px);margin:2px 8px 6px;padding:6px 9px;
+    border-radius:6px;border:1px solid #24344f;background:#0b1424;color:#eaf2ff;font-size:13px}
+  #glist{max-height:420px;overflow:auto;font-size:13px;line-height:1.5;padding:0 8px 8px}
+  .gentry{padding:5px 6px;border-radius:6px}.gentry b{color:var(--cyan)}
+  .gentry code{color:#ffe1a3;background:#0b1424;border-radius:4px;padding:0 4px}
+  .gentry.hl{animation:glflash 2s;background:#f0c86022}
+  @keyframes glflash{0%{background:#f0c86066}100%{background:#f0c86011}}
+  #brbody{padding:2px 10px 10px;font-size:13px;line-height:1.55;max-height:260px;overflow:auto}
+  .exploit{color:#ffb4ae;margin:4px 0}
+
+  /* start overlay: GTO/Exploit mode toggle (P0-0 UI) */
+  #modeoverlay{position:fixed;inset:0;background:#060a14ee;z-index:50;display:flex;align-items:center;justify-content:center}
+  .mo-card{background:linear-gradient(180deg,#16223a,#0c1626);border:1px solid #2c3f5e;border-radius:16px;
+    padding:38px 46px;text-align:center;max-width:620px;box-shadow:0 18px 50px #000a}
+  .mo-card h2{margin:0 0 6px;font-size:26px}
+  .mo-card p{color:var(--muted);font-size:15px}
+  .mo-card button{margin:10px;padding:18px 34px;font-size:19px}
+  #m-exploit{background:var(--cyan)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="hdr">
+    <div><b>♠ PokerB</b> <span class="g">Trainer</span></div>
+    <div class="right">
+      <span id="modebadge">GTO</span>
+      <span id="liga">Liga –</span>
+      <span id="hph">– H./Std</span>
+      <span id="meta">—</span>
+    </div>
+  </div>
+  <div class="table"><div class="felt" id="felt">
+    <div class="center">
+      <div class="pot" id="pot">Pot 0</div>
+      <div id="potdetail"></div>
+      <div class="board" id="board"></div>
+    </div>
+    <div class="banner" id="banner"></div>
+    <div id="dealer" style="display:none">D</div>
+  </div></div>
+  <div id="ticker">—</div>
+  <div class="bar" id="bar"><div class="wait">…</div></div>
+
+  <div class="panel">
+    <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Session-Netto (bb)</div></div>
+    <div class="mini">
+      <button id="b-new" class="sec">Neu</button>
+      <button id="b-an">Analyse</button>
+      <button id="b-replay" class="sec">Replay <span class="kbd">P</span></button>
+    </div>
+    <h3>Feedback</h3>
+    <div id="coach"><div class="ph">Spiel eine Hand — das Feedback erscheint hier.</div></div>
+    <details id="botread" style="display:none">
+      <summary>🧠 Was der Bot über dich gelernt hat</summary>
+      <div id="brbody">—</div>
+    </details>
+    <h3>Analyse</h3><div class="out" id="out">Spiel ~100 Hände, dann „Analyse".</div>
+    <h3>Verlauf</h3><div class="log" id="log"></div>
+    <details id="gloss">
+      <summary>📖 Glossar</summary>
+      <input id="gfilter" placeholder="Begriff suchen…" autocomplete="off"/>
+      <div id="glist"><div class="muted" style="padding:6px 8px">Glossar wird geladen…</div></div>
+    </details>
+  </div>
+</div>
+
+<div id="modeoverlay">
+  <div class="mo-card">
+    <h2>♠ PokerB Trainer</h2>
+    <p>Wähle deinen Trainingsmodus:</p>
+    <div>
+      <button id="m-gto">GTO-Modus</button>
+      <button id="m-exploit">Exploit-Modus</button>
+    </div>
+    <p><b style="color:#eaf2ff">GTO:</b> der Bot spielt seine Grundlinie und ignoriert deine Tendenzen.<br/>
+       <b style="color:#eaf2ff">Exploit:</b> der Bot lernt dich live und nutzt deine Leaks — du erlebst deine Ausbeutbarkeit.</p>
+  </div>
+</div>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+// ── timing constants: everything gating input <=300ms; POP is a non-blocking floater; AUTODEAL per plan (P2-3) ──
+const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000};
+const SUIT={s:'♠',h:'♥',d:'♦',c:'♣'},RED={h:1,d:1};
+const SC=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];          // seat -> %x,%y of felt
+const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066'];
+const RANK_DE={'High Card':'Hohe Karte','Pair':'Paar','Two Pair':'Zwei Paare','Three of a Kind':'Drilling',
+  'Straight':'Straße','Flush':'Flush','Full House':'Full House','Four of a Kind':'Vierling',
+  'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
+const STREET_DE={preflop:'Preflop',flop:'Flop',turn:'Turn',river:'River',showdown:'Showdown'};
+const ICON={ok:'✓',teuer:'～',leak:'✗'};
+// third person for the ticker, second person for the human's own line, noun for replay labels
+const VERB3={fold:'foldet',check:'checkt',call:'callt',bet:'setzt',raise:'erhöht',allin:'All-in'};
+const VERB2={fold:'foldest',check:'checkst',call:'callst',bet:'setzt',raise:'erhöhst',allin:'All-in'};
+const ACTION_DE={fold:'Fold',check:'Check',call:'Call',bet:'Bet',raise:'Raise',allin:'All-in'};
+function verbDe(a){return VERB3[a]||a;}
+
+let bb=100, view=null, advTimer=null, lastBtn=null, busy=false;
+let MODE='gto', sessionStart=null;
+let handEndTimes=[], lastEndHand=null;                 // rolling hands/hour
+let tickerParts=[], tickerStreet=null, tickerHand=null;
+let lastBoardLen=0, lastBoardHand=null;
+let coachHand=null, fbRequestedHand=null, armedRaise=false;
+let GLOSSARY=[], TERM_RE=null, SYN2SLUG={}, TERMKEY={};
+let replayMode=false, replayData=null, replayIdx=0, liveView=null, suppressAutodeal=false;
+
+function fit(){const s=Math.min(innerWidth/2400, innerHeight/1330);
+  $('stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit); fit();
+
+/* ── shared card/chip renderers (carried over from six.html) ─────────── */
+function card(c,size){const d=document.createElement('div');
+  const cls={sm:'card sm',hero:'card hero'}[size]||'card';
+  if(!c||c==='??'){d.className=cls.replace('card','card back');return d;}
+  const r=c[0],s=c[1];d.className=cls+(RED[s]?' red':'');
+  d.innerHTML=`<div>${r==='T'?'10':r}</div><div class="s">${SUIT[s]||s}</div>`;return d;}
+function setCards(el,arr,size){el.innerHTML='';(arr||[]).forEach(c=>el.appendChild(card(c,size)));}
+function bbs(x){x=x||0;const v=x/bb;return (Math.abs(v)<10&&v%1)?v.toFixed(1):Math.round(v).toString();}
+function lerp(p,f){return [p[0]+(50-p[0])*f, p[1]+(50-p[1])*f];}
+function log(h,c){const l=$('log');const d=document.createElement('div');d.className=c||'';d.innerHTML=h;l.appendChild(d);l.scrollTop=l.scrollHeight;}
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function pct(x){if(x==null||isNaN(x))return '–';const v=x<=1?x*100:x;return Math.round(v)+' %';}
+// chip colours deliberately OUTSIDE the teal/cyan/gold theme so bets pop + sizes differ
+function chipCol(b){return b<2?'#eef2f5':b<6?'#e23b3b':b<15?'#ff7a1a':b<40?'#8a4cff':'#ff2d8a';}
+function chipStack(chips){const b=chips/bb,col=chipCol(b),n=Math.max(1,Math.min(5,Math.round(1+Math.log2(b+1))));
+  let s='<span class="chips">';for(let i=0;i<n;i++)s+=`<span class="cd" style="background:${col};bottom:${i*4}px"></span>`;
+  return s+`</span><span class="camt">${bbs(chips)}</span>`;}
+
+/* ── glossary (P2-2): one registry from the server, one markup fn, one delegated click ── */
+function slugify(t){return String(t||'').toLowerCase()
+  .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+async function loadGlossary(){
+  // primary /api/glossary (P2-2); fallback /api/glossar (P1-C shape {terms:[...]}) — graceful when neither exists yet
+  for(const url of ['/api/glossary','/api/glossar']){
+    try{const r=await fetch(url); if(!r.ok)continue;
+      let d=await r.json(); if(d&&Array.isArray(d.terms))d=d.terms;
+      if(Array.isArray(d)&&d.length){GLOSSARY=d;break;}
+    }catch(err){/* endpoint not there yet — glossary stays empty, markTerms degrades to plain text */}
+  }
+  buildGloss();
+}
+function buildGloss(){
+  SYN2SLUG={}; TERMKEY={};
+  const names=[];
+  GLOSSARY.forEach(e=>{
+    const slug=slugify(e.id||e.begriff); if(!slug)return;
+    const syns=[e.begriff].concat(e.syn||e.synonyme||[]).filter(Boolean);
+    syns.forEach(s=>{const k=s.toLowerCase(); if(!(k in SYN2SLUG)){SYN2SLUG[k]=slug;names.push(s);}});
+    TERMKEY[slug]=slug; if(e.id)TERMKEY[String(e.id).toLowerCase()]=slug;
+    TERMKEY[String(e.begriff||'').toLowerCase()]=slug;
+  });
+  if(names.length){
+    // longest-first so 'Fold Equity' wins over 'Fold'; umlaut-aware boundaries (\b fails on ä/ö/ü)
+    names.sort((a,b)=>b.length-a.length);
+    const alts=names.map(n=>n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+    TERM_RE=new RegExp('(?<![\\wäöüÄÖÜß])('+alts+')(?![\\wäöüÄÖÜß])','gi');
+  } else TERM_RE=null;
+  const list=GLOSSARY.slice().sort((a,b)=>String(a.begriff).localeCompare(String(b.begriff),'de'));
+  $('glist').innerHTML=list.map(e=>{
+    const slug=slugify(e.id||e.begriff);
+    const formel=e.formel?` <code>${esc(e.formel)}</code>`:'';
+    const quelle=e.quelle?` <span class="muted">(${esc(e.quelle)})</span>`:'';
+    return `<div class="gentry" id="g-${slug}" data-s="${esc((e.begriff+' '+(e.erklaerung||'')).toLowerCase())}">`+
+      `<b>${esc(e.begriff)}</b> ${esc(e.erklaerung||'')}${formel}${quelle}</div>`;
+  }).join('')||'<div class="muted" style="padding:6px 8px">Kein Glossar verfügbar.</div>';
+}
+// THE single markup fn for client-composed strings: escape FIRST, then wrap term spans (order = XSS safety)
+function markTerms(text){
+  let s=esc(text);
+  if(!TERM_RE)return s;
+  const seen=new Set();
+  s=s.replace(TERM_RE,m=>{
+    const slug=SYN2SLUG[m.toLowerCase()];
+    if(!slug||seen.has(slug))return m;          // first occurrence per term only — noise control
+    seen.add(slug);
+    return `<span class="term" data-term="${slug}">${m}</span>`;
+  });
+  return s;
+}
+function openGloss(key){
+  cancelAutodeal();                              // reading = no auto-deal under the user
+  $('gloss').open=true;
+  const slug=TERMKEY[String(key||'').toLowerCase()]||TERMKEY[slugify(key)]||slugify(key);
+  document.querySelectorAll('.gentry.hl').forEach(e=>e.classList.remove('hl'));
+  const el=$('g-'+slug);
+  if(el){el.classList.add('hl');el.scrollIntoView({block:'nearest'});}
+}
+function toggleGloss(){$('gloss').open=!$('gloss').open;}
+// ONE delegated listener on the panel opens+highlights+scrolls the glossary entry
+document.querySelector('.panel').addEventListener('click',e=>{
+  const t=e.target.closest('.term'); if(!t)return; openGloss(t.dataset.term);});
+$('gloss').addEventListener('toggle',()=>{if($('gloss').open)cancelAutodeal();});
+$('gfilter').addEventListener('focus',cancelAutodeal);
+$('gfilter').addEventListener('input',()=>{
+  const q=$('gfilter').value.trim().toLowerCase();
+  document.querySelectorAll('.gentry').forEach(el=>{
+    el.style.display=(!q||(el.dataset.s||'').includes(q))?'':'none';});
+});
+
+/* ── ticker (P2-4): the at-a-glance line, reset per street/hand ──────── */
+function pushTicker(street,txt){
+  if(street!==tickerStreet){tickerParts=[];tickerStreet=street;}
+  tickerParts.push(txt);
+  $('ticker').textContent=tickerParts.join(' → ');
+}
+
+/* ── coach feedback (P1-D) ───────────────────────────────────────────── */
+function worstGrade(grades){
+  let w='ok';
+  (grades||[]).forEach(g=>{if(g.grade==='leak')w='leak';else if(g.grade==='teuer'&&w!=='leak')w='teuer';});
+  return w;
+}
+function actionTxt(a){
+  if(a==null)return '–';
+  if(typeof a==='object')return (ACTION_DE[a.action]||a.action||'–')+(a.amount?' '+bbs(a.amount)+'bb':'');
+  return ACTION_DE[a]||String(a);
+}
+function renderCoach(c){
+  coachHand=(c.hand_no!=null)?c.hand_no:(view?view.hand_no:null);
+  const grades=c.grades||[];
+  const w=worstGrade(grades);
+  // inline badges per decision: ✓/～/✗ (green/yellow/red) — Sofort-Feedback light, no textwall
+  const badges=grades.map(g=>
+    `<span class="badge ${esc(g.grade||'')}">${ICON[g.grade]||'·'} ${esc(STREET_DE[g.street]||g.street||'')} ${esc(actionTxt(g.human_action))}</span>`
+  ).join('');
+  const body=c.html?c.html:`<div>${markTerms(c.text||'')}</div>`;   // server html keeps its term() spans — never re-marked
+  $('coach').innerHTML=
+    `<div class="fbhead"><span class="badge ${w}">${ICON[w]}</span> Hand #${esc(c.hand_no!=null?c.hand_no:'–')}</div>`+
+    (badges?`<div class="badges">${badges}</div>`:'')+
+    `<div class="fbbody">${body}</div>`+
+    `<button id="b-weiter">Weiter <span class="kbd">Leertaste</span></button>`;
+  $('b-weiter').onclick=dealNow;
+}
+function coachPlaceholder(v){
+  const my=v.legal&&v.legal.to_act===v.human_seat;
+  const street=STREET_DE[v.street]||v.street;
+  const zeile=my
+    ?`Du bist dran (${street}) — Pot ${bbs(v.pot)}bb${(v.legal.to_call>0)?', '+bbs(v.legal.to_call)+'bb zu callen':''}.`
+    :`Gegner sind dran (${street}).`;
+  $('coach').innerHTML=`<div class="ph">${esc(zeile)}<br/>Das Feedback kommt nach der Hand.</div>`;
+}
+async function fetchFeedback(){
+  if(!view||fbRequestedHand===view.hand_no)return;
+  fbRequestedHand=view.hand_no;
+  try{
+    // plan route: POST /api/feedback; fallback GET /api/feedback/last — both may not exist yet (404 → keep placeholder)
+    let r=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    if(!r.ok)r=await fetch('/api/feedback/last');
+    if(!r.ok)return;
+    const c=await r.json();
+    if(c&&(c.html||c.text))renderCoach(c);
+  }catch(err){/* feedback backend not wired yet — the placeholder stays */}
+}
+
+/* ── bot read panel (P3-C UI, exploit mode only) ─────────────────────── */
+function fmtStat(o,label){
+  if(!o)return '';
+  if(o.value==null)return `<div class="muted">${esc(label)}: noch nicht genug Daten (${o.n!=null?o.n:0}/${o.min!=null?o.min:'?'})</div>`;
+  const v=(o.value<=1.5)?pct(o.value):(Math.round(o.value*100)/100);
+  return `<div>${esc(label)}: <b>${v}</b> (n=${o.n!=null?o.n:'?'})</div>`;
+}
+async function loadBotRead(){
+  let d=null;
+  for(const u of ['/api/bot_read','/api/opponent_panel']){
+    try{const r=await fetch(u); if(r.ok){d=await r.json();break;}}catch(err){}
+  }
+  const el=$('brbody');
+  if(!d){el.innerHTML='<span class="muted">–</span>';return;}
+  let h='';
+  if(d.hinweis)h+=`<div class="muted">${markTerms(d.hinweis)}</div>`;
+  (d.live_exploits||[]).forEach(x=>{h+=`<div class="exploit">⚠ ${markTerms(x.text_de||x.text||x.key||'')}</div>`;});
+  const st=d.stats||{};
+  h+=fmtStat(st.fold_to_bet,'Fold auf Bet')+fmtStat(st.threebet,'3-Bet')+fmtStat(st.aggression,'Aggression');
+  if(st.vpip_raw!=null||st.pfr_raw!=null)
+    h+=`<div class="muted">VPIP ${pct(st.vpip_raw)} · PFR ${pct(st.pfr_raw)}</div>`;
+  el.innerHTML=h||'<span class="muted">Noch keine Daten.</span>';
+}
+$('botread').addEventListener('toggle',()=>{if($('botread').open)loadBotRead();});
+
+/* ── render: the single redraw point (six.html architecture) ─────────── */
+function curMode(){return (view&&view.mode)||MODE;}
+function render(v){
+  view=v; bb=v.bb;
+  if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
+  $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
+  const mb=$('modebadge');mb.textContent=curMode().toUpperCase();mb.className=curMode()==='exploit'?'exploit':'';
+  // P3-D: minimal difficulty indicator — from view fields when the server ships them, '–' otherwise
+  const df=v.difficulty||v.liga||null;
+  const rate=df?(df.error_rate!=null?df.error_rate:df.rate):null;
+  $('liga').textContent=df?`Liga ${df.tier_name!=null?df.tier_name:(df.tier!=null?df.tier:'–')} · Fehler ${pct(rate)} (Ziel 10–20 %)`:'Liga –';
+  // hands/hour: rolling window over the last 20 hand-ends
+  let hph='–';
+  if(handEndTimes.length>=3){
+    const w=handEndTimes.slice(-20), span=w[w.length-1]-w[0];
+    if(span>0)hph=String(Math.round((w.length-1)/(span/3.6e6)));
+  }
+  $('hph').textContent=hph+' H./Std';
+  const sn=(v.session_net||0)/bb;
+  $('snet').textContent=(sn>=0?'+':'')+bbs(v.session_net); $('snet').className='v '+(sn>0?'pos':sn<0?'neg':'');
+  $('snetl').textContent=`Session-Netto (bb) · ${v.hands_done||0} Hände`;
+  $('botread').style.display=(curMode()==='exploit')?'':'none';
+  document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
+  const winnerSeats=new Set((v.result&&v.result.winners||[]).map(w=>w.seat));
+  v.seats.forEach(s=>{
+    const [x,y]=SC[s.seat], el=document.createElement('div');
+    el.className='seat'+(s.is_turn?' turn':'')+(s.folded?' folded':'')+((v.hand_over&&winnerSeats.has(s.seat))?' win':'');
+    el.style.left=x+'%'; el.style.top=y+'%';
+    const ini=s.name[0].toUpperCase();
+    el.innerHTML=`<div class="holes" id="h${s.seat}"></div>
+      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat]}">${ini}</span>
+        <span class="nm">${s.is_turn?'▶ ':''}${s.name}</span><span class="pos">${s.pos}</span></div>
+        <div class="stk">${bbs(s.stack)} bb${s.all_in?' · ALL-IN':''}</div></div>`;
+    $('felt').appendChild(el);
+    setCards(document.getElementById('h'+s.seat), s.folded?[]:s.hole, s.is_human?'hero':'sm');
+    if(v.hand_over && winnerSeats.has(s.seat)){
+      const w=v.result.winners.find(w=>w.seat===s.seat);
+      if(w && w.rank){const r=document.createElement('div');r.className='rank';
+        r.textContent=RANK_DE[w.rank]||w.rank; el.querySelector('.pod').appendChild(r);}
+    }
+    if(v.hand_over && s.is_human && s.net){const p=document.createElement('div');
+      p.className='pop '+(s.net>0?'win':'lose'); p.textContent=(s.net>0?'+':'')+bbs(s.net)+' bb';
+      p.style.left=x+'%'; p.style.top=(y-9)+'%'; $('felt').appendChild(p);}
+    if(s.committed_street>0){const [bx,by]=lerp(SC[s.seat],0.44);const b=document.createElement('div');
+      b.className='bet';b.style.left=bx+'%';b.style.top=by+'%';b.innerHTML=chipStack(s.committed_street);
+      $('felt').appendChild(b);}
+  });
+  const dl=$('dealer');const [dx,dy]=lerp(SC[v.button],0.26);
+  dl.style.display='block';dl.style.left=dx+'%';dl.style.top=dy+'%';
+  if(lastBtn!==null && lastBtn!==v.button) dl.animate([{transform:'translate(-50%,-50%) scale(1.5)'},
+    {transform:'translate(-50%,-50%) scale(1)'}],{duration:T.DEALER,easing:'ease-out'});
+  lastBtn=v.button;
+  // board: pop only the NEWLY revealed cards (P2-4)
+  if(v.hand_no!==lastBoardHand){lastBoardHand=v.hand_no;lastBoardLen=0;}
+  setCards($('board'),v.board,'');
+  const bl=(v.board||[]).length;
+  if(bl>lastBoardLen)Array.from($('board').children).slice(lastBoardLen).forEach(c=>c.classList.add('new'));
+  lastBoardLen=bl;
+  $('pot').textContent='Pot '+bbs(v.pot)+'bb';
+  $('potdetail').textContent=(v.current_bet>0)?('Bet: '+bbs(v.current_bet)+'bb'):'';
+  (v.bot_events||[]).forEach(e=>{
+    const a=e.amount?(' '+bbs(e.amount)+'bb'):'';
+    pushTicker(e.street,`${e.pos} ${verbDe(e.action)}${a}`);
+    log(`<span class="b">${e.name}</span> <span style="color:#789">${e.pos}</span>: ${e.action}${a}`,'b');});
+  if(v.coach)renderCoach(v.coach);
+  else if(!v.hand_over && coachHand!==v.hand_no)coachPlaceholder(v);
+  $('b-replay').disabled=!v.hand_over;
+  renderBar(v); renderEnd(v);
+}
+
+function flyToWinner(seat){const [x,y]=SC[seat];const f=document.createElement('div');f.className='flychip';
+  $('felt').appendChild(f);
+  f.animate([{left:'50%',top:'40%',opacity:1},{left:x+'%',top:y+'%',opacity:.2}],
+    {duration:T.FLY,easing:'cubic-bezier(.4,0,.2,1)'});
+  setTimeout(()=>f.remove(),T.FLY);}
+
+function cancelAutodeal(){if(advTimer){clearTimeout(advTimer);advTimer=null;}}
+function dealNow(){cancelAutodeal();if(!replayMode)nextHand();}
+
+function renderEnd(v){
+  cancelAutodeal();
+  const ban=$('banner');
+  if(!v.hand_over){ban.classList.remove('show');return;}
+  if(lastEndHand!==v.hand_no){lastEndHand=v.hand_no;handEndTimes.push(Date.now());}
+  (v.result.winners||[]).forEach(w=>flyToWinner(w.seat));
+  const me=v.seats[v.human_seat], net=me.net||0;
+  const myWin=(v.result.winners||[]).find(w=>w.seat===v.human_seat);
+  let txt='';
+  if(net>0) txt=`Du gewinnst +${bbs(net)} bb${myWin&&myWin.rank?' · '+(RANK_DE[myWin.rank]||myWin.rank):''} 🎉`;
+  else if(net<0) txt=`Du verlierst ${bbs(net)} bb`;
+  ban.textContent=txt; ban.classList.toggle('show', net!==0);
+  ban.style.color = net>0?'var(--win)':'var(--red)';
+  const wl=(v.result.winners||[]).map(w=>`${v.seats[w.seat].name}${w.rank?' ('+(RANK_DE[w.rank]||w.rank)+')':''}`).join(', ');
+  log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
+  if(!v.coach)fetchFeedback();
+  if($('botread').open&&curMode()==='exploit')loadBotRead();
+  // auto-deal after feedback, gated: not in replay, not while reading the glossary/filter (P1-D/P2-3)
+  if(!replayMode&&!suppressAutodeal&&!$('gloss').open&&document.activeElement!==$('gfilter'))
+    advTimer=setTimeout(nextHand, T.AUTODEAL);
+}
+
+function renderBar(v){
+  const bar=$('bar'),L=v.legal||{},my=!v.hand_over&&L.to_act===v.human_seat;
+  bar.classList.toggle('myturn',my);
+  armedRaise=false;
+  if(!my){bar.innerHTML='<div class="wait">'+(v.hand_over?'Nächste Hand … (Leertaste = sofort)':'Gegner sind dran…')+'</div>';return;}
+  bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
+  if(L.can_fold)row.appendChild(mk('Fold','F','fold',()=>send('fold')));
+  if(L.can_check)row.appendChild(mk('Check','C','check',()=>send('check')));
+  if(L.can_call)row.appendChild(mk('Call '+bbs(L.call_amount)+'bb','C','call',()=>send('call')));
+  if(L.can_raise){row.appendChild(mk((L.is_bet?'Bet':'Raise')+' ▸','R','',()=>send('raise',parseInt($('sl').value))));
+    row.appendChild(mk('All-in','A','sec',()=>send('allin')));}
+  bar.appendChild(row);
+  if(L.can_raise){const sr=document.createElement('div');sr.className='sizerow';
+    sr.innerHTML=`<div class="qz" id="qz"></div><input type="range" id="sl"><span class="amt" id="amt"></span>`;
+    bar.appendChild(sr);
+    const sl=$('sl');sl.min=L.raise_min;sl.max=L.raise_max;sl.step=Math.max(1,Math.round(bb/4));sl.value=L.raise_min;
+    const upd=()=>$('amt').textContent=bbs(parseInt(sl.value))+'bb';sl.oninput=upd;upd();
+    const q=(t,kbd,to)=>{const b=document.createElement('button');
+      b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');
+      b.onclick=()=>{sl.value=Math.max(L.raise_min,Math.min(Math.round(to),L.raise_max));upd();};return b;};
+    const pot=v.pot,call=L.to_call||0,cur=v.current_bet||0;
+    $('qz').append(q('Min','',L.raise_min),q('⅓','1',cur+(pot+call)/3),q('½','2',cur+0.5*(pot+call)),
+      q('¾','3',cur+0.75*(pot+call)),q('Pot','4',cur+(pot+call)));
+  }
+}
+function mk(t,kbd,c,fn){const b=document.createElement('button');
+  b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');if(c)b.className=c;b.onclick=fn;return b;}
+
+/* ── fetch layer: busy flag stops hotkey double-fire racing the request ─ */
+async function api(p,b){
+  if(busy)return {error:'busy'};
+  busy=true;
+  try{
+    const r=await fetch(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})});
+    return await r.json();
+  }catch(err){return {error:String(err)};}
+  finally{busy=false;}
+}
+async function startSession(){
+  replayMode=false;replayData=null;
+  $('log').innerHTML='';log('— Neues Spiel ('+MODE.toUpperCase()+') —','s');
+  sessionStart=Date.now();handEndTimes=[];lastEndHand=null;coachHand=null;fbRequestedHand=null;
+  // P0-0: mode travels in the request; servers without the field ignore the extra key
+  const v=await api('/api/new_session',{stack_bb:100, mode:MODE});
+  if(v.error){log('Fehler: '+v.error,'s');return;}
+  render(v);
+}
+async function nextHand(){
+  if(replayMode)return;                          // no live actions from inside a replay
+  advTimer=null;
+  const v=await api('/api/hand',{});
+  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+  render(v);
+}
+async function send(a,amt){
+  if(replayMode)return;                          // no live actions from inside a replay
+  cancelAutodeal();
+  const street=view?view.street:null;
+  const v=await api('/api/action',{action:a,amount:amt});
+  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+  pushTicker(street,'Du '+(VERB2[a]||a)+(amt?' '+bbs(amt)+'bb':''));
+  log(`<span class="y">Du</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');
+  render(v);
+}
+async function analyze(){
+  $('out').textContent='… analysiere …';
+  const v=await api('/api/analyze',{});
+  if(v.error&&v.error!=='busy'){$('out').textContent='Analyse nicht verfügbar: '+v.error;return;}
+  if(v.report_html){$('out').innerHTML=v.report_html;return;}   // P1-E rich report (server-marked terms)
+  const s=v.stats||{};
+  const head=`Hände: ${s.hands!=null?s.hands:'–'}\nVPIP ${s.vpip_pct!=null?s.vpip_pct:'–'}% · PFR ${s.pfr_pct!=null?s.pfr_pct:'–'}% · 3bet ${s.threebet_pct!=null?s.threebet_pct:'–'}%\n`+
+    `Aggression ${s.postflop_aggression_factor!=null?s.postflop_aggression_factor:'–'} · Showdown ${s.went_to_showdown_pct!=null?s.went_to_showdown_pct:'–'}%\n`+
+    `Netto: ${s.net_bb!=null?s.net_bb:'–'} bb (${s.bb_per_100!=null?s.bb_per_100:'–'} bb/100)`;
+  $('out').innerHTML=esc(head).replace(/\n/g,'<br>')+(v.narrative?'<br><br>'+markTerms(v.narrative):'');
+}
+
+/* ── replay (P2-6): step-through from GET /api/replay/last ───────────── */
+async function enterReplay(){
+  if(replayMode)return;
+  cancelAutodeal();                              // FIRST — the hand must not auto-advance under the walkthrough
+  try{
+    const r=await fetch('/api/replay/last');
+    if(!r.ok){log('Replay nicht verfügbar ('+r.status+')','s');return;}
+    replayData=await r.json();
+  }catch(err){log('Replay nicht verfügbar','s');return;}
+  if(!replayData||!Array.isArray(replayData.steps)||!replayData.steps.length){
+    log('Replay: keine Schritte vorhanden','s');return;}
+  liveView=view; replayMode=true; replayIdx=0;
+  renderReplayState(replayIdx);
+}
+function isHeroStep(s){   // server ships is_hero; plan pinned is_human; seat match = last resort
+  return !!(s.is_hero||s.is_human||(s.type==='action'&&replayData&&s.seat===replayData.human_seat));
+}
+function replayDerive(i){
+  // fold steps[0..i] into a table state: committed/folded/pot/board-slice/street.
+  // committed_after is used when the server ships it, else re-derived from the amount semantics
+  // (call = chips ADDED, bet/raise/allin = commit-TO total — session_log.py 'to' or 'amount' merge).
+  const R=replayData;
+  let committed={}, folded=new Set(), pot=0, boardN=0, street='preflop';
+  for(let k=0;k<=i;k++){
+    const s=R.steps[k];
+    if(s.type==='blinds'){
+      if(s.committed_after)committed=Object.assign({},s.committed_after);
+      else if(s.seat!=null)committed[s.seat]=(s.amount!=null)?s.amount:(s.action==='sb'?R.sb:R.bb);
+      else {const sbSeat=(R.button+1)%6;committed={[sbSeat]:R.sb,[(R.button+2)%6]:R.bb};}
+      pot=(s.pot_after!=null)?s.pot_after:(R.sb+R.bb);
+    }else if(s.type==='deal'){
+      if(s.street!=='preflop'){street=s.street;committed={};}   // hole-card deal keeps blinds out there
+      if(s.pot_after!=null)pot=s.pot_after;
+    }else if(s.type==='action'){
+      street=s.street||street;
+      if(s.action==='fold')folded.add(s.seat);
+      if(s.committed_after)committed=Object.assign({},s.committed_after);
+      else if(s.amount!=null&&s.seat!=null){
+        if(s.action==='call')committed[s.seat]=(committed[s.seat]||0)+s.amount;
+        else if(s.action==='bet'||s.action==='raise'||s.action==='allin')committed[s.seat]=s.amount;
+      }
+      if(s.pot_after!=null)pot=s.pot_after;
+    }
+    if(s.board_so_far)boardN=s.board_so_far.length;
+    else if(s.type==='deal'&&s.street!=='preflop')boardN+=(s.cards&&s.cards.length)||(s.street==='flop'?3:1);
+  }
+  return {committed,folded,pot,boardN,street};
+}
+function renderReplayState(i){
+  const R=replayData, st=R.steps[i], d=replayDerive(i);
+  const seats=(liveView&&liveView.seats)||[];
+  const reveal=R.result&&R.result.reveal, shown=(reveal&&R.result.shown)||{};
+  const atEnd=i===R.steps.length-1;
+  $('meta').innerHTML=`<b style="color:var(--gold)">REPLAY</b> — Hand #${R.hand_no} · Schritt ${i+1}/${R.steps.length}`;
+  document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
+  $('banner').classList.remove('show');
+  seats.forEach(s=>{
+    const seat=s.seat,[x,y]=SC[seat],el=document.createElement('div');
+    const acting=(st.type==='action'&&st.seat===seat)||(st.type==='blinds'&&st.seat===seat);
+    el.className='seat'+(acting?' turn':'')+(d.folded.has(seat)?' folded':'');
+    el.style.left=x+'%';el.style.top=y+'%';
+    el.innerHTML=`<div class="holes" id="rh${seat}"></div>
+      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[seat]}">${s.name[0].toUpperCase()}</span>
+        <span class="nm">${acting?'▶ ':''}${s.name}</span><span class="pos">${(R.positions&&R.positions[seat])||(R.positions&&R.positions[String(seat)])||s.pos||''}</span></div></div>`;
+    $('felt').appendChild(el);
+    let hole;
+    if(seat===R.human_seat)hole=R.hero_hole||[];
+    else{
+      const sh=shown[seat]!=null?shown[seat]:shown[String(seat)];
+      hole=(atEnd&&Array.isArray(sh)&&sh.length===2&&typeof sh[0]==='string')?sh:['??','??'];
+      if(d.folded.has(seat))hole=[];
+    }
+    setCards($('rh'+seat),hole,seat===R.human_seat?'hero':'sm');
+    const c=d.committed[seat]!=null?d.committed[seat]:d.committed[String(seat)];
+    if(c>0){const [bx,by]=lerp(SC[seat],0.44);const b=document.createElement('div');
+      b.className='bet';b.style.left=bx+'%';b.style.top=by+'%';b.innerHTML=chipStack(c);$('felt').appendChild(b);}
+  });
+  setCards($('board'),(R.board||[]).slice(0,d.boardN),'');
+  $('pot').textContent='Pot '+bbs(d.pot)+'bb';
+  $('potdetail').textContent=STREET_DE[d.street]||d.street;
+  $('ticker').textContent='REPLAY · '+(STREET_DE[d.street]||d.street);
+  renderReplayCoach(st);
+  // replay controls replace the bar
+  $('bar').classList.remove('myturn');
+  $('bar').innerHTML='';
+  const row=document.createElement('div');row.className='btnrow';
+  row.appendChild(mk('⟨ Zurück','←','sec',replayPrev));
+  row.appendChild(mk('Weiter ⟩','→','',replayNext));
+  row.appendChild(mk('Verlassen','Esc','fold',exitReplay));
+  $('bar').appendChild(row);
+}
+function renderReplayCoach(st){
+  let h=`<div class="fbhead">REPLAY · ${esc(STREET_DE[st.street]||st.street||'')}</div>`;
+  if(st.type==='deal'){
+    h+=`<div><b>${esc((st.street||'').toUpperCase())}</b> — ${esc((st.cards||[]).join(' '))}</div>`;
+  }else if(st.type==='blinds'){
+    h+='<div class="muted">Blinds gesetzt.</div>';
+  }else if(st.type==='showdown'||st.type==='result'){
+    const wl=(st.winners||[]).map(w=>`${esc(w.name||('Sitz '+w.seat))} (+${bbs(w.amount)}bb)`).join(', ');
+    h+=`<div>${st.reason==='fold'?'Alle folden':'Showdown'}${wl?' — '+wl:''}</div>`;
+  }else if(isHeroStep(st)){
+    // the design-doc core: gespielt vs empfohlen + grade + one-liner, glossary-clickable
+    const d=st.decision||st.coach;    // plan name 'decision'; the live server ships 'coach'
+    h+=`<div>Gespielt: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
+    if(d){
+      const oaTxt=actionTxt(d.oracle_action);
+      h+=`<div>Empfohlen: <b>${esc(oaTxt)}</b> <span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span></div>`;
+      if(d.erklaerung_kurz)h+=`<div class="fbbody">${markTerms(d.erklaerung_kurz)}</div>`;
+      const nums=[];
+      if(d.equity!=null)nums.push('Equity '+pct(d.equity));
+      if(d.pot_odds!=null)nums.push('benötigt '+pct(d.pot_odds));
+      if(d.mdf!=null)nums.push('MDF '+pct(d.mdf));
+      if(nums.length)h+=`<div class="muted">${markTerms(nums.join(' · '))}</div>`;
+    }else h+='<div class="muted">keine Empfehlung geloggt</div>';
+  }else{
+    h+=`<div class="muted">${esc(st.pos||'Sitz '+st.seat)} ${esc(verbDe(st.action))}${st.amount?' '+bbs(st.amount)+'bb':''}</div>`;
+  }
+  $('coach').innerHTML=h;
+}
+function replayNext(){if(replayMode&&replayIdx<replayData.steps.length-1){replayIdx++;renderReplayState(replayIdx);}}
+function replayPrev(){if(replayMode&&replayIdx>0){replayIdx--;renderReplayState(replayIdx);}}
+function exitReplay(){
+  if(!replayMode)return;
+  replayMode=false;replayData=null;
+  suppressAutodeal=true;                         // post-replay reflection: the user deals with Space/N
+  if(liveView)render(liveView);
+  suppressAutodeal=false;
+}
+
+/* ── hotkeys (P2-3): F/C/R/A, 1-4 sizes, Space/N deal, G glossary, P replay ── */
+function onKey(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=e.key;
+  if(e.target&&e.target.tagName==='INPUT'&&e.target.id==='gfilter'){
+    if(k==='Escape'){e.target.blur();$('gloss').open=false;}
+    return;                                      // typing in the filter never triggers actions
+  }
+  if(replayMode){
+    if(k==='ArrowRight'||k==='Right'||k===' '){e.preventDefault();replayNext();}
+    else if(k==='ArrowLeft'||k==='Left')replayPrev();
+    else if(k==='Escape')exitReplay();
+    return;
+  }
+  if(k==='Escape'){if($('gloss').open)$('gloss').open=false;return;}
+  if(k==='g'||k==='G'){toggleGloss();return;}
+  if(!view)return;
+  if(view.hand_over){
+    if(k===' '||k==='n'||k==='N'){e.preventDefault();dealNow();}
+    else if(k==='p'||k==='P')enterReplay();
+    return;
+  }
+  const myTurn=view.legal&&view.legal.to_act===view.human_seat;   // action keys only on the human's turn
+  if(!myTurn)return;
+  const L=view.legal;
+  if(k==='f'||k==='F'){if(L.can_fold)send('fold');}
+  else if(k==='c'||k==='C'){if(L.can_check)send('check');else if(L.can_call)send('call');}
+  else if(k==='a'||k==='A'){if(L.can_raise)send('allin');}
+  else if(k==='r'||k==='R'){
+    if(!L.can_raise)return;
+    if(!armedRaise){armedRaise=true;const a=$('amt');if(a)a.classList.add('armed');const sl=$('sl');if(sl)sl.focus();}
+    else send('raise',parseInt($('sl').value));
+  }
+  else if(k==='Enter'){if(L.can_raise&&armedRaise)send('raise',parseInt($('sl').value));}
+  else if(k==='1')setQuick(1);
+  else if(k==='2')setQuick(2);
+  else if(k==='3')setQuick(3);
+  else if(k==='4')setQuick(4);
+  else if(k==='ArrowUp'||k==='Up'||k==='ArrowDown'||k==='Down'){
+    const sl=$('sl');if(!sl)return;e.preventDefault();
+    sl.value=parseInt(sl.value)+((k==='ArrowUp'||k==='Up')?1:-1)*parseInt(sl.step);
+    sl.dispatchEvent(new Event('input'));
+  }
+}
+function setQuick(n){
+  if(!view||!view.legal||!view.legal.can_raise)return;
+  const L=view.legal,sl=$('sl');if(!sl)return;
+  const pot=view.pot,call=L.to_call||0,cur=view.current_bet||0;
+  const f=[null,1/3,0.5,0.75,1][n];              // keys 1-4 = ⅓ / ½ / ¾ / Pot
+  sl.value=Math.max(L.raise_min,Math.min(Math.round(cur+f*(pot+call)),L.raise_max));
+  sl.dispatchEvent(new Event('input'));
+}
+document.addEventListener('keydown',onKey);
+
+/* ── start flow: mode toggle first (P0-0), then session ──────────────── */
+function showOverlay(){cancelAutodeal();$('modeoverlay').style.display='flex';}
+function startWith(mode){MODE=mode;$('modeoverlay').style.display='none';startSession();}
+$('m-gto').onclick=()=>startWith('gto');
+$('m-exploit').onclick=()=>startWith('exploit');
+$('b-new').onclick=showOverlay;
+$('b-an').onclick=analyze;
+$('b-replay').onclick=enterReplay;
+loadGlossary();                                  // fetch once at load; the Klappfeld renders from the cache
+</script>
+</body>
+</html>
