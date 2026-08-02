@@ -53,6 +53,14 @@ byte-identical (P2-7); 11/11 module selftests green; 61 glossary entries; UI ver
 Also this session: PRINCEDARKNESS-PROTOKOLL executed (`research/prince_protocol.py` + `prince_ecology.py`,
 results → Desktop/princedarkness_results.md — 923 cash + 75 tourney hands, 2/10 hypotheses supported, price
 of coherence +548..+884 bb/100, stake-cap = the single biggest real lever).
+**POST-LAUNCH TEXT-QA (user-driven, 2026-08-02, 3 Runden):** Hand-Feedback auf Lern-Impuls-Struktur
+umgebaut (kein Lob, kein Ergebnis-Text, EINE Zeile pro Straße mit Tag + Bot-Frequenzen `[Bot: 85% Fold …]`)
+und der Strategie-Abschnitt ist jetzt ECHT GERECHNET: **`pokerbot/coach/range_story.py`** baut den
+Bayes-RangeTracker pro Straße auf dem Record-Snapshot (oracle-HU-Projektion, 6-max-Erzähl-Prioren statt
+der HU-84%-Prioren, 1 board-disjunkter Repräsentant/Klasse × Combo-Gewicht = budget-fit), rendert
+Gegner-Range-Mix (Treffer/Luft via made_class) + Hero-Equity (equity_vs_weighted_range, spot_fp-geseedet)
+je Straße, DU-Kohärenz-Zeile (repräsentiert vs. gehalten) und SHOWDOWN-Wahrheitscheck (result["shown"]).
+Warm ~6-160 ms; Kalt-Load (~1.4 s) im grader.prewarm() abgefangen. Fail-soft → Heuristik-Fallback.
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms

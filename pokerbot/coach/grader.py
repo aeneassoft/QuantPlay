@@ -347,6 +347,14 @@ def prewarm() -> dict:
         ready["grade_path"] = True
     except Exception:  # noqa: BLE001
         ready["grade_path"] = False
+    try:
+        # Turn/River-Netze mitwärmen: die Range-Story (templates_de -> range_story) baut den Tracker pro
+        # Straße — der ERSTE Turn/River-Load kostete sonst ~1.4 s in der Feedback-Phase von Hand 1 (gemessen).
+        for street, board in (("turn", ["Ah", "7d", "2c", "5s"]), ("river", ["Ah", "7d", "2c", "5s", "Jh"])):
+            advisor.p_bet(["Kc", "Qd"], board, "IP", street)
+            advisor.p_defense(["Kc", "Qd"], board, "OOP", 0.66, street)
+    except Exception:  # noqa: BLE001 — nur Vorwärmen; fehlende Netze meldet die ready-Map oben
+        pass
     return ready
 
 

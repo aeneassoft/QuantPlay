@@ -413,8 +413,16 @@ def _kurz(txt: str) -> str:
     return re.sub(r"^(Teurer Kauf|Etwas teuer|Dein Sizing war etwas daneben)\s*[:—-]\s*", "", txt).strip()
 
 
-def _strategie(records: list[dict]) -> list[str]:
-    """Range-Erzählung (Bot-Lesart): was die Linien beider Seiten REPRÄSENTIEREN — ehrlich als Näherung."""
+def _strategie(records: list[dict], hand_result: dict | None = None) -> list[str]:
+    """Range-Erzählung (Bot-Lesart): ECHT gerechnet via range_story (Bayes-Tracker + Equity + made_class,
+    User-Auftrag 2026-08-02); die statische Heuristik darunter bleibt als Fail-soft-Fallback stehen."""
+    try:
+        from pokerbot.coach import range_story as _rs
+        echt = _rs.build_story(records, hand_result)
+        if echt:
+            return echt
+    except Exception:  # noqa: BLE001 — Strategie ist Zusatz, nie Blocker
+        pass
     out: list[str] = []
     last = records[-1]
     hist = last.get("history") or []
@@ -491,7 +499,7 @@ def render_hand_feedback(records: list[dict], hand_result: dict | None = None, m
             knapp = min(mit_dist, key=lambda r: max((p for _, p in _support_dist(r)), default=1.0))
             tag = _STREET_TAG.get(str(knapp.get("street", "")).lower(), "?")
             lines.append(f"Knappster Spot — {tag} · {_human(knapp)}:{_dist_str(knapp)}")
-    strat = _strategie(records)
+    strat = _strategie(records, hand_result)
     if strat:
         lines.append("— Strategie (Bot-Lesart) —")
         lines.extend(strat)
