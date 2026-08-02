@@ -159,6 +159,10 @@
   .badges{margin:4px 0}
   .badge{display:inline-block;font-weight:800;font-size:21px;padding:1px 8px;border-radius:8px;background:#0006;margin:2px 4px 2px 0}
   .badge.ok{color:var(--win)} .badge.teuer{color:var(--gold)} .badge.leak{color:var(--red)}
+  /* Entscheidungs-Punkte in den Straßen-Badges: grün=ok, gelb=teuer, rot=Leak (User-QA 2026-08-02) */
+  .dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-left:7px;vertical-align:middle;
+    background:#5a6c85;box-shadow:0 0 4px #0008;cursor:help}
+  .dot.ok{background:var(--win)} .dot.teuer{background:var(--gold)} .dot.leak{background:var(--red)}
   .muted{color:var(--muted)}
   .mini{display:flex;gap:8px}.mini button{flex:1;padding:12px;font-size:20px}
   #b-weiter{margin-top:10px;padding:13px 24px;font-size:21px}
@@ -430,9 +434,14 @@ function renderCoach(c){
   coachHand=(c.hand_no!=null)?c.hand_no:(view?view.hand_no:null);
   const grades=c.grades||[];
   const w=worstGrade(grades);
-  // inline badges per decision: ✓/～/✗ (green/yellow/red) — Sofort-Feedback light, no textwall
-  const badges=grades.map(g=>
-    `<span class="badge ${esc(g.grade||'')}">${ICON[g.grade]||'·'} ${esc(STREET_DE[g.street]||g.street||'')} ${esc(actionTxt(g.human_action))}</span>`
+  // Badges: EIN Feld pro Straße (Preflop/Flop/Turn/River), die Entscheidungen darin als grüne/gelbe/rote
+  // Punkte — "Flop" doppelt gelistet war verwirrend (User-QA 2026-08-02). Hover zeigt Aktion + Grade.
+  const stOrder={preflop:0,flop:1,turn:2,river:3};
+  const byStreet={};
+  grades.forEach(g=>{const st=g.street||'?';(byStreet[st]=byStreet[st]||[]).push(g);});
+  const badges=Object.keys(byStreet).sort((a,b)=>(stOrder[a]??9)-(stOrder[b]??9)).map(st=>
+    `<span class="badge">${esc(STREET_DE[st]||st)}${byStreet[st].map(g=>
+      `<span class="dot ${esc(g.grade||'')}" title="${esc(actionTxt(g.human_action))} — ${esc(g.grade||'?')}"></span>`).join('')}</span>`
   ).join('');
   const body=c.html?c.html:`<div>${markTerms(c.text||'')}</div>`;   // server html keeps its term() spans — never re-marked
   $('coach').innerHTML=
@@ -787,8 +796,11 @@ function replayDerive(i){
       else if(s.seat!=null)committed[s.seat]=(s.amount!=null)?s.amount:(s.action==='sb'?R.sb:R.bb);
       else {const sbSeat=(R.button+1)%6;committed={[sbSeat]:R.sb,[(R.button+2)%6]:R.bb};}
       pot=(s.pot_after!=null)?s.pot_after:(R.sb+R.bb);
-    }else if(s.type==='deal'){
-      if(s.street!=='preflop'){street=s.street;committed={};}   // hole-card deal keeps blinds out there
+    }else if(s.type==='deal'||s.type==='street'){
+      // BUGFIX (User-Screenshot 2026-08-02): der Compiler liefert Straßenwechsel als type='street' —
+      // der alte Code kannte nur 'deal', also blieben die PREFLOP-Chips auf dem Tisch liegen und ein
+      // Flop-CHECK sah aus wie ein Call auf die alten 2.5bb. Neuer Straßen-Step = Einsätze einsammeln.
+      if(s.street&&s.street!=='preflop'){street=s.street;committed={};}
       if(s.pot_after!=null)pot=s.pot_after;
     }else if(s.type==='action'){
       street=s.street||street;
