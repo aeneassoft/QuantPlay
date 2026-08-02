@@ -239,17 +239,32 @@ def _fb_mdf(rec: dict, grade: str) -> str:
             f"sonst kann dich jeder Bluff vom Pot schieben.")
 
 
+def _sizing_worte(rec: dict, hf, sf) -> tuple[str, str]:
+    """Preflop misst man in BIG BLINDS, nicht in Pot-Vielfachen — 'Overbet (29.2x Pot)' für einen
+    Preflop-Raise war technisch richtig und praktisch unbrauchbar (User-QA 2026-08-02)."""
+    if str(rec.get("street", "")).lower() != "preflop":
+        return pot_frac_de(hf), pot_frac_de(sf)
+    obs = rec.get("obs") or {}
+    bb = _num(obs.get("bb")) or 100
+    ha = rec.get("human_action") or {}
+    amt = _num(ha.get("amount")) if isinstance(ha, dict) else None
+    gespielt = f"Raise auf {amt / bb:.1f}bb" if amt else "diese Raise-Größe"
+    return gespielt, "eine Standard-Open-Größe (2–3bb, gegen einen Raise ~3x)"
+
+
 def _fb_sizing(rec: dict, grade: str) -> str:
     sz = _check(rec, "sizing")
     hf, sf = _num(sz.get("human_frac")), _num(sz.get("snapped_frac"))
-    gespielt, plan = pot_frac_de(hf), pot_frac_de(sf)
+    gespielt, plan = _sizing_worte(rec, hf, sf)
     if grade == "ok":
         return f"Sauberes Sizing: {gespielt} passt hier — so bleibt deine Value-Bet glaubwürdig."
+    # Plan-Größe nur EINMAL nennen — die preflop-Variante ist lang ('Standard-Open-Größe (2–3bb …)') und
+    # las sich doppelt genannt wie ein Stottern (User-QA 2026-08-02).
     if grade == "teuer":
-        return (f"Dein Sizing war etwas daneben: gespielt {gespielt}, der Plan kennt hier {plan}. "
-                f"Nimm {plan} — die Größe erzählt die stimmigere Geschichte.")
-    return (f"Teurer Kauf beim Sizing: {gespielt} statt {plan}. Besser {plan} — "
-            f"die Geometrie des Pots gibt die Größe vor, nicht das Bauchgefühl.")
+        return (f"Dein Sizing war etwas daneben: gespielt {gespielt}, der Plan sieht {plan} vor — "
+                f"die Größe erzählt die stimmigere Geschichte.")
+    return (f"Teurer Kauf beim Sizing: {gespielt}, der Plan sieht {plan} vor — "
+            f"die Geometrie gibt die Größe vor, nicht das Bauchgefühl.")
 
 
 def _fb_advisor_freq(rec: dict, grade: str) -> str:
@@ -379,57 +394,107 @@ def _hand_rahmen(records: list[dict], hand_result) -> str:
     return f"{opener}: {n} Entscheidung{'en' if n != 1 else ''}, gespielt bis {street}{zusatz}."
 
 
+def _dist_str(rec: dict) -> str:
+    """'[Bot: 68% Fold / 29% Call]' — die Advisor-Frequenzen als direkter Lern-Impuls (User-Wunsch)."""
+    dist = _support_dist(rec)
+    parts = [f"{p * 100:.0f}% {_action_de(a)}" for a, p in dist
+             if isinstance(p, (int, float)) and p >= 0.02][:3]
+    return ("  [Bot: " + " / ".join(parts) + "]") if parts else ""
+
+
+_STREET_TAG = {"preflop": "PREFLOP", "flop": "FLOP", "turn": "TURN", "river": "RIVER"}
+_HERO_SEAT = 0                       # six_server.HUMAN — der Trainer setzt den Menschen immer auf Sitz 0
+_RANGE_WORT = {1: "etwa die besten 20% der Hände", 2: "etwa die besten 8% (3-Bet-Range)",
+               3: "nur die absolute Spitze (~4%, 4-Bet-Range)"}
+
+
+def _kurz(txt: str) -> str:
+    """Grade-Präfixe raus — Icon + Straßen-Tag tragen das schon; der Satz startet direkt mit dem Grund."""
+    return re.sub(r"^(Teurer Kauf|Etwas teuer|Dein Sizing war etwas daneben)\s*[:—-]\s*", "", txt).strip()
+
+
+def _strategie(records: list[dict]) -> list[str]:
+    """Range-Erzählung (Bot-Lesart): was die Linien beider Seiten REPRÄSENTIEREN — ehrlich als Näherung."""
+    out: list[str] = []
+    last = records[-1]
+    hist = last.get("history") or []
+    obs = last.get("obs") or {}
+    pre_raises = [e for e in hist if str(e.get("street")) == "preflop" and e.get("action") in ("raise", "bet", "allin")]
+    if pre_raises:
+        wer = "Du repräsentierst" if pre_raises[-1].get("player") == _HERO_SEAT else "Der Gegner repräsentiert"
+        out.append(f"Preflop: {wer} {_RANGE_WORT.get(min(len(pre_raises), 3), _RANGE_WORT[3])}.")
+    else:
+        out.append("Preflop: nur Limps/Calls — alle Ranges bleiben breit und unsortiert.")
+    for st in ("river", "turn", "flop"):
+        agg = [e for e in hist if str(e.get("street")) == st and e.get("player") != _HERO_SEAT
+               and e.get("action") in ("bet", "raise", "allin")]
+        if agg:
+            verb = "Raise" if agg[-1].get("action") == "raise" else "Bet"
+            out.append(f"{_STREET_TAG[st].capitalize()}: seine {verb} erzählt einen Treffer — Top-Paar oder besser.")
+            break
+    hole, board = obs.get("hole") or [], obs.get("board") or []
+    halt = None
+    try:
+        from pokerbot.brain import api as _api
+        if board:
+            _name, st_val = _api.hand_rank(hole, board)
+            halt = ("eine starke Made Hand" if st_val >= STRONG_MADE
+                    else "eine mittlere Hand" if st_val >= MEDIUM_MADE else "wenig Substanz")
+    except Exception:  # noqa: BLE001 — Strategie ist Zusatz, nie Blocker
+        pass
+    fd = ""
+    if 3 <= len(board) <= 4 and hole:
+        for suit in "shdc":
+            tot = sum(1 for c in hole + board if len(c) > 1 and c[1] == suit)
+            if tot == 4 and any(len(c) > 1 and c[1] == suit for c in hole):
+                fd = " plus Flush-Draw"
+                break
+    aggro = any(str(r.get("street")) != "preflop"
+                and str(((r.get("human_action") or {}).get("action") if isinstance(r.get("human_action"), dict)
+                         else r.get("human_action"))) in ("bet", "raise", "allin") for r in records)
+    linie = "Stärke — du repräsentierst den Treffer" if aggro else "Zurückhaltung — Marginales oder Draws"
+    if halt:
+        out.append(f"Du hältst {halt}{fd}; deine Linie erzählt {linie}.")
+    return out[:3]
+
+
 def render_hand_feedback(records: list[dict], hand_result: dict | None = None, mode: str = "gto") -> dict:
-    """3-5 Zeilen pro Hand: Rahmen, bestes Moment (explizit gefeiert), teuerstes Moment (+ Alternative + Grund),
-    optional Mixing-Hinweis und Merksatz. Leere records -> eine warme Zeile."""
+    """Lern-Impuls-Struktur (User-QA 2026-08-02): NUR die suboptimalen Entscheidungen, je eine Zeile mit
+    Straßen-Tag + Grund + Bot-Frequenzen; kein Lob-Ballast, kein Ergebnis-Text (steht schon im UI); danach
+    der Strategie-Abschnitt (Range-Erzählung). Alles ok -> ein Satz + der knappste Spot als Frequenz-Fenster."""
     records = [r for r in (records or []) if isinstance(r, dict)]
     if not records:
         return _finish("Keine Hero-Entscheidung zu bewerten — Fold preflop ist oft der beste Kauf.")
     for r in records:
         _validate_grade(r)
-
-    lines = [_hand_rahmen(records, hand_result)]
-    schlecht = min(records, key=_grade_rang)
-    beste = next((r for r in records if r["grade"] == "ok"), None)
-    # QA-Fix: wenn Lob und Kritik dasselbe Etikett tragen ('Call Preflop' gelobt UND kritisiert — zwei
-    # verschiedene Entscheidungen, gleicher Name), liest sich das als Widerspruch. Dann gewinnt die Kritik,
-    # das Lob nimmt den nächsten ok-Zug mit anderem Etikett (oder entfällt).
-    if beste is not None and schlecht["grade"] != "ok":
-        etikett = (_human(beste), _street_de(beste))
-        if etikett == (_human(schlecht), _street_de(schlecht)):
-            beste = next((r for r in records if r["grade"] == "ok"
-                          and (_human(r), _street_de(r)) != etikett), None)
-    if beste is not None:                                        # L2: gute Zuege EXPLIZIT feiern (Doktrin par.1.5)
-        lines.append(f"{GRADE_ICON['ok']} Stark: dein {_human(beste)} {_street_de(beste)} — sauber gewählt, genau im Plan.")
-    if schlecht["grade"] != "ok":                                # L3: teuerstes Moment MIT Straßen-Kontext
-        # QA-Fix: ohne Straße las sich '✓ Stark: dein Raise am Flop' + '～ teuer: dein Raise' wie ein
-        # Widerspruch — es waren zwei verschiedene Straßen. Die Kritik nennt ihre Straße jetzt immer.
-        wo = _street_de(schlecht)
-        wo = wo[0].upper() + wo[1:] if wo else wo                # 'am Turn' -> 'Am Turn' (capitalize() zerstört Caps)
-        lines.append(f"{GRADE_ICON[schlecht['grade']]} {wo}: {render_decision_feedback(schlecht)['text']}")
-    else:
-        lines.append("Kein teurer Kauf in dieser Hand — jede Entscheidung saß.")
-    if len(lines) < MAX_HAND_LINES:                              # L4: Mixing nur an GEFEIERTEN Zügen + mit Kontext
-        # QA-Fix: der Mix-Satz stammte aus IRGENDEINER Entscheidung und stand ohne Zuordnung direkt hinter
-        # der Kritik ('… Fold wäre besser. GTO mischt: 75% Fold / 23% Call — beides gut' — wirkt widersprüchlich).
-        # Jetzt nur von ok-benoteten Zügen, mit Straßen-Etikett.
-        for r in records:
-            if r["grade"] != "ok":
-                continue
-            mix = _mix_satz(_support_dist(r))
-            if mix:
-                st = _street_de(r)
-                st = st[0].upper() + st[1:] if st else st
-                lines.append(f"{st}: {mix}")
-                break
-    if len(lines) < MAX_HAND_LINES and schlecht["grade"] == "leak":   # L5: Merksatz NUR nach echtem Leak
-        merk = MERKSATZ.get(schlecht.get("grade_typ") or "")          # (49/50 Merksätze gemessen = Monotonie;
-        if merk:                                                       # leak-only drosselt auf ~1 von 4 Händen)
-            lines.append(merk)
-    while len(lines) < MIN_HAND_LINES:
-        lines.append("Weiter so — Entscheidungen zählen, nicht einzelne Resultate.")
-    lines = lines[:MAX_HAND_LINES]
-    assert MIN_HAND_LINES <= len(lines) <= MAX_HAND_LINES
+    lines: list[str] = []
+    bad = [r for r in records if r["grade"] != "ok"]
+    # EINE Zeile pro Straße, in Spielreihenfolge — die Struktur muss auf einen Blick erkennbar sein
+    # (User-QA: vier identische PREFLOP-Zeilen in einer Hand waren Rauschen, kein Lern-Impuls).
+    pro_street: dict[str, dict] = {}
+    for r in bad:
+        st = str(r.get("street", "")).lower()
+        if st not in pro_street or _grade_rang(r) < _grade_rang(pro_street[st]):
+            pro_street[st] = r
+    for st in ("preflop", "flop", "turn", "river"):
+        r = pro_street.get(st)
+        if r is None:
+            continue
+        n_st = sum(1 for x in bad if str(x.get("street", "")).lower() == st)
+        mehr = f" (+{n_st - 1} weitere {_STREET_TAG.get(st, '')}-Spots)" if n_st > 1 else ""
+        txt = _kurz(render_decision_feedback(r)["text"])
+        lines.append(f"{GRADE_ICON[r['grade']]} {_STREET_TAG.get(st, '?')} · {_human(r)}: {txt}{_dist_str(r)}{mehr}")
+    if not bad:
+        lines.append(f"✓ Alle {len(records)} Entscheidungen im Plan — nichts zu verbessern.")
+        mit_dist = [r for r in records if _support_dist(r)]
+        if mit_dist:
+            knapp = min(mit_dist, key=lambda r: max((p for _, p in _support_dist(r)), default=1.0))
+            tag = _STREET_TAG.get(str(knapp.get("street", "")).lower(), "?")
+            lines.append(f"Knappster Spot — {tag} · {_human(knapp)}:{_dist_str(knapp)}")
+    strat = _strategie(records)
+    if strat:
+        lines.append("— Strategie (Bot-Lesart) —")
+        lines.extend(strat)
     return _finish("\n".join(lines))
 
 
@@ -491,23 +556,25 @@ def _selftest() -> None:
     # 2) Kritik traegt Alternative: teuer/leak-Texte nennen 'Besser'/'wählt'/'statt' (Alternative + Grund)
     for rec, out in zip(fixtures, outs):
         if rec["grade"] in ("teuer", "leak"):
-            assert any(w in out["text"] for w in ("Besser", "besser", "wählt", "statt", "wäre", "Nimm")), out["text"]
+            assert any(w in out["text"] for w in ("Besser", "besser", "wählt", "statt", "wäre", "Nimm",
+                                                  "sieht", "Plan")), out["text"]
     # 3) Bot-Einschaetzung sichtbar gelabelt
     bot_out = render_decision_feedback(_rec(None, "teuer", conf="Bot-Einschätzung"))
     assert "Bot-Einschätzung" in bot_out["text"]
-    # 4) Hand-Feedback: 3-5 Zeilen, Feier-Zeile bei ok, Mixing gesagt, Anti-Result-Woerter abwesend
+    # 4) Hand-Feedback (Lern-Impuls-Struktur, User-QA 2026-08-02): NUR suboptimale Entscheidungen, je eine
+    #    Zeile mit STRASSEN-TAG + Bot-Frequenzen, danach der Strategie-Abschnitt; KEIN Lob, KEIN Ergebnis-Text.
     hand = render_hand_feedback([fixtures[0], fixtures[7], fixtures[9]], {"pot": 2400}, "gto")
-    zeilen = hand["text"].split("\n")
-    assert MIN_HAND_LINES <= len(zeilen) <= MAX_HAND_LINES, zeilen
-    assert GRADE_ICON["ok"] in hand["text"] and "Stark" in hand["text"], hand["text"]
-    assert "mischt" in hand["text"], hand["text"]
+    assert any(t in hand["text"] for t in ("PREFLOP", "FLOP", "TURN", "RIVER")), hand["text"]
+    assert "Strategie (Bot-Lesart)" in hand["text"], hand["text"]
+    assert "Stark:" not in hand["text"], "Lob-Zeile gehoert nicht mehr ins Hand-Feedback"
+    assert "Ergebnis" not in hand["text"], "Ergebnis-Text ist Sache des UI, nicht des Coach-Textes"
     for verboten in ("gewonnen", "verloren", "leider", "Fehler"):
         assert verboten not in hand["text"], (verboten, hand["text"])
     hand2 = render_hand_feedback([fixtures[0], fixtures[7], fixtures[9]], {"pot": 2400}, "gto")
     assert hand["text"] == hand2["text"], "Hand-Feedback nicht deterministisch"
     outs.append(hand)
     all_ok = render_hand_feedback([fixtures[0], fixtures[3]], None, "gto")
-    assert MIN_HAND_LINES <= len(all_ok["text"].split("\n")) <= MAX_HAND_LINES
+    assert "im Plan" in all_ok["text"], all_ok["text"]        # Alles-ok-Zweig bleibt knapp und ehrlich
     outs.append(all_ok)
     leer = render_hand_feedback([], None, "gto")
     assert "Keine Hero-Entscheidung" in leer["text"] and leer["html"]
