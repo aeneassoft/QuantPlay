@@ -88,8 +88,10 @@ class Session:
             self.last_hand_record = hand_rec
             self.logged_hand = t.hand_no
             won = {w["seat"]: w["amount"] for w in t.result.get("winners", [])}
-            self.human_net += won.get(HUMAN, 0) - t.seats[HUMAN].committed_total
+            hand_net = won.get(HUMAN, 0) - t.seats[HUMAN].committed_total
+            self.human_net += hand_net
             self.hands_done += 1
+            self.last_hand_net_bb = hand_net / t.bb              # the feedback names (never grades) the result
             self._grade_and_flush()
 
     def _grade_and_flush(self):
@@ -125,7 +127,9 @@ class Session:
         tp = _coach("templates_de")
         if tp is not None:
             try:
-                fb = tp.render_hand_feedback(pending, self.table.result)
+                res = dict(self.table.result or {})
+                res["hero_net_bb"] = getattr(self, "last_hand_net_bb", None)
+                fb = tp.render_hand_feedback(pending, res)
                 fb.setdefault("hand_no", self.logged_hand)      # the UI header shows "Hand #n"
                 fb.setdefault("grades", [                       # per-decision badges (✓/～/✗) in the panel
                     {"street": r.get("street"), "grade": r.get("grade"),

@@ -118,9 +118,14 @@ def pot_frac_de(frac) -> str:
 
 
 def equity_satz(eq, req) -> str:
-    """'du brauchtest 1-von-3 (33% Equity), hattest etwa 1-von-4' — Zahl einmal, dann Vergleich."""
+    """'du brauchtest 1-von-3 (33%), hattest etwa 1-von-4 (25%)' — Zahl einmal, dann Vergleich.
+    QA-Fix (50-Hand-Probe): wenn beide Werte auf DASSELBE 1-von-N runden (38% und 33% -> beide '1-von-3'),
+    las sich der Satz als Widerspruch ('brauchtest 1-von-3, hattest 1-von-3 — zu wenig'). Dann nur Prozente."""
     if isinstance(req, (int, float)) and isinstance(eq, (int, float)):
-        return f"du brauchtest {eins_von(req)} ({req * 100:.0f}% Equity), hattest etwa {eins_von(eq)}"
+        a, b = eins_von(req), eins_von(eq)
+        if a == b:
+            return f"du brauchtest {req * 100:.0f}% Equity, hattest nur {eq * 100:.0f}%"
+        return f"du brauchtest {a} ({req * 100:.0f}% Equity), hattest etwa {b} ({eq * 100:.0f}%)"
     if isinstance(req, (int, float)):
         return f"du brauchtest {eins_von(req)} ({req * 100:.0f}% Equity)"
     return "der genaue Preis ließ sich hier nicht rekonstruieren"
@@ -147,7 +152,8 @@ def _human(rec: dict) -> str:
 
 
 def _alternative(rec: dict, default: str = "die ruhigere Linie") -> str:
-    oa = rec.get("oracle_action") or (rec.get("oracle") or {}).get("action")
+    orc = rec.get("oracle") or {}
+    oa = rec.get("oracle_action") or orc.get("oracle_action") or orc.get("action")   # P0-3 nistet 'oracle_action'
     return _action_de(oa) if oa else default
 
 
@@ -268,10 +274,17 @@ def _fb_oracle_diff(rec: dict, grade: str) -> str:
     quelle = "River-Urteil vom Resolver (harte Referenz)" if resolver else "Bot-Einschätzung"
     if grade == "ok":
         return f"Gute Wahl: der Bot spielt hier genauso {ha} — zwei Wege, gleiche Logik ({quelle})."
+    # QA-Fix (50-Hand-Probe): erklaerung_kurz beginnt selbst mit 'Teurer Kauf: der Referenz-Bot spielt hier X'
+    # — im Rahmensatz wiederholt ergab das 'Etwas teuer: … — Teurer Kauf: … spielt hier Call …' (doppelt,
+    # verschachtelt). Wir übernehmen nur den BEGRÜNDUNGS-Schwanz nach dem Gedankenstrich.
     grund = rec.get("erklaerung_kurz") or "seine Linie hält die Range besser zusammen"
+    grund = re.sub(r"^(Teurer Kauf|Etwas teuer|Sauber)\s*:\s*", "", grund).strip()
+    if f"spielt hier {alt}" in grund and "—" in grund:
+        grund = grund.split("—", 1)[1].strip().rstrip(".")
+    grund = grund.rstrip(".")
     if grade == "teuer":
-        return f"Etwas teuer: du hast {ha} gespielt, der Bot wählt {alt} — {grund} ({quelle})."
-    return f"Teurer Kauf: {ha} statt {alt}. Der Bot geht den anderen Weg, weil {grund} ({quelle})."
+        return f"Etwas teuer: dein {ha}, der Bot wählt {alt} — {grund} ({quelle})."
+    return f"Teurer Kauf: {ha} statt {alt} — {grund} ({quelle})."
 
 
 def _fb_generic(rec: dict, grade: str) -> str:
@@ -333,16 +346,37 @@ def _grade_rang(rec: dict) -> int:
     return {"leak": 0, "teuer": 1, "ok": 2}[rec["grade"]]
 
 
+# Formel-Monotonie-Bremse (49/50 identische Openings gemessen). DETERMINISTISCH: der Opener hängt an der
+# hand_id, nicht an einem Zähler — gleicher Input ergibt exakt denselben Text (P1-B-Vertrag), verschiedene
+# Hände variieren trotzdem.
+_OPENER = ("Hand-Rückblick", "Kurz zur Hand", "Rückblick")
+
+
+def _opener_for(records: list[dict]) -> str:
+    hid = str((records[0] or {}).get("hand_id", ""))
+    tail = "".join(ch for ch in hid if ch.isdigit())[-4:] or "0"
+    return _OPENER[int(tail) % len(_OPENER)]
+
+
 def _hand_rahmen(records: list[dict], hand_result) -> str:
-    """L1: neutraler Rahmen — Street + Umfang, NIE Ergebnis-Woerter (Anti-Resultorientierung, Doktrin par.1.1)."""
+    """L1: Rahmen + EHRLICHES Ergebnis. Das Ergebnis wird GENANNT, nie BENOTET (Doktrin par.1.1) — gerade
+    die Divergenz (sauber gespielt & verloren / Leak & gewonnen) ist die Anti-Tilt-Lektion schlechthin.
+    QA-Fix: die alte Zeile nannte den End-Pot des TISCHES ('Pot am Ende 200 bb' nach Hero-Fold preflop —
+    zwei Bots stackten off), was als Hero-Zahl gelesen wurde. Jetzt zählt nur Heros eigenes Ergebnis."""
     letzte = max(records, key=lambda r: _STREET_ORDER.get(str(r.get("street", "")).lower(), 0))
     street = _STREET_BIS.get(str(letzte.get("street", "")).lower(), "zum Ende")
     n = len(records)
+    opener = _opener_for(records)
     zusatz = ""
-    pot = (hand_result or {}).get("pot") if isinstance(hand_result, dict) else None
-    if isinstance(pot, (int, float)) and pot > 0:
-        zusatz = f", Pot am Ende {pot / 100:.0f} bb"
-    return f"Hand-Rückblick: {n} Entscheidung{'en' if n != 1 else ''}, gespielt bis {street}{zusatz}."
+    net = (hand_result or {}).get("hero_net_bb") if isinstance(hand_result, dict) else None
+    if isinstance(net, (int, float)) and abs(net) >= 1:
+        zusatz = f" — Ergebnis {net:+.0f} bb"
+        grades = {r["grade"] for r in records}
+        if net <= -5 and grades == {"ok"}:
+            zusatz += " (sauber gespielt und trotzdem verloren — genau so verliert man richtig)"
+        elif net >= 5 and "leak" in grades:
+            zusatz += " (gewonnen, aber der teure Kauf bleibt teuer — das Ergebnis adelt ihn nicht)"
+    return f"{opener}: {n} Entscheidung{'en' if n != 1 else ''}, gespielt bis {street}{zusatz}."
 
 
 def render_hand_feedback(records: list[dict], hand_result: dict | None = None, mode: str = "gto") -> dict:
@@ -355,21 +389,43 @@ def render_hand_feedback(records: list[dict], hand_result: dict | None = None, m
         _validate_grade(r)
 
     lines = [_hand_rahmen(records, hand_result)]
+    schlecht = min(records, key=_grade_rang)
     beste = next((r for r in records if r["grade"] == "ok"), None)
+    # QA-Fix: wenn Lob und Kritik dasselbe Etikett tragen ('Call Preflop' gelobt UND kritisiert — zwei
+    # verschiedene Entscheidungen, gleicher Name), liest sich das als Widerspruch. Dann gewinnt die Kritik,
+    # das Lob nimmt den nächsten ok-Zug mit anderem Etikett (oder entfällt).
+    if beste is not None and schlecht["grade"] != "ok":
+        etikett = (_human(beste), _street_de(beste))
+        if etikett == (_human(schlecht), _street_de(schlecht)):
+            beste = next((r for r in records if r["grade"] == "ok"
+                          and (_human(r), _street_de(r)) != etikett), None)
     if beste is not None:                                        # L2: gute Zuege EXPLIZIT feiern (Doktrin par.1.5)
         lines.append(f"{GRADE_ICON['ok']} Stark: dein {_human(beste)} {_street_de(beste)} — sauber gewählt, genau im Plan.")
-    schlecht = min(records, key=_grade_rang)
-    if schlecht["grade"] != "ok":                                # L3: teuerstes Moment via Entscheidungs-Atom
-        lines.append(f"{GRADE_ICON[schlecht['grade']]} {render_decision_feedback(schlecht)['text']}")
+    if schlecht["grade"] != "ok":                                # L3: teuerstes Moment MIT Straßen-Kontext
+        # QA-Fix: ohne Straße las sich '✓ Stark: dein Raise am Flop' + '～ teuer: dein Raise' wie ein
+        # Widerspruch — es waren zwei verschiedene Straßen. Die Kritik nennt ihre Straße jetzt immer.
+        wo = _street_de(schlecht)
+        wo = wo[0].upper() + wo[1:] if wo else wo                # 'am Turn' -> 'Am Turn' (capitalize() zerstört Caps)
+        lines.append(f"{GRADE_ICON[schlecht['grade']]} {wo}: {render_decision_feedback(schlecht)['text']}")
     else:
         lines.append("Kein teurer Kauf in dieser Hand — jede Entscheidung saß.")
-    if len(lines) < MAX_HAND_LINES:                              # L4: Mixing wird GESAGT, wenn vorhanden
-        mix = next((m for m in (_mix_satz(_support_dist(r)) for r in records) if m), None)
-        if mix:
-            lines.append(mix)
-    if len(lines) < MAX_HAND_LINES:                              # L5: Merksatz zum teuersten Typ
-        merk = MERKSATZ.get(schlecht.get("grade_typ") or "", "Merksatz: Entscheidungen zählen, nicht einzelne Resultate.")
-        lines.append(merk)
+    if len(lines) < MAX_HAND_LINES:                              # L4: Mixing nur an GEFEIERTEN Zügen + mit Kontext
+        # QA-Fix: der Mix-Satz stammte aus IRGENDEINER Entscheidung und stand ohne Zuordnung direkt hinter
+        # der Kritik ('… Fold wäre besser. GTO mischt: 75% Fold / 23% Call — beides gut' — wirkt widersprüchlich).
+        # Jetzt nur von ok-benoteten Zügen, mit Straßen-Etikett.
+        for r in records:
+            if r["grade"] != "ok":
+                continue
+            mix = _mix_satz(_support_dist(r))
+            if mix:
+                st = _street_de(r)
+                st = st[0].upper() + st[1:] if st else st
+                lines.append(f"{st}: {mix}")
+                break
+    if len(lines) < MAX_HAND_LINES and schlecht["grade"] == "leak":   # L5: Merksatz NUR nach echtem Leak
+        merk = MERKSATZ.get(schlecht.get("grade_typ") or "")          # (49/50 Merksätze gemessen = Monotonie;
+        if merk:                                                       # leak-only drosselt auf ~1 von 4 Händen)
+            lines.append(merk)
     while len(lines) < MIN_HAND_LINES:
         lines.append("Weiter so — Entscheidungen zählen, nicht einzelne Resultate.")
     lines = lines[:MAX_HAND_LINES]
