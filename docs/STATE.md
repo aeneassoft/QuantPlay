@@ -72,6 +72,19 @@ nie das Ergebnis benoten). (5) Sizing-Korrektur in Prozent im Feedback (`→ wä
 ab 2x als Faktor; preflop in bb, Toleranz 15%). (6) Replay-„Weiter" springt zur nächsten EIGENEN
 Entscheidung (Blinds zählen nicht; Zwischenschritte 220 ms) + voller individueller Coaching-Text pro
 Entscheidung (replay._coach_from rendert via templates_de). Gates: alle Selftests + Autotest 7/1/0 grün.
+**PRINCE-HU-TAKEOVER + ARENA-MODUS (User, 2026-08-02):** (1) Im GTO-Modus übernimmt der VALIDIERTE
+Prince-v2.2-Bot den Gegner-Sitz, sobald der Pot heads-up Hero-vs-Bot ist (`Session._prince_seat/_prince_decide`
+→ PrinceOracle über dieselbe HU-Projektion wie der Grader; Resolver aus wegen Antwortzeit; fail-soft → Liga;
+♛-Krone + Log-Ansage im UI; gemessen: 14/25 Händen aktiv, 38 Entscheidungen). Der Launcher setzt jetzt
+POKERB_PRINCE=1 → Live-Takeover UND Grading-Oracle laufen auf dem v2.2-Profil. Erster echter Verbund
+Prince↔6-max — Antwort auf die User-Frage „verbunden?": vorher NEIN, jetzt via HU-Übergabe (multiway bleibt
+Liga; ehrlich: kein 6-max-Prince, nur der billigste echte Brückenschlag). (2) DRITTER MODUS `arena`: die
+„verrückte Online-Landschaft" — zufällige ADAPTIVE Profile MIT Duplikaten (inkl. whale), Reads AN, Spieler-
+Fluktuation pro Hand (P=0.18: neuer Name/Profil/Stack 40-150bb, `arena_news` im UI), gestreute Start-Stacks.
+GTO-BEWERTUNGSSCHICHT UNVERÄNDERT (Grading modusunabhängig; mode='arena' nur geloggt). Kein Prince-Takeover
+in Arena (das Chaos IST der Stresstest). Gates: Flusstest (25 GTO- + 50 Arena-Hände), Autotest 7/1/0, UI
+browser-verifiziert (3-Modi-Overlay, ARENA-Badge, Churn-News, ♛ „Prince v2 übernimmt für Dex").
+NOTES.md: DU-Zeile soll Slowplay-FALLEN erkennen (Trainer-Text-Verbesserung, NICHT der HU-Bot).
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms

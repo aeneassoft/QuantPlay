@@ -5,6 +5,15 @@ decisions. Distinct from the cross-session auto-memory (`C:\Users\hampe\.claude\
 entry whenever we ship a heuristic/approximation that should later be replaced by an exact/measured value.
 Referenced from `CLAUDE.md`.
 
+## ★ TRAINER: DU-Zeile soll bewusste Slowplay-Fallen erkennen (User, 2026-08-02 — NUR Trainer-Text, NICHT der HU-GTO-Bot)
+- **[deferred] `pokerbot/coach/range_story.py::_du_line`**: bei passiver Linie + Monster sagt die DU-Zeile "mehr
+  Blatt als Geschichte — hier bleibt Value liegen". Wenn die Hand aber mit einem River-Check-RAISE/Jam endet
+  (Hand #80: check-call/check/check → All-in über seine Bet, alle 7 Entscheidungen ok), war die Unterrepräsentation
+  der KÖDER — der Grader erkennt das bereits (Linie = ok im Plan), nur der Erzähltext nicht. Fix-Idee: wenn die
+  LETZTE Hero-Aktion raise/allin NACH einer passiven Linie ist und die Hand stark → "Falle zugeschnappt: deine
+  stille Linie hat ihn zum Bluffen eingeladen" statt "Value bleibt liegen". Reine templates/range_story-Sache;
+  der HU-GTO-Bot (Prince) bleibt unangetastet — sein Seesaw/Slowplay-Mixing ist bereits gemessen geshippt.
+
 ## ★★★ ENGINE→GTOW: the −47 is stale (−20 real), GTOW-MODE built + UNMEASURED (2026-07-04)
 - **CORRECTION (measured): the engine is −20.09 AIVAT, NOT −47.** Fresh HEAD-default GTOW run (n=974): AIVAT
   −20.09 ± 7.18, body −8…−11 (trim), 0 catastrophes. The −47.18 was a STALE account aggregate over dead code eras.

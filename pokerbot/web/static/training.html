@@ -33,6 +33,7 @@
   .hdr b{color:#eaf2ff}.hdr .g{color:var(--gold)}
   .hdr .right{display:flex;gap:18px;align-items:center}
   #modebadge{font-weight:800;font-size:12px;color:#06121f;background:var(--cyan);border-radius:8px;padding:1px 8px}
+  #modebadge.arena{background:#ff8a4a}
   .zoomctl{display:inline-flex;align-items:center;gap:6px;margin-right:14px}
   .zbtn{background:#12203a;color:#cfe3ff;border:1px solid #2b4468;border-radius:8px;padding:3px 13px;
     font-size:20px;font-weight:800;cursor:pointer;line-height:1.4}
@@ -184,6 +185,7 @@
   .mo-card p{color:var(--muted);font-size:15px}
   .mo-card button{margin:10px;padding:18px 34px;font-size:19px}
   #m-exploit{background:var(--cyan)}
+  #m-arena{background:#ff8a4a}
 </style>
 </head>
 <body>
@@ -240,9 +242,11 @@
     <div>
       <button id="m-gto">GTO-Modus</button>
       <button id="m-exploit">Exploit-Modus</button>
+      <button id="m-arena">Arena-Modus</button>
     </div>
-    <p><b style="color:#eaf2ff">GTO:</b> der Bot spielt seine Grundlinie und ignoriert deine Tendenzen.<br/>
-       <b style="color:#eaf2ff">Exploit:</b> der Bot lernt dich live und nutzt deine Leaks — du erlebst deine Ausbeutbarkeit.</p>
+    <p><b style="color:#eaf2ff">GTO:</b> die Bots spielen ihre Grundlinie — und sobald ein Pot heads-up ist, übernimmt ♛ Prince, unser bester Bot.<br/>
+       <b style="color:#eaf2ff">Exploit:</b> die Bots lernen dich live und nutzen deine Leaks — du erlebst deine Ausbeutbarkeit.<br/>
+       <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.</p>
   </div>
 </div>
 
@@ -266,7 +270,7 @@ const VERB2={fold:'foldest',check:'checkst',call:'callst',bet:'setzt',raise:'erh
 const ACTION_DE={fold:'Fold',check:'Check',call:'Call',bet:'Bet',raise:'Raise',allin:'All-in'};
 function verbDe(a){return VERB3[a]||a;}
 
-let bb=100, view=null, advTimer=null, lastBtn=null, busy=false;
+let bb=100, view=null, advTimer=null, lastBtn=null, busy=false, lastPrinceHand=null;
 let MODE='gto', sessionStart=null;
 let handEndTimes=[], lastEndHand=null;                 // rolling hands/hour
 let tickerParts=[], tickerStreet=null, tickerHand=null;
@@ -494,7 +498,15 @@ function render(v){
   view=v; bb=v.bb;
   if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
-  const mb=$('modebadge');mb.textContent=curMode().toUpperCase();mb.className=curMode()==='exploit'?'exploit':'';
+  const mb=$('modebadge');mb.textContent=curMode().toUpperCase();
+  mb.className=curMode()==='exploit'?'exploit':(curMode()==='arena'?'arena':'');
+  if(v.arena_news){log('🔄 '+esc(v.arena_news),'s');pushTicker(v.street,v.arena_news);}
+  // einmal pro Hand ansagen, sobald der Pot heads-up wird und Prince den Gegner-Sitz übernimmt
+  if(v.prince_seat!=null&&lastPrinceHand!==v.hand_no){
+    lastPrinceHand=v.hand_no;
+    const nm=(v.seats[v.prince_seat]||{}).name||('Sitz '+v.prince_seat);
+    log(`♛ Heads-up — <b>Prince v2</b> übernimmt für ${esc(nm)}.`,'r');
+  }
   // P3-D: minimal difficulty indicator — from view fields when the server ships them, '–' otherwise
   const df=v.difficulty||v.liga||null;
   const rate=df?(df.error_rate!=null?df.error_rate:df.rate):null;
@@ -509,7 +521,7 @@ function render(v){
   const sn=(v.session_net||0)/bb;
   $('snet').textContent=(sn>=0?'+':'')+bbs(v.session_net); $('snet').className='v '+(sn>0?'pos':sn<0?'neg':'');
   $('snetl').textContent=`Session-Netto (bb) · ${v.hands_done||0} Hände`;
-  $('botread').style.display=(curMode()==='exploit')?'':'none';
+  $('botread').style.display=(curMode()!=='gto')?'':'none';   // Exploit UND Arena: die Gegner lernen dich
   document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
   const winnerSeats=new Set((v.result&&v.result.winners||[]).map(w=>w.seat));
   v.seats.forEach(s=>{
@@ -517,9 +529,10 @@ function render(v){
     el.className='seat'+(s.is_turn?' turn':'')+(s.folded?' folded':'')+((v.hand_over&&winnerSeats.has(s.seat))?' win':'');
     el.style.left=x+'%'; el.style.top=y+'%';
     const ini=s.name[0].toUpperCase();
+    const crown=(v.prince_seat===s.seat&&!s.folded)?'♛ ':'';   // Prince v2 spielt diesen Sitz (HU-Takeover)
     el.innerHTML=`<div class="holes" id="h${s.seat}"></div>
       <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat]}">${ini}</span>
-        <span class="nm">${s.is_turn?'▶ ':''}${s.name}</span><span class="pos">${s.pos}</span></div>
+        <span class="nm" ${crown?'title="Prince v2 — unser bester HU-Bot — spielt diesen Sitz"':''}>${s.is_turn?'▶ ':''}${crown}${s.name}</span><span class="pos">${s.pos}</span></div>
         <div class="stk">${bbs(s.stack)} bb${s.all_in?' · ALL-IN':''}</div></div>`;
     $('felt').appendChild(el);
     setCards(document.getElementById('h'+s.seat), s.folded?[]:s.hole, s.is_human?'hero':'sm');
@@ -953,6 +966,7 @@ function showOverlay(){cancelAutodeal();$('modeoverlay').style.display='flex';}
 function startWith(mode){MODE=mode;$('modeoverlay').style.display='none';startSession();}
 $('m-gto').onclick=()=>startWith('gto');
 $('m-exploit').onclick=()=>startWith('exploit');
+$('m-arena').onclick=()=>startWith('arena');
 $('b-new').onclick=showOverlay;
 $('b-an').onclick=analyze;
 $('b-replay').onclick=enterReplay;

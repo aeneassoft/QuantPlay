@@ -11,6 +11,7 @@ Run:  python -m pokerbot.web.six_server [--open]
 """
 from __future__ import annotations
 
+import random
 import time
 from datetime import datetime
 from pathlib import Path
@@ -28,7 +29,13 @@ NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve"]
 HUMAN = 0
 _INDEX = (Path(__file__).parent / "static" / "six.html").read_text(encoding="utf-8")
 GRADING_BUDGET_MS = 800          # whole-hand grading must fit the client's auto-deal window
-TRAINER_MODES = ("gto", "exploit")
+TRAINER_MODES = ("gto", "exploit", "arena")
+# ARENA-Modus (User, 2026-08-02): eine "verrückte Online-Landschaft" — zufällige, ADAPTIVE Gegnertypen
+# (Duplikate erlaubt: auch 2 Maniacs), Spieler kommen und gehen mit wechselnden Stack-Tiefen. Die GTO-
+# Bewertungsschicht bleibt UNVERÄNDERT — der Modus tauscht nur die Gegner, nie den Maßstab.
+ARENA_SWAP_P = 0.18              # pro Hand: Chance, dass ein Gegner den Tisch verlässt (Online-Fluktuation)
+ARENA_STACK_BB = (40, 150)       # Einkaufs-Spanne neuer Spieler — Short- bis Deep-Stack-Dynamik
+ARENA_POOL = ["Kai", "Mia", "Rex", "Zoe", "Odin", "Lux", "Nia", "Taz", "Ivy", "Moe", "Fox", "Uma"]
 app = FastAPI(title="PokerB — 6-max")
 
 
@@ -59,21 +66,44 @@ class Session:
         self._grade_counts = {"ok": 0, "teuer": 0, "leak": 0}
         self.last_error_rate: float | None = None
         # five INDEPENDENT agents — each its own profile + its own opponent model (public info only)
-        _assign = {1: "tag", 2: "lag", 3: "nit", 4: "station", 5: "maniac"}
-        dif, reg = _coach("difficulty"), _coach("registry")
-        if dif is not None and reg is not None:     # P3-D: adapt composition to the last session's error rate
-            try:
-                prev = [s for s in reg.sessions() if s.get("error_rate") is not None]
-                if prev:
-                    _assign = dif.update(prev[-1]["error_rate"], _assign) or _assign
-            except Exception:  # noqa: BLE001 — controller optional; default composition on any trouble
-                pass
+        self._arena_rng = random.Random()           # live variety — Arena braucht keinen Seed
+        self._arena_news: str | None = None
+        reg = _coach("registry")                    # Session-Registry: alle Modi registrieren sich
+        if mode == "arena":
+            # verrückte Landschaft ab Hand 1: zufällige Profile MIT Duplikaten + gestreute Stack-Tiefen
+            _assign = {s: self._arena_rng.choice(list(PROFILES)) for s in range(1, self.table.n)}
+            for s in range(1, self.table.n):
+                self.table.seats[s].stack = self._arena_rng.randint(*ARENA_STACK_BB) * bb
+        else:
+            _assign = {1: "tag", 2: "lag", 3: "nit", 4: "station", 5: "maniac"}
+            dif = _coach("difficulty")
+            if dif is not None and reg is not None:   # P3-D: adapt composition to the last session's error rate
+                try:
+                    prev = [s for s in reg.sessions() if s.get("error_rate") is not None]
+                    if prev:
+                        _assign = dif.update(prev[-1]["error_rate"], _assign) or _assign
+                except Exception:  # noqa: BLE001 — controller optional; default composition on any trouble
+                    pass
         self.profile_assign = dict(_assign)
         self.bots = {s: SixMaxBot(s, PROFILES[_assign.get(s, "tag")]) for s in range(1, self.table.n)}
-        if mode != "exploit":
+        if mode == "gto":
             # GTO-Modus: the league's bounded exploit reads are OFF — bots play their profiles straight.
+            # (Exploit + Arena lassen die Reads AN: online passen sich Gegner an — genau der Stresstest.)
             for b in self.bots.values():
                 b._read = lambda obs: {}
+        # PRINCE-HU-TAKEOVER (User, 2026-08-02): im GTO-Modus übernimmt der VALIDIERTE Prince-v2.2-HU-Bot,
+        # sobald der Pot heads-up Hero-vs-Bot ist — via derselben HU-Projektion, mit der der Grader benotet
+        # (oracle.record_to_hu_state). Nur GTO: im Exploit-Modus sind die Liga-Reads der Zweck, in der Arena
+        # das Chaos. Resolver bleiben aus (Antwortzeit); Profil-Flags via POKERB_PRINCE=1 im Launcher.
+        self.prince = None
+        self.prince_decisions = 0
+        if mode == "gto":
+            orc = _coach("oracle")
+            if orc is not None:
+                try:
+                    self.prince = orc.PrinceOracle()
+                except Exception:  # noqa: BLE001 — ohne Prince spielt die Liga weiter (fail-soft)
+                    self.prince = None
         if reg is not None:
             try:
                 reg.register_start(self)
@@ -147,6 +177,32 @@ class Session:
         for b in self.bots.values():
             b.observe(actor, street, act, to_call, preflop_raises)
 
+    def _prince_seat(self) -> int | None:
+        """Der Bot-Sitz, den Prince übernimmt: Pot ist heads-up UND der Mensch ist einer der beiden."""
+        if self.prince is None or self.table.hand_over:
+            return None
+        live = [i for i, s in enumerate(self.table.seats) if not s.folded]
+        if len(live) == 2 and HUMAN in live:
+            return live[0] if live[1] == HUMAN else live[1]
+        return None
+
+    def _prince_decide(self, seat: int) -> dict:
+        """Prince v2.2 entscheidet für `seat` — exakt der Grader-Pfad: Spot-Record -> HU-Projektion ->
+        PokerBot.decide -> api.legalize (PrinceOracle.decide macht alles; amount = commit-TO in Chips)."""
+        from dataclasses import asdict
+
+        from pokerbot.brain.format_spot import spot_from_table
+        dl = _coach("decision_log")
+        t = self.table
+        spot = asdict(spot_from_table(t, seat))
+        rec = {"spot": spot, "obs": t.obs_for(seat), "legal": t.legal_actions(),
+               "history": [dict(h) for h in t.history if "player" in h],
+               "street": t.street, "hand_id": f"{self.session_id}-{t.hand_no}",
+               "spot_fp": dl.spot_fingerprint(spot) if dl is not None else 0}
+        dec = self.prince.decide(rec)
+        self.prince_decisions += 1
+        return dec
+
     def _bot_act(self) -> dict:
         """Play exactly ONE bot action (caller guarantees a bot is to act) and return its event."""
         t = self.table
@@ -154,7 +210,14 @@ class Session:
         obs = t.obs_for(seat)
         street, to_call, praises = t.street, obs["to_call"], obs["preflop_raises"]
         try:
-            dec = self.bots[seat].decide(obs)
+            dec = None
+            if seat == self._prince_seat():
+                try:
+                    dec = self._prince_decide(seat)
+                except Exception:  # noqa: BLE001 — Prince-Problem => die Liga übernimmt still
+                    dec = None
+            if dec is None:
+                dec = self.bots[seat].decide(obs)
             action, amount = dec["action"], dec["amount"]
             t.act(action, amount)
         except Exception:  # noqa: BLE001 — defensive: never crash the table on a bot
@@ -184,8 +247,28 @@ class Session:
         self._log_if_done()
         return events
 
+    def _arena_churn(self) -> None:
+        """Online-Fluktuation (nur Arena): mit ARENA_SWAP_P verlässt ein Gegner den Tisch — ein neuer
+        Spieler mit frischem Profil (Duplikate erlaubt), neuem Namen und zufälliger Stack-Tiefe setzt
+        sich. Läuft ZWISCHEN den Händen; die GTO-Bewertung bleibt davon unberührt."""
+        rng = self._arena_rng
+        if rng.random() >= ARENA_SWAP_P:
+            return
+        seat = rng.randint(1, self.table.n - 1)
+        alt = self.table.seats[seat].name
+        frei = [n for n in ARENA_POOL if n not in {s.name for s in self.table.seats}]
+        neu = rng.choice(frei) if frei else alt
+        profil = rng.choice(list(PROFILES))
+        self.table.seats[seat].name = neu
+        self.table.seats[seat].stack = rng.randint(*ARENA_STACK_BB) * self.table.bb
+        self.bots[seat] = SixMaxBot(seat, PROFILES[profil])   # frisches Gegnermodell — er kennt dich nicht
+        self.profile_assign[seat] = profil
+        self._arena_news = f"{alt} verlässt den Tisch — {neu} setzt sich ({int(self.table.seats[seat].stack / self.table.bb)}bb)."
+
     def start_hand(self, auto_advance: bool = True) -> list[dict]:
         self._pending_decisions = []
+        if self.mode == "arena":
+            self._arena_churn()
         self.table.start_hand()
         for b in self.bots.values():
             b.new_hand(list(range(self.table.n)))
@@ -253,7 +336,13 @@ class Session:
             "mode": self.mode,
             "coach": self.last_feedback if t.hand_over else None,
             "difficulty": {"profiles": self.profile_assign, "error_rate": self.last_error_rate},
+            "prince_seat": self._prince_seat(),          # ♛ am Pod: der validierte HU-Bot spielt diesen Sitz
+            "arena_news": self._pop_arena_news(),
         }
+
+    def _pop_arena_news(self) -> str | None:
+        news, self._arena_news = self._arena_news, None   # einmalig ausliefern (view läuft pro Step)
+        return news
 
 
 SESSION: Session | None = None
