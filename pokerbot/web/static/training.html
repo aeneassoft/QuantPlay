@@ -874,8 +874,18 @@ function renderReplayCoach(st){
     const d=st.decision||st.coach;    // plan name 'decision'; the live server ships 'coach'
     h+=`<div>Gespielt: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
     if(d){
-      const oaTxt=d.recommended!=null?d.recommended:actionTxt(d.oracle_action);
-      h+=`<div>Empfohlen: <b>${esc(oaTxt)}</b> <span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span></div>`;
+      const badge=`<span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span>`;
+      // Frequenz nur, wo sie SINN macht (User-Regel): bei einem echten Mix (2. Aktion >=15%) ersetzt sie
+      // das gewürfelte 'Empfohlen' (das war irreführend: 'Empfohlen: raise' über '87% Check'); bei klaren
+      // Spots bleibt allein die Empfehlung — eine '100% Fold'-Klammer wäre Ballast.
+      const dist=(d.dist||[]).filter(x=>x&&x[1]>=0.02);
+      if(dist.length>=2&&dist[1][1]>=0.15){
+        const mix=dist.slice(0,3).map(x=>`${Math.round(x[1]*100)}% ${esc(x[0])}`).join(' / ');
+        h+=`<div>Bot spielt hier: <b>${mix}</b> ${badge}</div>`;
+      }else{
+        const oaTxt=d.recommended!=null?d.recommended:actionTxt(d.oracle_action);
+        h+=`<div>Empfohlen: <b>${esc(oaTxt)}</b> ${badge}</div>`;
+      }
       // der volle Coaching-Text pro Entscheidung (replay.py rendert via templates_de); one_liner = Fallback
       const txt=d.text||d.one_liner||d.erklaerung_kurz;
       if(txt)h+=`<div class="fbbody">${markTerms(txt)}</div>`;

@@ -56,13 +56,13 @@ def _coach_from(dec: dict) -> dict:
     # Voller Coaching-Text PRO Entscheidung (User-QA 2026-08-02): derselbe Renderer wie das Hand-Feedback
     # macht jeden Replay-Schritt einzigartig (Grund + Alternative + Bot-Frequenzen), statt nur one_liner.
     # Lazy + guarded: replay bleibt ohne templates_de lauffähig (Modul-Doktrin: pure, unit-testbar).
-    text = None
+    text, dist = None, []
     try:
         from pokerbot.coach import templates_de as _tp
         text = _tp.render_decision_feedback(dec)["text"]
-        dist = _tp._dist_str(dec)
-        if dist:
-            text += dist
+        # Frequenzen STRUKTURIERT statt in den Text gehängt: das UI zeigt sie nur, wenn der Spot wirklich
+        # GEMISCHT ist (User-Regel 2026-08-02: Information nur, wo sie Sinn macht — nie doppelt/überladen).
+        dist = [[a, round(p, 3)] for a, p in _tp._support_dist(dec)]
     except Exception:  # noqa: BLE001 — one_liner bleibt der Fallback im UI
         text = None
     return {
@@ -71,6 +71,7 @@ def _coach_from(dec: dict) -> dict:
         "grade": dec.get("grade"),
         "one_liner": one_liner,
         "text": text,
+        "dist": dist,
     }
 
 
