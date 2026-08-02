@@ -85,6 +85,18 @@ GTO-BEWERTUNGSSCHICHT UNVERÄNDERT (Grading modusunabhängig; mode='arena' nur g
 in Arena (das Chaos IST der Stresstest). Gates: Flusstest (25 GTO- + 50 Arena-Hände), Autotest 7/1/0, UI
 browser-verifiziert (3-Modi-Overlay, ARENA-Badge, Churn-News, ♛ „Prince v2 übernimmt für Dex").
 NOTES.md: DU-Zeile soll Slowplay-FALLEN erkennen (Trainer-Text-Verbesserung, NICHT der HU-Bot).
+**PLURIBUS-MATCH (User-Idee, 2026-08-02) — zweite unabhängige 6-max-Referenz, $0:** `research/
+pluribus_match.py` replayed die 10k Pluribus-Hände und setzt den `tag`-Kern in JEDEN Pluribus-Spot
+(gleiche Holes/Board/History; Amount-Semantik cbr=commit-TO an Hand 0 verifiziert, Pot/Net schließen).
+**Ergebnis (15.169 Entscheidungen, 0 Fehler, `data/pluribus_match.json`): Bucket-Übereinstimmung 76.6%**
+— preflop 82.4% (un-eröffnet 88.4%), flop 65.6 / turn 63.5 / river 61.9; Positionen UTG 84.9 best,
+SB 72.1/BB 71.3 schwächst; Sizing-Median wir/Pluribus = 1.00 [p25 0.87, p75 1.15] (n=2170 beide raisen).
+**KREUZ-VALIDIERUNG: dieselben Leak-Muster wie der GTOW-Grade** (postflop-Gefälle mit River am Ende;
+Blinds schwächste Positionen) aus einer UNABHÄNGIGEN Quelle. Ehrlich: Pluribus ≠ GTO-Ground-Truth
+(im Datensatz-Roh −7.09 bb/100 vs Profis); beide Seiten MISCHEN → Einzelspot-Agreement hat einen
+Mixing-Floor deutlich unter 100% (identische 60/40-Mixe ergäben ~52%) → 76.6% ist eine UNTERGRENZE
+der Strategie-Ähnlichkeit, Divergenz-Klassen (fold→call 774, check→raise 732, raise→check 545,
+call→fold 417) sind LEADS, keine Verdikte.
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms
