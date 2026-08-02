@@ -28,10 +28,15 @@
   /* stage 2400x1330: native 1:1 at 2560x1440, uniform downscale below (fit()) */
   #stage{position:absolute;left:50%;top:50%;width:2400px;height:1330px;transform-origin:center}
   .hdr{position:absolute;top:0;left:20px;width:1400px;height:40px;display:flex;align-items:center;
-    justify-content:space-between;padding:0 10px;font-size:15px;color:var(--muted)}
+    justify-content:space-between;padding:0 10px;font-size:24px;color:var(--muted)}
   .hdr b{color:#eaf2ff}.hdr .g{color:var(--gold)}
   .hdr .right{display:flex;gap:18px;align-items:center}
   #modebadge{font-weight:800;font-size:12px;color:#06121f;background:var(--cyan);border-radius:8px;padding:1px 8px}
+  .zoomctl{display:inline-flex;align-items:center;gap:6px;margin-right:14px}
+  .zbtn{background:#12203a;color:#cfe3ff;border:1px solid #2b4468;border-radius:8px;padding:3px 13px;
+    font-size:20px;font-weight:800;cursor:pointer;line-height:1.4}
+  .zbtn:hover{background:#1b2f52}
+  #zoomlbl{font-size:19px;color:var(--muted);min-width:56px;text-align:center;font-weight:700}
   #modebadge.exploit{background:var(--gold)}
 
   /* ── table zone LEFT ~60% ─────────────────────────────────────────── */
@@ -72,7 +77,7 @@
   .pod{background:linear-gradient(180deg,#16223acc,#0c1626ee);border:1px solid #2c3f5e;border-radius:14px;
     padding:7px 9px 8px;position:relative;box-shadow:0 6px 16px #0006;transition:box-shadow .2s,border-color .2s}
   .seat.turn .pod{border-color:var(--cyan);animation:turnpulse 1.05s ease-in-out infinite}
-  .seat.turn .nm{color:var(--cyan);font-size:16px}     /* actor name emphasis (P2-4) */
+  .seat.turn .nm{color:var(--cyan);font-size:22px}     /* actor name emphasis (P2-4) */
   @keyframes turnpulse{0%,100%{box-shadow:0 0 0 2px var(--cyan),0 0 9px #37e0c855}
     50%{box-shadow:0 0 0 2px var(--cyan),0 0 26px #37e0c8dd}}
   .seat.win .pod{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 26px #f0c860bb}
@@ -80,9 +85,9 @@
   .av{width:34px;height:34px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;
     font-weight:800;font-size:15px;line-height:34px;color:#06121f;text-align:center}
   .who{display:flex;align-items:center;justify-content:center;gap:2px}
-  .nm{font-weight:700;font-size:14px}
-  .pos{font-size:11px;color:var(--gold);background:#0006;border-radius:6px;padding:0 6px;margin-left:4px}
-  .stk{font-size:14px;color:#bfe9dd;margin-top:2px}
+  .nm{font-weight:700;font-size:20px}
+  .pos{font-size:15px;color:var(--gold);background:#0006;border-radius:6px;padding:1px 8px;margin-left:5px}
+  .stk{font-size:19px;color:#bfe9dd;margin-top:3px}
   .holes{display:flex;gap:5px;justify-content:center;margin:3px 0 2px;min-height:60px;align-items:flex-end}
   .rank{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:5px;white-space:nowrap;
     background:var(--gold);color:#06121f;font-weight:800;font-size:13px;padding:2px 10px;border-radius:10px;
@@ -98,7 +103,7 @@
   .chips{position:relative;display:inline-block;width:24px;height:26px}
   .cd{position:absolute;left:0;width:24px;height:10px;border-radius:50%;border:2px solid #ffffffcc;box-shadow:0 1px 3px #000b}
   /* bet amounts BIG at the chips (P2-4) */
-  .camt{font-weight:800;font-size:20px;color:#fff;background:#000b;border:1px solid #ffffff33;border-radius:12px;padding:2px 10px}
+  .camt{font-weight:800;font-size:27px;color:#fff;background:#000b;border:1px solid #ffffff33;border-radius:12px;padding:2px 10px}
 
   .flychip{position:absolute;width:24px;height:24px;border-radius:50%;z-index:12;transform:translate(-50%,-50%);
     background:radial-gradient(circle at 35% 30%,#ffe9a8,#d8a72a);border:2px solid #fff8;box-shadow:0 2px 8px #000a}
@@ -108,16 +113,20 @@
   @keyframes rise{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-160%)}}
 
   /* one-line action ticker between table and bar (P2-4) */
-  #ticker{position:absolute;left:20px;top:880px;width:1400px;height:24px;padding:0 12px;font-size:16px;
+  #ticker{position:absolute;left:20px;top:872px;width:1400px;height:36px;padding:0 12px;font-size:26px;
     color:#cfe3f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
   .bar{position:absolute;left:20px;top:906px;width:1400px;height:120px;background:#0b1424cc;border:1px solid #24344f;
     border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px}
   .bar.myturn{animation:barpulse 1.1s ease-in-out infinite}   /* the eye lands on the action bar (P2-4) */
   @keyframes barpulse{0%,100%{box-shadow:0 0 0 1px #37e0c855}50%{box-shadow:0 0 0 3px #37e0c8cc}}
-  .bar .wait{color:var(--muted);text-align:center;font-size:17px}
+  .bar .wait{color:var(--muted);text-align:center;font-size:24px}
+  .big{font-size:30px;padding:20px 52px;background:var(--gold)}
+  .autodeal{display:inline-flex;align-items:center;gap:10px;margin-left:24px;font-size:22px;color:var(--muted);
+    cursor:pointer;-webkit-user-select:none}
+  .autodeal input{width:18px;height:18px;cursor:pointer}
   .btnrow{display:flex;gap:12px;align-items:center;justify-content:center}
-  button{cursor:pointer;border:none;border-radius:10px;padding:14px 26px;font-weight:800;font-size:17px;color:#06121f;
+  button{cursor:pointer;border:none;border-radius:10px;padding:16px 30px;font-weight:800;font-size:23px;color:#06121f;
     background:var(--gold);transition:transform .05s,filter .15s}
   button:hover{filter:brightness(1.08)} button:active{transform:translateY(1px)}
   button.fold{background:#e2554a;color:#fff} button.check{background:var(--cyan)}
@@ -134,36 +143,36 @@
     border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
   .net{display:flex;align-items:baseline;justify-content:center;gap:14px}
   .net .v{font-size:32px;font-weight:900}.net .v.pos{color:var(--win)}.net .v.neg{color:var(--red)}
-  .net .l{font-size:13px;color:var(--muted)}
-  .panel h3{margin:0;font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
-  .log{background:#070d18;border-radius:8px;padding:8px;flex:1;min-height:120px;overflow:auto;font-size:13px;line-height:1.5}
+  .net .l{font-size:18px;color:var(--muted)}
+  .panel h3{margin:0;font-size:19px;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+  .log{background:#070d18;border-radius:8px;padding:10px;flex:1;min-height:90px;max-height:210px;overflow:auto;font-size:19px;line-height:1.5}
   .log .b{color:#ffe1a3}.log .y{color:#9af7d3}.log .r{color:#fff;font-weight:700}.log .s{color:var(--muted)}
-  .out{background:#070d18;border-radius:8px;padding:10px;font-size:14px;line-height:1.55;white-space:pre-wrap;
-    max-height:220px;overflow:auto}
-  #coach{background:#070d18;border-radius:8px;padding:12px;font-size:15px;line-height:1.6;max-height:400px;
+  .out{background:#070d18;border-radius:8px;padding:10px;font-size:20px;line-height:1.5;white-space:pre-wrap;
+    max-height:190px;overflow:auto}
+  #coach{background:#070d18;border-radius:8px;padding:16px;font-size:29px;line-height:1.5;max-height:520px;
     overflow:auto;white-space:normal}
   #coach .ph{color:var(--muted)}
-  .fbhead{font-weight:800;font-size:16px;margin-bottom:5px}
+  .fbhead{font-weight:800;font-size:31px;margin-bottom:9px}
   .fbbody{margin-top:5px}
   .badges{margin:4px 0}
-  .badge{display:inline-block;font-weight:800;font-size:12px;padding:1px 8px;border-radius:8px;background:#0006;margin:2px 4px 2px 0}
+  .badge{display:inline-block;font-weight:800;font-size:21px;padding:1px 8px;border-radius:8px;background:#0006;margin:2px 4px 2px 0}
   .badge.ok{color:var(--win)} .badge.teuer{color:var(--gold)} .badge.leak{color:var(--red)}
   .muted{color:var(--muted)}
-  .mini{display:flex;gap:8px}.mini button{flex:1;padding:10px;font-size:14px}
-  #b-weiter{margin-top:8px;padding:10px 18px;font-size:15px}
+  .mini{display:flex;gap:8px}.mini button{flex:1;padding:12px;font-size:20px}
+  #b-weiter{margin-top:10px;padding:13px 24px;font-size:21px}
 
   /* glossary terms: dotted underline, clickable (P2-2) */
   .term{color:var(--cyan);text-decoration:underline dotted;cursor:help}
   #gloss,#botread{background:#070d18;border-radius:8px}
-  #gloss summary,#botread summary{cursor:pointer;color:var(--gold);font-weight:700;padding:8px;font-size:13px;list-style-position:inside}
-  #gfilter{user-select:text;-webkit-user-select:text;width:calc(100% - 16px);margin:2px 8px 6px;padding:6px 9px;
-    border-radius:6px;border:1px solid #24344f;background:#0b1424;color:#eaf2ff;font-size:13px}
-  #glist{max-height:420px;overflow:auto;font-size:13px;line-height:1.5;padding:0 8px 8px}
+  #gloss summary,#botread summary{cursor:pointer;color:var(--gold);font-weight:700;padding:11px;font-size:25px;list-style-position:inside}
+  #gfilter{user-select:text;-webkit-user-select:text;width:calc(100% - 16px);margin:2px 8px 6px;padding:8px 11px;
+    border-radius:6px;border:1px solid #24344f;background:#0b1424;color:#eaf2ff;font-size:19px}
+  #glist{max-height:430px;overflow:auto;font-size:23px;line-height:1.5;padding:0 10px 10px}
   .gentry{padding:5px 6px;border-radius:6px}.gentry b{color:var(--cyan)}
   .gentry code{color:#ffe1a3;background:#0b1424;border-radius:4px;padding:0 4px}
   .gentry.hl{animation:glflash 2s;background:#f0c86022}
   @keyframes glflash{0%{background:#f0c86066}100%{background:#f0c86011}}
-  #brbody{padding:2px 10px 10px;font-size:13px;line-height:1.55;max-height:260px;overflow:auto}
+  #brbody{padding:2px 10px 10px;font-size:20px;line-height:1.5;max-height:230px;overflow:auto}
   .exploit{color:#ffb4ae;margin:4px 0}
 
   /* start overlay: GTO/Exploit mode toggle (P0-0 UI) */
@@ -181,6 +190,7 @@
   <div class="hdr">
     <div><b>♠ PokerB</b> <span class="g">Trainer</span></div>
     <div class="right">
+      <span class="zoomctl"><button id="z-out" class="zbtn" title="Kleiner (Strg −)">A−</button><span id="zoomlbl">100%</span><button id="z-in" class="zbtn" title="Größer (Strg +)">A+</button></span>
       <span id="modebadge">GTO</span>
       <span id="liga">Liga –</span>
       <span id="hph">– H./Std</span>
@@ -262,9 +272,44 @@ let lastBoardLen=0, lastBoardHand=null;
 let coachHand=null, fbRequestedHand=null, armedRaise=false;
 let GLOSSARY=[], TERM_RE=null, SYN2SLUG={}, TERMKEY={};
 let replayMode=false, replayData=null, replayIdx=0, liveView=null, suppressAutodeal=false;
+let autoDealOn = localStorage.getItem('autoDeal')==='1';   // OFF by default — the user deals when ready
+let hasLastHand=false;                                     // a completed hand exists -> Replay stays available
 
-function fit(){const s=Math.min(innerWidth/2400, innerHeight/1330);
-  $('stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+/* ── UI-Zoom (P2-1 Nachtrag) ────────────────────────────────────────────
+   The stage is a fixed 2400x1330 canvas that fit() scales to the viewport. On a HiDPI screen with Windows
+   at 200% the CSS viewport is only ~1280px (or less if the window is not maximized), so pure fit() lands
+   around 0.4 and every label becomes unreadable. UI_ZOOM multiplies fit(); when the result overflows we
+   anchor top-left and let the page scroll instead of cropping. Persisted per browser. */
+let uiZoom = parseFloat(localStorage.getItem('uiZoom')||'0') || 0;   // 0 = auto (readable default)
+const ZOOM_MIN=0.5, ZOOM_MAX=2.4, ZOOM_STEP=0.15;
+const MIN_READABLE=0.50;   // panel text is 22px in stage space -> ~11px CSS here (readable, table still fits)
+
+function autoZoom(){                     // pick the smallest zoom that keeps text readable
+  const base=Math.min(innerWidth/2400, innerHeight/1330);
+  return base>=MIN_READABLE ? 1 : Math.min(ZOOM_MAX, MIN_READABLE/base);
+}
+function fit(){
+  const base=Math.min(innerWidth/2400, innerHeight/1330);
+  const z=uiZoom || autoZoom();
+  const s=base*z, w=2400*s, h=1330*s;
+  const st=$('stage'), over=(w>innerWidth+1)||(h>innerHeight+1);
+  if(over){                              // zoomed past the viewport: scroll instead of crop
+    document.body.style.overflow='auto';
+    st.style.left='0'; st.style.top='0'; st.style.transformOrigin='top left';
+    st.style.transform=`scale(${s})`;
+    document.body.style.width=Math.ceil(w)+'px'; document.body.style.height=Math.ceil(h)+'px';
+  }else{
+    document.body.style.overflow='hidden'; document.body.style.width=''; document.body.style.height='';
+    st.style.left='50%'; st.style.top='50%'; st.style.transformOrigin='center';
+    st.style.transform=`translate(-50%,-50%) scale(${s})`;
+  }
+  const lbl=$('zoomlbl'); if(lbl) lbl.textContent=Math.round(z*100)+'%';
+}
+function setZoom(z){
+  uiZoom=Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, Math.round(z*100)/100));
+  localStorage.setItem('uiZoom', String(uiZoom)); fit();
+}
+function bumpZoom(d){ setZoom((uiZoom||autoZoom())+d); }
 addEventListener('resize',fit); fit();
 
 /* ── shared card/chip renderers (carried over from six.html) ─────────── */
@@ -397,7 +442,10 @@ function coachPlaceholder(v){
   const zeile=my
     ?`Du bist dran (${street}) — Pot ${bbs(v.pot)}bb${(v.legal.to_call>0)?', '+bbs(v.legal.to_call)+'bb zu callen':''}.`
     :`Gegner sind dran (${street}).`;
-  $('coach').innerHTML=`<div class="ph">${esc(zeile)}<br/>Das Feedback kommt nach der Hand.</div>`;
+  // The live prompt goes into its own slim line ABOVE the feedback — the previous hand's coaching text
+  // stays readable while the new hand runs (it used to be wiped the instant the next hand was dealt).
+  const keep=$('coach').querySelector('.fbhead') ? $('coach').innerHTML : '';
+  $('coach').innerHTML=`<div class="ph">${esc(zeile)}</div>`+keep;
 }
 async function fetchFeedback(){
   if(!view||fbRequestedHand===view.hand_no)return;
@@ -503,7 +551,10 @@ function render(v){
     log(`<span class="b">${e.name}</span> <span style="color:#789">${e.pos}</span>: ${e.action}${a}`,'b');});
   if(v.coach)renderCoach(v.coach);
   else if(!v.hand_over && coachHand!==v.hand_no)coachPlaceholder(v);
-  $('b-replay').disabled=!v.hand_over;
+  // Replay stays available once ANY hand is finished — the server keeps the last completed hand until the
+  // next one ends, so you can still review it after dealing in (previously it died with hand_over=false).
+  if(v.hand_over)hasLastHand=true;
+  $('b-replay').disabled=!hasLastHand;
   renderBar(v); renderEnd(v);
 }
 
@@ -533,8 +584,10 @@ function renderEnd(v){
   log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
   if(!v.coach)fetchFeedback();
   if($('botread').open&&curMode()==='exploit')loadBotRead();
-  // auto-deal after feedback, gated: not in replay, not while reading the glossary/filter (P1-D/P2-3)
-  if(!replayMode&&!suppressAutodeal&&!$('gloss').open&&document.activeElement!==$('gfilter'))
+  // NO auto-deal: the hand ends and STAYS on screen until the user presses "Nächste Hand" (or Space).
+  // Measured in use: a timer cut the feedback off mid-read and made the replay button unreachable.
+  // Optional convenience only — off by default, toggled in the header, remembered per browser.
+  if(autoDealOn&&!replayMode&&!suppressAutodeal&&!$('gloss').open&&document.activeElement!==$('gfilter'))
     advTimer=setTimeout(nextHand, T.AUTODEAL);
 }
 
@@ -542,7 +595,16 @@ function renderBar(v){
   const bar=$('bar'),L=v.legal||{},my=!v.hand_over&&L.to_act===v.human_seat;
   bar.classList.toggle('myturn',my);
   armedRaise=false;
-  if(!my){bar.innerHTML='<div class="wait">'+(v.hand_over?'Nächste Hand … (Leertaste = sofort)':'Gegner sind dran…')+'</div>';return;}
+  if(!my){
+    if(v.hand_over){                             // explicit deal button — nothing advances behind your back
+      bar.innerHTML='<button id="b-deal" class="big">Nächste Hand <span class="kbd">Leertaste</span></button>'+
+        `<label class="autodeal"><input type="checkbox" id="cb-auto"${autoDealOn?' checked':''}> automatisch</label>`;
+      $('b-deal').onclick=dealNow;
+      $('cb-auto').onchange=e=>{autoDealOn=e.target.checked;localStorage.setItem('autoDeal',autoDealOn?'1':'0');
+        if(!autoDealOn)cancelAutodeal();};
+    }else bar.innerHTML='<div class="wait">Gegner sind dran…</div>';
+    return;
+  }
   bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
   if(L.can_fold)row.appendChild(mk('Fold','F','fold',()=>send('fold')));
   if(L.can_check)row.appendChild(mk('Check','C','check',()=>send('check')));
@@ -805,6 +867,14 @@ $('m-exploit').onclick=()=>startWith('exploit');
 $('b-new').onclick=showOverlay;
 $('b-an').onclick=analyze;
 $('b-replay').onclick=enterReplay;
+$('z-in').onclick=()=>bumpZoom(ZOOM_STEP);
+$('z-out').onclick=()=>bumpZoom(-ZOOM_STEP);
+addEventListener('keydown',e=>{                  // Strg + / Strg − / Strg 0 zoom the trainer UI itself
+  if(!e.ctrlKey)return;
+  if(e.key==='+'||e.key==='='){e.preventDefault();bumpZoom(ZOOM_STEP);}
+  else if(e.key==='-'){e.preventDefault();bumpZoom(-ZOOM_STEP);}
+  else if(e.key==='0'){e.preventDefault();localStorage.removeItem('uiZoom');uiZoom=0;fit();}
+});
 loadGlossary();                                  // fetch once at load; the Klappfeld renders from the cache
 </script>
 </body>

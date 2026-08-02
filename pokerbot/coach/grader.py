@@ -290,8 +290,13 @@ def _oracle_diff(rec: dict) -> dict:
         from pokerbot.coach import oracle as _oracle
     except ImportError:
         return {"source": "none"}
+    # The P0-3 module ships `oracle_diff`; the plan text called it `diff`. Accept BOTH — a name mismatch
+    # between two parallel builders silently disabled every oracle recommendation ("Empfohlen: –" in replay).
+    fn = getattr(_oracle, "oracle_diff", None) or getattr(_oracle, "diff", None)
+    if fn is None:
+        return {"source": "none", "error": "oracle module exposes neither oracle_diff nor diff"}
     try:
-        d = _oracle.diff(rec)
+        d = fn(rec)
         return d if isinstance(d, dict) else {"source": "none"}
     except Exception as e:  # noqa: BLE001 — a grader bug must never break play, but must be visible
         return {"source": "none", "error": repr(e)}

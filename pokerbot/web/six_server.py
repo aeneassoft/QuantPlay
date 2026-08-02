@@ -125,7 +125,12 @@ class Session:
         tp = _coach("templates_de")
         if tp is not None:
             try:
-                self.last_feedback = tp.render_hand_feedback(pending, self.table.result)
+                fb = tp.render_hand_feedback(pending, self.table.result)
+                fb.setdefault("hand_no", self.logged_hand)      # the UI header shows "Hand #n"
+                fb.setdefault("grades", [                       # per-decision badges (✓/～/✗) in the panel
+                    {"street": r.get("street"), "grade": r.get("grade"),
+                     "human_action": (r.get("human_action") or {}).get("action")} for r in pending])
+                self.last_feedback = fb
             except Exception as e:  # noqa: BLE001
                 self.last_feedback = {"text": f"(Feedback derzeit nicht verfügbar: {e!r})", "html": "", "terms": []}
         ms = (time.perf_counter() - t0) * 1000
