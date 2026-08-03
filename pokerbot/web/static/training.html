@@ -34,6 +34,8 @@
   .hdr .right{display:flex;gap:18px;align-items:center}
   #modebadge{font-weight:800;font-size:12px;color:#06121f;background:var(--cyan);border-radius:8px;padding:1px 8px}
   #modebadge.arena{background:#ff8a4a}
+  #modebadge.punish{background:var(--red);color:#fff}
+  #m-punish{background:#b3453c;color:#fff}
   .zoomctl{display:inline-flex;align-items:center;gap:6px;margin-right:14px}
   .zbtn{background:#12203a;color:#cfe3ff;border:1px solid #2b4468;border-radius:8px;padding:3px 13px;
     font-size:20px;font-weight:800;cursor:pointer;line-height:1.4}
@@ -260,11 +262,13 @@
       <button id="m-gto">GTO-Modus</button>
       <button id="m-exploit">Exploit-Modus</button>
       <button id="m-arena">Arena-Modus</button>
+      <button id="m-punish">Punishment</button>
       <button id="m-match" class="sec">Match — nur spielen</button>
     </div>
     <p><b style="color:#eaf2ff">GTO:</b> die Bots spielen ihre Grundlinie — und sobald ein Pot heads-up ist, übernimmt ♛ Prince, unser bester Bot.<br/>
        <b style="color:#eaf2ff">Exploit:</b> die Bots lernen dich live und nutzen deine Leaks — du erlebst deine Ausbeutbarkeit.<br/>
        <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.<br/>
+       <b style="color:#ff7b6e">Punishment:</b> fünf Jäger, gebaut aus DEINEN vermessenen Leaks — der Sheriff callt deinen einen Schlag, der Iso-Hammer bestraft jeden Limp, die Value-Presse kassiert deine Call-downs, der Trap-Nit wartet auf deinen Riesenpott, der Blind-Fighter 3-bettet dich weich. Bewertet wird unverändert streng.<br/>
        <b style="color:#eaf2ff">Match:</b> dieselben GTO-Gegner + ♛ Prince, aber OHNE Coaching und Ablenkung — nur du, der Tisch und ein Hand-Zähler (150 Testhände, dann open end). Alles wird still mitgeschrieben und benotet — auswerten kannst du hinterher.</p>
   </div>
 </div>
@@ -525,7 +529,7 @@ function render(v){
   if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const mb=$('modebadge');mb.textContent=curMode().toUpperCase();
-  mb.className=curMode()==='exploit'?'exploit':(curMode()==='arena'?'arena':'');
+  mb.className={exploit:'exploit',arena:'arena',punish:'punish'}[curMode()]||'';
   // Match-Zähler: Testphase bis 150 abgeschlossene Hände (mit Balken), danach Wettkampf open end
   const mc=$('matchcount');
   if(MATCH&&mc){
@@ -1027,6 +1031,7 @@ function startWith(mode,match=false){
 $('m-gto').onclick=()=>startWith('gto');
 $('m-exploit').onclick=()=>startWith('exploit');
 $('m-arena').onclick=()=>startWith('arena');
+$('m-punish').onclick=()=>startWith('punish');    // 5 Jäger auf die vermessenen Leaks (Reads AN)
 $('m-match').onclick=()=>startWith('gto',true);   // Match = GTO-Gegner + Prince, Anzeige stumm
 $('b-new').onclick=showOverlay;
 $('b-an').onclick=analyze;

@@ -55,7 +55,27 @@ PROFILES = {
     "rock":    Knobs("rock",    open_mult=0.55, tb_pct=0.97, fb_pct=0.98, flat_hi=0.18, cont_lo=0.12, bluff_mult=0.2, call_delta=0.10),
     "whale":   Knobs("whale",   open_mult=1.20, tb_pct=0.97, fb_pct=0.98, flat_hi=0.65, cont_lo=0.35, bluff_mult=0.3, call_delta=-0.15),
     "shark":   Knobs("shark",   open_mult=1.15, tb_pct=0.89, fb_pct=0.93, flat_hi=0.36, cont_lo=0.24, bluff_mult=1.3, call_delta=-0.02),
+    # ---- PUNISHER-Profile (Trainer-'punish'-Modus, 2026-08-03): jedes zielt auf ein GEMESSENES
+    # Princedarkness-Leak (Linien-Sektion der 458 Ernst-Haende + Stress-Session, docs/STATE.md).
+    # sheriff:      killt die Ein-Schlag-Fold-Equity-Maschine (+8.5bb/Versuch) — callt den ERSTEN Schlag
+    #               sehr breit (call_delta -0.15), bluff-arm; sein Overbet-Einkommen stirbt, Value wird bezahlt.
+    # iso_hammer:   bestraft Limps (19%) + breite Calls — oeffnet/isoliert sehr breit (1.5x), 3-bettet ab
+    #               Top-16% (tb .84): er spielt aufgeblasene Poette mit dominierten Haenden.
+    # value_press:  bestraft die leichten Call-downs (W$SD .39) — tight rein, DUENNE Value-Dauerfeuer
+    #               (value_eq .54, raise_eq .66), bluff_mult .05: jede Bet ist echt, er zahlt trotzdem.
+    # trap_nit:     gewinnt die RIESENPOETTE (Top-8-Poette = 350% seines Nettos) — steinhart preflop,
+    #               eskaliert nur mit Monstern (raise_eq .85), gibt kleine Poette her (call_delta +.08).
+    # blind_fighter: besteuert die breiten Opens + sein FvR 40 (callt 3-Bets zu breit) — 3-Bet-Maschine
+    #               (tb .82/fb .90), foldet selbst nicht vs seine 3-Bet-Jams (cont_lo .30).
+    "sheriff":       Knobs("sheriff",       open_mult=0.95, tb_pct=0.90, fb_pct=0.95, flat_hi=0.30, cont_lo=0.24, bluff_mult=0.3,  call_delta=-0.15),
+    "iso_hammer":    Knobs("iso_hammer",    open_mult=1.50, tb_pct=0.84, fb_pct=0.92, flat_hi=0.22, cont_lo=0.26, bluff_mult=1.2,  call_delta=-0.03),
+    "value_press":   Knobs("value_press",   open_mult=0.85, tb_pct=0.93, fb_pct=0.96, flat_hi=0.26, cont_lo=0.20, value_eq=0.54, raise_eq=0.66, bluff_mult=0.05, call_delta=-0.05),
+    "trap_nit":      Knobs("trap_nit",      open_mult=0.60, tb_pct=0.96, fb_pct=0.97, flat_hi=0.20, cont_lo=0.16, raise_eq=0.85, bluff_mult=0.2,  call_delta=0.08),
+    "blind_fighter": Knobs("blind_fighter", open_mult=1.10, tb_pct=0.82, fb_pct=0.90, flat_hi=0.24, cont_lo=0.30, bluff_mult=0.9,  call_delta=0.0),
 }
+
+# Sitzbelegung des Punishment-Tisches (Trainer-Modus 'punish'): 5 Jaeger, je ein gemessenes Leak.
+PUNISHER_ASSIGN = {1: "sheriff", 2: "iso_hammer", 3: "value_press", 4: "trap_nit", 5: "blind_fighter"}
 
 
 def _eff_bb(obs: dict) -> float:

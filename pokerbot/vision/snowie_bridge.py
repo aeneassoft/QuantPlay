@@ -1,0 +1,339 @@
+"""PokerSnowie-BRÜCKE (User, 2026-08-03): unser Produkt-Bot spielt AUTOMATISCH gegen PokerSnowie 4.
+
+WARUM head-to-head statt Grader-Urteil: Snowies Error-Rate ist SEIN Modell-Urteil (und seine Skala
+bestraft Frequenz-Abweichungen hart). Ein direktes Duell hängt von niemandes Meinung ab — es zählt nur,
+wer die Chips hat (Profit-Empirismus, CLAUDE.md). Diese Brücke erzeugt genau dieses Duell.
+
+SCHLEIFE:  Fenster capturen -> VLM liest den Tisch -> obs für unseren Bot -> ctypes-Klick zurück.
+Held = derselbe Verbund wie im Trainer-GTO-Modus: tag-Kern multiway, Prince v2.2 sobald heads-up.
+
+SICHERHEIT (bindend — ein geratener Zug verseucht die MESSUNG und kann einen Stack verschenken):
+  * Jede Unklarheit (Tisch nicht gefunden / Karten unlesbar / Aktionsknöpfe uneindeutig) -> PAUSE,
+    niemals raten. `--strict` (Default) bricht ab; ohne strict wird gewartet und neu gelesen.
+  * Wir klicken NUR die drei Aktions-Buttons + das Betrags-Feld dieses einen Fensters.
+  * Jede Entscheidung wird nach data/vision/snowie_session_*.jsonl geloggt (Nachrechnen möglich).
+
+KOSTEN/TEMPO: ein VLM-Call pro EIGENER Entscheidung (~4/Hand). Der Karten-/Ziffern-Cache (Phase 2,
+`--cache`) merkt sich erkannte Sprites per Bild-Hash und macht Folgeläufe gratis + schnell.
+
+  python -m pokerbot.vision.snowie_bridge --probe            # EINE Lesung, nichts klicken
+  python -m pokerbot.vision.snowie_bridge --hands 50         # 50 Hände spielen
+"""
+from __future__ import annotations
+
+import argparse
+import ctypes
+import json
+import os
+import time
+from datetime import datetime
+
+from PIL import ImageGrab
+
+from pokerbot.vision.screen_reader import pick_window, to_b64
+
+OUT_DIR = os.path.join("data", "vision")
+WINDOW_PAT = "PokerSnowie"
+SETTLE_S = 1.2          # Wartezeit nach einem Klick, bis Snowie animiert/reagiert hat
+POLL_S = 1.0            # Pause zwischen Lesungen, wenn wir nicht am Zug sind
+MAX_STALE = 40          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
+
+# Layout als BRUCHTEILE des Fensters (PokerSnowie 4, aus der Live-Vermessung 2026-08-03). Bruchteile
+# statt Pixel: überlebt Fenstergrößen-Änderungen, solange das Layout proportional skaliert.
+FRAC = {
+    "btn_fold":   (0.360, 0.892),
+    "btn_mid":    (0.479, 0.892),      # CALL oder CHECK
+    "btn_right":  (0.596, 0.892),      # RAISE oder BET
+    "amount":     (0.939, 0.876),      # Betrags-Eingabefeld
+    "pre_quarter": (0.710, 0.876), "pre_half": (0.764, 0.876),
+    "pre_pot": (0.822, 0.876), "pre_allin": (0.878, 0.876),
+}
+
+_user32 = ctypes.windll.user32
+try:
+    _user32.SetProcessDPIAware()          # sonst weichen Klick- von Screenshot-Koordinaten ab (HiDPI)
+except Exception:  # noqa: BLE001
+    pass
+
+_SYSTEM = (
+    "You read a PokerSnowie 4 training table screenshot for a bot. Be literal and conservative: report "
+    "ONLY what is visibly rendered. Hero is the seat whose two hole cards are FACE-UP (labelled 'hero'). "
+    "Money is shown in dollars. The three big buttons at the bottom are hero's legal actions; read their "
+    "labels AND amounts exactly (e.g. 'CALL $2', 'CHECK', 'RAISE $4', 'BET $2'). If no buttons are shown, "
+    "it is not hero's turn. TRUST THE SUIT SYMBOL, not the colour."
+)
+_CARD = {"type": "string", "description": "rank+suit like 'As','Td','7h','2c'"}
+SCHEMA = {
+    "type": "object", "additionalProperties": False,
+    "required": ["table_found", "hero_turn", "street", "hero_cards", "board", "pot", "hero_stack",
+                 "seats_clockwise", "seats", "actions", "notes"],
+    "properties": {
+        "table_found": {"type": "boolean"},
+        "hero_turn": {"type": "boolean", "description": "true only if the action buttons are visible/enabled"},
+        "street": {"type": "string", "enum": ["preflop", "flop", "turn", "river", "between_hands", "unknown"]},
+        "hero_cards": {"type": "array", "items": _CARD, "maxItems": 2},
+        "board": {"type": "array", "items": _CARD, "maxItems": 5},
+        "pot": {"type": ["number", "null"], "description": "TOTAL POT in dollars"},
+        "hero_stack": {"type": ["number", "null"], "description": "hero's stack in dollars"},
+        # ARCHITEKTUR (nach dem ersten Live-Probe-Lauf korrigiert): das VLM liefert nur SICHTBARE FAKTEN,
+        # jede poker-logische ABLEITUNG passiert in Python. Gemessen: das Modell las Karten/Pot/Beträge
+        # fehlerfrei, aber nannte den SB "BB", zählte gefoldete Sitze mit und erfand einen Raise.
+        "seats_clockwise": {
+            "type": "array",
+            "description": "ALL seat labels in CLOCKWISE seating order, starting with the seat that has the "
+                           "white dealer-button chip 'D'. Use the on-screen names ('hero', 'snowie3', ...). "
+                           "This is a pure reading task: follow the seats around the oval.",
+            "items": {"type": "string"}},
+        "seats": {
+            "type": "array",
+            "description": "one entry per seat shown at the table",
+            "items": {"type": "object", "additionalProperties": False,
+                      "required": ["label", "bet_in_front", "folded"],
+                      "properties": {
+                          "label": {"type": "string", "description": "the on-screen name at that seat"},
+                          "bet_in_front": {"type": "number",
+                                           "description": "dollars in the chip stack in front of THIS seat "
+                                                          "this street; 0 when nothing is in front"},
+                          "folded": {"type": "boolean",
+                                     "description": "true when the seat is greyed out / has no cards"}}}},
+        "actions": {
+            "type": "object", "additionalProperties": False,
+            "required": ["can_fold", "can_check", "can_call", "call_amount", "can_raise",
+                         "raise_label", "raise_min_amount"],
+            "properties": {
+                "can_fold": {"type": "boolean"},
+                "can_check": {"type": "boolean"},
+                "can_call": {"type": "boolean"},
+                "call_amount": {"type": ["number", "null"], "description": "dollars shown on the CALL button"},
+                "can_raise": {"type": "boolean"},
+                "raise_label": {"type": "string", "description": "'RAISE', 'BET' or '' if absent"},
+                "raise_min_amount": {"type": ["number", "null"],
+                                     "description": "dollars shown on the RAISE/BET button"}}},
+        "notes": {"type": "string", "description": "anything ambiguous; '' when the read is clean"},
+    },
+}
+
+
+# ---------------------------------------------------------------- Fenster / Eingabe
+def window_box() -> tuple[int, int, int, int]:
+    w = pick_window(WINDOW_PAT)
+    if not w:
+        raise RuntimeError(f"Kein Fenster mit '{WINDOW_PAT}' gefunden — läuft PokerSnowie?")
+    return w["bbox"]
+
+
+def grab(bbox):
+    return ImageGrab.grab(bbox=bbox, all_screens=True)
+
+
+def _click_frac(bbox, key: str) -> None:
+    l, t, r, b = bbox
+    fx, fy = FRAC[key]
+    x, y = int(l + (r - l) * fx), int(t + (b - t) * fy)
+    _user32.SetCursorPos(x, y)
+    time.sleep(0.05)
+    _user32.mouse_event(0x0002, 0, 0, 0, 0)      # LEFTDOWN
+    time.sleep(0.03)
+    _user32.mouse_event(0x0004, 0, 0, 0, 0)      # LEFTUP
+
+
+def _type_number(value: float) -> None:
+    """Betrag ins fokussierte Feld tippen (Ctrl+A ersetzt den alten Wert). Nur Ziffern + Punkt."""
+    _user32.keybd_event(0x11, 0, 0, 0)           # CTRL down
+    _user32.keybd_event(0x41, 0, 0, 0)           # A
+    _user32.keybd_event(0x41, 0, 2, 0)
+    _user32.keybd_event(0x11, 0, 2, 0)
+    time.sleep(0.05)
+    txt = f"{value:.2f}".rstrip("0").rstrip(".")
+    for ch in txt:
+        vk = 0x30 + int(ch) if ch.isdigit() else 0xBE      # VK_OEM_PERIOD
+        _user32.keybd_event(vk, 0, 0, 0)
+        _user32.keybd_event(vk, 0, 2, 0)
+        time.sleep(0.02)
+
+
+# ---------------------------------------------------------------- Lesen + Übersetzen
+def read(img) -> dict:
+    from research.llm import openai_json
+    state, _ = openai_json(_SYSTEM, "Read this PokerSnowie table.", SCHEMA, "snowie_table",
+                           images=[to_b64(img)], max_tokens=2000)
+    return state
+
+
+_POS_BY_OFFSET = {0: "BTN", 1: "SB", 2: "BB", 3: "UTG", 4: "HJ", 5: "CO"}
+HERO_LABEL = "hero"
+
+
+def derive(s: dict, bb_dollars: float) -> dict:
+    """Sichtbare Fakten -> Poker-Logik (Position, Spielerzahl, Raise-Zahl). Reines Python, kein VLM."""
+    order = [str(x) for x in (s.get("seats_clockwise") or [])]
+    seats = {str(x.get("label")): x for x in (s.get("seats") or [])}
+    hero_key = next((k for k in seats if k.lower() == HERO_LABEL), None)
+    hero_idx = next((i for i, k in enumerate(order) if k.lower() == HERO_LABEL), None)
+    n_seats = len(order)
+    pos = "unknown"
+    if hero_idx is not None and 2 <= n_seats <= 6:
+        # order[0] hat den Button. Bei weniger als 6 Sitzen fehlen die frühen Positionen von HINTEN,
+        # nicht die Blinds -> Offset direkt abbilden ist korrekt für 6-max-Vollbesetzung.
+        pos = _POS_BY_OFFSET.get(hero_idx, "unknown") if n_seats == 6 else (
+            {0: "BTN", 1: "SB", 2: "BB"}.get(hero_idx, "CO"))
+    live = [k for k, v in seats.items() if not v.get("folded")]
+    bets = [float(v.get("bet_in_front") or 0) for v in seats.values()]
+    mine = float((seats.get(hero_key) or {}).get("bet_in_front") or 0)
+    mx = max(bets) if bets else 0.0
+    # Raise-Zahl aus den Beträgen: solange der größte Einsatz == BB ist, hat NIEMAND erhöht.
+    raises = 0 if mx <= bb_dollars + 1e-9 else (1 if mx <= 4 * bb_dollars else 2)
+    return {"position": pos, "players_in_hand": max(2, len(live)),
+            "hero_bet": mine, "max_bet": mx, "preflop_raises": raises}
+
+
+def to_obs(s: dict, bb_dollars: float = 2.0) -> dict:
+    """Snowie-Lesung -> obs-Dict unserer Engine (Chips: bb = 100)."""
+    def chips(x):
+        return int(round((x or 0) / bb_dollars * 100))
+    a = s["actions"]
+    to_call = chips(a.get("call_amount")) if a.get("can_call") else 0
+    board = list(s.get("board") or [])
+    street = s.get("street") if s.get("street") in ("preflop", "flop", "turn", "river") else (
+        "preflop" if not board else {3: "flop", 4: "turn", 5: "river"}.get(len(board), "flop"))
+    raise_min = chips(a.get("raise_min_amount")) if a.get("can_raise") else 0
+    stack = chips(s.get("hero_stack"))
+    d = derive(s, bb_dollars)
+    mine = chips(d["hero_bet"])
+    cur_bet = chips(d["max_bet"]) or (mine + to_call)
+    return {
+        "hole": list(s.get("hero_cards") or []), "board": board,
+        "to_call": to_call, "pot": chips(s.get("pot")), "my_stack": stack, "bb": 100,
+        "n_active": d["players_in_hand"], "position": d["position"],
+        "preflop_raises": d["preflop_raises"] if street == "preflop" else 0,
+        "cur_bet": cur_bet, "my_committed_street": mine, "street": street,
+        "can_check": bool(a.get("can_check")), "can_call": bool(a.get("can_call")),
+        "can_raise": bool(a.get("can_raise")),
+        "raise_min": raise_min or 0, "raise_max": stack,
+    }
+
+
+def sane(s: dict, bb: float = 2.0) -> str | None:
+    """None = Lesung brauchbar; sonst der GRUND, warum wir NICHT handeln (Sicherheitsgatter)."""
+    if not s.get("table_found"):
+        return "kein Tisch erkannt"
+    if not s.get("hero_turn"):
+        return "wir sind nicht am Zug"
+    cards = s.get("hero_cards") or []
+    if len(cards) != 2:
+        return f"Hole Cards unlesbar ({cards})"
+    a = s.get("actions") or {}
+    if not (a.get("can_fold") or a.get("can_check") or a.get("can_call")):
+        return "keine Aktionsknöpfe erkannt"
+    if a.get("can_call") and not a.get("call_amount"):
+        return "CALL ohne Betrag"
+    if s.get("pot") in (None, 0):
+        return "Pot unlesbar"
+    # Position ist NICHT optional: ohne sie spielt der Kern jeden Spot als 'MP' und over-foldet
+    # systematisch in den Blinds (live gemessen am ersten Probe-Lauf: A4o im SB gefoldet).
+    d = derive(s, bb)
+    if d["position"] not in ("UTG", "HJ", "CO", "BTN", "SB", "BB"):
+        return f"Position nicht ableitbar (Sitzreihenfolge={s.get('seats_clockwise')})"
+    if not (s.get("seats") or []):
+        return "Sitzdaten fehlen"
+    # Konsistenz-Kreuzcheck: der CALL-Button muss zum Einsatz-Delta passen (fängt Fehlablesungen)
+    a = s["actions"]
+    if a.get("can_call"):
+        soll = d["max_bet"] - d["hero_bet"]
+        ist = float(a.get("call_amount") or 0)
+        if abs(soll - ist) > max(0.02, 0.25 * max(ist, 1e-9)):
+            return f"Widerspruch: CALL {ist} vs Einsatz-Delta {soll:.2f}"
+    return None
+
+
+# ---------------------------------------------------------------- Spielen
+def make_hero():
+    """Derselbe Verbund wie der Trainer-GTO-Modus (ohne Table-Objekt: multiway-Kern, HU via Kern-Fallback)."""
+    from pokerbot.arena.sixmax import PROFILES, SixMaxBot
+    bot = SixMaxBot(0, PROFILES["tag"])
+    bot._read = lambda obs: {}
+    return bot
+
+
+def act(bbox, obs: dict, decision: dict, bb_dollars: float) -> str:
+    """Entscheidung in Klicks übersetzen. Rückgabe = was wir getan haben (fürs Log)."""
+    action, amount = decision["action"], decision.get("amount")
+    if action == "fold":
+        _click_frac(bbox, "btn_fold")
+        return "fold"
+    if action == "check":
+        _click_frac(bbox, "btn_mid")
+        return "check"
+    if action == "call":
+        _click_frac(bbox, "btn_mid")
+        return "call"
+    if action == "allin":
+        _click_frac(bbox, "pre_allin")
+        time.sleep(0.3)
+        _click_frac(bbox, "btn_right")
+        return "allin"
+    dollars = (amount or obs["raise_min"]) / 100.0 * bb_dollars
+    _click_frac(bbox, "amount")
+    time.sleep(0.15)
+    _type_number(dollars)
+    time.sleep(0.15)
+    _click_frac(bbox, "btn_right")
+    return f"raise ${dollars:.2f}"
+
+
+def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
+    os.makedirs(OUT_DIR, exist_ok=True)
+    log_path = os.path.join(OUT_DIR, f"snowie_session_{datetime.now():%Y%m%d_%H%M%S}.jsonl")
+    bbox = window_box()
+    print(f"Fenster: {bbox}  |  Log: {log_path}")
+    if probe:
+        s = read(grab(bbox))
+        print(json.dumps(s, indent=1, ensure_ascii=False))
+        blocker = sane(s, bb_dollars)
+        print("GATTER:", blocker or "OK — Lesung brauchbar")
+        if not blocker:
+            obs = to_obs(s, bb_dollars)
+            d = make_hero().decide(obs)
+            print(f"UNSER BOT: {d['action']} {d.get('amount')} | {d['rationale']['reasoning']}")
+        return
+
+    hero, decisions, stale = make_hero(), 0, 0
+    while decisions < n_hands * 4 and stale < MAX_STALE:
+        s = read(grab(bbox))
+        blocker = sane(s, bb_dollars)
+        if blocker:
+            stale += 1
+            if blocker == "wir sind nicht am Zug":
+                time.sleep(POLL_S)
+                continue
+            print(f"PAUSE ({stale}/{MAX_STALE}): {blocker} | notes={s.get('notes','')}")
+            if strict:
+                print("STRICT: Abbruch — lieber keine Messung als eine verseuchte.")
+                return
+            time.sleep(POLL_S)
+            continue
+        stale = 0
+        obs = to_obs(s, bb_dollars)
+        d = hero.decide(obs)
+        did = act(bbox, obs, d, bb_dollars)
+        decisions += 1
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps({"ts": datetime.now().isoformat(timespec="seconds"),
+                                "state": s, "obs": obs, "decision": d, "did": did}, ensure_ascii=False) + "\n")
+        print(f"[{decisions}] {obs['street']:8s} {''.join(obs['hole']):5s} -> {did}")
+        time.sleep(SETTLE_S)
+    print(f"FERTIG: {decisions} Entscheidungen geloggt -> {log_path}")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hands", type=int, default=10)
+    ap.add_argument("--bb", type=float, default=2.0, help="Big Blind in Dollar (Snowie-Tisch)")
+    ap.add_argument("--probe", action="store_true", help="EINE Lesung, nichts klicken")
+    ap.add_argument("--loose", action="store_true", help="bei unklarer Lesung warten statt abbrechen")
+    args = ap.parse_args()
+    run(args.hands, strict=not args.loose, bb_dollars=args.bb, probe=args.probe)
+
+
+if __name__ == "__main__":
+    main()

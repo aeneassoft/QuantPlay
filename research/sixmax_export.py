@@ -56,6 +56,45 @@ def _snap_hero(table: Table, decision: dict) -> tuple[str, int | None]:
     return action, int(target)
 
 
+class HybridHero:
+    """Das ECHTE Produkt (--hybrid): tag-Kern multiway, und sobald der Pot heads-up Hero-vs-EIN-Villain ist,
+    entscheidet der validierte Prince v2.2 — exakt der Verbund, den der Trainer im GTO-Modus live spielt
+    (six_server.Session._prince_seat/_prince_decide). Fail-soft: jedes Prince-Problem fällt auf den Kern."""
+
+    def __init__(self):
+        from pokerbot.coach.oracle import PrinceOracle
+        self.bot = SixMaxBot(HERO, PROFILES["tag"])
+        self.bot._read = lambda obs: {}          # GTO-Modus-Parität: Liga-Exploit-Reads AUS
+        self.prince = PrinceOracle()
+        self.table = None
+        self.prince_decisions = 0
+
+    def bind_table(self, table):
+        self.table = table
+
+    def _heads_up(self) -> bool:
+        live = [i for i, s in enumerate(self.table.seats) if not s.folded]
+        return len(live) == 2 and HERO in live
+
+    def decide(self, obs):
+        if self.table is not None and not self.table.hand_over and self._heads_up():
+            try:
+                from dataclasses import asdict
+                from pokerbot.brain.format_spot import spot_from_table
+                from pokerbot.coach.decision_log import spot_fingerprint
+                spot = asdict(spot_from_table(self.table, HERO))
+                rec = {"spot": spot, "obs": self.table.obs_for(HERO), "legal": self.table.legal_actions(),
+                       "history": [dict(h) for h in self.table.history if "player" in h],
+                       "street": self.table.street, "hand_id": f"exp-{self.table.hand_no}",
+                       "spot_fp": spot_fingerprint(spot)}
+                dec = self.prince.decide(rec)
+                self.prince_decisions += 1
+                return dec
+            except Exception:  # noqa: BLE001
+                pass
+        return self.bot.decide(obs)
+
+
 def play_hand(table: Table, bots: dict) -> dict:
     table.start_hand()
     holes = [list(s.hole) for s in table.seats]
@@ -66,7 +105,10 @@ def play_hand(table: Table, bots: dict) -> dict:
         if guard > 400:
             break
         i = table.to_act
-        d = bots[i].decide(table.obs_for(i))
+        agent = bots[i]
+        if i == HERO and hasattr(agent, "bind_table"):     # Hybrid-Held braucht den Tisch (HU-Projektion)
+            agent.bind_table(table)
+        d = agent.decide(table.obs_for(i))
         action, amount = d["action"], d.get("amount")
         if i == HERO:
             action, amount = _snap_hero(table, d)
@@ -204,6 +246,9 @@ def main():
     ap.add_argument("--idbase", type=int, default=BASE_ID)
     ap.add_argument("--dayoffset", type=int, default=0)
     ap.add_argument("--hero-profile", default="tag", help="hero = the PRODUCT bot core (default 'tag')")
+    ap.add_argument("--hybrid", action="store_true",
+                    help="Hero = das ECHTE Produkt: tag-Kern multiway + Prince v2.2 sobald der Pot heads-up "
+                         "ist (derselbe Verbund wie im Trainer-GTO-Modus). Braucht POKERB_PRINCE=1.")
     ap.add_argument("--villains", default="tag,lag,nit,station,maniac")
     ap.add_argument("--out", default="data/gtow_upload/sixmax_hands.txt")
     args = ap.parse_args()
@@ -211,7 +256,7 @@ def main():
     vills = args.villains.split(",")
     names = ["Hero"] + [f"Villain{i+1}" for i in range(5)]
     table = Table(names, starting_stack=STACK, sb=SB, bb=BB, seed=args.seed, human_seat=-1)
-    bots = {HERO: SixMaxBot(HERO, PROFILES[args.hero_profile])}
+    bots = {HERO: (HybridHero() if args.hybrid else SixMaxBot(HERO, PROFILES[args.hero_profile]))}
     for i in range(1, 6):
         bots[i] = SixMaxBot(i, PROFILES[vills[(i - 1) % len(vills)]])
     import random
@@ -230,6 +275,8 @@ def main():
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(text)
     print(f"WROTE {len(blocks)} 6-max hands -> {args.out}  ({len(text)} chars)")
+    if args.hybrid:                                        # Beleg, dass der HU-Takeover wirklich gegriffen hat
+        print(f"HYBRID: {bots[HERO].prince_decisions} Prince-v2.2-Entscheidungen in {len(blocks)} Händen")
     print("\n===== FIRST HAND PREVIEW =====\n")
     print(blocks[0])
 

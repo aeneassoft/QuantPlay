@@ -21,7 +21,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 
 from pokerbot import config
-from pokerbot.arena.sixmax import PROFILES, SixMaxBot
+from pokerbot.arena.sixmax import PROFILES, PUNISHER_ASSIGN, SixMaxBot
 from pokerbot.engine.table import Table
 from pokerbot.web.session_log import append_record, build_hand_record
 
@@ -29,7 +29,7 @@ NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve"]
 HUMAN = 0
 _INDEX = (Path(__file__).parent / "static" / "six.html").read_text(encoding="utf-8")
 GRADING_BUDGET_MS = 800          # whole-hand grading must fit the client's auto-deal window
-TRAINER_MODES = ("gto", "exploit", "arena")
+TRAINER_MODES = ("gto", "exploit", "arena", "punish")
 # ARENA-Modus (User, 2026-08-02): eine "verrückte Online-Landschaft" — zufällige, ADAPTIVE Gegnertypen
 # (Duplikate erlaubt: auch 2 Maniacs), Spieler kommen und gehen mit wechselnden Stack-Tiefen. Die GTO-
 # Bewertungsschicht bleibt UNVERÄNDERT — der Modus tauscht nur die Gegner, nie den Maßstab.
@@ -74,6 +74,11 @@ class Session:
             _assign = {s: self._arena_rng.choice(list(PROFILES)) for s in range(1, self.table.n)}
             for s in range(1, self.table.n):
                 self.table.seats[s].stack = self._arena_rng.randint(*ARENA_STACK_BB) * bb
+        elif mode == "punish":
+            # PUNISHMENT (User, 2026-08-03): 5 Jäger, jeder auf ein GEMESSENES Princedarkness-Leak gebaut
+            # (sixmax.PUNISHER_ASSIGN — sheriff/iso_hammer/value_press/trap_nit/blind_fighter). Reads AN,
+            # kein Difficulty-Controller (die Besetzung IST der Punkt), kein Prince (die Jäger sind der Punkt).
+            _assign = dict(PUNISHER_ASSIGN)
         else:
             _assign = {1: "tag", 2: "lag", 3: "nit", 4: "station", 5: "maniac"}
             dif = _coach("difficulty")
