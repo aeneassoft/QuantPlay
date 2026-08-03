@@ -405,6 +405,43 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     }
 
 
+# PLAUSIBILITAET (User-Auftrag "pruefe, dass wir nicht falsch spielen", 2026-08-04). Das Gatter prueft
+# bisher nur, ob ein Wert LESBAR ist — nicht, ob er SINN ergibt. Gemessen: ein Stack wurde als 14104
+# gelesen (statt ~180), der Bot hielt sich fuer 3500bb tief und raiste 206 Dollar in einen 9-Dollar-Pot.
+# Eine Zahl, die gegen die Tisch-Geometrie verstoesst, ist ein Lesefehler — egal wie sauber sie aussieht.
+BB_DOLLARS = 2.0                 # Tisch-Blinds; bestimmt die plausiblen Groessenordnungen
+STACK_MAX_BB, POT_MAX_BB = 400, 1200
+
+
+def duplicate_cards(s: dict) -> str | None:
+    """Jede Karte gibt es GENAU EINMAL — ein Duplikat ist der Beweis eines Lesefehlers.
+    Live gefangen (2026-08-04): Board las '6s Ks 2h Jd 6s'. Das Gatter prueft nur Lesbarkeit, also
+    lief es durch, und der Evaluator haette stumm eine falsche Handstaerke berechnet — die
+    gefaehrlichste Sorte Fehler, weil nichts abstuerzt und nichts warnt."""
+    cards = [c for c in (s.get("hero_cards") or []) if c] + list(s.get("board") or [])
+    seen = set()
+    for c in cards:
+        if c in seen:
+            return f"Karte {c} doppelt gelesen ({' '.join(cards)}) — unmoeglich"
+        seen.add(c)
+    return None
+
+
+def implausible(s: dict) -> str | None:
+    st = (s.get("stacks") or {}).get("hero")
+    pot = s.get("pot")
+    if st is not None and not (BB_DOLLARS <= st <= STACK_MAX_BB * BB_DOLLARS):
+        return f"Hero-Stack {st} ausserhalb plausibler Grenzen (Lesefehler)"
+    if pot is not None and not (BB_DOLLARS * 0.5 <= pot <= POT_MAX_BB * BB_DOLLARS):
+        return f"Pot {pot} ausserhalb plausibler Grenzen (Lesefehler)"
+    if pot is not None and st is not None and pot > 12 * st + 200:
+        return f"Pot {pot} passt nicht zum Stack {st}"
+    for name, v in (s.get("stacks") or {}).items():
+        if v is not None and v > STACK_MAX_BB * BB_DOLLARS:
+            return f"Stack {name}={v} unmoeglich (Lesefehler)"
+    return None
+
+
 def gate(s: dict) -> str | None:
     """None = brauchbar. Sonst der Grund zu PAUSIEREN (jede Luecke ist ein Grund)."""
     if not s["hero_turn"]:
@@ -423,6 +460,9 @@ def gate(s: dict) -> str | None:
         return "Aktions-Buttons nicht lesbar"
     if not s["can_check"] and s["call_amount"] is None:
         return "Weder Check moeglich noch Call-Betrag lesbar"
+    bad = duplicate_cards(s) or implausible(s)
+    if bad:
+        return bad
     if not s["pot"] or s["pot"] <= 0:
         return "Pot = 0 — bei laufender Hand unmoeglich (stiller Lesefehler)"
     if not s["stacks"].get("hero"):

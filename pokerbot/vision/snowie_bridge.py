@@ -290,6 +290,46 @@ def sane(s: dict, bb: float = 2.0) -> str | None:
 
 
 # ---------------------------------------------------------------- Spielen
+class HandTracker:
+    """Der ZUSTAND EINER HAND — die Klasse von Fehlern, die eine Einzelbild-Pruefung nie faengt.
+
+    Gemessen (User-Auftrag "pruefe, dass wir nicht falsch spielen"): die Position sprang INNERHALB
+    einer Hand von BTN (preflop) auf UTG (postflop) — unmoeglich, der Button bewegt sich nicht
+    mitten in der Hand; und der Pot sank einmal von 4.5 auf 4.0, was es im Poker nicht gibt.
+    Beides sind Widersprueche gegen den VERLAUF, nicht gegen ein einzelnes Bild.
+
+    Darum: Position EINMAL pro Hand festnageln (der erste saubere Lesewert gilt bis zum Handende),
+    und der Pot darf innerhalb einer Hand nie schrumpfen — tut er es, ist es ein Lesefehler.
+    Handwechsel = Board wird wieder leer ODER der Stack springt nach oben (Pot gewonnen/Rebuy).
+    """
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.position = None
+        self.pot_max = 0.0
+        self.last_board = None
+        self.last_stack = None
+
+    def observe(self, board_len: int, stack, pot, position) -> str | None:
+        """-> Fehlermeldung bei Verlaufs-Widerspruch, sonst None. Nagelt Position/Pot fest."""
+        new_hand = (self.last_board is not None and board_len < self.last_board) or                    (self.last_stack is not None and stack is not None and stack > self.last_stack + 0.01
+                    and board_len == 0)
+        if new_hand or self.position is None:
+            self.reset()
+            self.position = position
+        self.last_board, self.last_stack = board_len, stack
+        if pot is not None:
+            if pot + 1e-6 < self.pot_max:
+                return f"Pot schrumpft {self.pot_max} -> {pot} (im Poker unmoeglich = Lesefehler)"
+            self.pot_max = max(self.pot_max, pot)
+        return None
+
+    def fixed_position(self, fallback):
+        return self.position or fallback
+
+
 class StreetTracker:
     """Heros Einsatz DIESER Strasse aus der STACK-DIFFERENZ, nicht aus der winzigen Einsatz-Schrift.
 
@@ -372,6 +412,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
     tracker = StreetTracker()
+    hand = HandTracker()
     blocked_streak, forced, skipped_hands = 0, 0, []
     while decisions < n_hands * 4 and stale < MAX_STALE:
         if esc_pressed():
@@ -406,9 +447,27 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                 return
             time.sleep(POLL_S)
             continue
+        # VERLAUFS-PRUEFUNG vor der Entscheidung: ein Widerspruch zum bisherigen Handverlauf ist ein
+        # Lesefehler, auch wenn das Einzelbild sauber aussieht.
+        bl = len(s.get("board") or [])
+        hstack = (s.get("stacks") or {}).get("hero")
+        conflict = hand.observe(bl, hstack, s.get("pot"), s.get("hero_position"))
+        if conflict:
+            blocked_streak += 1
+            stale += 1
+            print(f"PAUSE (Verlauf): {conflict}", flush=True)
+            if blocked_streak >= BLOCK_GIVEUP and s.get("hero_turn"):
+                _click_frac(bbox, "btn_fold")
+                forced += 1
+                skipped_hands.append(conflict)
+                blocked_streak, stale = 0, 0
+                hand.reset()
+            time.sleep(POLL_S)
+            continue
         stale = blocked_streak = 0
-        committed = tracker.update(len(s.get("board") or []), (s.get("stacks") or {}).get("hero"))
+        committed = tracker.update(bl, hstack)
         obs = to_obs_local(s, bb_dollars, committed)
+        obs["position"] = hand.fixed_position(obs["position"])   # Button wandert nicht mitten in der Hand
         d = hero.decide(obs)
         did = act(bbox, obs, d, bb_dollars)
         decisions += 1
