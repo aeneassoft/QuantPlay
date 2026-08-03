@@ -153,6 +153,36 @@ def _type_number(value: float) -> None:
 
 
 # ---------------------------------------------------------------- Lesen + Übersetzen
+def read_local(img=None) -> dict:
+    """LOKALE Lesung (Standard seit 2026-08-04): keine API, ~0.1 s statt ~4 s, 0 statt ~4 ct pro Zug."""
+    from pokerbot.vision import snowie_state as SS
+    return SS.read_state(img)
+
+
+def to_obs_local(s: dict, bb_dollars: float = 2.0) -> dict:
+    """Lokaler Zustand -> obs unserer Engine. Check/Call folgen aus den EINSAETZEN, nicht aus Buttons."""
+    def chips(x):
+        return int(round((x or 0) / bb_dollars * 100))
+    board = list(s.get("board") or [])
+    street = "preflop" if not board else {3: "flop", 4: "turn", 5: "river"}.get(len(board), "flop")
+    to_call = chips(s.get("call_amount"))
+    stack = chips((s.get("stacks") or {}).get("hero"))
+    mine, mx = chips(s.get("hero_bet")), chips(s.get("max_bet"))
+    raises = 0 if mx <= 100 else (1 if mx <= 400 else 2)      # bb = 100 Chips
+    return {
+        "hole": [c for c in (s.get("hero_cards") or []) if c], "board": board,
+        "to_call": to_call, "pot": chips(s.get("pot")), "my_stack": stack, "bb": 100,
+        "n_active": max(2, int(s.get("players_in_hand") or 2)),
+        "position": s.get("hero_position") or "MP",
+        "preflop_raises": raises if street == "preflop" else 0,
+        "cur_bet": mx, "my_committed_street": mine, "street": street,
+        "can_check": bool(s.get("can_check")), "can_call": to_call > 0,
+        "can_raise": stack > to_call,
+        "raise_min": min(stack, max(2 * mx, 100) if street == "preflop" else max(mx + 100, 100)),
+        "raise_max": stack + mine,
+    }
+
+
 def read(img) -> dict:
     from research.llm import openai_json
     state, _ = openai_json(_SYSTEM, "Read this PokerSnowie table.", SCHEMA, "snowie_table",
@@ -287,9 +317,10 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
     bbox = window_box()
     print(f"Fenster: {bbox}  |  Log: {log_path}")
     if probe:
-        s = read(grab(bbox))
+        s = read_local()
         print(json.dumps(s, indent=1, ensure_ascii=False))
-        blocker = sane(s, bb_dollars)
+        from pokerbot.vision import snowie_state as SS2
+        blocker = SS2.gate(s)
         print("GATTER:", blocker or "OK — Lesung brauchbar")
         if not blocker:
             obs = to_obs(s, bb_dollars)
@@ -297,13 +328,14 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             print(f"UNSER BOT: {d['action']} {d.get('amount')} | {d['rationale']['reasoning']}")
         return
 
+    from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
     while decisions < n_hands * 4 and stale < MAX_STALE:
-        s = read(grab(bbox))
-        blocker = sane(s, bb_dollars)
+        s = read_local()
+        blocker = SS.gate(s)
         if blocker:
             stale += 1
-            if blocker == "wir sind nicht am Zug":
+            if blocker == "nicht am Zug":
                 time.sleep(POLL_S)
                 continue
             print(f"PAUSE ({stale}/{MAX_STALE}): {blocker} | notes={s.get('notes','')}")
@@ -313,7 +345,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             time.sleep(POLL_S)
             continue
         stale = 0
-        obs = to_obs(s, bb_dollars)
+        obs = to_obs_local(s, bb_dollars)
         d = hero.decide(obs)
         did = act(bbox, obs, d, bb_dollars)
         decisions += 1

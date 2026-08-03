@@ -90,23 +90,23 @@ def _binary_bright(img: Image.Image, size=(24, 30), ratio: float = 0.70) -> np.n
     return (r > 127).astype(np.float32)
 
 
-_DCACHE: list[tuple[str, np.ndarray]] = []
+_DCACHE: dict[float, list[tuple[str, np.ndarray]]] = {}
 
 
-def _digit_templates():
-    if not _DCACHE:
+def _digit_templates(ratio: float = 0.70):
+    if ratio not in _DCACHE:
         d = os.path.join(SL.TPL_DIR, "digit")
         os.makedirs(d, exist_ok=True)
-        for f in sorted(os.listdir(d)):
-            if f.endswith(".png"):
-                _DCACHE.append((os.path.splitext(f)[0], _binary_bright(Image.open(os.path.join(d, f)))))
-    return _DCACHE
+        _DCACHE[ratio] = [(os.path.splitext(f)[0],
+                           _binary_bright(Image.open(os.path.join(d, f)), ratio=ratio))
+                          for f in sorted(os.listdir(d)) if f.endswith(".png")]
+    return _DCACHE[ratio]
 
 
 def match_digit(img: Image.Image, ratio: float = 0.70) -> tuple[str | None, float]:
     b = _binary_bright(img, ratio=ratio)
     best, best_s = None, -1.0
-    for label, tpl in _digit_templates():
+    for label, tpl in _digit_templates(ratio):
         s = SL._score(b, tpl)
         if s > best_s:
             best, best_s = label, s
@@ -150,9 +150,9 @@ def _ok_seg(mask: np.ndarray, a: int, b: int) -> bool:
 def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
     """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
     verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
-    for r in (0.70, 0.50):
+    for r in (0.70, 0.50, 0.60):
         v = _read_number_at(img, box, learn, r)
-        if v:
+        if v is not None:
             return v
     return None
 
