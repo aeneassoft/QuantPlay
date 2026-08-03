@@ -34,8 +34,8 @@ from pokerbot.vision.screen_reader import pick_window, to_b64
 
 OUT_DIR = os.path.join("data", "vision")
 WINDOW_PAT = "PokerSnowie"
-SETTLE_S = 1.2          # Wartezeit nach einem Klick, bis Snowie animiert/reagiert hat
-POLL_S = 1.0            # Pause zwischen Lesungen, wenn wir nicht am Zug sind
+SETTLE_S = 0.40         # Wartezeit nach einem Klick (Animationen aus -> kurz reicht)
+POLL_S = 0.25           # Pause zwischen Lesungen, wenn wir nicht am Zug sind
 MAX_STALE = 400        # grosszuegig: die Notausfahlt loest Deadlocks, nicht der Abbruch
 BLOCK_GIVEUP = 12      # so viele Blockaden am STUECK -> diese Hand aufgeben (Fold) und weiter          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
 
@@ -430,11 +430,29 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             if blocker != "nicht am Zug":
                 blocked_streak += 1
                 if blocked_streak >= BLOCK_GIVEUP and s.get("hero_turn"):
-                    _click_frac(bbox, "btn_fold")
+                    try:
+                        shot = os.path.join(OUT_DIR, "fails")
+                        os.makedirs(shot, exist_ok=True)
+                        from pokerbot.vision import snowie_local as _SL
+                        _SL.grab().save(os.path.join(shot, f"fail_{forced:03d}.png"))
+                        with open(os.path.join(shot, "reasons.txt"), "a", encoding="utf-8") as fh:
+                            fh.write("fail_{:03d}  {}\n".format(forced, blocker))
+                    except Exception:  # noqa: BLE001 — Diagnose darf den Lauf nie stoppen
+                        pass
+                    # AUFGEBEN heisst NICHT blind folden (User-Fund: der Bot warf AA weg).
+                    # Ist Check GRATIS moeglich, ist Folden immer die schlechtere Wahl — und ob
+                    # Check geht, sagt uns der Button zuverlaessig, auch wenn das Board unlesbar ist.
+                    # Nur wenn wir zahlen muessten UND den Tisch nicht lesen koennen, wird gefoldet.
+                    if (s.get("buttons") or {}).get("can_check"):
+                        _click_frac(bbox, "btn_mid")
+                        how = "CHECK (gratis)"
+                    else:
+                        _click_frac(bbox, "btn_fold")
+                        how = "Fold"
                     forced += 1
                     skipped_hands.append(blocker)
                     blocked_streak, stale = 0, 0
-                    print(f"HAND UEBERSPRUNGEN (#{forced}): {blocker} — Fold, aus der Messung ausgeschlossen",
+                    print(f"HAND UEBERSPRUNGEN (#{forced}): {blocker} — {how}, aus der Messung ausgeschlossen",
                           flush=True)
                     time.sleep(SETTLE_S)
                     continue
@@ -457,7 +475,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             stale += 1
             print(f"PAUSE (Verlauf): {conflict}", flush=True)
             if blocked_streak >= BLOCK_GIVEUP and s.get("hero_turn"):
-                _click_frac(bbox, "btn_fold")
+                _click_frac(bbox, "btn_mid" if (s.get("buttons") or {}).get("can_check") else "btn_fold")
                 forced += 1
                 skipped_hands.append(conflict)
                 blocked_streak, stale = 0, 0
