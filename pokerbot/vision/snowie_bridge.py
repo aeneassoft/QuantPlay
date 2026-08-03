@@ -159,7 +159,7 @@ def read_local(img=None) -> dict:
     return SS.read_state(img)
 
 
-def to_obs_local(s: dict, bb_dollars: float = 2.0) -> dict:
+def to_obs_local(s: dict, bb_dollars: float = 2.0, committed: float = 0.0) -> dict:
     """Lokaler Zustand -> obs unserer Engine. Check/Call folgen aus den EINSAETZEN, nicht aus Buttons."""
     def chips(x):
         return int(round((x or 0) / bb_dollars * 100))
@@ -167,9 +167,10 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0) -> dict:
     street = "preflop" if not board else {3: "flop", 4: "turn", 5: "river"}.get(len(board), "flop")
     to_call = chips(s.get("call_amount"))
     stack = chips((s.get("stacks") or {}).get("hero"))
-    mine = chips(s.get("hero_bet") or 0)
-    # cur_bet aus dem BUTTON ableiten (zuverlaessigste Zahl): was ich schon drin habe + was zu callen ist.
-    mx = max(chips(s.get("max_bet") or 0), mine + to_call)
+    # mein Einsatz dieser Strasse: bevorzugt aus der Stack-Differenz (gross gesetzt, zuverlaessig),
+    # ersatzweise aus dem gelesenen Einsatz-Text.
+    mine = chips(committed) or chips(s.get("hero_bet") or 0)
+    mx = mine + to_call                            # IDENTITAET: Einsatzniveau = meins + zu callen
     raises = 0 if mx <= 100 else (1 if mx <= 400 else 2)      # bb = 100 Chips
     return {
         "hole": [c for c in (s.get("hero_cards") or []) if c], "board": board,
@@ -280,6 +281,34 @@ def sane(s: dict, bb: float = 2.0) -> str | None:
 
 
 # ---------------------------------------------------------------- Spielen
+class StreetTracker:
+    """Heros Einsatz DIESER Strasse aus der STACK-DIFFERENZ, nicht aus der winzigen Einsatz-Schrift.
+
+    WARUM (User-Frage 2026-08-04): ohne das aktuelle Einsatzniveau wuesste der Bot nicht, ob er in
+    einem Single-Raised-, 3-Bet- oder 4-Bet-Pot sitzt — in Multiway-Poets der teuerste Lesefehler,
+    weil die ganze Range-Logik daran haengt; ausserdem verankern die Sizing-Formeln darauf.
+    Der Stack ist GROSS gesetzt und wird zuverlaessig gelesen. Es gilt exakt:
+        mein Einsatz auf dieser Strasse = Stack bei Strassenbeginn - aktueller Stack
+        aktuelles Einsatzniveau        = mein Einsatz + was der Button zu callen verlangt
+    Damit ist cur_bet eine IDENTITAET, keine Schaetzung — ganz ohne die kleine Schrift."""
+
+    def __init__(self):
+        self.street_key = None
+        self.stack_at_street = None
+
+    def update(self, board_len: int, stack: float | None) -> float:
+        """-> Heros Einsatz auf der aktuellen Strasse (Dollar). 0.0, solange nichts bekannt ist."""
+        key = (board_len,)
+        if stack is None:
+            return 0.0
+        if key != self.street_key:                 # neue Strasse (Board waechst) -> Referenz neu setzen
+            self.street_key = key
+            self.stack_at_street = stack
+        if stack > (self.stack_at_street or 0):    # Stack GEWACHSEN = neue Hand/Pot gewonnen -> Reset
+            self.stack_at_street = stack
+        return max(0.0, (self.stack_at_street or stack) - stack)
+
+
 def make_hero():
     """Derselbe Verbund wie der Trainer-GTO-Modus (ohne Table-Objekt: multiway-Kern, HU via Kern-Fallback)."""
     from pokerbot.arena.sixmax import PROFILES, SixMaxBot
@@ -333,6 +362,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
 
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
+    tracker = StreetTracker()
     while decisions < n_hands * 4 and stale < MAX_STALE:
         s = read_local()
         blocker = SS.gate(s)
@@ -348,7 +378,8 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             time.sleep(POLL_S)
             continue
         stale = 0
-        obs = to_obs_local(s, bb_dollars)
+        committed = tracker.update(len(s.get("board") or []), (s.get("stacks") or {}).get("hero"))
+        obs = to_obs_local(s, bb_dollars, committed)
         d = hero.decide(obs)
         did = act(bbox, obs, d, bb_dollars)
         decisions += 1

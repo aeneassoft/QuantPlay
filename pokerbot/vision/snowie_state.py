@@ -103,7 +103,14 @@ def _digit_templates(ratio: float = 0.70):
     return _DCACHE[ratio]
 
 
+NARROW_W, NARROW_MIN = 15, 0.55     # ein SCHMALES Segment kann nur EINE Ziffer sein
+
+
 def match_digit(img: Image.Image, ratio: float = 0.70) -> tuple[str | None, float]:
+    """Breitenabhaengige Schwelle: gemessen liegen korrekte Treffer bei 0.72-1.0, falsche bei
+    0.15-0.45, und VERSCHMOLZENE Doppelziffern bei 0.45-0.60 — die sind aber immer BREIT.
+    Bei schmalen Segmenten ist eine Verwechslung daher unmoeglich-genug, um milder zu werten;
+    breite Segmente muessen weiter durch die strenge Schwelle (bzw. die Trennung)."""
     b = _binary_bright(img, ratio=ratio)
     best, best_s = None, -1.0
     for label, tpl in _digit_templates(ratio):
@@ -157,6 +164,37 @@ def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
     return None
 
 
+WIDE_SEG = 16          # breiter als eine Einzelziffer -> Verdacht auf verschmolzene Zeichen
+
+
+def _split_wide(crop, g, x0, x1, ratio):
+    """Zwei verschmolzene Ziffern ('24' als EIN Segment) an der tintenaermsten Spalte trennen.
+    Gemessen: der Pot lieferte ein 21px-Segment, das gegen jedes Einzelziffern-Template scheiterte."""
+    seg = _ink(g[:, x0:x1], ratio)
+    if x1 - x0 < WIDE_SEG or seg.size == 0:
+        return None
+    # ALLE plausiblen Trennstellen probieren, nach Tintenarmut sortiert (die wahrscheinlichste zuerst),
+    # und die erste nehmen, bei der BEIDE Haelften erkannt werden. Eine einzige geratene Schnittstelle
+    # traf oft daneben (gemessen: 17px-Segment, Minimum-Spalte lieferte zwei unerkannte Haelften).
+    cols = seg.sum(axis=0)
+    w = x1 - x0
+    lo, hi = max(4, w // 4), min(w - 4, 3 * w // 4)
+    if hi <= lo:
+        return None
+    for off in sorted(range(lo, hi), key=lambda i: cols[i]):
+        cut = x0 + off
+        parts = []
+        for a, b in ((x0, cut), (cut, x1)):
+            lab, _ = match_digit(crop.crop((a, 0, b, crop.height)), ratio)
+            if lab is None or lab == "dollar":
+                parts = []
+                break
+            parts.append(lab)
+        if parts:
+            return "".join(parts)
+    return None
+
+
 def _read_number_at(img, box, learn, ratio) -> float | None:
     crop = _sub(img, box)
     g = np.asarray(crop.convert("L"))
@@ -182,6 +220,11 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
                     break
             if label is None and len(boxes) > 1:
                 continue                                   # reines '$' ohne Ziffer -> verwerfen
+        if label is None:                              # letzter Versuch: verschmolzene Doppelziffer
+            merged = _split_wide(crop, g, x0, x1, ratio)
+            if merged:
+                digits += merged
+                continue
         if label is None:
             if learn:
                 d = os.path.join(SL.DUMP_DIR, "digit")
