@@ -3,6 +3,9 @@ title PokerB - Trainer (6-max Coaching)
 cd /d "C:\Users\hampe\Desktop\PokerB"
 rem PRINCE v2.2-Profil (validierter Anker, AIVAT -19.70): gilt fuer den Live-HU-Takeover UND den Grading-Oracle.
 set POKERB_PRINCE=1
+rem Port 8000 freiraeumen: ein liegengebliebener python-Server (z.B. aus einer Claude-Sitzung) blockiert sonst
+rem den Start mit WinError 10048. Beendet NUR python-Prozesse, die auf 8000 lauschen - nichts anderes.
+powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { $p = Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue; if ($p -and $p.ProcessName -match 'python') { Stop-Process -Id $p.Id -Force } }" >nul 2>&1
 echo ============================================================
 echo   PokerB TRAINER  -  6-max No-Limit Hold'em Coaching
 echo   Der Browser oeffnet sich automatisch:
