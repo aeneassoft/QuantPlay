@@ -174,8 +174,8 @@ def read_card(img: Image.Image, key: str, learn: bool = False):
             elif cand and label not in cand:        # 2-Farben-Deck: Form darf der Farbe nicht widersprechen
                 label = None
         if label is None and learn:
-            os.makedirs(os.path.join(DUMP_DIR, part), exist_ok=True)
-            sub.save(os.path.join(DUMP_DIR, part, f"{key}_{part}_{abs(hash(sub.tobytes())) % 10**8}.png"))
+            os.makedirs(os.path.join(DUMP_DIR, kind), exist_ok=True)
+            sub.save(os.path.join(DUMP_DIR, kind, f"{key}_{abs(hash(sub.tobytes())) % 10**8}.png"))
         out[part] = label
     if not out.get("rank") or not out.get("suit"):
         return None
