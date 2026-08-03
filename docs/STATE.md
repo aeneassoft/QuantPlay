@@ -85,6 +85,16 @@ GTO-BEWERTUNGSSCHICHT UNVERÄNDERT (Grading modusunabhängig; mode='arena' nur g
 in Arena (das Chaos IST der Stresstest). Gates: Flusstest (25 GTO- + 50 Arena-Hände), Autotest 7/1/0, UI
 browser-verifiziert (3-Modi-Overlay, ARENA-Badge, Churn-News, ♛ „Prince v2 übernimmt für Dex").
 NOTES.md: DU-Zeile soll Slowplay-FALLEN erkennen (Trainer-Text-Verbesserung, NICHT der HU-Bot).
+**COINPOKER-NL200-ÖKOLOGIE (User-Daten, 2026-08-03; `research/coinpoker_ecology.py`, Population gecacht
+`data/coinpoker_pop.json`):** 124k beobachtete NL200-Hände vermessen (92% Regs; echte Gewinner +23..+52
+bb/100; Rake 3.96%/Cap~3.1bb; Ante 0.16bb) + 2.238 beobachtete Princedarkness-Hände per Stake. MATRIX
+(gleiche Population/Modell/Rake): P_D-Gesamt-Klon **−263±16** (kreuzvalidiert seine echte −231±89) ·
+P_D-ERNST-Klon (1/2+2.5/5, n=458, 120k-Sim) **pre-Rake ≈ 0, nach Rake ≈ −31±7** · tag+Reads **+115±10** ·
+GTO-Hybrid (tag+Prince-HU, 19.7k Prince-Entscheidungen/30k) **+109±11** — Bot-Positiva MODELL-OPTIMISTISCH
+(Frequenz-Hüllen lesen/adaptieren nicht; robust sind Ordnung+Abstände). All-in-EV-Analyse seiner 458
+ernsten Hände: roh +53.7, adjustiert **−13** (Glück +67 aus 13 HU-All-ins); Nicht-Showdown-Linie +52
+(Fold-Equity druckt), Top-8-Pötte=350% des Nettos. Fazit: sein Ernst-Spiel = Break-even vor Rake, der
+Rake (31 bb/100 bei VPIP~54) entscheidet. 5/10-Hände auf User-Wunsch exkludiert (UI-Ablenkung).
 **PLURIBUS-MATCH (User-Idee, 2026-08-02) — zweite unabhängige 6-max-Referenz, $0:** `research/
 pluribus_match.py` replayed die 10k Pluribus-Hände und setzt den `tag`-Kern in JEDEN Pluribus-Spot
 (gleiche Holes/Board/History; Amount-Semantik cbr=commit-TO an Hand 0 verifiziert, Pot/Net schließen).
