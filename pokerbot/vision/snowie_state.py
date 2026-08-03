@@ -43,9 +43,9 @@ STACK_FRAC = (0.0, 0.45, 1.0, 1.0)            # untere Hälfte einer Sitz-Box = 
 NAME_FRAC = (0.0, 0.0, 1.0, 0.45)
 # Einsatz-Text je Sitz: liegt zwischen Sitz und Tischmitte (live vermessen, +-15px Toleranz durch Trim)
 BET_BOX = {
-    "hero": (1330, 900, 1500, 960), "snowie3": (980, 900, 1150, 960),
-    "snowie4": (790, 720, 940, 780), "snowie2": (1560, 700, 1720, 760),
-    "snowie5": (980, 560, 1150, 620), "snowie1": (1330, 560, 1500, 620),
+    "hero": (1310, 895, 1520, 965), "snowie3": (960, 895, 1170, 965),
+    "snowie4": (770, 715, 960, 785), "snowie2": (1540, 695, 1740, 765),
+    "snowie5": (960, 555, 1170, 625), "snowie1": (1310, 555, 1520, 625),
 }
 DEALER_SEARCH = (560, 400, 1920, 1150)        # Suchbereich fuer die weisse 'D'-Scheibe
 DEALER_MIN_WHITE = 0.55                       # Anteil sehr heller Pixel im Fundfenster
@@ -150,7 +150,7 @@ def _ok_seg(mask: np.ndarray, a: int, b: int) -> bool:
 def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
     """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
     verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
-    for r in (0.70, 0.50, 0.60):
+    for r in (0.70, 0.50, 0.60, 0.40, 0.80, 0.30):
         v = _read_number_at(img, box, learn, r)
         if v is not None:
             return v
@@ -172,8 +172,8 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
             # Das ganze Segment zu verwerfen kostete die fuehrende Ziffer (gemessen: 179 -> 79).
             # Also nur die Waehrungszeichen-Breite abschneiden und den Rest erneut lesen.
             w = x1 - x0
-            for cut in (DOLLAR_W, w // 2):
-                if w - cut < MIN_SEG_W:
+            for cut in list(range(6, 20)) + [w // 2]:
+                if w - cut < 4:
                     continue
                 rest = crop.crop((x0 + cut, 0, x1, crop.height))
                 lab2, sc2 = match_digit(rest, ratio)
