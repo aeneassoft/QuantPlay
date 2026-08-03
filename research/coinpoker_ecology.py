@@ -258,7 +258,7 @@ class PopAgent:
         return ("call", None) if e > pot_odds / lax * 0.9 else ("fold", None)
 
 
-def simulate(pop: dict, mix: list[dict], n_hands: int, seed: int, hero_factory=None) -> dict:
+def simulate(pop: dict, mix: list[dict], n_hands: int, seed: int, hero_factory=None, depth_bb: int = 100) -> dict:
     """hero_factory(rng)->Agent erlaubt andere Helden (z.B. den tag-Produktkern); Default = P_D-Klon.
     Agenten mit .observe(actor, street, action, to_call, preflop_raises) bekommen alle Public-Actions."""
     from pokerbot.engine.table import Table
@@ -271,7 +271,7 @@ def simulate(pop: dict, mix: list[dict], n_hands: int, seed: int, hero_factory=N
     agents = {}
     for hand_i in range(n_hands):
         if t is None or hand_i % TABLE_RESEAT == 0:
-            t = Table([f"S{i}" for i in range(6)], starting_stack=100 * 100, sb=50, bb=100,
+            t = Table([f"S{i}" for i in range(6)], starting_stack=depth_bb * 100, sb=50, bb=100,
                       seed=rng.randrange(1 << 30))
             hrng = random.Random(rng.randrange(1 << 30))
             agents = {0: (hero_factory(hrng) if hero_factory else PrinceClone(hrng))}
@@ -311,7 +311,7 @@ def simulate(pop: dict, mix: list[dict], n_hands: int, seed: int, hero_factory=N
             net -= rk
         hero_net.append(net / 100.0)
         for s in t.seats:                         # Stacks pro Hand zuruecksetzen (Population = konstant tief)
-            s.stack = 100 * 100
+            s.stack = depth_bb * 100
     n = len(hero_net)
     mean = sum(hero_net) / n
     var = sum((x - mean) ** 2 for x in hero_net) / max(1, n - 1)
