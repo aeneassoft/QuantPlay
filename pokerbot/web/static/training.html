@@ -181,6 +181,18 @@
   #brbody{padding:2px 10px 10px;font-size:20px;line-height:1.5;max-height:230px;overflow:auto}
   .exploit{color:#ffb4ae;margin:4px 0}
 
+  /* MATCH-Modus (User, 2026-08-03): nur spielen — Coaching/Analyse/Glossar/Replay ausgeblendet,
+     stattdessen ein prominenter Hand-Zähler (Testphase bis 150, dann Wettkampf open end). */
+  body.match .panel h3:nth-of-type(1), body.match #coach,
+  body.match .panel h3:nth-of-type(2), body.match #out,
+  body.match #gloss, body.match #botread, body.match #b-replay, body.match #b-an{display:none}
+  #matchcount{background:#070d18;border-radius:8px;padding:16px;text-align:center;font-size:27px;line-height:1.5}
+  #matchcount b{color:var(--gold);font-size:34px}
+  #matchcount .phase{display:block;font-size:20px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+  #matchcount .prog{position:relative;height:10px;background:#12203a;border-radius:5px;margin-top:10px;overflow:hidden}
+  #matchcount .fill{position:absolute;left:0;top:0;bottom:0;background:var(--btngold);border-radius:5px}
+  #matchcount.comp b{color:var(--cyan)}
+
   /* start overlay: GTO/Exploit mode toggle (P0-0 UI) */
   #modeoverlay{position:fixed;inset:0;background:#060a14ee;z-index:50;display:flex;align-items:center;justify-content:center}
   .mo-card{background:linear-gradient(180deg,#16223a,#0c1626);border:1px solid #2c3f5e;border-radius:16px;
@@ -218,6 +230,7 @@
 
   <div class="panel">
     <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Session-Netto (bb)</div></div>
+    <div id="matchcount" style="display:none"></div>
     <div class="mini">
       <button id="b-new" class="sec">Neu</button>
       <button id="b-an">Analyse</button>
@@ -247,10 +260,12 @@
       <button id="m-gto">GTO-Modus</button>
       <button id="m-exploit">Exploit-Modus</button>
       <button id="m-arena">Arena-Modus</button>
+      <button id="m-match" class="sec">Match — nur spielen</button>
     </div>
     <p><b style="color:#eaf2ff">GTO:</b> die Bots spielen ihre Grundlinie — und sobald ein Pot heads-up ist, übernimmt ♛ Prince, unser bester Bot.<br/>
        <b style="color:#eaf2ff">Exploit:</b> die Bots lernen dich live und nutzen deine Leaks — du erlebst deine Ausbeutbarkeit.<br/>
-       <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.</p>
+       <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.<br/>
+       <b style="color:#eaf2ff">Match:</b> dieselben GTO-Gegner + ♛ Prince, aber OHNE Coaching und Ablenkung — nur du, der Tisch und ein Hand-Zähler (150 Testhände, dann open end). Alles wird still mitgeschrieben und benotet — auswerten kannst du hinterher.</p>
   </div>
 </div>
 
@@ -275,7 +290,8 @@ const ACTION_DE={fold:'Fold',check:'Check',call:'Call',bet:'Bet',raise:'Raise',a
 function verbDe(a){return VERB3[a]||a;}
 
 let bb=100, view=null, advTimer=null, lastBtn=null, busy=false, lastPrinceHand=null;
-let MODE='gto', sessionStart=null;
+let MODE='gto', MATCH=false, sessionStart=null;   // MATCH: nur spielen, Coaching stumm (User 2026-08-03)
+const MATCH_TEST_HANDS=150;                       // Testphase-Marke, danach Wettkampf open end
 let handEndTimes=[], lastEndHand=null;                 // rolling hands/hour
 let tickerParts=[], tickerStreet=null, tickerHand=null;
 let lastBoardLen=0, lastBoardHand=null;
@@ -464,6 +480,7 @@ function coachPlaceholder(v){
   $('coach').innerHTML=`<div class="ph">${esc(zeile)}</div>`+keep;
 }
 async function fetchFeedback(){
+  if(MATCH)return;                               // Match: keine Coaching-Anzeige (Server benotet still weiter)
   if(!view||fbRequestedHand===view.hand_no)return;
   fbRequestedHand=view.hand_no;
   try{
@@ -509,6 +526,20 @@ function render(v){
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const mb=$('modebadge');mb.textContent=curMode().toUpperCase();
   mb.className=curMode()==='exploit'?'exploit':(curMode()==='arena'?'arena':'');
+  // Match-Zähler: Testphase bis 150 abgeschlossene Hände (mit Balken), danach Wettkampf open end
+  const mc=$('matchcount');
+  if(MATCH&&mc){
+    const h=v.hands_done||0;
+    if(h<MATCH_TEST_HANDS){
+      mc.className='';
+      mc.innerHTML=`<span class="phase">Testphase</span><b>${h}</b> / ${MATCH_TEST_HANDS} Hände gespielt`+
+        `<div class="prog"><div class="fill" style="width:${Math.min(100,100*h/MATCH_TEST_HANDS)}%"></div></div>`;
+    }else{
+      mc.className='comp';
+      mc.innerHTML=`<span class="phase">Wettkampf · open end</span><b>${h}</b> Hände gespielt`+
+        `<span class="muted" style="font-size:18px"> (Testphase ✓)</span>`;
+    }
+  }
   if(v.arena_news){log('🔄 '+esc(v.arena_news),'s');pushTicker(v.street,v.arena_news);}
   // einmal pro Hand ansagen, sobald der Pot heads-up wird und Prince den Gegner-Sitz übernimmt
   if(v.prince_seat!=null&&lastPrinceHand!==v.hand_no){
@@ -573,8 +604,10 @@ function render(v){
     const a=e.amount?(' '+bbs(e.amount)+'bb'):'';
     pushTicker(e.street,`${e.pos} ${verbDe(e.action)}${a}`);
     log(`<span class="b">${e.name}</span> <span style="color:#789">${e.pos}</span>: ${e.action}${a}`,'b');});
-  if(v.coach)renderCoach(v.coach);
-  else if(!v.hand_over && coachHand!==v.hand_no)coachPlaceholder(v);
+  if(!MATCH){                                    // Match-Modus: Coaching bleibt stumm (Server benotet trotzdem)
+    if(v.coach)renderCoach(v.coach);
+    else if(!v.hand_over && coachHand!==v.hand_no)coachPlaceholder(v);
+  }
   // Replay stays available once ANY hand is finished — the server keeps the last completed hand until the
   // next one ends, so you can still review it after dealing in (previously it died with hand_over=false).
   if(v.hand_over)hasLastHand=true;
@@ -613,7 +646,7 @@ function renderEnd(v){
   (v.result.winners||[]).forEach(w=>flyToWinner(w.seat));
   const me=v.seats[v.human_seat], net=me.net||0;
   ban.classList.remove('show');
-  qualityBanner(v.coach);                        // Grading läuft serverseitig synchron -> meist sofort da
+  if(!MATCH)qualityBanner(v.coach);              // Grading läuft serverseitig synchron -> meist sofort da
   const wl=(v.result.winners||[]).map(w=>`${v.seats[w.seat].name}${w.rank?' ('+(RANK_DE[w.rank]||w.rank)+')':''}`).join(', ');
   log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
   if(!v.coach)fetchFeedback();
@@ -953,7 +986,7 @@ function onKey(e){
   if(!view)return;
   if(view.hand_over){
     if(k===' '||k==='n'||k==='N'){e.preventDefault();dealNow();}
-    else if(k==='p'||k==='P')enterReplay();
+    else if((k==='p'||k==='P')&&!MATCH)enterReplay();   // Match: Replay (enthält Coaching) bleibt zu
     return;
   }
   const myTurn=view.legal&&view.legal.to_act===view.human_seat;   // action keys only on the human's turn
@@ -985,10 +1018,16 @@ document.addEventListener('keydown',onKey);
 
 /* ── start flow: mode toggle first (P0-0), then session ──────────────── */
 function showOverlay(){cancelAutodeal();$('modeoverlay').style.display='flex';}
-function startWith(mode){MODE=mode;$('modeoverlay').style.display='none';startSession();}
+function startWith(mode,match=false){
+  MODE=mode;MATCH=match;
+  document.body.classList.toggle('match',MATCH);
+  const mc=$('matchcount');if(mc)mc.style.display=MATCH?'':'none';
+  $('modeoverlay').style.display='none';startSession();
+}
 $('m-gto').onclick=()=>startWith('gto');
 $('m-exploit').onclick=()=>startWith('exploit');
 $('m-arena').onclick=()=>startWith('arena');
+$('m-match').onclick=()=>startWith('gto',true);   // Match = GTO-Gegner + Prince, Anzeige stumm
 $('b-new').onclick=showOverlay;
 $('b-an').onclick=analyze;
 $('b-replay').onclick=enterReplay;
