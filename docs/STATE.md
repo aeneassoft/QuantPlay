@@ -95,6 +95,14 @@ GTO-Hybrid (tag+Prince-HU, 19.7k Prince-Entscheidungen/30k) **+109±11** — Bot
 ernsten Hände: roh +53.7, adjustiert **−13** (Glück +67 aus 13 HU-All-ins); Nicht-Showdown-Linie +52
 (Fold-Equity druckt), Top-8-Pötte=350% des Nettos. Fazit: sein Ernst-Spiel = Break-even vor Rake, der
 Rake (31 bb/100 bei VPIP~54) entscheidet. 5/10-Hände auf User-Wunsch exkludiert (UI-Ablenkung).
+**GG-NL200 + TURNIERFELD + LINIEN-SEKTION (2026-08-03 spät):** GG-Population (43k Hände, 88% reine
+TAG-Regs, Gewinner-Band nur +12..+19 hinter einem +56-Ausreißer) — KREUZ-REPLIKATION der CoinPoker-Befunde:
+Gesamt-Klon −231±14 (CP: −263), Ernst-Profil −18±10 nach Rake / +10 vor Rake (CP: −31 / ~0). Turnierfeld
+($150 CoinMasters, 131k Hände, 94% Regs, 31bb median): Turnier-Profil (GG n=75: VPIP 37/PFR 21 = LAG-Reg!)
++6.8±4.7 Chip-EV (n.s.), Cash-Profil +3.1±6.4 → P_D ist der TURNIERSPIELER, primär wegen KOSTENSTRUKTUR
+(kein Per-Hand-Rake) + besserem Profil. LINIEN-SEKTION der 458 ernsten Hände = das EIN-SCHLAG-GESETZ:
+JEDE agg1-Klasse positiv (Konterschlag call-vs-raise+Overbet +8.5/Hand, 3bet+Barrel +30), JEDE agg2/3-Klasse
+negativ (−26..−105/Hand) — Regel: ein Schlag pro Pot, gecallt = Geschichte vorbei (~+150bb/100 Potenzial).
 **PLURIBUS-MATCH (User-Idee, 2026-08-02) — zweite unabhängige 6-max-Referenz, $0:** `research/
 pluribus_match.py` replayed die 10k Pluribus-Hände und setzt den `tag`-Kern in JEDEN Pluribus-Spot
 (gleiche Holes/Board/History; Amount-Semantik cbr=commit-TO an Hand 0 verifiziert, Pot/Net schließen).
