@@ -116,6 +116,14 @@ SCHEMA = {
 
 
 # ---------------------------------------------------------------- Fenster / Eingabe
+VK_ESCAPE = 0x1B
+
+
+def esc_pressed() -> bool:
+    """True, sobald ESC gedrueckt ist — der Lauf beendet sich dann sauber und gibt die Maus frei."""
+    return bool(_user32.GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+
+
 def window_box() -> tuple[int, int, int, int]:
     w = pick_window(WINDOW_PAT)
     if not w:
@@ -366,6 +374,9 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
     tracker = StreetTracker()
     blocked_streak, forced, skipped_hands = 0, 0, []
     while decisions < n_hands * 4 and stale < MAX_STALE:
+        if esc_pressed():
+            print("ESC — Lauf gestoppt, Maus/Tastatur wieder frei.", flush=True)
+            break
         s = read_local()
         blocker = SS.gate(s)
         if blocker:
@@ -405,7 +416,10 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             f.write(json.dumps({"ts": datetime.now().isoformat(timespec="seconds"),
                                 "state": s, "obs": obs, "decision": d, "did": did}, ensure_ascii=False) + "\n")
         print(f"[{decisions}] {obs['street']:8s} {''.join(obs['hole']):5s} -> {did}")
-        time.sleep(SETTLE_S)
+        for _ in range(int(SETTLE_S * 10)):        # in Scheiben schlafen, damit ESC sofort greift
+            if esc_pressed():
+                break
+            time.sleep(0.1)
     print(f"FERTIG: {decisions} Entscheidungen geloggt -> {log_path}")
     if forced:
         from collections import Counter
