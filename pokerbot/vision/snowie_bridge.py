@@ -36,7 +36,8 @@ OUT_DIR = os.path.join("data", "vision")
 WINDOW_PAT = "PokerSnowie"
 SETTLE_S = 1.2          # Wartezeit nach einem Klick, bis Snowie animiert/reagiert hat
 POLL_S = 1.0            # Pause zwischen Lesungen, wenn wir nicht am Zug sind
-MAX_STALE = 40          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
+MAX_STALE = 400        # grosszuegig: die Notausfahlt loest Deadlocks, nicht der Abbruch
+BLOCK_GIVEUP = 12      # so viele Blockaden am STUECK -> diese Hand aufgeben (Fold) und weiter          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
 
 # Layout als BRUCHTEILE des Fensters (PokerSnowie 4, aus der Live-Vermessung 2026-08-03). Bruchteile
 # statt Pixel: überlebt Fenstergrößen-Änderungen, solange das Layout proportional skaliert.
@@ -156,7 +157,7 @@ def _type_number(value: float) -> None:
 def read_local(img=None) -> dict:
     """LOKALE Lesung (Standard seit 2026-08-04): keine API, ~0.1 s statt ~4 s, 0 statt ~4 ct pro Zug."""
     from pokerbot.vision import snowie_state as SS
-    return SS.read_state(img)
+    return SS.read_state(img, learn=True)
 
 
 def to_obs_local(s: dict, bb_dollars: float = 2.0, committed: float = 0.0) -> dict:
@@ -363,11 +364,28 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
     tracker = StreetTracker()
+    blocked_streak, forced, skipped_hands = 0, 0, []
     while decisions < n_hands * 4 and stale < MAX_STALE:
         s = read_local()
         blocker = SS.gate(s)
         if blocker:
             stale += 1
+            # NOTAUSFAHRT gegen den Deadlock: das Gatter verbietet zu handeln -> die Hand laeuft nicht
+            # weiter -> derselbe Zustand blockiert erneut, endlos. Nach genug Versuchen geben wir DIESE
+            # HAND auf (Fold) und markieren sie als AUSGESCHLOSSEN. Ein Fold ist die einzige Aktion,
+            # die keine Annahme ueber den Tisch trifft; und eine bewusst verworfene, protokollierte
+            # Hand ist ehrlicher als eine geratene.
+            if blocker != "nicht am Zug":
+                blocked_streak += 1
+                if blocked_streak >= BLOCK_GIVEUP and s.get("hero_turn"):
+                    _click_frac(bbox, "btn_fold")
+                    forced += 1
+                    skipped_hands.append(blocker)
+                    blocked_streak, stale = 0, 0
+                    print(f"HAND UEBERSPRUNGEN (#{forced}): {blocker} — Fold, aus der Messung ausgeschlossen",
+                          flush=True)
+                    time.sleep(SETTLE_S)
+                    continue
             if blocker == "nicht am Zug":
                 time.sleep(POLL_S)
                 continue
@@ -377,7 +395,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                 return
             time.sleep(POLL_S)
             continue
-        stale = 0
+        stale = blocked_streak = 0
         committed = tracker.update(len(s.get("board") or []), (s.get("stacks") or {}).get("hero"))
         obs = to_obs_local(s, bb_dollars, committed)
         d = hero.decide(obs)
@@ -389,6 +407,11 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         print(f"[{decisions}] {obs['street']:8s} {''.join(obs['hole']):5s} -> {did}")
         time.sleep(SETTLE_S)
     print(f"FERTIG: {decisions} Entscheidungen geloggt -> {log_path}")
+    if forced:
+        from collections import Counter
+        print(f"UEBERSPRUNGEN: {forced} Haende (aus jeder Auswertung ausgeschlossen)")
+        for reason, n in Counter(skipped_hands).most_common():
+            print(f"   {n}x {reason}")
 
 
 def main() -> None:

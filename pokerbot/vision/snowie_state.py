@@ -97,7 +97,7 @@ def _digit_templates(ratio: float = 0.70):
     if ratio not in _DCACHE:
         d = os.path.join(SL.TPL_DIR, "digit")
         os.makedirs(d, exist_ok=True)
-        _DCACHE[ratio] = [(os.path.splitext(f)[0],
+        _DCACHE[ratio] = [(os.path.splitext(f)[0].split("_")[0],
                            _binary_bright(Image.open(os.path.join(d, f)), ratio=ratio))
                           for f in sorted(os.listdir(d)) if f.endswith(".png")]
     return _DCACHE[ratio]

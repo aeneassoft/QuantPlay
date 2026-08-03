@@ -106,7 +106,7 @@ def templates(kind: str):
     if kind not in _CACHE:
         d = os.path.join(TPL_DIR, kind)
         os.makedirs(d, exist_ok=True)
-        _CACHE[kind] = [(os.path.splitext(f)[0], _binary(Image.open(os.path.join(d, f))))
+        _CACHE[kind] = [(os.path.splitext(f)[0].split("_")[0], _binary(Image.open(os.path.join(d, f))))
                         for f in sorted(os.listdir(d)) if f.endswith(".png")]
     return _CACHE[kind]
 
