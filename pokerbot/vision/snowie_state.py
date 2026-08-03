@@ -37,7 +37,7 @@ SEAT_BOX = {
 SEAT_ORDER = ["snowie2", "hero", "snowie3", "snowie4", "snowie5", "snowie1"]
 POS_AFTER_BTN = ["BTN", "SB", "BB", "UTG", "HJ", "CO"]
 
-POT_BOX = (1150, 515, 1330, 560)              # die '$3'-Zeile unter 'TOTAL POT'
+POT_BOX = (1178, 518, 1302, 562)              # die '$3'-Zeile unter 'TOTAL POT'
 BAR_BOX = (600, 1235, 1270, 1320)             # die drei Aktions-Buttons (nur Anwesenheit zählt)
 STACK_FRAC = (0.0, 0.45, 1.0, 1.0)            # untere Hälfte einer Sitz-Box = der Stack-Text
 NAME_FRAC = (0.0, 0.0, 1.0, 0.45)
@@ -49,7 +49,7 @@ BET_BOX = {
 }
 DEALER_SEARCH = (560, 400, 1920, 1150)        # Suchbereich fuer die weisse 'D'-Scheibe
 DEALER_MIN_WHITE = 0.55                       # Anteil sehr heller Pixel im Fundfenster
-FOLDED_BRIGHT = 0.22                          # gefoldete Sitze sind ausgegraut -> weniger helle Pixel
+LIVE_MAX_BRIGHT = 200                         # aktiv = reinweisser Text (255); gefoldet nur ~160 (gemessen)
 
 
 def _px(box):
@@ -66,7 +66,7 @@ def _sub(img, box):
 INK_BRIGHT = 165
 
 
-def _ink(arr: np.ndarray) -> np.ndarray:
+def _ink(arr: np.ndarray, ratio: float = 0.70) -> np.ndarray:
     """ADAPTIV statt fester Schwelle: Snowie rendert aktive Sitze hell, gefoldete gedimmt — eine feste
     Schwelle fand bei gedimmten Sitzen NULL Tinte und liess '$200' zu einem Klumpen verschmelzen.
     Wir nehmen 70% zwischen Hintergrund (Median) und hellstem Pixel: trennt die Zeichen sauber."""
@@ -75,13 +75,13 @@ def _ink(arr: np.ndarray) -> np.ndarray:
     lo, hi = float(np.median(arr)), float(arr.max())
     if hi - lo < 25:                      # kein Kontrast -> kein Text
         return np.zeros_like(arr, dtype=bool)
-    return arr > (lo + 0.70 * (hi - lo))
+    return arr > (lo + ratio * (hi - lo))
 
 
-def _binary_bright(img: Image.Image, size=(24, 30)) -> np.ndarray:
+def _binary_bright(img: Image.Image, size=(24, 30), ratio: float = 0.70) -> np.ndarray:
     """Helles Zeichen -> normiertes 0/1-Raster (auf die Tinte getrimmt, wie SL._binary, nur invertiert)."""
     g = np.asarray(img.convert("L"))
-    ink = _ink(g)
+    ink = _ink(g, ratio)
     if not ink.any():
         return np.zeros(size[::-1], dtype=np.float32)
     ys, xs = np.where(ink)
@@ -103,8 +103,8 @@ def _digit_templates():
     return _DCACHE
 
 
-def match_digit(img: Image.Image) -> tuple[str | None, float]:
-    b = _binary_bright(img)
+def match_digit(img: Image.Image, ratio: float = 0.70) -> tuple[str | None, float]:
+    b = _binary_bright(img, ratio=ratio)
     best, best_s = None, -1.0
     for label, tpl in _digit_templates():
         s = SL._score(b, tpl)
@@ -117,12 +117,12 @@ MIN_SEG_W, MIN_INK_FRAC, MIN_SEG_H = 5, 0.12, 0.35
 DOLLAR_W = 11      # Breite des Waehrungszeichens in diesem Font (live vermessen)
 
 
-def _digit_boxes(arr: np.ndarray) -> list[tuple[int, int]]:
+def _digit_boxes(arr: np.ndarray, ratio: float = 0.70) -> list[tuple[int, int]]:
     """Spalten mit Tinte -> zusammenhaengende Segmente = einzelne Zeichen.
     FILTER (2026-08-04): der erste Sammellauf lieferte 63 Kandidaten fuer 11 mogliche Zeichen — es
     rutschten Rahmenkanten und 1px-Splitter durch. Ein Zeichen muss BREIT genug, HOCH genug und
     dicht genug mit Tinte sein; alles andere ist Dekoration."""
-    ink_mask = _ink(arr)
+    ink_mask = _ink(arr, ratio)
     ink = ink_mask.any(axis=0)
     out, start = [], None
     for i, v in enumerate(ink):
@@ -148,16 +148,25 @@ def _ok_seg(mask: np.ndarray, a: int, b: int) -> bool:
 
 
 def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
-    """'$199' -> 199.0. None, wenn ein Zeichen unerkannt ist (nie raten)."""
+    """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
+    verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
+    for r in (0.70, 0.50):
+        v = _read_number_at(img, box, learn, r)
+        if v:
+            return v
+    return None
+
+
+def _read_number_at(img, box, learn, ratio) -> float | None:
     crop = _sub(img, box)
     g = np.asarray(crop.convert("L"))
-    if _ink(g).sum() < 12:                             # praktisch keine Tinte -> kein Text
+    if _ink(g, ratio).sum() < 12:                             # praktisch keine Tinte -> kein Text
         return 0.0
     digits = ""
-    boxes = _digit_boxes(g)
+    boxes = _digit_boxes(g, ratio)
     for idx, (x0, x1) in enumerate(boxes):
         ch = crop.crop((x0, 0, x1, crop.height))
-        label, score = match_digit(ch)
+        label, score = match_digit(ch, ratio)
         if label is None and idx == 0:
             # Das '$' verschmilzt oft mit einer folgenden schmalen '1' zu EINEM Segment ('$1').
             # Das ganze Segment zu verwerfen kostete die fuehrende Ziffer (gemessen: 179 -> 79).
@@ -167,7 +176,7 @@ def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
                 if w - cut < MIN_SEG_W:
                     continue
                 rest = crop.crop((x0 + cut, 0, x1, crop.height))
-                lab2, sc2 = match_digit(rest)
+                lab2, sc2 = match_digit(rest, ratio)
                 if lab2 is not None:
                     label = lab2
                     break
@@ -191,7 +200,7 @@ def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
 def seat_live(img: Image.Image, seat: str) -> bool:
     """Aktiv (nicht gefoldet)? Gefoldete Sitze rendert Snowie deutlich dunkler/ausgegraut."""
     g = np.asarray(_sub(img, SEAT_BOX[seat]).convert("L"))
-    return float((g > 150).mean()) >= FOLDED_BRIGHT
+    return int(g.max()) >= LIVE_MAX_BRIGHT
 
 
 def dealer_seat(img: Image.Image) -> str | None:
@@ -276,6 +285,10 @@ def gate(s: dict) -> str | None:
         return "Dealer-Button nicht gefunden"
     if s["pot"] is None or s["hero_bet"] is None or s["stacks"].get("hero") is None:
         return "Zahl unlesbar (Pot/Einsatz/Stack)"
+    if not s["pot"] or s["pot"] <= 0:
+        return "Pot = 0 — bei laufender Hand unmoeglich (stiller Lesefehler)"
+    if not s["stacks"].get("hero"):
+        return "Hero-Stack = 0 — unplausibel"
     if s["players_in_hand"] < 2:
         return f"Spielerzahl unplausibel ({s['players_in_hand']})"
     # Die Unmoeglichkeit aus Lauf 1 kann hier strukturell nicht mehr auftreten, wird aber geprueft:
