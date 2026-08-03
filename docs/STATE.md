@@ -103,6 +103,11 @@ Gesamt-Klon −231±14 (CP: −263), Ernst-Profil −18±10 nach Rake / +10 vor 
 (kein Per-Hand-Rake) + besserem Profil. LINIEN-SEKTION der 458 ernsten Hände = das EIN-SCHLAG-GESETZ:
 JEDE agg1-Klasse positiv (Konterschlag call-vs-raise+Overbet +8.5/Hand, 3bet+Barrel +30), JEDE agg2/3-Klasse
 negativ (−26..−105/Hand) — Regel: ein Schlag pro Pot, gecallt = Geschichte vorbei (~+150bb/100 Potenzial).
+**ZEIT-SLICING (2026-08-03):** 'ET' in P_D-HHs = echtes US-Eastern (Kreuzkorrelation mit Client-Export
++6h=EDT→CEST, Score .50); P_D = deutscher NACHMITTAGS-Spieler (14-20 Uhr, Peak 14-16). Sein Fenster hat
+6.6% Recreationals vs Primetime 2.9% (Folk-Wisdom invertiert: CP-NL200-Abend = 75%-TAG-Wand). Ernst-Klon:
+seine Stunden −26±12 (pre-Rake +5.7) vs Primetime −31±12 (pre-Rake +0.4) — Richtung pro sein Fenster,
+n.s.; der INVARIANZ-Befund steht: Break-even vor Rake in JEDER Scheibe, der Rake entscheidet überall.
 **PLURIBUS-MATCH (User-Idee, 2026-08-02) — zweite unabhängige 6-max-Referenz, $0:** `research/
 pluribus_match.py` replayed die 10k Pluribus-Hände und setzt den `tag`-Kern in JEDEN Pluribus-Spot
 (gleiche Holes/Board/History; Amount-Semantik cbr=commit-TO an Hand 0 verifiziert, Pot/Net schließen).
