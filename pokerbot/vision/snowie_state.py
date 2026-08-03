@@ -250,28 +250,115 @@ def number_fields() -> dict[str, tuple]:
     return out
 
 
+# Der EINSATZ-Betrag steht immer direkt unter einem gruenen Chip-Symbol — und der Chip ist farblich
+# unverwechselbar. Ihn als ANKER zu nehmen ist robuster als feste Koordinaten: Snowie verschiebt den
+# Betrag je nach Laenge ('$2' vs '$12.50'), und pro Sitz sitzt er woanders am Tischrand.
+CHIP_MIN_PIX = 40             # Mindestzahl gruener Pixel, damit es als Chip zaehlt
+CHIP_BOX_DY = (16, 46)        # Betrag liegt so weit UNTER der Chip-Mitte (live vermessen)
+CHIP_BOX_DX = 55              # halbe Breite des Betrags-Fensters
+
+
+TABLE_Y = (380, 1180)         # nur der Filz: darueber Menue, darunter die Aktionsleiste (gruener Button!)
+
+
+def _green_chips(img: Image.Image) -> list[tuple[int, int]]:
+    """Mittelpunkte aller gruenen Chip-Symbole auf dem Tisch (Bildkoordinaten)."""
+    a = np.asarray(img.convert("RGB")).astype(int)
+    a = a.copy()
+    a[:TABLE_Y[0], :, :] = 0
+    a[TABLE_Y[1]:, :, :] = 0
+    g = (a[:, :, 1] - a[:, :, 0] > 45) & (a[:, :, 1] - a[:, :, 2] > 45) & (a[:, :, 1] > 110)
+    ys, xs = np.where(g)
+    if len(xs) < CHIP_MIN_PIX:
+        return []
+    pts, used = [], np.zeros(len(xs), bool)
+    order = np.argsort(xs)
+    for i in order:                                   # simple Clusterung: alles binnen 60px = ein Chip
+        if used[i]:
+            continue
+        near = (np.abs(xs - xs[i]) < 60) & (np.abs(ys - ys[i]) < 60) & (~used)
+        if near.sum() >= CHIP_MIN_PIX:
+            mx_, my_ = int(xs[near].mean()), int(ys[near].mean())
+            core = np.asarray(img.convert("L"))[max(0, my_ - 8):my_ + 8, max(0, mx_ - 8):mx_ + 8]
+            if core.size and (core > 200).mean() >= 0.10:      # weisse Speichen -> echter Chip
+                pts.append((mx_, my_))
+        used |= near
+    return pts
+
+
+def read_bets(img: Image.Image, learn: bool = False) -> dict[str, float | None]:
+    """Einsaetze ueber die Chip-Anker lesen und dem naechsten Sitz zuordnen.
+    Ein Chip NAHE einem Sitz, dessen Betrag unlesbar ist, setzt den Sitz auf None (-> Gatter),
+    statt ihn als 0 auszugeben: 'kein Einsatz' und 'Einsatz nicht lesbar' duerfen nie dasselbe sein."""
+    out: dict[str, float | None] = {s: 0.0 for s in SEAT_BOX}
+    for cx, cy in _green_chips(img):
+        seat0 = min(SEAT_BOX, key=lambda s: (cx - (SEAT_BOX[s][0] + SEAT_BOX[s][2]) / 2) ** 2
+                    + (cy - (SEAT_BOX[s][1] + SEAT_BOX[s][3]) / 2) ** 2)
+        b = SEAT_BOX[seat0]
+        d2 = (cx - (b[0] + b[2]) / 2) ** 2 + (cy - (b[1] + b[3]) / 2) ** 2
+        if d2 > 300 ** 2:                              # weit weg von jedem Sitz = Logo/Deko, kein Einsatz
+            continue
+        box = (cx - CHIP_BOX_DX, cy + CHIP_BOX_DY[0], cx + CHIP_BOX_DX, cy + CHIP_BOX_DY[1])
+        val = read_number(img, box, learn)
+        if not val:
+            out[seat0] = None                          # Chip da, Betrag unklar -> ehrlich unbekannt
+            continue
+        out[seat0] = val if out[seat0] is None else max(out[seat0] or 0.0, val)
+    return out
+
+
+# AKTIONSLEISTE (native px, live vermessen): FOLD | CALL-oder-CHECK | RAISE-oder-BET.
+# Der Betrag AUF dem Button ist die zuverlaessigste Zahl am ganzen Tisch — gross, fett, konstanter
+# Hintergrund. Der Einsatz VOR dem Sitz ist die kleinste (eigener Font, matcht die Templates nicht).
+# Fuer die Entscheidung brauchen wir aber genau zwei Dinge: darf ich checken, und was kostet ein Call.
+# Beides steht auf dem mittleren Button — Ziffern vorhanden = CALL mit Betrag, keine Ziffern = CHECK.
+BTN_MID_BOX = (830, 1235, 1040, 1318)
+BTN_RIGHT_BOX = (1056, 1235, 1266, 1318)
+
+
+def read_buttons(img: Image.Image, learn: bool = False) -> dict:
+    """-> {'active': bool, 'call_amount': float|None, 'can_check': bool, 'raise_min': float|None}.
+    active=False heisst: wir sind nicht am Zug (keine Buttons sichtbar)."""
+    if not hero_turn(img):
+        return {"active": False, "call_amount": None, "can_check": False, "raise_min": None}
+    mid = read_number(img, BTN_MID_BOX, learn)
+    rgt = read_number(img, BTN_RIGHT_BOX, learn)
+    # read_number liefert 0.0, wenn im Feld gar keine Tinte/Zahl steckt -> das ist der CHECK-Fall.
+    can_check = (mid == 0.0)
+    return {"active": True, "call_amount": (None if can_check else mid),
+            "can_check": can_check, "raise_min": (rgt or None)}
+
+
 def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     img = img or SL.grab()
     cards = SL.read_cards(img, learn=learn)
     d = dealer_seat(img)
     live = {s: seat_live(img, s) for s in SEAT_BOX}
     F = number_fields()
-    bets = {s: read_number(img, F[f"bet_{s}"], learn) for s in SEAT_BOX}
+    bets = read_bets(img, learn)
     stacks = {s: read_number(img, F[f"stack_{s}"], learn) for s in SEAT_BOX}
     pot = read_number(img, F["pot"], learn)
+    btn = read_buttons(img, learn)
     mine = bets.get("hero")
+    unknown_bet = any(v is None for s, v in bets.items() if live.get(s))
     live_bets = [v for s, v in bets.items() if live.get(s) and v is not None]
     mx = max(live_bets) if live_bets else 0.0
     return {
         "hero_turn": hero_turn(img), "hero_cards": cards["hero"], "board": cards["board"],
+        "cards_unreadable": cards.get("unreadable", 0),
         "dealer": d, "positions": position_of(d) if d else {},
         "hero_position": position_of(d).get("hero") if d else None,
         "live": live, "bets": bets, "stacks": stacks, "pot": pot,
         "hero_bet": mine, "max_bet": mx,
-        # DETERMINISTISCH aus den Einsaetzen — kein Button wird abgelesen:
-        "can_check": (mine is not None and abs(mx - mine) < 1e-9),
-        "call_amount": (None if mine is None else round(mx - mine, 2)),
+        # PRIMAER vom Button (grosse, zuverlaessige Schrift); die Einsaetze vor den Sitzen sind
+        # nur noch Kontext. Die Button-LOGIK wird dabei nicht interpretiert, nur die ZAHL gelesen —
+        # der alte Fehlschlag kam von einem Sprachmodell, das die Legalitaet erfand.
+        "buttons": btn,
+        "can_check": btn["can_check"],
+        "call_amount": btn["call_amount"],
+        "raise_min_dollars": btn["raise_min"],
         "players_in_hand": sum(1 for s, v in live.items() if v),
+        "unknown_bet": unknown_bet,
     }
 
 
@@ -281,10 +368,18 @@ def gate(s: dict) -> str | None:
         return "nicht am Zug"
     if len([c for c in s["hero_cards"] if c]) != 2:
         return f"Hole Cards unlesbar ({s['hero_cards']})"
+    if s.get("cards_unreadable"):
+        return f"{s['cards_unreadable']} belegte Kartenplaetze unlesbar — Board waere verkuerzt"
+    if len(s["board"]) not in (0, 3, 4, 5):
+        return f"Board-Laenge {len(s['board'])} unmoeglich"
     if s["hero_position"] is None:
         return "Dealer-Button nicht gefunden"
-    if s["pot"] is None or s["hero_bet"] is None or s["stacks"].get("hero") is None:
-        return "Zahl unlesbar (Pot/Einsatz/Stack)"
+    if s["pot"] is None or s["stacks"].get("hero") is None:
+        return "Zahl unlesbar (Pot/Stack)"
+    if not (s.get("buttons") or {}).get("active"):
+        return "Aktions-Buttons nicht lesbar"
+    if not s["can_check"] and s["call_amount"] is None:
+        return "Weder Check moeglich noch Call-Betrag lesbar"
     if not s["pot"] or s["pot"] <= 0:
         return "Pot = 0 — bei laufender Hand unmoeglich (stiller Lesefehler)"
     if not s["stacks"].get("hero"):

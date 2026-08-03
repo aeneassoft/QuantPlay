@@ -167,7 +167,9 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0) -> dict:
     street = "preflop" if not board else {3: "flop", 4: "turn", 5: "river"}.get(len(board), "flop")
     to_call = chips(s.get("call_amount"))
     stack = chips((s.get("stacks") or {}).get("hero"))
-    mine, mx = chips(s.get("hero_bet")), chips(s.get("max_bet"))
+    mine = chips(s.get("hero_bet") or 0)
+    # cur_bet aus dem BUTTON ableiten (zuverlaessigste Zahl): was ich schon drin habe + was zu callen ist.
+    mx = max(chips(s.get("max_bet") or 0), mine + to_call)
     raises = 0 if mx <= 100 else (1 if mx <= 400 else 2)      # bb = 100 Chips
     return {
         "hole": [c for c in (s.get("hero_cards") or []) if c], "board": board,
@@ -178,7 +180,8 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0) -> dict:
         "cur_bet": mx, "my_committed_street": mine, "street": street,
         "can_check": bool(s.get("can_check")), "can_call": to_call > 0,
         "can_raise": stack > to_call,
-        "raise_min": min(stack, max(2 * mx, 100) if street == "preflop" else max(mx + 100, 100)),
+        "raise_min": min(stack, chips(s.get("raise_min_dollars")) or
+                         (max(2 * mx, 100) if street == "preflop" else max(mx + 100, 100))),
         "raise_max": stack + mine,
     }
 

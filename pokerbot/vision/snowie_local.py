@@ -182,11 +182,20 @@ def read_card(img: Image.Image, key: str, learn: bool = False):
     return f"{out['rank']}{out['suit']}"
 
 
+def slot_occupied(img: Image.Image, key: str) -> bool:
+    """Liegt an dieser Position UEBERHAUPT eine offene Karte? (weisses Papier = ja)"""
+    g = np.asarray(crop_frac(img, REGIONS[key]).convert("L"))
+    return bool((g > 200).mean() >= 0.25)
+
+
 def read_cards(img: Image.Image | None = None, learn: bool = False) -> dict:
     img = img or grab()
     board = [read_card(img, f"board{i}", learn) for i in range(5)]
     hero = [read_card(img, f"hero{i}", learn) for i in range(2)]
-    return {"board": [c for c in board if c], "board_raw": board, "hero": hero}
+    unread = sum(1 for i in range(5) if board[i] is None and slot_occupied(img, f"board{i}"))
+    unread += sum(1 for i in range(2) if hero[i] is None and slot_occupied(img, f"hero{i}"))
+    return {"board": [c for c in board if c], "board_raw": board, "hero": hero,
+            "unreadable": unread}
 
 
 def dump(img: Image.Image | None = None) -> str:
