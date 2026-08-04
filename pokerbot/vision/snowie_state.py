@@ -252,7 +252,11 @@ def read_number(img: Image.Image, box, learn: bool = False, ocr_fallback: bool =
     return _ocr_number(img, box) if ocr_fallback else None
 
 
-WIDE_SEG = 16          # breiter als eine Einzelziffer -> Verdacht auf verschmolzene Zeichen
+WIDE_SEG = 13          # breiter als das -> Verdacht auf verschmolzene Zeichen. 13 statt 16 (Fund
+                       # fail_004): zwei verschmolzene Einsen ('11') sind nur 14px breit, matchten
+                       # als EINE '1' - der Pot 11 wurde 1, das Gatter blockierte, die Aufgabe
+                       # foldete einen NUT-FLUSH. Einzelziffern (8-13px) probieren jetzt zuerst
+                       # erfolglos zu splitten und fallen dann normal durch - kostet nur Mikros.
 
 
 def _split_wide(crop, g, x0, x1, ratio):
