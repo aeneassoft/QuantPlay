@@ -290,6 +290,25 @@ def sane(s: dict, bb: float = 2.0) -> str | None:
 
 
 # ---------------------------------------------------------------- Spielen
+def _check_is_free(s: dict) -> bool:
+    """Ist Checken NACHWEISLICH gratis? Nur dann darf der Notausgang den mittleren Button druecken.
+
+    can_check=False entsteht auch, wenn der Betrag auf dem Button UNLESBAR war — das heisst "ich
+    weiss es nicht", nicht "Check ist unmoeglich". Der Notausgang las es als Zweites und foldete
+    (User-Fund: "der Bot foldet jetzt alles"). Zweitzeuge sind darum die EINSAETZE: liegt Heros
+    Einsatz bereits auf Hoehe des hoechsten, steht nichts zu callen an und Check ist gratis.
+    """
+    if (s.get("buttons") or {}).get("can_check"):
+        return True
+    bets = s.get("bets") or {}
+    live = s.get("live") or {}
+    mine = bets.get("hero")
+    others = [v for seat, v in bets.items() if seat != "hero" and live.get(seat) and v is not None]
+    if mine is None or any(v is None for seat, v in bets.items() if live.get(seat)):
+        return False                      # ein Einsatz unlesbar -> kein Zweitzeuge -> nicht raten
+    return mine + 1e-6 >= max(others, default=0.0)
+
+
 class HandTracker:
     """Der ZUSTAND EINER HAND — die Klasse von Fehlern, die eine Einzelbild-Pruefung nie faengt.
 
@@ -443,7 +462,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                     # Ist Check GRATIS moeglich, ist Folden immer die schlechtere Wahl — und ob
                     # Check geht, sagt uns der Button zuverlaessig, auch wenn das Board unlesbar ist.
                     # Nur wenn wir zahlen muessten UND den Tisch nicht lesen koennen, wird gefoldet.
-                    if (s.get("buttons") or {}).get("can_check"):
+                    if _check_is_free(s):
                         _click_frac(bbox, "btn_mid")
                         how = "CHECK (gratis)"
                     else:
@@ -475,7 +494,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             stale += 1
             print(f"PAUSE (Verlauf): {conflict}", flush=True)
             if blocked_streak >= BLOCK_GIVEUP and s.get("hero_turn"):
-                _click_frac(bbox, "btn_mid" if (s.get("buttons") or {}).get("can_check") else "btn_fold")
+                _click_frac(bbox, "btn_mid" if _check_is_free(s) else "btn_fold")
                 forced += 1
                 skipped_hands.append(conflict)
                 blocked_streak, stale = 0, 0
