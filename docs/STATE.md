@@ -22,7 +22,10 @@ Premium → **μ-2: +9.2 ± 8.0 pp ROI (ICM-an +18.4% vs aus +9.3%, n=500), Mech
 MEHR Siege (214 vs 192) UND bessere Ladder = Dominanz.** PS-$1050-Feld vermessen (FoldVsRaise 54→62 unter
 Druck = deren ICM-Verhalten empirisch belegt) + Druck-Hebel (icm_pressure_mult, Doktrin 9) gebaut; Duell 1
 gegen das Frequenz-Feld = Decken-Effekt (92% Siege, uninformativ — Feld zu schwach), Duell 2 gegen das
-ICM-spielende Bot-Feld läuft.
+ICM-spielende Bot-Feld (n=300/Arm, gepaart): **chipEV +6,6 / icm +7,7 / icm+druck +14,1% ROI; druck führt auf
+JEDER Metrik (P1. 21% vs 18%, ITM 36,3%) — die User-These bestätigt: gegen ICM-Spieler zählt das ERNTEN ihrer
+Tightness (+7,5 pp vs chipEV, z=0,76 = Ordnung klar, Signifikanz braucht ~2k Paare). Defensive ICM-Brille
+gegen ICM-Feld ≈ wertlos (+1,1). Fee (~4,8pp) im Modell nicht abgezogen.**
 Scope-Karte: kein MTT/PKO/Zeit-Level; NOTES.md trägt die bewussten Näherungen (Dead-Button, FGS, UTG-Fund).
 
 ## ★★★★★ (2026-08-04 früh) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE
