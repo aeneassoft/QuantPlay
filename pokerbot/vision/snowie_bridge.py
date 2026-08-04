@@ -408,7 +408,11 @@ def act(bbox, obs: dict, decision: dict, bb_dollars: float) -> str:
         time.sleep(0.3)
         _click_frac(bbox, "btn_right")
         return "allin"
-    dollars = (amount or obs["raise_min"]) / 100.0 * bb_dollars
+    # NIE unter das Tisch-Minimum tippen: Snowie nimmt einen zu kleinen Betrag nicht an und setzt
+    # stattdessen seinen eigenen Mindest-Raise — von aussen sieht das aus, als koennte der Bot keine
+    # eigenen Groessen eingeben (User-Fund). Gemessen: unsere 2.5bb = $5 gegen ein Minimum von $6.
+    chips = max(amount or obs["raise_min"], obs["raise_min"])
+    dollars = chips / 100.0 * bb_dollars
     _click_frac(bbox, "amount")
     time.sleep(0.15)
     _type_number(dollars)
