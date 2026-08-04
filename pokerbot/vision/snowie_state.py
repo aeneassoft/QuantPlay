@@ -242,6 +242,8 @@ def read_number(img: Image.Image, box, learn: bool = False, ocr_fallback: bool =
         v = _read_number_at(img, box, learn, r)
         if v is not None:
             votes[v] = votes.get(v, 0) + 1
+            if votes[v] >= 2:              # Mehrheit steht - die restlichen Schwellen kosten nur Zeit
+                return v
     if votes:
         return max(votes.items(), key=lambda kv: (kv[1], len(f"{kv[0]:g}")))[0]
     # Der Einzel-OCR-Prozess kostet ~340ms — im heissen Pfad (Einsaetze, gefoldete Stacks) ist er
@@ -259,6 +261,9 @@ def _split_wide(crop, g, x0, x1, ratio):
     seg = _ink(g[:, x0:x1], ratio)
     if x1 - x0 < WIDE_SEG or seg.size == 0:
         return None
+    if float(seg.mean()) > 0.62:
+        return None        # massiver Block (Kartenecke im Einsatz-Crop) - keine zwei Ziffern
+                           # (Profil: solche Segmente kosteten 40ms pro Versuch, jede Lesung, umsonst)
     # ALLE plausiblen Trennstellen probieren, nach Tintenarmut sortiert (die wahrscheinlichste zuerst),
     # und die erste nehmen, bei der BEIDE Haelften erkannt werden. Eine einzige geratene Schnittstelle
     # traf oft daneben (gemessen: 17px-Segment, Minimum-Spalte lieferte zwei unerkannte Haelften).
@@ -267,7 +272,9 @@ def _split_wide(crop, g, x0, x1, ratio):
     lo, hi = max(4, w // 4), min(w - 4, 3 * w // 4)
     if hi <= lo:
         return None
-    for off in sorted(range(lo, hi), key=lambda i: cols[i]):
+    for off in sorted(range(lo, hi), key=lambda i: cols[i])[:8]:
+        # nur die 8 tintenaermsten Schnitte: der Profiler mass 44k Template-Scores durch die
+        # Vollsuche; die echte Trennstelle liegt praktisch immer unter den ersten Kandidaten
         cut = x0 + off
         parts = []
         for a, b in ((x0, cut), (cut, x1)):
@@ -568,9 +575,12 @@ def read_bets(img: Image.Image, learn: bool = False,
         if d2 > 300 ** 2:                              # weit weg von jedem Sitz = Logo/Deko, kein Einsatz
             continue
         box = (cx - CHIP_BOX_DX, cy + CHIP_BOX_DY[0], cx + CHIP_BOX_DX, cy + CHIP_BOX_DY[1])
-        val = (batch or {}).get(f"bet_{seat0}")
+        # VORLAGEN ZUERST bei Einsaetzen (Beweis-Frame run_v19: Batch-OCR las den $2-Chip als 3 -
+        # die Einsatz-Glyphen sind die kleinsten am Tisch). Die Vorlagen normalisieren die Groesse
+        # und tragen die Margin-Regel; die Batch-OCR ist nur noch Rueckfall.
+        val = read_number(img, box, learn, ocr_fallback=False)
         if val is None:
-            val = read_number(img, box, learn, ocr_fallback=False)
+            val = (batch or {}).get(f"bet_{seat0}")
         if not val:
             out[seat0] = None                          # Chip da, Betrag unklar -> ehrlich unbekannt
             continue
@@ -770,6 +780,11 @@ def gate(s: dict) -> str | None:
     # etwas zu callen MUSS der lebende Aggressor Chips in Levelhoehe zeigen.
     if not s["board"] and (s["call_amount"] or 0) > 0:
         lvl = (bets_l.get("hero") or 0.0) + s["call_amount"]
+        if lvl <= 2.01:
+            lvl = 0.0        # first-in gegen den blossen Big Blind ist KEIN Raise - der Blind-Chip
+                             # wird teils anders gerendert, die Forderung blockierte 5 Haende (v19)
+    if not s["board"] and (s["call_amount"] or 0) > 0 and        (bets_l.get("hero") or 0.0) + s["call_amount"] > 2.01:
+        lvl = (bets_l.get("hero") or 0.0) + s["call_amount"]
         vis = [v for k, v in bets_l.items() if k != "hero" and live_l.get(k) and v is not None]
         if not vis or max(vis) + 0.01 < lvl:
             return f"Raise auf {lvl:g} ohne sichtbare Chips des Aggressors - Uebergangsbild"
@@ -832,6 +847,22 @@ def read_numbers_batched(img: Image.Image, boxes: dict) -> dict:
         # (gemessen: nur 3 von 13 Feldern gelesen). _ink findet die Schwelle pro Feld selbst.
         raw = np.asarray(_sub(img, boxes[k]).convert("L"))
         mask = _ink(raw, 0.55)
+        # Das '$' ist das ERSTE Segment jedes Geldfelds - und Tesseract macht daraus je nach
+        # Rendering eine 3 oder 5 ('$8'->38, '$39'->539, '$2'->32; drei Vorfaelle gemessen).
+        # Also weg damit, BEVOR die OCR es sieht. Verschmilzt es mit der ersten Ziffer (schmales
+        # '$1'), bleibt das Segment stehen und der Vorlagen-Pfad mit Dollar-Schnitt uebernimmt.
+        cols = np.where(mask.any(axis=0))[0]
+        if cols.size:
+            gaps = np.where(np.diff(cols) > 1)[0]
+            first_w = (cols[gaps[0]] - cols[0] + 1) if gaps.size else (cols[-1] - cols[0] + 1)
+            # NUR ein dollar-SCHMALES erstes Segment schneiden: getrennt gerendert ('$ 8') ist es
+            # sicher das Waehrungszeichen. Verschmolzen ('$199' -> Segmentbreite 17+) bleibt alles
+            # stehen - liest die OCR dann Unsinn ('3199'), faellt er an der Plausibilitaetsgrenze
+            # und der Vorlagen-Pfad (mit eigenem Dollar-Schnitt) uebernimmt. Zwei Fehlversuche
+            # gemessen: ganzes Segment frass '$1..' mit (hero 99), feste 11px liessen bei den
+            # SCHMALEREN Einsatz-Glyphen einen '$'-Rest stehen (-> '52').
+            if gaps.size and first_w <= DOLLAR_W + 3:
+                mask[:, :cols[gaps[0]] + 1] = False
         c = Image.fromarray(np.where(mask, 0, 255).astype(np.uint8))    # Text schwarz auf weiss
         c = c.resize((c.width * OCR_SCALE, c.height * OCR_SCALE), Image.LANCZOS)
         strips.append(c)

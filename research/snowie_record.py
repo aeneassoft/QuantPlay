@@ -19,7 +19,7 @@ from pokerbot.vision import snowie_local as SL
 from pokerbot.vision.snowie_bridge import esc_pressed
 
 REC_DIR = os.path.join("data", "vision", "rec")
-FRAME_S = 0.5              # 2 Frames/s: genug, um jeden Entscheidungsmoment zu treffen
+FRAME_S = 0.25             # 4 Frames/s: bei Maximaltempo liegen Entscheidungen sonst ZWISCHEN den Bildern
 JPEG_Q = 70                # ~120 KB/Frame — Stunden passen auf die Platte
 
 
