@@ -3,7 +3,25 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-04**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★★★ CURRENT (2026-08-04) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE
+## ★★★★★ CURRENT (2026-08-04 spät) — TURNIER-MODUS GEBAUT (ICM exakt + Doktrin + Direktor + Arena) + MULTIWAY 7–10
+**Bücher systematisch extrahiert** (Sklansky *Tournament Poker* + O'Kearney/Carter *Endgame/ICM*; Workflow
+4 Leser + 2 Auditoren) → `knowledge_base/tournament/DOKTRIN.md` (10 Punkte mit Formeln + Verdrahtungs-Karte).
+**Gebaut + Testleiter grün** (test_icm gegen unabhängige Enumeration, test_tournament: Chip-Erhaltung über
+ganze Turniere, Determinismus, Buch-Anker, Cash-Parität; Snowie-Regression 5/5 unberührt):
+`strategy/icm.py` (exaktes Malmuth-Harville Bitmask-DP, bubble_factor, icm_call_threshold Drei-Welten) ·
+`strategy/tournament.py` (Structure/BlindLevel SNG9/SNG6 + FLAT9/TOP_HEAVY9-Sensitivitätsarme, Director mit
+Eliminierung/Simultan-Bust-Regel/Schrumpfung 9→2, icm_required_equity r'=BF·r/(BF·r+1−r), **anteiliges
+Risiko-Premium** BF_eff=1+(BF−1)·(to_call/Stack)) · `arena/tourney.py` (gepaarte Seeds ICM-an/aus) ·
+`engine/table.py` (POS_LABELS 7–10, stacks=/ante=/rebuy=, default-identisch) · sixmax Multiway-Buckets NUR
+für neue Labels (6-max byte-identisch = Anker-Schutz) + 2 ICM-Hooks NUR auf der Call-Seite (Gap-Doktrin) ·
+**Trainer ?players=9** (Ellipsen-Sitze, TestClient-verifiziert 6/8/9). HU = BF 1 → Prince v2.2 unangetastet.
+**μ-MESSUNG (gepaart, der Richter):** μ-1 (voller BF auf jeden Call) REFUTIERT sich selbst: −8.1±13.9 pp,
+Überstraffungs-Muster (mehr 4., weniger 1. — zur Bubble überlebt, dort ausgeblutet) → Doktrin-Fix anteiliges
+Premium → **μ-2: +9.2 ± 8.0 pp ROI (ICM-an +18.4% vs aus +9.3%, n=500), Mechanismus-Fingerabdruck = 2.-Plätze
+71 vs 47 (Ladder)**. Noch NICHT 95%-signifikant; μ-3 (1500 Paare, Seeds 9000+) läuft als Signifikanz-Richter.
+Scope-Karte: kein MTT/PKO/Zeit-Level; NOTES.md trägt die bewussten Näherungen (Dead-Button, FGS, UTG-Fund).
+
+## ★★★★★ (2026-08-04 früh) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE
 **Die Vision-Brücke (`pokerbot/vision/snowie_bridge.py` + `snowie_state.py` + `snowie_local.py`) spielt
 PokerSnowie 4 vollautomatisch**: 13,3 Hände/min, ~4% Aussetzer, beide Themes (dark/bright), Prince v2.2
 übernimmt HU-Pötte NUR POSTFLOP (preflop = positionstreuer 6-max-Kern; User-Einwand: MP-Open ≈ 15–20% Range,
