@@ -369,7 +369,10 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
             continue
         ch = crop.crop((x0, 0, x1, crop.height))
         label, score = match_digit(ch, ratio)
-        if label is None and idx == 0:
+        if label is None and idx == 0 and (x1 - x0) >= DOLLAR_W + 4:
+            # NUR wenn das Segment breit genug fuer Dollar+Ziffer ist: bei einem GETRENNTEN, nicht
+            # erkannten Dollar (10px) las der Schnitt dessen 4px-Restkante als '1' und haengte sie
+            # vor die echte Ziffer -> '1' wurde '11', das Gatter blockierte (Bereitschaftstest 3).
             # Das '$' verschmilzt oft mit einer folgenden schmalen '1' zu EINEM Segment ('$1').
             # Das ganze Segment zu verwerfen kostete die fuehrende Ziffer (gemessen: 179 -> 79).
             # Also nur die Waehrungszeichen-Breite abschneiden und den Rest erneut lesen.
@@ -805,8 +808,11 @@ def gate(s: dict, strict_bets: bool = True) -> str | None:
                              # wird teils anders gerendert, die Forderung blockierte 5 Haende (v19)
     if not s["board"] and (s["call_amount"] or 0) > 0 and        (bets_l.get("hero") or 0.0) + s["call_amount"] > 2.01:
         lvl = (bets_l.get("hero") or 0.0) + s["call_amount"]
-        vis = [v for k, v in bets_l.items() if k != "hero" and live_l.get(k) and v is not None]
-        if not vis or max(vis) + 0.01 < lvl:
+        others = [v for k, v in bets_l.items() if k != "hero" and live_l.get(k)]
+        # None = Chip DA, Betrag unlesbar - das ist KEIN fehlender Chip (Regressionsnetz-Fang:
+        # case_002 blockierte, weil ein unlesbarer 5er-Einsatz als 'keine Chips' galt). Blocken
+        # nur, wenn ALLE Gegner-Einsaetze LESBAR sind und keiner das Level erreicht.
+        if others and all(v is not None for v in others) and max(others) + 0.01 < lvl:
             return f"Raise auf {lvl:g} ohne sichtbare Chips des Aggressors - Uebergangsbild"
     # KREUZPROBE Button vs Einsaetze (nach dem '$8'->'38'-Fund): was ein Call kostet, folgt auch
     # aus den Chips auf dem Tisch. Widersprechen sich beide Quellen, ist eine davon falsch gelesen
