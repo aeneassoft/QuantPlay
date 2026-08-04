@@ -25,7 +25,12 @@ gegen das Frequenz-Feld = Decken-Effekt (92% Siege, uninformativ — Feld zu sch
 ICM-spielende Bot-Feld (n=300/Arm, gepaart): **chipEV +6,6 / icm +7,7 / icm+druck +14,1% ROI; druck führt auf
 JEDER Metrik (P1. 21% vs 18%, ITM 36,3%) — die User-These bestätigt: gegen ICM-Spieler zählt das ERNTEN ihrer
 Tightness (+7,5 pp vs chipEV, z=0,76 = Ordnung klar, Signifikanz braucht ~2k Paare). Defensive ICM-Brille
-gegen ICM-Feld ≈ wertlos (+1,1). Fee (~4,8pp) im Modell nicht abgezogen.**
+gegen ICM-Feld ≈ wertlos (+1,1). Fee (~4,8pp) im Modell nicht abgezogen.** ★ 2×2-ZERLEGUNG (Confound-Fix,
+identische Seeds): der DRUCK traegt (+4,7 allein, +6,4 gebuendelt), die READS allein SCHADEN im Turnier
+(−13,9 ± 10,7, z=−1,3 — kleine Stichproben + Bluffcatch-Neigung kaempft gegen die ICM-Disziplin).
+Exploit-Layer-Gesamtbild über 4 Kontexte: HU-vs-GTOW schadet (OFF im Anker) · GG-Cash +20 (Obergrenze vs
+statisch) · Turnier isoliert NEGATIV · Turnier gebuendelt unschädlich. Red-Queen-konsistent: Reads brauchen
+statische Gegner + grosse Stichproben. Offene Luecke: Snowie-Lauf mit Reads (Cash-Kontext, nie getestet).
 Scope-Karte: kein MTT/PKO/Zeit-Level; NOTES.md trägt die bewussten Näherungen (Dead-Button, FGS, UTG-Fund).
 
 ## ★★★★★ (2026-08-04 früh) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE

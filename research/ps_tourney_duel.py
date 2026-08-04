@@ -24,6 +24,8 @@ import random
 from pokerbot.arena.sixmax import PROFILES, SixMaxBot
 from pokerbot.strategy import preflop_strength as ps
 from pokerbot.strategy.tournament import BlindLevel, Director, Structure
+import os
+ARMS_ENV = os.environ.get("PS_DUEL_ARMS")      # z.B. "icm+reads,icm+press" fuer die 2x2-Zerlegung
 
 FIELD = json.load(open("data/ps_tourney_field.json", encoding="utf-8"))["phasen"]
 
@@ -97,10 +99,12 @@ class PSFieldAgent:
 
 
 def make_hero(arm: str):
+    """Arme als 2x2-Zerlegung (Confound-Fix: 'icm+druck' buendelte Druck UND Reads - die +7.5pp
+    aus Duell 2 waren nicht attribuierbar). reads: adaptive Live-Reads AN; press: Druck-Hebel AN."""
     def factory(rng):
         bot = SixMaxBot(0, PROFILES["tag"])
-        if arm != "icm+druck":
-            bot._read = lambda obs: {}          # Reads nur im Exploit-Arm
+        if "reads" not in arm and arm != "icm+druck":
+            bot._read = lambda obs: {}
         return bot
     return factory
 
@@ -139,7 +143,7 @@ def run_one(structure: Structure, arm: str, seed: int, field_kind: str = "freq")
             nm_seat = t.seats[seat].name
             if arm != "chipEV" and nm_seat == "hero":
                 obs["icm"] = d.icm_ctx(t, seat, aggressor)
-                if arm == "icm+druck":
+                if arm in ("icm+druck", "icm+press"):
                     obs["icm"]["pressure"] = True
             elif field_kind == "bots" and nm_seat != "hero":
                 # DAS FELD SPIELT SELBST ICM (User-These; die PS-Messung belegt genau dieses
@@ -174,7 +178,7 @@ def main():
     ap.add_argument("--field", choices=("freq", "bots"), default="freq")
     a = ap.parse_args()
     structure = PS6_SNG if a.payout == "sng" else PS6_WTA
-    arms = ("chipEV", "icm", "icm+druck")
+    arms = tuple(a.strip() for a in (ARMS_ENV or "chipEV,icm,icm+druck").split(","))
     raw = {arm: [] for arm in arms}
     for k in range(a.tourneys):
         for arm in arms:
