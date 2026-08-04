@@ -612,3 +612,48 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------- Zahlen in EINEM OCR-Durchgang
+SLOT_PAD = 12             # Luft zwischen den Feld-Streifen, damit Tesseract sie als Zeilen trennt
+OCR_CFG_BLOCK = "--psm 6 -c tessedit_char_whitelist=0123456789.$"
+
+
+def read_numbers_batched(img: Image.Image, boxes: dict) -> dict:
+    """ALLE Zahlenfelder mit EINEM Tesseract-Aufruf lesen. -> {schluessel: float|None}.
+
+    Ein OCR-Aufruf startet einen Prozess (~80ms). Zehn Felder einzeln zu lesen kostete darum mehr
+    als die Vorlagen. Hier werden alle Felder untereinander in EIN Bild gestapelt, jedes in ein
+    eigenes Fach fester Hoehe; ein Durchgang liest den Stapel, und jedes erkannte Wort wird ueber
+    seine y-Position dem Fach zugeordnet. Das bleibt richtig, wenn ein Feld leer ist — anders als
+    ein Zeilenzaehler, der dann alles verschieben wuerde.
+    """
+    tess = _tesseract()
+    if not tess:
+        return {k: None for k in boxes}
+    keys = list(boxes)
+    strips, width = [], 0
+    for k in keys:
+        c = _sub(img, boxes[k]).convert("L")
+        c = ImageOps.invert(c).resize((c.width * OCR_SCALE, c.height * OCR_SCALE), Image.LANCZOS)
+        strips.append(c)
+        width = max(width, c.width)
+    # Das Fach muss MINDESTENS so hoch sein wie der hoechste Streifen — ein festes Mass schnitt
+    # die Ziffern ab (gemessen: Pot 239 wurde als 7 gelesen).
+    slot_h = max(c.height for c in strips) + SLOT_PAD
+    sheet = Image.new("L", (width, slot_h * len(keys)), 0)
+    for i, c in enumerate(strips):
+        sheet.paste(c, (0, i * slot_h))
+    out = {k: None for k in keys}
+    try:
+        data = tess.image_to_data(sheet, config=OCR_CFG_BLOCK, output_type=tess.Output.DICT)
+    except Exception:  # noqa: BLE001 — OCR darf den Lauf nie stoppen
+        return out
+    for txt, top, conf in zip(data["text"], data["top"], data["conf"]):
+        txt = (txt or "").strip().lstrip("$").strip(".")
+        if not txt or float(conf) < 0 or not txt.replace(".", "", 1).isdigit():
+            continue
+        slot = min(len(keys) - 1, max(0, top // slot_h))
+        if out[keys[slot]] is None:
+            out[keys[slot]] = float(txt)
+    return out

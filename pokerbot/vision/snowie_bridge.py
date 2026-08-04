@@ -119,9 +119,30 @@ SCHEMA = {
 VK_ESCAPE = 0x1B
 
 
+_ESC_SEEN = False
+
+
 def esc_pressed() -> bool:
-    """True, sobald ESC gedrueckt ist — der Lauf beendet sich dann sauber und gibt die Maus frei."""
-    return bool(_user32.GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+    """True, sobald ESC gedrueckt WURDE — der Lauf endet sauber und gibt die Maus frei.
+
+    Zwei Gruende, warum das vorher nicht zuverlaessig ansprach (User-Fund): 0x8000 meldet nur, ob
+    die Taste GERADE gehalten wird, und eine Lesung dauert ~800ms — ein kurzer Druck fiel schlicht
+    zwischen zwei Abfragen. Das niederwertige Bit meldet dagegen "seit der letzten Abfrage gedrueckt".
+    Und einmal gesehen, bleibt der Wunsch gemerkt: abbrechen heisst abbrechen.
+    """
+    global _ESC_SEEN
+    if _user32.GetAsyncKeyState(VK_ESCAPE) & 0x8001:
+        _ESC_SEEN = True
+    return _ESC_SEEN
+
+
+def _sleep(seconds: float) -> None:
+    """Warten, ohne ESC zu verschlafen: in kurzen Scheiben, jede mit einer Abfrage."""
+    end = time.perf_counter() + seconds
+    while time.perf_counter() < end:
+        if esc_pressed():
+            return
+        time.sleep(min(0.05, max(0.0, end - time.perf_counter())))
 
 
 def window_box() -> tuple[int, int, int, int]:
@@ -483,16 +504,16 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                     blocked_streak, stale = 0, 0
                     print(f"HAND UEBERSPRUNGEN (#{forced}): {blocker} — {how}, aus der Messung ausgeschlossen",
                           flush=True)
-                    time.sleep(SETTLE_S)
+                    _sleep(SETTLE_S)
                     continue
             if blocker == "nicht am Zug":
-                time.sleep(POLL_S)
+                _sleep(POLL_S)
                 continue
             print(f"PAUSE ({stale}/{MAX_STALE}): {blocker} | notes={s.get('notes','')}")
             if strict:
                 print("STRICT: Abbruch — lieber keine Messung als eine verseuchte.")
                 return
-            time.sleep(POLL_S)
+            _sleep(POLL_S)
             continue
         # VERLAUFS-PRUEFUNG vor der Entscheidung: ein Widerspruch zum bisherigen Handverlauf ist ein
         # Lesefehler, auch wenn das Einzelbild sauber aussieht.
@@ -509,7 +530,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                 skipped_hands.append(conflict)
                 blocked_streak, stale = 0, 0
                 hand.reset()
-            time.sleep(POLL_S)
+            _sleep(POLL_S)
             continue
         stale = blocked_streak = 0
         committed = tracker.update(bl, hstack)
