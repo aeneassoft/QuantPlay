@@ -200,6 +200,12 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0, committed: float = 0.0) -> di
     # mein Einsatz dieser Strasse: bevorzugt aus der Stack-Differenz (gross gesetzt, zuverlaessig),
     # ersatzweise aus dem gelesenen Einsatz-Text.
     mine = chips(committed) or chips(s.get("hero_bet") or 0)
+    # RAUSCHBODEN 1bb (Audit run_v12): ein $1-Stack-Lesefehler wurde als Einsatz verbucht -> UTG
+    # mit mine=50 und Phantom-raises=1, aus Open-Spots wurden "facing raise"-Folds. Wahrheit unter
+    # 1bb sind die BLINDS der Position; das Stack-Delta zaehlt erst, wenn es KLAR darueber liegt
+    # (jede echte Aktion kostet >= 1bb).
+    blind = {"SB": 50, "BB": 100}.get(s.get("hero_position") or "", 0) if street == "preflop" else 0
+    mine = mine if mine >= blind + 100 else blind
     pot_chips = chips(s.get("pot"))
     if pot_chips > 0:
         # INVARIANTE: der Pot enthaelt meinen Einsatz — mine > pot ist immer ein Verfolgungsfehler.
