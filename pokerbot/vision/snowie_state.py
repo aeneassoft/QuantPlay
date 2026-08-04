@@ -656,7 +656,15 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
 
     stacks = {s: (_n(f"stack_{s}", ocr=(s == "hero")) if (live.get(s) or s == "hero") else None)
               for s in SEAT_BOX}
-    pot = _n("pot")
+    # POT = ZWEITQUELLEN-PFLICHT (Speed-Audit run_v18 [50]: die Batch-OCR las '39' als '539' -
+    # das Waehrungszeichen wurde zur Ziffer). Der Pot steuert jede Preis-Rechnung; Batch und Vorlagen muessen
+    # uebereinstimmen, sonst gilt er als ungelesen und die naechste Lesung (0.1s) entscheidet.
+    pot_b = batch.get("pot")
+    pot_t = read_number(img, batch_boxes["pot"], learn, ocr_fallback=False)
+    if pot_b is not None and pot_t is not None:
+        pot = pot_b if abs(pot_b - pot_t) < 0.01 else None
+    else:
+        pot = pot_t if pot_t is not None else _n("pot")
     btn = read_buttons(img, learn, batch)
     mine = bets.get("hero")
     unknown_bet = any(v is None for s, v in bets.items() if live.get(s))
@@ -756,6 +764,15 @@ def gate(s: dict) -> str | None:
     lv = [v for k, v in bets_l.items() if live_l.get(k) and v is not None]
     if lv and s.get("pot") is not None and max(lv) > s["pot"] + 0.01:
         return f"Einsatzniveau {max(lv):g} > Pot {s['pot']:g} - unmoeglich (Lesefehler)"
+    # RAISE-CHIPS MUESSEN SICHTBAR SEIN (Speed-Audit run_v18 [5]/[30]/[32]): bei hohem Tempo ist
+    # der Pot-Text schon aktualisiert, waehrend die Raise-Chips noch im Animationsflug sind - der
+    # Bot sah Pot 8 mit nur Heros 2 auf dem Tisch und callte einen Phantom-Preis. Preflop mit
+    # etwas zu callen MUSS der lebende Aggressor Chips in Levelhoehe zeigen.
+    if not s["board"] and (s["call_amount"] or 0) > 0:
+        lvl = (bets_l.get("hero") or 0.0) + s["call_amount"]
+        vis = [v for k, v in bets_l.items() if k != "hero" and live_l.get(k) and v is not None]
+        if not vis or max(vis) + 0.01 < lvl:
+            return f"Raise auf {lvl:g} ohne sichtbare Chips des Aggressors - Uebergangsbild"
     # KREUZPROBE Button vs Einsaetze (nach dem '$8'->'38'-Fund): was ein Call kostet, folgt auch
     # aus den Chips auf dem Tisch. Widersprechen sich beide Quellen, ist eine davon falsch gelesen
     # -> pausieren. Ausnahme: der Call ist durch Heros Stack gedeckelt (All-in-Call).
