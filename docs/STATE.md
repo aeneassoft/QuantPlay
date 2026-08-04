@@ -17,8 +17,17 @@ Spin&Gold: 7% Fee je Buy-in ⇒ E[Pool]=2,79 BI ⇒ Breakeven-P(Sieg)=35,8% (Bas
 Hyper 15bb (2.500 Spiele/Zelle, seeded-eq): Clone/A-Game 22–27% = katastrophal (Limp-Stil stirbt
 im Hyper); PREP-Bündel 49,2% vs Rec-Feld (+33% ROI, Obergrenze) aber 32,9% vs Reg-Feld (−11%);
 tag-Kern 43,4/31,7. Prep schlägt tag in BEIDEN Feldern. Mystery BR: 8% Fee, Skill in 2 von 3
-Phasen wegkomprimiert (Shootout skill-frei, Bounty-Lotterie) ⇒ schwächstes Format. VERDIKT:
-NL2-Cash ≫ Spin (nur Micro-Buy-ins ~Breakeven mit Prep) > Mystery BR.
+Phasen wegkomprimiert (Shootout skill-frei, Bounty-Lotterie) ⇒ schwächstes Format.
+**v2 NACH USER-KORREKTUR (10bb-Standard, Jam-Feld 'die anderen spielen ähnlich'):** P_Ds
+All-in-Stil ist bei 10bb FAST KORREKT — breite Calls sind gegen breite Jams pot-odds-richtig;
+die Cash-'Call-Disziplin' KEHRT SICH UM (over-fold: 31,7% = −14% vs jam_rec, während pd_spin
+42,1% = +14% druckt). Spiegel-Feld (sein Stil + Rauschen): **35,8%/36,3% (10/25bb) ≈ exakt
+Breakeven — die 7%-Fee frisst den Fehlkalibrierungs-Ertrag.** Edge nur vs klar fehlkalibrierte
+Gegner (Fold-Maschinen-Zellen 77% = Modell-Artefakt, so gelabelt). Tiefe ändert wenig.
+VERDIKT bleibt: NL2-Cash ≫ Spin (~Breakeven±) > Mystery BR — aber PRÄZISER: nicht weil sein
+Stil im Spin schlecht wäre (fast richtig!), sondern weil das Format den Skill-Raum bis auf
+Fee-Niveau komprimiert. Spin-Prep ≠ Cash-Prep: Calls pot-odds-genau an die beobachtete
+Jam-Breite koppeln, NICHT pauschal tighter.
 
 ## ★★★★★ (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
 **User-Szenario vermessen: $1050/$600k-MTT, ~600 Entries (No-Overlay-Rechnung exakt: 600×$1000), 220bb,

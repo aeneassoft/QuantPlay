@@ -56,7 +56,53 @@ HANDS_PER_LEVEL = 8
 MAX_HANDS = 400
 
 
+class JamBot:
+    """Push/Fold-Agent fuers 10bb-Format (User-Korrektur: 'es geht oft all in, die anderen
+    spielen aehnlich'). jam_thr/call_thr = Staerke-Perzentile (ps.strength-Skala, top-X).
+    Bei tieferen Stacks (>18bb eff) raise statt jam; postflop (limped/geraiste Pots) simpel."""
+
+    def __init__(self, rng: random.Random, jam_frac: float, call_frac: float):
+        self.rng = rng
+        self.jam_frac = jam_frac
+        self.call_frac = call_frac
+
+    def decide(self, obs):
+        from research.prince_ecology import _hc
+        from pokerbot.strategy import preflop_strength as ps
+        s = ps.strength(_hc(obs["hole"])) if len(obs.get("hole") or []) == 2 else 0.3
+        eff = (obs.get("my_stack") or 0) / max(1, obs.get("bb") or 20)
+        if obs["street"] == "preflop":
+            if obs.get("preflop_raises", 0) == 0:
+                if s > 1 - self.jam_frac and obs.get("can_raise"):
+                    amt = obs["raise_max"] if eff <= 18 else min(obs["raise_max"], int(2.2 * obs["bb"]))
+                    return ("raise", amt)
+                return ("check", None) if obs.get("can_check") else ("fold", None)
+            if s > 1 - self.call_frac:
+                if obs.get("can_raise") and eff <= 18 and s > 1 - self.call_frac * 0.5:
+                    return ("raise", obs["raise_max"])          # Re-Jam mit der Spitze
+                if obs.get("can_call"):
+                    return ("call", None)
+            return ("check", None) if obs.get("can_check") else ("fold", None)
+        # postflop (selten): Staerke-Proxy, keine Bluffs
+        if obs.get("to_call", 0) == 0:
+            if s > 0.62 and obs.get("can_raise"):
+                return ("bet", obs["raise_max"] if eff <= 6 else obs["raise_min"])
+            return ("check", None)
+        return ("call", None) if s > 0.55 and obs.get("can_call") else ("fold", None)
+
+
+# Feld-Kalibrierungen: 'jam_rec' = lockere Jammer (Micro-Spins, wie der User sie beschreibt);
+# 'jam_reg' = straffere Regs (jam breit bleibt korrekt, aber die CALLS sind diszipliniert).
+JAM_FIELDS = {"jam_rec": (0.55, 0.40), "jam_reg": (0.45, 0.26),
+              "rec": None, "reg": None}
+
+
 def make_field(kind: str, rng: random.Random):
+    if JAM_FIELDS.get(kind):
+        j, c = JAM_FIELDS[kind]
+        # leichte Streuung je Gegner (kein Klon-Feld)
+        return JamBot(random.Random(rng.randrange(1 << 30)),
+                      j + rng.uniform(-0.06, 0.06), c + rng.uniform(-0.05, 0.05))
     from research.prince_ecology import GTOapx, LP, TAG
     if kind == "rec":
         cls = LP if rng.random() < 0.7 else TAG
@@ -71,6 +117,12 @@ def make_hero(arm: str, rng: random.Random):
         bot._read = lambda obs: {}
         bot.rng = random.Random(rng.randrange(1 << 30))
         return bot
+    if arm == "pd_spin":
+        # P_Ds SPIN-Stil (User: 'er geht eben oft all in'): jam breit UND call breit
+        return JamBot(random.Random(rng.randrange(1 << 30)), 0.60, 0.42)
+    if arm == "disc_spin":
+        # dieselbe Jam-Breite, aber DISZIPLINIERTE Calls — der eine Spin-Hebel
+        return JamBot(random.Random(rng.randrange(1 << 30)), 0.55, 0.22)
     from research.gg_nl2_pop import make_hero as nl2_hero
     key = {"clone": "clone", "agame": "agame", "prep": "agame+all"}[arm]
     return nl2_hero(key)(random.Random(rng.randrange(1 << 30)))
@@ -151,9 +203,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--games", type=int, default=2500)
     ap.add_argument("--seed", type=int, default=70_000)
-    ap.add_argument("--arm", choices=("clone", "agame", "prep", "tag"), default="prep")
-    ap.add_argument("--field", choices=("rec", "reg"), default="rec")
-    ap.add_argument("--depth", type=int, default=300, help="Startchips (300=15bb GG-Form)")
+    ap.add_argument("--arm", choices=("clone", "agame", "prep", "tag", "pd_spin", "disc_spin"),
+                    default="prep")
+    ap.add_argument("--field", choices=("rec", "reg", "jam_rec", "jam_reg"), default="jam_rec")
+    ap.add_argument("--depth", type=int, default=200,
+                    help="Startchips (200=10bb Standard-2x; hoehere Multiplikatoren = deeper)")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     recs = [run_game(a.seed + k, a.arm, a.field, a.depth) for k in range(a.games)]
