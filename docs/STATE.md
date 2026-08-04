@@ -26,6 +26,16 @@ abgebrochen — bei Bedarf: `python -m research.mtt_sim --tourneys N --paired --
 für 5% Ruin. **TRAINER-BAYES-PRIOR nachgerüstet (User):** `make_seeded_tracker` → `coach/range_story.py`
 (geteilt), Prince-HU-Takeover in `six_server._prince_decide` injiziert jetzt Position+Rolle des Menschen
 (vorher positionsblinde ~50%-HU-Range); beide Rollen History-konsistent verifiziert, Snowie-Regression 5/5.
+**★ 13.016er-OBDUKTION ABGESCHLOSSEN (Parallel-Session, Details NOTES.md):** Das 1/91-Chip-Defizit ist im
+committeten Code NICHT reproduzierbar (~325 volle Turniere + 235k Hände chip-exakt; guard=300 unerreichbar —
+längste Hand 31 Aktionen) → Prä-747369f-Arbeitsstand-Artefakt; **Täter mit gemessenem Fit = Defekt (3),
+die vernichtete verwaiste Side-Pot-Schicht** (instrumentiert ~1/30 Turniere, Größen 267–26.144 → 13.016
+mitten in der Verteilung). Tripwire jetzt in `_play_hand` (Refund statt Pot-Vernichtung + Chip-Erhaltung JE
+HAND mit Voll-Dump). **Und: die Nicht-Reproduzierbarkeit gleicher Seeds war NICHT das globale random-Modul
+(0 Aufrufe gemessen) sondern PYTHONHASHSEED-Set-Iteration** (`range_top`→set→`list()`→MC-Combo-Reihenfolge;
+gleicher Seed, 3 Prozesse: Platz 378/12/4) → `sorted()` am Chokepoint `equity_vs_class_range`, byte-identisch
+über Prozesse verifiziert (voller Platz+Stack-Fingerprint) = **Paired-Seed-Power gilt jetzt auch CROSS-Prozess**;
+eine künftige freq-Hauptmessung läuft damit reproduzierbar (RAM-Hinweis: ≤6 Worker auf der 16-GB-Box).
 
 ## ★★★★★ (2026-08-04 spät) — TURNIER-MODUS GEBAUT (ICM exakt + Doktrin + Direktor + Arena) + MULTIWAY 7–10
 **Bücher systematisch extrahiert** (Sklansky *Tournament Poker* + O'Kearney/Carter *Endgame/ICM*; Workflow

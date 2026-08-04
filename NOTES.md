@@ -5,6 +5,28 @@ decisions. Distinct from the cross-session auto-memory (`C:\Users\hampe\.claude\
 entry whenever we ship a heuristic/approximation that should later be replaced by an exact/measured value.
 Referenced from `CLAUDE.md`.
 
+## ★★ MTT-SIM: 13.016er-Chip-Defizit obduziert (Prä-Fix-Artefakt) + Determinismus-Falle war SET-ITERATION, nicht RNG (2026-08-04)
+- **[measured, closed] Das 13.016-Chip-Defizit (1/91 Turniere, seed 500018, arm=druck, field=freq) ist im
+  COMMITTETEN Code nicht reproduzierbar und mit hoher Wahrscheinlichkeit ein Artefakt des Arbeitsstands VOR
+  747369f** (die 3 Engine-Fixes — Ante-Street/HU-Blinds/verwaiste Side-Pot-Schicht — wurden 19:46 committet;
+  der instrumentierte 91er-Lauf lief mid-development davor). Beweislast: ~325 volle Turniere + 235k Hände im
+  Detail chip-exakt (P(0 Treffer | Rate 1/91) ≈ 3%); BEIDE Verdächtige refutiert — guard=300 praktisch
+  unerreichbar (längste Hand 31 Aktionen; der Tail stirbt ~3 Dekaden je +10) und der Posts-All-in-Zustand wird
+  von `start_hand` via `_close_round` chip-erhaltend aufgelöst. Einziger Vernichtungs-Mechanismus wäre ein
+  unaufgelöster Loop-Exit → TRIPWIRE in `_play_hand`: Annullierung (Refund) statt Pot-Vernichtung +
+  Chip-Erhaltung JE HAND mit Voll-Dump (audit=True → harter Abbruch). **Täter (gemessener Fit): eine
+  vernichtete VERWAISTE SIDE-POT-SCHICHT** — instrumentiert treten sie ~1/30 Turniere auf (5 in 150:
+  267/1.451/1.545/4.796/26.144 Chips); 13.016 liegt mitten in der Größenverteilung, die Rarität passt zur
+  1/91-Beobachtung. Genau diese Schichten erstattet der 747369f-Fix (showdown-refunds) heute zurück.
+- **[measured, fixed] Cross-Prozess-Divergenz (gleicher Seed → Platz 378/12/4) = PYTHONHASHSEED-abhängige
+  SET-ITERATION, NICHT das globale random-Modul** (gemessen: 0 Modul-Aufrufe im Lauf; einzige OS-Entropie =
+  das sofort ersetzte `SixMaxBot.__init__`-rng). Kette: `ps.range_top()` → set[str] → `list()` in
+  `sixmax._decide` → MC-Combo-Reihenfolge → gleiche rng-Draws treffen andere Combos. Fix: `sorted()` am
+  Chokepoint `equity_vs_class_range` (Spiegel des 2026-07-05-Fixes in `ranges.combos_for_classes`);
+  verifiziert byte-identisch über Prozesse (voller Platz+Stack-Fingerprint, 2×2 Läufe). **3. Fund dieser
+  Falle im Repo — bei Paired-Divergenz IMMER zuerst PYTHONHASHSEED prüfen (2 Läufe mit gleichem Hash-Seed),
+  erst dann RNG jagen.** Innerhalb EINES Prozesses war das Pairing chipEV↔druck stets intakt (gleicher Salt).
+
 ## ★ TRAINER: DU-Zeile soll bewusste Slowplay-Fallen erkennen (User, 2026-08-02 — NUR Trainer-Text, NICHT der HU-GTO-Bot)
 - **[deferred] `pokerbot/coach/range_story.py::_du_line`**: bei passiver Linie + Monster sagt die DU-Zeile "mehr
   Blatt als Geschichte — hier bleibt Value liegen". Wenn die Hand aber mit einem River-Check-RAISE/Jam endet
