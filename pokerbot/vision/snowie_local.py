@@ -31,6 +31,12 @@ from pokerbot.vision.screen_reader import pick_window          # noqa: E402
 TPL_DIR = os.path.join("data", "vision", "snowie", "tpl")
 DUMP_DIR = os.path.join("data", "vision", "snowie", "dump")
 MATCH_MIN = 0.72          # darunter gilt ein Glyph als UNERKANNT (lieber pausieren als raten)
+MATCH_MARGIN = 0.05       # das beste Label muss das zweitbeste FREMDE Label klar schlagen. Gemessen
+                          # (2026-08-04): Nachbar-Raenge scoren bis 0.79 GEGENEINANDER (5-6: 0.790,
+                          # A-4: 0.758, 8-6: 0.753, J-3: 0.743, 7-2: 0.740) — alle UEBER der Schwelle.
+                          # Folge war eine systematisch verbogene Rangverteilung in 890 Karten
+                          # (3: 4x statt ~68, 2: 131x): der Bot spielte GERATENE Haende ('34o
+                          # geraised', User-Fund). Zweideutig heisst ab jetzt: unlesbar.
 BIN_THRESH = 140          # Graustufen-Schwelle: Sprites sind dunkle Glyphen auf Weiß
 
 # --- live vermessene Geometrie (Fenster 1953x1442, PokerSnowie 4 Cash-Training) -------------------
@@ -113,12 +119,18 @@ def templates(kind: str):
 
 def match(glyph: Image.Image, kind: str) -> tuple[str | None, float]:
     b = _binary(glyph)
-    best, best_s = None, -1.0
+    best, best_s, second = None, -1.0, -1.0
     for label, tpl in templates(kind):
         s = _score(b, tpl)
         if s > best_s:
+            if label != best:
+                second = best_s               # bisheriger Sieger wird zweitbestes FREMDES Label
             best, best_s = label, s
-    return (best, best_s) if best_s >= MATCH_MIN else (None, best_s)
+        elif label != best and s > second:
+            second = s
+    if best_s < MATCH_MIN or best_s - second < MATCH_MARGIN:
+        return None, best_s                   # zweideutig -> unlesbar -> Gatter statt geratener Hand
+    return best, best_s
 
 
 # FARBE als Schluessel (User-Idee 2026-08-04): bei einem 4-FARBEN-Deck ist die Farbe EINDEUTIG
