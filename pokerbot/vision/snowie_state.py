@@ -142,12 +142,22 @@ def _digit_boxes(arr: np.ndarray, ratio: float = 0.70) -> list[tuple[int, int]]:
         if v and start is None:
             start = i
         elif not v and start is not None:
-            if _ok_seg(ink_mask, start, i):
+            if _ok_seg(ink_mask, start, i) or _is_dot(ink_mask, start, i):
                 out.append((start, i))
             start = None
     if start is not None and _ok_seg(ink_mask, start, len(ink)):
         out.append((start, len(ink)))
     return out
+
+
+def _is_dot(mask: np.ndarray, a: int, b: int) -> bool:
+    """DEZIMALPUNKT: 2-4px schmal, Tinte NUR im unteren Drittel. Der Mindestbreite-Filter warf ihn
+    weg — aus '337.5' wurde '3375', das Gatter blockierte jeden Dezimalstack (Befund run_v9)."""
+    if not (2 <= b - a < MIN_SEG_W):
+        return False
+    seg = mask[:, a:b]
+    rows = np.where(seg.any(axis=1))[0]
+    return rows.size > 0 and rows.min() >= int(mask.shape[0] * 0.55)
 
 
 def _ok_seg(mask: np.ndarray, a: int, b: int) -> bool:
@@ -197,7 +207,10 @@ def _ocr_number(img: Image.Image, box) -> float | None:
         # "$" MUSS in der Weissliste stehen: fehlt es, presst Tesseract das Zeichen in eine
         # Ziffer (gemessen: Pot "$4" -> "34"). Erlauben und danach abschneiden.
         txt = tess.image_to_string(crop, config=OCR_CFG).strip().lstrip("$").strip(".")
-        return float(txt) if txt and txt.replace(".", "", 1).isdigit() else None
+        v = float(txt) if txt and txt.replace(".", "", 1).isdigit() else None
+        # verliert die OCR den Dezimalpunkt, entsteht das Zehnfache — jenseits der Tischgrenze
+        # ist es sicher ein Lesefehler (gemessen: 337.5 -> 3375)
+        return None if v is not None and v > OCR_MAX_CHIPS else v
     except Exception:  # noqa: BLE001 — OCR darf den Lauf nie stoppen
         return None
 
@@ -317,6 +330,9 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
     digits = ""
     boxes = _digit_boxes(g, ratio)
     for idx, (x0, x1) in enumerate(boxes):
+        if x1 - x0 < MIN_SEG_W:                        # nur _is_dot laesst so schmale Segmente durch
+            digits += "."
+            continue
         ch = crop.crop((x0, 0, x1, crop.height))
         label, score = match_digit(ch, ratio)
         if label is None and idx == 0:
