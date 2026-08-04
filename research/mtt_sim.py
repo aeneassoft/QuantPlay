@@ -238,6 +238,27 @@ class MTT:
             for a in deciders.values():
                 if hasattr(a, "observe"):
                     a.observe(seat, street, "raise" if action == "allin" else action, tc, pr)
+        if not t.hand_over:
+            # TRIPWIRE (2026-08-04): verliesse die Schleife mit UNAUFGELOESTER Hand (guard),
+            # wuerde der Stack-Sweep unten den Pot vernichten. Gemessen ist das im freq-Feld
+            # praktisch unerreichbar (laengste Hand: 31 Aktionen bei guard=300, n=235k Haende) —
+            # falls es je feuert: Hand annullieren (committed Chips zurueck) statt vernichten.
+            for s in t.seats:
+                s.stack += s.committed_total
+            print(f"[mtt_sim] WARNUNG: unaufgeloeste Hand annulliert (Runde {self.round_no}, "
+                  f"Tisch {host.uid}/{host.hand_no - 1}, Street {t.street})", flush=True)
+        end_total = sum(s.stack for s in t.seats)
+        if end_total != sum(start_stacks.values()):
+            # Chip-Erhaltung JE HAND (self.audit prueft nur je Runde die Gesamtsumme): der Dump
+            # macht die naechste Anomalie sofort diagnostizierbar statt erst in der End-Summe.
+            msg = (f"Chip-Erhaltung je Hand verletzt: {end_total} != {sum(start_stacks.values())} "
+                   f"(Runde {self.round_no}, Tisch {host.uid}, hand_over={t.hand_over}, "
+                   f"to_act={t.to_act}, Street {t.street}, bb={t.bb}, ante={t.ante}, "
+                   f"Sitze={[(s.name, s.stack, s.committed_total, s.folded, s.all_in) for s in t.seats]}, "
+                   f"History={t.history})")
+            if self.audit:
+                raise AssertionError(msg)
+            print(f"[mtt_sim] {msg}", flush=True)
         busts = []
         for s in t.seats:
             self.stacks[s.name] = s.stack

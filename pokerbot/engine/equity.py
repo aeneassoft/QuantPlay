@@ -120,7 +120,11 @@ def equity_vs_weighted_range(hero: list[str], combo_weights: dict, board: list[s
 def equity_vs_class_range(hero: list[str], classes: list[str],
                           board: list[str] | None = None, iters: int = DEFAULT_ITERS,
                           rng: random.Random | None = None) -> float:
+    # DETERMINISM: `classes` is usually a SET (ps.range_top) — iterating it directly makes the combo
+    # order PYTHONHASHSEED-dependent, so MC pairs the same rng draws with different villain combos per
+    # process (measured: same seed, three processes -> hero place 378/12/4 in the 600er-MTT). sorted()
+    # pins one canonical order — the mirror of the 2026-07-05 fix in ranges.combos_for_classes.
     combos: list[tuple[str, str]] = []
-    for hc in classes:
+    for hc in sorted(classes):
         combos.extend(expand_class(hc))
     return equity_vs_range(hero, combos, board, iters, rng)
