@@ -312,5 +312,46 @@ def _selftest() -> None:
         print("   ", l)
 
 
+
+# ================================================================== 6-max-Prior fuer HU-Projektionen
+# 6-max-Open-Anteile nach Position (Standard-Solver-Groessenordnungen; Prior, den der Bayes-Walk
+# korrigiert). Multiway-Labels werden auf die 6-max-Anker gebuckelt.
+OPEN_FRAC = {"UTG": 0.15, "HJ": 0.19, "CO": 0.26, "BTN": 0.42, "SB": 0.36, "BB": 0.25}
+_POS_ALIAS = {"UTG+1": "UTG", "UTG+2": "UTG", "UTG+3": "UTG", "EP": "UTG", "MP": "HJ", "LJ": "HJ"}
+
+
+def make_seeded_tracker(villain_pos: str | None, villain_raised: bool | None):
+    """Tracker-Fabrik: 6-max-POSITIONS-Prior fuer die Gegner-Range im kollabierten HU-Pot.
+
+    Der User-Einwand (2026-08-04, korrekt): die HU-Projektion laese einen MP-Open als ~50%-HU-Range.
+    Seat 1 (der Gegner; Hero ist per Projektion Seat 0) bekommt stattdessen die 6-max-Range seiner
+    ECHTEN Position als Startgewichte — Open ~15-42% je Sitz, Caller/3-Better ueber CALLER_/RAISER_FRAC
+    positions-skaliert. Danach laeuft der unveraenderte Bayes-Walk des Trackers ueber die History.
+    Konsumenten: die Snowie-Bruecke (vision/snowie_bridge) UND der Prince-HU-Takeover des Trainers
+    (web/six_server._prince_decide) — dieselbe Verdrahtung fuer beide kollabierten-Pot-Kontexte.
+    """
+    from pokerbot.strategy import preflop_strength as PS
+    from pokerbot.strategy.range_tracker import _preflop_raises
+
+    pos = _POS_ALIAS.get(villain_pos, villain_pos)
+
+    class SixMaxSeededTracker(RangeTracker):
+        def _init_preflop(self, state) -> None:
+            super()._init_preflop(state)                     # Hero-Seite + Fallback unveraendert
+            if pos not in OPEN_FRAC:
+                return
+            n = min(max(_preflop_raises(state), 0), 3)
+            pos_mult = OPEN_FRAC[pos] / 0.20                 # 0.20 = der positionsblinde Trainer-Anker
+            base = CALLER_FRAC.get(n, 0.28) if villain_raised is False else RAISER_FRAC.get(max(n, 1), 0.20)
+            frac = min(0.85, max(0.03, base * pos_mult))
+            combos = R.combos_for_classes(PS.range_top(frac), [])
+            if combos:
+                self.range[1] = {c: 1.0 for c in combos}
+                self._normalize(1)
+
+    SixMaxSeededTracker.villain_pos = pos                    # Introspektion (Tests/Diagnose)
+    SixMaxSeededTracker.villain_raised = villain_raised
+    return SixMaxSeededTracker
+
 if __name__ == "__main__":
     _selftest()

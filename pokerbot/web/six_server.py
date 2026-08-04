@@ -202,6 +202,14 @@ class Session:
         from pokerbot.brain.format_spot import spot_from_table
         dl = _coach("decision_log")
         t = self.table
+        # 6-MAX-PRIOR FUER DEN KOLLABIERTEN POT (User, 2026-08-04 — dieselbe Verdrahtung wie die
+        # Snowie-Bruecke): die HU-Projektion laese den Menschen positionsblind (~50%-HU-Range);
+        # stattdessen bekommt Prince die 6-max-Range der ECHTEN Position des Menschen als Prior,
+        # Raiser/Caller-Rolle inklusive — der Bayes-Walk des Trackers korrigiert danach je Aktion.
+        from pokerbot.coach.range_story import make_seeded_tracker
+        human_raised = any(h.get("player") == HUMAN and h.get("street") == "preflop"
+                           and h.get("action") == "raise" for h in t.history)
+        self.prince.bot.tracker_cls = make_seeded_tracker(t.position_label(HUMAN), human_raised)
         spot = asdict(spot_from_table(t, seat))
         rec = {"spot": spot, "obs": t.obs_for(seat), "legal": t.legal_actions(),
                "history": [dict(h) for h in t.history if "player" in h],

@@ -3,7 +3,31 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-04**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★★★ CURRENT (2026-08-04 spät) — TURNIER-MODUS GEBAUT (ICM exakt + Doktrin + Direktor + Arena) + MULTIWAY 7–10
+## ★★★★★ CURRENT (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
+**User-Szenario vermessen: $1050/$600k-MTT, ~600 Entries (No-Overlay-Rechnung exakt: 600×$1000), 220bb,
+90 PS-Form-Payouts (Sieger $94,8k; echte HH-Leitern oben Deal-kontaminiert → synthetisiert).**
+`research/mtt_sim.py` = echtes Multi-Table (100 Tische, Balancing/Kollaps, globale Plätze, Bubble bei 90,
+exakte ICM ab ≤12, Hero-Bust-Early-Exit, ~5s/Turnier) + `research/mtt_report.py` (gepoolte gepaarte Deltas).
+**Adversarialer Review-Workflow (15 Agenten) + Engine-Fuzz fanden 6 bestätigte Defekte — alle gefixt,
+`tests/test_mtt.py` konserviert sie:** (1) Ante zählte als Street-Einsatz (BB-Fold im Limped-Pot, verwaiste
+Ante/Tisch), (2) **HU-Blind-Inversion in table.py** (Button postete BB — jedes Multiway-Endspiel regelwidrig),
+(3) **verwaiste Side-Pot-Schicht** (Fold über All-in-Cap → Chips vernichtet, auch ohne Antes), (4) Hero-
+Initiative-Flag (SixMaxBot seat=0 fix, ~5/6 der Hände falsch → seat je Hand + new_hand-Reset), (5) All-in-
+durch-Antes-Loch (Pot vernichtet), (6) ICM-All-in-Schwelle (Uncalled-Exzess ging an Hero; Dritt-Invested
+doppelt). **VORBEHALT: alle früheren SNG-Absolutwerte (μ-3 etc.) liefen auf der Engine MIT (1)-(3) —
+gepaart, Arm-Deltas plausibel robust, Absolutwerte verschieben sich.** MESSUNG (gepaart): konservative
+Klammer (Bot-Kerne an Heros Tisch, n=960) **ROI −28/−32%, ITM 7,5% (½ Basis), P(1.) 0,2–0,4% (1,3–2,5×
+Basis) = Chip-Accumulator-Profil; 27% Busts in den ersten 2 Leveln (220bb!) → die 100bb-Liga stackt
+tiefgestackt zu viel; Design asymmetrisch unfair (nur Heros Tisch hart) = Untergrenze. Druck-Hebel ohne
+Signal (−4,0±18,9, z=−0,2).** Hauptmessung (kalibriertes Freq-Feld, 3000 Paare ≈ 50 min) vom User
+abgebrochen — bei Bedarf: `python -m research.mtt_sim --tourneys N --paired --out ...` × Worker.
+**Varianz-Doktrin (exakt aus der Leiter):** SD 5,4–9,7 Buy-ins/Turnier (steigt mit Skill!), 85% Nuller,
++65%-ROI-Spieler: P(nach 100 Turnieren im Minus)=23%, Max-DD p50/p99 = 27/60 Buy-ins, ~140 BI Bankroll
+für 5% Ruin. **TRAINER-BAYES-PRIOR nachgerüstet (User):** `make_seeded_tracker` → `coach/range_story.py`
+(geteilt), Prince-HU-Takeover in `six_server._prince_decide` injiziert jetzt Position+Rolle des Menschen
+(vorher positionsblinde ~50%-HU-Range); beide Rollen History-konsistent verifiziert, Snowie-Regression 5/5.
+
+## ★★★★★ (2026-08-04 spät) — TURNIER-MODUS GEBAUT (ICM exakt + Doktrin + Direktor + Arena) + MULTIWAY 7–10
 **Bücher systematisch extrahiert** (Sklansky *Tournament Poker* + O'Kearney/Carter *Endgame/ICM*; Workflow
 4 Leser + 2 Auditoren) → `knowledge_base/tournament/DOKTRIN.md` (10 Punkte mit Formeln + Verdrahtungs-Karte).
 **Gebaut + Testleiter grün** (test_icm gegen unabhängige Enumeration, test_tournament: Chip-Erhaltung über
