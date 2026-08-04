@@ -238,7 +238,29 @@ def read_button_amount(img: Image.Image, box, learn: bool = False) -> float | No
     if len(lines) == 1:
         return 0.0                                      # nur ein Wort ('CHECK') -> kein Betrag
     top, bot = lines[-1]
-    return read_number(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot), learn)
+    val = read_number(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot), learn)
+    if val is None:
+        _dump_unknown_amount(_sub(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot)))
+    return val
+
+
+def _dump_unknown_amount(line: Image.Image) -> None:
+    """Unlesbare Betragszeile ablegen, damit die fehlende Ziffer NACHTRAEGLICH gelabelt werden kann.
+
+    Button-Ziffern sind eine eigene Groessenklasse (fetter als die Tischzahlen) und matchen nicht
+    gegen deren Vorlagen. Ohne diese Ablage kostet jede noch unbekannte Ziffer eine eigene
+    Haenger-Runde; so sammeln sie sich waehrend des Laufs von selbst an.
+    """
+    try:
+        d = os.path.join(SL.DUMP_DIR, "btn_amount")
+        os.makedirs(d, exist_ok=True)
+        if len(os.listdir(d)) < DUMP_CAP:
+            line.save(os.path.join(d, f"amt_{len(os.listdir(d)):03d}.png"))
+    except Exception:  # noqa: BLE001 — Diagnose darf den Lauf nie stoppen
+        pass
+
+
+DUMP_CAP = 60         # genug Belege zum Labeln, ohne die Platte zuzumuellen
 
 
 def _read_number_at(img, box, learn, ratio) -> float | None:
