@@ -664,9 +664,12 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         # ist dann gepiegelt gueltig, also ohne die Einsatz-Gatter entscheiden.
         if blocker and blocked_streak >= 3 and any(
                 blocker.startswith(pfx) for pfx in ("Einsatzniveau", "Raise auf", "Call-Betrag")):
-            if SS.gate(s, strict_bets=False) is None:
+            loose = SS.gate(s, strict_bets=False)
+            if loose is None:
                 print(f"EINSATZ-GATTER umgangen nach {blocked_streak} Blocks: {blocker}", flush=True)
                 blocker = None
+            elif blocked_streak == 3:
+                print(f"ESKALATION VERWEIGERT: Kern selbst unklar -> {loose}", flush=True)
         if blocker:
             stale += 1
             # NOTAUSFAHRT gegen den Deadlock: das Gatter verbietet zu handeln -> die Hand laeuft nicht

@@ -787,6 +787,11 @@ def gate(s: dict, strict_bets: bool = True) -> str | None:
     # Die Unmoeglichkeit aus Lauf 1 kann hier strukturell nicht mehr auftreten, wird aber geprueft:
     if not s["can_check"] and (s["call_amount"] or 0) <= 0:
         return "Widerspruch: kein Check moeglich, aber nichts zu callen"
+    if not strict_bets:
+        # Lockerung MUSS vor der Level-Pruefung greifen: 'Einsatzniveau > Pot' ist selbst ein
+        # Einsatz-Gatter (Testlauf 5: die Eskalation verweigerte sich mit genau dem Blocker,
+        # den sie umgehen sollte - der Schalter sass eine Pruefung zu tief).
+        return _gate_core_ok(s)
     # POT ENTHAELT JEDES EINSATZNIVEAU (run_v15: to_call 250 bei Pot 150 lief ungehindert durch,
     # AA bekam einen unmoeglichen Preis praesentiert): Snowies TOTAL POT schliesst die liegenden
     # Einsaetze ein - ein Einsatzniveau ueber dem Pot ist immer ein Lesefehler.
@@ -795,8 +800,6 @@ def gate(s: dict, strict_bets: bool = True) -> str | None:
     lv = [v for k, v in bets_l.items() if live_l.get(k) and v is not None]
     if lv and s.get("pot") is not None and max(lv) > s["pot"] + 0.01:
         return f"Einsatzniveau {max(lv):g} > Pot {s['pot']:g} - unmoeglich (Lesefehler)"
-    if not strict_bets:
-        return _gate_core_ok(s)
     # RAISE-CHIPS MUESSEN SICHTBAR SEIN (Speed-Audit run_v18 [5]/[30]/[32]): bei hohem Tempo ist
     # der Pot-Text schon aktualisiert, waehrend die Raise-Chips noch im Animationsflug sind - der
     # Bot sah Pot 8 mit nur Heros 2 auf dem Tisch und callte einen Phantom-Preis. Preflop mit
@@ -896,6 +899,13 @@ def read_numbers_batched(img: Image.Image, boxes: dict) -> dict:
         if cols.size:
             gaps = np.where(np.diff(cols) > 1)[0]
             first_w = (cols[gaps[0]] - cols[0] + 1) if gaps.size else (cols[-1] - cols[0] + 1)
+            if k.startswith("btn_") and not gaps.size and first_w >= DOLLAR_W + 4:
+                # BUTTON-Sonderfall (Bereitschaftstest 4): dort sind die Glyphen in der VERMESSENEN
+                # Tischgroesse (DOLLAR_W=11 exakt) - ein verschmolzenes Dollar-1 (>=15px) verlor sein
+                # Waehrungszeichen an die OCR als '1' -> CALL '11' -> Level 11 > Pot 3, 15 Aussetzer.
+                # Fester 11px-Schnitt ist HIER sicher; bei den kleineren Einsatz-Glyphen war er es
+                # nicht (gemessener Fehlversuch '52').
+                mask[:, :cols[0] + DOLLAR_W] = False
             # NUR ein dollar-SCHMALES erstes Segment schneiden: getrennt gerendert ('$ 8') ist es
             # sicher das Waehrungszeichen. Verschmolzen ('$199' -> Segmentbreite 17+) bleibt alles
             # stehen - liest die OCR dann Unsinn ('3199'), faellt er an der Plausibilitaetsgrenze
