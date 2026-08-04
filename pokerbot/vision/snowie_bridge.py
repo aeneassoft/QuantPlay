@@ -34,8 +34,8 @@ from pokerbot.vision.screen_reader import pick_window, to_b64
 
 OUT_DIR = os.path.join("data", "vision")
 WINDOW_PAT = "PokerSnowie"
-SETTLE_S = 0.30         # Wartezeit nach einem Klick (Animationen aus -> kurz reicht)
-POLL_S = 0.18           # Pause zwischen Lesungen, wenn wir nicht am Zug sind
+SETTLE_S = 0.22         # Wartezeit nach einem Klick (Animationen aus -> kurz reicht)
+POLL_S = 0.10           # Pause zwischen Lesungen, wenn wir nicht am Zug sind
 MAX_STALE = 400        # grosszuegig: die Notausfahlt loest Deadlocks, nicht der Abbruch
 BLOCK_GIVEUP = 12      # so viele Blockaden am STUECK -> diese Hand aufgeben (Fold) und weiter          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
 

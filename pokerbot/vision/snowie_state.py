@@ -230,7 +230,7 @@ def _ocr_number(img: Image.Image, box) -> float | None:
         return None
 
 
-def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
+def read_number(img: Image.Image, box, learn: bool = False, ocr_fallback: bool = True) -> float | None:
     """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
     verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
     # TEMPLATES ZUERST, OCR als Rueckfall — aber im KONSENS ueber die Schwellen, nicht erstbestes:
@@ -244,7 +244,10 @@ def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
             votes[v] = votes.get(v, 0) + 1
     if votes:
         return max(votes.items(), key=lambda kv: (kv[1], len(f"{kv[0]:g}")))[0]
-    return _ocr_number(img, box)
+    # Der Einzel-OCR-Prozess kostet ~340ms — im heissen Pfad (Einsaetze, gefoldete Stacks) ist er
+    # ABGESCHALTET: dort hat der Batch-Durchgang dieselben Pixel schon gesehen (Profil 2026-08-04:
+    # read_bets 2754ms von 3048ms gesamt, praktisch alles doppelte OCR).
+    return _ocr_number(img, box) if ocr_fallback else None
 
 
 WIDE_SEG = 16          # breiter als eine Einzelziffer -> Verdacht auf verschmolzene Zeichen
@@ -529,7 +532,10 @@ def _green_chips(img: Image.Image) -> list[tuple[int, int]]:
     a = a.copy()
     a[:TABLE_Y[0], :, :] = 0
     a[TABLE_Y[1]:, :, :] = 0
-    g = (a[:, :, 1] - a[:, :, 0] > 45) & (a[:, :, 1] - a[:, :, 2] > 45) & (a[:, :, 1] > 110)
+    # SCHARFE Chip-Farbe (2026-08-04): der Bright-Filz (70,128,44) erfuellte die alten Bedingungen
+    # alle - Millionen Filz-Pixel fluteten die Clusterung (1320ms) und erzeugten Phantom-Anker.
+    # Das Chip-Sprite ist in BEIDEN Themes (76,187,23)/(97,195,50): hell UND fast blaufrei.
+    g = (a[:, :, 1] >= 165) & (a[:, :, 1] - a[:, :, 2] >= 120) & (a[:, :, 1] - a[:, :, 0] >= 60)
     ys, xs = np.where(g)
     if len(xs) < CHIP_MIN_PIX:
         return []
@@ -564,7 +570,7 @@ def read_bets(img: Image.Image, learn: bool = False,
         box = (cx - CHIP_BOX_DX, cy + CHIP_BOX_DY[0], cx + CHIP_BOX_DX, cy + CHIP_BOX_DY[1])
         val = (batch or {}).get(f"bet_{seat0}")
         if val is None:
-            val = read_number(img, box, learn)
+            val = read_number(img, box, learn, ocr_fallback=False)
         if not val:
             out[seat0] = None                          # Chip da, Betrag unklar -> ehrlich unbekannt
             continue
@@ -644,11 +650,12 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     bets = read_bets(img, learn, batch)
     # EIN OCR-Durchgang fuer Pot + alle Stacks (131ms statt 557ms Templates); was er nicht liefert,
     # holen die Vorlagen nach. Beides zusammen deckt mehr ab als jedes allein.
-    def _n(key):
+    def _n(key, ocr=True):
         v = batch.get(key)
-        return v if v is not None else read_number(img, batch_boxes[key], learn)
+        return v if v is not None else read_number(img, batch_boxes[key], learn, ocr_fallback=ocr)
 
-    stacks = {s: _n(f"stack_{s}") for s in SEAT_BOX}
+    stacks = {s: (_n(f"stack_{s}", ocr=(s == "hero")) if (live.get(s) or s == "hero") else None)
+              for s in SEAT_BOX}
     pot = _n("pot")
     btn = read_buttons(img, learn, batch)
     mine = bets.get("hero")
