@@ -662,6 +662,18 @@ def gate(s: dict) -> str | None:
     # Die Unmoeglichkeit aus Lauf 1 kann hier strukturell nicht mehr auftreten, wird aber geprueft:
     if not s["can_check"] and (s["call_amount"] or 0) <= 0:
         return "Widerspruch: kein Check moeglich, aber nichts zu callen"
+    # KREUZPROBE Button vs Einsaetze (nach dem '$8'->'38'-Fund): was ein Call kostet, folgt auch
+    # aus den Chips auf dem Tisch. Widersprechen sich beide Quellen, ist eine davon falsch gelesen
+    # -> pausieren. Ausnahme: der Call ist durch Heros Stack gedeckelt (All-in-Call).
+    if s["call_amount"] is not None:
+        bets, live = s.get("bets") or {}, s.get("live") or {}
+        vals = [v for k, v in bets.items() if live.get(k)]
+        if vals and all(v is not None for v in vals):
+            expected = max(vals) - (bets.get("hero") or 0.0)
+            hero_stack = s["stacks"].get("hero") or 0.0
+            if expected > 0 and abs(s["call_amount"] - expected) > 0.01                     and abs(s["call_amount"] - hero_stack) > 0.01:
+                return (f"Call-Betrag {s['call_amount']} widerspricht den Einsaetzen "
+                        f"(erwartet {expected:g}) — eine Quelle luegt")
     return None
 
 

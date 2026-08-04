@@ -221,8 +221,12 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0, committed: float = 0.0) -> di
         "cur_bet": mx, "my_committed_street": mine, "street": street,
         "can_check": bool(s.get("can_check")), "can_call": to_call > 0,
         "can_raise": stack > to_call,
-        "raise_min": min(stack, chips(s.get("raise_min_dollars")) or
-                         (max(2 * mx, 100) if street == "preflop" else max(mx + 100, 100))),
+        # Der RAISE-Button traegt den SLIDER-VorSCHLAG, nicht das Minimum — und sein '$' wurde
+        # einmal als '3' gelesen ('$8' -> '38'): die Engine squeezte ihr vermeintliches "Minimum"
+        # von 19bb mit AJs/KQs/QQ (run_v14, Frame-Beweis chk_d03). Das Minimum wird darum
+        # BERECHNET: 2*Einsatzniveau ist immer >= legal (der Raise-Zuwachs kann das Niveau nie
+        # uebersteigen), und zu niedrige Eingaben korrigiert Snowie selbst nach oben.
+        "raise_min": min(stack, max(2 * mx, 100)),
         "raise_max": stack + mine,
     }
 
