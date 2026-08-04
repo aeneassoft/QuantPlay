@@ -410,8 +410,11 @@ def seat_live(img: Image.Image, seat: str) -> bool:
 # sein Quadratfenster zu hoechstens pi/4 ~ 0.785 — reinweisse Flaechen (Boardkarten!) liegen DARUEBER,
 # duenne weisse Raender (Heros Zug-Markierung) und Textzeilen weit DARUNTER. Das Band + der dunkle
 # Kern trennen die Scheibe von allem anderen Weiss am Tisch.
+SEAT_EXCL_PAD = 24        # gerenderte Bright-Box ragt ueber das Sitz-Rechteck hinaus
 DISC_WIN = 44
-DISC_WHITE = (0.42, 0.86)         # Weiss-Anteil des Fensters: Kreis-Band (statt "maximal weiss")
+DISC_WHITE = (0.36, 0.86)         # Kreis-Band; Untergrenze 0.36: JPEG-Aufnahmen (q70) weichen das
+                                  # Reinweiss der Scheibe auf 0.41 auf (live-PNG ~0.50). Gefahrlos,
+                                  # weil bei >248 nur Scheibe/Boxen/Karten weiss sind - letztere gesperrt.
 DISC_DARK = (0.02, 0.48)          # 'D' + dunkler Tischrand ums Rund (gemessen 0.357 an der echten Scheibe)
 BOARD_RECT = (960, 680, 1510, 850)      # Boardkarten: weiss + dunkle Glyphen = falsche Kandidaten
 HERO_CARDS_RECT = (1330, 955, 1530, 1065)  # Heros offene Karten: dieselbe Falle
@@ -447,9 +450,13 @@ def dealer_seat(img: Image.Image) -> str | None:
             continue
         if HERO_CARDS_RECT[0] <= cx <= HERO_CARDS_RECT[2] and HERO_CARDS_RECT[1] <= cy <= HERO_CARDS_RECT[3]:
             continue
-        # Bright Mode: aktive Sitzboxen sind WEISS mit dunkler Schrift = scheibenartig. Die echte
-        # Scheibe liegt IMMER zwischen Sitz und Tischmitte, nie in einer Namensbox.
-        if any(b[0] <= cx <= b[2] and b[1] <= cy <= b[3] for b in SEAT_BOX.values()):
+        # Bright Mode: aktive Sitzboxen sind WEISS mit dunkler Schrift = scheibenartig — und die
+        # GERENDERTE Box ist GROESSER als unser Rechteck: Kandidaten auf dem ueberstehenden weissen
+        # Rand schlugen die echte Scheibe im Weiss-Anteil (Frame-Beweis run_v16 [1]: D bei snowie2,
+        # gefunden snowie3 -> Hero 'CO' statt SB). Darum gepolsterte Sperrzone; die Scheibe selbst
+        # liegt >=30px neben jeder Box und ueberlebt das Polster.
+        if any(b[0] - SEAT_EXCL_PAD <= cx <= b[2] + SEAT_EXCL_PAD
+               and b[1] - SEAT_EXCL_PAD <= cy <= b[3] + SEAT_EXCL_PAD for b in SEAT_BOX.values()):
             continue
         if float(wf[yy, xx]) > best_frac:
             best_frac, best = float(wf[yy, xx]), (cx, cy)
