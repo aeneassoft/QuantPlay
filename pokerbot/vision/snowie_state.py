@@ -693,7 +693,11 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
             # eine Wert am Ende des anderen, ist die margin-geschuetzte VORLAGE die Wahrheit.
             pot = pot_t
         else:
-            pot = None
+            # SCHIEDSRICHTER bei echtem Konflikt (fail_004: Vorlagen UND Einzel-OCR sagten 51,
+            # die Batch-Quelle widersprach -> der Pot starb an Uneinigkeit, die Nut-Strasse wurde
+            # per Gratis-Check aufgegeben). Die Einzel-OCR kostet ~340ms - nur im Konfliktfall.
+            ref = _ocr_number(img, batch_boxes["pot"])
+            pot = pot_t if ref is not None and abs(ref - pot_t) < 0.01 else                 (pot_b if ref is not None and abs(ref - pot_b) < 0.01 else None)
     else:
         pot = pot_t if pot_t is not None else _n("pot")
     btn = read_buttons(img, learn, batch)
