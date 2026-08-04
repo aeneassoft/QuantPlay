@@ -503,8 +503,22 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     live = {s: seat_live(img, s) for s in SEAT_BOX}
     F = number_fields()
     bets = read_bets(img, learn)
-    stacks = {s: read_number(img, F[f"stack_{s}"], learn) for s in SEAT_BOX}
-    pot = read_number(img, F["pot"], learn)
+    # EIN OCR-Durchgang fuer Pot + alle Stacks (131ms statt 557ms Templates); was er nicht liefert,
+    # holen die Vorlagen nach. Beides zusammen deckt mehr ab als jedes allein.
+    _want = {"pot": F["pot"], **{f"stack_{s}": F[f"stack_{s}"] for s in SEAT_BOX}}
+    _num = read_numbers_batched(img, _want)
+
+    def _n(key):
+        # OCR-Werte muessen PLAUSIBEL sein: Tesseract haengt gelegentlich eine Ziffer an (gemessen:
+        # ein Stack von 205 wurde 4599). Alles jenseits der Tischgroesse gilt als nicht gelesen und
+        # geht an die Vorlagen zurueck — lieber langsamer als falsch.
+        v = _num.get(key)
+        if v is not None and 0 <= v <= OCR_MAX_CHIPS:
+            return v
+        return read_number(img, _want[key], learn)
+
+    stacks = {s: _n(f"stack_{s}") for s in SEAT_BOX}
+    pot = _n("pot")
     btn = read_buttons(img, learn)
     mine = bets.get("hero")
     unknown_bet = any(v is None for s, v in bets.items() if live.get(s))
@@ -616,6 +630,7 @@ if __name__ == "__main__":
 
 # ---------------------------------------------------------------- Zahlen in EINEM OCR-Durchgang
 SLOT_PAD = 12             # Luft zwischen den Feld-Streifen, damit Tesseract sie als Zeilen trennt
+OCR_MAX_CHIPS = 2000      # groesser kann an einem $1/$2-Tisch weder Pot noch Stack sein
 OCR_CFG_BLOCK = "--psm 6 -c tessedit_char_whitelist=0123456789.$"
 
 
@@ -634,14 +649,19 @@ def read_numbers_batched(img: Image.Image, boxes: dict) -> dict:
     keys = list(boxes)
     strips, width = [], 0
     for k in keys:
-        c = _sub(img, boxes[k]).convert("L")
-        c = ImageOps.invert(c).resize((c.width * OCR_SCALE, c.height * OCR_SCALE), Image.LANCZOS)
+        # JEDES Feld EINZELN binarisieren: Snowie rendert aktive Sitze hell, gefoldete gedimmt. Ein
+        # gemeinsames Invertieren laesst die dunklen Felder kontrastarm und Tesseract uebersieht sie
+        # (gemessen: nur 3 von 13 Feldern gelesen). _ink findet die Schwelle pro Feld selbst.
+        raw = np.asarray(_sub(img, boxes[k]).convert("L"))
+        mask = _ink(raw, 0.55)
+        c = Image.fromarray(np.where(mask, 0, 255).astype(np.uint8))    # Text schwarz auf weiss
+        c = c.resize((c.width * OCR_SCALE, c.height * OCR_SCALE), Image.LANCZOS)
         strips.append(c)
         width = max(width, c.width)
     # Das Fach muss MINDESTENS so hoch sein wie der hoechste Streifen — ein festes Mass schnitt
     # die Ziffern ab (gemessen: Pot 239 wurde als 7 gelesen).
     slot_h = max(c.height for c in strips) + SLOT_PAD
-    sheet = Image.new("L", (width, slot_h * len(keys)), 0)
+    sheet = Image.new("L", (width, slot_h * len(keys)), 255)
     for i, c in enumerate(strips):
         sheet.paste(c, (0, i * slot_h))
     out = {k: None for k in keys}
