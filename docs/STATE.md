@@ -12,6 +12,13 @@ Gewinner-Template (echte WRs ≥2k H.): VPIP 21,7/Limp 0,8/FvR 78 — die Gewinn
 → VALUE-GATE +59,8 Delta (der dominante Hebel: 77%-FvR-Pool + Sticky-Caller = Bluffs verbrennen
 doppelt), Limp-Cut +21, Call-Disziplin +12, 3bet-Up ±0; BÜNDEL GEMESSEN +63,0 ± 10,7 (fast additiv,
 disjunkte Knoten). Preparation = 5 Regeln in docs/PREP_GG_NL2.md; realistisches Ziel +10..+30.**
+**FORMAT-VERGLEICH (User-Fragen Spin&Gold + Mystery Battle Royale, `research/spin_sim.py`):**
+Spin&Gold: 7% Fee je Buy-in ⇒ E[Pool]=2,79 BI ⇒ Breakeven-P(Sieg)=35,8% (Basis 33,3). Sim 3-max-
+Hyper 15bb (2.500 Spiele/Zelle, seeded-eq): Clone/A-Game 22–27% = katastrophal (Limp-Stil stirbt
+im Hyper); PREP-Bündel 49,2% vs Rec-Feld (+33% ROI, Obergrenze) aber 32,9% vs Reg-Feld (−11%);
+tag-Kern 43,4/31,7. Prep schlägt tag in BEIDEN Feldern. Mystery BR: 8% Fee, Skill in 2 von 3
+Phasen wegkomprimiert (Shootout skill-frei, Bounty-Lotterie) ⇒ schwächstes Format. VERDIKT:
+NL2-Cash ≫ Spin (nur Micro-Buy-ins ~Breakeven mit Prep) > Mystery BR.
 
 ## ★★★★★ (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
 **User-Szenario vermessen: $1050/$600k-MTT, ~600 Entries (No-Overlay-Rechnung exakt: 600×$1000), 220bb,
