@@ -584,12 +584,12 @@ def read_bets(img: Image.Image, learn: bool = False,
         if d2 > 300 ** 2:                              # weit weg von jedem Sitz = Logo/Deko, kein Einsatz
             continue
         box = (cx - CHIP_BOX_DX, cy + CHIP_BOX_DY[0], cx + CHIP_BOX_DX, cy + CHIP_BOX_DY[1])
-        # VORLAGEN ZUERST bei Einsaetzen (Beweis-Frame run_v19: Batch-OCR las den $2-Chip als 3 -
-        # die Einsatz-Glyphen sind die kleinsten am Tisch). Die Vorlagen normalisieren die Groesse
-        # und tragen die Margin-Regel; die Batch-OCR ist nur noch Rueckfall.
+        # NUR VORLAGEN bei Einsaetzen (Bereitschaftstest 2): der Batch-Rueckfall lieferte fuer
+        # verschmolzene Dollar-Glyphen stabil 11/32 ('$1'/'$2' mit Waehrungszeichen als Ziffer)
+        # und erzeugte falsche 'Einsatzniveau > Pot'-Blockaden. Einsaetze sind NEBENKANAL
+        # (ActionLog/Diagnose): ein ehrliches None senkt nur die Tracker-Konfidenz -
+        # eine vergiftete Zahl kostet Haende.
         val = read_number(img, box, learn, ocr_fallback=False)
-        if val is None:
-            val = (batch or {}).get(f"bet_{seat0}")
         if not val:
             out[seat0] = None                          # Chip da, Betrag unklar -> ehrlich unbekannt
             continue
