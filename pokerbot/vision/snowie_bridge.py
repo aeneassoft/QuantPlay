@@ -344,6 +344,9 @@ def _check_is_free(s: dict) -> bool:
     return mine + 1e-6 >= max(others, default=0.0)
 
 
+MONEY_TOL = 30.0        # Toleranz der Chip-Erhaltung in Dollar: unlesbare Einzelstacks wackeln
+
+
 class HandTracker:
     """Der ZUSTAND EINER HAND — die Klasse von Fehlern, die eine Einzelbild-Pruefung nie faengt.
 
@@ -367,8 +370,10 @@ class HandTracker:
         self.last_board = None
         self.last_stack = None
         self.hole = None
+        self.money_seen = None       # Summe der sichtbaren Stacks bei der letzten Lesung
 
-    def observe(self, board_len: int, stack, pot, position, hole=None) -> str | None:
+    def observe(self, board_len: int, stack, pot, position, hole=None,
+                stacks_sum: float | None = None) -> str | None:
         """-> Fehlermeldung bei Verlaufs-Widerspruch, sonst None. Nagelt Position/Pot fest."""
         # Handwechsel: das Board wird kuerzer, der Stack springt hoch (Pot gewonnen/Rebuy) — ODER
         # der Pot faellt bei LEEREM Board. Letzteres fehlte: endet eine Hand schon praeflop (alle
@@ -394,7 +399,18 @@ class HandTracker:
         if pot is not None:
             if pot + 1e-6 < self.pot_max:
                 return f"Pot schrumpft {self.pot_max} -> {pot} (im Poker unmoeglich = Lesefehler)"
+            # CHIP-ERHALTUNG (Lauf-3-Obduktion, -1812 Dollar): verlorene Dezimalpunkte machten aus
+            # 7.38-Dollar-Poetten 738-Dollar-Fantasien UNTER der Plausibilitaetsgrenze - Prince bekam
+            # Traum-Pot-Odds und jammte 13x. Das Scoreboard-Axiom des Projekts gilt auch hier:
+            # der Pot kann nur um das wachsen, was die sichtbaren Stacks verloren haben.
+            if (self.pot_max > 0 and self.money_seen is not None and stacks_sum is not None):
+                influx = max(0.0, self.money_seen - stacks_sum)
+                if pot > self.pot_max + influx + MONEY_TOL:
+                    return (f"Pot springt {self.pot_max:g} -> {pot:g}, aber die Stacks verloren nur "
+                            f"{influx:g} - Chip-Erhaltung verletzt (Lesefehler)")
             self.pot_max = max(self.pot_max, pot)
+        if stacks_sum is not None:
+            self.money_seen = stacks_sum
         return None
 
     def fixed_position(self, fallback):
@@ -745,8 +761,9 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         # Lesefehler, auch wenn das Einzelbild sauber aussieht.
         bl = len(s.get("board") or [])
         hstack = (s.get("stacks") or {}).get("hero")
+        _ssum = sum(v for v in (s.get("stacks") or {}).values() if v is not None)
         conflict = hand.observe(bl, hstack, s.get("pot"), s.get("hero_position"),
-                                s.get("hero_cards"))
+                                s.get("hero_cards"), stacks_sum=_ssum)
         if hand.fresh:
             tracker.reset()                      # neue Hand -> Einsatz-Referenz dieser Strasse neu
             alog.reset()
