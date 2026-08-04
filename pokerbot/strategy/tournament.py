@@ -117,7 +117,14 @@ def icm_scaled_req(req_chip: float, obs: dict, to_call: float, pot: float) -> fl
         return icm_call_threshold(behind, payouts, hero, villain,
                                   to_call=min(to_call, behind[hero]), pot_before=pot)
     bf = bubble_factor(stacks, payouts, hero, villain)
-    return icm_required_equity(req_chip, bf)
+    # ANTEILIGES Risiko-Premium (μ-Experiment 1: voller BF auf jeden Kleinst-Call -> Ueberstraffung,
+    # mehr 4.-Plaetze statt weniger — er ueberlebte zur Bubble und blindete aus). Die Buecher wenden
+    # den BF auf ALL-IN-Risiko an; bei einem Teil-Call steht nur to_call/Stack im Feuer:
+    #   BF_eff = 1 + (BF-1) * (to_call / Stack)
+    # All-in -> voller BF (deckt sich mit der exakten Drei-Welten-Rechnung), 2bb von 30bb -> ~Cash.
+    frac_at_risk = min(1.0, to_call / my_stack) if my_stack > 0 else 1.0
+    bf_eff = 1.0 + (bf - 1.0) * frac_at_risk
+    return icm_required_equity(req_chip, bf_eff)
 
 
 def bf_matrix(stacks: list[float], payouts: list[float]) -> list[list[float]]:
