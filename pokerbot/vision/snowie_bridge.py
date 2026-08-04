@@ -356,8 +356,9 @@ class HandTracker:
         self.pot_max = 0.0
         self.last_board = None
         self.last_stack = None
+        self.hole = None
 
-    def observe(self, board_len: int, stack, pot, position) -> str | None:
+    def observe(self, board_len: int, stack, pot, position, hole=None) -> str | None:
         """-> Fehlermeldung bei Verlaufs-Widerspruch, sonst None. Nagelt Position/Pot fest."""
         # Handwechsel: das Board wird kuerzer, der Stack springt hoch (Pot gewonnen/Rebuy) — ODER
         # der Pot faellt bei LEEREM Board. Letzteres fehlte: endet eine Hand schon praeflop (alle
@@ -365,11 +366,18 @@ class HandTracker:
         # neue Hand fuer die alte und ihre Blinds fuer einen Lesefehler ("Pot schrumpft 8 -> 3").
         # Praeflop waechst der Pot nur — faellt er dort, ist die Hand vorbei.
         pot_dropped = pot is not None and board_len == 0 and pot + 1e-6 < self.pot_max
-        new_hand = (self.last_board is not None and board_len < self.last_board) or pot_dropped or                    (self.last_stack is not None and stack is not None and stack > self.last_stack + 0.01
+        # DAS street-unabhaengige Signal (Befund run_v11): endete die letzte Hand auf dem Flop und
+        # beginnt Heros naechster Zug wieder auf einem Flop, wird das Board nie kuerzer und der
+        # Pot-Waechter blockierte endlos ("Pot schrumpft 18 -> 3"). Heros KARTEN wechseln dagegen
+        # mit jeder Hand — gleiche zwei Karten zweimal in Folge sind 1:1080.
+        hole_changed = bool(hole) and bool(self.hole) and tuple(hole) != tuple(self.hole)
+        new_hand = (self.last_board is not None and board_len < self.last_board) or pot_dropped or                    hole_changed or                    (self.last_stack is not None and stack is not None and stack > self.last_stack + 0.01
                     and board_len == 0)
         if new_hand or self.position is None:
             self.reset()
             self.position = position
+        if hole and all(hole):
+            self.hole = tuple(hole)
         # NACH dem reset() setzen — reset() loescht das Flag (so wurde der Fix vom eigenen Test gefangen)
         self.fresh = bool(new_hand)
         self.last_board, self.last_stack = board_len, stack
@@ -534,7 +542,8 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         # Lesefehler, auch wenn das Einzelbild sauber aussieht.
         bl = len(s.get("board") or [])
         hstack = (s.get("stacks") or {}).get("hero")
-        conflict = hand.observe(bl, hstack, s.get("pot"), s.get("hero_position"))
+        conflict = hand.observe(bl, hstack, s.get("pot"), s.get("hero_position"),
+                                s.get("hero_cards"))
         if hand.fresh:
             tracker.reset()                      # neue Hand -> Einsatz-Referenz dieser Strasse neu
         if conflict:
