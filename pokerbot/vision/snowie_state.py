@@ -266,7 +266,8 @@ def _text_lines(g: np.ndarray) -> list[tuple[int, int]]:
     return out
 
 
-def read_button_amount(img: Image.Image, box, learn: bool = False) -> float | None:
+def read_button_amount(img: Image.Image, box, learn: bool = False,
+                       batch_val: float | None = None) -> float | None:
     """Betrag auf einem Aktions-Button. 0.0 = Button ohne Betrag (reines Wort).
 
     Ein Aktions-Button traegt sein Wort ueber dem Betrag ('CALL' / '$95'). Spaltenweise ueber BEIDE
@@ -283,7 +284,7 @@ def read_button_amount(img: Image.Image, box, learn: bool = False) -> float | No
     if len(lines) == 1:
         return 0.0                                      # nur ein Wort ('CHECK') -> kein Betrag
     top, bot = lines[-1]
-    val = read_number(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot), learn)
+    val = batch_val if batch_val is not None else         read_number(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot), learn)
     if val is None:
         _dump_unknown_amount(_sub(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot)))
     return val
@@ -359,19 +360,48 @@ def seat_live(img: Image.Image, seat: str) -> bool:
     return int(g.max()) >= LIVE_MAX_BRIGHT
 
 
+# Die D-Scheibe ist ein GEFUELLTER weisser Kreis (~40px) mit dunklem 'D' darin. Ein Kreis fuellt
+# sein Quadratfenster zu hoechstens pi/4 ~ 0.785 — reinweisse Flaechen (Boardkarten!) liegen DARUEBER,
+# duenne weisse Raender (Heros Zug-Markierung) und Textzeilen weit DARUNTER. Das Band + der dunkle
+# Kern trennen die Scheibe von allem anderen Weiss am Tisch.
+DISC_WIN = 44
+DISC_WHITE = (0.42, 0.86)         # Weiss-Anteil des Fensters: Kreis-Band (statt "maximal weiss")
+DISC_DARK = (0.02, 0.48)          # 'D' + dunkler Tischrand ums Rund (gemessen 0.357 an der echten Scheibe)
+BOARD_RECT = (960, 680, 1510, 850)      # Boardkarten: weiss + dunkle Glyphen = falsche Kandidaten
+HERO_CARDS_RECT = (1330, 955, 1530, 1065)  # Heros offene Karten: dieselbe Falle
+
+
 def dealer_seat(img: Image.Image) -> str | None:
-    """Die weisse 'D'-Scheibe suchen und dem NAECHSTEN Sitz zuordnen (Layout-unabhaengig)."""
-    x0, y0, x1, y1 = DEALER_SEARCH
+    """Die weisse 'D'-Scheibe suchen und dem NAECHSTEN Sitz zuordnen.
+
+    WARUM nicht mehr "weissestes Fenster" (Befund 2026-08-04): Boardkarten sind WEISSER als die
+    Scheibe, und Heros Zug-Markierung ist weiss — der alte Detektor fand daher postflop das Board
+    (-> Position des naechstgelegenen Sitzes) und preflop Hero (-> immer "BTN"). Der Positions-Log
+    zeigte BTN in 20 von 22 Entscheidungen; JEDE davon rechnete mit erfundener Position.
+    """
+    x0, y0, _, _ = DEALER_SEARCH
     g = np.asarray(_sub(img, DEALER_SEARCH).convert("L"))
-    white = g > 225
+    white = (g > 225).astype(np.float32)
+    dark = (g < 120).astype(np.float32)
+    # Integralbilder: alle Fenstermittel in einem Rutsch statt Python-Doppelschleife
+    def _win_mean(m):
+        c = np.cumsum(np.cumsum(m, 0), 1)
+        c = np.pad(c, ((1, 0), (1, 0)))
+        w = DISC_WIN
+        return (c[w:, w:] - c[:-w, w:] - c[w:, :-w] + c[:-w, :-w]) / float(w * w)
+    wf, df = _win_mean(white), _win_mean(dark)
+    ok = (wf >= DISC_WHITE[0]) & (wf <= DISC_WHITE[1]) & (df >= DISC_DARK[0]) & (df <= DISC_DARK[1])
     best, best_frac = None, 0.0
-    step, win = 12, 44
-    for yy in range(0, g.shape[0] - win, step):
-        for xx in range(0, g.shape[1] - win, step):
-            f = float(white[yy:yy + win, xx:xx + win].mean())
-            if f > best_frac:
-                best_frac, best = f, (x0 + xx + win // 2, y0 + yy + win // 2)
-    if best is None or best_frac < DEALER_MIN_WHITE:
+    ys, xs = np.where(ok)
+    for yy, xx in zip(ys.tolist(), xs.tolist()):
+        cx, cy = x0 + xx + DISC_WIN // 2, y0 + yy + DISC_WIN // 2
+        if BOARD_RECT[0] <= cx <= BOARD_RECT[2] and BOARD_RECT[1] <= cy <= BOARD_RECT[3]:
+            continue
+        if HERO_CARDS_RECT[0] <= cx <= HERO_CARDS_RECT[2] and HERO_CARDS_RECT[1] <= cy <= HERO_CARDS_RECT[3]:
+            continue
+        if float(wf[yy, xx]) > best_frac:
+            best_frac, best = float(wf[yy, xx]), (cx, cy)
+    if best is None:
         return None
     cx, cy = best
     return min(SEAT_BOX, key=lambda s: (cx - (SEAT_BOX[s][0] + SEAT_BOX[s][2]) / 2) ** 2
@@ -451,7 +481,8 @@ def _green_chips(img: Image.Image) -> list[tuple[int, int]]:
     return pts
 
 
-def read_bets(img: Image.Image, learn: bool = False) -> dict[str, float | None]:
+def read_bets(img: Image.Image, learn: bool = False,
+              batch: dict | None = None) -> dict[str, float | None]:
     """Einsaetze ueber die Chip-Anker lesen und dem naechsten Sitz zuordnen.
     Ein Chip NAHE einem Sitz, dessen Betrag unlesbar ist, setzt den Sitz auf None (-> Gatter),
     statt ihn als 0 auszugeben: 'kein Einsatz' und 'Einsatz nicht lesbar' duerfen nie dasselbe sein."""
@@ -464,7 +495,9 @@ def read_bets(img: Image.Image, learn: bool = False) -> dict[str, float | None]:
         if d2 > 300 ** 2:                              # weit weg von jedem Sitz = Logo/Deko, kein Einsatz
             continue
         box = (cx - CHIP_BOX_DX, cy + CHIP_BOX_DY[0], cx + CHIP_BOX_DX, cy + CHIP_BOX_DY[1])
-        val = read_number(img, box, learn)
+        val = (batch or {}).get(f"bet_{seat0}")
+        if val is None:
+            val = read_number(img, box, learn)
         if not val:
             out[seat0] = None                          # Chip da, Betrag unklar -> ehrlich unbekannt
             continue
@@ -483,13 +516,13 @@ BTN_MID_BOX = (830, 1235, 1040, 1318)
 BTN_RIGHT_BOX = (1056, 1235, 1266, 1318)
 
 
-def read_buttons(img: Image.Image, learn: bool = False) -> dict:
+def read_buttons(img: Image.Image, learn: bool = False, batch: dict | None = None) -> dict:
     """-> {'active': bool, 'call_amount': float|None, 'can_check': bool, 'raise_min': float|None}.
     active=False heisst: wir sind nicht am Zug (keine Buttons sichtbar)."""
     if not hero_turn(img):
         return {"active": False, "call_amount": None, "can_check": False, "raise_min": None}
-    mid = read_button_amount(img, BTN_MID_BOX, learn)
-    rgt = read_button_amount(img, BTN_RIGHT_BOX, learn)
+    mid = read_button_amount(img, BTN_MID_BOX, learn, (batch or {}).get("btn_mid"))
+    rgt = read_button_amount(img, BTN_RIGHT_BOX, learn, (batch or {}).get("btn_right"))
     # read_number liefert 0.0, wenn im Feld gar keine Tinte/Zahl steckt -> das ist der CHECK-Fall.
     can_check = (mid == 0.0)
     return {"active": True, "call_amount": (None if can_check else mid),
@@ -502,24 +535,27 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     d = dealer_seat(img)
     live = {s: seat_live(img, s) for s in SEAT_BOX}
     F = number_fields()
-    bets = read_bets(img, learn)
+    n_inset = NUM_INSET
+    batch_boxes = {"pot": F["pot"],
+                   **{f"stack_{s}": F[f"stack_{s}"] for s in SEAT_BOX},
+                   **{f"bet_{s}": BET_BOX[s] for s in SEAT_BOX},
+                   "btn_mid": (BTN_MID_BOX[0] + n_inset, BTN_MID_BOX[1] + n_inset,
+                               BTN_MID_BOX[2] - n_inset, BTN_MID_BOX[3] - n_inset),
+                   "btn_right": (BTN_RIGHT_BOX[0] + n_inset, BTN_RIGHT_BOX[1] + n_inset,
+                                 BTN_RIGHT_BOX[2] - n_inset, BTN_RIGHT_BOX[3] - n_inset)}
+    batch = read_numbers_batched(img, batch_boxes)
+    # Plausibilitaet gilt fuer JEDEN Batch-Wert (Tesseract haengt gelegentlich Ziffern an)
+    batch = {k: (v if v is not None and 0 <= v <= OCR_MAX_CHIPS else None) for k, v in batch.items()}
+    bets = read_bets(img, learn, batch)
     # EIN OCR-Durchgang fuer Pot + alle Stacks (131ms statt 557ms Templates); was er nicht liefert,
     # holen die Vorlagen nach. Beides zusammen deckt mehr ab als jedes allein.
-    _want = {"pot": F["pot"], **{f"stack_{s}": F[f"stack_{s}"] for s in SEAT_BOX}}
-    _num = read_numbers_batched(img, _want)
-
     def _n(key):
-        # OCR-Werte muessen PLAUSIBEL sein: Tesseract haengt gelegentlich eine Ziffer an (gemessen:
-        # ein Stack von 205 wurde 4599). Alles jenseits der Tischgroesse gilt als nicht gelesen und
-        # geht an die Vorlagen zurueck — lieber langsamer als falsch.
-        v = _num.get(key)
-        if v is not None and 0 <= v <= OCR_MAX_CHIPS:
-            return v
-        return read_number(img, _want[key], learn)
+        v = batch.get(key)
+        return v if v is not None else read_number(img, batch_boxes[key], learn)
 
     stacks = {s: _n(f"stack_{s}") for s in SEAT_BOX}
     pot = _n("pot")
-    btn = read_buttons(img, learn)
+    btn = read_buttons(img, learn, batch)
     mine = bets.get("hero")
     unknown_bet = any(v is None for s, v in bets.items() if live.get(s))
     live_bets = [v for s, v in bets.items() if live.get(s) and v is not None]
@@ -669,11 +705,15 @@ def read_numbers_batched(img: Image.Image, boxes: dict) -> dict:
         data = tess.image_to_data(sheet, config=OCR_CFG_BLOCK, output_type=tess.Output.DICT)
     except Exception:  # noqa: BLE001 — OCR darf den Lauf nie stoppen
         return out
+    # Pro Fach das UNTERSTE Zahlwort: bei einzeiligen Feldern egal, bei Aktions-Buttons steht das
+    # Wort OBEN und der Betrag UNTEN — genau der zaehlt.
+    best_top = {}
     for txt, top, conf in zip(data["text"], data["top"], data["conf"]):
         txt = (txt or "").strip().lstrip("$").strip(".")
         if not txt or float(conf) < 0 or not txt.replace(".", "", 1).isdigit():
             continue
         slot = min(len(keys) - 1, max(0, top // slot_h))
-        if out[keys[slot]] is None:
+        if top >= best_top.get(slot, -1):
+            best_top[slot] = top
             out[keys[slot]] = float(txt)
     return out

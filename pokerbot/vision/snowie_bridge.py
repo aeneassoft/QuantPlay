@@ -34,8 +34,8 @@ from pokerbot.vision.screen_reader import pick_window, to_b64
 
 OUT_DIR = os.path.join("data", "vision")
 WINDOW_PAT = "PokerSnowie"
-SETTLE_S = 0.40         # Wartezeit nach einem Klick (Animationen aus -> kurz reicht)
-POLL_S = 0.25           # Pause zwischen Lesungen, wenn wir nicht am Zug sind
+SETTLE_S = 0.30         # Wartezeit nach einem Klick (Animationen aus -> kurz reicht)
+POLL_S = 0.18           # Pause zwischen Lesungen, wenn wir nicht am Zug sind
 MAX_STALE = 400        # grosszuegig: die Notausfahlt loest Deadlocks, nicht der Abbruch
 BLOCK_GIVEUP = 12      # so viele Blockaden am STUECK -> diese Hand aufgeben (Fold) und weiter          # so viele erfolglose Lesungen hintereinander -> Abbruch (Snowie hängt/Hand vorbei)
 
@@ -200,6 +200,10 @@ def to_obs_local(s: dict, bb_dollars: float = 2.0, committed: float = 0.0) -> di
     # mein Einsatz dieser Strasse: bevorzugt aus der Stack-Differenz (gross gesetzt, zuverlaessig),
     # ersatzweise aus dem gelesenen Einsatz-Text.
     mine = chips(committed) or chips(s.get("hero_bet") or 0)
+    pot_chips = chips(s.get("pot"))
+    if pot_chips > 0:
+        # INVARIANTE: der Pot enthaelt meinen Einsatz — mine > pot ist immer ein Verfolgungsfehler.
+        mine = min(mine, pot_chips)
     mx = mine + to_call                            # IDENTITAET: Einsatzniveau = meins + zu callen
     raises = 0 if mx <= 100 else (1 if mx <= 400 else 2)      # bb = 100 Chips
     return {
@@ -347,6 +351,7 @@ class HandTracker:
         self.reset()
 
     def reset(self):
+        self.fresh = False
         self.position = None
         self.pot_max = 0.0
         self.last_board = None
@@ -365,6 +370,8 @@ class HandTracker:
         if new_hand or self.position is None:
             self.reset()
             self.position = position
+        # NACH dem reset() setzen — reset() loescht das Flag (so wurde der Fix vom eigenen Test gefangen)
+        self.fresh = bool(new_hand)
         self.last_board, self.last_stack = board_len, stack
         if pot is not None:
             if pot + 1e-6 < self.pot_max:
@@ -388,6 +395,14 @@ class StreetTracker:
     Damit ist cur_bet eine IDENTITAET, keine Schaetzung — ganz ohne die kleine Schrift."""
 
     def __init__(self):
+        self.reset()
+
+    def reset(self):
+        """Beim HANDWECHSEL rufen. Der eigene Strassen-Schluessel ist nur (board_len,) — endet eine
+        Hand praeflop, faengt die naechste mit demselben Schluessel an und die Referenz bleibt stehen;
+        der Stack SINKT zwischen Haenden (Blinds, verlorene Poette), die Differenz wurde als 'Einsatz'
+        verbucht und wuchs ueber Haende an (gemessen: committed 250 in einem 150er-Pot, drei Haende
+        in Folge -> Phantom-'raises', der Grund fuer wilde Preflop-Folds)."""
         self.street_key = None
         self.stack_at_street = None
 
@@ -520,6 +535,8 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         bl = len(s.get("board") or [])
         hstack = (s.get("stacks") or {}).get("hero")
         conflict = hand.observe(bl, hstack, s.get("pot"), s.get("hero_position"))
+        if hand.fresh:
+            tracker.reset()                      # neue Hand -> Einsatz-Referenz dieser Strasse neu
         if conflict:
             blocked_streak += 1
             stale += 1
