@@ -3,7 +3,17 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-04**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★★★ CURRENT (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
+## ★★★★★ CURRENT (2026-08-04 nacht II) — GG-NL2-PREPARATION FÜR PRINCEDARKNESS (docs/PREP_GG_NL2.md)
+**User spielt jetzt GG NL2. 600k Hände vermessen (`research/gg_nl2_pop.py`; EU-Fenster 544k/81.7k
+Spieler): Pool über die Uhrzeit FLACH (VPIP 30/PFR 17/3bet 7,2 — Timing kein Hebel, Peak 17–23h),
+Volumen 80% reg-dominiert, Steuer 4,48% des Pots (Rake+Jackpot, Cap 9,5bb ≈ 34–39 bb/100 Last).
+Gewinner-Template (echte WRs ≥2k H.): VPIP 21,7/Limp 0,8/FvR 78 — die Gewinner FOLDEN am meisten
+(+14,9 Mittel, top +49). Hebel-Sim (40k je Arm, gleiche Seeds): Clone −210 → A-Game −29 (Tilt ~180)
+→ VALUE-GATE +59,8 Delta (der dominante Hebel: 77%-FvR-Pool + Sticky-Caller = Bluffs verbrennen
+doppelt), Limp-Cut +21, Call-Disziplin +12, 3bet-Up ±0; BÜNDEL GEMESSEN +63,0 ± 10,7 (fast additiv,
+disjunkte Knoten). Preparation = 5 Regeln in docs/PREP_GG_NL2.md; realistisches Ziel +10..+30.**
+
+## ★★★★★ (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
 **User-Szenario vermessen: $1050/$600k-MTT, ~600 Entries (No-Overlay-Rechnung exakt: 600×$1000), 220bb,
 90 PS-Form-Payouts (Sieger $94,8k; echte HH-Leitern oben Deal-kontaminiert → synthetisiert).**
 `research/mtt_sim.py` = echtes Multi-Table (100 Tische, Balancing/Kollaps, globale Plätze, Bubble bei 90,
