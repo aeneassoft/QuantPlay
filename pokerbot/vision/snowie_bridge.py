@@ -333,7 +333,13 @@ class HandTracker:
 
     def observe(self, board_len: int, stack, pot, position) -> str | None:
         """-> Fehlermeldung bei Verlaufs-Widerspruch, sonst None. Nagelt Position/Pot fest."""
-        new_hand = (self.last_board is not None and board_len < self.last_board) or                    (self.last_stack is not None and stack is not None and stack > self.last_stack + 0.01
+        # Handwechsel: das Board wird kuerzer, der Stack springt hoch (Pot gewonnen/Rebuy) — ODER
+        # der Pot faellt bei LEEREM Board. Letzteres fehlte: endet eine Hand schon praeflop (alle
+        # folden), war das Board nie belegt, wird also auch nicht kuerzer; der Waechter hielt die
+        # neue Hand fuer die alte und ihre Blinds fuer einen Lesefehler ("Pot schrumpft 8 -> 3").
+        # Praeflop waechst der Pot nur — faellt er dort, ist die Hand vorbei.
+        pot_dropped = pot is not None and board_len == 0 and pot + 1e-6 < self.pot_max
+        new_hand = (self.last_board is not None and board_len < self.last_board) or pot_dropped or                    (self.last_stack is not None and stack is not None and stack > self.last_stack + 0.01
                     and board_len == 0)
         if new_hand or self.position is None:
             self.reset()
