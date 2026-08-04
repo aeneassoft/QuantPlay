@@ -105,15 +105,24 @@ def make_hero(arm: str):
     return factory
 
 
-def run_one(structure: Structure, arm: str, seed: int) -> dict:
+BOT_FIELD = ("tag", "tag", "lag", "nit", "tag")   # kompetentes 6-max-Feld (der harte Modus)
+
+
+def run_one(structure: Structure, arm: str, seed: int, field_kind: str = "freq") -> dict:
     rng = random.Random(seed)
     names = ["hero"] + [f"reg_{i}" for i in range(5)]
     rng.shuffle(names)
     d = Director(structure, names, seed=seed)
     agents = {}
     for nm in names:
-        agents[nm] = make_hero(arm)(random.Random(rng.randrange(1 << 30))) if nm == "hero" \
-            else PSFieldAgent(random.Random(rng.randrange(1 << 30)))
+        if nm == "hero":
+            agents[nm] = make_hero(arm)(random.Random(rng.randrange(1 << 30)))
+        elif field_kind == "bots":
+            bot = SixMaxBot(0, PROFILES[BOT_FIELD[int(nm.split("_")[1]) % len(BOT_FIELD)]])
+            bot._read = lambda obs: {}
+            agents[nm] = bot
+        else:
+            agents[nm] = PSFieldAgent(random.Random(rng.randrange(1 << 30)))
     guard_hands = 0
     while not d.over() and guard_hands < 4000:
         guard_hands += 1
@@ -127,10 +136,16 @@ def run_one(structure: Structure, arm: str, seed: int) -> dict:
             guard += 1
             seat = t.to_act
             obs = t.obs_for(seat)
-            if arm != "chipEV" and t.seats[seat].name == "hero":
+            nm_seat = t.seats[seat].name
+            if arm != "chipEV" and nm_seat == "hero":
                 obs["icm"] = d.icm_ctx(t, seat, aggressor)
                 if arm == "icm+druck":
                     obs["icm"]["pressure"] = True
+            elif field_kind == "bots" and nm_seat != "hero":
+                # DAS FELD SPIELT SELBST ICM (User-These; die PS-Messung belegt genau dieses
+                # Tightening: FoldVsRaise 54->62 unter Druck). Erst gegen ICM-tightende Gegner
+                # hat der Druck-Arm etwas zu ernten - und chipEV einen echten Kontrast.
+                obs["icm"] = d.icm_ctx(t, seat, aggressor)
             street, tc, pr = t.street, obs["to_call"], t.preflop_raises
             try:
                 dec = agents[t.seats[seat].name].decide(obs)
@@ -156,13 +171,14 @@ def main():
     ap.add_argument("--seed", type=int, default=42000)
     ap.add_argument("--payout", choices=("sng", "wta"), default="sng")
     ap.add_argument("--out", type=str, default=None)
+    ap.add_argument("--field", choices=("freq", "bots"), default="freq")
     a = ap.parse_args()
     structure = PS6_SNG if a.payout == "sng" else PS6_WTA
     arms = ("chipEV", "icm", "icm+druck")
     raw = {arm: [] for arm in arms}
     for k in range(a.tourneys):
         for arm in arms:
-            r = run_one(structure, arm, a.seed + k)
+            r = run_one(structure, arm, a.seed + k, field_kind=a.field)
             raw[arm].append(r)
     if a.out:
         open(a.out, "w", encoding="utf-8").write(json.dumps(raw))

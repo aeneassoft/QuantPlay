@@ -18,7 +18,11 @@ für neue Labels (6-max byte-identisch = Anker-Schutz) + 2 ICM-Hooks NUR auf der
 **μ-MESSUNG (gepaart, der Richter):** μ-1 (voller BF auf jeden Call) REFUTIERT sich selbst: −8.1±13.9 pp,
 Überstraffungs-Muster (mehr 4., weniger 1. — zur Bubble überlebt, dort ausgeblutet) → Doktrin-Fix anteiliges
 Premium → **μ-2: +9.2 ± 8.0 pp ROI (ICM-an +18.4% vs aus +9.3%, n=500), Mechanismus-Fingerabdruck = 2.-Plätze
-71 vs 47 (Ladder)**. Noch NICHT 95%-signifikant; μ-3 (1500 Paare, Seeds 9000+) läuft als Signifikanz-Richter.
+71 vs 47 (Ladder)**. **μ-3 (1500 Paare, 6 parallele Worker): +10,02 ± 5,03 pp, 95%-Band [+0,2, +19,9], z=1,99 — VALIDIERT;
+MEHR Siege (214 vs 192) UND bessere Ladder = Dominanz.** PS-$1050-Feld vermessen (FoldVsRaise 54→62 unter
+Druck = deren ICM-Verhalten empirisch belegt) + Druck-Hebel (icm_pressure_mult, Doktrin 9) gebaut; Duell 1
+gegen das Frequenz-Feld = Decken-Effekt (92% Siege, uninformativ — Feld zu schwach), Duell 2 gegen das
+ICM-spielende Bot-Feld läuft.
 Scope-Karte: kein MTT/PKO/Zeit-Level; NOTES.md trägt die bewussten Näherungen (Dead-Button, FGS, UTG-Fund).
 
 ## ★★★★★ (2026-08-04 früh) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE

@@ -4,7 +4,10 @@
 > page) → ② [`docs/STATE.md`](docs/STATE.md) (live state) → ③ [`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md)
 > (**the ACTIVE BUILD CARD**: the next engine version + the merged lever queue + the pre-registered measurement
 > ladder). North star + conventions = [`CLAUDE.md`](CLAUDE.md).
-> **Current frontier (2026-07-05): PRINCE v3 shipped** (paired-Analyzer 17.93 vs v2.2's 20.66; live anchor −19.70 ± 4.37 n=2,393, tag `v2`); 4 gated levers in the Analyzer queue (v3.2–v3.5) — AIVAT −11.6 (GTO-mode smoke) / −20.09
+> **Current frontier (2026-08-04):** Snowie-Brücke produktionsreif (bereinigter Pool ≈ break-even vs Snowie);
+> **Turnier-Modus validiert** (+10,0 ± 5,0 pp ROI gepaart, `strategy/icm.py` + `strategy/tournament.py` +
+> `arena/tourney.py`); Multiway 7–10 (Trainer `?players=9`). Shipped-Profil bleibt PRINCE v2.2 (Anker −19,70).
+> Historisch (2026-07-05): PRINCE v3 shipped (paired-Analyzer 17.93 vs v2.2's 20.66; live anchor −19.70 ± 4.37 n=2,393, tag `v2`); 4 gated levers in the Analyzer queue (v3.2–v3.5) — AIVAT −11.6 (GTO-mode smoke) / −20.09
 > (HEAD, n=974) = #11 of the public leaderboard; **goal: WIN bb** (doctrine: the GTO-score is DEAD as a target —
 > measured; only bb count). Key intel: [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) (the opponent),
 > [`docs/TIE_GTOW.md`](docs/TIE_GTOW.md) (the gap ledger), [`data/gtow_grades/LEAK_MAP.md`](data/gtow_grades/LEAK_MAP.md)

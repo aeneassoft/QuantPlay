@@ -32,3 +32,6 @@ venv/
 .vscode/
 Thumbs.db
 .DS_Store
+
+# User-Handhistorien (persoenliche Daten, gross)
+hand histories/

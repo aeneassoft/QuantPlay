@@ -185,6 +185,33 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > directly; aligns with `docs/PRECISION_DOCTRINE.md`. The transferable book-insight: the brain rivals machines at
 > poker via metareasoning EFFICIENCY (optimal scarce-compute allocation), not raw compute or a better objective.
 >
+> **★★★★★ 2026-08-04 — DREI NEUE STANDBEINE (Detail: STATE.md): SNOWIE-BRÜCKE, TURNIER-MODUS, MULTIWAY.**
+> **(1) PokerSnowie-Brücke produktionsreif** (`pokerbot/vision/snowie_*`): spielt PokerSnowie 4 vollautomatisch
+> (13,3 Hände/min, ~4% Aussetzer, beide Themes). Härtungs-Doktrin daraus: NIE mit falschen Zahlen rechnen
+> (Gatter → Eskalation nur bei sauberen Kernfeldern → ehrlicher Ausschluss), Chip-Erhaltung als Gatter,
+> Zweitquellen-Pflicht für den Pot, Klick-/Aktions-Verifikation, 5-Fälle-Regressionsnetz (`research/
+> snowie_regress.py`) + Marathon-Wächter. **Messung (3 Läufe, 3.651 Hände): Konto −$2.915, aber der BEREINIGTE
+> Pool (3.114 saubere Hände) = +3,2 bb/100 [−37,+44] — der Bot war ≈ break-even vs Snowie, die Automatisierungs-
+> Steuer fraß das Konto** (jede Klasse einzeln obduziert + abgedichtet). Prince-HU in der Brücke NUR postflop
+> (User-Einwand korrekt: MP-Open ≈ 15–20% Range, die HU-Projektion läse ~50%); 6-max-POSITIONS-PRIOR für die
+> Gegner-Range + Bayes-Korrektur über beobachtete Aktionen (`make_seeded_tracker`/`ActionLog`).
+> **(2) TURNIER-MODUS GEBAUT + VALIDIERT** (Sklansky + Endgame/ICM systematisch extrahiert →
+> `knowledge_base/tournament/DOKTRIN.md`): exaktes Malmuth-Harville (`strategy/icm.py`, gegen unabhängige
+> Enumeration getestet), Doktrin-Schicht (`strategy/tournament.py`: BF-Skalierung NUR der Call-Seite =
+> Gap-Doktrin; **anteiliges Risiko-Premium** BF_eff = 1+(BF−1)·(to_call/Stack) — der volle BF wurde vom
+> gepaarten Experiment REFUTIERT (−8pp, Bubble-Ausbluten), das anteilige VALIDIERT: **μ-3 n=1500 gepaart:
+> +10,0 ± 5,0 pp ROI, 95%-Band [+0,2, +19,9], MEHR Siege UND bessere Ladder**), Direktor (Level/Antes/
+> Eliminierung/Schrumpfung), Arena mit gepaarten Seeds (`arena/tourney.py`). HU = BF 1 → Prince v2.2 spielt
+> Turnier-Endspiele UNANGETASTET. Druck-Hebel (Doktrin 9, `icm_pressure_mult`): der Coverstack erntet die
+> Zwangs-Tightness ICM-spielender Gegner — die PS-$1050-Vermessung belegt dieses Tightening empirisch
+> (FoldVsRaise 54→62%, Jam 1,1→13,1%; `research/ps_tourney_field.py` + `ps_tourney_duel.py`).
+> **(3) MULTIWAY 7–10**: Engine-Labels bis 10-max, sixmax-Buckets NUR für neue Labels (6-max byte-identisch =
+> Anker-Schutz), Trainer `?players=9`. **Ökologie-Erkenntnisse:** GG-$10/$20 (härtester Pool, 85% TAG):
+> GTO +106/Exploit +126 (modell-optimistisch), P_D-Klon −216 vs **P_D-A-GAME (Reset-Klon) +16,6 ± 5,3
+> [+6,3,+27] = signifikanter Gewinner — der TILT kostet ~233 bb/100** (die teuerste gemessene Verhaltensvariable
+> des Projekts). AIVAT vs Snowie: voll nicht möglich (kein Showdown-Logging); Leiter definiert
+> (Showdown-Logger → All-in-Glücksbereinigung → MIVAT-light).
+>
 > **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
 > the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the
 > ACTIVE BUILD CARD with the merged lever queue + measurement ladder). The measured stand: GTO-mode **−11.61** (n=100
@@ -244,6 +271,9 @@ How I write code AND talk about it — the standing default, every turn.
 ## Run / play
 - **6-max vs 5 bots (the app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 (launcher
   `PokerB 6max spielen.bat`). Logs each hand to `data/sessions/`; "Analyse" = end-of-session breakdown.
+  Multiway: `http://127.0.0.1:8000?players=9` (2–10 Sitze). Turnier-Arena (Sim): `python -m pokerbot.arena.tourney`.
+- **PokerSnowie automatisch spielen:** PokerSnowie 4 öffnen (Cash-Tisch) → `python -m pokerbot.vision.snowie_bridge
+  --hands 20 --loose`; Langläufe über `python -m research.snowie_marathon --hands 2000` (ESC beendet ALLES).
 - HU app (background/validation only now): `python -m pokerbot.web.server --open`.
 - Always run from the project root as `python -m <module>`. Windows / PowerShell, Python 3.12. `pip install -r requirements.txt`.
 
@@ -259,7 +289,14 @@ How I write code AND talk about it — the standing default, every turn.
   UNSOLVED spots), `claude_brain.py` (Claude-as-brain), `policy.py` (the shared SYSTEM_PROMPT + DSL).
 - `pokerbot/arena/` — `sixmax.py` (the opponent LEAGUE: TAG/LAG/nit/station/maniac profiles).
 - `pokerbot/{web,benchmark,coach,analysis}/` — apps; benchmarks (`slumbot.py`, `gtowizard.py`, `lbr.py`,
-  `duplicate.py`); coaching; session analysis.
+  `duplicate.py`); coaching; session analysis. Trainer-Multiway: `six_server` + `six.html` bis 10-max (`?players=9`).
+- `pokerbot/vision/` — **die PokerSnowie-Brücke (NEU 2026-08-04):** `snowie_local.py` (Karten/Glyphen,
+  Template-Matching mit Margin-Regel), `snowie_state.py` (kompletter Tisch-Zustand, Zweitquellen-Pot,
+  Gatter-Kette), `snowie_bridge.py` (Spielschleife, Prince-HU postflop, ActionLog, Wächter). Regressionsnetz
+  `research/snowie_regress.py` (konservierte Tatorte), Marathon `research/snowie_marathon.py`.
+- **Turnier (NEU 2026-08-04):** `pokerbot/strategy/icm.py` (exaktes Malmuth-Harville + bubble_factor +
+  icm_call_threshold), `pokerbot/strategy/tournament.py` (Structure/Director/anteiliges Risiko-Premium/
+  Druck-Hebel), `pokerbot/arena/tourney.py` (gepaarte SNG-Arena). Doktrin: `knowledge_base/tournament/DOKTRIN.md`.
 - `dataset/` — **the GOLD (NEW):** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards + **`registry.py`**
   = the single source of truth for ALL data (every asset's role/schema/provenance; the training pipeline reads gold by
   ROLE via `registry.sft_gold()`) → **[`CATALOG.md`](CATALOG.md)** the generated data map (`python -m dataset.build_manifest`).
@@ -313,3 +350,4 @@ are now **background/validation** — the goal pivoted to the 6-max GTO-achievin
 
 ## Tests
 `python -m tests.test_game` · `python -m tests.test_table` · `python -m tests.test_bot` · `python -m tests.test_range_tracker`
+· `python -m tests.test_icm` · `python -m tests.test_tournament` · Snowie-Vision: `python -m research.snowie_regress --run`
