@@ -736,7 +736,7 @@ def implausible(s: dict) -> str | None:
     return None
 
 
-def gate(s: dict) -> str | None:
+def gate(s: dict, strict_bets: bool = True) -> str | None:
     """None = brauchbar. Sonst der Grund zu PAUSIEREN (jede Luecke ist ein Grund)."""
     if not s["hero_turn"]:
         return "nicht am Zug"
@@ -774,6 +774,8 @@ def gate(s: dict) -> str | None:
     lv = [v for k, v in bets_l.items() if live_l.get(k) and v is not None]
     if lv and s.get("pot") is not None and max(lv) > s["pot"] + 0.01:
         return f"Einsatzniveau {max(lv):g} > Pot {s['pot']:g} - unmoeglich (Lesefehler)"
+    if not strict_bets:
+        return _gate_core_ok(s)
     # RAISE-CHIPS MUESSEN SICHTBAR SEIN (Speed-Audit run_v18 [5]/[30]/[32]): bei hohem Tempo ist
     # der Pot-Text schon aktualisiert, waehrend die Raise-Chips noch im Animationsflug sind - der
     # Bot sah Pot 8 mit nur Heros 2 auf dem Tisch und callte einen Phantom-Preis. Preflop mit
@@ -801,6 +803,21 @@ def gate(s: dict) -> str | None:
                 return (f"Call-Betrag {s['call_amount']} widerspricht den Einsaetzen "
                         f"(erwartet {expected:g}) — eine Quelle luegt")
     return None
+
+
+def _gate_core_ok(s: dict) -> str | None:
+    """Nur die ENTSCHEIDUNGSKRITISCHEN Pruefungen (Karten/Pot/Buttons/Position) — die Einsatz-
+    Identitaeten sind hier bewusst AUS. Eskalationsstufe der Bruecke: wiederholt sich ein reiner
+    Einsatz-Widerspruch (Chips im Animationsflug lesen sich stabil falsch), wuerde die Hand sonst
+    aufgegeben, obwohl Karten, zweitquellen-geprüfter Pot, Button-Preis und Position sauber sind
+    (run_v20: 25 Aussetzer gegen 27 Entscheidungen, Tempo halbiert). Einsaetze speisen nur
+    ActionLog/Diagnose — deren Luecke senkt die Tracker-Konfidenz, nie die Legalitaet."""
+    if s["pot"] is None or s["stacks"].get("hero") is None:
+        return "Zahl unlesbar (Pot/Stack)"
+    if not s["pot"] or s["pot"] <= 0 or not s["stacks"].get("hero"):
+        return "Pot/Stack unplausibel"
+    bad = duplicate_cards(s) or implausible(s)
+    return bad or None
 
 
 def main():

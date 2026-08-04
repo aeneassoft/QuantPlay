@@ -659,6 +659,14 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
             break
         s = read_local()
         blocker = SS.gate(s)
+        # ESKALATION statt Aufgabe: ein REINER Einsatz-Widerspruch, der sich 3x wiederholt, ist
+        # ein stabil falsch gelesener Chip-Text (Animationsflug) - alles Entscheidungskritische
+        # ist dann gepiegelt gueltig, also ohne die Einsatz-Gatter entscheiden.
+        if blocker and blocked_streak >= 3 and any(
+                blocker.startswith(pfx) for pfx in ("Einsatzniveau", "Raise auf", "Call-Betrag")):
+            if SS.gate(s, strict_bets=False) is None:
+                print(f"EINSATZ-GATTER umgangen nach {blocked_streak} Blocks: {blocker}", flush=True)
+                blocker = None
         if blocker:
             stale += 1
             # NOTAUSFAHRT gegen den Deadlock: das Gatter verbietet zu handeln -> die Hand laeuft nicht
