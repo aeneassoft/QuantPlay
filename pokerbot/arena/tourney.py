@@ -108,11 +108,25 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tourneys", type=int, default=400)
     ap.add_argument("--seed", type=int, default=1000)
+    ap.add_argument("--out", type=str, default=None,
+                    help="Rohdaten (JSON) fuer den Parallel-Merger schreiben")
     a = ap.parse_args()
 
     def hero_factory(rng):
         return SixMaxBot(0, PROFILES["tag"])
 
+    if a.out:
+        # PARALLEL-MODUS: Rohdaten je Paar schreiben, der Merger poolt exakt (kein Aggregat-Verlust)
+        import json
+        raw = {"icm_on": [], "icm_off": []}
+        for k in range(a.tourneys):
+            seed = a.seed + k
+            for arm, on in (("icm_on", True), ("icm_off", False)):
+                r = run_tourney(SNG9, hero_factory, seed, icm_on=on)
+                raw[arm].append({"net": r["payout"] - SNG9.buyin, "place": r["place"]})
+        open(a.out, "w", encoding="utf-8").write(json.dumps(raw))
+        print(f"fertig: {a.tourneys} Paare -> {a.out}")
+        return
     res = run_batch(a.tourneys, hero_factory, SNG9, a.seed)
     for arm in ("icm_on", "icm_off"):
         r = res[arm]

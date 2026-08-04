@@ -127,6 +127,29 @@ def icm_scaled_req(req_chip: float, obs: dict, to_call: float, pot: float) -> fl
     return icm_required_equity(req_chip, bf_eff)
 
 
+def icm_pressure_mult(obs: dict) -> float:
+    """Steal-Verbreiterung des Coverstacks (Doktrin 9 + User-These: die anderen SPIELEN ICM).
+
+    Stehen die Gegner unter hohem Bubble-Faktor GEGEN UNS (wir covern sie), koennen sie kaum
+    callen — ihre Zwangs-Tightness ist erntbare Fold Equity. Multiplikator auf die Open-Fraktion:
+    1 + 0.5·(mittlerer BF der Gegner gegen uns − 1), gedeckelt bei 1.6. BF=1 ueberall -> 1.0
+    (Cash byte-identisch; der Hook feuert ohnehin nur mit obs['icm']).
+    """
+    ctx = obs.get("icm") or {}
+    stacks = ctx.get("stacks")
+    payouts = ctx.get("payouts")
+    hero = ctx.get("seat", 0)
+    if not stacks or not payouts or len(stacks) < 3:
+        return 1.0
+    bfs = [bubble_factor(stacks, payouts, v, hero)
+           for v in range(len(stacks)) if v != hero and stacks[v] > 0]
+    bfs = [b for b in bfs if b != float("inf")]
+    if not bfs:
+        return 1.0
+    avg = sum(bfs) / len(bfs)
+    return min(1.6, 1.0 + 0.5 * (avg - 1.0))
+
+
 def bf_matrix(stacks: list[float], payouts: list[float]) -> list[list[float]]:
     """Alle Paar-BFs (Diagnose/Reports; die Entscheidung selbst holt nur den einen Gegner)."""
     n = len(stacks)

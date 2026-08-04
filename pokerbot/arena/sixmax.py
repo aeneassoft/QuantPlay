@@ -134,6 +134,11 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
     if not board:   # ---------------- PREFLOP ----------------
         if obs["preflop_raises"] == 0:        # unopened: open or fold
             frac = min(0.95, OPEN_FRAC.get(POS_FRAC_BUCKET.get(pos, pos), 0.2) * k.open_mult)
+            if obs.get("icm") and obs["icm"].get("pressure"):
+                # TURNIER-DRUCK (Doktrin 9): Gegner unter hohem BF gegen uns muessen folden -
+                # der Coverstack erntet ihre Zwangs-Tightness als weitere Steals.
+                from pokerbot.strategy.tournament import icm_pressure_mult
+                frac = min(0.95, frac * icm_pressure_mult(obs))
             if eff <= 12 and pct >= 1 - frac * 0.8 and can_raise:
                 return mk("raise", raise_to(obs["raise_max"]), f"Short-stack open-shove {hc} from {pos}.")
             rec = preflop_gto.rfi(POS_RFI_BUCKET.get(pos, pos), hc) if k.name == "tag" else None   # solver-distilled GTO open (deep)
