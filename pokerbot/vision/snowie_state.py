@@ -124,13 +124,19 @@ MIN_SEG_W, MIN_INK_FRAC, MIN_SEG_H = 5, 0.12, 0.35
 DOLLAR_W = 11      # Breite des Waehrungszeichens in diesem Font (live vermessen)
 
 
+COL_INK_MIN = 0.05        # so viel einer Spalte muss Tinte sein, damit sie zu einem Zeichen zaehlt
+
+
 def _digit_boxes(arr: np.ndarray, ratio: float = 0.70) -> list[tuple[int, int]]:
     """Spalten mit Tinte -> zusammenhaengende Segmente = einzelne Zeichen.
     FILTER (2026-08-04): der erste Sammellauf lieferte 63 Kandidaten fuer 11 mogliche Zeichen — es
     rutschten Rahmenkanten und 1px-Splitter durch. Ein Zeichen muss BREIT genug, HOCH genug und
     dicht genug mit Tinte sein; alles andere ist Dekoration."""
     ink_mask = _ink(arr, ratio)
-    ink = ink_mask.any(axis=0)
+    # ANTEIL statt any() (2026-08-04): mit any() gilt eine Spalte schon bei EINEM Tintenpixel als
+    # belegt -> Rauschen fuellt die Luecken zwischen den Zeichen, das Segment wird unfoermig und
+    # faellt durch _ok_seg. Gemessener Fall: Pot "$239" ergab statt vier Zeichen ein 10px-Bruchstueck.
+    ink = ink_mask.mean(axis=0) > COL_INK_MIN
     out, start = [], None
     for i, v in enumerate(ink):
         if v and start is None:
@@ -193,6 +199,46 @@ def _split_wide(crop, g, x0, x1, ratio):
         if parts:
             return "".join(parts)
     return None
+
+
+LINE_INK_MIN = 0.02        # Zeilen-Tinte: so viel einer Bildzeile muss hell sein, damit dort Text steht
+LINE_MIN_H = 5             # duennere "Zeilen" sind Rahmenkanten, kein Text
+
+
+def _text_lines(g: np.ndarray) -> list[tuple[int, int]]:
+    """Waagerechte Textzeilen eines Ausschnitts als (oben, unten)-Paare."""
+    lit = (g > 110).mean(axis=1) > LINE_INK_MIN
+    out, start = [], None
+    for y, v in enumerate(lit):
+        if v and start is None:
+            start = y
+        elif not v and start is not None:
+            if y - start >= LINE_MIN_H:
+                out.append((start, y))
+            start = None
+    if start is not None and len(lit) - start >= LINE_MIN_H:
+        out.append((start, len(lit)))
+    return out
+
+
+def read_button_amount(img: Image.Image, box, learn: bool = False) -> float | None:
+    """Betrag auf einem Aktions-Button. 0.0 = Button ohne Betrag (reines Wort).
+
+    Ein Aktions-Button traegt sein Wort ueber dem Betrag ('CALL' / '$95'). Spaltenweise ueber BEIDE
+    Zeilen gelesen verschmieren die Buchstaben mit den Ziffern und nichts wird erkannt (gemessener
+    Fall: CALL $95 -> None -> das Gatter blockierte, obwohl der Betrag gross dastand). Also erst die
+    Zeilen trennen, dann NUR die untere lesen. Der Innenabstand schneidet den gelben Auswahlrahmen
+    weg, der sonst jede Bildzeile mit Tinte fuellt und die Trennung unmoeglich macht.
+    """
+    n = NUM_INSET
+    inner = (box[0] + n, box[1] + n, box[2] - n, box[3] - n)
+    lines = _text_lines(np.asarray(_sub(img, inner).convert("L")))
+    if not lines:
+        return None                                     # leerer Button (Layout ohne diese Aktion)
+    if len(lines) == 1:
+        return 0.0                                      # nur ein Wort ('CHECK') -> kein Betrag
+    top, bot = lines[-1]
+    return read_number(img, (inner[0], inner[1] + top, inner[2], inner[1] + bot), learn)
 
 
 def _read_number_at(img, box, learn, ratio) -> float | None:
@@ -266,9 +312,18 @@ def dealer_seat(img: Image.Image) -> str | None:
 
 
 def hero_turn(img: Image.Image) -> bool:
-    """Sind die Aktions-Buttons da? (Nur Anwesenheit — die LOGIK kommt aus den Einsaetzen.)"""
-    g = np.asarray(_sub(img, BAR_BOX).convert("L"))
-    return float((g > 110).mean()) > 0.06
+    """Sind die Aktions-Buttons da? (Nur Anwesenheit — die LOGIK kommt aus den Einsaetzen.)
+
+    NICHT ueber die Gesamttinte der Leiste (Fund 2026-08-04): ist der Gegner All-in, blendet Snowie
+    den RAISE-Button aus; ein Drittel weniger Tinte drueckte die Leiste auf 0.0576 gegen die Schwelle
+    0.06 -> hero_turn=False, obwohl FOLD und CALL leuchteten. Die Hand wartete auf uns, wir auf sie:
+    Deadlock am River, wo All-ins sich haeufen. FOLD und CHECK/CALL gibt es dagegen IMMER, wenn wir
+    am Zug sind — also zaehlen wir diese beiden Felder EINZELN.
+    """
+    g = np.asarray(img.convert("L"))
+    def _lit(box: tuple[int, int, int, int]) -> bool:
+        return float((g[box[1]:box[3], box[0]:box[2]] > 110).mean()) > BTN_INK_MIN
+    return _lit(BTN_FOLD_BOX) and _lit(BTN_MID_BOX)
 
 
 def position_of(dealer: str) -> dict[str, str]:
@@ -355,6 +410,8 @@ def read_bets(img: Image.Image, learn: bool = False) -> dict[str, float | None]:
 # Hintergrund. Der Einsatz VOR dem Sitz ist die kleinste (eigener Font, matcht die Templates nicht).
 # Fuer die Entscheidung brauchen wir aber genau zwei Dinge: darf ich checken, und was kostet ein Call.
 # Beides steht auf dem mittleren Button — Ziffern vorhanden = CALL mit Betrag, keine Ziffern = CHECK.
+BTN_FOLD_BOX = (604, 1235, 814, 1318)         # FOLD steht immer links — auch im Zwei-Button-Layout
+BTN_INK_MIN = 0.03                            # gemessen: belegt 0.058, leer 0.000 -> Schwelle mittig
 BTN_MID_BOX = (830, 1235, 1040, 1318)
 BTN_RIGHT_BOX = (1056, 1235, 1266, 1318)
 
@@ -364,8 +421,8 @@ def read_buttons(img: Image.Image, learn: bool = False) -> dict:
     active=False heisst: wir sind nicht am Zug (keine Buttons sichtbar)."""
     if not hero_turn(img):
         return {"active": False, "call_amount": None, "can_check": False, "raise_min": None}
-    mid = read_number(img, BTN_MID_BOX, learn)
-    rgt = read_number(img, BTN_RIGHT_BOX, learn)
+    mid = read_button_amount(img, BTN_MID_BOX, learn)
+    rgt = read_button_amount(img, BTN_RIGHT_BOX, learn)
     # read_number liefert 0.0, wenn im Feld gar keine Tinte/Zahl steckt -> das ist der CHECK-Fall.
     can_check = (mid == 0.0)
     return {"active": True, "call_amount": (None if can_check else mid),
