@@ -128,8 +128,18 @@
 <script>
 const $=id=>document.getElementById(id);
 const SUIT={s:'♠',h:'♥',d:'♦',c:'♣'},RED={h:1,d:1};
-const SC=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];          // seat -> %x,%y of felt
-const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066'];
+// Sitzplaetze fuer BELIEBIGE Tischgroessen (Multiway 2026-08-04): Hero unten mittig, der Rest
+// gleichmaessig auf der Ellipse. Fuer n=6 liefert der Generator praktisch die alten Plaetze.
+function seatCoords(n){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=Math.PI/2 + 2*Math.PI*i/n;             // i=0 (Hero) unten
+    out.push([50+44*Math.cos(a), 50+46*Math.sin(a)]);
+  }
+  return out;
+}
+let SC=seatCoords(6);
+const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066','#c9a2ff','#7fe0a0','#f2a2a2','#a2c2f2'];
 const RANK_DE={'High Card':'Hohe Karte','Pair':'Paar','Two Pair':'Zwei Paare','Three of a Kind':'Drilling',
   'Straight':'Straße','Flush':'Flush','Full House':'Full House','Four of a Kind':'Vierling',
   'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
@@ -155,6 +165,7 @@ function chipStack(chips){const b=chips/bb,col=chipCol(b),n=Math.max(1,Math.min(
   return s+`</span><span class="camt">${bbs(chips)}</span>`;}
 
 function render(v){
+  if(v.seats && v.seats.length!==SC.length) SC=seatCoords(v.seats.length);   // Multiway: Plaetze anpassen
   view=v; bb=v.bb;
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const sn=(v.session_net||0)/bb;
@@ -168,7 +179,7 @@ function render(v){
     el.style.left=x+'%'; el.style.top=y+'%';
     const ini=s.name[0].toUpperCase();
     el.innerHTML=`<div class="holes" id="h${s.seat}"></div>
-      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat]}">${ini}</span>
+      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat % AVCOL.length]}">${ini}</span>
         <span class="nm">${s.name}</span><span class="pos">${s.pos}</span></div>
         <div class="stk">${bbs(s.stack)} bb${s.all_in?' · ALL-IN':''}</div></div>`;
     $('felt').appendChild(el);
@@ -247,7 +258,9 @@ function renderBar(v){
 }
 function mk(t,c,fn){const b=document.createElement('button');b.textContent=t;if(c)b.className=c;b.onclick=fn;return b;}
 async function api(p,b){const r=await fetch(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})});return r.json();}
-async function start(){$('log').innerHTML='';log('— Neues Spiel —','s');render(await api('/api/new_session',{stack_bb:100}));}
+async function start(){$('log').innerHTML='';log('— Neues Spiel —','s');
+  const np=parseInt(new URLSearchParams(location.search).get('players'))||6;   // ?players=9 -> 9-max
+  render(await api('/api/new_session',{stack_bb:100, players:np}));}
 async function nextHand(){advTimer=null;render(await api('/api/hand',{}));}
 async function send(a,amt){if(advTimer){clearTimeout(advTimer);advTimer=null;}
   const v=await api('/api/action',{action:a,amount:amt});

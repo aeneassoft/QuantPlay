@@ -25,7 +25,7 @@ from pokerbot.arena.sixmax import PROFILES, PUNISHER_ASSIGN, SixMaxBot
 from pokerbot.engine.table import Table
 from pokerbot.web.session_log import append_record, build_hand_record
 
-NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve"]
+NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve", "Finn", "Gina", "Hugo", "Iris"]  # bis 10-max
 HUMAN = 0
 _INDEX = (Path(__file__).parent / "static" / "six.html").read_text(encoding="utf-8")
 GRADING_BUDGET_MS = 800          # whole-hand grading must fit the client's auto-deal window
@@ -49,8 +49,10 @@ def _coach(name: str):
 
 
 class Session:
-    def __init__(self, stack=10000, sb=50, bb=100, mode="gto"):
-        self.table = Table(NAMES, starting_stack=stack, sb=sb, bb=bb, human_seat=HUMAN)
+    def __init__(self, stack=10000, sb=50, bb=100, mode="gto", players=6):
+        # Multiway (2026-08-04): Tischgroesse 2..10 waehlbar; Default 6 = unveraendertes Erlebnis.
+        n = max(2, min(len(NAMES), int(players or 6)))
+        self.table = Table(NAMES[:n], starting_stack=stack, sb=sb, bb=bb, human_seat=HUMAN)
         sid = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.session_id = sid
         self.path = config.DATA_DIR / "sessions" / f"session_{sid}.jsonl"
@@ -80,7 +82,8 @@ class Session:
             # kein Difficulty-Controller (die Besetzung IST der Punkt), kein Prince (die Jäger sind der Punkt).
             _assign = dict(PUNISHER_ASSIGN)
         else:
-            _assign = {1: "tag", 2: "lag", 3: "nit", 4: "station", 5: "maniac"}
+            cycle = ["tag", "lag", "nit", "station", "maniac"]
+            _assign = {s: cycle[(s - 1) % len(cycle)] for s in range(1, self.table.n)}
             dif = _coach("difficulty")
             if dif is not None and reg is not None:   # P3-D: adapt composition to the last session's error rate
                 try:
@@ -357,6 +360,7 @@ class NewReq(BaseModel):
     stack_bb: int = 100
     mode: str = "gto"               # P0-0: 'gto' | 'exploit'
     step: bool = False              # real-flow mode: client animates bots one action at a time (/api/step)
+    players: int = 6                # Multiway: 2..10 (Default 6 = unveraendert)
 
 
 class ActionReq(BaseModel):
@@ -395,7 +399,7 @@ def new_session(req: NewReq) -> JSONResponse:
             reg.register_end(SESSION)
         except Exception:  # noqa: BLE001
             pass
-    SESSION = Session(stack=req.stack_bb * 100, sb=50, bb=100, mode=req.mode)
+    SESSION = Session(stack=req.stack_bb * 100, sb=50, bb=100, mode=req.mode, players=req.players)
     ev = SESSION.start_hand(auto_advance=not req.step)
     return JSONResponse(SESSION.view(ev))
 
