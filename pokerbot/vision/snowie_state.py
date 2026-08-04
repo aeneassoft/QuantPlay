@@ -21,7 +21,7 @@ import argparse
 import os
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageOps
 
 from pokerbot.vision import snowie_local as SL
 
@@ -160,14 +160,59 @@ def _ok_seg(mask: np.ndarray, a: int, b: int) -> bool:
     return float(rows.sum()) / max(1, mask.shape[0]) >= MIN_SEG_H
 
 
+TESS_EXE = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+OCR_SCALE = 3                 # Hochskalieren: Tesseract braucht deutlich groessere Glyphen als 17px
+OCR_CFG = "--psm 7 -c tessedit_char_whitelist=0123456789.$"
+_TESS = None                  # None = noch nicht geprueft, False = nicht verfuegbar
+
+
+def _tesseract():
+    """Tesseract einmalig anbinden. False, wenn nicht installiert — dann greifen die Templates."""
+    global _TESS
+    if _TESS is None:
+        try:
+            import pytesseract
+            pytesseract.pytesseract.tesseract_cmd = TESS_EXE
+            pytesseract.get_tesseract_version()
+            _TESS = pytesseract
+        except Exception:  # noqa: BLE001 — fehlendes OCR ist kein Fehler, nur ein Verzicht
+            _TESS = False
+    return _TESS
+
+
+def _ocr_number(img: Image.Image, box) -> float | None:
+    """Zahl per OCR lesen. None = nichts Verwertbares (dann entscheidet der Aufrufer weiter).
+
+    Die Tischzahlen sind HELL auf DUNKEL, Tesseract erwartet das Gegenteil -> invertieren. Ohne
+    Hochskalieren liefert es bei 17px-Ziffern nichts. Der Weissliste-Filter haelt Waehrungszeichen
+    und Buchstaben heraus, die sonst als Ziffern halluziniert werden.
+    """
+    tess = _tesseract()
+    if not tess:
+        return None
+    try:
+        crop = _sub(img, box).convert("L")
+        crop = ImageOps.invert(crop).resize((crop.width * OCR_SCALE, crop.height * OCR_SCALE),
+                                            Image.LANCZOS)
+        # "$" MUSS in der Weissliste stehen: fehlt es, presst Tesseract das Zeichen in eine
+        # Ziffer (gemessen: Pot "$4" -> "34"). Erlauben und danach abschneiden.
+        txt = tess.image_to_string(crop, config=OCR_CFG).strip().lstrip("$").strip(".")
+        return float(txt) if txt and txt.replace(".", "", 1).isdigit() else None
+    except Exception:  # noqa: BLE001 — OCR darf den Lauf nie stoppen
+        return None
+
+
 def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
     """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
     verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
+    # TEMPLATES ZUERST, OCR als Rueckfall: die Vorlagen sind fuer genau diesen Font exakt und ~15x
+    # schneller (read_state 80ms statt 1200ms — OCR startet je Feld einen Prozess). Tesseract deckt
+    # dafuer die Zeichen ab, die wir noch nie gesehen haben, statt den Lauf blockieren zu lassen.
     for r in (0.70, 0.50, 0.60, 0.40, 0.80, 0.30):
         v = _read_number_at(img, box, learn, r)
         if v is not None:
             return v
-    return None
+    return _ocr_number(img, box)
 
 
 WIDE_SEG = 16          # breiter als eine Einzelziffer -> Verdacht auf verschmolzene Zeichen
