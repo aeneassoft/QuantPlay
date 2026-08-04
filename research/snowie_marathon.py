@@ -83,11 +83,19 @@ def main() -> None:
         chunk += 1
         say(f"Etappe {chunk}: {done}/{a.hands} Hände — starte Brücke ({CHUNK_HANDS} Hände) ...")
         before = done
+        chunk_log = os.path.join(OUT, f"marathon_chunk_{chunk:03d}.log")
         r = subprocess.run([sys.executable, "-m", "pokerbot.vision.snowie_bridge",
                             "--hands", str(CHUNK_HANDS), "--loose"],
-                           stdout=open(os.path.join(OUT, f"marathon_chunk_{chunk:03d}.log"), "w",
-                                       encoding="utf-8", errors="replace"),
+                           stdout=open(chunk_log, "w", encoding="utf-8", errors="replace"),
                            stderr=subprocess.STDOUT)
+        try:
+            if "ESC" in open(chunk_log, encoding="utf-8", errors="replace").read():
+                # ESC heisst ESC (User-Fund: 'stoppt nur fuer eine gewisse Zeit'): der Wille des
+                # Menschen am Rechner beendet den GANZEN Marathon, nicht nur die Etappe.
+                say(f"ESC in Etappe {chunk} erkannt - Marathon ENDET (Fortschritt bleibt gezaehlt).")
+                break
+        except OSError:
+            pass
         new_files = [f for f in glob.glob(os.path.join(OUT, "snowie_session_*.jsonl"))
                      if f not in baseline]
         after = hands_in(new_files)
