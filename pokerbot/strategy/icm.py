@@ -61,6 +61,39 @@ def icm_equities(stacks: list[float], payouts: list[float]) -> list[float]:
     return list(rec(full_mask))
 
 
+def icm_equities_mc(stacks: list[float], payouts: list[float], iters: int = 20_000,
+                    rng=None) -> list[float]:
+    """Monte-Carlo-ICM fuer GROSSE Felder (n > MC_THRESHOLD, z.B. 54-Spieler-MTT).
+
+    Sampelt Finish-Reihenfolgen sequenziell mit P(naechster Platz) ∝ Stack — exakt die
+    Harville-Annahme der DP, nur gesampelt statt aufsummiert. Fuer Turnier-Diagnosen
+    (Druck-Hebel im MTT) reicht das; Entscheidungen an der FT (<=12) rechnen weiter exakt.
+    """
+    import random as _random
+    r = rng or _random.Random(0)
+    n = len(stacks)
+    depth = min(n, len(payouts))
+    eq = [0.0] * n
+    idx = [i for i in range(n) if stacks[i] > 0]
+    for _ in range(iters):
+        pool = list(idx)
+        weights = [stacks[i] for i in pool]
+        for place in range(depth):
+            if not pool:
+                break
+            total = sum(weights)
+            x = r.random() * total
+            acc = 0.0
+            for j, w in enumerate(weights):
+                acc += w
+                if x <= acc:
+                    eq[pool[j]] += payouts[place]
+                    pool.pop(j)
+                    weights.pop(j)
+                    break
+    return [e / iters for e in eq]
+
+
 def icm_equity(stacks: list[float], payouts: list[float], hero: int) -> float:
     return icm_equities(stacks, payouts)[hero]
 

@@ -108,15 +108,21 @@ def icm_scaled_req(req_chip: float, obs: dict, to_call: float, pot: float) -> fl
     villain = pick_villain(stacks, hero, ctx.get("aggressor"))
     my_stack = obs.get("my_stack") or 0
     if to_call >= my_stack > 0:
-        # Call = All-in: exakt rechnen. stacks sind Start-of-Hand; behind = Start − schon investiert.
-        inv_h = (ctx.get("invested") or {}).get(hero, 0.0)
-        inv_v = (ctx.get("invested") or {}).get(villain, 0.0)
-        behind = list(stacks)
-        behind[hero] = max(0.0, stacks[hero] - inv_h)
-        behind[villain] = max(0.0, stacks[villain] - inv_v)
+        # Call = All-in: exakt rechnen. behind = Start-of-Hand − schon investiert, fuer JEDEN
+        # Sitz (nur Hero+Villain abzuziehen liess Dritt-Einsaetze doppelt existieren — in den
+        # behind-Stacks UND im Pot; MTT-Review-Fund, mit Antes feuert das an jeder FT).
+        inv = ctx.get("invested") or {}
+        behind = [max(0.0, s - inv.get(i, 0.0)) for i, s in enumerate(stacks)]
+        tc_cap = min(to_call, behind[hero])
+        # Uncalled-Exzess des Villain-Shoves geht in Wahrheit an ihn ZURUECK — ihn im Pot zu
+        # lassen schenkte Hero in der Gewinn-Welt fremde Chips (zu lockere Cover-Calls).
+        excess = max(0.0, to_call - tc_cap)
+        behind[villain] += excess
         return icm_call_threshold(behind, payouts, hero, villain,
-                                  to_call=min(to_call, behind[hero]), pot_before=pot)
+                                  to_call=tc_cap, pot_before=max(0.0, pot - excess))
     bf = bubble_factor(stacks, payouts, hero, villain)
+    if bf == float("inf"):
+        return 1.0            # ICM-Gewinn <= 0: kein Call kann richtig sein (NaN-Pfad-Waechter)
     # ANTEILIGES Risiko-Premium (μ-Experiment 1: voller BF auf jeden Kleinst-Call -> Ueberstraffung,
     # mehr 4.-Plaetze statt weniger — er ueberlebte zur Bubble und blindete aus). Die Buecher wenden
     # den BF auf ALL-IN-Risiko an; bei einem Teil-Call steht nur to_call/Stack im Feuer:
@@ -127,7 +133,7 @@ def icm_scaled_req(req_chip: float, obs: dict, to_call: float, pot: float) -> fl
     return icm_required_equity(req_chip, bf_eff)
 
 
-def icm_pressure_mult(obs: dict) -> float:
+def icm_pressure_mult(obs: dict, villains: list[int] | None = None) -> float:
     """Steal-Verbreiterung des Coverstacks (Doktrin 9 + User-These: die anderen SPIELEN ICM).
 
     Stehen die Gegner unter hohem Bubble-Faktor GEGEN UNS (wir covern sie), koennen sie kaum
@@ -136,13 +142,20 @@ def icm_pressure_mult(obs: dict) -> float:
     (Cash byte-identisch; der Hook feuert ohnehin nur mit obs['icm']).
     """
     ctx = obs.get("icm") or {}
+    if "pressure_mult" in ctx:
+        # GROSSE Felder (MTT): der Sim rechnet den Multiplikator EINMAL pro Hand vor (exakte
+        # BFs sind ab ~13 Spielern unbezahlbar pro Entscheidung); SNG-Pfad unveraendert.
+        return float(ctx["pressure_mult"])
     stacks = ctx.get("stacks")
     payouts = ctx.get("payouts")
     hero = ctx.get("seat", 0)
     if not stacks or not payouts or len(stacks) < 3:
         return 1.0
+    # villains: nur DIESE Gegner mitteln (MTT: die am eigenen Tisch — Off-Table-Stacks koennen
+    # nicht auf unsere Opens folden und wuerden den Multiplikator verzerren); None = alle (SNG).
+    cand = villains if villains is not None else range(len(stacks))
     bfs = [bubble_factor(stacks, payouts, v, hero)
-           for v in range(len(stacks)) if v != hero and stacks[v] > 0]
+           for v in cand if v != hero and stacks[v] > 0]
     bfs = [b for b in bfs if b != float("inf")]
     if not bfs:
         return 1.0

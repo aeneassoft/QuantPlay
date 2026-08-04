@@ -124,18 +124,34 @@ class Table:
         if self.ante:
             # Antes VOR den Blinds (Turnier): tote Steuer jedes Sitzes; _commit kappt am Stack,
             # ein Kurzstack kann also schon durch die Ante all-in sein — die Side-Pot-Logik
-            # rechnet ueber committed_total ohnehin korrekt.
+            # rechnet ueber committed_total ohnehin korrekt. Die Ante ist KEIN Street-Einsatz:
+            # committed_street muss danach 0 sein, sonst zaehlt sie gegen current_bet (der BB
+            # bekaeme to_call<0 -> can_check False -> Fold im Limped-Pot; Caller zahlten
+            # bb-ante; die Ante-Schicht ueber dem hoechsten Eligible-Layer verwaiste bei der
+            # Auszahlung — alle drei im 600er-MTT-Audit gefangen, Chip-Erhaltung -32/Tisch).
             for i in self._clockwise(self.button):
                 self._commit(i, self.ante)
+                self.seats[i].committed_street = 0
             self.history.append({"action": "antes", "amount": self.ante})
-        sb_i = (self.button + 1) % self.n
-        bb_i = (self.button + 2) % self.n
+        if self.n == 2:
+            # HEADS-UP-Regel: der Button IST der Small Blind, setzt zuerst preflop und zuletzt
+            # postflop. Vorher invertiert (Button zahlte BB) — vom 600er-MTT-Review gefangen;
+            # betraf jedes Multiway-Endspiel, das auf 2 Spieler schrumpfte.
+            sb_i, bb_i = self.button, (self.button + 1) % 2
+        else:
+            sb_i = (self.button + 1) % self.n
+            bb_i = (self.button + 2) % self.n
         self._commit(sb_i, self.sb)
         self._commit(bb_i, self.bb)
         self.history.append({"action": "blinds", "sb": sb_i, "bb": bb_i})
         # UTG (button+3) acts first preflop; heads-up: button/SB acts first
-        start = (self.button + 1) % self.n if self.n == 2 else (self.button + 3) % self.n
+        start = self.button if self.n == 2 else (self.button + 3) % self.n
         self.to_act = self._find_actor(start)
+        if self.to_act is None and not self.hand_over:
+            # ALLE Sitze schon durch Antes/Blinds all-in (spaete Turnier-Level): niemand kann
+            # handeln -> direkt ausspielen, sonst wird der Pot vernichtet und der rechtmaessige
+            # Gewinner als Bust gewertet (Review-Fund #5).
+            self._close_round()
 
     def _find_actor(self, start: int):
         for i in self._clockwise(start):
@@ -261,7 +277,7 @@ class Table:
             members = list(contribs.keys())
             amt = m * len(members)
             eligible = [i for i in members if not self.seats[i].folded]
-            pots.append((amt, eligible))
+            pots.append((amt, eligible, m, members))
             for i in members:
                 contribs[i] -= m
                 if contribs[i] == 0:
@@ -280,9 +296,16 @@ class Table:
     def _showdown(self) -> None:
         pots = self._build_pots()
         winnings = {i: 0 for i in range(self.n)}
+        refunds = {i: 0 for i in range(self.n)}
         pot_results = []
-        for amt, eligible in pots:
+        for amt, eligible, layer, members in pots:
             if not eligible:
+                # VERWAISTE Schicht: nur Chips gefoldeter Spieler (Fold OBERHALB eines
+                # All-in-Caps). Niemand kann sie gewinnen -> zurueck an die Einzahler, sonst
+                # werden sie vernichtet (Fuzz-Fund: -99 Chips auch ohne Antes moeglich).
+                # Getrennt von winnings: eine Rueckerstattung ist kein Gewinn (kein Reveal).
+                for i in members:
+                    refunds[i] += layer
                 continue
             scores = {i: evaluate(self.board, self.seats[i].hole) for i in eligible}
             best = min(scores.values())
@@ -298,7 +321,7 @@ class Table:
                     break
             pot_results.append({"amount": amt, "winners": [self.seats[w].name for w in winners]})
         for i, w in winnings.items():
-            self.seats[i].stack += w
+            self.seats[i].stack += w + refunds[i]
         winners_list = [{"seat": i, "name": self.seats[i].name, "amount": w,
                          "rank": best_five_name(self.board, self.seats[i].hole)}
                         for i, w in winnings.items() if w > 0]
