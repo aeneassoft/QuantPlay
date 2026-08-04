@@ -400,10 +400,13 @@ def seat_live(img: Image.Image, seat: str) -> bool:
     bright: gefoldet = GRAUE Box (median 123, max bis 234!) -> die max-Schwelle allein luegt;
     aktiv ist entweder die weisse Box (median>=200) oder Heros dunkle Box mit hellem Text."""
     g = np.asarray(_sub(img, SEAT_BOX[seat]).convert("L"))
-    med = float(np.median(g))
-    if GREY_BAND[0] <= med <= GREY_BAND[1]:
-        return False
-    return med >= LIVE_WHITE_BOX or int(g.max()) >= LIVE_MAX_BRIGHT
+    med, mx = float(np.median(g)), int(g.max())
+    # Zwei Klauseln, weil Bright Mode DREI Zustaende rendert (gemessen run_v17 [6]): aktiv-weiss
+    # (median 255, max 255), gefoldet-grau (123/211-239) und frisch-gefoldet-HELLGRAU (202/223 —
+    # ueberschritt die alte 200er-Schwelle und zaehlte als live, n_active war 3 statt 2). Der
+    # Unterschied: nur die ECHTE aktive Box enthaelt Reinweiss. Dunkle Box + heller Text deckt
+    # Heros Sitz und den kompletten Dunkelmodus ab.
+    return (med >= LIVE_WHITE_BOX and mx >= 250) or (med < GREY_BAND[0] and mx >= LIVE_MAX_BRIGHT)
 
 
 # Die D-Scheibe ist ein GEFUELLTER weisser Kreis (~40px) mit dunklem 'D' darin. Ein Kreis fuellt
