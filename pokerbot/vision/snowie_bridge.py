@@ -450,6 +450,85 @@ def make_hero():
     return bot
 
 
+# 6-max-Open-Anteile nach Position (Standard-Solver-Groessenordnungen; Prior, der Bayes-Walk korrigiert)
+OPEN_FRAC = {"UTG": 0.15, "HJ": 0.19, "CO": 0.26, "BTN": 0.42, "SB": 0.36, "BB": 0.25}
+
+
+def make_seeded_tracker(villain_pos: str | None, villain_raised: bool | None):
+    """Tracker-Fabrik: 6-max-POSITIONS-Prior fuer die Gegner-Range im kollabierten HU-Pot.
+
+    Der User-Einwand (2026-08-04, korrekt): die HU-Projektion laese einen MP-Open als ~50%-HU-Range.
+    Hier bekommt Seat 1 (der Gegner; Hero ist per Projektion Seat 0) stattdessen die 6-max-Range
+    seiner ECHTEN Position als Startgewichte — Open ~15-42% je Sitz, Caller/3-Better ueber die
+    Trainer-Prioren (range_story) positions-skaliert. Danach laeuft der unveraenderte Bayes-Walk
+    des Trackers ueber die beobachtete History: jede Flop/Turn/River-Aktion korrigiert den Prior.
+    """
+    from pokerbot.coach.range_story import CALLER_FRAC, RAISER_FRAC
+    from pokerbot.strategy import preflop_strength as PS
+    from pokerbot.strategy import ranges as R
+    from pokerbot.strategy.range_tracker import RangeTracker, _preflop_raises
+
+    class SixMaxSeededTracker(RangeTracker):
+        def _init_preflop(self, state) -> None:
+            super()._init_preflop(state)                     # Hero-Seite + Fallback unveraendert
+            if villain_pos not in OPEN_FRAC:
+                return
+            n = min(max(_preflop_raises(state), 0), 3)
+            pos_mult = OPEN_FRAC[villain_pos] / 0.20         # 0.20 = der positionsblinde Trainer-Anker
+            base = CALLER_FRAC.get(n, 0.28) if villain_raised is False else RAISER_FRAC.get(max(n, 1), 0.20)
+            frac = min(0.85, max(0.03, base * pos_mult))
+            combos = R.combos_for_classes(PS.range_top(frac), [])
+            if combos:
+                self.range[1] = {c: 1.0 for c in combos}
+                self._normalize(1)
+
+    return SixMaxSeededTracker
+
+
+class ActionLog:
+    """Beobachtete Aktionen einer Hand als Tracker-History (Seat 0 = Hero, 1 = der HU-Gegner).
+
+    Die Bruecke sieht nur Standbilder — aber die DELTAS zwischen Lesungen verraten die Aktionen:
+    steigt des Gegners Einsatzniveau, hat er gesetzt/erhoeht; zieht er auf Heros Niveau gleich,
+    hat er gecallt; wechselt die Strasse ohne Einsaetze, wurde durchgecheckt. Nur EINDEUTIGE
+    Beobachtungen werden geloggt — eine spaerliche History senkt beim Tracker bloss die Konfidenz
+    (der Fallback greift), eine falsche wuerde ihn vergiften.
+    """
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.rows: list[dict] = []
+        self.street = "preflop"
+        self.v_level = 0.0
+        self.h_level = 0.0
+
+    def observe(self, street: str, hero_bet_chips: int, villain_bet_chips: int | None) -> None:
+        if street != self.street and street in ("flop", "turn", "river"):
+            # Strassenwechsel: wurde die alte Strasse ohne Einsatz beendet, hat der Gegner gecheckt
+            if self.street in ("flop", "turn") and self.v_level <= 0 and self.h_level <= 0:
+                self.rows.append({"street": self.street, "player": 1, "action": "check"})
+            self.rows.append({"action": "deal", "street": street})
+            self.street, self.v_level, self.h_level = street, 0.0, 0.0
+        if villain_bet_chips is None:
+            return
+        if villain_bet_chips > self.v_level + 1:
+            act = "raise" if self.h_level > 0 or (street == "preflop" and villain_bet_chips > 100) else "bet"
+            self.rows.append({"street": street, "player": 1, "action": act, "to": villain_bet_chips})
+            self.v_level = float(villain_bet_chips)
+        elif 0 < self.h_level <= villain_bet_chips + 1 and self.v_level < self.h_level:
+            self.rows.append({"street": street, "player": 1, "action": "call"})
+            self.v_level = self.h_level
+
+    def hero(self, street: str, action: str, to_chips: int | None) -> None:
+        row = {"street": street, "player": 0, "action": action}
+        if to_chips:
+            row["to"] = to_chips
+            self.h_level = float(to_chips)
+        self.rows.append(row)
+
+
 class PrinceHU:
     """PRINCE v2.2 fuer Heads-up-Poette der Bruecke — derselbe Oracle-Pfad wie Trainer und Grader.
 
@@ -462,13 +541,17 @@ class PrinceHU:
         from pokerbot.coach.oracle import PrinceOracle
         self.oracle = PrinceOracle()
 
-    def decide(self, obs: dict, s: dict) -> dict:
+    def decide(self, obs: dict, s: dict, observed: list | None = None,
+               hero_raised_pf: bool | None = None) -> dict:
         live = s.get("live") or {}
         vills = [k for k, v in live.items() if v and k != "hero"]
         if len(vills) != 1:
             raise ValueError("kein HU-Pot")
         v = vills[0]
         positions = s.get("positions") or {}
+        # 6-max-Prior fuer die Gegner-Range (User-Vorschlag): Position + Rolle statt HU-Annahme.
+        villain_raised = None if hero_raised_pf is None else (not hero_raised_pf)
+        self.oracle.bot.tracker_cls = make_seeded_tracker(positions.get(v), villain_raised)
         bb_d = 2.0
         vstack = (s.get("stacks") or {}).get(v)
         vstack_chips = int(round((vstack or 0) / bb_d * 100)) or obs["my_stack"]
@@ -499,7 +582,11 @@ class PrinceHU:
             hist.append({"street": "preflop", "player": 1, "action": "raise", "amount": amt})
         for st in ("flop", "turn", "river")[:max(0, len(obs["board"]) - 2)]:
             hist.append({"action": "deal", "street": st})
-        if obs["street"] != "preflop" and to_call > 0:
+        if observed:
+            seen_deals = {r.get("street") for r in observed if r.get("action") == "deal"}
+            hist = [r for r in hist if not (r.get("action") == "deal" and r.get("street") in seen_deals)]
+            hist.extend(observed)
+        elif obs["street"] != "preflop" and to_call > 0:
             hist.append({"street": obs["street"], "player": 1, "action": "bet", "amount": to_call})
         rec = {"spot": spot, "obs": obs, "legal": legal, "history": hist,
                "street": obs["street"], "hand_id": hand_id,
@@ -556,6 +643,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
 
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
+    alog, hero_raised_pf = ActionLog(), False
     prince = None
     try:
         prince = PrinceHU()
@@ -624,6 +712,15 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                                 s.get("hero_cards"))
         if hand.fresh:
             tracker.reset()                      # neue Hand -> Einsatz-Referenz dieser Strasse neu
+            alog.reset()
+            hero_raised_pf = False
+        # jede Lesung fuettert das Aktions-Log (nur der EINE HU-Gegner ist eindeutig zuzuordnen)
+        _street = "preflop" if bl == 0 else {3: "flop", 4: "turn", 5: "river"}.get(bl, "flop")
+        _live_v = [k for k, v in (s.get("live") or {}).items() if v and k != "hero"]
+        _vb = (s.get("bets") or {}).get(_live_v[0]) if len(_live_v) == 1 else None
+        _hb = (s.get("bets") or {}).get("hero")
+        alog.observe(_street, int(round((_hb or 0) / bb_dollars * 100)),
+                     None if _vb is None else int(round(_vb / bb_dollars * 100)))
         if conflict:
             blocked_streak += 1
             stale += 1
@@ -648,12 +745,16 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         # der HU-Range-Prior bleibt dort eine dokumentierte Naeherung, wie im Trainer/Grader).
         if prince is not None and obs.get("n_active") == 2 and obs.get("street") != "preflop":
             try:
-                d = prince.decide(obs, s)
+                d = prince.decide(obs, s, observed=list(alog.rows), hero_raised_pf=hero_raised_pf)
             except Exception:  # noqa: BLE001 — Prince-Problem -> der Kern uebernimmt still (Trainer-Idiom)
                 d = None
         if d is None:
             d = hero.decide(obs)
         did = act(bbox, obs, d, bb_dollars)
+        if obs["street"] == "preflop" and d.get("action") in ("raise", "allin"):
+            hero_raised_pf = True
+        alog.hero(obs["street"], d.get("action") or "check",
+                  int(d["amount"]) if d.get("amount") else None)
         decisions += 1
         with open(log_path, "a", encoding="utf-8") as f:
             f.write(json.dumps({"ts": datetime.now().isoformat(timespec="seconds"),

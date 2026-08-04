@@ -134,6 +134,11 @@ class PokerBot:
     def __init__(self, hero_idx: int, seed: int | None = None, exploit: bool = True):
         self.hero_idx = hero_idx
         self.rng = random.Random(seed)
+        # Austauschbare Tracker-Klasse (2026-08-04, Snowie-Bruecke): None = das unveraenderte
+        # RangeTracker-Verhalten. Ein kollabierter 6-max-Pot kann so einen POSITIONS-Prior fuer die
+        # Gegner-Range injizieren (MP-Open ~19%, nicht die HU-~50%); der Bayes-Walk ueber die
+        # History korrigiert ihn danach Strasse fuer Strasse. Default beruehrt den Anker nicht.
+        self.tracker_cls = None
         self._hand_u = 0.5           # L2a line-draw fallback (no hand_id contexts: HU server, tests — sequential)
         self._hand_u_by_id = {}      # BUG-HUNT FIX (H1): per-hand line-draws — the GTOW client interleaves 8
                                      # concurrent hands on ONE bot instance, so a shared scalar gets overwritten
@@ -966,7 +971,7 @@ class PokerBot:
         try:
             from pokerbot.strategy.range_tracker import RangeTracker, CONF_THRESHOLD
             v = 1 - self.hero_idx
-            t = RangeTracker().build(state)
+            t = (self.tracker_cls or RangeTracker)().build(state)
             if t.confidence(v) < CONF_THRESHOLD:
                 return None
             dead = set(hole) | set(board)
@@ -984,7 +989,7 @@ class PokerBot:
         try:
             from pokerbot.strategy.range_tracker import RangeTracker, CONF_THRESHOLD
             v = 1 - self.hero_idx
-            t = RangeTracker().build(state)
+            t = (self.tracker_cls or RangeTracker)().build(state)
             if t.confidence(v) < CONF_THRESHOLD or t.confidence(self.hero_idx) < CONF_THRESHOLD:
                 return None
             dead = set(hole) | set(board)
