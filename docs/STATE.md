@@ -25,8 +25,10 @@ MIVAT-light). NÄCHSTE SCHRITTE: sauberer Lauf 4 für die Winrate (±20 braucht 
 **★ GG-HIGH-STAKES-ÖKOLOGIE (`research/gg_hs_ecology.py`, Population gecacht `data/gg_hs_pop.json`):**
 $10/$20 NLHDiamond, 12.211 Hände, 611 Spieler, 84,8% TAG-Regs (härtester Pool; echte Gewinner +8..15 bb/100,
 Rake 1,93% Cap 0,8bb). Vier Arme, gleiche Seeds: GTO-Hybrid +105,7 | Exploit (Live-Reads) +126,0 | **P_D A-GAME
-(PrinceReset, Tilt-Wächter) +6,1 ± 15,0** | P_D-Voll-Klon −216,1 (Rake-Last 13,5 vs 6,3). ★ DER A-GAME-BEFUND:
-+6,1 liegt IM Band der echten Pool-Gewinner (+8..15) — und Klon-vs-Agenten ist Modellklasse-fair (er melkt
+(PrinceReset, Tilt-Wächter) +6,1 ± 15,0** | P_D-Voll-Klon −216,1 (Rake-Last 13,5 vs 6,3). ★ DER A-GAME-BEFUND (GROSSER LAUF
+200k Hände, Seed 23): **+16,6 ± 5,3 bb/100 nach Rake, 95%-Band [+6,3, +27,0] — vollstaendig ueber Null** =
+signifikanter Gewinner am oberen Rand der echten Pool-Gewinner (+8..15); Tilt-Preis final ~233 bb/100
+(Voll-Klon −216 vs A-Game +17). Der 25k-Erstlauf (+6,1 ± 15) — und Klon-vs-Agenten ist Modellklasse-fair (er melkt
 die Naivität nicht). Der TILT ist der gesamte Unterschied: ~222 bb/100 durch den Reset-Wächter allein (das
 Ein-Schlag-Gesetz auf $10/$20 quantifiziert). Bot-Absolutwerte modell-optimistisch (Agenten postflop naiv);
 belastbar: Reads +20 als Obergrenze, Voll-Klon-Verdikt konsistent über 3 Pools (−216/−231/−263).
