@@ -391,9 +391,14 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
                 continue
         if label is None:
             if learn:
-                d = os.path.join(SL.DUMP_DIR, "digit")
-                os.makedirs(d, exist_ok=True)
-                ch.save(os.path.join(d, f"d_{abs(hash(ch.tobytes())) % 10**8}.png"))
+                # nur GLYPH-artige Crops ablegen: massive Bloecke (Kartenecken, Filz) und
+                # kontrastlose Fetzen fluteten den Dump mit 6.7k Dateien Rauschen (Marathon E1)
+                gg = np.asarray(ch.convert("L"))
+                mask = _ink(gg)
+                if 0.05 <= float(mask.mean()) <= 0.55 and gg.std() >= 25:
+                    d = os.path.join(SL.DUMP_DIR, "digit")
+                    os.makedirs(d, exist_ok=True)
+                    ch.save(os.path.join(d, f"d_{abs(hash(ch.tobytes())) % 10**8}.png"))
             return None
         if label != "dollar":                          # das '$'-Zeichen wird gelernt, aber verworfen
             digits += "." if label == "dot" else label
@@ -676,7 +681,15 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     pot_b = batch.get("pot")
     pot_t = read_number(img, batch_boxes["pot"], learn, ocr_fallback=False)
     if pot_b is not None and pot_t is not None:
-        pot = pot_b if abs(pot_b - pot_t) < 0.01 else None
+        if abs(pot_b - pot_t) < 0.01:
+            pot = pot_b
+        elif f"{pot_b:g}".endswith(f"{pot_t:g}"):
+            # PRAEFIX-SIGNATUR des Waehrungszeichen-Artefakts: die OCR haengt eine Ziffer VORNE an
+            # ('8'->38, '39'->539) - endet der Batch-Wert auf dem Vorlagen-Wert, ist die Vorlage
+            # die Wahrheit. Marathon-Etappe 1: 11 Haende gingen an diese als "unlesbar" verloren.
+            pot = pot_t
+        else:
+            pot = None
     else:
         pot = pot_t if pot_t is not None else _n("pot")
     btn = read_buttons(img, learn, batch)
