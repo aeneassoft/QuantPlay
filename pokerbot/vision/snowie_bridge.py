@@ -616,6 +616,16 @@ def act(bbox, obs: dict, decision: dict, bb_dollars: float) -> str:
     # eigenen Groessen eingeben (User-Fund). Gemessen: unsere 2.5bb = $5 gegen ein Minimum von $6.
     chips = max(amount or obs["raise_min"], obs["raise_min"])
     dollars = chips / 100.0 * bb_dollars
+    # ALL-IN statt Tippen, wenn das Ziel den RESTSTACK erreicht (Hand-553-Wurzel: Prince wollte
+    # auf 527 raisen, hero hatte 347 uebrig - Snowie lehnte die Eingabe STILL ab und die
+    # Schleife tippte endlos). Der Preset-Knopf ist fuer diesen Fall gebaut und immer legal.
+    stack_dollars = (obs.get("my_stack") or 0) / 100.0 * bb_dollars
+    my_street_dollars = (obs.get("my_committed_street") or 0) / 100.0 * bb_dollars
+    if stack_dollars > 0 and dollars >= stack_dollars + my_street_dollars - 0.01:
+        _click_frac(bbox, "pre_allin")
+        time.sleep(0.3)
+        _click_frac(bbox, "btn_right")
+        return f"allin (Ziel {dollars:.2f} >= Stack)"
     _click_frac(bbox, "amount")
     time.sleep(0.15)
     _type_number(dollars)
@@ -644,6 +654,7 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
     alog, hero_raised_pf = ActionLog(), False
+    same_state, last_sig = 0, None
     prince = None
     try:
         prince = PrinceHU()
@@ -763,6 +774,17 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         committed = tracker.update(bl, hstack)
         obs = to_obs_local(s, bb_dollars, committed)
         obs["position"] = hand.fixed_position(obs["position"])   # Button wandert nicht mitten in der Hand
+        # WIEDERHOLUNGS-WAECHTER (Hand-553-Bug): landet eine Aktion nicht (Snowie lehnt z.B. einen
+        # zu grossen Raise still ab), bleibt der Zustand identisch, die Schleife entscheidet
+        # identisch neu und die Maus springt endlos Betragsfeld<->Button - das Gatter ist dabei
+        # SAUBER, kein Blockade-Zaehler greift. Degradations-Leiter: nach 3 identischen
+        # Wiederholungen raise->call, nach 3 weiteren -> Hand ehrlich aufgeben.
+        cur_sig = (tuple(s.get("hero_cards") or []), len(s.get("board") or []), s.get("pot"),
+                   (s.get("buttons") or {}).get("call_amount"))
+        if cur_sig == last_sig:
+            same_state += 1
+        else:
+            same_state, last_sig = 0, cur_sig
         d = None
         # PRINCE NUR POSTFLOP (User-Einwand 2026-08-04, korrekt): ein kollabierter 6-max-Pot ist
         # KEIN echtes Heads-up — ein MP-Open ist eine ~15-20%-Range, der HU-Bot laese denselben
@@ -776,6 +798,18 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                 d = None
         if d is None:
             d = hero.decide(obs)
+        if same_state >= 3 and d.get("action") in ("raise", "allin", "bet"):
+            print(f"AKTION GREIFT NICHT ({same_state}x identischer Zustand) - degradiere zu Call",
+                  flush=True)
+            d = {"action": "call" if obs.get("can_call") else "check", "amount": None,
+                 "rationale": {"reasoning": "Degradation: Raise landete nicht (Hand-553-Waechter)"}}
+        if same_state >= 6:
+            print("AKTION GREIFT WEITER NICHT - Hand wird aufgegeben", flush=True)
+            skipped_hands.append("Aktion landet nicht (Hand-553-Waechter)")
+            _click_frac(bbox, "btn_fold" if not _check_is_free(s) else "btn_mid")
+            _sleep(SETTLE_S)
+            same_state = 0
+            continue
         did = act(bbox, obs, d, bb_dollars)
         if obs["street"] == "preflop" and d.get("action") in ("raise", "allin"):
             hero_raised_pf = True
