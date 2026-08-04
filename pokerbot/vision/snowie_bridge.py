@@ -690,12 +690,27 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
                     # Ist Check GRATIS moeglich, ist Folden immer die schlechtere Wahl — und ob
                     # Check geht, sagt uns der Button zuverlaessig, auch wenn das Board unlesbar ist.
                     # Nur wenn wir zahlen muessten UND den Tisch nicht lesen koennen, wird gefoldet.
-                    if _check_is_free(s):
-                        _click_frac(bbox, "btn_mid")
-                        how = "CHECK (gratis)"
-                    else:
-                        _click_frac(bbox, "btn_fold")
-                        how = "Fold"
+                    # KLICK-VERIFIKATION (Marathon-Obduktion): ein einziger nicht gelandeter
+                    # Aufgabe-Klick liess die Bruecke stumm auf die naechste Hand warten, bis
+                    # MAX_STALE die Etappe beerdigte - drei Etappen starben so. Jetzt wird nach
+                    # dem Klick nachgelesen; aendert sich NICHTS, wird erneut geklickt (3x).
+                    free = _check_is_free(s)
+                    how = "CHECK (gratis)" if free else "Fold"
+                    before_sig = (tuple(s.get("hero_cards") or []), len(s.get("board") or []),
+                                  s.get("pot"))
+                    for attempt in range(3):
+                        _click_frac(bbox, "btn_mid" if free else "btn_fold")
+                        _sleep(1.0)
+                        try:
+                            s2 = read_local()
+                            sig2 = (tuple(s2.get("hero_cards") or []), len(s2.get("board") or []),
+                                    s2.get("pot"))
+                            if sig2 != before_sig or not s2.get("hero_turn"):
+                                break
+                            print(f"Aufgabe-Klick griff nicht (Versuch {attempt + 1}) - erneut",
+                                  flush=True)
+                        except Exception:  # noqa: BLE001 — Nachlesen darf die Aufgabe nie stoppen
+                            break
                     forced += 1
                     skipped_hands.append(blocker)
                     blocked_streak, stale = 0, 0

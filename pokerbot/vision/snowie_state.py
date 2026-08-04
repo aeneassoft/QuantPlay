@@ -683,10 +683,11 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     if pot_b is not None and pot_t is not None:
         if abs(pot_b - pot_t) < 0.01:
             pot = pot_b
-        elif f"{pot_b:g}".endswith(f"{pot_t:g}"):
-            # PRAEFIX-SIGNATUR des Waehrungszeichen-Artefakts: die OCR haengt eine Ziffer VORNE an
-            # ('8'->38, '39'->539) - endet der Batch-Wert auf dem Vorlagen-Wert, ist die Vorlage
-            # die Wahrheit. Marathon-Etappe 1: 11 Haende gingen an diese als "unlesbar" verloren.
+        elif f"{pot_b:g}".endswith(f"{pot_t:g}") or f"{pot_t:g}".endswith(f"{pot_b:g}"):
+            # PRAEFIX-SIGNATUR des Waehrungszeichen-Artefakts, BEIDE Richtungen: die Batch-OCR
+            # haengt eine Ziffer vorne AN ('8'->38) ODER verliert die fuehrende ('12'->2, der
+            # Etappen-4-6-Killer: drei Etappen starben an einem stabilen '12'-Pot). Steht der
+            # eine Wert am Ende des anderen, ist die margin-geschuetzte VORLAGE die Wahrheit.
             pot = pot_t
         else:
             pot = None
