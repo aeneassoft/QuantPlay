@@ -82,8 +82,14 @@ ORACLE_TRUNK_ITERS = 800      # diagnostic mode: exact subgame solves instead of
 ORACLE_LEAF_ITERS = 200
 ORACLE_QUANT = 0.02           # belief quantization for the oracle-leaf cache
 GATE_PASS_DELTA_MBB = 10.0    # pre-registered: "a few mbb/hand" above the full solve; never tuned post-hoc
+BOOTSTRAP_QUERY_FRAC = 0.5    # iteration 4 (ReBeL warning, VALUE_NET_SPECS §B): half the labels are drawn
+                              # from the TRUNK-INDUCED query beliefs, not pure Dirichlet -> the net is
+                              # trained where the depth-limited re-solve actually evaluates it
+BOOTSTRAP_JITTER = 0.03       # Dirichlet concentration around each harvested belief: the trunk visits a
+                              # FINITE set of beliefs, so we smear them slightly for input-domain coverage
 RESULTS_PATH = Path("data/research_sweep/gate0_leduc.json")
-LABELS_CACHE = Path("data/research_sweep/gate0_leduc_labels.npz")   # hand-off between run stages
+LABELS_CACHE = Path("data/research_sweep/gate0_leduc_labels.npz")          # hand-off between run stages
+LABELS_BOOT_CACHE = Path("data/research_sweep/gate0_leduc_labels_boot.npz")  # iter-4 query-belief labels
 
 # P(deal a to P0, b to P1) over the 6-card deck (2 copies per rank): (2 - [a==b]) / 15.
 M2 = np.array([[(2 - (a == b)) / 15.0 for b in range(RANKS)] for a in range(RANKS)])
@@ -448,6 +454,66 @@ def _boundaries(pol0: dict):
     return out
 
 
+def harvest_query_beliefs(trunk_pols: list) -> list:
+    """The (pot_half, r0, r1) beliefs the gadget trunk ACTUALLY queries the net at.
+
+    `_boundary` maps each boundary's reach vectors through `_floor_norm` (the NET floor) before
+    the leaf call, so replaying `_boundaries` under each trunk's average policy reconstructs the
+    exact query distribution — this is the REAL PBS distribution the ReBeL warning is about."""
+    seen, queries = set(), []
+    for pol0 in trunk_pols:
+        for hist, pot_half, s0, s1 in _boundaries(pol0):
+            r0, r1 = _floor_norm(s0), _floor_norm(s1)     # same floor `_boundary` uses at query time
+            k = (pot_half, tuple(np.round(r0, 4)), tuple(np.round(r1, 4)))
+            if k not in seen:                             # dedupe: the finite query set, not a histogram
+                seen.add(k)
+                queries.append((pot_half, r0, r1))
+    return queries
+
+
+def _boot_situation(idx: int, queries: list):
+    """Iteration-4 situation: BOOTSTRAP_QUERY_FRAC drawn near a harvested query belief (Dirichlet
+    jitter for domain coverage), the rest pure Dirichlet as before. Same (SEED, idx) reproducibility.
+
+    The public card of a query belief is unconstrained (the trunk's leaf call fans over all 3 pubs),
+    so we still cycle the (pub, pot) cells; only the BELIEF vectors come from the query set."""
+    rng = np.random.default_rng([SEED, 4, idx])           # tag 4: fresh stream, disjoint from labels
+    cells = [(pub, ph) for pub in range(RANKS) for ph in POT_HALVES]
+    pub, ph = cells[idx % len(cells)]
+    if queries and rng.random() < BOOTSTRAP_QUERY_FRAC:
+        _, qr0, qr1 = queries[int(rng.integers(0, len(queries)))]
+        r0 = rng.dirichlet(np.maximum(qr0, 1e-3) / BOOTSTRAP_JITTER)   # concentrate around the query belief
+        r1 = rng.dirichlet(np.maximum(qr1, 1e-3) / BOOTSTRAP_JITTER)
+        r0 = np.maximum(r0, BELIEF_FLOOR); r1 = np.maximum(r1, BELIEF_FLOOR)
+        return pub, ph, r0 / r0.sum(), r1 / r1.sum()
+    return pub, ph, _sample_belief(rng), _sample_belief(rng)
+
+
+def _boot_label_one(args):
+    """Worker: solve one bootstrap situation exactly (identical CFV convention to `_label_one`)."""
+    idx, label_iters, queries = args
+    pub, ph, r0, r1 = _boot_situation(idx, queries)
+    cfv0, cfv1 = subgame_cfvs(pub, ph, r0, r1, label_iters)
+    zs_err = abs(float(r0 @ cfv0 + r1 @ cfv1))
+    return (_features(pub, ph, r0, r1),
+            np.concatenate([cfv0, cfv1]).astype(np.float32), zs_err)
+
+
+def generate_boot_labels(n_situations: int, label_iters: int, workers: int, queries: list):
+    """Solve n query-biased subgames in a process pool; deterministic order (same as generate_labels)."""
+    from concurrent.futures import ProcessPoolExecutor
+
+    xs, ys, max_zs = [], [], 0.0
+    t0 = time.time()
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        jobs = ((i, label_iters, queries) for i in range(n_situations))
+        for i, (x, y, zs) in enumerate(pool.map(_boot_label_one, jobs, chunksize=32)):
+            xs.append(x); ys.append(y); max_zs = max(max_zs, zs)
+            if (i + 1) % 900 == 0:
+                print(f"  boot-labels {i + 1}/{n_situations} ({(i + 1) / (time.time() - t0):.1f}/s)")
+    return np.stack(xs), np.stack(ys), max_zs
+
+
 GADGET_T, GADGET_F = 0, 1        # opponent's gadget actions: terminate / follow
 
 
@@ -545,14 +611,15 @@ def gadget_resolve(leaf_fn, trunk_iters: int, fill_iters: int):
     """The full iteration-3 construction: two gadget trunks (one per re-solving player),
     composed round-0 policy, and gadget fills on each trunk's carried constraints.
 
-    Returns (full policy, composed round-0 policy)."""
+    Returns (full policy, composed round-0 policy, [per-hero trunk round-0 policies])."""
     trunks = {}
     for hero in (0, 1):
         trunks[hero] = TrunkResolver(leaf_fn, hero=hero)
         trunks[hero].run(trunk_iters)
-    pol0 = _compose_round0(trunks[0].policy(), trunks[1].policy())
+    trunk_pols = [trunks[0].policy(), trunks[1].policy()]
+    pol0 = _compose_round0(trunk_pols[0], trunk_pols[1])
     constraints = {hero: trunks[hero].opponent_constraints() for hero in (0, 1)}
-    return gadget_fill(pol0, constraints, fill_iters), pol0
+    return gadget_fill(pol0, constraints, fill_iters), pol0, trunk_pols
 
 
 # ---------------- phase 4: baseline + gate ----------------
