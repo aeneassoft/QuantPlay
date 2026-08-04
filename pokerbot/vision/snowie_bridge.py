@@ -438,11 +438,61 @@ class StreetTracker:
 
 
 def make_hero():
-    """Derselbe Verbund wie der Trainer-GTO-Modus (ohne Table-Objekt: multiway-Kern, HU via Kern-Fallback)."""
+    """Der Trainer-Verbund KOMPLETT: tag-Kern multiway, PRINCE v2.2 sobald der Pot heads-up ist.
+
+    Bis 2026-08-04 stand das nur im Docstring — gebaut war allein der tag-Kern, und da fast jeder
+    Snowie-Pot heads-up endet, spielte praktisch NIE der validierte Prince (User-Frage deckte es auf).
+    """
+    os.environ.setdefault("POKERB_PRINCE", "1")   # VOR dem Strategie-Import: expandiert das v2.2-Profil
     from pokerbot.arena.sixmax import PROFILES, SixMaxBot
     bot = SixMaxBot(0, PROFILES["tag"])
     bot._read = lambda obs: {}
     return bot
+
+
+class PrinceHU:
+    """PRINCE v2.2 fuer Heads-up-Poette der Bruecke — derselbe Oracle-Pfad wie Trainer und Grader.
+
+    Fabriziert aus der Vision-Lesung das trainer.decision.v1-Rekord, das record_to_hu_state erwartet;
+    PrinceOracle macht daraus HU-Projektion -> PokerBot.decide -> api.legalize. Kein History-Kanal:
+    die Bruecke sieht nur Standbilder, rec['history'] bleibt leer (Linien-Features degradieren sanft).
+    """
+
+    def __init__(self):
+        from pokerbot.coach.oracle import PrinceOracle
+        self.oracle = PrinceOracle()
+
+    def decide(self, obs: dict, s: dict) -> dict:
+        live = s.get("live") or {}
+        vills = [k for k, v in live.items() if v and k != "hero"]
+        if len(vills) != 1:
+            raise ValueError("kein HU-Pot")
+        v = vills[0]
+        positions = s.get("positions") or {}
+        bb_d = 2.0
+        vstack = (s.get("stacks") or {}).get(v)
+        vstack_chips = int(round((vstack or 0) / bb_d * 100)) or obs["my_stack"]
+        mine, to_call = obs["my_committed_street"], obs["to_call"]
+        seats = [
+            {"seat": 0, "pos": obs["position"], "stack": obs["my_stack"], "folded": False,
+             "committed_total": mine, "all_in": False},
+            {"seat": 1, "pos": positions.get(v) or "BB", "stack": vstack_chips, "folded": False,
+             "committed_total": mine + to_call, "all_in": vstack_chips <= 0},
+        ]
+        legal = {"to_call": to_call, "pot": obs["pot"], "can_fold": to_call > 0,
+                 "can_check": obs["can_check"], "can_call": obs["can_call"],
+                 "can_raise": obs["can_raise"], "call_amount": to_call,
+                 "is_bet": obs["street"] != "preflop" and to_call == 0,
+                 "raise_min": obs["raise_min"], "raise_max": obs["raise_max"], "to_act": 0}
+        # legal/to_call gehoeren IN den Spot: api.legalize duck-typet spot.legal/.to_call/.pot/.bb/.street
+        spot = {"hero_seat": 0, "hero_pos": obs["position"], "hero_hole": obs["hole"],
+                "seats": seats, "board": obs["board"], "pot": obs["pot"], "bb": 100,
+                "street": obs["street"], "n_active": 2, "legal": legal, "to_call": to_call}
+        hand_id = "snowie-" + "".join(obs["hole"])
+        rec = {"spot": spot, "obs": obs, "legal": legal, "history": [],
+               "street": obs["street"], "hand_id": hand_id,
+               "spot_fp": hash((hand_id, obs["street"], obs["pot"], to_call)) & 0x7FFFFFFF}
+        return self.oracle.decide(rec)
 
 
 def act(bbox, obs: dict, decision: dict, bb_dollars: float) -> str:
@@ -494,6 +544,12 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
 
     from pokerbot.vision import snowie_state as SS
     hero, decisions, stale = make_hero(), 0, 0
+    prince = None
+    try:
+        prince = PrinceHU()
+        print("PRINCE v2.2 aktiv fuer Heads-up-Poette", flush=True)
+    except Exception as e:  # noqa: BLE001 — ohne Prince spielt der Kern weiter, aber sichtbar
+        print(f"PRINCE nicht verfuegbar ({e}) — tag-Kern spielt auch HU", flush=True)
     tracker = StreetTracker()
     hand = HandTracker()
     blocked_streak, forced, skipped_hands = 0, 0, []
@@ -572,7 +628,14 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         committed = tracker.update(bl, hstack)
         obs = to_obs_local(s, bb_dollars, committed)
         obs["position"] = hand.fixed_position(obs["position"])   # Button wandert nicht mitten in der Hand
-        d = hero.decide(obs)
+        d = None
+        if prince is not None and obs.get("n_active") == 2:
+            try:
+                d = prince.decide(obs, s)
+            except Exception:  # noqa: BLE001 — Prince-Problem -> der Kern uebernimmt still (Trainer-Idiom)
+                d = None
+        if d is None:
+            d = hero.decide(obs)
         did = act(bbox, obs, d, bb_dollars)
         decisions += 1
         with open(log_path, "a", encoding="utf-8") as f:
