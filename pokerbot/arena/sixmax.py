@@ -27,6 +27,12 @@ from pokerbot.strategy import preflop_gto
 from pokerbot.strategy import preflop_strength as ps
 
 OPEN_FRAC = {"EP": 0.16, "MP": 0.20, "HJ": 0.22, "CO": 0.28, "BTN": 0.48, "SB": 0.45, "BB": 1.0}
+# Multiway-Label-Abbildung (7/8/9/10-max -> das 6-max-Vokabular der Kern-Tabellen). BEWUSST nur
+# fuer die NEUEN Labels: jede 6-max-Position verhaelt sich byte-identisch zum vermessenen Anker.
+# (Der Audit-Fund, dass "UTG" in OPEN_FRAC fehlt und darum 0.20 statt EP-0.16 oeffnet, bleibt
+# ABSICHTLICH unangetastet - Anker-Schutz; als gegateter Re-Test in NOTES.md vermerkt.)
+POS_FRAC_BUCKET = {"UTG+1": "EP", "UTG+2": "EP", "UTG+3": "EP", "LJ": "MP"}
+POS_RFI_BUCKET = {"UTG+1": "UTG", "UTG+2": "UTG", "UTG+3": "UTG", "LJ": "HJ"}
 EQ_ITERS = 400   # equity Monte-Carlo iterations for live play (snappy)
 
 
@@ -127,10 +133,10 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
 
     if not board:   # ---------------- PREFLOP ----------------
         if obs["preflop_raises"] == 0:        # unopened: open or fold
-            frac = min(0.95, OPEN_FRAC.get(pos, 0.2) * k.open_mult)
+            frac = min(0.95, OPEN_FRAC.get(POS_FRAC_BUCKET.get(pos, pos), 0.2) * k.open_mult)
             if eff <= 12 and pct >= 1 - frac * 0.8 and can_raise:
                 return mk("raise", raise_to(obs["raise_max"]), f"Short-stack open-shove {hc} from {pos}.")
-            rec = preflop_gto.rfi(pos, hc) if k.name == "tag" else None   # solver-distilled GTO open (deep)
+            rec = preflop_gto.rfi(POS_RFI_BUCKET.get(pos, pos), hc) if k.name == "tag" else None   # solver-distilled GTO open (deep)
             if rec is not None:                # GTO table is the neutral floor's open strategy (Step 4a)
                 act = rec["action"]
                 if act == "raise" and can_raise:
@@ -145,6 +151,12 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
             return mk("check" if can_check else "fold", None, f"{hc} below {pos} opening range.")
         # facing a raise: MDF/pot-odds defense with a FLOOR (don't over-fold to big 3bets) + CAP on flatting
         req = to_call / (pot + to_call) if to_call else 0
+        if obs.get("icm") and to_call:
+            # TURNIER: verlorene Chips zaehlen Bubble-Faktor-fach (Endgame-Doktrin). Der Aufschlag
+            # sitzt exakt hier, weil ALLE Weiterspiel-Schwellen (cont/flat) aus req abgeleitet sind:
+            # Call-Ranges schrumpfen automatisch staerker als Open-Ranges (Gap Concept).
+            from pokerbot.strategy.tournament import icm_scaled_req
+            req = icm_scaled_req(req, obs, to_call, pot)
         cur = obs.get("cur_bet", to_call)
         pos_bonus = 0.06 if pos in ("BTN", "CO") else 0.0
         if obs["preflop_raises"] >= 2:                      # facing a 3bet+ (we likely opened)
@@ -179,6 +191,9 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
 
     if to_call > 0:
         req = to_call / (pot + to_call)
+        if obs.get("icm"):
+            from pokerbot.strategy.tournament import icm_scaled_req
+            req = icm_scaled_req(req, obs, to_call, pot)
         thresh = req + (0.10 if scare else -0.05)
         if made == "High Card":
             thresh = req + 0.08

@@ -653,3 +653,12 @@ float32-Regrets (viel RAM) -> uint8-Offsets -> purified 1-Bit (wenig RAM). Einba
 - **v4-CFR-Kern:** Regret-Tabellen mit waehlbarer Praezision (der Dial als Konstruktor-Parameter).
 - Optional: der 12GB-Solve-Cache als npz/uint8 fuer RAM-Preload (Disk ist billig — nur bei Bedarf).
 Kein Live-Nutzen HEUTE (TexasSolver-Subgames sind zeit-, nicht RAM-gebunden). PDF: books/papers/CFR/.
+
+## Turnier-Modus (2026-08-04) — bewusste Naeherungen
+- **OPEN_FRAC-"UTG"-Fund**: "UTG" fehlt im 6-max-OPEN_FRAC (faellt auf 0.20 statt EP-0.16). ABSICHTLICH
+  nicht gefixt (Anker-Schutz des vermessenen tag-Kerns); gegateter Re-Test-Arm, wenn der Kern neu vermessen wird.
+- **Dead-Button-Regel**: der Turnier-Direktor laesst den Button einfach zum naechsten Ueberlebenden wandern
+  (statt Dead-Button/Dead-SB). Exakt spaeter, falls Empirie-Abgleich es verlangt.
+- **ICM = Malmuth-Harville**: kein Future-Game-Simulation-Korrektiv (Blind-Positionen). Drehbarer Modell-Knopf.
+- **BF mit Start-of-Hand-Stacks**: die Bubble-Faktor-Naeherung nutzt die Stacks bei Handbeginn (stabil, cachebar);
+  nur der exakte All-in-Call rechnet mit Behind-Stacks im Entscheidungsmoment.

@@ -15,6 +15,10 @@ from pokerbot.engine.evaluator import best_five_name, evaluate
 STREETS = ["preflop", "flop", "turn", "river"]
 _DEAL = {"flop": 3, "turn": 1, "river": 1}
 POS_LABELS = {  # by offset from button among N active players (button = offset 0 from the end)
+    10: ["BTN", "SB", "BB", "UTG", "UTG+1", "UTG+2", "UTG+3", "LJ", "HJ", "CO"],
+    9: ["BTN", "SB", "BB", "UTG", "UTG+1", "UTG+2", "LJ", "HJ", "CO"],
+    8: ["BTN", "SB", "BB", "UTG", "UTG+1", "LJ", "HJ", "CO"],
+    7: ["BTN", "SB", "BB", "UTG", "LJ", "HJ", "CO"],
     6: ["BTN", "SB", "BB", "UTG", "HJ", "CO"],
     5: ["BTN", "SB", "BB", "UTG", "CO"],
     4: ["BTN", "SB", "BB", "CO"],
@@ -38,11 +42,16 @@ class Seat:
 
 class Table:
     def __init__(self, names, starting_stack=10000, sb=50, bb=100, seed=None,
-                 human_seat=0):
+                 human_seat=0, stacks=None, ante=0, rebuy=True):
         self.n = len(names)
         self.sb, self.bb, self.start_stack = sb, bb, starting_stack
+        # Turnier-Erweiterungen (2026-08-04), alle default-identisch zum Cash-Verhalten:
+        # stacks = individuelle Startstacks (Turnier: ungleich), ante = tote Vorab-Steuer je Hand,
+        # rebuy=False laesst Pleite-Spieler pleite (der Direktor eliminiert sie zwischen den Haenden).
+        self.ante, self.rebuy = ante, rebuy
         self.rng = random.Random(seed)
-        self.seats = [Seat(nm, starting_stack, is_human=(i == human_seat))
+        per_seat = list(stacks) if stacks is not None else [starting_stack] * self.n
+        self.seats = [Seat(nm, per_seat[i], is_human=(i == human_seat))
                       for i, nm in enumerate(names)]
         self.button = self.rng.randrange(self.n)
         self.hand_no = 0
@@ -92,8 +101,8 @@ class Table:
 
     # ------------------------------------------------------------- setup
     def start_hand(self) -> None:
-        for s in self.seats:                       # auto-rebuy so the table stays full
-            if s.stack < self.bb:
+        for s in self.seats:                       # auto-rebuy so the table stays full (Cash-Modus)
+            if self.rebuy and s.stack < self.bb:
                 s.stack = self.start_stack
             s.hole = []
             s.folded = s.all_in = s.has_acted = False
@@ -112,6 +121,13 @@ class Table:
         for i in self._clockwise(self.button):
             self.seats[i].hole = self.deck.deal(2)
 
+        if self.ante:
+            # Antes VOR den Blinds (Turnier): tote Steuer jedes Sitzes; _commit kappt am Stack,
+            # ein Kurzstack kann also schon durch die Ante all-in sein — die Side-Pot-Logik
+            # rechnet ueber committed_total ohnehin korrekt.
+            for i in self._clockwise(self.button):
+                self._commit(i, self.ante)
+            self.history.append({"action": "antes", "amount": self.ante})
         sb_i = (self.button + 1) % self.n
         bb_i = (self.button + 2) % self.n
         self._commit(sb_i, self.sb)
