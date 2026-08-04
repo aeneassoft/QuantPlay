@@ -310,6 +310,12 @@ def simulate(pop: dict, mix: list[dict], n_hands: int, seed: int, hero_factory=N
             rake_paid += rk
             net -= rk
         hero_net.append(net / 100.0)
+        if hasattr(agents[0], "notify_hand_end"):
+            # Tilt-/Reset-Hook (PrinceReset = das A-Game-Modell): identische Ableitung wie
+            # prince_ecology.run_eco, damit derselbe Held in beiden Harnessen dasselbe erlebt.
+            shown = bool((t.result or {}).get("shown"))
+            was_allin = t.seats[0].stack == 0
+            agents[0].notify_hand_end(net / 100.0, shown, was_allin)
         for s in t.seats:                         # Stacks pro Hand zuruecksetzen (Population = konstant tief)
             s.stack = depth_bb * 100
     n = len(hero_net)

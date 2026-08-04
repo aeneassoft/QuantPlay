@@ -1,7 +1,37 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-07-06**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-04**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★★★ CURRENT (2026-08-04) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE
+**Die Vision-Brücke (`pokerbot/vision/snowie_bridge.py` + `snowie_state.py` + `snowie_local.py`) spielt
+PokerSnowie 4 vollautomatisch**: 13,3 Hände/min, ~4% Aussetzer, beide Themes (dark/bright), Prince v2.2
+übernimmt HU-Pötte NUR POSTFLOP (preflop = positionstreuer 6-max-Kern; User-Einwand: MP-Open ≈ 15–20% Range,
+die HU-Projektion läse ~50%). 6-max-POSITIONS-PRIOR für die Gegner-Range (`make_seeded_tracker`: UTG 194 →
+BTN 552 Combos statt HU-1102) + Bayes-Korrektur über beobachtete Aktionen (`ActionLog` aus Standbild-Deltas).
+**Drei Marathon-Läufe (3.651 Hände roh): Konto −$2.915 — aber der BEREINIGTE POOL (3.114 saubere Hände) =
++3,2 bb/100, 95%-Band [−37, +44].** Jeder Lauf-Verlust einzeln obduziert und einer ABGEDICHTETEN Klasse
+zugeordnet: L1 = 46% Aussetzer (833 Zwangs-Folds), L2 = Über-Stack-Raise-Schleife (Snowie lehnt still ab →
+jetzt All-in-Preset + Wiederholungs-Wächter mit Degradations-Leiter), L3 = 13 Fantasie-Pot-Jams (Dezimalpunkt-
+Verlust ×100 → **Chip-Erhaltungs-Invariante**: Pot wächst max. um sichtbaren Stack-Abfluss). Werkzeuge: 5-Fälle-
+Regressionsnetz (`research/snowie_regress.py`, konservierte Tatorte beider Themes), Marathon-Wächter
+(`research/snowie_marathon.py`, Etappen + log-basierter Zähler, ESC beendet ALLES), Frame-Rekorder + Audit
+(27/28 frame-exakt). Erkenntnis-Ladder der Vision: $-Zeichen wird OCR-Ziffer (vor OCR wegschneiden), Margin-
+Regel + Konvergenz (zweideutig → Datei → Vorlage), Zweitquellen-Pot mit Suffix-Signatur + OCR-Schiedsrichter,
+Zeilen-/Polaritäts-Adaption. **Prince-Freispruch:** Turn-Monster-Checks = bewusste Check-Raise-Falle (Offline-
+Experiment: 2. Zug raist/bettet; identisch bei dünner und voller Historie). AIVAT: voll = nein (kein Showdown-
+Logging, keine eigene Wertfunktion im Pfad); Leiter definiert (Showdown-Logger → All-in-Glücksbereinigung →
+MIVAT-light). NÄCHSTE SCHRITTE: sauberer Lauf 4 für die Winrate (±20 braucht ~13k Hände), Showdown-Logger.
+**★ GG-HIGH-STAKES-ÖKOLOGIE (`research/gg_hs_ecology.py`, Population gecacht `data/gg_hs_pop.json`):**
+$10/$20 NLHDiamond, 12.211 Hände, 611 Spieler, 84,8% TAG-Regs (härtester Pool; echte Gewinner +8..15 bb/100,
+Rake 1,93% Cap 0,8bb). Vier Arme, gleiche Seeds: GTO-Hybrid +105,7 | Exploit (Live-Reads) +126,0 | **P_D A-GAME
+(PrinceReset, Tilt-Wächter) +6,1 ± 15,0** | P_D-Voll-Klon −216,1 (Rake-Last 13,5 vs 6,3). ★ DER A-GAME-BEFUND:
++6,1 liegt IM Band der echten Pool-Gewinner (+8..15) — und Klon-vs-Agenten ist Modellklasse-fair (er melkt
+die Naivität nicht). Der TILT ist der gesamte Unterschied: ~222 bb/100 durch den Reset-Wächter allein (das
+Ein-Schlag-Gesetz auf $10/$20 quantifiziert). Bot-Absolutwerte modell-optimistisch (Agenten postflop naiv);
+belastbar: Reads +20 als Obergrenze, Voll-Klon-Verdikt konsistent über 3 Pools (−216/−231/−263).
+Harness: simulate() füttert jetzt notify_hand_end (Tilt-Hook) identisch zu prince_ecology. Punishment-Modus (Task #23) weiter offen: Gate-fail, braucht echte
+konditionale Logik statt Knob-Kosmetik.
 
 ## ★★★★★ FINAL BOT LOCKED TO THE VALIDATED ANCHOR (user, 2026-07-06): "orientiere dich an Platz 11 −20BB; implementiere nur was Fehler behebt oder +EV bringt mit 90% Konfidenz."
 **The shipped profile is now PRINCE v2.2** (`git tag v2`, commit 01ecf95) = the ONLY config precision-measured
