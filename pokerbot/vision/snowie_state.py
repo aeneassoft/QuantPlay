@@ -662,6 +662,14 @@ def gate(s: dict) -> str | None:
     # Die Unmoeglichkeit aus Lauf 1 kann hier strukturell nicht mehr auftreten, wird aber geprueft:
     if not s["can_check"] and (s["call_amount"] or 0) <= 0:
         return "Widerspruch: kein Check moeglich, aber nichts zu callen"
+    # POT ENTHAELT JEDES EINSATZNIVEAU (run_v15: to_call 250 bei Pot 150 lief ungehindert durch,
+    # AA bekam einen unmoeglichen Preis praesentiert): Snowies TOTAL POT schliesst die liegenden
+    # Einsaetze ein - ein Einsatzniveau ueber dem Pot ist immer ein Lesefehler.
+    bets_l = s.get("bets") or {}
+    live_l = s.get("live") or {}
+    lv = [v for k, v in bets_l.items() if live_l.get(k) and v is not None]
+    if lv and s.get("pot") is not None and max(lv) > s["pot"] + 0.01:
+        return f"Einsatzniveau {max(lv):g} > Pot {s['pot']:g} - unmoeglich (Lesefehler)"
     # KREUZPROBE Button vs Einsaetze (nach dem '$8'->'38'-Fund): was ein Call kostet, folgt auch
     # aus den Chips auf dem Tisch. Widersprechen sich beide Quellen, ist eine davon falsch gelesen
     # -> pausieren. Ausnahme: der Call ist durch Heros Stack gedeckelt (All-in-Call).
@@ -694,7 +702,10 @@ if __name__ == "__main__":
 
 # ---------------------------------------------------------------- Zahlen in EINEM OCR-Durchgang
 SLOT_PAD = 12             # Luft zwischen den Feld-Streifen, damit Tesseract sie als Zeilen trennt
-OCR_MAX_CHIPS = 2000      # groesser kann an einem $1/$2-Tisch weder Pot noch Stack sein
+OCR_MAX_CHIPS = 800       # = 400bb Stack-Maximum in Dollar. Verliert die OCR einen Dezimalpunkt,
+                          # entsteht das Zehnfache ('185.5' -> 1855): unter 2000 passierte das den
+                          # Filter und rannte 77x ins Gatter (run_v15). Alles darueber geht an den
+                          # Vorlagen-Pfad, der den Punkt beherrscht - der liest 185.5 korrekt.
 OCR_CFG_BLOCK = "--psm 6 -c tessedit_char_whitelist=0123456789.$"
 
 

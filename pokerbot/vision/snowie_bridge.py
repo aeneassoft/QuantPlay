@@ -489,7 +489,19 @@ class PrinceHU:
                 "seats": seats, "board": obs["board"], "pot": obs["pot"], "bb": 100,
                 "street": obs["street"], "n_active": 2, "legal": legal, "to_call": to_call}
         hand_id = "snowie-" + "".join(obs["hole"])
-        rec = {"spot": spot, "obs": obs, "legal": legal, "history": [],
+        # SYNTHETISCHE History aus dem, was die Vision sicher weiss. Ohne sie zaehlte der Bot
+        # preflop_raises=0 und lief in einen falschen Ast (gemessen: A7o BB vs Open -> ALL-IN).
+        # Raise-Zahl aus dem Einsatzniveau, deal-Marker aus dem Board, die aktuelle Bet als letzter
+        # Eintrag - grob, aber dieselbe Naeherung, die obs["preflop_raises"] ohnehin traegt.
+        hist = []
+        for k in range(obs.get("preflop_raises") or 0):
+            amt = obs["cur_bet"] if (obs["street"] == "preflop" and k == (obs["preflop_raises"] or 1) - 1) else None
+            hist.append({"street": "preflop", "player": 1, "action": "raise", "amount": amt})
+        for st in ("flop", "turn", "river")[:max(0, len(obs["board"]) - 2)]:
+            hist.append({"action": "deal", "street": st})
+        if obs["street"] != "preflop" and to_call > 0:
+            hist.append({"street": obs["street"], "player": 1, "action": "bet", "amount": to_call})
+        rec = {"spot": spot, "obs": obs, "legal": legal, "history": hist,
                "street": obs["street"], "hand_id": hand_id,
                "spot_fp": hash((hand_id, obs["street"], obs["pot"], to_call)) & 0x7FFFFFFF}
         return self.oracle.decide(rec)
