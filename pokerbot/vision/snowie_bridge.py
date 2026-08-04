@@ -641,7 +641,12 @@ def run(n_hands: int, strict: bool, bb_dollars: float, probe: bool) -> None:
         obs = to_obs_local(s, bb_dollars, committed)
         obs["position"] = hand.fixed_position(obs["position"])   # Button wandert nicht mitten in der Hand
         d = None
-        if prince is not None and obs.get("n_active") == 2:
+        # PRINCE NUR POSTFLOP (User-Einwand 2026-08-04, korrekt): ein kollabierter 6-max-Pot ist
+        # KEIN echtes Heads-up — ein MP-Open ist eine ~15-20%-Range, der HU-Bot laese denselben
+        # Raise als ~45-85%-HU-Range und verteidigte viel zu weit. Preflop entscheidet darum der
+        # positionstreue 6-max-Kern; Prince uebernimmt postflop (Value/Disziplin = sein Gewinn;
+        # der HU-Range-Prior bleibt dort eine dokumentierte Naeherung, wie im Trainer/Grader).
+        if prince is not None and obs.get("n_active") == 2 and obs.get("street") != "preflop":
             try:
                 d = prince.decide(obs, s)
             except Exception:  # noqa: BLE001 — Prince-Problem -> der Kern uebernimmt still (Trainer-Idiom)

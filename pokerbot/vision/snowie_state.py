@@ -72,6 +72,12 @@ def _ink(arr: np.ndarray, ratio: float = 0.70) -> np.ndarray:
     Wir nehmen 70% zwischen Hintergrund (Median) und hellstem Pixel: trennt die Zeichen sauber."""
     if arr.size == 0:
         return np.zeros_like(arr, dtype=bool)
+    # POLARITAET automatisch (Bright Mode 2026-08-04): aktive Sitzboxen sind jetzt WEISS mit
+    # dunkler Schrift — liegt der Median naeher am Maximum als am Minimum, ist die Tinte DUNKEL
+    # und wir arbeiten auf dem Negativ. Dunkelmodus-Felder bleiben unveraendert (Regression 3x).
+    med = float(np.median(arr))
+    if med - float(arr.min()) > float(arr.max()) - med:
+        arr = 255 - arr
     lo, hi = float(np.median(arr)), float(arr.max())
     if hi - lo < 25:                      # kein Kontrast -> kein Text
         return np.zeros_like(arr, dtype=bool)
@@ -112,12 +118,21 @@ def match_digit(img: Image.Image, ratio: float = 0.70) -> tuple[str | None, floa
     Bei schmalen Segmenten ist eine Verwechslung daher unmoeglich-genug, um milder zu werten;
     breite Segmente muessen weiter durch die strenge Schwelle (bzw. die Trennung)."""
     b = _binary_bright(img, ratio=ratio)
-    best, best_s = None, -1.0
+    best, best_s, second = None, -1.0, -1.0
     for label, tpl in _digit_templates(ratio):
         s = SL._score(b, tpl)
         if s > best_s:
+            if label != best:
+                second = best_s
             best, best_s = label, s
-    return (best, best_s) if best_s >= SL.MATCH_MIN else (None, best_s)
+        elif label != best and s > second:
+            second = s
+    # Margin wie beim Rang-Matcher: zweideutig -> unlesbar. Ohne sie wurde ein 10px-Fragment des
+    # Pots '$13' ueber die Schmal-Milde als '8' akzeptiert (Bright-Mode-Fund) und das Gatter
+    # bekam einen falschen, aber plausiblen Pot praesentiert.
+    if best_s < SL.MATCH_MIN or best_s - second < SL.MATCH_MARGIN:
+        return None, best_s
+    return best, best_s
 
 
 MIN_SEG_W, MIN_INK_FRAC, MIN_SEG_H = 5, 0.12, 0.35
@@ -218,13 +233,17 @@ def _ocr_number(img: Image.Image, box) -> float | None:
 def read_number(img: Image.Image, box, learn: bool = False) -> float | None:
     """'$199' -> 199.0. Probiert beide Tinten-Schwellen (Pot-Feld und Sitz-Box brauchen
     verschiedene) und nimmt das erste VOLLSTAENDIGE Ergebnis; sonst None (nie raten)."""
-    # TEMPLATES ZUERST, OCR als Rueckfall: die Vorlagen sind fuer genau diesen Font exakt und ~15x
-    # schneller (read_state 80ms statt 1200ms — OCR startet je Feld einen Prozess). Tesseract deckt
-    # dafuer die Zeichen ab, die wir noch nie gesehen haben, statt den Lauf blockieren zu lassen.
+    # TEMPLATES ZUERST, OCR als Rueckfall — aber im KONSENS ueber die Schwellen, nicht erstbestes:
+    # bei 0.70 zerbrach '$13' zu einem 8px-Fragment ('8'), waehrend 0.40 sauber '13' las; die alte
+    # Erstbestes-Regel gab die 8 zurueck. Jetzt gewinnt der Wert, den die meisten Schwellen sehen;
+    # bei Gleichstand der mit den meisten gelesenen Zeichen (laengerer Text schlaegt Fragment).
+    votes: dict[float, int] = {}
     for r in (0.70, 0.50, 0.60, 0.40, 0.80, 0.30):
         v = _read_number_at(img, box, learn, r)
         if v is not None:
-            return v
+            votes[v] = votes.get(v, 0) + 1
+    if votes:
+        return max(votes.items(), key=lambda kv: (kv[1], len(f"{kv[0]:g}")))[0]
     return _ocr_number(img, box)
 
 
@@ -265,7 +284,8 @@ LINE_MIN_H = 5             # duennere "Zeilen" sind Rahmenkanten, kein Text
 
 def _text_lines(g: np.ndarray) -> list[tuple[int, int]]:
     """Waagerechte Textzeilen eines Ausschnitts als (oben, unten)-Paare."""
-    lit = (g > 110).mean(axis=1) > LINE_INK_MIN
+    med = float(np.median(g))
+    lit = (np.abs(g.astype(np.int16) - med) > 60).mean(axis=1) > LINE_INK_MIN
     out, start = [], None
     for y, v in enumerate(lit):
         if v and start is None:
@@ -370,10 +390,20 @@ def _read_number_at(img, box, learn, ratio) -> float | None:
 
 
 # ---------------------------------------------------------------- Sitze / Dealer / Zug
+LIVE_WHITE_BOX = 200      # Bright Mode: aktive Box ist reinweiss (median 255), gefoldete grau (123)
+GREY_BAND = (100, 160)    # das Grau gefoldeter Boxen — in KEINEM Modus ist ein aktiver Sitz so mittig
+
+
 def seat_live(img: Image.Image, seat: str) -> bool:
-    """Aktiv (nicht gefoldet)? Gefoldete Sitze rendert Snowie deutlich dunkler/ausgegraut."""
+    """Aktiv (nicht gefoldet)? Beide Themes (gemessen 2026-08-04):
+    dunkel: aktiv = reinweisser Text (max 255), gefoldet nur ~160 -> max-Schwelle.
+    bright: gefoldet = GRAUE Box (median 123, max bis 234!) -> die max-Schwelle allein luegt;
+    aktiv ist entweder die weisse Box (median>=200) oder Heros dunkle Box mit hellem Text."""
     g = np.asarray(_sub(img, SEAT_BOX[seat]).convert("L"))
-    return int(g.max()) >= LIVE_MAX_BRIGHT
+    med = float(np.median(g))
+    if GREY_BAND[0] <= med <= GREY_BAND[1]:
+        return False
+    return med >= LIVE_WHITE_BOX or int(g.max()) >= LIVE_MAX_BRIGHT
 
 
 # Die D-Scheibe ist ein GEFUELLTER weisser Kreis (~40px) mit dunklem 'D' darin. Ein Kreis fuellt
@@ -397,7 +427,9 @@ def dealer_seat(img: Image.Image) -> str | None:
     """
     x0, y0, _, _ = DEALER_SEARCH
     g = np.asarray(_sub(img, DEALER_SEARCH).convert("L"))
-    white = (g > 225).astype(np.float32)
+    # 248 statt 225 (Bright Mode): der helle App-Hintergrund (234) zaehlte sonst als "weiss" und
+    # die Suche ertrank in Weissflaechen. Die echte Scheibe ist reinweiss (255) in BEIDEN Themes.
+    white = (g > 248).astype(np.float32)
     dark = (g < 120).astype(np.float32)
     # Integralbilder: alle Fenstermittel in einem Rutsch statt Python-Doppelschleife
     def _win_mean(m):
@@ -414,6 +446,10 @@ def dealer_seat(img: Image.Image) -> str | None:
         if BOARD_RECT[0] <= cx <= BOARD_RECT[2] and BOARD_RECT[1] <= cy <= BOARD_RECT[3]:
             continue
         if HERO_CARDS_RECT[0] <= cx <= HERO_CARDS_RECT[2] and HERO_CARDS_RECT[1] <= cy <= HERO_CARDS_RECT[3]:
+            continue
+        # Bright Mode: aktive Sitzboxen sind WEISS mit dunkler Schrift = scheibenartig. Die echte
+        # Scheibe liegt IMMER zwischen Sitz und Tischmitte, nie in einer Namensbox.
+        if any(b[0] <= cx <= b[2] and b[1] <= cy <= b[3] for b in SEAT_BOX.values()):
             continue
         if float(wf[yy, xx]) > best_frac:
             best_frac, best = float(wf[yy, xx]), (cx, cy)
@@ -435,7 +471,10 @@ def hero_turn(img: Image.Image) -> bool:
     """
     g = np.asarray(img.convert("L"))
     def _lit(box: tuple[int, int, int, int]) -> bool:
-        return float((g[box[1]:box[3], box[0]:box[2]] > 110).mean()) > BTN_INK_MIN
+        # STREUUNG statt Tintenanteil (Bright Mode): die orangen Buttons (median 146) UND die leere
+        # helle Flaeche (median 234) liegen beide ueber jeder festen Helligkeitsschwelle — aber nur
+        # ein Button mit Text streut (std 20-24 vs 0 leer; dunkler Modus: 40+ vs ~3).
+        return float(g[box[1]:box[3], box[0]:box[2]].std()) >= BTN_STD_MIN
     return _lit(BTN_FOLD_BOX) and _lit(BTN_MID_BOX)
 
 
@@ -455,7 +494,9 @@ def number_fields() -> dict[str, tuple]:
     out = {"pot": POT_BOX}
     for s, b in SEAT_BOX.items():
         y_split = int(b[1] + (b[3] - b[1]) * STACK_FRAC[1])
-        out[f"stack_{s}"] = (b[0] + NUM_INSET, y_split + 4, b[2] - NUM_INSET, b[3] - 6)
+        # +16px unter die Boxkante (Bright Mode): die weisse Sitzbox ist HOEHER als die dunkle,
+        # der Stack-Text sitzt tiefer — der alte Crop schnitt '195' horizontal durch.
+        out[f"stack_{s}"] = (b[0] + NUM_INSET, y_split + 4, b[2] - NUM_INSET, b[3] + 16)
     for s, b in BET_BOX.items():
         out[f"bet_{s}"] = b
     return out
@@ -527,7 +568,7 @@ def read_bets(img: Image.Image, learn: bool = False,
 # Fuer die Entscheidung brauchen wir aber genau zwei Dinge: darf ich checken, und was kostet ein Call.
 # Beides steht auf dem mittleren Button — Ziffern vorhanden = CALL mit Betrag, keine Ziffern = CHECK.
 BTN_FOLD_BOX = (604, 1235, 814, 1318)         # FOLD steht immer links — auch im Zwei-Button-Layout
-BTN_INK_MIN = 0.03                            # gemessen: belegt 0.058, leer 0.000 -> Schwelle mittig
+BTN_STD_MIN = 12.0                            # gemessen: Button mit Text std 20-58, leere Flaeche 0-5
 BTN_MID_BOX = (830, 1235, 1040, 1318)
 BTN_RIGHT_BOX = (1056, 1235, 1266, 1318)
 
@@ -545,6 +586,34 @@ def read_buttons(img: Image.Image, learn: bool = False, batch: dict | None = Non
             "can_check": can_check, "raise_min": (rgt or None)}
 
 
+NUM_LINE_MIN_H = 9        # Ziffernzeilen sind ~17px; Rahmenkanten 4-6px, Textsplitter <8px
+SOLID_BLOCK_FRAC = 0.70   # mehr "Tinte" als das ist ein Farbblock, kein Text
+
+
+def bottom_line_box(img: Image.Image, box) -> tuple:
+    """Ein Zahlenfeld auf seine UNTERSTE Textzeile eindampfen (mit Luft), Rueckfall = ganze Box.
+
+    Zwei gemessene Bright-Mode-Faelle erzwingen das: der Pot-Crop enthaelt oben einen Streifen
+    'TOTAL POT', dessen Fragmente die Segmentierung vergiften (eine 0.30-Schwelle las das Chaos
+    als '8', der Tisch zeigte 13); und Sitz-Namen ragen von oben in die Stack-Crops.
+    """
+    g = np.asarray(_sub(img, box).convert("L"))
+    # nur ZIFFERN-hohe Zeilen (>=9px; Ziffern sind ~17px): Heros weisse Rahmen-Unterkante (4-6px)
+    # und der 'TOTAL POT'-Streifen (Teilzeile) qualifizierten sonst als "unterste Zeile" und die
+    # Lesung lief auf leeren Pixeln (hero-Stack 0.0 in BEIDEN Regressionsfaellen - vom Netz gefangen).
+    med = float(np.median(g))
+    def _text_like(a, b):
+        # echte Textzeilen sind 10-40% Tinte; ein VOLLBLOCK (~100%) ist der helle Hintergrund, der
+        # unter einer dunklen Box in den erweiterten Crop ragt — keine Zeile, eine Flaeche.
+        frac = float((np.abs(g[a:b].astype(np.int16) - med) > 60).mean())
+        return frac <= SOLID_BLOCK_FRAC
+    lines = [ln for ln in _text_lines(g) if ln[1] - ln[0] >= NUM_LINE_MIN_H and _text_like(*ln)]
+    if not lines:
+        return box
+    top, bot = lines[-1]
+    return (box[0], box[1] + max(0, top - 2), box[2], box[1] + min(g.shape[0], bot + 2))
+
+
 def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     img = img or SL.grab()
     cards = SL.read_cards(img, learn=learn)
@@ -552,8 +621,8 @@ def read_state(img: Image.Image | None = None, learn: bool = False) -> dict:
     live = {s: seat_live(img, s) for s in SEAT_BOX}
     F = number_fields()
     n_inset = NUM_INSET
-    batch_boxes = {"pot": F["pot"],
-                   **{f"stack_{s}": F[f"stack_{s}"] for s in SEAT_BOX},
+    batch_boxes = {"pot": bottom_line_box(img, F["pot"]),
+                   **{f"stack_{s}": bottom_line_box(img, F[f"stack_{s}"]) for s in SEAT_BOX},
                    **{f"bet_{s}": BET_BOX[s] for s in SEAT_BOX},
                    "btn_mid": (BTN_MID_BOX[0] + n_inset, BTN_MID_BOX[1] + n_inset,
                                BTN_MID_BOX[2] - n_inset, BTN_MID_BOX[3] - n_inset),
