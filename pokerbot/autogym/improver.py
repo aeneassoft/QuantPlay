@@ -65,6 +65,68 @@ def podds_guard(make_strat, margin: float = 0.02, iters: int = 120):
     return make
 
 
+def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120):
+    """Kandidat aus dem F-Befund mdf_flop (OVER-FOLD 0,61 vs erlaubt 0,32):
+    ein Flop-Fold gegen einen Einsatz wird zum Call, wenn die Equity vs eine
+    uniforme Range die Pot-Odds deckt. Nur legale Information. Die Doktrin
+    kennt das Risiko (Frequenz-Matching 3x widerlegt) -- das Gate urteilt."""
+    import random as _random
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.cards import make_deck
+    from pokerbot.engine.equity import equity_vs_range
+
+    def make(seat):
+        base = make_strat(seat)
+        rng = _random.Random(53 + seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if a == "fold" and to_call > 0 and st["street"] == "flop":
+                dead = set(me["hole"]) | set(st["board"])
+                deck = [c for c in make_deck() if c not in dead]
+                combos = [tuple(rng.sample(deck, 2)) for _ in range(40)]
+                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters)
+                if eq >= equity_needed_to_call(st["pot"], to_call) + margin:
+                    return "call", None
+            return a, amt
+        return d
+    return make
+
+
+def sel_guard(make_strat, margin: float = 0.03, iters: int = 160):
+    """Kandidat 3 -- SELEKTION statt Frequenz (die Lehre aus Runde 1): ein
+    Flop-Fold gegen einen Einsatz wird NUR dann zum Call, wenn die Equity vs
+    die TRACKER-Range des Gegners (Bayes ueber die gespielte Linie, History
+    steht im State) die Pot-Odds plus Marge deckt. Trash foldet weiter --
+    genau die Selektion, die mdf_guard fehlte. Nur legale Information."""
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if a == "fold" and to_call > 0 and st["street"] == "flop":
+                try:
+                    t = RangeTracker().build(st)
+                    cw = t.range.get(1 - st["to_act"], {})
+                    if cw:
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + margin:
+                            return "call", None
+                except Exception:
+                    pass                    # defensiv: im Zweifel bleibt der Basis-Fold
+            return a, amt
+        return d
+    return make
+
+
 def guarded(make_strat, guard_names: list[str]):
     """Wrapper-Fabrik: legt die Guard-Regeln um eine bestehende Strategie-Fabrik."""
     def make(seat):

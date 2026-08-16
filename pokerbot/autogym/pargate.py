@@ -15,11 +15,11 @@ import sys
 import time
 
 # Spec-Namen -> Fabrik-Bauer. Worker-seitig aufgeloest (picklefrei).
-KANDIDATEN = ("mdf_guard", "podds_guard", "basis")
+KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "basis")
 
 
 def _baue_fabrik(name: str, seed: int):
-    from pokerbot.autogym.improver import mdf_guard, podds_guard
+    from pokerbot.autogym.improver import mdf_guard, podds_guard, sel_guard
     from pokerbot.benchmark.duplicate import pokerbot
     basis = pokerbot(exploit=True, seed=seed)
     if name == "basis":
@@ -28,6 +28,8 @@ def _baue_fabrik(name: str, seed: int):
         return mdf_guard(basis)
     if name == "podds_guard":
         return podds_guard(basis)
+    if name == "sel_guard":
+        return sel_guard(basis)
     raise ValueError(name)
 
 
