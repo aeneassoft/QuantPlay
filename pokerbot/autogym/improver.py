@@ -83,7 +83,7 @@ def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120):
             a, amt = base(st)
             me = st["players"][st["to_act"]]
             to_call = max(0, st["current_bet"] - me["committed_street"])
-            if a == "fold" and to_call > 0 and st["street"] == "flop":
+            if a == "fold" and to_call > 0 and st["street"] in streets:
                 dead = set(me["hole"]) | set(st["board"])
                 deck = [c for c in make_deck() if c not in dead]
                 combos = [tuple(rng.sample(deck, 2)) for _ in range(40)]
@@ -95,7 +95,8 @@ def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120):
     return make
 
 
-def sel_guard(make_strat, margin: float = 0.03, iters: int = 160):
+def sel_guard(make_strat, margin: float = 0.03, iters: int = 160,
+              streets: tuple = ("flop",)):
     """Kandidat 3 -- SELEKTION statt Frequenz (die Lehre aus Runde 1): ein
     Flop-Fold gegen einen Einsatz wird NUR dann zum Call, wenn die Equity vs
     die TRACKER-Range des Gegners (Bayes ueber die gespielte Linie, History

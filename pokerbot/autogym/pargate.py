@@ -15,7 +15,7 @@ import sys
 import time
 
 # Spec-Namen -> Fabrik-Bauer. Worker-seitig aufgeloest (picklefrei).
-KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "lizenz_guard", "basis")
+KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_all", "lizenz_guard", "auslese2", "basis")
 
 
 def _baue_fabrik(name: str, seed: int):
@@ -32,6 +32,12 @@ def _baue_fabrik(name: str, seed: int):
         return sel_guard(basis)
     if name == "lizenz_guard":
         return lizenz_guard(basis)
+    if name == "sel_all":
+        # B1: der bewiesene Mechanismus (+4,7 am Flop) auf Turn+River ausgeweitet.
+        return sel_guard(basis, streets=("flop", "turn", "river"))
+    if name == "auslese2":
+        # B3: Call-Seite (alle Strassen) + Bet-Seite (Lizenz) = der v2-Kandidat.
+        return lizenz_guard(sel_guard(basis, streets=("flop", "turn", "river")))
     raise ValueError(name)
 
 
