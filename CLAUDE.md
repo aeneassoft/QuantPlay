@@ -268,6 +268,15 @@ How I write code AND talk about it — the standing default, every turn.
   LLM failure mode; this IS the Verification-grounding gate restated). CONSISTENT: uniform format; write code that reads
   like the surrounding code (match its naming, comment density, idiom).
 
+## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
+Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche
+Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) liegt im
+Root unter **`_privat/`**: gitignored, durch einen lokalen `pre-commit`-Hook blockiert, nie gepusht.
+Beschreibung dort in `_privat/LIESMICH.md`. **Nichts daraus wird versioniert, auch nicht mit `git add -f`.**
+Wenn aus einer solchen Arbeit ein echter Poker-Befund faellt, wandert er ENTPERSONALISIERT in den Kern
+(so geschehen: das 66-bb/100-Abflachen in `docs/POKER_NUTSHELL.md`, der Entropie-Bias in `NOTES.md`) —
+die Rohdaten und die Person bleiben draussen.
+
 ## Run / play
 - **6-max vs 5 bots (the app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 (launcher
   `PokerB 6max spielen.bat`). Logs each hand to `data/sessions/`; "Analyse" = end-of-session breakdown.
