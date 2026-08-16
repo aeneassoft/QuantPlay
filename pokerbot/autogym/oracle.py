@@ -20,7 +20,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from knowledge_base.math.formulas import equity_needed_to_call, minimum_defense_frequency
+from knowledge_base.math.formulas import (equity_needed_to_call,
+                                          minimum_defense_frequency,
+                                          required_fold_equity)
+from knowledge_base.math.postflop_formulas import exact_two_card_draw_equity
 from pokerbot.engine.equity import equity_vs_hand
 
 # L-Stufe: erst ab dieser Equity-Luecke wird ein Call als Lead gebucht. Die Marge
@@ -30,6 +33,22 @@ LEAD_MARGIN = 0.15
 EQ_ITERS = 200
 # F-Stufe: erlaubte Abweichung der Fold-Frequenz vom MDF-Ziel, bevor gemeldet wird.
 MDF_BAND = 0.10
+# W1-2 (HERABGESTUFT P->L, 2026-08-16): 'Call ohne Odds' ist NUR beweisbar, wenn
+# Hero sicher hinten ist -- das weiss man ohne Gegnerhand nie (Value-Call moeglich).
+# Darum Lead-Stufe, dafuer range-frei: die OPTIMISTISCHE Out-Obergrenze eines
+# Draws im Holdem (Monster-Draw ~21 Outs) deckt die Pot-Odds nicht.
+OUTS_CEILING = 21
+# W1-3 (KORRIGIERT, 2026-08-16): die Inventur-Regel 'FE_req > 1' ist leer -- bei
+# Fold-Frequenz 1 ist EV = Pot > 0, also ist FE_req IMMER < 1. Der echte Check:
+# die noetige Fold-Frequenz uebersteigt eine plausible Obergrenze.
+FE_CEILING = 0.75
+# W1-1-ERSTKALIBRIERUNG (2026-08-16, VOR Validierung des Checks, journalfaehig):
+# der Fold-Spiegel braucht eine STRENGERE Marge als der Call-Check — jeder Fold
+# gegen einen geglueckten Bluff hat hohe Rueckschau-Equity (unvermeidbares
+# Poker, kein Leak). 0.15 feuerte auf dem gesunden Bot mit 6,5% (gemessen);
+# 0.30 verlangt einen krassen Ueberschuss. Keine Post-hoc-Justierung eines
+# validierten Instruments, sondern die Erstkalibrierung eines neuen.
+FOLD_LEAD_MARGIN = 0.30
 
 
 @dataclass
@@ -81,6 +100,44 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> None:
             and action in ("fold", "call", "raise", "allin")):
         rep.facing_bets.append((rec["street"], pot - to_call, to_call, action == "fold"))
 
+    # W1-1 (L): Fold TROTZ ausreichender Equity -- der Spiegel des Call-Checks.
+    if action == "fold" and to_call > 0 and rec.get("villain_hole"):
+        req = equity_needed_to_call(pot, to_call)
+        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"], iters=EQ_ITERS)
+        if eq - req > FOLD_LEAD_MARGIN:
+            rep.leads.append(Verdict(
+                "L", "fold_ueber_pot_odds", (eq - req) * (pot + to_call) / bb,
+                f"{rec['street']}: eq {eq:.2f} vs noetig {req:.2f} "
+                f"(Ueberschuss {eq - req:.2f}, to_call {to_call}, Pot {pot})"))
+
+    # W1-2 (L, range-frei -> laeuft auch 6-max): Call, der die Action schliesst
+    # (keine Implied Odds), obwohl selbst die OPTIMISTISCHE Draw-Obergrenze die
+    # Pot-Odds nicht deckt. flop: 2 Karten kommen; turn: 1 Karte (outs/46).
+    if (action == "call" and to_call > 0 and rec.get("call_closes_action")
+            and rec["street"] in ("flop", "turn")):
+        req = equity_needed_to_call(pot, to_call)
+        ceiling = (exact_two_card_draw_equity(OUTS_CEILING) if rec["street"] == "flop"
+                   else OUTS_CEILING / 46.0)
+        if req > ceiling + 0.02:
+            rep.leads.append(Verdict(
+                "L", "allin_call_ohne_odds", (req - ceiling) * (pot + to_call) / bb,
+                f"{rec['street']}: noetig {req:.2f} > Draw-Obergrenze {ceiling:.2f} "
+                f"(to_call {to_call}, Pot {pot}, Action geschlossen)"))
+
+    # W1-3 (L, korrigiert): Hero-Bet/Raise, dessen noetige Fold-Frequenz bei
+    # Rueckschau-Equity eine plausible Obergrenze uebersteigt.
+    if (action in ("raise", "allin") and rec.get("amount")
+            and rec.get("villain_hole") and rec["street"] != "preflop"):
+        risk = max(0, rec["amount"] - to_call)
+        if risk > 0:
+            eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"], iters=EQ_ITERS)
+            fe_req = required_fold_equity(pot, risk, risk, eq)
+            if fe_req > FE_CEILING:
+                rep.leads.append(Verdict(
+                    "L", "bet_braucht_unplausible_folds", 0.0,
+                    f"{rec['street']}: FE_req {fe_req:.2f} > {FE_CEILING} "
+                    f"(eq {eq:.2f}, Risiko {risk}, Pot {pot})"))
+
     # L: Call deutlich unter der Pot-Odds-Schwelle, in Rueckschau-Equity.
     if action == "call" and to_call > 0 and rec.get("villain_hole"):
         req = equity_needed_to_call(pot, to_call)
@@ -129,6 +186,9 @@ def manifest() -> dict:
             "minimum_defense_frequency  (F: MDF-Band je Strasse)",
             "Chip-Erhaltung  (HART)",
             "dominierte Aktion free_fold  (P)",
+            "expected_value-Spiegel: fold_ueber_pot_odds  (L, W1-1)",
+            "exact_two_card_draw_equity: allin_call_ohne_odds  (L, W1-2, P->L herabgestuft)",
+            "required_fold_equity: bet_braucht_unplausible_folds  (L, W1-3, korrigiert)",
         ],
         "offen": [
             "compute_pot_odds", "expected_value", "bluff_to_value_and_frequencies",

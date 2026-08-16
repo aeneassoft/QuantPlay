@@ -39,8 +39,10 @@ def e1_orakel_wahrheit() -> tuple[bool, list[str]]:
     from knowledge_base.math.formulas import (breakeven_bluff_percentage, compute_spr,
                                               equity_needed_to_call, expected_value,
                                               minimum_defense_frequency)
+    from knowledge_base.math.formulas import required_fold_equity
     from knowledge_base.math.postflop_formulas import (alpha_break_even_bluff_frequency,
-                                                       breakeven_fold_equity_pure_bluff)
+                                                       breakeven_fold_equity_pure_bluff,
+                                                       exact_two_card_draw_equity)
     rows = []
     ok = True
 
@@ -60,6 +62,10 @@ def e1_orakel_wahrheit() -> tuple[bool, list[str]]:
     check("breakeven_bluff_pct(100,100)", breakeven_bluff_percentage(100, 100), Fraction(1, 2))
     check("compute_spr(1000,250)", compute_spr(1000, 250), Fraction(4))
     check("expected_value([.6,.4],[100,-50])", expected_value([0.6, 0.4], [100, -50]), Fraction(40))
+    # 9 Outs Flop->River: 1 - C(38,2)/C(47,2) = 378/1081 (Docstring-Anker).
+    check("exact_two_card_draw_equity(9)", exact_two_card_draw_equity(9), Fraction(378, 1081))
+    # E=0: FE_req = R/(P+R) -- die Alpha-Identitaet.
+    check("required_fold_equity(100,50,50,0)", required_fold_equity(100, 50, 50, 0), Fraction(50, 150))
     return ok, rows
 
 
@@ -109,8 +115,12 @@ def _defekt_factory(seed: int, mode: str):
     return make
 
 
-def _lead_rate(rep) -> float:
-    return len(rep.leads) / max(1, rep.decisions) * 100
+def _lead_rate(rep, rule: str | None = None) -> float:
+    """Lead-Rate, optional je Regel — E3a vergleicht die Regel, die zur
+    Defekt-SIGNATUR passt (Station = Calls), sonst verduennen neue Checks
+    mit anderem Gegenstand die Metrik (gemessen 2026-08-16)."""
+    n = sum(1 for v in rep.leads if rule is None or v.rule == rule)
+    return n / max(1, rep.decisions) * 100
 
 
 def main() -> None:
@@ -137,7 +147,7 @@ def main() -> None:
     results["E2_symmetrie"] = ok2
     print(f"E2 SYMMETRIE: {'PASS' if ok2 else 'FAIL'}  (Drift {drift:+.2f} vs 2*SE {E2_SE_MULT * se:.2f}, "
           f"n={pairs} Paare)")
-    gesund_leads = _lead_rate(hu["orakel_report"])
+    gesund_leads = _lead_rate(hu["orakel_report"], "call_unter_pot_odds")
 
     print("\nE3 DETEKTOR laeuft (Defekt-Bot: Station) ...")
     # Defekt-Selbstspiel durch dasselbe Gym: der Defekt sitzt auf BEIDEN Sitzen.
@@ -150,7 +160,7 @@ def main() -> None:
         defekt = gym_hu.run(n_pairs=max(30, pairs // 3), seed=7)
     finally:
         gym_hu._make_bot = orig_make
-    defekt_leads = _lead_rate(defekt["orakel_report"])
+    defekt_leads = _lead_rate(defekt["orakel_report"], "call_unter_pot_odds")
     ok3a = defekt_leads >= E3_LEAD_FACTOR * gesund_leads
     print(f"E3a ORAKEL ERKENNT: {'PASS' if ok3a else 'FAIL'}  "
           f"(Lead-Rate defekt {defekt_leads:.1f}% vs gesund {gesund_leads:.1f}%, Soll >= {E3_LEAD_FACTOR}x)")

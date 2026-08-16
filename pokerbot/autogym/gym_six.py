@@ -46,6 +46,9 @@ def run(n_hands: int = 300, seed: int = 7, n_players: int = 6,
                 "action": action, "amount": amount,
                 "hero_hole": obs["hole"], "board": obs["board"],
                 "villain_hole": None,           # multiway: keine eindeutige Gegenhand
+                "call_closes_action": obs["to_call"] >= obs["my_stack"],
+                "effective_stack": obs["my_stack"],
+                "n_opponents": obs["n_active"] - 1,
             }, bb=bb)
             t.act(action, amount)
             act_name = "raise" if action == "allin" else action

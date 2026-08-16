@@ -33,6 +33,38 @@ GUARDS = {
 }
 
 
+def podds_guard(make_strat, margin: float = 0.02, iters: int = 120):
+    """Der erste aus dem Journal MOTIVIERTE Bot-Kandidat (L: call_unter_pot_odds):
+    River-Call nur, wenn die Equity vs eine UNIFORME Gegner-Range die Pot-Odds
+    deckt. Nutzt NUR legale Information (eigene Karten, Board, Pot) -- die
+    Rueckschau-Gegnerhand des Orakels beruehrt er nie. Ob die uniforme Range zu
+    pessimistisch ist (Value-Folds!), entscheidet allein das gepaarte Gate."""
+    import random as _random
+
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.cards import make_deck
+    from pokerbot.engine.equity import equity_vs_range
+
+    def make(seat):
+        base = make_strat(seat)
+        rng = _random.Random(97 + seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if a == "call" and to_call > 0 and st["street"] == "river":
+                dead = set(me["hole"]) | set(st["board"])
+                deck = [c for c in make_deck() if c not in dead]
+                combos = [tuple(rng.sample(deck, 2)) for _ in range(40)]
+                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters)
+                if eq + margin < equity_needed_to_call(st["pot"], to_call):
+                    return "fold", None
+            return a, amt
+        return d
+    return make
+
+
 def guarded(make_strat, guard_names: list[str]):
     """Wrapper-Fabrik: legt die Guard-Regeln um eine bestehende Strategie-Fabrik."""
     def make(seat):

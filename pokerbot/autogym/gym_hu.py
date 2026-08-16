@@ -44,6 +44,9 @@ def _play_recorded(g: HeadsUpGame, bots, start: int, rep: orc.OracleReport,
             "action": action, "amount": amount,
             "hero_hole": me["hole"], "board": st["board"],
             "villain_hole": opp["hole"],
+            "call_closes_action": opp["all_in"] or to_call >= me["stack"],
+            "effective_stack": min(me["stack"], opp["stack"]),
+            "n_opponents": 1,
         }, bb=g.bb)
         g.act(action, amount)
         guard += 1
