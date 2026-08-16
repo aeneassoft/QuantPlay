@@ -91,6 +91,17 @@ uebertragen, welche multiway neu definiert werden muessen) -> dann erst Kandidat
 Instrument: gym_six + entscheidungs_logger (gebaut) + neue Struktur-Felder (n_active je
 Strasse, Aggressor-Position, Knoten-Typ).
 
+### DIE STAFFEL-ARCHITEKTUR (User-Design 2026-08-16): 6max -> 3max -> HU
+Der Kollaps bekommt eine BOT-STAFFEL: der 6-max-Bot spielt die volle Runde; schrumpft der
+Pot auf 3 Spieler, uebernimmt ein eigener 3-Spieler-Bot; im Endfall der (Prince-)HU-Bot.
+Der RANGE-TRACKER ist die Stafette: die beim Kollaps KOLLABIERTEN Ranges + die
+Reihenfolge-Historie werden an die naechste Stufe UEBERGEBEN (die Uebergabe existiert
+in Ansaetzen — Prince-HU-Takeover im six_server + make_seeded_tracker — und wird zur
+tragenden Schnittstelle erweitert: Range-Snapshot je Spieler + Positions-/Aggressor-
+Kontext als Uebergabeobjekt). ROBUSTHEITS-PFLICHT: kein Pfad darf an obskuren Faellen
+scheitern (4-6 Spieler bis zum River, Side-Pots, All-in-Kaskaden) — der Fallback ist
+IMMER der 6-max-Kern, nie ein Fehler; Stress-Deals als eigenes Gate vor jedem Staffel-Ship.
+
 ## Kandidaten-Runde 1 abgeschlossen (2026-08-16 abend) — beide Familien sauber erledigt
 
 **G5 BESTANDEN:** 24 Kerne lokal, pargate haelt **2.459 Decks/min ueber 40 min** (~4.900 Haende/min;
