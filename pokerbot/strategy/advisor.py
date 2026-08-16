@@ -114,6 +114,49 @@ def _p_bet_compute(hole, board, role, street, pot_type) -> float | None:
         return float(net(x)[0, 0].item())
 
 
+def p_bet_batch(combos, board, role, street: str = "flop", pot_type: str | None = None) -> dict:
+    """Batched Advisor-P(bet): EIN Forward-Pass fuer viele Combos statt N Batch-1-Passes
+    (gemessen 2026-08-16: 107k Batch-1-Passes in 30 Decks = die heisseste Schleife des
+    Gates). Liest UND fuellt dasselbe Memo wie p_bet -> beide Pfade teilen eine Cache-
+    Sicht. river_la-Pfad (pot_type) faellt auf Einzelaufrufe zurueck (selten, Paritaet)."""
+    out: dict = {}
+    todo = []
+    for c in combos:
+        key = (tuple(c), tuple(board), role, street, pot_type)
+        if key in _PBET_MEMO:
+            out[tuple(c)] = _PBET_MEMO[key]
+        else:
+            todo.append(c)
+    if not todo:
+        return out
+    if street == "river" and RIVER_LA and pot_type is not None:
+        for c in todo:
+            out[tuple(c)] = p_bet([c[0], c[1]], board, role, street, pot_type)
+        return out
+    net = _load(street)
+    if not net:
+        for c in todo:
+            _PBET_MEMO[(tuple(c), tuple(board), role, street, pot_type)] = None
+            out[tuple(c)] = None
+        return out
+    tex = _texture(board)
+    rows = []
+    for c in todo:
+        hole = [c[0], c[1]]
+        strength = 1.0 - evaluate(board, hole) / 7462.0
+        rows.append(_vector(hand_features(hole, board), role, tex, strength))
+    x = _TORCH.tensor(rows, dtype=_TORCH.float32)
+    with _TORCH.no_grad():
+        ys = net(x)[:, 0]
+    if len(_PBET_MEMO) >= _MEMO_MAX:
+        _PBET_MEMO.clear()
+    for c, y in zip(todo, ys):
+        v = float(y.item())
+        _PBET_MEMO[(tuple(c), tuple(board), role, street, pot_type)] = v
+        out[tuple(c)] = v
+    return out
+
+
 # ---- MVP C2: facing-bet DEFENSE advisor (3-output fold/call/raise; trained by extraction/train_defense_advisor) ----
 _DEF: dict = {}
 

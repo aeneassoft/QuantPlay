@@ -146,6 +146,20 @@ class RangeTracker:
         except Exception:  # noqa: BLE001
             return None
 
+    def _p_bet_all(self, board, role, street, combos):
+        """Alle Combos in EINEM Advisor-Forward-Pass (p_bet_batch), sonst None ->
+        die Aufrufer fallen auf die Einzel-Schleife zurueck. Numerische Identitaet
+        zum Einzelpfad wird von research/advisor_batch_check.py bewacht."""
+        if self.adv is None or not self.adv.available(street):
+            return None
+        fn = getattr(self.adv, "p_bet_batch", None)
+        if fn is None:
+            return None
+        try:
+            return fn(list(combos), board, role, street)
+        except Exception:  # noqa: BLE001
+            return None
+
     def _p_call(self, seat, combo, board, role, street, size_faced: float = 0.66):
         """KEYSTONE: defense-advisor P(call | facing a ~size_faced-pot bet) for a combo, or None (-> legality-only).
         Narrows the opponent's range on a CALL (the missing piece that gives the resolver correct-er ranges).
@@ -204,8 +218,9 @@ class RangeTracker:
             alpha = 1.0 if (TRACKER_AGGRO_FULL and self.aggro.get(seat, 0) >= 1) else TRACKER_ALPHA
             self.aggro[seat] = self.aggro.get(seat, 0) + 1
             modeled = False
+            batch = self._p_bet_all(board, role, street, d.keys())
             for c in list(d.keys()):
-                p = self._p_bet(seat, c, board, role, street)
+                p = batch.get(c) if batch is not None else self._p_bet(seat, c, board, role, street)
                 if p is not None:
                     d[c] *= max(0.0, min(1.0, p)) ** alpha
                     modeled = True
