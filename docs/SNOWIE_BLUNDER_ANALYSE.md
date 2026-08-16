@@ -57,3 +57,23 @@ Uebereinstimmung dreier unabhaengiger Instrumente (unser MDF-Orakel, unser gepaa
 Snowies Blunder-Liste) darin, dass die Call-Frequenz am Flop der zentrale Hebel ist — und dass
 wir jetzt auf der ANDEREN Seite des Optimums stehen. Kein Kandidat wird ohne unser eigenes
 gepaartes Gate geschifft; Snowie liefert Hypothesen, nicht Urteile.
+
+## NACHTRAG (User-Einwand, 2026-08-17): EV-Rekonstruktion + der veraltete Schiedsrichter
+
+**1. Snowies EVs sind rekonstruierbar** -- aus jedem gegradeten Call folgt seine implizite
+Gegner-Equity: eq_snowie = (EV_call + b) / (P + 2b). Beispiel A2s River-Call $33,20:
+EV -15,02 -> eq_snowie ~13% vs unsere Tracker-Range (>= Pot-Odds ~31%). Die Differenz je
+Spot = die bezifferte Meinungsverschiedenheit zweier RANGE-MODELLE, tabellierbar fuer alle 39.
+
+**2. Der Schiedsrichter ist veraltet UND bewertet gegen den falschen Gegner.** Snowie
+unterstellt seine eigene balancierte Villain-Range; gespielt wurde gegen UNSEREN Basis-Bot.
+Repo-Historie: Engine vs Snowie ~break-even (bereinigt +3,2), vs GTOW -19,7 -> Snowie ist der
+schwaechere Referee. Seine Blunder-Liste ist Hypothesen-Quelle, nie Gate (die Doktrin
+'Frequenz-Matching an fremde Referees kostet' gilt auch fuer Snowie).
+
+**3. Die Rueckfrage an UNS: transferiert +6,1 ueberhaupt?** Unser Gate misst vs den eigenen
+Bot. Leben die Call-Downs von dessen Ueber-Bluffen, ist ein Teil des Gewinns Selbstspiel-
+Exploitation (Kipp-Risiko #3). TRANSFER-TEST (gestartet): sel_guard-Bot und Basis-Bot je
+gepaart gegen den FREMDEN Gegner GTOBaseline auf denselben Decks; die Differenz der beiden
+Kanten zeigt, wie viel der Selektion gegen einen Gegner uebrig bleibt, dessen Leaks sie nie
+gesehen hat.
