@@ -74,13 +74,14 @@ class OracleReport:
                 "P": len(self.provable), "L": len(self.leads), "F": len(self.freq)}
 
 
-def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> None:
+def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
     """Ein Entscheidungs-Datensatz aus dem Gym gegen die Benchmark.
 
     rec: street, pot, to_call, action, amount, hero_hole, board,
          villain_hole (None wenn multiway/unbekannt).
     """
     rep.decisions += 1
+    vorher = len(rep.provable) + len(rep.leads)
     action, to_call, pot = rec["action"], rec["to_call"], rec["pot"]
 
     # P: Fold, obwohl Checken frei war — dominiert, beweisbar, kein Kontext noetig.
@@ -148,6 +149,9 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> None:
                 "L", "call_unter_pot_odds", gap * (pot + to_call) / bb,
                 f"{rec['street']}: eq {eq:.2f} vs noetig {req:.2f} "
                 f"(Luecke {gap:.2f}, to_call {to_call}, Pot {pot})"))
+
+
+    return len(rep.provable) + len(rep.leads) > vorher
 
 
 def grade_hand_conservation(rep: OracleReport, before: int, after: int, hand_no,

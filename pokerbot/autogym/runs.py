@@ -37,3 +37,28 @@ def schliesse_run(d: Path, result: dict) -> None:
                                    encoding="utf-8")
     with (RUNS / "INDEX.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps({"run": d.name, **result}, ensure_ascii=False) + chr(10))
+
+
+def entscheidungs_logger(run_dir: Path, sample: float = 0.03):
+    """Sammelt Entscheidungs-Datensaetze: ALLE vom Orakel geflaggten + ein
+    Zufalls-Sample der unauffaelligen (Basisrate fuer spaetere Vergleiche).
+    Rueckgabe: (log_fn(rec, geflaggt), flush_fn). Schreibt decisions.jsonl.gz —
+    die Rohdaten fuer Lead-Mining ueber Laeufe hinweg und spaeteres SFT-Gold."""
+    import gzip
+    import random
+    rows: list = []
+    rng = random.Random(7)
+
+    def log(rec: dict, geflaggt: bool) -> None:
+        if geflaggt or rng.random() < sample:
+            rows.append({**rec, "flag": geflaggt})
+
+    def flush() -> int:
+        if rows:
+            with gzip.open(run_dir / "decisions.jsonl.gz", "at", encoding="utf-8") as f:
+                for r in rows:
+                    f.write(json.dumps(r, ensure_ascii=False) + chr(10))
+        n = len(rows); rows.clear(); return n
+
+    return log, flush
+
