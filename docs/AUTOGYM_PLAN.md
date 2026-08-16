@@ -90,3 +90,60 @@ HU 300 Hände: HART 0 · P 0 · L 35 (Rückschau-Calls bis 112 bb unter Pot-Odds
 Button-Netto +32,6 bb/100 (kartenbereinigter Positionswert = neue Benchmark-Größe) ·
 Paar-Drift +294 ± 195 (1,5 SE, verträglich mit 0 — mehr Paare nötig). 6-max 200 Hände:
 HART 0 · P 0 · F 2 (u. a. mdf_flop). Gate-Selbsttest exploit-OFF vs ON: +2,1 ± 3,3 → NEUTRAL.
+
+## Paper-Verankerung 2026 (2026-08-16 — drei Extraktionen trianguliert)
+
+Quellen: Brown VNM-169 (`knowledge_base/theory/brown_vnm_169.md`, Vollextraktion ssrn-6709840),
+SPIRAL ICLR 2026 (`docs/SPIRAL_NOTES.md`), Diniz PokerBench-SFT (PDFs in `books/papers/Poker Math 2026/`).
+
+### 1. Brown-Checks in den Verdrahtungs-Backlog (V1–V4, spezifiziert in brown_vnm_169.md §4)
+
+| Check | Stufe | Kern | Priorität |
+|---|---|---|---|
+| **V1 `value_ordnung`** | F | Value-Bets je Bucket = obere Menge der Equity-Ordnung (Spearman-Anker 0,98); Brown-27-Bluffklassen AUSGENOMMEN | **★ range-frei → VOR Welle 1b einreihen** (nach den laufenden per-Entscheidungs-Checks, vor den restlichen Aggregations-F) |
+| **V2 `fold_ordnung`** | F | Verteidigungs-Spiegel: Continue-Menge = Spitze der Posterior-Ordnung; deckt die Seesaw-Bruchklasse (v8) OHNE Frequenz-Vorgabe | mit V1 (teilt Referenz + Felder) |
+| **V3 `bluff_struktur`** | F | Bluffs aus der Zyklus-Region (Equity 0,36–0,50), Junk-Anteil > Band = Befund | nach Welle 1 (braucht Rückschau/villain_hole) |
+| **V4 `bluff_persistenz_hoch_b`** | L | Kurz-Persister/Junk-Bluffs bei Bet-to-Pot ≥ 2 = Einzel-Lead | nach V3 |
+
+Fraction-Referenz-Pflicht (E1) gilt: Referenz-Ordnung = **exakt enumerierte** 169er-Equities
+((2·Siege+Splits)/(2·1.712.304)) — das Repo-Asset `knowledge_base/ranges/preflop_eqmatrix.json`
+ist MC sims=600 und NICHT referenz-tauglich; vor V1-Verdrahtung einmalig exakt enumerieren.
+Knob-Schranken (ORDNUNG_RHO_MIN [0,80; 0,98] Start 0,90 u. a.) stehen in brown_vnm_169.md;
+Orakel-Knöpfe bleiben Improver-gesperrt. Auf der BLUFF-Seite ist Ordnungs-Treue ausdrücklich
+NICHT zu erwarten (Persistenz-Korrelation −0,42) — ein Orakel, das Bluffs an der Equity-Ordnung
+misst, misst falsch.
+
+### 2. Bindende Kandidaten-Entwurfsregel: Bluff-Auswahl STRUKTURELL, nie Quote
+
+Brown, unabhängig von unserer Messung: **0 von 169 Händen sind Bluffs in allen vier
+Matrix-Varianten** — WELCHE schwache Hand blufft, ist reine Matrix-Geometrie (Zyklus-Position/
+Suitedness; im Mehrstraßen-Spiel: Blocker/Board/Sizing), nie Schwäche und nie eine
+Frequenz-Zielzahl. Das ist die theoretische Bestätigung des vierten Mess-Datenpunkts
+(mdf_guard −3,26 ± 2,19 NEUTRAL bei n=99k): **Frequenz ohne Selektion druckt nicht.**
+Bindend für jede Kandidaten-Runde ab jetzt: ein Kandidat, der eine Frequenz anhebt/absenkt,
+ohne die SELEKTION (welche Hände/Klassen) zu tragen, wird nicht gebaut (sel_guard = der erste
+Kandidat dieser Bauart). Ergänzend (Brown §5): Rollen sind Funktionen der Bet-Größe, nicht der
+Hand — statische Hand→Rolle-Tabellen sind per Brown falsch; Mixing-Frequenzen folgen
+Räuber-Beute-Margen, nicht der eigenen Handstärke (der formale Grund fürs Seesaw / gegen
+Purify-Abflachen).
+
+### 3. SPIRAL-RAE = registriertes Reward-Design für JEDEN künftigen RL-Lauf
+
+Die −90-Liga-Regression ist strukturell SPIRALs Fixed-Opponent-Befund (Mistral-Gegner: Winrate
+0→62,5% bei Benchmarks UNTER Basis = Ausbeutung statt Lernen). Registriert (Design in
+SPIRAL_NOTES.md §5, NICHT gestartet, braucht User-Go + Mess-Slot): (1) Gegner = Self-Play-Kopien
+statt sixmax-Liga (Liga nur noch Eval), (2) RAE statt GRPO-Gruppen-Normalisierung — positions-
+und format-konditionierte EMA-Baselines `b ← 0,95·b + 0,05·R`, `A = R − b` (BB/BTN haben
+inhärent verschiedene EVs = konfundiert), (3) Reward = reiner Chip-Ausgang terminal, ohne
+Shaping, (4) voll online, (5) Thinking-Collapse-Wächter (Trace-Länge + Grad-Norm).
+Gate: gepaarte Analyzer-Exports ($0) → AIVAT; Winrate-vs-Trainingsgegner als Metrik VERBOTEN.
+Ehrlich: HU theoretisch sauber (Zwei-Spieler-Nullsumme), 6-max ohne Konvergenz-Garantie;
+Erwartung = Eliminierung der −90-Klasse, kein Versprechen unter −20.
+
+### 4. Diniz (PokerBench-SFT) — kein neuer Hebel, zwei Verwertungen
+
+93,3/91,8% Action-Acc via SFT = reines Label-Agreement, kein EV → bestätigt die
+Imitation-Ceiling-Doktrin. Verwertbar: (a) Logprob-Scoring über LEGALE Aktionen statt
+String-Matching für jede künftige LLM-Eval, (b) SCORE-Formel (outs × Pot/Call, algebraisch =
+Pot-Odds; Bias +≈1pp, 97% Konkordanz, NULL falsche Calls) als eng begrenzter einseitiger
+Orakel-KNOB auf Stufe L/F: "SCORE-Fold ⟹ exakter Fold oder marginaler Call im Δ-Band".

@@ -19,6 +19,13 @@ Range-Equity, (4) erst nach E1–E5 der CPU-Pod, (5) E6 = jeder ANWENDEN-Kandida
 **Kontext dieser Session: Repo-Trennung vollzogen** — alles Nicht-Poker lebt in `_privat/` (gitignored +
 pre-commit-Hook), Historie lokal + GitHub bereinigt (Neuaufbau ab 9a1d36b + filter-branch fuer einen Alt-Pfad),
 Fremdprojekt-Name aus dem Kern entfernt, Backup-Bundle in `Desktop/PokerB-Backup/`.
+**Paper-Verankerung (2026-08-16 abend):** drei Extraktionen trianguliert + verankert (`docs/AUTOGYM_PLAN.md`
+Abschnitt "Paper-Verankerung 2026"). Brown VNM-169 (`knowledge_base/theory/brown_vnm_169.md`) → 4 Orakel-Checks
+V1–V4 spezifiziert (V1 `value_ordnung` range-frei, priorisiert vor Welle 1b) + bindende Entwurfsregel
+"Bluff-Auswahl strukturell, nie Quote" = unabhängige Theorie-Bestätigung des mdf_guard-NEUTRAL (−3,26, n=99k);
+SPIRAL (`docs/SPIRAL_NOTES.md`) → RAE + Self-Play-Kopien als REGISTRIERTES Reward-Design für jeden künftigen
+RL-Lauf (die −90-Liga-Regression = SPIRALs Fixed-Opponent-Befund); Diniz bestätigt Imitation-Ceiling
+(Logprob-Scoring + SCORE-Knob als Verwertung).
 
 ## ★★★★★ CURRENT (2026-08-04 nacht II) — GG-NL2-PREPARATION FÜR PRINCEDARKNESS (docs/PREP_GG_NL2.md)
 **User spielt jetzt GG NL2. 600k Hände vermessen (`research/gg_nl2_pop.py`; EU-Fenster 544k/81.7k
