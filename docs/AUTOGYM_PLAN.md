@@ -48,13 +48,17 @@ kann nur anfassen, was ihr Status erlaubt.
 E6 ist die einzige Stufe, die zählt — E1–E5 existieren, damit E6-Messungen nie auf einer
 kaputten Schleife stehen.
 
-## Verdrahtungs-Backlog (Orakel-Manifest führt live Buch)
+## Verdrahtungs-Backlog (Orakel-Manifest fuehrt live Buch)
 
 v0 verdrahtet: `equity_needed_to_call` (L), `minimum_defense_frequency` (F), Chip-Erhaltung
-(HART), `free_fold` (P). Offen: die übrigen der **78 Formelfunktionen** (12 formulas + 34
-postflop + 32 strategy), die sympy-verifizierten Calc-JSONs und die 443
-Mathematics-of-Poker-Chunks. Die Vollinventur (Welle-1-Checks, Welle-2-Gym-Erweiterungen,
-Nicht-verdrahtbar-Liste, Knob-Register) läuft als Panel; Ergebnis wird hier eingetragen.
+(HART), `free_fold` (P). **Die Vollinventur ist da: [`AUTOGYM_INVENTUR.md`](AUTOGYM_INVENTUR.md)**
+— 77 eindeutige Funktionen kategorisiert (1 P / 16 F / 14 L / 19 Kontext / 10 Knob / 17 ehrlich
+nicht verdrahtbar, weil das Gym Haende liefert, keine Ranges). **Welle 1 = 10 Checks + 2
+Instrumentierungen ohne Engine-Umbau** (nur Record-Erweiterungen: effective_stack,
+call_closes_action, node_typ, n_opponents); empfohlene Reihenfolge 1→3 (per-Entscheidung),
+4+5 (gegenseitig verifizierendes MDF/Alpha-Paar), 6→8 (Aggregations-F), 9+10. Welle 2 braucht
+hand_id/decision_idx, hand_result und die Line-Historie. Das Knob-Register (mit Schranken)
+steht in der Inventur; bindend bleibt: Orakel-Knoepfe sind Mess-Konfig, nicht Improver-Gebiet.
 
 ## Erste Messwerte (Pilot 2026-08-16, lokal, 52 s)
 
