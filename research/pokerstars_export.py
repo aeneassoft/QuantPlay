@@ -288,16 +288,12 @@ def main():
     print(f"WROTE {len(blocks)} of {args.n} played hands -> {args.out}  ({len(text)} chars)")
     if GEFEUERT:
         idx_pfad = os.path.splitext(args.out)[0] + "_selektion.txt"
-        with open(idx_pfad, "w", encoding="utf-8", newline="
-") as f:
-            f.write("Haende, in denen die AUSLESE-Selektion eingriff (Fold -> Call)
-")
-            f.write(f"Hero-Variante: {args.hero} | Hand-ID-Basis: {args.idbase}
-
-")
-            for hand_idx, street, eq in GEFEUERT:
-                f.write(f"Hand #{args.idbase + hand_idx}  {street}  Equity vs Tracker-Range {eq}
-")
+        zeilen = ["Haende, in denen die AUSLESE-Selektion eingriff (Fold -> Call)",
+                  f"Hero-Variante: {args.hero} | Hand-ID-Basis: {args.idbase}", ""]
+        zeilen += [f"Hand #{args.idbase + h}  {street}  Equity vs Tracker-Range {eq}"
+                   for h, street, eq in GEFEUERT]
+        with open(idx_pfad, "w", encoding="utf-8", newline=chr(13) + chr(10)) as f:
+            f.write(chr(10).join(zeilen) + chr(10))
         print(f"SELEKTION griff in {len(GEFEUERT)} Entscheidungen ein -> {idx_pfad}")
     if blocks:
         print("\n===== FIRST HAND PREVIEW =====\n")
