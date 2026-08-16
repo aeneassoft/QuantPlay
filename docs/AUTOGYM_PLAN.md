@@ -61,6 +61,18 @@ call_closes_action, node_typ, n_opponents); empfohlene Reihenfolge 1→3 (per-En
 hand_id/decision_idx, hand_result und die Line-Historie. Das Knob-Register (mit Schranken)
 steht in der Inventur; bindend bleibt: Orakel-Knoepfe sind Mess-Konfig, nicht Improver-Gebiet.
 
+## ZWEI DISZIPLINEN — die 6-max-Paritaet (User-Erinnerung 2026-08-16, bindend)
+
+Die Kandidaten-Schleife misst bisher NUR Prince-HU (duplicate_ab). Der 6-max-Kern
+(SixMaxBot-Oekologie) wird vom Orakel gegradet, hat aber KEIN Gate. Arbeitspaket
+**AP-6MAX (vor der Basis-Rotation Runde 4):** ein gepaartes 6-max-Gate — gleiche Karten,
+Kandidat rotiert ueber die Sitze (6 Rotationen je Deal = Positions- und Kartenkuerzung),
+Rest des Tischs = eingefrorene sixmax-Basis; dann laufen dieselben Guards (sel/lizenz —
+beide sind range-frei genug: die Tracker-Range braucht HU-Posts, 6-max nutzt den
+Positions-Prior aus der Snowie-Bruecke make_seeded_tracker). Versionierung getrennt:
+eigene Basis-Tags (autogym-basis-6max), eigene Namen. Die Disziplinen teilen Orakel,
+Journal, Run-Ablage und Erwartungs-Leiter.
+
 ## Kandidaten-Runde 1 abgeschlossen (2026-08-16 abend) — beide Familien sauber erledigt
 
 **G5 BESTANDEN:** 24 Kerne lokal, pargate haelt **2.459 Decks/min ueber 40 min** (~4.900 Haende/min;
