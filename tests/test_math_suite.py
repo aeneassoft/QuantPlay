@@ -1,6 +1,6 @@
 """MATH TEST SUITE — recurring, exact, independent verification of the bot's core calculations.
 
-Doctrine (born from the Goldbach project's verification culture, 2026-07-06): a formula is verified
+Doctrine (born from an earlier research project's verification culture, 2026-07-06): a formula is verified
 ONLY against a reference derived INDEPENDENTLY from first principles (Fraction-exact EV decompositions),
 never against its own self-check (`verify_expr == verify_value` proves consistency, not truth — a
 consistent-but-wrong formula passes it). Patterns adopted: claim-verifier separated from claim-generator,

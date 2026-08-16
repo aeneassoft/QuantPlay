@@ -55,3 +55,9 @@
 - Slumbot bench: `python -m pokerbot.benchmark.slumbot --hands N --exploit-primary`
 - Qwen train: `python -m training.qwen_sft` · eval: `python -m training.qwen_eval`
 - Solver cache (CPU): `python -m research.mass_solve` · RunPod: `python -m infra.runpod_run`
+
+## Nicht im Repo
+
+`_privat/` — persoenliche Exkursionen (Lebens-Akte, Geopolitik, Zahlentheorie, Familie).
+Gitignored, durch pre-commit-Hook geschuetzt, nie Teil des Repositories.
+Beschreibung: `_privat/LIESMICH.md`.

@@ -1,6 +1,6 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-04**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ★★★★★ CURRENT (2026-08-04 nacht II) — GG-NL2-PREPARATION FÜR PRINCEDARKNESS (docs/PREP_GG_NL2.md)
@@ -1333,7 +1333,7 @@ TexasSolver re-solve of the actual public state to terminal, sample our hand, fl
 `use_resolver`/`use_turn_resolver` · `benchmark/gtowizard.py` adapter + `tools/gtow_run.py`. The GTO Wizard
 Benchmark paper (arXiv 2603.23660) VALIDATES this (GTO Wizard AI = real-time-solving + value-net + balanced ranges).
 
-**★ THE keystone — BUILT + integrated + unit-tested (2026-06-15, "Goldbach" session); EV-gate PENDING.** The
+**★ THE keystone — BUILT + integrated + unit-tested (2026-06-15); EV-gate PENDING.** The
 quadruple-triangulated #1 (code-review + Opus 4.6 + GPT-5.5 + our notes) = a **Bayesian action-consistent postflop
 range tracker** → `strategy/range_tracker.py` v2 (`RangeTracker` + `weighted_ranges`): per-combo Bayes (advisor
 `P(bet)` for bet/check; o3-safe **legality-only** for silent call/raise/size — never zeros a live combo),
@@ -1362,8 +1362,7 @@ driving now] / NLHE-defense 15% [leak-patch].** Short-deck = solver-NATIVE (`gto
 Gate.1 re-verified), rule-LOCKED (bundled dict = **trips>straight** variant — flagged for any Triton product);
 `engine/sd_eval.py` evaluator built+verified (flush>boat, trips>straight, 7-card, no 2-5; dict keys = ASCII sort).
 Cache pilot: 120 flops (`extraction/mass_solve_shortdeck.py`). **Honest claim = "near-TexasSolver HU short-deck
-postflop", NOT "6+ solved"; measure via EV-gap + matched-tree BR/LBR, NOT MSE.** Tasks #78–80. Origin: the Goldbach
-Movie-Factory run (`SD_6PLUS_GATE_LOG.md`).
+postflop", NOT "6+ solved"; measure via EV-gap + matched-tree BR/LBR, NOT MSE.** Tasks #78–80. Origin: the Movie-Factory run (`SD_6PLUS_GATE_LOG.md`).
 
 > The ★★/★ sections below are MVP#1 + earlier — correct as history, but their headline framings (the −526/−160 and
 > "GTO Wizard key 401") are SUPERSEDED by this section. Read them for detail, not for the current state.

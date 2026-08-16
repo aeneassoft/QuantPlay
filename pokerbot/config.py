@@ -36,7 +36,9 @@ for _d in (DATA_DIR, KNOWLEDGE_DIR, TEXT_DIR, CHUNK_DIR, PAGE_IMAGE_DIR,
 # --- API keys --------------------------------------------------------------
 _SECRET_DIR = Path(r"C:\Users\hampe\Desktop\Secret keys\AI")
 _CLAUDE_KEY_FILE = _SECRET_DIR / "Claude API key.txt"
-_OPENAI_KEY_FILE = _SECRET_DIR / "OpenAI - API key - Goldbach.txt"
+# The OpenAI key file carries a legacy name from an earlier project; resolve it by
+# prefix so the repo does not hardcode a foreign project name.
+_OPENAI_KEY_FILE = next(iter(sorted(_SECRET_DIR.glob("OpenAI*.txt"))), _SECRET_DIR / "OpenAI.txt")
 
 
 def _read_key(path: Path) -> str | None:

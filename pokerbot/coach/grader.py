@@ -165,7 +165,11 @@ def check_sizing(rec: dict) -> dict:
 
 def check_advisor(rec: dict) -> dict:
     """Advisor action distribution at the human's node — the P0-4 mixed-support input. Postflop only;
-    None/unavailable => {available: False} and the frequency criterion is simply ABSENT (never treated as 0)."""
+    None/unavailable => {available: False} and the frequency criterion is simply ABSENT (never treated as 0).
+    Role = tree POSITION (the nets' training convention, build_advisor_data.py:33) — deliberately NOT the
+    oracle bot's initiative convention: this dist is the solver-frequency shown to the human ("GTO mischt"),
+    the oracle's rationale.advisor_pbet* is the reference bot's own (initiative-queried, lever-shifted)
+    line-draw frequency. Same net, different question — they are logged side by side and must not be conflated."""
     spot = rec["spot"]
     street = spot.get("street")
     if street == "preflop":                            # api.preflop_mix returns None on 6-max (api.py:130)

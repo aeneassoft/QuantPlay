@@ -188,6 +188,10 @@ class PrinceOracle:
         # rationale families the P1 renderer must branch on: preflop / postflop / sparse-resolver / deepcfr
         # (bot.py:1242 _mk always adds 'reasoning'; equity/required_equity/mdf/defense_advisor/advisor_pbet*
         # are path-dependent free explanation data).
+        # NOT the same quantity as checks.advisor: advisor_pbet*/reasoning carry the bot's OWN line-draw
+        # frequency, queried by INITIATIVE (+ PRINCE levers), while the grader/erklaerung_kurz shows the
+        # position-queried raw net (the nets' training convention). They differ whenever position != initiative
+        # (IP-without-initiative, the OOP 3-bettor) — render advisor_pbet* as bot-internal, never as "GTO".
         return {"source": "prince_hu", "action": action, "amount": amount,
                 "rationale": dec.get("rationale", {})}
 

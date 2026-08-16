@@ -5,7 +5,7 @@
 > bleiben heilig — sie SIND das Profit-Messgerät (AIVAT/Analyzer rechnen durch sie).** Die legitimen Knöpfe
 > sitzen eine Ebene höher: MODELL-Annahmen, Gleichgewichts-Begriffe, Präzisions-Budgets, Spiel-Perturbationen.
 > Jedes Lemma hier ist ein bedingter Satz: Bedingung (der Knopf) → Aussage → Bedingungs-TEST → Profit-Link.
-> Das Goldbach-Muster (`assume_yes.py` / CONDITIONAL_GOLDBACH_THEOREM): Annahme erzwingen, Konsequenz ernten,
+> Das Annahme-Muster (aus einem frueheren Forschungsprojekt uebernommen): Annahme erzwingen, Konsequenz ernten,
 > Bedingung messen — nie die Arithmetik lockern.
 
 ## L1 — Purifikations-Lemma (Gleichgewichts-Axiom als Knopf) [= Q4, lizensiert]

@@ -35,3 +35,9 @@ Thumbs.db
 
 # User-Handhistorien (persoenliche Daten, gross)
 hand histories/
+
+# Persoenliche Exkursionen: liegen sichtbar im Root unter _privat/ und sind
+# nicht Teil dieses Repositories. Ein lokaler pre-commit-Hook (.git/hooks/,
+# selbst nicht versioniert) blockiert sie zusaetzlich.
+/_privat/
+/raw_*.json

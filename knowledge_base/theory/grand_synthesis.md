@@ -366,7 +366,7 @@ Wichtig: Diese Zahlen sind von Natur aus „bayessche Schätzungen“:
 
 ---
 
-### 3.3 Verbindung zu euren Goldbach-Methoden
+### 3.3 Verbindung zu den Methoden aus dem Vorgaengerprojekt
 
 - **Blind Prediction**:
   - Ihr habt strukturell vorhergesagt, dass es ein systematisches Overfolding-Leak bei Small Bets HU geben sollte (auf Basis theoretischer MDF-Intuition) → dann im PHH-Datensatz getestet.
@@ -375,7 +375,7 @@ Wichtig: Diese Zahlen sind von Natur aus „bayessche Schätzungen“:
 - **Predator-Prey (zwei unabhängige Modelle)**:
   - Einerseits Baseline-Policy (robust), andererseits Exploit-Overlay (aggressiv, leak-basierend).  
   - Korrelation beider Modelle in ihren Predictions von Schwachstellen ~0,93 → hohe Wahrscheinlichkeit, dass es sich um echte Struktur handelt, nicht bloß Overfitting.
-  - Entspricht: zwei unabhängige Modellfamilien für Goldbach (z.B. additive Struktur + spektrale Struktur) liefern korrelierende Signale.
+  - Entspricht: zwei unabhängige Modellfamilien für dasselbe zahlentheoretische Problem (z.B. additive Struktur + spektrale Struktur) liefern korrelierende Signale.
 
 - **Exact Verification / Counterexample-Hunting**:
   - Eure bounded probes sind faktisch „lokale Gegenbeispiel-Suche“:  
@@ -450,7 +450,7 @@ Konkrete Ansatzpunkte, realistisch sortiert nach Erwartungswert:
 
 ---
 
-## 3) Goldbach-Methoden-Transfer — konkret
+## 3) Methoden-Transfer aus dem Vorgaengerprojekt — konkret
 
 Hier ist die Übertragung sinnvoll, aber ich trenne *legitime Analogie* von *Wunschdenken*:
 
@@ -464,9 +464,9 @@ Hier ist die Übertragung sinnvoll, aber ich trenne *legitime Analogie* von *Wun
 - Identifiziere die 2-3 Features, die den Großteil der Exploit-Varianz tragen (vermutlich: Postflop-Fold-Frequenz vs. Sizing, und River-Aggression). Modell-Komplexität jenseits dessen = Overfit-Risiko. Gut.
 
 **Exakte Verifikation > Curve-Fitting → der wichtigste Punkt:**
-- Bei Goldbach kannst du *exakt* verifizieren. Bei Poker **nicht** — du hast nur stochastische Stichproben. Hier endet die Analogie hart. „Counterexample-Hunting" wird zu „Out-of-Sample-Confidence-Intervallen". Verwechsle statistische Evidenz nicht mit Beweis. Dein -4pp-Elite-Befund bei „small n" ist genau das Warnsignal: das könnte komplett Rauschen sein.
+- In einem deterministisch-strukturellen Problem kannst du *exakt* verifizieren. Bei Poker **nicht** — du hast nur stochastische Stichproben. Hier endet die Analogie hart. „Counterexample-Hunting" wird zu „Out-of-Sample-Confidence-Intervallen". Verwechsle statistische Evidenz nicht mit Beweis. Dein -4pp-Elite-Befund bei „small n" ist genau das Warnsignal: das könnte komplett Rauschen sein.
 
-**Ehrliche Grenze:** Goldbach ist deterministisch-strukturell; Poker ist adversarial-stochastisch. Der Gegner *ändert sich, weil du ihn beobachtest* — das hat kein Zahlentheorie-Analogon. Übernimm die *Methodendisziplin* (Blind-Predict, zwei Modelle, Sparsamkeit), aber nicht die *Gewissheitserwartung*.
+**Ehrliche Grenze:** Das Vorgaengerproblem ist deterministisch-strukturell; Poker ist adversarial-stochastisch. Der Gegner *ändert sich, weil du ihn beobachtest* — das hat kein Zahlentheorie-Analogon. Übernimm die *Methodendisziplin* (Blind-Predict, zwei Modelle, Sparsamkeit), aber nicht die *Gewissheitserwartung*.
 
 ---
 

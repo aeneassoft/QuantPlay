@@ -111,3 +111,11 @@ erben TexasSolvers abstraktions-limitierte Exploitability, aber Ranges dominiere
   weite Bandbreite = volle Over/Under-Bet-Welle (Fold-Equity + Extraction, das ganze V) spielbar. Enges
   Portfolio = schmale Bandbreite = vorhersehbar = ausbeutbar. VPIP verfeinert die GEGNER-Trägerwelle
   (Exploit-Prior); das Portfolio setzt die EIGENE Bandbreite (GTO-Konstruktion).
+
+- **★ GEMESSEN — DAS ABFLACHEN KOSTET 66 bb/100, UND ZWAR AN DER EXTRAKTION.** In einem gepaarten
+  Selbstspiel-Experiment (80.000 Hände, 100 bb tief, identische Deals) wurde ein Profil einmal
+  schaukelnd und einmal mit abgeflachtem Mixing gespielt: **−83,6 vs −149,6 bb/100**. Der
+  entscheidende Zusatzbefund ist die Zerlegung: Die Fortsetzungsrate des Gegners bewegte sich
+  dabei praktisch NICHT (79,4 % → 78,9 %). Der Verlust ist also **keine verlorene Fold Equity,
+  sondern verlorene EXTRAKTION** — ein lesbarer Spieler wird nicht häufiger gefoldet, er wird
+  schlechter bezahlt. Das ist die quantitative Fassung der Seesaw-Doktrin oben.

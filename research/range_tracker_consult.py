@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 OUT = Path(r"C:\Users\hampe\Desktop\PokerB\docs")
 KEYS = Path(r"C:\Users\hampe\Desktop\Secret keys\AI")
 VENICE = (KEYS / "Venice.ai - API key.txt").read_text(encoding="utf-8").strip()
-OPENAI = (KEYS / "OpenAI - API key - Goldbach.txt").read_text(encoding="utf-8").strip()
+OPENAI = next(iter(sorted(KEYS.glob("OpenAI*.txt")))).read_text(encoding="utf-8").strip()
 PPLX = (KEYS / "Perplexity API key.txt").read_text(encoding="utf-8").strip()
 ANTHROPIC = (KEYS / "Claude API key.txt").read_text(encoding="utf-8").strip()
 

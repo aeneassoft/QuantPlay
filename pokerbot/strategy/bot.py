@@ -63,6 +63,11 @@ _AUDIT_FIX = _gto_flag("POKERB_AUDIT_FIX", "0") == "1"
 # Separate arm (bigger blast radius than the bundle): query the postflop advisors by tree POSITION (the
 # convention they were trained with) instead of initiative — inverts advisor lookups in 3bet pots.
 _ADVISOR_ROLE_POS = _gto_flag("POKERB_ADVISOR_ROLE_POS", "0") == "1"
+# The advisor reasoning strings must NOT call pb "% GTO": pb is this bot's OWN line-draw frequency — queried
+# under the convention below and further shifted by levers (cbet_damp/turn_probe) — while the trainer's
+# grader/erklaerung_kurz shows the position-queried raw net (the training convention). The two legitimately
+# differ (e.g. IP-without-initiative, the OOP 3-bettor); naming the convention keeps logs unambiguous.
+_ROLE_CONV = "position" if _ADVISOR_ROLE_POS else "initiative"
 
 # PRINCE v2.4 TURN-PROBE (Q6 attack lever: GTOW's flop check-back = 63% air / 1.9% traps — a static, revealed,
 # CAPPED range it cannot un-cap; the near-GTO response is to lead the turn wider, and we currently check ~everything
@@ -774,8 +779,8 @@ class PokerBot:
                     else:
                         size = self._raise_to(la, hero_committed + round((cb_s or 0.5) * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
-                                    f"Floor advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
-                return self._mk("check", None, r, f"Floor advisor check ({pb:.0%} GTO, {role}). {made}.")
+                                    f"Floor advisor bet (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"Floor advisor check (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}). {made}.")
 
         # GTO-floor ADVISOR TURN (#41): same per-hand bet-vs-check on the TURN (barrel if IP / lead if OOP),
         # from the turn-trained solver-advisor. Bluff size = 75% pot (the solver's turn size); value via the
@@ -803,8 +808,8 @@ class PokerBot:
                     else:
                         size = self._raise_to(la, hero_committed + round(0.75 * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
-                                    f"Turn advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
-                return self._mk("check", None, r, f"Turn advisor check ({pb:.0%} GTO, {role}). {made}.")
+                                    f"Turn advisor bet (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"Turn advisor check (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}). {made}.")
 
         # GTO-floor ADVISOR RIVER (WS2): per-hand bet-vs-check on the RIVER from the river-trained solver advisor
         # (+51% vs the freq baseline). OOP=lead / IP=bet-after-check. Bluff size 66% pot (value via the fe-sizer).
@@ -845,8 +850,8 @@ class PokerBot:
                     else:
                         size = self._raise_to(la, hero_committed + round(0.66 * pot) or la["raise_min"])
                     return self._mk("bet" if la["is_bet"] else "raise", size, r,
-                                    f"River advisor bet ({pb:.0%} GTO, {role}, {eq:.0%}). {made}.")
-                return self._mk("check", None, r, f"River advisor check ({pb:.0%} GTO, {role}). {made}.")
+                                    f"River advisor bet (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}, {eq:.0%}). {made}.")
+                return self._mk("check", None, r, f"River advisor check (own bet-freq {pb:.0%}, {role} by {_ROLE_CONV}). {made}.")
 
         # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
         # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting

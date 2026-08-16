@@ -684,3 +684,16 @@ Kein Live-Nutzen HEUTE (TexasSolver-Subgames sind zeit-, nicht RAM-gebunden). PD
 - **ICM = Malmuth-Harville**: kein Future-Game-Simulation-Korrektiv (Blind-Positionen). Drehbarer Modell-Knopf.
 - **BF mit Start-of-Hand-Stacks**: die Bubble-Faktor-Naeherung nutzt die Stacks bei Handbeginn (stabil, cachebar);
   nur der exakte All-in-Call rechnet mit Behind-Stacks im Entscheidungsmoment.
+
+## Entropie-Schätzer: die Null-Kontrolle ist Pflicht (2026-08-16)
+
+Bei einer Entropie-Messung über fein aufgelöste Klassen ergab die Null-Kontrolle (Klassenlabels
+permutiert, sodass der Kanal per Konstruktion nichts trägt) statt der erwarteten H₀ = 1,780 einen
+Wert von **1,897 — Verzerrung +0,116 Bit, größer als der gesamte gemessene Effekt (0,091)**. Bei
+gröberer Auflösung derselben Messung lag dieselbe Verzerrung bei +0,001 bzw. +0,008.
+
+**Regel daraus:** Der Plug-in-Schätzer ist bei vielen Klassen und wenig Daten nach oben verzerrt,
+und zwar genau dort am stärksten, wo die Auflösung am feinsten ist — also dort, wo man den
+interessantesten Effekt vermutet. Jede Entropie-/Informationsaussage in diesem Repo braucht die
+permutierte Null-Kontrolle NEBEN dem Messwert, sonst ist sie unlesbar. (Offen: auf einen
+bias-korrigierten Schätzer umstellen, z. B. Miller-Madow oder NSB.)

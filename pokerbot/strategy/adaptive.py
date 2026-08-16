@@ -7,7 +7,7 @@ observes — adapting to ANY opponent, including unseen ones. With no reads it p
 
 Two additions:
   * ProbeController — occasional UNORTHODOX "test moves" to learn the opponent faster. Inspired by the
-    Goldbach project's *blind-prediction* method: only probe when a weakness is ALREADY PREDICTED, the
+    an earlier research project's *blind-prediction* method: only probe when a weakness is ALREADY PREDICTED, the
     move is small, and a hard SESSION RISK BUDGET (worst-case reserved per probe) is not exhausted.
     This is the most dangerous feature, so risk is bounded three ways: prediction-gate + size cap +
     budget stop-loss. It can never run away.
@@ -148,7 +148,7 @@ class ProbeController:
 
 
 class TwoModelGate:
-    """Predator-prey convergence as a confidence gate (Goldbach transfer): two INDEPENDENT reads —
+    """Predator-prey convergence as a confidence gate (method transfer from earlier research): two INDEPENDENT reads —
     Model A from how the opponent RESPONDS to bets (fold curve), Model B from how it takes INITIATIVE
     (aggression / VPIP). An exploit is armed ONLY when both models agree; if they diverge or data is
     thin, that knob stays OFF (robust baseline). Probing is armed to RESOLVE disagreement. This makes

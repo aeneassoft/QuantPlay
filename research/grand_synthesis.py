@@ -2,9 +2,9 @@
   OpenAI gpt-5.1 (MATH)  -> Does GTO 'exist'? (Nash existence vs computability vs true-GTO for NLHE);
                             the math of beating near-GTO pros (off-tree sizing, safe 2*eps exploit).
   Claude opus  (THEORY)  -> concrete strategies to beat the pros with a real edge; the future of
-                            poker; how the Goldbach research methods transfer to our exploiter.
+                            poker; how the earlier research methods transfer to our exploiter.
 
-Grounded in OUR measured results + the Goldbach methodology. Saves knowledge_base/theory/grand_synthesis.md
+Grounded in OUR measured results + the earlier project's methodology. Saves knowledge_base/theory/grand_synthesis.md
 Run: python -m extraction.grand_synthesis
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ CONTEXT = (
     "- We added BOUNDED PROBING (occasional unorthodox test-moves), gated by a prior prediction of a "
     "weakness, with a hard session risk budget (worst-case reserved per probe) — provably cannot run "
     "away. And boolean control knobs an AI co-pilot (Claude Haiku) flips per opponent read.\n\n"
-    "GOLDBACH RESEARCH METHODS we want to transfer (from the user's math project):\n"
+    "RESEARCH METHODS we want to transfer (from the user's earlier math project):\n"
     "- BLIND PREDICTION: predict structure BEFORE seeing data, then test (= our probe-gating).\n"
     "- PREDATOR-PREY: two INDEPENDENT models converging (rho=0.93) = truth; dominant factors (first 2 "
     "small primes) carry most of the signal.\n"
@@ -66,7 +66,7 @@ def claude_theory() -> str:
                    "die adaptive Engine angewandt auf Elite-Menschen.) Sei spezifisch.\n"
                    "2) ZUKUNFT des Spiels: Solver-Sättigung, exploitative Renaissance, AI-Co-Piloten, "
                    "der Arms-Race — wie sieht Poker in 3-5 Jahren aus?\n"
-                   "3) Wie übertragen wir die GOLDBACH-Methoden (Predator-Prey-Konvergenz, "
+                   "3) Wie übertragen wir die Methoden des Vorgaengerprojekts (Predator-Prey-Konvergenz, "
                    "Blind-Prediction, exakte Verifikation, dominante Faktoren) konkret auf unseren Bot?\n"
                    "4) Dein ehrliches Urteil: Existiert GTO praktisch — und ist 'die Profis schlagen' "
                    "realistisch?"}])
@@ -77,7 +77,7 @@ def main() -> None:
     print("=== OpenAI gpt-5.1 — MATHEMATIK (Existiert GTO? + Profi-Edge) ===\n")
     m = openai_math()
     print(m)
-    print("\n\n=== Claude opus — THEORIE (Profi-Strategien, Zukunft, Goldbach-Transfer) ===\n")
+    print("\n\n=== Claude opus — THEORIE (Profi-Strategien, Zukunft, Methoden-Transfer) ===\n")
     t = claude_theory()
     print(t)
     OUT.parent.mkdir(parents=True, exist_ok=True)
