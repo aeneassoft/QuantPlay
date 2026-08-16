@@ -53,6 +53,37 @@ def hero_decider(seat: int, seed: int, resolver: bool | None = None):
     return d
 
 
+# Welche Hero-Version exportiert wird. 'auslese' = der validierte sel_guard-Mechanismus
+# (Fold gegen Einsatz -> Call, wenn Equity vs Tracker-Range die Pot-Odds+3pp deckt).
+HERO_VARIANTEN = ("basis", "auslese-v1", "auslese-v2")
+GEFEUERT: list = []          # (hand_idx, street) je Guard-Eingriff -> Begleit-Index
+
+
+def _auslese_um(d, streets: tuple, hand_idx: int):
+    """Legt die Selektion um einen fertigen Decider und protokolliert jeden Eingriff."""
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def w(st):
+        a, amt = d(st)
+        me = st["players"][st["to_act"]]
+        to_call = max(0, st["current_bet"] - me["committed_street"])
+        if a == "fold" and to_call > 0 and st["street"] in streets:
+            try:
+                t = RangeTracker().build(st)
+                cw = t.range.get(1 - st["to_act"], {})
+                if cw:
+                    eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=160)
+                    if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + 0.03:
+                        GEFEUERT.append((hand_idx, st["street"], round(eq, 3)))
+                        return "call", None
+            except Exception:  # noqa: BLE001
+                pass
+        return a, amt
+    return w
+
+
 def villain_decider(seat: int, seed: int):
     b = GTOBaseline(seat, seed=seed, iters=120)
     def d(st):
@@ -61,13 +92,19 @@ def villain_decider(seat: int, seed: int):
     return d
 
 
-def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool | None = None):
+def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool | None = None,
+              hero_variante: str = "basis"):
     """Drive one hand to completion; return (holes, history, result, button)."""
     g.players[0].stack = g.players[1].stack = STACK     # cash-game reset to 200bb
     g.start_hand()
     holes = [list(g.players[0].hole), list(g.players[1].hole)]
     button = g.button
-    deciders = {hero_seat: hero_decider(hero_seat, seed=100 + idx, resolver=resolver),
+    hd = hero_decider(hero_seat, seed=100 + idx, resolver=resolver)
+    if hero_variante == "auslese-v1":
+        hd = _auslese_um(hd, ("flop",), idx)
+    elif hero_variante == "auslese-v2":
+        hd = _auslese_um(hd, ("flop", "turn", "river"), idx)
+    deciders = {hero_seat: hd,
                 1 - hero_seat: villain_decider(1 - hero_seat, seed=200 + idx)}
     guard = 0
     while not g.hand_over:
@@ -204,6 +241,8 @@ def main():
                     help="force Hero's river resolver on/off; 'live' = the env default (parity with AIVAT play)")
     ap.add_argument("--fast", action="store_true", help="EQUITY_ITERS=120 for quick iteration (default = live 1500)")
     ap.add_argument("--river-only", action="store_true")     # emit only hands that reached the river (river-dense)
+    ap.add_argument("--hero", choices=HERO_VARIANTEN, default="basis",
+                    help="welche Bot-Version exportiert wird")
     ap.add_argument("--out", default="data/gtow_upload/bot_hands.txt")
     args = ap.parse_args()
     if args.fast:
@@ -232,7 +271,8 @@ def main():
         hero_seat = 0
         names = ["Hero" if k == hero_seat else "Villain" for k in (0, 1)]
         holes, history, result, button = play_hand(
-            g, hero_seat, i, resolver={"on": True, "off": False, "live": None}[args.resolver])
+            g, hero_seat, i, resolver={"on": True, "off": False, "live": None}[args.resolver],
+            hero_variante=args.hero)
         if args.river_only and len(result["board"]) < 5:
             continue                                         # not a river hand -> skip (keep the upload river-dense)
         dt = BASE_DT + datetime.timedelta(days=args.dayoffset, minutes=3 * i)
@@ -246,6 +286,19 @@ def main():
     with open(args.out, "w", encoding="utf-8", newline="\r\n") as f:
         f.write(text)
     print(f"WROTE {len(blocks)} of {args.n} played hands -> {args.out}  ({len(text)} chars)")
+    if GEFEUERT:
+        idx_pfad = os.path.splitext(args.out)[0] + "_selektion.txt"
+        with open(idx_pfad, "w", encoding="utf-8", newline="
+") as f:
+            f.write("Haende, in denen die AUSLESE-Selektion eingriff (Fold -> Call)
+")
+            f.write(f"Hero-Variante: {args.hero} | Hand-ID-Basis: {args.idbase}
+
+")
+            for hand_idx, street, eq in GEFEUERT:
+                f.write(f"Hand #{args.idbase + hand_idx}  {street}  Equity vs Tracker-Range {eq}
+")
+        print(f"SELEKTION griff in {len(GEFEUERT)} Entscheidungen ein -> {idx_pfad}")
     if blocks:
         print("\n===== FIRST HAND PREVIEW =====\n")
         print(blocks[0])
