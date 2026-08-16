@@ -61,6 +61,18 @@ call_closes_action, node_typ, n_opponents); empfohlene Reihenfolge 1→3 (per-En
 hand_id/decision_idx, hand_result und die Line-Historie. Das Knob-Register (mit Schranken)
 steht in der Inventur; bindend bleibt: Orakel-Knoepfe sind Mess-Konfig, nicht Improver-Gebiet.
 
+## Kandidaten-Runde 1 abgeschlossen (2026-08-16 abend) — beide Familien sauber erledigt
+
+**G5 BESTANDEN:** 24 Kerne lokal, pargate haelt **2.459 Decks/min ueber 40 min** (~4.900 Haende/min;
+Skalierung ~1,0x/Kern). Fuer Einzel-Gates ist der Pod damit unnoetig — die $30 bleiben fuer R3.
+**podds_guard (River):** Kanal zu selten (0,015 Knoten/Hand, ~24 Knoten je 1.600 Haende) — die
+NEUTRAL-Urteile waren "Kanal zu grob", nicht "kein Effekt". Familie pausiert bis konstruierte Decks.
+**mdf_guard (Flop):** dreifach gemessen, 400 → 1.200 → **99.000 Decks: −3,26 ± 2,19 → NEUTRAL**
+(95%-Band [−7,6, +1,1], ~1,5 SE unter null). Vierter Datenpunkt der Doktrin: Frequenz-Matching ohne
+SELEKTION druckt nicht. Kein Name vergeben, Basis bleibt.
+**Lehre fuer Kandidaten-Runde 2:** Kandidaten muessen Selektion tragen (WELCHE Haende weiterspielen
+— Tracker-Range/made-hand-Read), nicht Frequenz; und der Mess-Kanal wird VOR dem Bau vermessen (AP8).
+
 ## Erster voller Lauf NACH den Review-Fixes (2026-08-16, lokal, 75 s) — der Referenz-Lauf
 
 900 Haende, 6.080 gegradete Entscheidungen. **HU (600, 4-fach gekreuzt):** HART 0 · P 0 · L 62
