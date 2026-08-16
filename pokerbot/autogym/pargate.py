@@ -43,6 +43,14 @@ def _baue_fabrik(name: str, seed: int):
 
 def _worker(args: tuple) -> list:
     kandidat, seed, deck_seed, n_decks = args
+    # KRITISCH (gemessen 2026-08-16): ohne das spawnt JEDER Worker torch mit
+    # Default-Intra-Op-Threads (= Kernzahl). 20 Worker x 24 Threads auf 24 Kernen
+    # = Thrashing; die Skalierung bricht ein, obwohl alle Kerne 'busy' aussehen.
+    try:
+        import torch
+        torch.set_num_threads(1)
+    except Exception:  # noqa: BLE001
+        pass
     from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks
     decks = gen_decks(n_decks, seed=deck_seed)
     _, _, edges = duplicate_ab(_baue_fabrik(kandidat, seed), _baue_fabrik("basis", seed),
@@ -53,12 +61,19 @@ def _worker(args: tuple) -> list:
 def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
              deck_seed0: int = 1000) -> dict:
     """Gepaartes Gate, parallelisiert. Deck-Bloecke disjunkt via deck_seed0+i."""
-    chunk = max(1, n_decks // workers)
-    jobs = [(kandidat, seed, deck_seed0 + i, chunk) for i in range(workers)]
+    # Feinere Chunks (4 je Worker) + imap_unordered = laufender Fortschritt statt
+    # Blackbox bis zum Ende; kostet nichts, macht ETA moeglich.
+    n_jobs = workers * 4
+    chunk = max(1, n_decks // n_jobs)
+    jobs = [(kandidat, seed, deck_seed0 + i, chunk) for i in range(n_jobs)]
     t0 = time.time()
+    edges = []
     with mp.Pool(workers) as pool:
-        bloecke = pool.map(_worker, jobs)
-    edges = [e for b in bloecke for e in b]
+        for k, blk in enumerate(pool.imap_unordered(_worker, jobs), 1):
+            edges.extend(blk)
+            el = time.time() - t0
+            print(f"  [{k}/{n_jobs}] {len(edges)} Decks | {el/60:.1f} min | "
+                  f"ETA {el/k*(n_jobs-k)/60:.1f} min", flush=True)
     n = len(edges)
     mean = sum(edges) / n
     var = sum((e - mean) ** 2 for e in edges) / max(1, n - 1)
