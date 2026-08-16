@@ -281,6 +281,11 @@ How I write code AND talk about it — the standing default, every turn.
 > Doktrin: ueberall VORREGISTRIERTE Erwartungen; die Schleife muss LOKAL bewiesen sein (Erwartungs-Leiter
 > E1–E6, `docs/AUTOGYM_PLAN.md`), erst dann der Pod (CPU-Kerne, keine GPU — CFR/Self-Play-Rechnung).
 > Erster Pilot: 500 Haende + 3.577 gegradete Entscheidungen in 52 s lokal; HART 0, P 0, L 35, F 3.
+> **VERSIONIERUNGS-REGEL (User, 2026-08-16, bindend): VOR jeder Bot-Veraenderung wird der Stand
+> eingefroren (git-Tag; aktuelle Basis = Tag `autogym-basis`); ein veraenderter Bot bekommt am ENDE einen
+> NAMEN und wird als Tag versioniert. MESS-DOKTRIN: NICHT vs GTOW messen — die drei Instrumente sind
+> (1) die Mathematik-Benchmark (Orakel), (2) Self-Play-Gates (gepaarte Decks), (3) der gepaarte
+> A/B-Anker NEUER BOT vs ALTE BASIS (`duplicate_ab` auf identischen Decks). GTOW nur zur Not.**
 
 ## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
 Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche

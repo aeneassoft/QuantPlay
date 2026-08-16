@@ -43,10 +43,11 @@ kann nur anfassen, was ihr Status erlaubt.
 | **E3** | Detektor: konstruierter Defekt-Bot (Station) wird erkannt UND im Gate verworfen | Lead-Rate ≥ 2× gesund; Gate = ANWENDEN für gesund | `selftest` |
 | **E4** | Null-Stabilität: gesund vs gesund erzeugt **kein** ANWENDEN (keine erfundenen Verbesserungen) | 0 Fehl-Patches | `selftest` |
 | **E5** | Durchsatz lokal: Pilot gemessen 500 Hände + 3.577 gegradete Entscheidungen in 52 s (~580 Hände/min) | Pod-Erwartung ≥ 10.000 Hände/min auf 64 Kernen, sonst lohnt er nicht | Pilot ✓, Pod offen |
-| **E6** | **GTOW-Anker:** jeder Kandidat mit lokalem ANWENDEN wird vs GTOW gemessen | nicht schlechter als das −19,70-Band; Treppe −15 → −10 | offen |
+| **E6** | **BASIS-Anker (User-Entscheid 2026-08-16):** jeder Kandidat mit lokalem ANWENDEN wird GEPAART gegen den eingefrorenen Basis-Bot gemessen (Tag `autogym-basis`) | Kandidat > Basis mit Effekt > 2·SE; GTOW nur zur Not | offen |
 
 E6 ist die einzige Stufe, die zählt — E1–E5 existieren, damit E6-Messungen nie auf einer
-kaputten Schleife stehen.
+kaputten Schleife stehen. VERSIONIERUNG: vor jeder Veraenderung einfrieren (Tag), ein fertiger
+veraenderter Bot bekommt einen NAMEN (Tag) und seine gepaarte Zahl gegen die Basis.
 
 ## Verdrahtungs-Backlog (Orakel-Manifest fuehrt live Buch)
 
