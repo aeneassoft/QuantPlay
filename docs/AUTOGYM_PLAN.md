@@ -73,6 +73,24 @@ Positions-Prior aus der Snowie-Bruecke make_seeded_tracker). Versionierung getre
 eigene Basis-Tags (autogym-basis-6max), eigene Namen. Die Disziplinen teilen Orakel,
 Journal, Run-Ablage und Erwartungs-Leiter.
 
+### AP-6MAX-BEOBACHTUNG — erst Struktur-Katalog, dann Mathematik (User-Design 2026-08-16)
+
+Methode wie beim Bluff-Lizenz-Katalog: DESKRIPTIV vor NORMATIV. Der 6-max-Bot spielt gegen
+sich selbst; aufgezeichnet wird die GESPRAECHSSTRUKTUR jeder Hand (Klassenraum-Analogie:
+Meldereihenfolge = Position, Wortmeldung = Aktion, das Gespraech kollabiert auf 2-3 Stimmen):
+  (1) Knoten-Taxonomie: Open/Call/3bet/Squeeze/Multiway-Pot je Position x Anzahl aktiver
+      Spieler x Strasse — WELCHE Entscheidungstypen kommen wie oft vor (die Frequenz-Landkarte
+      bestimmt, wo Mathematik ueberhaupt Hebel hat, AP8-Lektion);
+  (2) Kollaps-Dynamik: 6 -> n Spieler je Strasse, wer traegt die Verteidigungslast (MDF ist
+      multiway NICHT wohldefiniert pro Spieler — die Last teilt sich, das ist neue Mathematik);
+  (3) Equity-Schwellen multiway: noetige Equity vs N Caller (Formelsammlung hat die Bausteine);
+  (4) Positions-Range-Struktur: die realisierten Ranges je Sitz als empirischer Prior
+      (Snowie-Bruecken-Lektion formalisiert).
+Ertrag: der 6-max-Struktur-Katalog -> daraus die 6-max-Orakel-Checks (welche HU-Checks
+uebertragen, welche multiway neu definiert werden muessen) -> dann erst Kandidaten.
+Instrument: gym_six + entscheidungs_logger (gebaut) + neue Struktur-Felder (n_active je
+Strasse, Aggressor-Position, Knoten-Typ).
+
 ## Kandidaten-Runde 1 abgeschlossen (2026-08-16 abend) — beide Familien sauber erledigt
 
 **G5 BESTANDEN:** 24 Kerne lokal, pargate haelt **2.459 Decks/min ueber 40 min** (~4.900 Haende/min;
