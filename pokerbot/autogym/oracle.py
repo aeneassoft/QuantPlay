@@ -69,9 +69,17 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> None:
         rep.provable.append(Verdict("P", "free_fold", pot / bb,
                                     f"fold bei to_call=0, Pot {pot} ({rec['street']})"))
 
-    # F-Rohdaten: jede Entscheidung, die einem Einsatz gegenuebersteht.
-    if to_call > 0 and action in ("fold", "call", "raise"):
-        rep.facing_bets.append((rec["street"], pot, to_call, action == "fold"))
+    # F-Rohdaten: jede POSTFLOP-Entscheidung gegen einen Einsatz. 'allin' zaehlt
+    # als Continue (Review-Befund: sonst fehlen die aggressivsten Continues und
+    # die Fold-Frequenz wird nach oben verzerrt). Preflop bleibt draussen —
+    # Blind-Struktur/First-in macht die MDF-Logik dort schief.
+    # KONVENTION: minimum_defense_frequency braucht den Pot VOR dem Einsatz,
+    # st['pot'] ist aber einsatz-INKLUSIV -> pot - to_call speichern.
+    # (equity_needed_to_call unten will dagegen den INKLUSIVEN Pot — die beiden
+    # Formeln haben entgegengesetzte Pot-Konventionen.)
+    if (to_call > 0 and rec["street"] != "preflop"
+            and action in ("fold", "call", "raise", "allin")):
+        rep.facing_bets.append((rec["street"], pot - to_call, to_call, action == "fold"))
 
     # L: Call deutlich unter der Pot-Odds-Schwelle, in Rueckschau-Equity.
     if action == "call" and to_call > 0 and rec.get("villain_hole"):
@@ -85,10 +93,11 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> None:
                 f"(Luecke {gap:.2f}, to_call {to_call}, Pot {pot})"))
 
 
-def grade_hand_conservation(rep: OracleReport, before: int, after: int, hand_no) -> None:
+def grade_hand_conservation(rep: OracleReport, before: int, after: int, hand_no,
+                            bb: int = 100) -> None:
     """HART: die Chipsumme des Tischs muss jede Hand exakt erhalten bleiben."""
     if before != after:
-        rep.hard.append(Verdict("HART", "chip_erhaltung", abs(after - before) / 100,
+        rep.hard.append(Verdict("HART", "chip_erhaltung", abs(after - before) / bb,
                                 f"Hand {hand_no}: Summe {before} -> {after}"))
 
 
@@ -103,11 +112,13 @@ def finalize_frequencies(rep: OracleReport) -> None:
         # MDF = Anteil, der WEITERSPIELEN muss -> erlaubte Fold-Frequenz = 1 - MDF.
         allowed = sum(1.0 - minimum_defense_frequency(p, b) for p, b, _ in rows) / len(rows)
         observed = sum(1 for _, _, f in rows if f) / len(rows)
-        if abs(observed - allowed) > MDF_BAND:
+        # MDF ist eine OBERGRENZE fuers Folden, kein Sollwert: nur OVER-FOLD ist
+        # ein Befund — weniger folden als erlaubt ist MDF-theoretisch kein Defekt.
+        if observed - allowed > MDF_BAND:
             rep.freq.append(Verdict(
                 "F", f"mdf_{street}", 0.0,
                 f"{street}: Fold-Frequenz {observed:.2f} vs MDF-erlaubt {allowed:.2f} "
-                f"(n={len(rows)}, {'OVER-FOLD' if observed > allowed else 'UNDER-FOLD'})"))
+                f"(n={len(rows)}, OVER-FOLD)"))
 
 
 def manifest() -> dict:
