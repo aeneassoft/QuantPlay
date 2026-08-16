@@ -145,7 +145,10 @@ def lizenz_guard(make_strat, junk_eq: float = 0.20, iters: int = 160):
             a, amt = base(st)
             me = st["players"][st["to_act"]]
             to_call = max(0, st["current_bet"] - me["committed_street"])
-            if a in ("raise", "allin") and st["street"] in ("flop", "turn"):
+            # 'bet' MUSS dabei sein: die Eroeffnungs-Bet heisst in der Engine 'bet',
+            # nicht 'raise' -- ohne sie sah der Guard nur 3 Knoten in 300 Haenden
+            # (Diagnose 2026-08-16, toter Wrapper statt leerer Kanal).
+            if a in ("bet", "raise", "allin") and st["street"] in ("flop", "turn"):
                 try:
                     t = RangeTracker().build(st)
                     cw = t.range.get(1 - st["to_act"], {})
