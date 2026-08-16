@@ -3,6 +3,23 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-16) — AUTOGYM GEBAUT: die selbstpruefende Trainings-Schleife (Ziel: GTOW-Baseline)
+**Der beschlossene Weg zur GTOW-Baseline (Treppe −19,70 → −15 → −10): eine Schleife, die Self-Play spielt, jede
+Entscheidung gegen die vereinheitlichte Mathematik-Benchmark haelt, Abweichungen mint und Patches NUR durchs
+gepaarte A/B-Gate laesst.** Gebaut + erster Pilot gruen: `pokerbot/autogym/` (oracle/gym_hu/gym_six/improver/
+selftest; Plan + Erwartungs-Leiter E1–E6 = `docs/AUTOGYM_PLAN.md`). Pilot (52 s lokal): 500 Haende, 3.577
+Entscheidungen; HART 0 (Chip-Erhaltung haelt; die Stufe fand zuerst einen Bug im eigenen Pruefer — gefixt),
+P 0 (keine beweisbar dominierten Aktionen), L 35 (Rueckschau-Calls bis 112 bb unter Pot-Odds → Journal-Leads),
+F 3 (u.a. mdf_flop), Button-Netto HU +32,6 bb/100 (neue kartenbereinigte Benchmark-Groesse), Gate-Selbsttest
+exploit-OFF vs ON +2,1 ± 3,3 → NEUTRAL (das Gate verweigert korrekt). Sicherheits-Kontrakt bindend (CLAUDE.md):
+Formeln unveraenderlich, Orakel-Knoepfe fuer den Improver gesperrt (Goodhart), Bot-Knoepfe nur durchs Gate,
+Wrapper statt Quelltext-Edits, Journal-Pflicht. NAECHSTE SCHRITTE: (1) selftest E1–E4 gruen kriegen,
+(2) Mathe-Vollinventur (78 Funktionen + 443 MoP-Chunks) → Welle-1-Verdrahtung, (3) L-Leads von Rueckschau auf
+Range-Equity, (4) erst nach E1–E5 der CPU-Pod, (5) E6 = jeder ANWENDEN-Kandidat vs GTOW ($0 in-process).
+**Kontext dieser Session: Repo-Trennung vollzogen** — alles Nicht-Poker lebt in `_privat/` (gitignored +
+pre-commit-Hook), Historie lokal + GitHub bereinigt (Neuaufbau ab 9a1d36b + filter-branch fuer einen Alt-Pfad),
+Fremdprojekt-Name aus dem Kern entfernt, Backup-Bundle in `Desktop/PokerB-Backup/`.
+
 ## ★★★★★ CURRENT (2026-08-04 nacht II) — GG-NL2-PREPARATION FÜR PRINCEDARKNESS (docs/PREP_GG_NL2.md)
 **User spielt jetzt GG NL2. 600k Hände vermessen (`research/gg_nl2_pop.py`; EU-Fenster 544k/81.7k
 Spieler): Pool über die Uhrzeit FLACH (VPIP 30/PFR 17/3bet 7,2 — Timing kein Hebel, Peak 17–23h),

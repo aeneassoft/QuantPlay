@@ -268,6 +268,20 @@ How I write code AND talk about it — the standing default, every turn.
   LLM failure mode; this IS the Verification-grounding gate restated). CONSISTENT: uniform format; write code that reads
   like the surrounding code (match its naming, comment density, idiom).
 
+> **★★★★★ AKTIVER PLAN (2026-08-16) — AUTOGYM: die selbstpruefende Trainings-Schleife. ZIEL = an die
+> GTOW-BASELINE herankommen** (Referenz −19,70 ± 4,37; Treppe −15 → −10 → Leaderboard-Band, jede Stufe vs GTOW
+> gemessen, $0 in-process). Gebaut: `pokerbot/autogym/` — `oracle.py` (die VEREINHEITLICHTE Mathematik-Benchmark:
+> die 78 Formelfunktionen aus `knowledge_base/math/` werden stufenweise zu Urteilen ueber echte
+> Self-Play-Entscheidungen verdrahtet; Stufen HART/P/L/F), `gym_hu.py` + `gym_six.py` (getrennte Self-Play-Gyms
+> mit Buchfuehrung; HU auf gepaarten Decks mit Button-Tausch → Paar-Drift als Symmetrie-Check, Button-Netto als
+> kartenbereinigter Positionswert), `improver.py` (minen → patchen → gepaartes A/B-Gate → Journal),
+> `selftest.py` (der lokale Beweis E1–E4). **Sicherheits-Kontrakt (bindend): Formeln unveraenderlich +
+> Fraction-Referenz-Pflicht; Orakel-Knoepfe = Mess-Konfig, fuer den Improver GESPERRT (Goodhart); Bot-Knoepfe
+> tunable mit Schranken, Anwendung NUR durchs Gate; P-Patches als Wrapper, nie Quelltext; alles ins Journal.**
+> Doktrin: ueberall VORREGISTRIERTE Erwartungen; die Schleife muss LOKAL bewiesen sein (Erwartungs-Leiter
+> E1–E6, `docs/AUTOGYM_PLAN.md`), erst dann der Pod (CPU-Kerne, keine GPU — CFR/Self-Play-Rechnung).
+> Erster Pilot: 500 Haende + 3.577 gegradete Entscheidungen in 52 s lokal; HART 0, P 0, L 35, F 3.
+
 ## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
 Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche
 Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) liegt im
