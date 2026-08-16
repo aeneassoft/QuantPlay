@@ -42,7 +42,7 @@ def _baue_fabrik(name: str, seed: int):
 
 
 def _worker(args: tuple) -> list:
-    kandidat, seed, deck_seed, n_decks = args
+    kandidat, seed, deck_seed, n_decks, incumbent = args
     # KRITISCH (gemessen 2026-08-16): ohne das spawnt JEDER Worker torch mit
     # Default-Intra-Op-Threads (= Kernzahl). 20 Worker x 24 Threads auf 24 Kernen
     # = Thrashing; die Skalierung bricht ein, obwohl alle Kerne 'busy' aussehen.
@@ -53,19 +53,19 @@ def _worker(args: tuple) -> list:
         pass
     from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks
     decks = gen_decks(n_decks, seed=deck_seed)
-    _, _, edges = duplicate_ab(_baue_fabrik(kandidat, seed), _baue_fabrik("basis", seed),
+    _, _, edges = duplicate_ab(_baue_fabrik(kandidat, seed), _baue_fabrik(incumbent, seed),
                                decks, return_edges=True)
     return edges
 
 
 def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
-             deck_seed0: int = 1000) -> dict:
+             deck_seed0: int = 1000, incumbent: str = "basis") -> dict:
     """Gepaartes Gate, parallelisiert. Deck-Bloecke disjunkt via deck_seed0+i."""
     # Feinere Chunks (4 je Worker) + imap_unordered = laufender Fortschritt statt
     # Blackbox bis zum Ende; kostet nichts, macht ETA moeglich.
     n_jobs = workers * 4
     chunk = max(1, n_decks // n_jobs)
-    jobs = [(kandidat, seed, deck_seed0 + i, chunk) for i in range(n_jobs)]
+    jobs = [(kandidat, seed, deck_seed0 + i, chunk, incumbent) for i in range(n_jobs)]
     t0 = time.time()
     edges = []
     with mp.Pool(workers) as pool:
@@ -85,7 +85,8 @@ def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
         verdict = "VERWERFEN"
     else:
         verdict = "NEUTRAL"
-    return {"kandidat": kandidat, "bb100": round(bb100, 2), "se": round(se, 2),
+    return {"kandidat": kandidat, "incumbent": incumbent,
+            "bb100": round(bb100, 2), "se": round(se, 2),
             "n_decks": n, "workers": workers, "sekunden": round(time.time() - t0, 1),
             "decks_pro_min": round(n / max(1e-9, time.time() - t0) * 60, 1),
             "verdict": verdict}
@@ -99,11 +100,14 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=max(1, mp.cpu_count() - 2))
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--deck-seed0", type=int, default=1000)
+    ap.add_argument("--incumbent", choices=KANDIDATEN, default="basis",
+                    help="Gegenseite des Gates (Default: die eingefrorene Basis)")
     args = ap.parse_args()
 
     from pokerbot.autogym import runs
     d = runs.neuer_run(f"pargate_{args.kandidat}", vars(args))
-    res = par_gate(args.kandidat, args.decks, args.workers, args.seed, args.deck_seed0)
+    res = par_gate(args.kandidat, args.decks, args.workers, args.seed,
+                   args.deck_seed0, args.incumbent)
     runs.schliesse_run(d, res)
     print(res)
     print(f"Run-Ablage: {d}")
