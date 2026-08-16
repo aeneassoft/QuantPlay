@@ -19,7 +19,16 @@ import pokerbot.strategy.bot as botmod
 from pokerbot.autogym.improver import sel_guard
 from pokerbot.benchmark.duplicate import pokerbot
 from pokerbot.engine.game import HeadsUpGame
-from research.pokerstars_export import BASE_DT, BB, SB, STACK, format_hand
+import research.pokerstars_export as _pse
+from research.pokerstars_export import BB, SB, STACK, format_hand
+
+# PokerStars schreibt Betraege IMMER mit zwei Nachkommastellen ($1.00, nie $1) --
+# der Repo-Exporter kuerzt ganze Zahlen, was fremde Parser (PokerSnowie) mit
+# "unsupported / not texas holdem" ablehnen. Hier ueberschrieben.
+_pse.money = lambda chips: f"${chips / 100.0:.2f}"
+
+# Datum MUSS in der Vergangenheit liegen; ein Zukunftsdatum lehnen Importer ab.
+BASE_DT = datetime.datetime(2026, 7, 1, 18, 0, 0)
 
 GEFEUERT: list = []
 
