@@ -127,6 +127,38 @@ def sel_guard(make_strat, margin: float = 0.03, iters: int = 160):
     return make
 
 
+def lizenz_guard(make_strat, junk_eq: float = 0.20, iters: int = 160):
+    """Kandidat Runde 3 -- die Brown-Anpassung, Bet-Seite: Bluffs brauchen eine
+    LIZENZ. Browns pure Bluffs leben im Equity-Band 0,36-0,50 (Zyklus-Region),
+    NICHT am Boden der Verteilung. Dieser Guard unterdrueckt lizenzlosen Spew:
+    Bettet/raist die Basis am Flop/Turn mit Equity vs Tracker-Range unter
+    junk_eq (reiner Junk, keine Zyklus-Zugehoerigkeit), wird daraus Check bzw.
+    Fold. Value und lizenzierte Bluffs bleiben unangetastet. Nur legale Info."""
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if a in ("raise", "allin") and st["street"] in ("flop", "turn"):
+                try:
+                    t = RangeTracker().build(st)
+                    cw = t.range.get(1 - st["to_act"], {})
+                    if cw:
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        if eq == eq and eq < junk_eq:
+                            return ("check", None) if to_call == 0 else ("fold", None)
+                except Exception:  # noqa: BLE001
+                    pass            # defensiv: im Zweifel bleibt die Basis-Aktion
+            return a, amt
+        return d
+    return make
+
+
 def guarded(make_strat, guard_names: list[str]):
     """Wrapper-Fabrik: legt die Guard-Regeln um eine bestehende Strategie-Fabrik."""
     def make(seat):
