@@ -61,6 +61,17 @@ call_closes_action, node_typ, n_opponents); empfohlene Reihenfolge 1→3 (per-En
 hand_id/decision_idx, hand_result und die Line-Historie. Das Knob-Register (mit Schranken)
 steht in der Inventur; bindend bleibt: Orakel-Knoepfe sind Mess-Konfig, nicht Improver-Gebiet.
 
+## Erster voller Lauf NACH den Review-Fixes (2026-08-16, lokal, 75 s) — der Referenz-Lauf
+
+900 Haende, 6.080 gegradete Entscheidungen. **HU (600, 4-fach gekreuzt):** HART 0 · P 0 · L 62
+(2,0% Lead-Rate) · F 1 · Button-Netto **+33,4 bb/100** (Vorlauf +32,6 — die Groesse ist stabil) ·
+Paar-Drift +106,8 ± 70,3 (1,5 SE, PASS; zweiter Lauf in Folge positiv → beobachten).
+**6-max (300, reparierte Oekologie):** HART 0 · P 0 · F 1; Positions-Ledger bei n=50/Position
+noch Rauschen (BB +122 unplausibel, SB −194 plausibel — erst ab ~1.000 Haenden lesbar).
+Gate-Selbsttest exploit-OFF +1,4 ± 2,2 → NEUTRAL (konsistent ueber drei Laeufe).
+Bekannte Kleinigkeit: Top-L-Vorschlaege enthalten Duplikate aus gespiegelten Durchgaengen
+(Dedupe im Improver offen).
+
 ## Erste Messwerte (Pilot 2026-08-16, lokal, 52 s)
 
 HU 300 Hände: HART 0 · P 0 · L 35 (Rückschau-Calls bis 112 bb unter Pot-Odds) · F 1 ·
