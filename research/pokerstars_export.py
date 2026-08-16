@@ -275,6 +275,8 @@ def main():
             hero_variante=args.hero)
         if args.river_only and len(result["board"]) < 5:
             continue                                         # not a river hand -> skip (keep the upload river-dense)
+        if (i + 1) % 25 == 0:
+            print(f"  {i + 1}/{args.n} Haende | {len(GEFEUERT)} Selektions-Eingriffe", flush=True)
         dt = BASE_DT + datetime.timedelta(days=args.dayoffset, minutes=3 * i)
         blocks.append(format_hand(args.idbase + i, dt, names, button, holes, history, result, hero_seat))
 
