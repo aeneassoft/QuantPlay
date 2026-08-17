@@ -55,6 +55,8 @@ ARME: dict[str, dict] = {
     # Mirror-repliziert + RN10 3x envgate-repliziert), OHNE das nicht
     # replizierende K3 — klaert, ob K3 in der Kombi traegt oder schleppt.
     "kombi_schlank": {"env": {"POKERB_RAISE_NARROW": "1.0"}, "wrapper": "turn_wert"},
+    # Der amtierende AUSLESE-v3-Stand als ARM (fuers kumulative Finale vs basis):
+    "auslese_v3": {"env": {}, "wrapper": "sel_m15"},
 }
 
 
