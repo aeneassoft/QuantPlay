@@ -37,6 +37,19 @@ if _CENSUS:
     ]
     _RIVER_ACC, _RIVER_ITERS, _RIVER_TIMEOUT = 0.25, 200, 90
     _TURN_ACC, _TURN_ITERS, _TURN_TIMEOUT = 0.4, 120, 150
+    # v4 Stufe 2 (2026-08-17, VALUE_NET_PLAN.md:82-84 "robust default"): FLOP solver-to-terminal
+    # (flop->turn->river EXPLIZIT, KEIN Netz -> kein Spurious-Equilibrium-Risiko aus Gate 0c).
+    # Drei explizite Strassen = multiplikativ groesster Baum -> LEANE Arme (je 2 Bet-Sizes,
+    # 1 Raise-Size, allin), Census-nahe Groessen (Flop/Turn 35/75, River 65/100 = dominant).
+    _FLOP_BETS = [
+        "set_bet_sizes oop,flop,bet,35,75", "set_bet_sizes oop,flop,raise,60", "set_bet_sizes oop,flop,allin",
+        "set_bet_sizes ip,flop,bet,35,75", "set_bet_sizes ip,flop,raise,60", "set_bet_sizes ip,flop,allin",
+        "set_bet_sizes oop,turn,bet,35,75", "set_bet_sizes oop,turn,raise,75", "set_bet_sizes oop,turn,allin",
+        "set_bet_sizes ip,turn,bet,35,75", "set_bet_sizes ip,turn,raise,75", "set_bet_sizes ip,turn,allin",
+        "set_bet_sizes oop,river,bet,65,100", "set_bet_sizes oop,river,raise,60", "set_bet_sizes oop,river,allin",
+        "set_bet_sizes ip,river,bet,65,100", "set_bet_sizes ip,river,raise,60", "set_bet_sizes ip,river,allin",
+    ]
+    _FLOP_ACC, _FLOP_ITERS, _FLOP_TIMEOUT = 0.5, 80, 240
 else:
     # Compact river bet tree (bet 33/75 + a raise + allin, both positions) -> a small terminal solve -> fast.
     _RIVER_BETS = [
@@ -53,6 +66,16 @@ else:
     ]
     _RIVER_ACC, _RIVER_ITERS, _RIVER_TIMEOUT = 0.5, 80, 40
     _TURN_ACC, _TURN_ITERS, _TURN_TIMEOUT = 0.5, 60, 60
+    # v4 Stufe 2: kompakter Flop-Baum (3 Strassen explizit) — lean, s. Census-Zweig.
+    _FLOP_BETS = [
+        "set_bet_sizes oop,flop,bet,33,75", "set_bet_sizes oop,flop,raise,60", "set_bet_sizes oop,flop,allin",
+        "set_bet_sizes ip,flop,bet,33,75", "set_bet_sizes ip,flop,raise,60", "set_bet_sizes ip,flop,allin",
+        "set_bet_sizes oop,turn,bet,50,100", "set_bet_sizes oop,turn,raise,60", "set_bet_sizes oop,turn,allin",
+        "set_bet_sizes ip,turn,bet,50,100", "set_bet_sizes ip,turn,raise,60", "set_bet_sizes ip,turn,allin",
+        "set_bet_sizes oop,river,bet,50,100", "set_bet_sizes oop,river,raise,60", "set_bet_sizes oop,river,allin",
+        "set_bet_sizes ip,river,bet,50,100", "set_bet_sizes ip,river,raise,60", "set_bet_sizes ip,river,allin",
+    ]
+    _FLOP_ACC, _FLOP_ITERS, _FLOP_TIMEOUT = 0.6, 50, 120
 
 # Shared solve knobs (identical for the turn + river solves).
 _SOLVE_THREADS = 8        # TexasSolver worker threads per solve
@@ -261,6 +284,47 @@ def turn_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
         return None
     node = root                                       # root = OOP first-to-act on the turn
     for h in _street_actions(state, "turn"):
+        lbl = _match_label(h.get("action"), h.get("to") or h.get("amount"), node)
+        ch = (node.get("childrens") or {}).get(lbl) if lbl else None
+        if not ch or ch.get("node_type") == "chance_node":
+            return None
+        node = ch
+    # ISO_CACHE: the solve ran on the CANONICAL board — map hero's hole through the same suit permutation
+    sm = root.get("_suit_map")
+    h0, h1 = (hole[0][0] + sm[hole[0][1]], hole[1][0] + sm[hole[1][1]]) if sm else (hole[0], hole[1])
+    strat = O.strategy_for(node, h0, h1)
+    if not strat:
+        return None
+    labels = list(strat.keys())
+    probs = [max(0.0, p) for p in strat.values()]
+    if sum(probs) <= 0:
+        return None
+    lbl = rng.choices(labels, weights=probs)[0]
+    return _label_to_action(lbl, la)
+
+
+def flop_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
+                 acc: float = _FLOP_ACC, iters: int = _FLOP_ITERS, timeout: int = _FLOP_TIMEOUT):
+    """v4 Stufe 2 (VALUE_NET_PLAN 'robust default'): solve the FLOP subgame (flop+turn+river,
+    to TERMINAL — no value net, no spurious-equilibrium risk) + sample our hand's GTO FLOP
+    action. Returns (action, amount) or None (-> floor). The deeper clone of the validated
+    turn resolver: we navigate ONLY the flop betting line + read our flop node (dump_rounds=1);
+    the turn+river subtrees are solved so the flop strategy is future-aware. board = 3 cards.
+    Biggest tree of the three -> leanest arms, lowest iters, longest timeout; the floor
+    fallback keeps it live-safe."""
+    if not oop_str or not ip_str:
+        return None
+    try:
+        bets = _inject_observed_sizes(state, "flop", pot, _FLOP_BETS)     # solve with the TRUE observed sizes
+        bets = _prune_degenerate_arms(bets, "flop", pot, eff_stack)       # EVPA-style lossless pre-solve prune
+        root = O.solve(board, oop_str, ip_str, pot=max(_MIN_SOLVE_CHIPS, pot),
+                       eff_stack=max(_MIN_SOLVE_CHIPS, eff_stack),
+                       bets=bets, accuracy=acc, max_iter=iters, dump_rounds=1, threads=_SOLVE_THREADS,
+                       timeout=timeout, tag="fsv" + "".join(board))
+    except Exception:  # noqa: BLE001
+        return None
+    node = root                                       # root = OOP first-to-act on the flop
+    for h in _street_actions(state, "flop"):
         lbl = _match_label(h.get("action"), h.get("to") or h.get("amount"), node)
         ch = (node.get("childrens") or {}).get(lbl) if lbl else None
         if not ch or ch.get("node_type") == "chance_node":

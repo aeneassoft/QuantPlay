@@ -184,6 +184,10 @@ class PokerBot:
         self._probe_freq = 0.15
         self.use_resolver = False    # MVP#2 P1: real-time RIVER re-solving (opt-in; the GTO Wizard A/B enables it)
         self.use_turn_resolver = False  # MVP#2 P2: real-time TURN re-solving (turn->river to terminal; opt-in)
+        # v4 Stufe 2 (2026-08-17): real-time FLOP re-solving (flop->river to terminal, kein Netz;
+        # VALUE_NET_PLAN 'robust default'). Env-Flag zusaetzlich zum Attribut, damit der
+        # envgate-/Prince-Subprozess-Kanal ihn ohne Fabrik-Umbau schalten kann. Default OFF.
+        self.use_flop_resolver = _gto_flag("POKERB_FLOP_RESOLVER", "0") == "1"
         self.use_defense_advisor = True  # MVP C2: facing-bet DEFENSE advisor (the #1-leak fix; flop coverage, gated)
         # ---- KEYSTONE: the action-consistent per-combo range tracker as the FLOOR's villain-range source ----
         # The floor's equity_vs_range used _villain_range/_narrow (top-X%-by-board-strength, bluffs/draws DROPPED)
@@ -546,6 +550,10 @@ class PokerBot:
             tr = self._turn_resolve(state, hole, board, pot, la, hero, hero_stack)
             if tr is not None:
                 return tr
+        if street == "flop" and self.use_flop_resolver:     # v4 Stufe 2: real-time flop re-solve (flop->river terminal)
+            fr = self._flop_resolve(state, hole, board, pot, la, hero, hero_stack)
+            if fr is not None:
+                return fr
 
         vrange = self._villain_range(state)
         aggression = self._villain_postflop_aggression(state)
@@ -1079,6 +1087,32 @@ class PokerBot:
         r = {"phase": "postflop", "street": "turn", "hand": " ".join(hole), "range_conf": round(rconf, 2),
              "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
         return self._mk(action, amount, r, "MVP#2 turn resolver: real-time GTO re-solve (turn->river) of the public state.")
+
+    def _flop_resolve(self, state, hole, board, pot, la, hero, hero_stack):
+        """v4 Stufe 2: solve the ACTUAL flop public state (flop->river to terminal, line-aware tracked
+        ranges) + sample our GTO flop action; returns a _mk action or None (-> caller plays the floor).
+        The deeper clone of _turn_resolve — the flop carries -6..-8 bb/100 of the GTOW loss (x-ray)."""
+        if not la.get("can_raise") and not (la.get("to_call", 0) > 0 and la.get("can_call")):
+            return None
+        from pokerbot.strategy import resolver as _rsv
+        from pokerbot.strategy.range_tracker import weighted_ranges, CONF_THRESHOLD
+        vill = state["players"][1 - self.hero_idx]
+        h_cs = hero.get("committed_street", 0) or 0
+        v_cs = vill.get("committed_street", 0) or 0
+        start_pot = max(2.0, pot - h_cs - v_cs)                 # pot at the START of the flop (pre flop-betting)
+        eff = min(hero_stack + h_cs, (vill.get("stack", hero_stack) or hero_stack) + v_cs)
+        oop_str, ip_str, rconf = weighted_ranges(state)
+        if rconf < CONF_THRESHOLD or not oop_str or not ip_str:
+            return None
+        res = _rsv.flop_resolve(state, hole, board, start_pot, eff, oop_str, ip_str, la, self.rng)
+        if res is None:
+            return None
+        action, amount = res
+        if action in ("bet", "raise") and amount is not None:
+            amount = self._raise_to(la, amount, snap=False)   # resolver's GTO size is exact -> never re-snap
+        r = {"phase": "postflop", "street": "flop", "hand": " ".join(hole), "range_conf": round(rconf, 2),
+             "made_hand": best_five_name(board, hole), "board": " ".join(board), "resolver": True}
+        return self._mk(action, amount, r, "v4 flop resolver: real-time GTO re-solve (flop->river) of the public state.")
 
     def _board_class(self, board) -> str:
         t = pf.classify_board(board)

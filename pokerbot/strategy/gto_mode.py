@@ -88,6 +88,9 @@ _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     "POKERB_OVERBET_MENU",
     # L1 purification (born 2026-07-06; GTOW-ladder experiment arm — modal action at the mixing gates):
     "POKERB_PURIFY", "POKERB_RAISE_COMMIT", "POKERB_PURIFY2",
+    # v4 Stufe 2 (born 2026-08-17; standing rule: birth commit registers the flag): real-time
+    # flop->river solver-to-terminal re-solve (VALUE_NET_PLAN robust default), default OFF:
+    "POKERB_FLOP_RESOLVER",
 })
 
 
