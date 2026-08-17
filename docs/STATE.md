@@ -3,6 +3,16 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ SCHLUSSSTRICH ATTACKE-SPRINT (2026-08-18 frueh) — v4 steht, Haertung bewiesen, Queue klar
+**Bilanz: AUSLESE v4 (Tag auslese-v4) dreifach gesichert (Mirror +16,14±2,77 vs basis; envgate-Treppe;
+Orakel-Panel gruen). r6_button ins HAERTUNGS-PROFIL (Fable-Retest: Ernte 186→58 bb/100, cooler-bereinigt
+Bot vorn; Open-Folds 0/46). Zwei-Achsen-Doktrin GEMESSEN. NAECHSTE SCHRITTE (priorisiert, Specs in
+data/runs/*.json): (1) Runde 6b: eCall-Neubau schaerfer selektiert + turn_wert-SIZE-Entkopplung (der
+7/7-Tell = Seesaw-Verletzung, wichtigster Einzelfix) + Stack-off-Bremse + Limp-Streichung; (2) princegate
++ GTOW-Adapter (PFLICHT vor jedem Anker; Resolver-Falle); (3) pargate6 (6-max); (4) Flop-Resolver-Baustellen
+(Range-Abdeckung + Latenz/ISO-Cache); (5) Niveau-Audit-Rangliste (AIVAT-light, FDR-Ledger, Turn-Retraining).
+$30 Pod unangetastet. Fable-Duell-Harness = stehendes Adversar-Instrument (FABLE_STACK-Param).**
+
 ## ★★★★★ CURRENT (2026-08-17 nacht III) — PRAEZISIONS-LAUF: Verdikte bootstrap-gehaertet, Armee-Fixes gelandet
 **Niveau-Audit (7 Agenten, `data/runs/niveau_audit_2026-08-17.json`: Top-15-Rangliste; #1 AIVAT-light im
 Mirror, #2 Bootstrap-CI, #3 FDR-Ledger, #6 Turn-Retraining aus 22,5k Subgames) + Praezisions-Armee (19
