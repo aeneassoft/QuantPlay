@@ -2,11 +2,15 @@
 """Snowie-Export: Haende in EXAKT der Konfiguration, die im Gate gemessen wurde.
 
 Der Unterschied zu pokerstars_export: Hero ist die duplicate_ab-Fabrik
-(PokerBot direkt, KEIN PokerBotAgent, kein Resolver, keine Solver-Aufrufe) --
-also genau die Version, die AUSLESE v1 mit +6,1 bb/100 belegt hat. Beide Arme
-laufen auf denselben Deals; die Unterschiede sitzen dort, wo die Selektion griff.
+(PokerBot direkt, KEIN PokerBotAgent, kein Resolver, keine Solver-Aufrufe).
+GATE-PARITAET KONKRET (2026-08-17): --hero nimmt einen pargate-KANDIDATEN-Namen;
+der Guard-Stack kommt aus der EINEN Quelle pargate._wickle (frueher: lokales
+sel_guard(basis) = AUSLESE v1, obwohl der Docstring Gate-Paritaet versprach).
+Default = 'turn_wert' (AUSLESE v4-Wrapper). Die v4-Env-Seite
+(POKERB_TURN_DEFENSE=0.07 POKERB_SLOWPLAY=0.25 POKERB_RAISE_NARROW=1.0) setzt
+die SHELL — bot.py liest bei IMPORT; der Lauf-Fingerprint landet im Sidecar.
 
-  python -m research.snowie_export --hero auslese --n 400 --out <pfad>
+  python -m research.snowie_export --hero turn_wert --n 400 --out <pfad>
 """
 from __future__ import annotations
 
@@ -16,11 +20,11 @@ import os
 import sys
 
 import pokerbot.strategy.bot as botmod
-from pokerbot.autogym.improver import sel_guard
+from pokerbot.autogym.pargate import KANDIDATEN
 from pokerbot.benchmark.duplicate import pokerbot
 from pokerbot.engine.game import HeadsUpGame
 import research.pokerstars_export as _pse
-from research.pokerstars_export import BB, SB, STACK, format_hand
+from research.pokerstars_export import BB, SB, STACK, format_hand, stack_mit_protokoll
 
 # PokerStars schreibt Betraege IMMER mit zwei Nachkommastellen ($1.00, nie $1) --
 # der Repo-Exporter kuerzt ganze Zahlen, was fremde Parser (PokerSnowie) mit
@@ -34,25 +38,20 @@ GEFEUERT: list = []
 
 
 def _hero(variante: str, idx: int):
+    """Hero = pargate-Stack (EINE Quelle) um die duplicate-Basis. Das Protokoll
+    vergleicht Stack- vs Roh-Aktion ohne zweiten Basis-Aufruf (der alte Code
+    baute pro Entscheidung einen FRISCHEN PokerBot nur fuers Logging)."""
     basis = pokerbot(exploit=True, seed=1)
     if variante == "basis":
         return basis(0)
-    inner = sel_guard(basis)(0)
-
-    def d(st):                       # protokolliert die Eingriffe fuer den Index
-        vor = st["street"], st["pot"]
-        a, amt = inner(st)
-        me = st["players"][st["to_act"]]
-        if a == "call" and basis(0)(st)[0] == "fold":
-            GEFEUERT.append((idx, vor[0], vor[1]))
-        return a, amt
-    return d
+    return stack_mit_protokoll(variante, basis(0), idx, GEFEUERT)
 
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser()
-    ap.add_argument("--hero", choices=("basis", "auslese"), default="auslese")
+    ap.add_argument("--hero", choices=KANDIDATEN, default="turn_wert",
+                    help="pargate-KANDIDATEN-Name; 'turn_wert' = der AUSLESE-v4-Wrapper")
     ap.add_argument("--n", type=int, default=400)
     ap.add_argument("--seed", type=int, default=4711)
     ap.add_argument("--idbase", type=int, default=700000)
@@ -86,10 +85,19 @@ def main() -> None:
     with open(args.out, "w", encoding="utf-8", newline=chr(13) + chr(10)) as f:
         f.write("\n\n".join(blocks) + "\n")
     print(f"WROTE {len(blocks)} Haende -> {args.out}")
+    # Konfig-Sidecar IMMER: das graded Artefakt traegt den Env-Fingerprint
+    # (inkl. TURN_DEFENSE/SLOWPLAY/RAISE_NARROW) + den Wrapper-Namen selbst.
+    import json
+    from pokerbot.strategy.gto_mode import fingerprint
+    with open(os.path.splitext(args.out)[0] + "_konfig.json", "w", encoding="utf-8") as f:
+        json.dump({"hero": args.hero, "fingerprint": fingerprint(),
+                   "equity_iters": botmod.EQUITY_ITERS, "seed": args.seed,
+                   "idbase": args.idbase, "dayoffset": args.dayoffset}, f, indent=1)
+    print("config fingerprint:", {k: v for k, v in fingerprint().items() if v is not None})
     if GEFEUERT:
         ip = os.path.splitext(args.out)[0] + "_selektion.txt"
-        z = ["Haende, in denen die AUSLESE-Selektion eingriff (Fold -> Call)", ""]
-        z += [f"Hand #{args.idbase + h}  {s}  Pot {p}" for h, s, p in GEFEUERT]
+        z = ["Haende, in denen der Guard-Stack eingriff (Roh-Aktion -> Stack-Aktion)", ""]
+        z += [f"Hand #{args.idbase + h}  {s}  {roh} -> {neu}" for h, s, roh, neu in GEFEUERT]
         with open(ip, "w", encoding="utf-8", newline=chr(13) + chr(10)) as f:
             f.write(chr(10).join(z) + chr(10))
         print(f"SELEKTION: {len(GEFEUERT)} Eingriffe -> {ip}")

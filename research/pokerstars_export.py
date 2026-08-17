@@ -53,33 +53,35 @@ def hero_decider(seat: int, seed: int, resolver: bool | None = None):
     return d
 
 
-# Welche Hero-Version exportiert wird. 'auslese' = der validierte sel_guard-Mechanismus
-# (Fold gegen Einsatz -> Call, wenn Equity vs Tracker-Range die Pot-Odds+3pp deckt).
-HERO_VARIANTEN = ("basis", "auslese-v1", "auslese-v2")
-GEFEUERT: list = []          # (hand_idx, street) je Guard-Eingriff -> Begleit-Index
+# Welche Hero-Version exportiert wird: 'basis' oder ein pargate-KANDIDATEN-Name.
+# Der Guard-Stack kommt aus der EINEN Quelle pargate._wickle — die alte lokale
+# _auslese_um-Kopie (Marge 0.03 statt m15, UNGESEEDETE MC = Paarungs-Brecher,
+# kein turn_wert) ist entfernt (2026-08-17). AUSLESE v4 = --hero turn_wert
+# + Shell-Env POKERB_TURN_DEFENSE=0.07 POKERB_SLOWPLAY=0.25 POKERB_RAISE_NARROW=1.0.
+from pokerbot.autogym.pargate import KANDIDATEN as HERO_VARIANTEN
+
+GEFEUERT: list = []          # (hand_idx, street, roh_aktion, stack_aktion) je Eingriff
 
 
-def _auslese_um(d, streets: tuple, hand_idx: int):
-    """Legt die Selektion um einen fertigen Decider und protokolliert jeden Eingriff."""
-    from knowledge_base.math.formulas import equity_needed_to_call
-    from pokerbot.engine.equity import equity_vs_weighted_range
-    from pokerbot.strategy.range_tracker import RangeTracker
+def stack_mit_protokoll(variante: str, roh_decider, hand_idx: int, protokoll: list):
+    """v4-Stack aus der EINEN Quelle (pargate._wickle) um einen FERTIGEN Decider,
+    mit Eingriffs-Protokoll: jede Abweichung Stack vs Roh (Call- UND Bet-Seite,
+    turn_wert greift auf der Bet-Seite ein). Der Roh-Decider wird pro Spot genau
+    EINMAL gerufen (merk) — kein doppelter RNG-Verbrauch, Paarung bleibt intakt."""
+    from pokerbot.autogym.pargate import _wickle
+    letzte: dict = {}
+
+    def merk(st):
+        r = roh_decider(st)
+        letzte["r"] = r
+        return r
+
+    gewickelt = _wickle(variante, lambda seat: merk)(0)
 
     def w(st):
-        a, amt = d(st)
-        me = st["players"][st["to_act"]]
-        to_call = max(0, st["current_bet"] - me["committed_street"])
-        if a == "fold" and to_call > 0 and st["street"] in streets:
-            try:
-                t = RangeTracker().build(st)
-                cw = t.range.get(1 - st["to_act"], {})
-                if cw:
-                    eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=160)
-                    if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + 0.03:
-                        GEFEUERT.append((hand_idx, st["street"], round(eq, 3)))
-                        return "call", None
-            except Exception:  # noqa: BLE001
-                pass
+        a, amt = gewickelt(st)
+        if (a, amt) != letzte.get("r"):
+            protokoll.append((hand_idx, st["street"], letzte["r"][0], a))
         return a, amt
     return w
 
@@ -100,10 +102,8 @@ def play_hand(g: HeadsUpGame, hero_seat: int, idx: int, resolver: bool | None = 
     holes = [list(g.players[0].hole), list(g.players[1].hole)]
     button = g.button
     hd = hero_decider(hero_seat, seed=100 + idx, resolver=resolver)
-    if hero_variante == "auslese-v1":
-        hd = _auslese_um(hd, ("flop",), idx)
-    elif hero_variante == "auslese-v2":
-        hd = _auslese_um(hd, ("flop", "turn", "river"), idx)
+    if hero_variante != "basis":
+        hd = stack_mit_protokoll(hero_variante, hd, idx, GEFEUERT)
     deciders = {hero_seat: hd,
                 1 - hero_seat: villain_decider(1 - hero_seat, seed=200 + idx)}
     guard = 0
@@ -282,6 +282,14 @@ def main():
 
     text = "\n\n".join(blocks) + "\n"
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    # Konfig-Sidecar IMMER (Audit-Regel 2026-07-05 verallgemeinert: das graded
+    # Artefakt selbst traegt den kompletten Env-Fingerprint des Laufs, inkl.
+    # TURN_DEFENSE/SLOWPLAY/RAISE_NARROW — nie nur die Konsole).
+    import json as _json
+    with open(os.path.splitext(args.out)[0] + "_konfig.json", "w", encoding="utf-8") as f:
+        _json.dump({"hero": args.hero, "fingerprint": fingerprint(),
+                    "equity_iters": botmod.EQUITY_ITERS, "seed": args.seed,
+                    "idbase": args.idbase, "dayoffset": args.dayoffset}, f, indent=1)
     # newline="\r\n": the GTOW Analyzer only parses CRLF hand histories (2026-07-06: the first pod/Linux-
     # generated upload produced LF-only files the Analyzer could not analyze; every prior local export was
     # CRLF only because Windows text mode translated it silently). Pin CRLF on every platform.
@@ -290,10 +298,10 @@ def main():
     print(f"WROTE {len(blocks)} of {args.n} played hands -> {args.out}  ({len(text)} chars)")
     if GEFEUERT:
         idx_pfad = os.path.splitext(args.out)[0] + "_selektion.txt"
-        zeilen = ["Haende, in denen die AUSLESE-Selektion eingriff (Fold -> Call)",
+        zeilen = ["Haende, in denen der Guard-Stack eingriff (Roh-Aktion -> Stack-Aktion)",
                   f"Hero-Variante: {args.hero} | Hand-ID-Basis: {args.idbase}", ""]
-        zeilen += [f"Hand #{args.idbase + h}  {street}  Equity vs Tracker-Range {eq}"
-                   for h, street, eq in GEFEUERT]
+        zeilen += [f"Hand #{args.idbase + h}  {street}  {roh} -> {neu}"
+                   for h, street, roh, neu in GEFEUERT]
         with open(idx_pfad, "w", encoding="utf-8", newline=chr(13) + chr(10)) as f:
             f.write(chr(10).join(zeilen) + chr(10))
         print(f"SELEKTION griff in {len(GEFEUERT)} Entscheidungen ein -> {idx_pfad}")

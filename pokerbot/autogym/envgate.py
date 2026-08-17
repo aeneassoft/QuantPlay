@@ -62,6 +62,9 @@ ARME: dict[str, dict] = {
 
 def _worker(args: tuple) -> tuple:
     idx, deck_seed, n_decks, seed, wrapper = args
+    import os
+    for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[v] = "1"     # OpenBLAS-Init-Tod bei Default-Threads (Debug-Beweis 2026-08-17)
     try:
         import torch
         torch.set_num_threads(1)
@@ -139,7 +142,8 @@ def main() -> None:
     for arm in arme:
         out = d / f"edges_{arm}.json"
         env = {k: v for k, v in os.environ.items() if not k.startswith("POKERB_")}
-        env.update({"PYTHONUTF8": "1", "PYTHONHASHSEED": "0"})
+        env.update({"PYTHONUTF8": "1", "PYTHONHASHSEED": "0", "OPENBLAS_NUM_THREADS": "1",
+                    "OMP_NUM_THREADS": "1", "MKL_NUM_THREADS": "1"})
         env.update(ARME[arm]["env"])
         print(f"[{arm}] {args.decks} Decks vs GTOBaseline, Env={ARME[arm]['env']}, "
               f"Wrapper={ARME[arm]['wrapper']} ...", flush=True)

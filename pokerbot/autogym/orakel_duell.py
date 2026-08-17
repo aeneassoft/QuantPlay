@@ -24,6 +24,9 @@ from collections import Counter
 
 def _worker(args: tuple) -> tuple:
     kandidat, incumbent, seed, deck_seed, n_decks = args
+    import os
+    for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[v] = "1"     # OpenBLAS-Init-Tod bei Default-Threads (Debug-Beweis 2026-08-17)
     try:
         import torch
         torch.set_num_threads(1)

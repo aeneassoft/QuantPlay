@@ -22,11 +22,14 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               "sel_all_m15", "sel_turn_m15", "turn_wert", "wert_plus_all")
 
 
-def _baue_fabrik(name: str, seed: int):
+def _wickle(name: str, basis):
+    """Legt den benannten Guard-Stack um eine FERTIGE Strategie-Fabrik.
+    DIE EINE QUELLE der Stack-Komposition — Gate (unten) UND die Export-Kanaele
+    (research/snowie_export + research/pokerstars_export) beziehen sie hier,
+    damit nie wieder eine divergierende Kopie graded wird (der m0.03-Fork
+    in pokerstars_export._auslese_um, behoben 2026-08-17)."""
     from pokerbot.autogym.improver import (einmal_guard, lizenz_guard, mdf_guard,
                                        podds_guard, sel_guard, turn_wert_guard)
-    from pokerbot.benchmark.duplicate import pokerbot
-    basis = pokerbot(exploit=True, seed=seed)
     if name == "basis":
         return basis
     if name == "mdf_guard":
@@ -67,11 +70,20 @@ def _baue_fabrik(name: str, seed: int):
     raise ValueError(name)
 
 
+def _baue_fabrik(name: str, seed: int):
+    """Gate-Kanal: der benannte Stack um die duplicate-PokerBot-Basis (exploit=ON)."""
+    from pokerbot.benchmark.duplicate import pokerbot
+    return _wickle(name, pokerbot(exploit=True, seed=seed))
+
+
 def _worker(args: tuple) -> tuple:
     job_idx, kandidat, seed, deck_seed, n_decks, incumbent = args
     # ENV-HYGIENE (Armee-Befund bestaetigt): geerbte Shell-POKERB_*-Flags wuerden
     # BEIDE Gate-Seiten still faerben — der sel-Kanal ist per Definition flag-frei.
     import os
+
+    for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[v] = "1"     # OpenBLAS-Init-Tod bei Default-Threads (Debug-Beweis 2026-08-17)
     for k in [k for k in os.environ if k.startswith("POKERB_")]:
         os.environ.pop(k, None)
     # KRITISCH (gemessen 2026-08-16): ohne das spawnt JEDER Worker torch mit
