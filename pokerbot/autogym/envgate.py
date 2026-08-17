@@ -51,6 +51,10 @@ ARME: dict[str, dict] = {
     # turn_wert-Wrapper + K3-Deception + Raise-Narrow 1.0.
     "kombi_r5": {"env": {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25",
                          "POKERB_RAISE_NARROW": "1.0"}, "wrapper": "turn_wert"},
+    # Attribution Runde 5c: NUR die zwei Einzel-Gate-Passierer (turn_wert 3x
+    # Mirror-repliziert + RN10 3x envgate-repliziert), OHNE das nicht
+    # replizierende K3 — klaert, ob K3 in der Kombi traegt oder schleppt.
+    "kombi_schlank": {"env": {"POKERB_RAISE_NARROW": "1.0"}, "wrapper": "turn_wert"},
 }
 
 
@@ -110,6 +114,8 @@ def main() -> None:
     ap.add_argument("--arm-lauf", default="", help="intern: Kind-Modus, Arm-Name")
     ap.add_argument("--wrapper", default="sel_m15")
     ap.add_argument("--deck-seed0", type=int, default=5000)
+    ap.add_argument("--referenz-wrapper", default="sel_m15",
+                    help="Traeger-Stack des Nullarms (z.B. 'basis' fuers kumulative Finale)")
     ap.add_argument("--out", default="")
     args = ap.parse_args()
 
@@ -121,6 +127,7 @@ def main() -> None:
     from pokerbot.autogym import runs
     from pokerbot.autogym.stats import robust_stats, verdikt
     arme = ["referenz"] + [a.strip() for a in args.arme.split(",") if a.strip()]
+    ARME["referenz"] = {"env": {}, "wrapper": args.referenz_wrapper}
     d = runs.neuer_run("envgate", {**vars(args), "arme": arme})
     edges_je_arm: dict[str, list] = {}
     for arm in arme:
