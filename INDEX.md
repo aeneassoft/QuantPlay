@@ -61,3 +61,10 @@
 `_privat/` — persoenliche Exkursionen (Lebens-Akte, Geopolitik, Zahlentheorie, Familie).
 Gitignored, durch pre-commit-Hook geschuetzt, nie Teil des Repositories.
 Beschreibung: `_privat/LIESMICH.md`.
+
+## pokerbot/autogym/ (AUTOGYM-Schleife, 2026-08-16/17)
+- oracle.py (Mathe-Benchmark HART/P/L/F, W1-1..W1-5) · improver.py (Guard-Wrapper + Gate + Journal)
+- pargate.py (paralleles Mirror-Gate, _wickle = EINE Stack-Quelle) · envgate.py (Env-Flag-Zwei-Lauf-Paarung)
+- orakel_duell.py (Orakel als Zweitinstrument) · stats.py (Estimator v3: Bootstrap/Permutation)
+- gym_hu.py/gym_six.py (Self-Play mit Grading) · runs.py (Run-Ablage) · runde5.py/runde5b.py (Kampagnen)
+- exploit_jagd.py (adaptive Jaeger) · selftest.py/verify_refs.py · research/fable_duell.py (LLM-Adversar)
