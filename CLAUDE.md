@@ -283,7 +283,12 @@ How I write code AND talk about it — the standing default, every turn.
 > Erster Pilot: 500 Haende + 3.577 gegradete Entscheidungen in 52 s lokal; HART 0, P 0, L 35, F 3.
 > **★ ERGEBNIS NACH 2 TAGEN (2026-08-17): DIE SCHLEIFE FUNKTIONIERT. Versionskette basis → AUSLESE v1
 > (+6,1±1,5, 2x99k repliziert) → AUSLESE v3 (~+9 kumulativ; 15pp-Marge; 3 Direktlaeufe gepoolt +3,9±0,95
-> vs v1 + 183k-Anker +8,68±1,28 vs Basis).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
+> vs v1 + 183k-Anker +8,68±1,28 vs Basis) → AUSLESE v4 (Tag auslese-v4, 2026-08-17 nacht: die BET-Seite —
+> turn_wert_guard [Trips+/Ueberpaar + eq>=0,60 → 2/3-Pot-Turn-Bet; der aelteste Leak, 3x Mirror-repliziert
+> +7,27±2,33] + TURN_DEFENSE 0,07 + SLOWPLAY 0,25 + RAISE_NARROW 1,0 [NUR resolver-OFF]; Finale auf
+> identischen Decks vs basis: v3 +21,4 → v4 +49,8, gepaarte Stufe +28,4±6,2, envgate-Kanal; Instrumente
+> neu: envgate/orakel_duell/W1-4+W1-5; Estimator v2 = rohes Mittel + Vorzeichen-Test, Trim war fuer
+> duenne Kanaele blind; A/A-Nulltest exakt 0 nach Spot-RNG-Seeding).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
 > schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
 > einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
 > Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes

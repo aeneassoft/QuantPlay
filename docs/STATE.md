@@ -3,7 +3,21 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★★★ CURRENT (2026-08-17 nacht) — RUNDE 5/5b: TURN-WERT DRUCKT (3x repliziert +7,27±2,33); Kombi in Attribution
+## ★★★★★ CURRENT (2026-08-17 nacht II) — TAUFE: AUSLESE v4 (Tag auslese-v4) — die BET-SEITEN-Selektion
+**AUSLESE v4 = turn_wert_guard(sel_guard(basis, m15)) + POKERB_TURN_DEFENSE=0.07 + POKERB_SLOWPLAY=0.25 +
+POKERB_RAISE_NARROW=1.0 (resolver-OFF-Kontext; kanonische Definition = envgate-Arm `kombi_r5`).**
+**FINALE (Bank 85000, 12k Decks, Referenz = eingefrorene basis, identische Decks): v3 +21,36±6,03 → v4
++49,79±7,99; gepaarte Stufe v3→v4 = +28,44±6,17 (vz-z +10,1).** Evidenz-Kette (alles Journal + data/runs):
+Kombi-EINHEIT 3x repliziert (+26,4/+25,2/+36,2 vs v3-Referenz, Baenke 25k/45k/65k); turn_wert allein 3x im
+ECHTEN Mirror-Gate (+7,27±2,33 gepoolt, 3x30k); RN10 3x (+16,8/+13,7/+9,2, Dosis-Antwort); K3 allein
+NICHT repliziert, im Verbund gepaart +10,2±4,0 (Interaktion: Slowplay-Traps → verzoegerter turn_wert-Wert;
+Turn-Defense deckt den Stab-Exploit). Orakel-Duell-Panel GRUEN. EHRLICHE KANAL-NOTIZ: die +21/+50/+28
+sind der envgate-Kanal (gemeinsamer Gegner GTOBaseline, gepaarte Decks) — nicht identisch mit dem
+Mirror-Gate (dort ist turn_wert +7,27 die belegte Komponente); Vorzeichen und Replikation sind konsistent.
+**NAECHSTE SCHRITTE: (1) $0-GTOW-Anker fuer v4 (Schritt 8; resolver-Diskrepanz beachten: RAISE_NARROW ist
+resolver-ON kontraindiziert — v8-K3!), (2) Ko-Evolutions-Runde 6: nach turn_wert oeffnet sich der
+Turn-VERTEIDIGUNGS-Kanal erstmals (sel_turn neu messen), (3) v4 in Konsum-Kanaele verdrahten (server.py
+spielt noch die nackte Basis), (4) GPU-Job B1 (exakte 169x169-Matrix) → Brown V1.**
 **Der grosse Sweep hat geliefert.** Auf dem reparierten Fundament (Spot-RNG: A/A EXAKT 0 auf jedem Deck;
 Estimator v2 = rohes Mittel + Vorzeichen-Test, nachdem die 5%-Trimmung fuer DUENNE Kanaele als blind gemessen
 wurde — sie warf die 5-8% Signal-Decks weg):
