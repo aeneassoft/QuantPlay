@@ -288,7 +288,21 @@ How I write code AND talk about it — the standing default, every turn.
 > +7,27±2,33] + TURN_DEFENSE 0,07 + SLOWPLAY 0,25 + RAISE_NARROW 1,0 [NUR resolver-OFF]; Finale auf
 > identischen Decks vs basis: v3 +21,4 → v4 +49,8, gepaarte Stufe +28,4±6,2, envgate-Kanal; Instrumente
 > neu: envgate/orakel_duell/W1-4+W1-5; Estimator v2 = rohes Mittel + Vorzeichen-Test, Trim war fuer
-> duenne Kanaele blind; A/A-Nulltest exakt 0 nach Spot-RNG-Seeding).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
+> duenne Kanaele blind; A/A-Nulltest exakt 0 nach Spot-RNG-Seeding).**
+> **★ RUNDE 5/6-NACHTRAG (2026-08-18 frueh): v4-Kern im MIRROR vs basis = +16,14±2,77 (3x30k, CI[+10,7,+21,6],
+> p=0,0002) — exakt im vorregistrierten Band. NEUES INSTRUMENT: der Fable-LLM-Adversar (`research/fable_duell.py`,
+> dateibasiert, Replay-deterministisch): 62 Haende vs v4 = +115bb mit GEZAEHLTEN Mustern (River-Station,
+> Button-Open-Fold 29%, Check-Raise ohne Follow-Through, gecappte Check-Range = der v8-Purify-Mechanismus LIVE
+> am v4 beobachtet). GEMESSENE ZWEI-ACHSEN-DOKTRIN (bindend): Haertungs-Guards gegen ADAPTIVE Gegner sind im
+> Mirror unsichtbar bis negativ (r6_ecall VERWERFEN −4,15 = Value-Folds in der Self-Play-Oekologie; r6_button
+> NEUTRAL trotz Exploit-Praevention) → Mirror = NICHTVERSCHLECHTERUNGS-Schranke, Adversar (Fable-Retest/
+> exploit_jagd) = Wirkungs-Beweis. Bug-Ernte der Armeen (alle data/runs/*_2026-08-17.json): OpenBLAS-Caps in
+> allen Workern (bewiesene Haenger-Ursache), W1-3 bet-Filter+R-Fix, _wickle = EINE Stack-Quelle (Export-Paritaet),
+> Flop-Resolver gebaut aber Erstflug 0/3 (Latenz 75-121s + hand-not-in-range der 35-Klassen-Hero-Range —
+> Stufe-2-Baustelle). GTOW-EHRLICHKEIT: Live-Anker ~−25..−30 (der −19,70 war Blinds-Bug-inflationiert);
+> gtowizard.py braucht den v4-ADAPTER (Wrapper fehlt im Harness, Resolver default ON = RAISE_NARROW-Falle)
+> BEVOR ein Anker laeuft. QUEUE: Fable-Retest vs gehaertetem Stack, Follow-Through-/Seesaw-Mixing-Guards
+> (stateful), princegate, pargate6, GTOW-Adapter (Specs fertig in data/runs/).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
 > schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
 > einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
 > Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes

@@ -35,7 +35,8 @@ def _spiel(bis_aktion: int):
     log = log[:bis_aktion]
     decks = gen_decks(N_DECKS, seed=4242)
     g = HeadsUpGame(names=("FABLE", "V4"), starting_stack=20000, sb=50, bb=100, seed=0)
-    bot_d = _baue_fabrik("turn_wert", 7)(1)
+    import os as _os
+    bot_d = _baue_fabrik(_os.environ.get("FABLE_STACK", "turn_wert"), 7)(1)
     netto, hand_i, k = 0, 0, 0
     while True:
         h0, h1, board = decks[hand_i % N_DECKS]
