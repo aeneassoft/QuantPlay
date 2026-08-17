@@ -15,11 +15,13 @@ import sys
 import time
 
 # Spec-Namen -> Fabrik-Bauer. Worker-seitig aufgeloest (picklefrei).
-KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_all", "lizenz_guard", "auslese2", "basis")
+KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "sel_m15",
+              "einmal_guard", "sel_all", "lizenz_guard", "auslese2", "basis")
 
 
 def _baue_fabrik(name: str, seed: int):
-    from pokerbot.autogym.improver import lizenz_guard, mdf_guard, podds_guard, sel_guard
+    from pokerbot.autogym.improver import (einmal_guard, lizenz_guard, mdf_guard,
+                                       podds_guard, sel_guard)
     from pokerbot.benchmark.duplicate import pokerbot
     basis = pokerbot(exploit=True, seed=seed)
     if name == "basis":
@@ -30,6 +32,14 @@ def _baue_fabrik(name: str, seed: int):
         return podds_guard(basis)
     if name == "sel_guard":
         return sel_guard(basis)
+    if name == "sel_m06":
+        return sel_guard(basis, margin=0.06)   # Margen-Sweep (Snowie: 3pp zu locker)
+    if name == "sel_m10":
+        return sel_guard(basis, margin=0.10)
+    if name == "sel_m15":
+        return sel_guard(basis, margin=0.15)
+    if name == "einmal_guard":
+        return einmal_guard(basis)
     if name == "lizenz_guard":
         return lizenz_guard(basis)
     if name == "sel_all":

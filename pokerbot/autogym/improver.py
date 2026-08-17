@@ -163,6 +163,43 @@ def lizenz_guard(make_strat, junk_eq: float = 0.20, iters: int = 160):
     return make
 
 
+def einmal_guard(make_strat, margin: float = 0.03, iters: int = 160):
+    """Runde-4-Kandidat MEHRSTRASSEN-DISZIPLIN (Snowie-Befund: die groesste
+    Blunder-Klasse waren Call-KETTEN -- der Guard rettet am Flop, danach callt
+    die Basis Turn und River hinterher). Regel: die Selektion darf eine Hand
+    nur EINMAL retten; ab der zweiten Rettungs-Gelegenheit derselben Hand gilt
+    die Basis-Entscheidung."""
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+        zustand = {"hand": None, "gerettet": False}
+
+        def d(st):
+            if st.get("hand_no") != zustand["hand"]:
+                zustand["hand"], zustand["gerettet"] = st.get("hand_no"), False
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if (a == "fold" and to_call > 0 and st["street"] == "flop"
+                    and not zustand["gerettet"]):
+                try:
+                    t = RangeTracker().build(st)
+                    cw = t.range.get(1 - st["to_act"], {})
+                    if cw:
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + margin:
+                            zustand["gerettet"] = True
+                            return "call", None
+                except Exception:  # noqa: BLE001
+                    pass
+            return a, amt
+        return d
+    return make
+
+
 def guarded(make_strat, guard_names: list[str]):
     """Wrapper-Fabrik: legt die Guard-Regeln um eine bestehende Strategie-Fabrik."""
     def make(seat):
