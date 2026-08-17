@@ -15,7 +15,7 @@ import sys
 import time
 
 # Spec-Namen -> Fabrik-Bauer. Worker-seitig aufgeloest (picklefrei).
-KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "sel_m15",
+KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "sel_m15", "sel_m20",
               "einmal_guard", "sel_all", "lizenz_guard", "auslese2", "basis")
 
 
@@ -38,6 +38,8 @@ def _baue_fabrik(name: str, seed: int):
         return sel_guard(basis, margin=0.10)
     if name == "sel_m15":
         return sel_guard(basis, margin=0.15)
+    if name == "sel_m20":
+        return sel_guard(basis, margin=0.20)   # Gradienten-Probe jenseits des Sweep-Rands
     if name == "einmal_guard":
         return einmal_guard(basis)
     if name == "lizenz_guard":
