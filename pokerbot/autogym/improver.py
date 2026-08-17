@@ -278,6 +278,60 @@ def turn_wert_guard(make_strat, frac: float = 0.66, min_eq: float = 0.60, iters:
     return make
 
 
+
+def river_ecall_guard(make_strat, marge: float = 0.05, iters: int = 200):
+    """Runde-6-Kandidat aus dem Fable-Duell (River-Station: 4/5 grosse Calls mit
+    Verlierern, ~90bb): River-CALL auf Bets >= 60% Pot nur, wenn die Equity vs
+    die Tracker-Range die Pot-Odds + Marge deckt (River = exakte Enumeration,
+    varianzfrei). SELEKTION auf der Call-Seite, K4-Haertung."""
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if (a == "call" and st["street"] == "river"
+                    and to_call >= 0.6 * max(1, st["pot"] - to_call)):
+                try:
+                    t = RangeTracker().build(st)
+                    cw = t.range.get(1 - st["to_act"], {})
+                    if cw:
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"],
+                                                      iters=iters, rng=_spot_rng(st))
+                        if eq == eq and eq < equity_needed_to_call(st["pot"], to_call) + marge:
+                            return "fold", None
+                except Exception:  # noqa: BLE001
+                    pass
+            return a, amt
+        return d
+    return make
+
+
+def button_disziplin_guard(make_strat):
+    """Runde-6-Kandidat aus dem Fable-Duell (Button-Open-Fold ~29% = geschenkte
+    0,5bb-Rente): der Button open-foldet in HU NIE — aus fold bei to_call=50
+    preflop wird ein Open auf 250 (2,5x). Jede Hand realisiert mehr als den
+    halben Blind zu diesem Preis (Fable-Zaehlung + HU-Basiswissen)."""
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if (a == "fold" and st["street"] == "preflop" and to_call == 50
+                    and me["committed_street"] == 50):
+                return "raise", 250
+            return a, amt
+        return d
+    return make
+
+
 def guarded(make_strat, guard_names: list[str]):
     """Wrapper-Fabrik: legt die Guard-Regeln um eine bestehende Strategie-Fabrik."""
     def make(seat):

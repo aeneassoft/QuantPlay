@@ -19,7 +19,8 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               "einmal_guard", "sel_all", "lizenz_guard", "auslese2", "basis",
               # Runde 5 (2026-08-17): margen-gematchte streets-Arme (nach dem
               # sel_guard-streets-Fix ERSTMALS echt messbar) + Turn-Wert-Bet-Seite.
-              "sel_all_m15", "sel_turn_m15", "turn_wert", "wert_plus_all")
+              "sel_all_m15", "sel_turn_m15", "turn_wert", "wert_plus_all",
+              "r6_ecall", "r6_button")
 
 
 def _wickle(name: str, basis):
@@ -64,6 +65,13 @@ def _wickle(name: str, basis):
         return sel_guard(basis, margin=0.15, streets=("flop", "turn"))
     if name == "turn_wert":
         return turn_wert_guard(sel_guard(basis, margin=0.15))
+    if name == "r6_ecall":
+        # Runde 6 (Fable): River-Station-Haertung AUF dem v4-Kern.
+        from pokerbot.autogym.improver import river_ecall_guard
+        return river_ecall_guard(_wickle("turn_wert", basis))
+    if name == "r6_button":
+        from pokerbot.autogym.improver import button_disziplin_guard
+        return button_disziplin_guard(_wickle("turn_wert", basis))
     if name == "wert_plus_all":
         # Kombi-Probe: Call-Selektion alle Strassen + Turn-Wert-Bet-Seite.
         return turn_wert_guard(sel_guard(basis, margin=0.15, streets=("flop", "turn", "river")))
