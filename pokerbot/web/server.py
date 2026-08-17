@@ -6,12 +6,19 @@ Run:  python -m pokerbot.web.server     (or: uvicorn pokerbot.web.server:app --r
 from __future__ import annotations
 
 import json
+import os
 import time
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
+
+# AUSLESE-Verdrahtung (2026-08-18): die v4-Env-Flags MUESSEN vor dem bot-Import
+# stehen (Import-Zeit-Konstanten). POKERB_AUSLESE=0 schaltet auf den nackten Bot.
+if os.environ.get("POKERB_AUSLESE", "1") != "0":
+    from pokerbot.strategy.auslese import setze_env
+    setze_env()                          # resolver-OFF-Kanal: volle v4-Env inkl. RAISE_NARROW
 
 from pokerbot import config
 from pokerbot.coach.coach import Coach
@@ -28,6 +35,12 @@ class Session:
     def __init__(self, stack=10000, sb=50, bb=100):
         self.game = HeadsUpGame(names=("You", "Bot"), starting_stack=stack, sb=sb, bb=bb)
         self.bot = PokerBot(BOT, seed=None, exploit=True)      # plays the bot seat
+        # AUSLESE-Wrapper-Kette (r6_button(turn_wert(sel_m15))) um decide — die
+        # externen Anker vermessen damit erstmals den AMTIERENDEN Stand.
+        self._bot_decide = self.bot.decide
+        if os.environ.get("POKERB_AUSLESE", "1") != "0":
+            from pokerbot.strategy.auslese import wickle_decide
+            self._bot_decide = wickle_decide(self.bot)
         self.advisor = PokerBot(HUMAN, seed=None, exploit=False)  # GTO reco for the human
         self.coach = Coach(language="de")
         self.last_bot: dict | None = None       # {state, decision} for "explain"
@@ -60,7 +73,7 @@ class Session:
         g = self.game
         while not g.hand_over and g.to_act == BOT:
             st_full = g.state()                       # bot sees its own cards
-            dec = self.bot.decide(st_full)
+            dec = self._bot_decide(st_full)
             self.last_bot = {"state": g.state(hide=BOT), "decision": dec}
             events.append({"who": "Bot", "action": dec["action"], "amount": dec["amount"],
                            "rationale": dec["rationale"], "street": g.street})

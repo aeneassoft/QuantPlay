@@ -202,11 +202,20 @@ class PokerBotAgent:
             self.bot.use_blueprint = False
         if os.environ.get("POKERB_RANGE_TRACKER", "1") == "0":  # A/B: OFF -> floor uses _narrow (pre-keystone villain range)
             self.bot.use_range_tracker = False
+        # AUSLESE-ADAPTER (2026-08-18, Armee-Befund 'v4-Wrapper fehlt im Harness'):
+        # POKERB_AUSLESE_STACK=r6_button legt die Guard-Kette um decide. Default
+        # leer = byte-identisch. ARM-DISZIPLIN: mit Stack gehoert der Lauf in den
+        # resolver-OFF-Kanal ODER ohne RAISE_NARROW (v8-K3-Kontraindikation).
+        self._decide = self.bot.decide
+        _stack = os.environ.get("POKERB_AUSLESE_STACK", "")
+        if _stack:
+            from pokerbot.strategy.auslese import wickle_decide
+            self._decide = wickle_decide(self.bot, _stack)
 
     def act_dict(self, gsr: dict) -> dict:
         state = gtow_to_state(gsr)
         self.bot.hero_idx = 0
-        decision = self.bot.decide(state)
+        decision = self._decide(state)
         gs = gsr.get("game_state") or gsr
         la_codes = [a.lower() for a in (gs.get("legal_actions") or [])]
         return decision_to_act(decision, state["legal"], la_codes)

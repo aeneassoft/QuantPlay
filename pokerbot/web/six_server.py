@@ -11,8 +11,16 @@ Run:  python -m pokerbot.web.six_server [--open]
 """
 from __future__ import annotations
 
+import os
 import random
 import time
+
+# AUSLESE-Env fuer den HU-TAKEOVER-Pfad (Prince spielt resolver-OFF): setdefault,
+# Launcher-Flags (POKERB_PRINCE=1) gewinnen. Multiway-Kern bleibt UNANGETASTET —
+# die AUSLESE-Guards sind HU-only und werden hier bewusst NICHT gewickelt.
+if os.environ.get("POKERB_AUSLESE", "1") != "0":
+    from pokerbot.strategy.auslese import setze_env
+    setze_env()
 from datetime import datetime
 from pathlib import Path
 
