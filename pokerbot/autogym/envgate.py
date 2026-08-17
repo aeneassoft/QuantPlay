@@ -31,23 +31,31 @@ import sys
 import time
 from pathlib import Path
 
-# Arm-Name -> exakte Env-Flags. 'referenz' ist der Pflicht-Nullarm.
+# Arm-Name -> {"env": Flags, "wrapper": pargate-KANDIDATEN-Name des Traeger-Stacks}.
+# 'referenz' ist der Pflicht-Nullarm (leeres Env, amtierender Wrapper sel_m15).
 ARME: dict[str, dict] = {
-    "referenz": {},
-    # Das komplette live-validierte v2.2-Profil (-19,70 AIVAT, n=2393):
-    "prince": {"POKERB_PRINCE": "1"},
+    "referenz": {"env": {}, "wrapper": "sel_m15"},
+    # Das komplette live-validierte v2.2-Profil (-19,70 AIVAT, n=2393). ACHTUNG
+    # Kanal-Artefakt gemessen (R5): exploit-OFF vs die exploitbare GTOBaseline
+    # kostet -68 roh — der Arm sagt in DIESEM Kanal nichts ueber PRINCE vs GTOW.
+    "prince": {"env": {"POKERB_PRINCE": "1"}, "wrapper": "sel_m15"},
     # Nur die K3-Gegenmittel (transparente Check-Range / Turn-Overfold vs Stabs):
-    "k3_deception": {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25"},
+    "k3_deception": {"env": {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25"},
+                     "wrapper": "sel_m15"},
     # Der Turn-Kopf des Defense-Advisors (v5C: Analyzer -1,87, Self-Play offen):
-    "turn_def_adv": {"POKERB_TURN_DEF_ADVISOR": "1"},
+    "turn_def_adv": {"env": {"POKERB_TURN_DEF_ADVISOR": "1"}, "wrapper": "sel_m15"},
     # Geminte GTOW-Raise-Range-Komposition (v3.3-Flag, hier resolver-OFF-Kanal):
-    "raise_narrow_05": {"POKERB_RAISE_NARROW": "0.5"},
-    "raise_narrow_10": {"POKERB_RAISE_NARROW": "1.0"},
+    "raise_narrow_05": {"env": {"POKERB_RAISE_NARROW": "0.5"}, "wrapper": "sel_m15"},
+    "raise_narrow_10": {"env": {"POKERB_RAISE_NARROW": "1.0"}, "wrapper": "sel_m15"},
+    # KOMBI-Kandidat Runde 5b: die drei positiven Kanaele gestapelt —
+    # turn_wert-Wrapper + K3-Deception + Raise-Narrow 1.0.
+    "kombi_r5": {"env": {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25",
+                         "POKERB_RAISE_NARROW": "1.0"}, "wrapper": "turn_wert"},
 }
 
 
 def _worker(args: tuple) -> tuple:
-    idx, deck_seed, n_decks, seed = args
+    idx, deck_seed, n_decks, seed, wrapper = args
     try:
         import torch
         torch.set_num_threads(1)
@@ -57,25 +65,26 @@ def _worker(args: tuple) -> tuple:
     apply()                                  # materialisiert PRINCE/GTO-Mode, no-op sonst
     import pokerbot.strategy.bot as botmod
     botmod.EQUITY_ITERS = 120                # in allen Armen gleich -> kuerzt sich im Delta
-    from pokerbot.autogym.improver import sel_guard
-    from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks, gto, pokerbot
+    from pokerbot.autogym.pargate import _baue_fabrik
+    from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks, gto
 
-    kandidat = sel_guard(                    # der amtierende Wrapper-Stand als Traeger
-        pokerbot(exploit=os.environ.get("POKERB_EXPLOIT", "1") != "0", seed=seed,
-                 use_resolver=False, use_turn_resolver=False),
-        margin=0.15)
+    # Traeger-Stack identisch zum pargate-Kanal (gleicher Fabrik-Bauer). Hinweis:
+    # ein exploit-OFF-Profil (PRINCE) greift hier NICHT auf den ctor-Param durch —
+    # der prince-Arm traegt sein gemessenes Kanal-Artefakt ohnehin (s. ARME).
+    kandidat = _baue_fabrik(wrapper, seed)
     decks = gen_decks(n_decks, seed=deck_seed)
     _, _, edges = duplicate_ab(kandidat, gto(1), decks, return_edges=True)
     return idx, edges
 
 
-def _arm_lauf(n_decks: int, workers: int, seed: int, out: str) -> None:
+def _arm_lauf(n_decks: int, workers: int, seed: int, out: str, wrapper: str,
+              deck_seed0: int) -> None:
     """Kind-Prozess: geordnete per-Deck-Edges des (env-konfigurierten) Kandidaten
     vs GTOBaseline. Deck-Bloecke deterministisch aus dem Job-Index -> jede
     Arm-Instanz spielt exakt dieselben Decks in derselben Reihenfolge."""
     n_jobs = workers * 4
     chunk = max(1, n_decks // n_jobs)
-    jobs = [(i, 5000 + i, chunk, seed) for i in range(n_jobs)]
+    jobs = [(i, deck_seed0 + i, chunk, seed, wrapper) for i in range(n_jobs)]
     t0 = time.time()
     bloecke: dict[int, list] = {}
     with mp.Pool(workers) as pool:
@@ -99,11 +108,14 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--arme", default=",".join(a for a in ARME if a != "referenz"))
     ap.add_argument("--arm-lauf", default="", help="intern: Kind-Modus, Arm-Name")
+    ap.add_argument("--wrapper", default="sel_m15")
+    ap.add_argument("--deck-seed0", type=int, default=5000)
     ap.add_argument("--out", default="")
     args = ap.parse_args()
 
     if args.arm_lauf:                        # Kind-Invokation (Env steht schon)
-        _arm_lauf(args.decks, args.workers, args.seed, args.out)
+        _arm_lauf(args.decks, args.workers, args.seed, args.out, args.wrapper,
+                  args.deck_seed0)
         return
 
     from pokerbot.autogym import runs
@@ -115,11 +127,14 @@ def main() -> None:
         out = d / f"edges_{arm}.json"
         env = {k: v for k, v in os.environ.items() if not k.startswith("POKERB_")}
         env.update({"PYTHONUTF8": "1", "PYTHONHASHSEED": "0"})
-        env.update(ARME[arm])
-        print(f"[{arm}] {args.decks} Decks vs GTOBaseline, Env={ARME[arm]} ...", flush=True)
+        env.update(ARME[arm]["env"])
+        print(f"[{arm}] {args.decks} Decks vs GTOBaseline, Env={ARME[arm]['env']}, "
+              f"Wrapper={ARME[arm]['wrapper']} ...", flush=True)
         subprocess.run([sys.executable, "-m", "pokerbot.autogym.envgate",
                         "--arm-lauf", arm, "--decks", str(args.decks),
                         "--workers", str(args.workers), "--seed", str(args.seed),
+                        "--wrapper", ARME[arm]["wrapper"],
+                        "--deck-seed0", str(args.deck_seed0),
                         "--out", str(out)], env=env, check=True)
         edges_je_arm[arm] = json.loads(out.read_text(encoding="utf-8"))["edges"]
 
@@ -130,9 +145,10 @@ def main() -> None:
             continue
         deltas = [a - r for a, r in zip(edges_je_arm[arm], ref)]
         rs = robust_stats(deltas)
-        ergebnis[arm] = {**rs, "verdict": verdikt(rs), "env": ARME[arm]}
-        print(f"{arm:16s} delta {rs['bb100_trim']:+.2f} +- {rs['se_trim']:.2f} bb/100 "
-              f"(roh {rs['bb100']:+.2f} +- {rs['se']:.2f}) -> {ergebnis[arm]['verdict']}")
+        ergebnis[arm] = {**rs, "verdict": verdikt(rs), "arm_spec": ARME[arm]}
+        print(f"{arm:16s} delta {rs['bb100']:+.2f} +- {rs['se']:.2f} bb/100 | "
+              f"nz {rs['nonzero']} ({rs['nonzero_anteil']*100:.1f}%) "
+              f"vz-z {rs['vorzeichen_z']:+.1f} -> {ergebnis[arm]['verdict']}")
     runs.schliesse_run(d, {"typ": "envgate", "n_decks": args.decks, "arme": ergebnis})
     print(f"Run-Ablage: {d}")
 

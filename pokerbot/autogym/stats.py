@@ -15,7 +15,17 @@ TRIM = 0.05          # Anteil je Rand, der fuer den getrimmten Mittelwert faellt
 
 
 def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
-    """Rohe + robuste Lage/Streuung der per-Deck-Edges, beides in bb/100."""
+    """Rohe + robuste Lage/Streuung der per-Deck-Edges, beides in bb/100.
+
+    ESTIMATOR v2 (2026-08-17 abend, vorregistriert VOR der Replikations-Runde,
+    Journal R5): die Runde-5-Messung zeigte, dass Guard-Kanaele DUENN sind
+    (turn_wert 8,4% / raise_narrow 1% divergente Decks) — die 5%-Trimmung
+    entfernt dann exakt die Signal-Decks (trim=0,0 bei raw +1,64). Seit dem
+    Seeding-Fix ist die Lauf-Heterogenitaet (der urspruengliche Trim-Grund)
+    beseitigt (A/A exakt 0). Entscheidung daher auf dem ROHEN Mittel +- 2*SE;
+    dazu SPARSE-Diagnostik: nonzero-Anteil, VORZEICHEN-Test auf den
+    divergenten Decks (tail-robust; nicht EV-gewichtet -> stuetzt, ersetzt
+    nie das Chips-Mittel), nz-Median. Trim bleibt als Diagnose-Feld."""
     n = len(edges)
     if n == 0:
         return {"n_decks": 0}
@@ -26,24 +36,31 @@ def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
     k = int(trim * n)
     core = s[k:n - k] if n - 2 * k > 0 else s
     tmean = sum(core) / len(core)
-    # Winsorisierte Varianz: Raender auf die Trim-Grenzwerte geklemmt; SE des
-    # getrimmten Mittels = sd_win / ((1-2g) * sqrt(n))  (Tukey/McLaughlin).
-    wins = ([s[k]] * k + list(core) + [s[n - k - 1]] * k) if k > 0 else list(s)
-    wmean = sum(wins) / n
-    wvar = sum((e - wmean) ** 2 for e in wins) / max(1, n - 1)
-    se_trim = (wvar ** 0.5) / max(1e-12, (1 - 2 * trim)) / n ** 0.5
+    nz = [e for e in edges if e != 0]
+    nz_pos = sum(1 for e in nz if e > 0)
+    if nz:
+        sn = sorted(nz)
+        nz_median = sn[len(sn) // 2]
+        # Vorzeichen-z: (pos - n/2) / sqrt(n/4) auf den divergenten Decks.
+        z = (nz_pos - len(nz) / 2) / max(1e-9, (len(nz) / 4) ** 0.5)
+    else:
+        nz_median, z = 0, 0.0
     return {
         "n_decks": n,
         "bb100": round(mean * skala, 2), "se": round((var ** 0.5 / n ** 0.5) * skala, 2),
-        "bb100_trim": round(tmean * skala, 2), "se_trim": round(se_trim * skala, 2),
+        "bb100_trim": round(tmean * skala, 2),
         "median_bb100": round(s[n // 2] * skala, 2), "trim": trim,
+        "nonzero": len(nz), "nonzero_anteil": round(len(nz) / n, 4),
+        "nz_pos": nz_pos, "vorzeichen_z": round(z, 2),
+        "nz_median_chips": nz_median,
     }
 
 
 def verdikt(st: dict) -> str:
-    """Vorregistrierte Entscheidungsregel auf der ROBUSTEN Statistik (2026-08-17):
-    ANWENDEN nur bei trim - 2*se_trim > 0; VERWERFEN bei trim + 2*se_trim < -1."""
-    t, se = st.get("bb100_trim", 0.0), st.get("se_trim", float("inf"))
+    """Vorregistrierte Entscheidungsregel v2 (2026-08-17 abend): das rohe Mittel
+    traegt das Verdikt (ANWENDEN bei bb100 - 2*se > 0; VERWERFEN bei
+    bb100 + 2*se < -1); der Vorzeichen-Test ist Stuetz-Evidenz im Journal."""
+    t, se = st.get("bb100", 0.0), st.get("se", float("inf"))
     if t - 2 * se > 0:
         return "ANWENDEN"
     if t + 2 * se < -1.0:
