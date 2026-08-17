@@ -102,6 +102,23 @@ Kontext als Uebergabeobjekt). ROBUSTHEITS-PFLICHT: kein Pfad darf an obskuren Fa
 scheitern (4-6 Spieler bis zum River, Side-Pots, All-in-Kaskaden) — der Fallback ist
 IMMER der 6-max-Kern, nie ein Fehler; Stress-Deals als eigenes Gate vor jedem Staffel-Ship.
 
+## RUNDE 4 — die 2h-Kampagne (2026-08-17 mittag): die Dosis-Wirkungs-Kurve der Selektion
+
+**Margen-Sweep (je 25k Decks, leiser Kanal vs v1):** m06 +0,06±1,45 (NEUTRAL — ununterscheidbar
+von 3pp) · **m10 +5,64±1,74 (ANWENDEN)** · **m15 +10,50±2,10 (ANWENDEN)** — monotone Kurve,
+Snowies "3pp zu locker" dreifach bestaetigt und quantifiziert. **Decisive m15 vs Basis:
++8,68 ± 1,28 auf 183.200 Decks (366k Haende) → ANWENDEN.** (Merke: paarweise Kanten sind in
+Poker NICHT additiv — m15-vs-v1 + v1-vs-Basis ≠ m15-vs-Basis; Nicht-Transitivitaet ist normal.)
+**einmal_guard +0,41±1,05 NEUTRAL:** die Mehrstrassen-Disziplin bringt nichts, was die
+strengere Marge nicht besser loest — Familie zu den Akten.
+**6-max-Katalog v0 (30k Haende, 298k gegradete Entscheidungen):** Positions-Ledger erstmals
+lesbar und plausibel geordnet (BTN +33,5 · HJ +15,8 · UTG +6,8 · CO +2,4 · BB −28,9 · SB −29,6);
+Facing-Katalog: fold_freq Flop 0,216 / Turn 0,297 / River 0,337 bei mittleren Bets 0,43/0,38/0,37
+Pot — Flop-Fold UNTER der MDF-Erlaubnis (0,30 bei 0,43-Pot-Bets), kein Over-Fold-Flag: die
+6-max-Oekologie foldet nicht zu viel, der HU-Flop-Overfold ist HU-spezifisch.
+**LAUFEND:** m15-Replikation auf frischen Seeds (Namens-Voraussetzung) + m20-Gradienten-Probe
+(endet die Kurve bei 15pp?). Name erst nach bestandener Replikation.
+
 ## Kandidaten-Runde 1 abgeschlossen (2026-08-16 abend) — beide Familien sauber erledigt
 
 **G5 BESTANDEN:** 24 Kerne lokal, pargate haelt **2.459 Decks/min ueber 40 min** (~4.900 Haende/min;
