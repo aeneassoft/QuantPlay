@@ -102,6 +102,15 @@ Kontext als Uebergabeobjekt). ROBUSTHEITS-PFLICHT: kein Pfad darf an obskuren Fa
 scheitern (4-6 Spieler bis zum River, Side-Pots, All-in-Kaskaden) — der Fallback ist
 IMMER der 6-max-Kern, nie ein Fehler; Stress-Deals als eigenes Gate vor jedem Staffel-Ship.
 
+## AUSLESE v3 GETAUFT (2026-08-17 nachmittag) — die kalibrierte Selektion
+
+**sel_m15 = sel_guard mit 15pp-Marge.** Drei Direktlaeufe vs v1 (+10,50±2,10 / +1,11±2,16 /
++2,63±1,22 auf 90k) → gepoolt **+3,94±0,95**, konservativ ohne den hohen Erstlauf +2,13±1,06;
+dazu der 183k-Anker **+8,68±1,28 vs Basis**. Getauft nach der Drei-Laeufe-Regel (die Replikations-
+Heterogenitaet — 3σ zwischen Lauf 1 und 2 — ist als Fat-Tail-Befund journaliert; robuste SE =
+offenes Werkzeug-Paket). Versionskette: basis → v1 (+6,1) → **v3 (~+9 kumulativ)**. v2/sel_all
+und einmal_guard ehrlich abgelehnt; m20 kippt (Plateau-Rand erreicht).
+
 ## RUNDE 4 — die 2h-Kampagne (2026-08-17 mittag): die Dosis-Wirkungs-Kurve der Selektion
 
 **Margen-Sweep (je 25k Decks, leiser Kanal vs v1):** m06 +0,06±1,45 (NEUTRAL — ununterscheidbar
