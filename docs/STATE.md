@@ -3,6 +3,24 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-17 nacht) — AUSLESE v1 DOPPELT BESTAETIGT; Exploit-Jagd + Snowie-Triangulation
+**Stand der Schleife nach Tag 1:** AUSLESE v1 (sel_guard: Flop-Fold -> Call wenn Equity vs Tracker-Range
+Pot-Odds+3pp deckt) ist der amtierende Name: +4,70+-2,06 und +7,49+-2,08 (2x 99k Decks, unabhaengig) =
+gepoolt ~+6,1+-1,5 vs die eingefrorene Basis (Tag autogym-basis). v2 (alle Strassen) REPLIKATIONS-ABGELEHNT
+(3 Laeufe gepoolt +0,69+-0,56): der EV der Selektion sitzt am FLOP. Snowie-Triangulation (400 gepaarte
+Haende, alle 39 Blunder einzeln): Basis under-callt Flop (53% der Empfehlung), v1 over-callt (195%) ->
+Margen-Sweep = Kandidat; groesste Blunder-Klasse = MEHRSTRASSIGE Call-Ketten (Guard rettet, Bot callt
+weiter) -> Mehrstrassen-Disziplin; zweitgroesste = verpasster Turn-Wert (dritter Beleg des aeltesten
+Postflop-Leaks). EXPLOIT-JAGD (2x 100k Haende, 20 persistente Jaeger, Kontrolle vs adaptiv): generische
+Dirichlet-Adaption erntet nur ~+1 n.s. (Kanal-Shift Showdown +19,9/NSD -11,0; 20 Jaeger konvergieren auf
+VPIP 0,76/FtB 0,30/Agg 0,32 = die Haertungs-Landkarte; 2 Katastrophen-Jaeger = Tail-Risiko) -> STRUKTUR
+SCHLAEGT ANPASSUNG (dreifach belegt; Brown 2026 sagt dasselbe: Bluff/Continue ist AUSWAHL, nicht Quote).
+docs/EXPLOIT_KATALOG.md: K1-K7 mit Haertungs-Gegenmassnahmen. Transfer-Test v1 vs GTOBaseline: -3,8+-12,9
+uninformativ (ungeseedete MC bricht die Paarung -- Determinismus-Arbeitspaket). Werkzeuge des Tages:
+pargate (--incumbent, Thread-Pin, ETA), exploit_jagd, snowie_export (Gate-Paritaet), verify_refs 66/66,
+Advisor-Batch 2,2x, Run-Ablage data/runs/ + STAND.md. Naechste Runde 4: Margen-Sweep, Mehrstrassen-
+Disziplin, Turn-Wert-Guard, K1-Jaeger; 6-max: AP-6MAX-Beobachtung. $30 Pod unangetastet.
+
 ## ★★★★★ CURRENT (2026-08-16) — AUTOGYM GEBAUT: die selbstpruefende Trainings-Schleife (Ziel: GTOW-Baseline)
 **Der beschlossene Weg zur GTOW-Baseline (Treppe −19,70 → −15 → −10): eine Schleife, die Self-Play spielt, jede
 Entscheidung gegen die vereinheitlichte Mathematik-Benchmark haelt, Abweichungen mint und Patches NUR durchs
