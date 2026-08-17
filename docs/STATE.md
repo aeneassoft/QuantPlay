@@ -3,6 +3,21 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-17 abend) — ROOT-SWEEP: 53 Hebel inventarisiert, 12 adversarisch verifiziert
+**Voller Repo-Sweep (19 Agenten, Ergebnis `data/runs/root_sweep_2026-08-17.json`). Zwei Befunde KORRIGIEREN den Stand:**
+**(1) sel_guard-streets-Parameter UNVERDRAHTET** (improver.py:116 hardcodet flop; der in-streets-Check landete per
+Commit 95d0ce9 versehentlich im mdf_guard) → **der sel_all-Arm war code-identisch zu sel_guard(flop); das Journal-
+Verdikt "v2/Turn+River-Selektion abgelehnt" ist per Konstruktion NICHTIG** (gemessen wurde A vs A; die +3,00±1,40
+der verfruehten v2-Taufe = pures MC-Rauschen als Nebenbeweis). Turn/River-Selektion ist UNGEMESSEN, nicht refutiert.
+**(2) Ungeseedete MC in Guards+Orakel bestaetigt** (improver.py:60/90/121/156/192, oracle.py:107/134/145 →
+equity.py faellt auf random.Random() zurueck): AUSLESE v3 ist im Gate nicht-deterministisch, Rausch-Boden in
+Effektstaerken-Groessenordnung; A/A-Nulltest als Abnahme. — Weitere bestaetigte Kern-Hebel: PRINCE-v2.2-Profil im
+Autogym-Kanal komplett tot (einzige live-validierten Hebel des Repos; Bauform = Zwei-Lauf-Env-Paarung, Import-Zeit-
+Konstanten!); TURN_DEF_ADVISOR-Turn-Kopf (v5C-Historie −1,87 Analyzer) ungetestet im Gate; RAISE_NARROW-Mix
+unverwertet; Gate ruft nie observe_* (misst anderen Bot als Live-App); entscheidungs_logger 0 Aufrufer; AUSLESE v3
+spielt in KEINEM Konsum-Kanal (server.py = nackte Basis). Vorsicht: AUDIT_FIX war gepaart REFUTIERT (+2,62, parked),
+Resolver-Diskrepanz beachten (−19,70-Anker war resolver-ON, Autogym zuechtet resolver-OFF). Details unten im Text.
+
 ## ★★★★★ CURRENT (2026-08-17) — SCHLUSSSTRICH AUTOGYM-SPRINT: AUSLESE v3 steht; naechste Schritte definiert
 **Stand: AUSLESE v3 = amtierender Bot** (Tag auslese-v3; sel_guard 15pp-Marge; ~+9 bb/100 kumulativ ueber
 der eingefrorenen Basis, alle Zahlen im Tag + Journal). Schleife lokal bewiesen, $30 Pod unangetastet.

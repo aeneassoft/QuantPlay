@@ -16,12 +16,15 @@ import time
 
 # Spec-Namen -> Fabrik-Bauer. Worker-seitig aufgeloest (picklefrei).
 KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "sel_m15", "sel_m20",
-              "einmal_guard", "sel_all", "lizenz_guard", "auslese2", "basis")
+              "einmal_guard", "sel_all", "lizenz_guard", "auslese2", "basis",
+              # Runde 5 (2026-08-17): margen-gematchte streets-Arme (nach dem
+              # sel_guard-streets-Fix ERSTMALS echt messbar) + Turn-Wert-Bet-Seite.
+              "sel_all_m15", "sel_turn_m15", "turn_wert", "wert_plus_all")
 
 
 def _baue_fabrik(name: str, seed: int):
     from pokerbot.autogym.improver import (einmal_guard, lizenz_guard, mdf_guard,
-                                       podds_guard, sel_guard)
+                                       podds_guard, sel_guard, turn_wert_guard)
     from pokerbot.benchmark.duplicate import pokerbot
     basis = pokerbot(exploit=True, seed=seed)
     if name == "basis":
@@ -50,6 +53,17 @@ def _baue_fabrik(name: str, seed: int):
     if name == "auslese2":
         # B3: Call-Seite (alle Strassen) + Bet-Seite (Lizenz) = der v2-Kandidat.
         return lizenz_guard(sel_guard(basis, streets=("flop", "turn", "river")))
+    # ---- Runde 5: alle Arme als INKREMENT auf dem Amtierenden (sel_m15) gebaut,
+    # damit das Gate vs sel_m15 exakt den Zusatz-Effekt misst.
+    if name == "sel_all_m15":
+        return sel_guard(basis, margin=0.15, streets=("flop", "turn", "river"))
+    if name == "sel_turn_m15":
+        return sel_guard(basis, margin=0.15, streets=("flop", "turn"))
+    if name == "turn_wert":
+        return turn_wert_guard(sel_guard(basis, margin=0.15))
+    if name == "wert_plus_all":
+        # Kombi-Probe: Call-Selektion alle Strassen + Turn-Wert-Bet-Seite.
+        return turn_wert_guard(sel_guard(basis, margin=0.15, streets=("flop", "turn", "river")))
     raise ValueError(name)
 
 
@@ -86,22 +100,14 @@ def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
             el = time.time() - t0
             print(f"  [{k}/{n_jobs}] {len(edges)} Decks | {el/60:.1f} min | "
                   f"ETA {el/k*(n_jobs-k)/60:.1f} min", flush=True)
-    n = len(edges)
-    mean = sum(edges) / n
-    var = sum((e - mean) ** 2 for e in edges) / max(1, n - 1)
-    bb100 = mean / 2 / 100 * 100
-    se = (var ** 0.5 / n ** 0.5) / 2 / 100 * 100
-    if bb100 - 2 * se > 0:
-        verdict = "ANWENDEN"
-    elif bb100 + 2 * se < -1.0:
-        verdict = "VERWERFEN"
-    else:
-        verdict = "NEUTRAL"
-    return {"kandidat": kandidat, "incumbent": incumbent,
-            "bb100": round(bb100, 2), "se": round(se, 2),
-            "n_decks": n, "workers": workers, "sekunden": round(time.time() - t0, 1),
-            "decks_pro_min": round(n / max(1e-9, time.time() - t0) * 60, 1),
-            "verdict": verdict}
+    from pokerbot.autogym.stats import robust_stats, verdikt
+    rs = robust_stats(edges)
+    # Entscheidungs-Statistik seit 2026-08-17: getrimmter Mittelwert + winsorisierte
+    # SE (Fat-Tail-Befund); die rohen Felder bleiben fuer Alt-Vergleiche erhalten.
+    return {"kandidat": kandidat, "incumbent": incumbent, **rs,
+            "workers": workers, "sekunden": round(time.time() - t0, 1),
+            "decks_pro_min": round(len(edges) / max(1e-9, time.time() - t0) * 60, 1),
+            "verdict": verdikt(rs), "edges": edges}
 
 
 def main() -> None:
@@ -120,6 +126,9 @@ def main() -> None:
     d = runs.neuer_run(f"pargate_{args.kandidat}", vars(args))
     res = par_gate(args.kandidat, args.decks, args.workers, args.seed,
                    args.deck_seed0, args.incumbent)
+    edges = res.pop("edges")                 # Rohdaten in den Run-Ordner, nie in die INDEX-Zeile
+    import json as _json
+    (d / "edges.json").write_text(_json.dumps(edges), encoding="utf-8")
     runs.schliesse_run(d, res)
     print(res)
     print(f"Run-Ablage: {d}")

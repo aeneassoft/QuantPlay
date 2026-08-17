@@ -51,6 +51,20 @@ FE_CEILING = 0.75
 FOLD_LEAD_MARGIN = 0.30
 
 
+def _rec_rng(rec: dict):
+    """Deterministischer REKORD-gebundener RNG fuer die Rueckschau-Equity
+    (Messfundament 2026-08-17): dieselbe Entscheidung ergibt dasselbe Urteil,
+    lauf- und prozessuebergreifend. Vorher lief jeder equity_vs_hand-Aufruf
+    auf frischem random.Random() -> das Orakel war nicht-deterministisch."""
+    import random
+    import zlib
+    key = "|".join((",".join(rec.get("hero_hole") or []),
+                    ",".join(rec.get("villain_hole") or []),
+                    ",".join(rec.get("board") or []),
+                    str(rec.get("street")), str(rec.get("pot"))))
+    return random.Random(zlib.crc32(key.encode()))
+
+
 @dataclass
 class Verdict:
     tier: str          # 'HART' | 'P' | 'L' | 'F'
@@ -104,7 +118,8 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
     # W1-1 (L): Fold TROTZ ausreichender Equity -- der Spiegel des Call-Checks.
     if action == "fold" and to_call > 0 and rec.get("villain_hole"):
         req = equity_needed_to_call(pot, to_call)
-        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"], iters=EQ_ITERS)
+        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
+                            iters=EQ_ITERS, rng=_rec_rng(rec))
         if eq - req > FOLD_LEAD_MARGIN:
             rep.leads.append(Verdict(
                 "L", "fold_ueber_pot_odds", (eq - req) * (pot + to_call) / bb,
@@ -131,7 +146,8 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
             and rec.get("villain_hole") and rec["street"] != "preflop"):
         risk = max(0, rec["amount"] - to_call)
         if risk > 0:
-            eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"], iters=EQ_ITERS)
+            eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
+                                iters=EQ_ITERS, rng=_rec_rng(rec))
             fe_req = required_fold_equity(pot, risk, risk, eq)
             if fe_req > FE_CEILING:
                 rep.leads.append(Verdict(
@@ -142,7 +158,8 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
     # L: Call deutlich unter der Pot-Odds-Schwelle, in Rueckschau-Equity.
     if action == "call" and to_call > 0 and rec.get("villain_hole"):
         req = equity_needed_to_call(pot, to_call)
-        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"], iters=EQ_ITERS)
+        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
+                            iters=EQ_ITERS, rng=_rec_rng(rec))
         gap = req - eq
         if gap > LEAD_MARGIN:
             rep.leads.append(Verdict(

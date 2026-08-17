@@ -16,7 +16,9 @@ Journal: data/autogym/journal.jsonl — jede Runde ein Eintrag, nichts wird stil
 from __future__ import annotations
 
 import json
+import random
 import time
+import zlib
 from pathlib import Path
 
 from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks, pokerbot
@@ -32,6 +34,23 @@ GUARDS = {
                   lambda a, amt, st: (("check", None) if a == "fold" else (a, amt))),
 }
 
+# Kartenrang-Ordnung fuer Made-Hand-Checks ('As' -> 'A'); treys-kompatibel.
+_RANK_ORD = {r: i for i, r in enumerate("23456789TJQKA")}
+
+
+def _spot_rng(st: dict) -> random.Random:
+    """Deterministischer, SPOT-gebundener RNG fuer alle Guard-Equity-Aufrufe
+    (Messfundament 2026-08-17): gleiche Karten/Strasse/Pot-Lage => gleiche
+    MC-Schaetzung, in JEDEM Arm des Gates und in jedem Prozess. Ersetzt
+    (a) ungeseedetes random.Random() (brach die Deck-Paarung: Transfer-Test
+    SE 12,9 trotz identischer Decks) und (b) pro-Seat-Sequenzen (die
+    Aufruf-REIHENFOLGE desynct die Arme, sobald eine Entscheidung abweicht)."""
+    me = st["players"][st["to_act"]]
+    key = "|".join((",".join(sorted(me["hole"])), ",".join(st["board"]),
+                    str(st["street"]), str(st["pot"]), str(st["current_bet"]),
+                    str(me["committed_street"])))
+    return random.Random(zlib.crc32(key.encode()))
+
 
 def podds_guard(make_strat, margin: float = 0.02, iters: int = 120):
     """Der erste aus dem Journal MOTIVIERTE Bot-Kandidat (L: call_unter_pot_odds):
@@ -39,25 +58,23 @@ def podds_guard(make_strat, margin: float = 0.02, iters: int = 120):
     deckt. Nutzt NUR legale Information (eigene Karten, Board, Pot) -- die
     Rueckschau-Gegnerhand des Orakels beruehrt er nie. Ob die uniforme Range zu
     pessimistisch ist (Value-Folds!), entscheidet allein das gepaarte Gate."""
-    import random as _random
-
     from knowledge_base.math.formulas import equity_needed_to_call
     from pokerbot.engine.cards import make_deck
     from pokerbot.engine.equity import equity_vs_range
 
     def make(seat):
         base = make_strat(seat)
-        rng = _random.Random(97 + seat)
 
         def d(st):
             a, amt = base(st)
             me = st["players"][st["to_act"]]
             to_call = max(0, st["current_bet"] - me["committed_street"])
             if a == "call" and to_call > 0 and st["street"] == "river":
+                rng = _spot_rng(st)
                 dead = set(me["hole"]) | set(st["board"])
                 deck = [c for c in make_deck() if c not in dead]
                 combos = [tuple(rng.sample(deck, 2)) for _ in range(40)]
-                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters)
+                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters, rng=rng)
                 if eq + margin < equity_needed_to_call(st["pot"], to_call):
                     return "fold", None
             return a, amt
@@ -65,29 +82,32 @@ def podds_guard(make_strat, margin: float = 0.02, iters: int = 120):
     return make
 
 
-def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120):
+def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120,
+              streets: tuple = ("flop",)):
     """Kandidat aus dem F-Befund mdf_flop (OVER-FOLD 0,61 vs erlaubt 0,32):
     ein Flop-Fold gegen einen Einsatz wird zum Call, wenn die Equity vs eine
     uniforme Range die Pot-Odds deckt. Nur legale Information. Die Doktrin
-    kennt das Risiko (Frequenz-Matching 3x widerlegt) -- das Gate urteilt."""
-    import random as _random
+    kennt das Risiko (Frequenz-Matching 3x widerlegt) -- das Gate urteilt.
+    FIX 2026-08-17: der streets-Check aus Commit 95d0ce9 landete hier statt in
+    sel_guard UND referenzierte einen nie definierten Namen (NameError bei jedem
+    Facing-Bet-Fold) -- jetzt echter Parameter."""
     from knowledge_base.math.formulas import equity_needed_to_call
     from pokerbot.engine.cards import make_deck
     from pokerbot.engine.equity import equity_vs_range
 
     def make(seat):
         base = make_strat(seat)
-        rng = _random.Random(53 + seat)
 
         def d(st):
             a, amt = base(st)
             me = st["players"][st["to_act"]]
             to_call = max(0, st["current_bet"] - me["committed_street"])
             if a == "fold" and to_call > 0 and st["street"] in streets:
+                rng = _spot_rng(st)
                 dead = set(me["hole"]) | set(st["board"])
                 deck = [c for c in make_deck() if c not in dead]
                 combos = [tuple(rng.sample(deck, 2)) for _ in range(40)]
-                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters)
+                eq = equity_vs_range(me["hole"], combos, st["board"], iters=iters, rng=rng)
                 if eq >= equity_needed_to_call(st["pot"], to_call) + margin:
                     return "call", None
             return a, amt
@@ -98,10 +118,13 @@ def mdf_guard(make_strat, margin: float = 0.0, iters: int = 120):
 def sel_guard(make_strat, margin: float = 0.03, iters: int = 160,
               streets: tuple = ("flop",)):
     """Kandidat 3 -- SELEKTION statt Frequenz (die Lehre aus Runde 1): ein
-    Flop-Fold gegen einen Einsatz wird NUR dann zum Call, wenn die Equity vs
+    Fold gegen einen Einsatz wird NUR dann zum Call, wenn die Equity vs
     die TRACKER-Range des Gegners (Bayes ueber die gespielte Linie, History
     steht im State) die Pot-Odds plus Marge deckt. Trash foldet weiter --
-    genau die Selektion, die mdf_guard fehlte. Nur legale Information."""
+    genau die Selektion, die mdf_guard fehlte. Nur legale Information.
+    FIX 2026-08-17: streets war seit Commit 95d0ce9 unverdrahtet (Body
+    hardcodete flop) -- sel_all wurde damals als A-vs-A gemessen; das
+    Journal-Verdikt 'Turn/River-Selektion abgelehnt' ist NICHTIG."""
     from knowledge_base.math.formulas import equity_needed_to_call
     from pokerbot.engine.equity import equity_vs_weighted_range
     from pokerbot.strategy.range_tracker import RangeTracker
@@ -113,12 +136,13 @@ def sel_guard(make_strat, margin: float = 0.03, iters: int = 160,
             a, amt = base(st)
             me = st["players"][st["to_act"]]
             to_call = max(0, st["current_bet"] - me["committed_street"])
-            if a == "fold" and to_call > 0 and st["street"] == "flop":
+            if a == "fold" and to_call > 0 and st["street"] in streets:
                 try:
                     t = RangeTracker().build(st)
                     cw = t.range.get(1 - st["to_act"], {})
                     if cw:
-                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"],
+                                                      iters=iters, rng=_spot_rng(st))
                         if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + margin:
                             return "call", None
                 except Exception:
@@ -153,7 +177,8 @@ def lizenz_guard(make_strat, junk_eq: float = 0.20, iters: int = 160):
                     t = RangeTracker().build(st)
                     cw = t.range.get(1 - st["to_act"], {})
                     if cw:
-                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"],
+                                                      iters=iters, rng=_spot_rng(st))
                         if eq == eq and eq < junk_eq:
                             return ("check", None) if to_call == 0 else ("fold", None)
                 except Exception:  # noqa: BLE001
@@ -189,12 +214,64 @@ def einmal_guard(make_strat, margin: float = 0.03, iters: int = 160):
                     t = RangeTracker().build(st)
                     cw = t.range.get(1 - st["to_act"], {})
                     if cw:
-                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"], iters=iters)
+                        eq = equity_vs_weighted_range(me["hole"], cw, st["board"],
+                                                      iters=iters, rng=_spot_rng(st))
                         if eq == eq and eq >= equity_needed_to_call(st["pot"], to_call) + margin:
                             zustand["gerettet"] = True
                             return "call", None
                 except Exception:  # noqa: BLE001
                     pass
+            return a, amt
+        return d
+    return make
+
+
+def turn_wert_guard(make_strat, frac: float = 0.66, min_eq: float = 0.60, iters: int = 160):
+    """Runde-5-Kandidat TURN-WERT -- der aelteste, 3x belegte Leak (Snowie-Klasse B:
+    Turn-Check mit Ueberpaar/Trips+; Turn-Betting bei 0-19% der Empfehlung; die
+    GTOW-Zerlegung nennt denselben Knoten). SELEKTIONS-Regel auf der BET-Seite:
+    checkt die Basis am Turn ohne Einsatz vor sich, wird daraus eine ~2/3-Pot-
+    Value-Bet, wenn (a) die Made Hand STARK ist (Trips+ ODER Two Pair/Ueberpaar
+    mit Hole-Beteiligung) UND (b) die Equity vs die Tracker-Range min_eq deckt.
+    Beides ist AUSWAHL, keine Frequenz (Doktrin: Selektion schlaegt Frequenz).
+    Nur legale Information; die Engine clampt den Betrag auf [raise_min, raise_max]."""
+    from pokerbot.engine.equity import equity_vs_weighted_range
+    from pokerbot.engine.evaluator import evaluate
+    from pokerbot.strategy.range_tracker import RangeTracker
+    try:
+        from treys import Evaluator as _TreysEval
+        _klasse = _TreysEval().get_rank_class          # 1=SF .. 6=Trips, 7=Two Pair, 8=Pair, 9=High
+    except Exception:  # noqa: BLE001
+        _klasse = None
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            opp = st["players"][1 - st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if (a == "check" and to_call == 0 and st["street"] == "turn"
+                    and _klasse is not None and me["stack"] > 0 and opp["stack"] > 0):
+                try:
+                    board = st["board"]
+                    kl = _klasse(evaluate(board, me["hole"]))
+                    hole_pair = me["hole"][0][0] == me["hole"][1][0]
+                    board_ranks = [b[0] for b in board]
+                    beteiligt = hole_pair or any(hc[0] in board_ranks for hc in me["hole"])
+                    ueberpaar = (hole_pair and kl == 8
+                                 and _RANK_ORD[me["hole"][0][0]] > max(_RANK_ORD[r] for r in board_ranks))
+                    if kl <= 6 or (kl == 7 and beteiligt) or ueberpaar:
+                        t = RangeTracker().build(st)
+                        cw = t.range.get(1 - st["to_act"], {})
+                        if cw:
+                            eq = equity_vs_weighted_range(me["hole"], cw, board,
+                                                          iters=iters, rng=_spot_rng(st))
+                            if eq == eq and eq >= min_eq:
+                                return "bet", int(frac * st["pot"])
+                except Exception:  # noqa: BLE001
+                    pass            # defensiv: im Zweifel bleibt der Basis-Check
             return a, amt
         return d
     return make
