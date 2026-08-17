@@ -49,6 +49,15 @@ FE_CEILING = 0.75
 # 0.30 verlangt einen krassen Ueberschuss. Keine Post-hoc-Justierung eines
 # validierten Instruments, sondern die Erstkalibrierung eines neuen.
 FOLD_LEAD_MARGIN = 0.30
+# W1-4 (NEU 2026-08-17, Erstkalibrierung VOR Validierung, journalfaehig): die
+# BETTOR-Seite, auf der das Orakel bisher strukturell blind war — der aelteste,
+# 3x belegte Leak (Turn-Check mit Ueberpaar/Trips+; Snowie-Klasse B 11/39).
+# Hero CHECKT turn/river ohne Einsatz vor sich, haelt aber vs die TATSAECHLICHE
+# Gegnerhand Equity >= WERT_MARGIN. Rueckschau-Bias ist real UND gewollt
+# konservativ bepreist: 0.75 verlangt klare Value-Staerke; Slowplay/Trapping ist
+# Seesaw-konform -> der Check ist ein LEAD-Detektor im ARM-VERGLEICH (beide
+# Seiten identisch gegradet), nie ein Beweis fuer die Einzelhand.
+WERT_MARGIN = 0.75
 
 
 def _rec_rng(rec: dict):
@@ -154,6 +163,18 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
                     "L", "bet_braucht_unplausible_folds", 0.0,
                     f"{rec['street']}: FE_req {fe_req:.2f} > {FE_CEILING} "
                     f"(eq {eq:.2f}, Risiko {risk}, Pot {pot})"))
+
+    # W1-4 (L, NEU 2026-08-17): VERPASSTER WERT — Check am Turn/River mit klarer
+    # Rueckschau-Value-Staerke. severity ~ entgangene 2/3-Pot-Bet, die eine
+    # schlechtere Hand haelt: (eq - WERT_MARGIN) * pot als Rang-Mass (bb).
+    if (action == "check" and to_call <= 0 and rec.get("villain_hole")
+            and rec["street"] in ("turn", "river")):
+        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
+                            iters=EQ_ITERS, rng=_rec_rng(rec))
+        if eq >= WERT_MARGIN:
+            rep.leads.append(Verdict(
+                "L", "verpasster_wert", (eq - WERT_MARGIN) * pot / bb,
+                f"{rec['street']}: check mit eq {eq:.2f} >= {WERT_MARGIN} (Pot {pot})"))
 
     # L: Call deutlich unter der Pot-Odds-Schwelle, in Rueckschau-Equity.
     if action == "call" and to_call > 0 and rec.get("villain_hole"):
