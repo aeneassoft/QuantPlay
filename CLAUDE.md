@@ -281,6 +281,19 @@ How I write code AND talk about it — the standing default, every turn.
 > Doktrin: ueberall VORREGISTRIERTE Erwartungen; die Schleife muss LOKAL bewiesen sein (Erwartungs-Leiter
 > E1–E6, `docs/AUTOGYM_PLAN.md`), erst dann der Pod (CPU-Kerne, keine GPU — CFR/Self-Play-Rechnung).
 > Erster Pilot: 500 Haende + 3.577 gegradete Entscheidungen in 52 s lokal; HART 0, P 0, L 35, F 3.
+> **★ ERGEBNIS NACH 2 TAGEN (2026-08-17): DIE SCHLEIFE FUNKTIONIERT. Versionskette basis → AUSLESE v1
+> (+6,1±1,5, 2x99k repliziert) → AUSLESE v3 (~+9 kumulativ; 15pp-Marge; 3 Direktlaeufe gepoolt +3,9±0,95
+> vs v1 + 183k-Anker +8,68±1,28 vs Basis).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
+> schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
+> einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
+> Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes
+> Paket); leiser Kanal (Kandidat vs Kandidat) >> lauter (vs Basis); Kanal VOR dem Bau vermessen (AP8);
+> ungeseedete MC bricht Paarungen; eine Worker-Flotte zur Zeit (RAM). Werkzeuge: pargate (--incumbent,
+> Thread-Pin, ETA), exploit_jagd (20 persistente Jaeger; Haertungs-Landkarte VPIP 0,76/FtB 0,30/Agg 0,32),
+> snowie_export (Gate-Paritaet!), verify_refs (66/66), Advisor-Batch (2,2x), runde4-Kampagnen-Muster,
+> data/runs/+STAND.md. 6-max-Katalog v0 (30k Haende): Flop-Overfold ist HU-SPEZIFISCH (6max foldet 0,216
+> bei erlaubt 0,30). Papers verankert: Brown (27 Bluffs strukturell, Band 0,36-0,50) + SPIRAL-RAE
+> (Reward-Design fuer kuenftiges RL). Detail: docs/AUTOGYM_PLAN.md + EXPLOIT_KATALOG.md + Journal.
 > **VERSIONIERUNGS-REGEL (User, 2026-08-16, bindend): VOR jeder Bot-Veraenderung wird der Stand
 > eingefroren (git-Tag; aktuelle Basis = Tag `autogym-basis`); ein veraenderter Bot bekommt am ENDE einen
 > NAMEN und wird als Tag versioniert. MESS-DOKTRIN: NICHT vs GTOW messen — die drei Instrumente sind

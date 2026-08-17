@@ -3,6 +3,27 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-17) — SCHLUSSSTRICH AUTOGYM-SPRINT: AUSLESE v3 steht; naechste Schritte definiert
+**Stand: AUSLESE v3 = amtierender Bot** (Tag auslese-v3; sel_guard 15pp-Marge; ~+9 bb/100 kumulativ ueber
+der eingefrorenen Basis, alle Zahlen im Tag + Journal). Schleife lokal bewiesen, $30 Pod unangetastet.
+**NAECHSTE SCHRITTE (priorisiert, jede mit vorregistrierter Erwartung zu starten):**
+1. **Robuste SE fuer pargate** (getrimmte Edges/Bootstrap) — VOR der naechsten Namens-Entscheidung;
+   die 3-Sigma-Heterogenitaet identischer Laeufe ist als Fat-Tail-Befund journaliert.
+2. **MC-Seeding fuers Messen** (equity_vs_* mit rng) — repariert die Paarung des Transfer-Tests
+   (v3 vs GTOBaseline/fremde Gegner: transferiert die Selektion?) + macht Gates deterministischer.
+3. **K1-Jaeger** (Cbet-Dauerfeuer, EXPLOIT_KATALOG) gegen die Haertungs-Landkarte → erste gezielte
+   HAERTUNG des Kerns; danach K3 (Turn-Kollaps: der aelteste Leak, 3fach belegt).
+4. **Turn-Wert-Guard** (Snowie-Klasse B: verpasster Wert mit Ueberpaar/Trips am Turn) als
+   Bet-seitiger Kandidat der Runde 5 gegen v3.
+5. **6-max-Gate (AP-6MAX)**: Sitz-Rotations-Paarung bauen, Guards mit Positions-Prior uebertragen —
+   Vorsicht: der Katalog v0 zeigt KEINEN 6max-Flop-Overfold, blinde Uebertragung von sel_guard
+   ist NICHT indiziert; erst 6max-eigene Leads aus dem Katalog.
+6. **Welle 1b Orakel** (MDF/Alpha-Paar, Sizing-Buckets, F-Severity) + Welle 2 (hand_id/Line).
+7. **Pod (R3)**: erst wenn mehrere Kandidaten-Familien parallel bei 100k-Aufloesung anstehen.
+8. **GTOW-Anker zur Not**: v3 einmal vs GTOW messen (in-process, $0) um die Treppe (-19,70 → ?)
+   extern zu kalibrieren — Self-Play-Gewinne muessen sich dort zeigen, sonst Selbstspiel-Blindheit.
+**Die Session wechselt jetzt zu einem NEUEN Projekt (nicht Bot-Verbesserung; User-Ansage).**
+
 ## ★★★★★ CURRENT (2026-08-17 nacht) — AUSLESE v1 DOPPELT BESTAETIGT; Exploit-Jagd + Snowie-Triangulation
 **Stand der Schleife nach Tag 1:** AUSLESE v1 (sel_guard: Flop-Fold -> Call wenn Equity vs Tracker-Range
 Pot-Odds+3pp deckt) ist der amtierende Name: +4,70+-2,06 und +7,49+-2,08 (2x 99k Decks, unabhaengig) =
