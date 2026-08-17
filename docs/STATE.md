@@ -3,6 +3,26 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-17 nacht) — RUNDE 5/5b: TURN-WERT DRUCKT (3x repliziert +7,27±2,33); Kombi in Attribution
+**Der grosse Sweep hat geliefert.** Auf dem reparierten Fundament (Spot-RNG: A/A EXAKT 0 auf jedem Deck;
+Estimator v2 = rohes Mittel + Vorzeichen-Test, nachdem die 5%-Trimmung fuer DUENNE Kanaele als blind gemessen
+wurde — sie warf die 5-8% Signal-Decks weg):
+**(1) turn_wert-Guard (Bet-Seite, Trips+/Ueberpaar + eq>=0,60 vs Tracker-Range → 2/3-Pot-Bet am Turn):
+GEPOOLT 3x30k Decks vs sel_m15 = +7,27 ± 2,33 bb/100, Vorzeichen-z +14,9, Kanal 8,6% → ANWENDEN.** Der
+aelteste Leak (3x belegt) ist gefixt; Orakel-Duell-Panel GRUEN (verpasster_wert_turn 17,0→3,1/1000 mit
+Rest-Floor = kein Purify-Muster; bet_braucht_unplausible_folds faellt mit 10,0→7,5).
+**(2) raise_narrow_10 (geminter GTOW-Raise-Mix): 3x envgate-repliziert** (+16,8/+13,7/+9,2, Dosis 1.0>0.5)
+— NUR resolver-OFF-Kanaele (v8-K3-Warnung in gto_mode.py bleibt bindend). **(3) k3_deception repliziert
+NICHT** (+8,7/+0,3/−4,7) → nicht in die Version; turn_def_adv VERWERFEN (−20 in r3, vz-z negativ; die
+v5C-Analyzer-Historie haelt im Self-Play nicht). **(4) sel_all/sel_turn: Kanal LEER** (0 divergente Decks
+auf 30k — Mirror-Oekologie: die Basis bettet den Turn fast nie; nach turn_wert-Einbau neu pruefen =
+Ko-Evolution). **(5) kombi (turn_wert+K3+RN10): +26,4/+25,2 (2x massiv)** — Attribution laeuft
+(kombi_schlank ohne K3 vs kombi_r5, Bank 65000); danach kumulatives Finale vs Wrapper=basis + Taufe.
+Neue Instrumente: envgate (Env-Flag-Zwei-Lauf-Paarung, Wrapper-Arme), orakel_duell (L/F-Klassenraten je
+Gelegenheit, erster entscheidungs_logger-Konsument), W1-4 verpasster_wert (selektions-gegatet nach
+adversarischem Review) + W1-5 verpasster_raise. Orakel-Ausbau-Spezifikationen (Top-10 Richter, Brown V1-V4
+baureif, Blocker B1 = exakte 169x169-Matrix = GPU-Job 1): data/runs/orakel_ausbau_design.json.
+
 ## ★★★★★ CURRENT (2026-08-17 abend) — ROOT-SWEEP: 53 Hebel inventarisiert, 12 adversarisch verifiziert
 **Voller Repo-Sweep (19 Agenten, Ergebnis `data/runs/root_sweep_2026-08-17.json`). Zwei Befunde KORRIGIEREN den Stand:**
 **(1) sel_guard-streets-Parameter UNVERDRAHTET** (improver.py:116 hardcodet flop; der in-streets-Check landete per
