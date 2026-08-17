@@ -3,6 +3,22 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-17 nacht III) — PRAEZISIONS-LAUF: Verdikte bootstrap-gehaertet, Armee-Fixes gelandet
+**Niveau-Audit (7 Agenten, `data/runs/niveau_audit_2026-08-17.json`: Top-15-Rangliste; #1 AIVAT-light im
+Mirror, #2 Bootstrap-CI, #3 FDR-Ledger, #6 Turn-Retraining aus 22,5k Subgames) + Praezisions-Armee (19
+Agenten, `data/runs/praezisions_armee_2026-08-17.json`: 10 verifizierte Bugs + princegate-/pargate6-/GTOW-
+Protokoll-Specs).** GELANDET (Commit c9d06fc): **Estimator v3** (sparse-bewusster Bootstrap-CI + Permutations-p;
+bei Kanal<2% traegt das CI das Verdikt) — **NEUBEWERTUNG: turn_wert CI[+2,7,+12,1] p=0,0007 HAELT, RN10 3x
+HAELT, kombi_r5 HAELT, v4-Treppe HAELT; RN05 ehrlich auf NEUTRAL (war nie in der Version)**. Dazu: W1-3
+bet-Filter+R-Fix (war auf der Hauptmasse blind; FE_CEILING-Rekalibrierung offen), W1-4 Hole-Beteiligung,
+orakel_duell F-Pooling (F-Stufe war chunk-tot), pargate Env-Hygiene+Deck-Ordnung, runde5-KeyError,
+sixmax-UTG 0,16, envgate KANAL_-Vokabular (v8-Schutz), Flop-Resolver gebaut (POKERB_FLOP_RESOLVER, 7b42a5c).
+**GTOW-VORSICHT (Armee, KRITISCH): gtowizard.py konstruiert PokerBot direkt (v4-Wrapper NICHT im Harness)
++ schaltet Resolver default ON (RAISE_NARROW-Falle) — der v4-GTOW-Anker braucht den Adapter aus dem
+gespeicherten Protokoll BEVOR er laeuft.** Ehrlicher Live-Anker bleibt −30,11±5,51 (Rang 24; der −19,70
+war vermutlich Blinds-Bug-inflationiert, STATE:257-269). Offen: Mirror-Duell v4-Wrapper vs basis (laeuft),
+princegate, pargate6, Turn-Retraining, AIVAT-light, FDR-Ledger.
+
 ## ★★★★★ CURRENT (2026-08-17 nacht II) — TAUFE: AUSLESE v4 (Tag auslese-v4) — die BET-SEITEN-Selektion
 **AUSLESE v4 = turn_wert_guard(sel_guard(basis, m15)) + POKERB_TURN_DEFENSE=0.07 + POKERB_SLOWPLAY=0.25 +
 POKERB_RAISE_NARROW=1.0 (resolver-OFF-Kontext; kanonische Definition = envgate-Arm `kombi_r5`).**
