@@ -67,8 +67,13 @@ def _baue_fabrik(name: str, seed: int):
     raise ValueError(name)
 
 
-def _worker(args: tuple) -> list:
-    kandidat, seed, deck_seed, n_decks, incumbent = args
+def _worker(args: tuple) -> tuple:
+    job_idx, kandidat, seed, deck_seed, n_decks, incumbent = args
+    # ENV-HYGIENE (Armee-Befund bestaetigt): geerbte Shell-POKERB_*-Flags wuerden
+    # BEIDE Gate-Seiten still faerben — der sel-Kanal ist per Definition flag-frei.
+    import os
+    for k in [k for k in os.environ if k.startswith("POKERB_")]:
+        os.environ.pop(k, None)
     # KRITISCH (gemessen 2026-08-16): ohne das spawnt JEDER Worker torch mit
     # Default-Intra-Op-Threads (= Kernzahl). 20 Worker x 24 Threads auf 24 Kernen
     # = Thrashing; die Skalierung bricht ein, obwohl alle Kerne 'busy' aussehen.
@@ -81,7 +86,7 @@ def _worker(args: tuple) -> list:
     decks = gen_decks(n_decks, seed=deck_seed)
     _, _, edges = duplicate_ab(_baue_fabrik(kandidat, seed), _baue_fabrik(incumbent, seed),
                                decks, return_edges=True)
-    return edges
+    return job_idx, edges
 
 
 def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
@@ -91,20 +96,23 @@ def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
     # Blackbox bis zum Ende; kostet nichts, macht ETA moeglich.
     n_jobs = workers * 4
     chunk = max(1, n_decks // n_jobs)
-    jobs = [(kandidat, seed, deck_seed0 + i, chunk, incumbent) for i in range(n_jobs)]
+    jobs = [(i, kandidat, seed, deck_seed0 + i, chunk, incumbent) for i in range(n_jobs)]
     t0 = time.time()
-    edges = []
+    # DECK-ORDNUNG (Niveau-Audit Rang 14): imap_unordered + extend zerstoerte das
+    # Deck->Edge-Mapping — Bloecke werden per Job-Index geordnet zusammengesetzt,
+    # damit edges.json lauf- und arm-uebergreifend per Deck paarbar bleibt.
+    bloecke: dict[int, list] = {}
     with mp.Pool(workers) as pool:
-        for k, blk in enumerate(pool.imap_unordered(_worker, jobs), 1):
-            edges.extend(blk)
+        for k, (idx, blk) in enumerate(pool.imap_unordered(_worker, jobs), 1):
+            bloecke[idx] = blk
             el = time.time() - t0
-            print(f"  [{k}/{n_jobs}] {len(edges)} Decks | {el/60:.1f} min | "
+            print(f"  [{k}/{n_jobs}] {sum(len(b) for b in bloecke.values())} Decks | {el/60:.1f} min | "
                   f"ETA {el/k*(n_jobs-k)/60:.1f} min", flush=True)
-    from pokerbot.autogym.stats import robust_stats, verdikt
+    edges = [e for i in range(n_jobs) for e in bloecke[i]]
+    from pokerbot.autogym.stats import bootstrap_ci, robust_stats, verdikt
     rs = robust_stats(edges)
-    # Entscheidungs-Statistik seit 2026-08-17: getrimmter Mittelwert + winsorisierte
-    # SE (Fat-Tail-Befund); die rohen Felder bleiben fuer Alt-Vergleiche erhalten.
-    return {"kandidat": kandidat, "incumbent": incumbent, **rs,
+    rs.update(bootstrap_ci(edges))     # Verdikt v3: Bootstrap traegt bei duennen Kanaelen
+    return {"kandidat": kandidat, "incumbent": incumbent, "kanal": "pargate_mirror", **rs,
             "workers": workers, "sekunden": round(time.time() - t0, 1),
             "decks_pro_min": round(len(edges) / max(1e-9, time.time() - t0) * 60, 1),
             "verdict": verdikt(rs), "edges": edges}

@@ -56,13 +56,54 @@ def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
     }
 
 
+def bootstrap_ci(edges: list, b: int = 4000, seed: int = 17, bb: int = 100) -> dict:
+    """SPARSE-bewusster Perzentil-Bootstrap + Vorzeichen-Flip-Permutations-p
+    (Niveau-Audit Rang 2, 2026-08-17 nacht): die CLT-2SE unterdeckt bei duennen
+    Kanaelen (RN10: n_eff~55 fettrandige Divergenz-Decks von 12k). Nullen
+    tragen weder Resample-Summe noch Flip -> nur die nonzero-Edges werden
+    gezogen (k ~ Binomial(n, m/n)), Kosten b*m statt b*n. Deterministisch."""
+    import random
+    n = len(edges)
+    nz = [e for e in edges if e != 0]
+    m = len(nz)
+    skala = 1.0 / 2.0 / bb * 100.0
+    if n == 0 or m == 0:
+        return {"ci95_lo": 0.0, "ci95_hi": 0.0, "perm_p": 1.0, "boot_b": b}
+    rng = random.Random(seed)
+    means = []
+    for _ in range(b):
+        k = rng.binomialvariate(n=n, p=m / n)
+        means.append(sum(nz[rng.randrange(m)] for _ in range(k)) / n)
+    means.sort()
+    obs = sum(nz) / n
+    hits = 0
+    for _ in range(b):
+        s = sum(e if rng.random() < 0.5 else -e for e in nz)
+        if s / n >= obs:
+            hits += 1
+    return {"ci95_lo": round(means[int(0.025 * b)] * skala, 2),
+            "ci95_hi": round(means[int(0.975 * b)] * skala, 2),
+            "perm_p": round((hits + 1) / (b + 1), 4), "boot_b": b}
+
+
+# Kanal-Duennheit, unter der das Bootstrap-Intervall das Verdikt traegt (vorregistriert).
+SPARSE_SCHWELLE = 0.02
+
+
 def verdikt(st: dict) -> str:
-    """Vorregistrierte Entscheidungsregel v2 (2026-08-17 abend): das rohe Mittel
-    traegt das Verdikt (ANWENDEN bei bb100 - 2*se > 0; VERWERFEN bei
-    bb100 + 2*se < -1); der Vorzeichen-Test ist Stuetz-Evidenz im Journal."""
+    """Vorregistrierte Entscheidungsregel v3 (2026-08-17 nacht, Niveau-Audit):
+    Basis = rohes Mittel +- 2SE (ANWENDEN bei bb100 - 2*se > 0; VERWERFEN bei
+    bb100 + 2*se < -1). Bei DUENNEN Kanaelen (nonzero_anteil < SPARSE_SCHWELLE)
+    traegt das Bootstrap-Intervall: ANWENDEN nur wenn zusaetzlich ci95_lo > 0
+    und perm_p < 0.025. Vorzeichen-Test bleibt Stuetz-Evidenz."""
     t, se = st.get("bb100", 0.0), st.get("se", float("inf"))
+    duenn = st.get("nonzero_anteil", 1.0) < SPARSE_SCHWELLE and "ci95_lo" in st
     if t - 2 * se > 0:
+        if duenn and not (st["ci95_lo"] > 0 and st.get("perm_p", 1.0) < 0.025):
+            return "NEUTRAL"
         return "ANWENDEN"
     if t + 2 * se < -1.0:
+        if duenn and not st["ci95_hi"] < -1.0:
+            return "NEUTRAL"
         return "VERWERFEN"
     return "NEUTRAL"

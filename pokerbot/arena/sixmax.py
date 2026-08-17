@@ -26,7 +26,7 @@ from pokerbot.strategy import postflop as pf
 from pokerbot.strategy import preflop_gto
 from pokerbot.strategy import preflop_strength as ps
 
-OPEN_FRAC = {"EP": 0.16, "MP": 0.20, "HJ": 0.22, "CO": 0.28, "BTN": 0.48, "SB": 0.45, "BB": 1.0}
+OPEN_FRAC = {"EP": 0.16, "UTG": 0.16, "MP": 0.20, "HJ": 0.22, "CO": 0.28, "BTN": 0.48, "SB": 0.45, "BB": 1.0}
 # Multiway-Label-Abbildung (7/8/9/10-max -> das 6-max-Vokabular der Kern-Tabellen). BEWUSST nur
 # fuer die NEUEN Labels: jede 6-max-Position verhaelt sich byte-identisch zum vermessenen Anker.
 # (Der Audit-Fund, dass "UTG" in OPEN_FRAC fehlt und darum 0.20 statt EP-0.16 oeffnet, bleibt

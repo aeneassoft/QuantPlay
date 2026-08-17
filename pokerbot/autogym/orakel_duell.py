@@ -81,8 +81,9 @@ def _worker(args: tuple) -> tuple:
         spiel(fi(), incumbent, fk(), kandidat, h0, h1, board)   # Sitz-Tausch
     aus = {}
     for name, rep in reps.items():
-        orc.finalize_frequencies(rep)          # F-Stufe (mdf_flop etc.) je Strategie
-        aus[name] = {"decisions": rep.decisions,
+        # F-Stufe NICHT je Chunk finalisieren (Armee-Befund: n>=30 je Strasse wird
+        # im 17-Deck-Chunk nie erreicht -> F war tot). Rohdaten hoch, Pool im Parent.
+        aus[name] = {"decisions": rep.decisions, "facing": list(rep.facing_bets),
                      "gelegenheiten": dict(geleg[name]),
                      "regeln": dict(Counter(v.rule for v in rep.leads + rep.provable + rep.freq)),
                      "severity": {r: round(sum(v.severity_bb for v in rep.leads if v.rule == r), 1)
@@ -100,6 +101,7 @@ def duell(kandidat: str, incumbent: str, n_decks: int, workers: int,
     sev = {kandidat: Counter(), incumbent: Counter()}
     dez = {kandidat: 0, incumbent: 0}
     geleg = {kandidat: Counter(), incumbent: Counter()}
+    facing = {kandidat: [], incumbent: []}
     alle_rows: list = []
     with mp.Pool(workers) as pool:
         for k, (aus, rows) in enumerate(pool.imap_unordered(_worker, jobs), 1):
@@ -108,12 +110,19 @@ def duell(kandidat: str, incumbent: str, n_decks: int, workers: int,
                 sev[name].update(a["severity"])
                 dez[name] += a["decisions"]
                 geleg[name].update(a["gelegenheiten"])
+                facing[name].extend(a["facing"])
             alle_rows.extend(rows)
             el = time.time() - t0
             print(f"  [{k}/{n_jobs}] {el/60:.1f} min | ETA {el/k*(n_jobs-k)/60:.1f} min",
                   flush=True)
     out = {"kandidat": kandidat, "incumbent": incumbent, "n_decks": n_decks}
+    from pokerbot.autogym import oracle as orc
     for name in (kandidat, incumbent):
+        # F-Stufe EINMAL auf den gepoolten facing-Daten (Pooling-invariant).
+        rep_f = orc.OracleReport()
+        rep_f.facing_bets = facing[name]
+        orc.finalize_frequencies(rep_f)
+        gesamt[name].update(Counter(v.rule for v in rep_f.freq))
         g = geleg[name]
         # Zielklassen je ELIGIBLE Gelegenheit (arm-vergleichstauglich); alles
         # andere je 1000 Entscheidungen (Nebenwirkungs-Panel).

@@ -63,7 +63,7 @@ def main() -> None:
     aa["max_abs_edge"] = max(abs(e) for e in aa_edges) if aa_edges else -1
     ergebnis["aa_nulltest"] = aa
     _journal({"typ": "R5-AA-NULLTEST", **{k: aa[k] for k in
-              ("bb100", "se", "bb100_trim", "se_trim", "n_decks", "max_abs_edge")}})
+              ("bb100", "se", "n_decks", "max_abs_edge") if k in aa}})
     print(f"A/A: max |edge| = {aa['max_abs_edge']}", flush=True)
     if aa["max_abs_edge"] != 0:
         print("!! A/A NICHT exakt null — Restquelle von Nichtdeterminismus. ABBRUCH.", flush=True)

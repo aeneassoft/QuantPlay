@@ -127,7 +127,11 @@ def main() -> None:
         return
 
     from pokerbot.autogym import runs
-    from pokerbot.autogym.stats import robust_stats, verdikt
+    from pokerbot.autogym.stats import bootstrap_ci, robust_stats, verdikt
+    # KANAL-VOKABULAR (Niveau-Audit Rang 5, v8-Praezedenz): dieser Kanal misst vs
+    # GTOBaseline — sein Positiv ist SHIP-Evidenz-VORSTUFE, nie 'ANWENDEN'.
+    KANAL_WORT = {"ANWENDEN": "KANAL_POSITIV", "VERWERFEN": "KANAL_NEGATIV",
+                  "NEUTRAL": "KANAL_NEUTRAL"}
     arme = ["referenz"] + [a.strip() for a in args.arme.split(",") if a.strip()]
     ARME["referenz"] = {"env": {}, "wrapper": args.referenz_wrapper}
     d = runs.neuer_run("envgate", {**vars(args), "arme": arme})
@@ -154,11 +158,15 @@ def main() -> None:
             continue
         deltas = [a - r for a, r in zip(edges_je_arm[arm], ref)]
         rs = robust_stats(deltas)
-        ergebnis[arm] = {**rs, "verdict": verdikt(rs), "arm_spec": ARME[arm]}
+        rs.update(bootstrap_ci(deltas))
+        ergebnis[arm] = {**rs, "verdict": KANAL_WORT[verdikt(rs)],
+                         "kanal": "envgate_vs_gtobaseline", "arm_spec": ARME[arm]}
         print(f"{arm:16s} delta {rs['bb100']:+.2f} +- {rs['se']:.2f} bb/100 | "
+              f"CI95 [{rs['ci95_lo']:+.2f},{rs['ci95_hi']:+.2f}] p={rs['perm_p']} | "
               f"nz {rs['nonzero']} ({rs['nonzero_anteil']*100:.1f}%) "
               f"vz-z {rs['vorzeichen_z']:+.1f} -> {ergebnis[arm]['verdict']}")
-    runs.schliesse_run(d, {"typ": "envgate", "n_decks": args.decks, "arme": ergebnis})
+    runs.schliesse_run(d, {"typ": "envgate", "kanal": "envgate_vs_gtobaseline",
+                           "n_decks": args.decks, "arme": ergebnis})
     print(f"Run-Ablage: {d}")
 
 

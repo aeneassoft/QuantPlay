@@ -183,13 +183,22 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
 
     # W1-3 (L, korrigiert): Hero-Bet/Raise, dessen noetige Fold-Frequenz bei
     # Rueckschau-Equity eine plausible Obergrenze uebersteigt.
-    if (action in ("raise", "allin") and rec.get("amount")
+    # FIX 2026-08-17 (Armee, BESTAETIGT): (a) 'bet' fehlte im Filter — jede
+    # Eroeffnungs-Bet (die Hauptmasse) war fuer W1-3 unsichtbar (dieselbe Falle
+    # wie beim lizenz_guard); (b) risk war das Raise-INKREMENT, Heros echtes
+    # Zusatz-Risiko ist R = risk + to_call (cs=0-Normalfall; bei bet identisch).
+    # MESS-INSTRUMENT-AENDERUNG: L-Zaehlungen vor/nach diesem Fix sind nicht
+    # vergleichbar; FE_CEILING ist danach neu zu kalibrieren (Journal-Pflicht).
+    _w13_amount = rec.get("amount")
+    if _w13_amount is None and action == "allin":
+        _w13_amount = rec.get("effective_stack")      # approximativ, journalfaehig
+    if (action in ("bet", "raise", "allin") and _w13_amount
             and rec.get("villain_hole") and rec["street"] != "preflop"):
-        risk = max(0, rec["amount"] - to_call)
+        risk = max(0, _w13_amount - to_call)
         if risk > 0:
             eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
                                 iters=EQ_ITERS, rng=_rec_rng(rec))
-            fe_req = required_fold_equity(pot, risk, risk, eq)
+            fe_req = required_fold_equity(pot, risk + to_call, risk, eq)
             if fe_req > FE_CEILING:
                 rep.leads.append(Verdict(
                     "L", "bet_braucht_unplausible_folds", 0.0,
@@ -203,7 +212,12 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
         eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
                             iters=EQ_ITERS, rng=_rec_rng(rec))
         v_kl = _made_klasse(rec["villain_hole"], rec["board"])
-        zahlungsfaehig = eq <= 0.90 or (v_kl is not None and v_kl <= 8)
+        # Praezisions-Fix (Armee): auf GEPAARTEN Boards ist die rohe treys-Klasse
+        # immer 'Paar' — Zahlungsfaehigkeit verlangt HOLE-Beteiligung des Villains.
+        v_h = rec["villain_hole"]
+        v_beteiligt = (v_h[0][0] == v_h[1][0]
+                       or any(hc[0] in [b[0] for b in rec["board"]] for hc in v_h))
+        zahlungsfaehig = eq <= 0.90 or (v_kl is not None and v_kl <= 8 and v_beteiligt)
         if eq >= WERT_MARGIN and zahlungsfaehig:
             deckel = min(pot, rec.get("effective_stack", pot))
             rep.leads.append(Verdict(

@@ -48,7 +48,8 @@ def _spot_rng(st: dict) -> random.Random:
     me = st["players"][st["to_act"]]
     key = "|".join((",".join(sorted(me["hole"])), ",".join(st["board"]),
                     str(st["street"]), str(st["pot"]), str(st["current_bet"]),
-                    str(me["committed_street"])))
+                    str(me["committed_street"]),
+                    str(len(st.get("history", [])))))   # Kollisions-Schutz: gleiche Lage, andere Line
     return random.Random(zlib.crc32(key.encode()))
 
 
