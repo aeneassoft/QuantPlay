@@ -49,15 +49,47 @@ FE_CEILING = 0.75
 # 0.30 verlangt einen krassen Ueberschuss. Keine Post-hoc-Justierung eines
 # validierten Instruments, sondern die Erstkalibrierung eines neuen.
 FOLD_LEAD_MARGIN = 0.30
-# W1-4 (NEU 2026-08-17, Erstkalibrierung VOR Validierung, journalfaehig): die
-# BETTOR-Seite, auf der das Orakel bisher strukturell blind war — der aelteste,
-# 3x belegte Leak (Turn-Check mit Ueberpaar/Trips+; Snowie-Klasse B 11/39).
-# Hero CHECKT turn/river ohne Einsatz vor sich, haelt aber vs die TATSAECHLICHE
-# Gegnerhand Equity >= WERT_MARGIN. Rueckschau-Bias ist real UND gewollt
-# konservativ bepreist: 0.75 verlangt klare Value-Staerke; Slowplay/Trapping ist
-# Seesaw-konform -> der Check ist ein LEAD-Detektor im ARM-VERGLEICH (beide
-# Seiten identisch gegradet), nie ein Beweis fuer die Einzelhand.
+# W1-4 (NEU 2026-08-17; Erstkalibrierung v2 nach adversarischem Design-Review,
+# VOR Validierung, journalfaehig): die BETTOR-Seite, auf der das Orakel bisher
+# strukturell blind war — der aelteste, 3x belegte Leak (Turn-Check mit
+# Ueberpaar/Trips+; Snowie-Klasse B 11/39). Bedingungen (SELEKTION, nicht
+# nackte eq-Schwelle — sonst Frequenz-Detektor, der 3x widerlegte Fehlertyp):
+#   (1) Hero CHECKT turn/river ohne Einsatz vor sich,
+#   (2) Made-Hand-Klassen-Gate wie der turn_wert_guard (Trips+ / Two Pair mit
+#       Hole-Beteiligung / Ueberpaar),
+#   (3) Rueckschau-eq >= WERT_MARGIN vs die tatsaechliche Gegnerhand,
+#   (4) ZAHLUNGSFAEHIGKEIT: eq <= 0.90 ODER Villain haelt Paar+ — eliminiert
+#       die Drawing-dead-Phantom-severity (Bet gegen geplatzte Haende foldet
+#       alles Schlechtere; Check-Induce ist dort die bessere Linie).
+# severity = (min(eq,0.95)-WERT_MARGIN) * min(pot, effective_stack) — Deckel
+# gegen Ueberbepreisung. Slowplay/Trapping bleibt Seesaw-konform -> LEAD-
+# Detektor im ARM-VERGLEICH je GELEGENHEIT, nie Einzelhand-Beweis; Klasse->0
+# waere ein ROTES TUCH (Purify-Muster), kein Sieg.
 WERT_MARGIN = 0.75
+_RANK_ORD = {r: i for i, r in enumerate("23456789TJQKA")}
+
+
+def _made_klasse(hole: list, board: list):
+    """treys-Rangklasse (1=SF..9=High) der Made Hand; None wenn treys fehlt."""
+    try:
+        from treys import Evaluator
+        from pokerbot.engine.evaluator import evaluate
+        return Evaluator().get_rank_class(evaluate(board, hole))
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _starke_made_hand(hole: list, board: list) -> bool:
+    """Das Klassen-Gate des turn_wert_guard, orakel-seitig gespiegelt."""
+    kl = _made_klasse(hole, board)
+    if kl is None:
+        return False
+    hole_pair = hole[0][0] == hole[1][0]
+    board_ranks = [b[0] for b in board]
+    beteiligt = hole_pair or any(hc[0] in board_ranks for hc in hole)
+    ueberpaar = (hole_pair and kl == 8
+                 and _RANK_ORD[hole[0][0]] > max(_RANK_ORD[r] for r in board_ranks))
+    return kl <= 6 or (kl == 7 and beteiligt) or ueberpaar
 
 
 def _rec_rng(rec: dict):
@@ -164,17 +196,40 @@ def grade_decision(rep: OracleReport, rec: dict, bb: int = 100) -> bool:
                     f"{rec['street']}: FE_req {fe_req:.2f} > {FE_CEILING} "
                     f"(eq {eq:.2f}, Risiko {risk}, Pot {pot})"))
 
-    # W1-4 (L, NEU 2026-08-17): VERPASSTER WERT — Check am Turn/River mit klarer
-    # Rueckschau-Value-Staerke. severity ~ entgangene 2/3-Pot-Bet, die eine
-    # schlechtere Hand haelt: (eq - WERT_MARGIN) * pot als Rang-Mass (bb).
+    # W1-4 (L): VERPASSTER WERT — selektions-gegatet, s. Kalibrierungs-Block oben.
     if (action == "check" and to_call <= 0 and rec.get("villain_hole")
-            and rec["street"] in ("turn", "river")):
+            and rec["street"] in ("turn", "river")
+            and _starke_made_hand(rec["hero_hole"], rec["board"])):
+        eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
+                            iters=EQ_ITERS, rng=_rec_rng(rec))
+        v_kl = _made_klasse(rec["villain_hole"], rec["board"])
+        zahlungsfaehig = eq <= 0.90 or (v_kl is not None and v_kl <= 8)
+        if eq >= WERT_MARGIN and zahlungsfaehig:
+            deckel = min(pot, rec.get("effective_stack", pot))
+            rep.leads.append(Verdict(
+                "L", f"verpasster_wert_{rec['street']}",
+                (min(eq, 0.95) - WERT_MARGIN) * deckel / bb,
+                f"{rec['street']}: check mit eq {eq:.2f} >= {WERT_MARGIN} "
+                f"(Pot {pot}, Deckel {deckel})"))
+
+    # W1-5 (L, NEU 2026-08-17, Erstkalibrierung VOR Validierung): VERPASSTER
+    # RAISE — die K5-Seite (Raise-Armut 0-4% der Empfehlung): CALL am Turn/River
+    # mit Monster-Rueckschau-eq, wo selbst der fold_equity-FREIE Min-Raise-EV
+    # den Call-EV schlaegt (Fold-Equity kann den Raise nur verbessern).
+    if (action == "call" and to_call > 0 and rec.get("villain_hole")
+            and rec["street"] in ("turn", "river")
+            and _starke_made_hand(rec["hero_hole"], rec["board"])):
         eq = equity_vs_hand(rec["hero_hole"], rec["villain_hole"], rec["board"],
                             iters=EQ_ITERS, rng=_rec_rng(rec))
         if eq >= WERT_MARGIN:
-            rep.leads.append(Verdict(
-                "L", "verpasster_wert", (eq - WERT_MARGIN) * pot / bb,
-                f"{rec['street']}: check mit eq {eq:.2f} >= {WERT_MARGIN} (Pot {pot})"))
+            risk = min(2 * to_call, rec.get("effective_stack", 2 * to_call))
+            ev_call = eq * (pot + to_call) - to_call
+            ev_raise = eq * (pot + to_call + 2 * (risk - to_call)) - risk
+            if ev_raise > ev_call:
+                rep.leads.append(Verdict(
+                    "L", "verpasster_raise", (ev_raise - ev_call) / bb,
+                    f"{rec['street']}: call mit eq {eq:.2f} (to_call {to_call}, "
+                    f"Min-Raise-EV {ev_raise:.0f} > Call-EV {ev_call:.0f})"))
 
     # L: Call deutlich unter der Pot-Odds-Schwelle, in Rueckschau-Equity.
     if action == "call" and to_call > 0 and rec.get("villain_hole"):
@@ -231,10 +286,12 @@ def manifest() -> dict:
             "expected_value-Spiegel: fold_ueber_pot_odds  (L, W1-1)",
             "exact_two_card_draw_equity: allin_call_ohne_odds  (L, W1-2, P->L herabgestuft)",
             "required_fold_equity: bet_braucht_unplausible_folds  (L, W1-3, korrigiert)",
+            "verpasster_wert_{turn,river}  (L, W1-4: Bettor-Seite, selektions-gegated)",
+            "verpasster_raise  (L, W1-5: Raise-Seite, K5-Detektor)",
         ],
         "offen": [
             "compute_pot_odds", "expected_value", "bluff_to_value_and_frequencies",
-            "required_future_winnings_for_implied_odds", "required_fold_equity",
+            "required_future_winnings_for_implied_odds",
             "outs_to_equity_rule_2_and_4", "compute_spr",
             "count_hand_combos_with_blockers", "breakeven_bluff_percentage",
             "equity_realization",

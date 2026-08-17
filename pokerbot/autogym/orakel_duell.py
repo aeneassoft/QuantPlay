@@ -37,6 +37,10 @@ def _worker(args: tuple) -> tuple:
     decks = gen_decks(n_decks, seed=deck_seed)
     g = HeadsUpGame(names=("S0", "S1"), starting_stack=20000, sb=50, bb=100, seed=0)
     reps = {kandidat: orc.OracleReport(), incumbent: orc.OracleReport()}
+    # GELEGENHEITS-Zaehler (adversarisches Review W1-4: Raten je 1000 Gesamt-
+    # Entscheidungen sind arm-vergleichs-untauglich, weil ein bettender Arm die
+    # Handlaengen aendert — normiert wird je ELIGIBLE Knoten, Strassen getrennt).
+    geleg = {kandidat: Counter(), incumbent: Counter()}
     rows: list = []
 
     def spiel(fab_a, name_a, fab_b, name_b, h0, h1, board):
@@ -55,6 +59,11 @@ def _worker(args: tuple) -> tuple:
                    "board": st["board"], "villain_hole": opp["hole"],
                    "call_closes_action": opp["all_in"] or to_call >= me["stack"],
                    "effective_stack": min(me["stack"], opp["stack"]), "n_opponents": 1}
+            if st["street"] in ("turn", "river"):
+                if to_call <= 0:
+                    geleg[strat][f"check_gelegenheit_{st['street']}"] += 1
+                else:
+                    geleg[strat][f"facing_bet_{st['street']}"] += 1
             n_l, n_p = len(reps[strat].leads), len(reps[strat].provable)
             geflaggt = orc.grade_decision(reps[strat], rec, bb=100)
             if geflaggt:
@@ -74,6 +83,7 @@ def _worker(args: tuple) -> tuple:
     for name, rep in reps.items():
         orc.finalize_frequencies(rep)          # F-Stufe (mdf_flop etc.) je Strategie
         aus[name] = {"decisions": rep.decisions,
+                     "gelegenheiten": dict(geleg[name]),
                      "regeln": dict(Counter(v.rule for v in rep.leads + rep.provable + rep.freq)),
                      "severity": {r: round(sum(v.severity_bb for v in rep.leads if v.rule == r), 1)
                                   for r in {v.rule for v in rep.leads}}}
@@ -89,6 +99,7 @@ def duell(kandidat: str, incumbent: str, n_decks: int, workers: int,
     gesamt = {kandidat: Counter(), incumbent: Counter()}
     sev = {kandidat: Counter(), incumbent: Counter()}
     dez = {kandidat: 0, incumbent: 0}
+    geleg = {kandidat: Counter(), incumbent: Counter()}
     alle_rows: list = []
     with mp.Pool(workers) as pool:
         for k, (aus, rows) in enumerate(pool.imap_unordered(_worker, jobs), 1):
@@ -96,13 +107,28 @@ def duell(kandidat: str, incumbent: str, n_decks: int, workers: int,
                 gesamt[name].update(a["regeln"])
                 sev[name].update(a["severity"])
                 dez[name] += a["decisions"]
+                geleg[name].update(a["gelegenheiten"])
             alle_rows.extend(rows)
             el = time.time() - t0
             print(f"  [{k}/{n_jobs}] {el/60:.1f} min | ETA {el/k*(n_jobs-k)/60:.1f} min",
                   flush=True)
     out = {"kandidat": kandidat, "incumbent": incumbent, "n_decks": n_decks}
     for name in (kandidat, incumbent):
-        out[name] = {"decisions": dez[name],
+        g = geleg[name]
+        # Zielklassen je ELIGIBLE Gelegenheit (arm-vergleichstauglich); alles
+        # andere je 1000 Entscheidungen (Nebenwirkungs-Panel).
+        je_geleg = {}
+        for street in ("turn", "river"):
+            n_g = g.get(f"check_gelegenheit_{street}", 0)
+            je_geleg[f"verpasster_wert_{street}_je100"] = round(
+                gesamt[name].get(f"verpasster_wert_{street}", 0) / max(1, n_g) * 100, 2)
+            n_f = g.get(f"facing_bet_{street}", 0)
+            je_geleg[f"verpasster_raise_{street}_basis"] = n_f
+        je_geleg["verpasster_raise_je100_facing"] = round(
+            gesamt[name].get("verpasster_raise", 0)
+            / max(1, g.get("facing_bet_turn", 0) + g.get("facing_bet_river", 0)) * 100, 2)
+        out[name] = {"decisions": dez[name], "gelegenheiten": dict(g),
+                     "zielklassen_je_gelegenheit": je_geleg,
                      "rate_je_1000": {r: round(c / max(1, dez[name]) * 1000, 2)
                                       for r, c in sorted(gesamt[name].items())},
                      "severity_bb_summe": dict(sev[name])}
