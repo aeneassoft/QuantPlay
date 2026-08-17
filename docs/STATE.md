@@ -11,7 +11,12 @@ data/runs/*.json): (1) Runde 6b: eCall-Neubau schaerfer selektiert + turn_wert-S
 7/7-Tell = Seesaw-Verletzung, wichtigster Einzelfix) + Stack-off-Bremse + Limp-Streichung; (2) princegate
 + GTOW-Adapter (PFLICHT vor jedem Anker; Resolver-Falle); (3) pargate6 (6-max); (4) Flop-Resolver-Baustellen
 (Range-Abdeckung + Latenz/ISO-Cache); (5) Niveau-Audit-Rangliste (AIVAT-light, FDR-Ledger, Turn-Retraining).
-$30 Pod unangetastet. Fable-Duell-Harness = stehendes Adversar-Instrument (FABLE_STACK-Param).**
+$30 Pod unangetastet. Fable-Duell-Harness = stehendes Adversar-Instrument (FABLE_STACK-Param).
+VERDRAHTUNG FINAL (2026-08-18, Commit 88771f8): pokerbot/strategy/auslese.py = EINE Quelle
+(FINAL_STACK r6_button + AUSLESE_ENV; resolver-ON-Variante ohne RN); HU-App gewickelt, six_server
+Env-Anteil, gtowizard POKERB_AUSLESE_STACK-Adapter (default byte-identisch); alle Kanaele smoke-gruen.
+FINALER STACK vs basis (Mirror 30k, Bank 150000): +23,36+-5,32 CI[+12,8,+33,7] p=0,0002 ANWENDEN.
+GTOW-Lauf wartet auf User-Kommando (Protokoll in data/runs/praezisions_armee_2026-08-17.json).**
 
 ## ★★★★★ CURRENT (2026-08-17 nacht III) — PRAEZISIONS-LAUF: Verdikte bootstrap-gehaertet, Armee-Fixes gelandet
 **Niveau-Audit (7 Agenten, `data/runs/niveau_audit_2026-08-17.json`: Top-15-Rangliste; #1 AIVAT-light im
