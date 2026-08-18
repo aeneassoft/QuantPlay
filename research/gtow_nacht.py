@@ -35,7 +35,7 @@ def _lauf(env_extra: dict, n: int) -> tuple[int, float] | None:
     env.update(env_extra)
     p = subprocess.run([sys.executable, "tools/gtow_run.py", "--agent_type", "pokerbot",
                         "--num_hands", str(n)], cwd=REPO, env=env,
-                       capture_output=True, text=True, timeout=7200)
+                       capture_output=True, encoding="utf-8", errors="replace", timeout=7200)
     out = p.stdout + p.stderr
     m = re.findall(r"AIVAT luck-adj : ([+-]?\d+\.\d+) \+/- [\d.]+ bb/100  \(n=(\d+)\)", out)
     if p.returncode == 0 and m:
@@ -73,7 +73,7 @@ def main() -> None:
             try:
                 res = _lauf(arm, 500)
             except Exception as e:  # noqa: BLE001
-                print("Ausnahme:", e, flush=True)
+                print("Ausnahme:", repr(e), flush=True)
                 res = None
             if res:
                 break
