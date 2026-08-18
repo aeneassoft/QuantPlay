@@ -302,7 +302,15 @@ How I write code AND talk about it — the standing default, every turn.
 > Stufe-2-Baustelle). GTOW-EHRLICHKEIT: Live-Anker ~−25..−30 (der −19,70 war Blinds-Bug-inflationiert);
 > gtowizard.py braucht den v4-ADAPTER (Wrapper fehlt im Harness, Resolver default ON = RAISE_NARROW-Falle)
 > BEVOR ein Anker laeuft. QUEUE: Fable-Retest vs gehaertetem Stack, Follow-Through-/Seesaw-Mixing-Guards
-> (stateful), princegate, pargate6, GTOW-Adapter (Specs fertig in data/runs/).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
+> (stateful), princegate, pargate6, GTOW-Adapter (Specs fertig in data/runs/).**
+> **★ GTOW-ERSTKONTAKT v4 (2026-08-18 nacht, LAEUFT — Live-Stand in STATE.md!): finaler Bot verdrahtet
+> (pokerbot/strategy/auslese.py = EINE Quelle: FINAL_STACK r6_button + AUSLESE_ENV; HU-App/six_server/
+> gtowizard-Adapter, alle smoke-gruen; finaler Stack vs basis Mirror +23,36±5,32 ANWENDEN). GTOW-Staffel
+> Key #3: Smokes 20/100 mechanisch fehlerfrei (2 Bugs gefunden+gefixt: 409-Waisen→clear_inprogress-Pflicht
+> vor jedem Start; dict+str in wickle_decide), aber AIVAT gepoolt ~−53±12 = ROTES TUCH (v8-Muster; Verdacht:
+> Fable-Befund live — gecappte Check-Range vs Re-Solver). Nachtlauf 4x500 mit vorregistriertem Checkpoint
+> (v4-Pool ≤ −45 nach Chunk 1 → Kontroll-Arm PRINCE-resolver-ON). Hand-Histories aller Laeufe:
+> data/sessions/gtow_hands_*.jsonl + gtow_manifest_2026-08-18.json. Ergebnis: Journal GTOW-NACHT-*.** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
 > schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
 > einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
 > Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes

@@ -3,6 +3,25 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-18 nacht) — GTOW-STAFFEL LAEUFT: Smokes gruen, Zahl ist ROTES TUCH, Nachtlauf mit Checkpoint
+**Der erste v4-GTOW-Test (Key #3, User-Kommando) laeuft als Staffel 20→100→2000.** Arm = v4-Stack
+(POKERB_AUSLESE_STACK=r6_button + TURN_DEFENSE 0.07 + SLOWPLAY 0.25 + RAISE_NARROW 1.0, resolver-OFF).
+**Smokes: mechanisch PERFEKT** (20/20 + 100/100, null Fehler; zwei Vorfaelle gefunden+gefixt: 409-Konto voll
+mit 20 Alt-Waisen → clear_inprogress; dict+str-Crash in wickle_decide EXAKT bei Guard-Eingriff → auslese.py
+Guard-Marker statt rationale-Konkatenation). **ABER: AIVAT 20er −21,34±14,3 / 100er −59,03±22,1, gepoolt
+~−53±12 = 2σ UNTER dem ehrlichen Anker (−25..−30) — das v8-Muster (−58!), Verdacht = Fable-Befund live
+(gecappte Check-Range vs Re-Solver).** Der NACHTLAUF (research/gtow_nacht.py, laeuft im Hintergrund):
+4x500-Chunks, je 3 Versuche + Auto-clear_inprogress; VORREGISTRIERTER CHECKPOINT nach Chunk 1: v4-Pool
+(Smokes+Chunk1) ≤ −45 → Rest-Chunks wechseln auf KONTROLLE (POKERB_PRINCE=1 resolver-ON = die
+−30,11-Referenz) → die Nacht liefert dann den erklaerenden A/B. **ERGEBNISSE FUER DIE NAECHSTE SESSION:**
+(1) Journal data/autogym/journal.jsonl (Typen GTOW-NACHT-CHUNK je Chunk + GTOW-NACHT-FAZIT gepoolt),
+(2) Hand-Histories automatisch in data/sessions/gtow_hands_*.jsonl + Zuordnung in
+data/sessions/gtow_manifest_2026-08-18.json (Crash-Smoke NICHT werten), (3) Analyse-Wege:
+gtow_tree_census-Parser (replay), research/analyze_gtow_hands.py, Analyzer-Export. **WENN v4 LIVE BRICHT:
+Runde 6b-Prioritaet = turn_wert-SIZE-EntkopPlung (der 7/7-Tell) + Check-Range-Entcappung — der Fable-Report
+(Journal FABLE-DUELL/FABLE-RETEST) hat die Mechanik vorhergesagt. 409-Regel: vor jedem GTOW-Start
+clear_inprogress laufen lassen. Start-Kommando-Muster: siehe research/gtow_nacht.py ARM_V4/_lauf().**
+
 ## ★★★★★ SCHLUSSSTRICH ATTACKE-SPRINT (2026-08-18 frueh) — v4 steht, Haertung bewiesen, Queue klar
 **Bilanz: AUSLESE v4 (Tag auslese-v4) dreifach gesichert (Mirror +16,14±2,77 vs basis; envgate-Treppe;
 Orakel-Panel gruen). r6_button ins HAERTUNGS-PROFIL (Fable-Retest: Ernte 186→58 bb/100, cooler-bereinigt
