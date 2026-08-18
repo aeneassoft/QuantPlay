@@ -327,6 +327,31 @@ How I write code AND talk about it — the standing default, every turn.
 > (1) die Mathematik-Benchmark (Orakel), (2) Self-Play-Gates (gepaarte Decks), (3) der gepaarte
 > A/B-Anker NEUER BOT vs ALTE BASIS (`duplicate_ab` auf identischen Decks). GTOW nur zur Not.**
 
+## ★ FALLBACK-PROTOKOLL (2026-08-18) — fuer JEDES Modell unterhalb Fable 5 (z.B. Opus 5) BINDEND
+Wenn du nicht Fable 5 bist: arbeite DEFENSIV nach diesen Regeln. Das Projekt ist praezise vermessen —
+ein gut gemeinter Eingriff ohne Gate zerstoert mehr als er hilft.
+**1. EINSTIEG (immer in dieser Reihenfolge):** docs/STATE.md oberster CURRENT-Block lesen → data/runs/STAND.md
+→ bei GTOW-Fragen das Journal: `python -c "import json; [print(l.strip()) for l in open('data/autogym/journal.jsonl', encoding='utf-8').readlines()[-30:]]"`.
+**2. SICHERE STANDARD-AKTIONEN (ohne Rueckfrage erlaubt):** Journal/result.json/STAND lesen und ZITIEREN;
+fertige Kommandos AUS DER DOKU woertlich ausfuehren (pargate/envgate/orakel_duell/gtow_nacht — Muster stehen
+in STATE.md und den Moduldocstrings); vor jedem GTOW-Start `clear_inprogress.py` (409-Waisen); Ergebnisse
+berichten MIT Quelle (Datei+Zeile). Jede Zahl ohne Quelle ist verboten — NIE Zahlen aus dem Gedaechtnis.
+**3. VERBOTSZONEN (nur mit explizitem User-Auftrag UND durchs Gate):** knowledge_base/math/* (Formeln
+unveraenderlich), Orakel-Schwellen/Knoepfe in oracle.py (Mess-Konfig, Goodhart-Sperre), pokerbot/strategy/*
+(Strategie-Code — Aenderungen NUR als Guard-Wrapper + gepaartes Gate), eingefrorene Tags (autogym-basis,
+auslese-v1..v4, v2), laufende Hintergrund-Jobs (nie killen ohne Diagnose), git-Historie (kein rebase/reset).
+**4. MESS-DISZIPLIN (nicht verhandelbar):** VOR jeder Messreihe A/A-Nulltest (Kandidat==Incumbent muss
+EXAKT 0 sein — sonst STOPP und Befund melden, nicht reparieren); eine Worker-Flotte zur Zeit; mp-Treiber
+nie als Heredoc (`python -m` Module nutzen); Verdikte nur via stats.verdikt (Bootstrap bei duennen Kanaelen);
+3-Laeufe-Regel vor jeder Taufe; envgate-Ergebnisse heissen KANAL_* und sind NIE Ship-Evidenz.
+**5. ESKALATION:** Bei inkonsistenten Zahlen, kaputtem A/A, unklaren Diffs im Working Tree oder JEDEM
+Verdacht auf eine zweite Session (Memory: one-session-per-repo): STOPPEN, Befund mit Quellen an den User,
+NICHTS eigenmaechtig fixen. Ein ehrliches "ich weiss es nicht, hier ist der Stand" ist immer richtig;
+eine plausible Erfindung ist immer falsch.
+**6. WAS DU NICHT TUN SOLLTEST, AUCH WENN ES NAHELIEGT:** grosse Refactors, "Aufraeumen" von Code den du
+nicht gemessen hast, Agenten-Armeen ohne klaren Auftrag, GTOW-Laeufe ueber die dokumentierte Staffel hinaus
+(Hand-Budget!), Aendern von CLAUDE.md-Doktrin-Bloecken. Im Zweifel: lesen, berichten, fragen.
+
 ## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
 Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche
 Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) liegt im
