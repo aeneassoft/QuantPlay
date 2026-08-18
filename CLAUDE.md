@@ -310,7 +310,14 @@ How I write code AND talk about it — the standing default, every turn.
 > vor jedem Start; dict+str in wickle_decide), aber AIVAT gepoolt ~−53±12 = ROTES TUCH (v8-Muster; Verdacht:
 > Fable-Befund live — gecappte Check-Range vs Re-Solver). Nachtlauf 4x500 mit vorregistriertem Checkpoint
 > (v4-Pool ≤ −45 nach Chunk 1 → Kontroll-Arm PRINCE-resolver-ON). Hand-Histories aller Laeufe:
-> data/sessions/gtow_hands_*.jsonl + gtow_manifest_2026-08-18.json. Ergebnis: Journal GTOW-NACHT-*.** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
+> data/sessions/gtow_hands_*.jsonl + gtow_manifest_2026-08-18.json. Ergebnis: Journal GTOW-NACHT-*.
+> NACHT-1-BEFUND (~04:10): Gym-Konfig nackt = −38,86 (n=1617, aus HH-Dateien geborgen nach cp1252-
+> Treiber-Bug — jede Hand traegt `aivat`, Bergung exakt validiert); 81% des Verlusts am RIVER im alten
+> Jam-Spew-/Station-Muster = dem Arm fehlten Resolver + GTO-Disziplin, KEIN v4-Verdikt. NACHT 2 (laeuft):
+> der echte finale Bot (AUSLESE-Kette + PRINCE + Resolver-ON, ohne RN) mit Kontroll-Chunk als A/B —
+> Journal GTOW-NACHT2-*. LEKTIONEN (bindend): subprocess IMMER encoding="utf-8" (cp1252-Falle);
+> HH-Logging ist die Versicherung jedes Laufs; Live-Arme brauchen das Live-Fundament (Gym-Konfig
+> transplantiert sich NICHT nackt).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
 > schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
 > einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
 > Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes

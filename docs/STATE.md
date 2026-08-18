@@ -3,6 +3,22 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NACHT 1 SEZIERT: -38,9 (n=1617) = 81% RIVER ohne Resolver; NACHT 2 = echter Bot + A/B
+**NACHT-1-ERGEBNIS (v4-Gym-Konfig NACKT: exploit-ON, resolver-OFF): AIVAT gepoolt -38,86 (n=1617).**
+Treiber-Bug (cp1252-Decode) wertete ERFOLGREICHE 500er-Chunks als Fehlschlaege -> Retries spielten mehr
+v4-Haende; ALLES aus HH-Dateien geborgen (jede Hand traegt `aivat`; Methode exakt gegen Smokes validiert;
+Chunks: -26,6/-55,0/-31,7). **DIAGNOSE AUS DEN 1617 HAENDEN (Journal + Miner): 81% des Verlusts am RIVER
+(-511 von -628 bb), Muster = das ALTE Desaster (175bb-Jam-Bluff mit K-high in die Straight; Bottom-Pair-
+Call eines 172bb-Jams) — dem Kanal fehlten die zwei Live-Traeger: RESOLVER (river_resolve wurde exakt
+dafuer gebaut, war in der -30,11-Referenz AN) + GTO-MODE-Disziplin (exploit-ON blutet vs Near-GTO).
+KEIN v4-Verdikt — eine nie zuvor gemessene Konfig.** Checkpoint haette korrekt nicht ausgeloest (-31,7
+nach Chunk A). **NACHT 2 LAEUFT (research/gtow_nacht.py v2, User-Kommando): der ECHTE finale Bot wie
+gegen die Basis gebaut — AUSLESE-Guard-Kette r6_button(turn_wert(sel_m15)) via POKERB_AUSLESE_STACK —
+auf dem Live-Fundament POKERB_PRINCE=1 + Resolver-ON, OHNE RAISE_NARROW (v8-K3, einzige regelkonforme
+Abweichung). Chunk 1 = KONTROLLE (PRINCE pur = -30,11-Referenz), Chunks 2-4 = v4_prince -> der A/B liegt
+in einer Nacht. Stapel-Risiko vorregistriert: turn_wert kann Resolver-Slowplay-Checks ueberschreiben.
+Ergebnis: Journal GTOW-NACHT2-*; HH weiter in data/sessions/gtow_hands_*.jsonl (Manifest ergaenzen!).**
+
 ## ★★★★★ CURRENT (2026-08-18 nacht) — GTOW-STAFFEL LAEUFT: Smokes gruen, Zahl ist ROTES TUCH, Nachtlauf mit Checkpoint
 **Der erste v4-GTOW-Test (Key #3, User-Kommando) laeuft als Staffel 20→100→2000.** Arm = v4-Stack
 (POKERB_AUSLESE_STACK=r6_button + TURN_DEFENSE 0.07 + SLOWPLAY 0.25 + RAISE_NARROW 1.0, resolver-OFF).
