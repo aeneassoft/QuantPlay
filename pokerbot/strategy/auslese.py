@@ -48,7 +48,8 @@ def wickle_decide(pb, stack: str | None = None):
         a, amt = kette(st)
         dec = merker["dec"]
         if (a, amt) != (dec["action"], dec["amount"]):
-            dec = {**dec, "action": a, "amount": amt,
-                   "rationale": (dec.get("rationale") or "") + " [AUSLESE-Guard]"}
+            # rationale ist beim PokerBot ein DICT — nie String-konkatenieren
+            # (Smoke-20-Fund 2026-08-18: dict+str-Crash exakt bei Guard-Eingriff).
+            dec = {**dec, "action": a, "amount": amt, "auslese_guard": True}
         return dec
     return decide
