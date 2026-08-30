@@ -23,7 +23,10 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               "r6_ecall", "r6_button",
               # Runde 7 (2026-08-30, GTOW-Nacht-2-Mine): Big-Pot-River-Defense +
               # Wert-Bremse, exakte Enumeration (RNG-frei), Inkremente auf r6_button.
-              "r7_bill", "r7_wert", "r7_river")
+              "r7_bill", "r7_wert", "r7_river",
+              # Runde 8: GPU-Solver-Chirurgie (RiverCFRBatch; nur klare
+              # Solver-Widersprueche in Big Pots). GPU-Arm: --workers <= 6!
+              "r8_gpu")
 
 
 def _wickle(name: str, basis):
@@ -87,6 +90,9 @@ def _wickle(name: str, basis):
     if name == "r7_river":
         from pokerbot.autogym.improver import river_bill_guard, river_wert_bremse
         return river_wert_bremse(river_bill_guard(_wickle("r6_button", basis)))
+    if name == "r8_gpu":
+        from pokerbot.autogym.improver import river_gpu_guard
+        return river_gpu_guard(_wickle("r6_button", basis))
     raise ValueError(name)
 
 

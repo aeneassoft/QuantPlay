@@ -418,6 +418,109 @@ def river_wert_bremse(make_strat, min_eq: float = 0.50):
     return make
 
 
+def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 200,
+                    p_max_basis: float = 0.10, p_min_alt: float = 0.70):
+    """Runde-8-Kandidat GPU-SOLVER-CHIRURGIE — der Befund des GPU-River-Audits
+    (571/571 Nacht-2-Entscheidungen: die Desaster-Calls kriegen Solver-fold
+    p>0.95, die Fehl-Value-Bets Solver-check p~1.0; Tracker-Schwellen tragen
+    nicht, Journal R7-DIAGNOSE). Regel: in grossen River-Toepfen wird das
+    Subgame mit den am RIVER-BEGINN eingefrorenen Tracker-Ranges auf der GPU
+    geloest (RiverCFRBatch); die Basis-Aktion wird NUR ueberschrieben, wenn der
+    Solver sie klar verwirft (p_basis < p_max_basis UND p_alternative >
+    p_min_alt) — konservative Chirurgie, das Mixing der Basis bleibt sonst
+    unangetastet (Seesaw). Deterministisch (kein RNG, argmax nur im Klarfall)."""
+    from pokerbot.strategy.gpu_resolver import RiverSpot, solve_spots
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+        merk = {"hand": None, "spots": {}}       # Solve-Wiederverwendung je Hand
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if st["street"] != "river" or st["pot"] < min_pot_chips:
+                return a, amt
+            try:
+                # Ranges am RIVER-BEGINN: history bis zum River-Deal schneiden
+                hist = st.get("history", []) or []
+                schnitt = next((i for i, h in enumerate(hist)
+                                if h.get("action") == "deal" and h.get("street") == "river"),
+                               None)
+                if schnitt is None:
+                    return a, amt
+                st0 = dict(st)
+                st0["history"] = hist[:schnitt + 1]
+                t = RangeTracker().build(st0)
+                hero_w = t.range.get(st["to_act"], {})
+                vill_w = t.range.get(1 - st["to_act"], {})
+                if not hero_w or not vill_w:
+                    return a, amt
+                # River-Sequenz (Zusatz-Betraege) aus der History nach dem Deal
+                lvl = {0: 0.0, 1: 0.0}
+                seq = []
+                for h in hist[schnitt + 1:]:
+                    akt, s2 = h.get("action"), h.get("player")
+                    if s2 not in (0, 1):
+                        continue
+                    wer = "hero" if s2 == st["to_act"] else "vill"
+                    if akt in ("bet", "raise", "allin"):
+                        to = float(h.get("to") or h.get("amount") or 0.0)
+                        seq.append((wer, "raise" if lvl[s2] or max(lvl.values()) else "bet",
+                                    max(0.0, to - lvl[s2])))
+                        lvl[s2] = max(lvl[s2], to)
+                    elif akt == "call":
+                        need = max(lvl.values()) - lvl[s2]
+                        seq.append((wer, "call", need))
+                        lvl[s2] = max(lvl.values())
+                    elif akt == "check":
+                        seq.append((wer, "check", 0.0))
+                # Frage-Aktion anfuegen (Basis-Entscheid als letzter seq-Eintrag)
+                frage = ("raise" if a in ("raise", "allin") and to_call > 0 else
+                         "bet" if a in ("bet", "raise", "allin") else a)
+                seq.append(("hero", frage, 0.0))
+                # Pot/eff-Stack am RIVER-BEGINN: die River-Einsaetze aus der
+                # History wieder herausrechnen (st['pot'] enthaelt sie bereits)
+                river_einsaetze = sum(z for _, k, z in seq if k in ("bet", "raise", "call"))
+                pot_river = st["pot"] - river_einsaetze
+                eff = min(p["stack"] + p["committed_street"] for p in st["players"])
+                if pot_river <= 0 or eff <= 0:
+                    return a, amt
+                btn = st.get("button", 0)
+                spot = RiverSpot(st["board"], hero_w, vill_w, pot_river, eff,
+                                 hero_oop=(st["to_act"] != btn), seq=seq,
+                                 hero_hole=tuple(me["hole"]))
+                res = solve_spots([spot], iters=iters)[0]
+                if res is None:
+                    return a, amt
+                acts, sig = res["acts"], res["sigma"]
+                if frage in ("bet", "raise"):
+                    kand = [i for i, x in enumerate(acts) if x.startswith(("bet", "raise"))]
+                    p_basis = max((sig[i] for i in kand), default=0.0)
+                elif frage in acts:
+                    p_basis = sig[acts.index(frage)]
+                else:
+                    return a, amt
+                best = max(range(len(sig)), key=lambda i: sig[i])
+                if p_basis < p_max_basis and sig[best] > p_min_alt:
+                    alt = acts[best]
+                    if alt == "fold" and to_call > 0:
+                        return "fold", None
+                    if alt == "call" and to_call > 0:
+                        return "call", None
+                    if alt == "check" and to_call == 0:
+                        return "check", None
+                    if alt.startswith("bet") and to_call == 0:
+                        # Size aus dem Baum-Arm (invest-Differenz, pot-skaliert)
+                        return "bet", int(0.75 * st["pot"])
+            except Exception:  # noqa: BLE001
+                pass            # defensiv: im Zweifel bleibt die Basis-Aktion
+            return a, amt
+        return d
+    return make
+
+
 def button_disziplin_guard(make_strat):
     """Runde-6-Kandidat aus dem Fable-Duell (Button-Open-Fold ~29% = geschenkte
     0,5bb-Rente): der Button open-foldet in HU NIE — aus fold bei to_call=50
