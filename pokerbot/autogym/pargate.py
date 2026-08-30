@@ -20,7 +20,10 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # Runde 5 (2026-08-17): margen-gematchte streets-Arme (nach dem
               # sel_guard-streets-Fix ERSTMALS echt messbar) + Turn-Wert-Bet-Seite.
               "sel_all_m15", "sel_turn_m15", "turn_wert", "wert_plus_all",
-              "r6_ecall", "r6_button")
+              "r6_ecall", "r6_button",
+              # Runde 7 (2026-08-30, GTOW-Nacht-2-Mine): Big-Pot-River-Defense +
+              # Wert-Bremse, exakte Enumeration (RNG-frei), Inkremente auf r6_button.
+              "r7_bill", "r7_wert", "r7_river")
 
 
 def _wickle(name: str, basis):
@@ -75,6 +78,15 @@ def _wickle(name: str, basis):
     if name == "wert_plus_all":
         # Kombi-Probe: Call-Selektion alle Strassen + Turn-Wert-Bet-Seite.
         return turn_wert_guard(sel_guard(basis, margin=0.15, streets=("flop", "turn", "river")))
+    if name == "r7_bill":
+        from pokerbot.autogym.improver import river_bill_guard
+        return river_bill_guard(_wickle("r6_button", basis))
+    if name == "r7_wert":
+        from pokerbot.autogym.improver import river_wert_bremse
+        return river_wert_bremse(_wickle("r6_button", basis))
+    if name == "r7_river":
+        from pokerbot.autogym.improver import river_bill_guard, river_wert_bremse
+        return river_wert_bremse(river_bill_guard(_wickle("r6_button", basis)))
     raise ValueError(name)
 
 

@@ -312,6 +312,112 @@ def river_ecall_guard(make_strat, marge: float = 0.05, iters: int = 200):
     return make
 
 
+def _river_eq_exakt(hole, cw: dict, board) -> float:
+    """Exakte Equity vs eine gewichtete Range am River (5 Board-Karten):
+    reine Enumeration ueber alle Combos, KEIN RNG — paarungssicher und
+    rauschfrei (die MC-Variante mit iters=200 traegt ~3,5pp SE; genau das
+    Rauschen, an dem r6_ecall im Mirror scheiterte)."""
+    from pokerbot.engine.evaluator import evaluate
+    tot = set(hole) | set(board)
+    hero_s = evaluate(board, list(hole))
+    besser = schlechter = gleich = 0.0
+    for (c1, c2), gew in cw.items():
+        if gew <= 0 or c1 in tot or c2 in tot:
+            continue
+        s = evaluate(board, [c1, c2])          # treys: KLEINER = besser
+        if s < hero_s:
+            besser += gew
+        elif s > hero_s:
+            schlechter += gew
+        else:
+            gleich += gew
+    masse = besser + schlechter + gleich
+    return (schlechter + 0.5 * gleich) / masse if masse > 0 else float("nan")
+
+
+def river_bill_guard(make_strat, marge: float = 0.04, overbet_marge: float = 0.02,
+                     min_frac: float = 0.6, min_pot_chips: int = 3000):
+    """Runde-7-Kandidat BIG-POT-RIVER-DEFENSE — der GEMESSEN groesste Leak der
+    GTOW-Nacht 2 (hh_luecken_mine: 9 River-Riesenpot-Calls = -121bb = 59% des
+    v4-Nettoverlusts; die Kontrolle blutet in derselben Zelle). Neubau nach der
+    r6_ecall-Obduktion (Mirror -4,15 = Value-Folds): (1) EXAKTE Enumeration
+    statt MC-200 (rauschfrei, RNG-frei), (2) Marge NEGATIV — gefoldet wird nur
+    ein klar -EV-Call (eq < Pot-Odds MINUS marge), nie der Grenz-Call,
+    (3) enger Trigger: nur grosse River-Bets (>= min_frac Pot) in grossen
+    Toepfen (>= min_pot_chips final). Overbets/Jams (Bet >= Pot) sind
+    polarisiert-value-lastig -> dort greift die engere overbet_marge."""
+    from knowledge_base.math.formulas import equity_needed_to_call
+    from pokerbot.strategy.range_tracker import RangeTracker
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            pot_vor = max(1, st["pot"] - to_call)
+            if (a == "call" and st["street"] == "river"
+                    and to_call >= min_frac * pot_vor
+                    and st["pot"] + to_call >= min_pot_chips):
+                try:
+                    t = RangeTracker().build(st)
+                    cw = t.range.get(1 - st["to_act"], {})
+                    if cw:
+                        eq = _river_eq_exakt(me["hole"], cw, st["board"])
+                        m_eff = overbet_marge if to_call >= pot_vor else marge
+                        if eq == eq and eq < equity_needed_to_call(st["pot"], to_call) - m_eff:
+                            return "fold", None
+                except Exception:  # noqa: BLE001
+                    pass            # defensiv: im Zweifel bleibt der Basis-Call
+            return a, amt
+        return d
+    return make
+
+
+def river_wert_bremse(make_strat, min_eq: float = 0.50):
+    """Runde-7-Kandidat RIVER-WERT-BREMSE — zweitgroesster Nacht-2-Block
+    (hh_luecken_mine: River-BETS in bessere Haende, ~-59bb; Typusfall #3001968
+    Trips bettet 34bb in den offensichtlichen Nut-Flush). Regel: eine RIVER-Bet
+    mit STARKER Made Hand (Two Pair+) ist eine Value-Bet — sie braucht eq >=
+    min_eq vs die Tracker-Range, sonst ist die Hand auf diesem Board ein
+    Bluffcatcher und der Check dominiert (Showdown-Value statt Bet in bessere).
+    Bluffs/schwache Haende bleiben UNANGETASTET (Seesaw: die Bluff-Seite der
+    Bet-Range wird nicht purifiziert). Nur der to_call==0-Knoten (bet->check);
+    der Raise-Knoten bleibt bewusst v2 (ein Mechanismus pro Guard)."""
+    from pokerbot.engine.evaluator import evaluate
+    from pokerbot.strategy.range_tracker import RangeTracker
+    try:
+        from treys import Evaluator as _TreysEval
+        _klasse = _TreysEval().get_rank_class          # 1=SF .. 7=Two Pair, 8=Pair
+    except Exception:  # noqa: BLE001
+        _klasse = None
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if (a == "bet" and to_call == 0 and st["street"] == "river"
+                    and _klasse is not None):
+                try:
+                    kl = _klasse(evaluate(st["board"], me["hole"]))
+                    if kl <= 7:                        # nur die Value-Absicht bremsen
+                        t = RangeTracker().build(st)
+                        cw = t.range.get(1 - st["to_act"], {})
+                        if cw:
+                            eq = _river_eq_exakt(me["hole"], cw, st["board"])
+                            if eq == eq and eq < min_eq:
+                                return "check", None
+                except Exception:  # noqa: BLE001
+                    pass            # defensiv: im Zweifel bleibt die Basis-Bet
+            return a, amt
+        return d
+    return make
+
+
 def button_disziplin_guard(make_strat):
     """Runde-6-Kandidat aus dem Fable-Duell (Button-Open-Fold ~29% = geschenkte
     0,5bb-Rente): der Button open-foldet in HU NIE — aus fold bei to_call=50
