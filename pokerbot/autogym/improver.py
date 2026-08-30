@@ -418,7 +418,7 @@ def river_wert_bremse(make_strat, min_eq: float = 0.50):
     return make
 
 
-def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 200,
+def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
                     p_max_basis: float = 0.10, p_min_alt: float = 0.70):
     """Runde-8-Kandidat GPU-SOLVER-CHIRURGIE — der Befund des GPU-River-Audits
     (571/571 Nacht-2-Entscheidungen: die Desaster-Calls kriegen Solver-fold
@@ -434,7 +434,6 @@ def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 200,
 
     def make(seat):
         base = make_strat(seat)
-        merk = {"hand": None, "spots": {}}       # Solve-Wiederverwendung je Hand
 
         def d(st):
             a, amt = base(st)
