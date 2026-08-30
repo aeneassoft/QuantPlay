@@ -26,9 +26,17 @@ Value-Bet mit eq<0,5 vs Range) — **r7_river +8,1±1,14 ANWENDEN** (30k, perm_p
 aus der wert_bremse; Einzellauf + Replikation laufen) · `river_gpu_guard` (r8: Solver-Chirurgie NUR bei
 p_basis<0,10 & p_alt>0,70, Pot≥30bb, deterministisch): auf den echten Nacht-2-Big-Pot-Calls 3/22 Folds =
 genau die Desaster, netto +66,9bb; GTO-Fold des Gluecks-Calls #2997685 (AIVAT −9,2 trotz +81,8 real —
-AIVAT und GPU-Solver einig gegen den Zufallsausgang). **QUEUE: r7_wert/r7_river-Replikation (laeuft) →
-r8_gpu A/A + Mirror (workers≤6, GPU-Arm!) → FINAL_STACK-Update + Taufe/Tag → gepaarter Finaltest vs
-autogym-basis. Danach: Turn-CFR (48-Runout-Batch), fp16-W-Matrizen, Flop-Stufe.**
+AIVAT und GPU-Solver einig gegen den Zufallsausgang).
+**★ FINALE LAUF 1 (2026-08-31 frueh): wert_bremse 3x REPLIZIERT (+8,10/+8,81/+7,38, alle perm_p 0,0002,
+drei Baenke). r8_stack (= river_gpu_guard(river_wert_bremse(r6_button-Kette)), Arm in pargate) durch die
+Kette: A/A EXAKT 0 (GPU-Determinismus bewiesen) · vs r6_button **+29,92±3,10** (30k, CI [23,7;36,3],
+z=11,85; 1040 Divergenz-Decks/3,5%, ~17bb je Eingriffs-Deck) · **vs EINGEFRORENE BASIS +30,60±5,03**
+(30k, CI [20,6;40,3], perm_p 0,0002). ERWARTUNGS-VERLETZUNG offen dokumentiert (Inkrement 3-4x groesser
+als vorregistriert; Big-Pot-Chirurgie-Zerlegung konsistent) + NICHT-ADDITIVITAET vs basis (Selfplay-
+Nicht-Transitivitaet — Mirror = Selektions-Kanal, Absolut-Beweis nur am GTOW-Anker, User-Kommando noetig).
+3-LAEUFE-REGEL fuer r8: Replikations-Kette LAEUFT (frischer A/A iters-150 + 2x30k vs r6_button, Baenke
+530000/560000, Task b68aziam3). fp16-Option gemessen +64% (half=True, default OFF). NACH Replikation:
+Taufe+Tag, auslese.py-FINAL_STACK, Live-Kanal-Smokes; GTOW-Anker wartet auf User-Kommando.**
 
 ## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NACHT 1 SEZIERT: -38,9 (n=1617) = 81% RIVER ohne Resolver; NACHT 2 = echter Bot + A/B
 **NACHT-1-ERGEBNIS (v4-Gym-Konfig NACKT: exploit-ON, resolver-OFF): AIVAT gepoolt -38,86 (n=1617).**
