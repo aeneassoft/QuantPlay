@@ -25,8 +25,9 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # Wert-Bremse, exakte Enumeration (RNG-frei), Inkremente auf r6_button.
               "r7_bill", "r7_wert", "r7_river",
               # Runde 8: GPU-Solver-Chirurgie (RiverCFRBatch; nur klare
-              # Solver-Widersprueche in Big Pots). GPU-Arm: --workers <= 6!
-              "r8_gpu")
+              # Solver-Widersprueche in Big Pots). GPU-Arme: --workers <= 6!
+              # r8_stack = der Versions-Kandidat: wert_bremse + GPU-Chirurgie.
+              "r8_gpu", "r8_stack")
 
 
 def _wickle(name: str, basis):
@@ -93,6 +94,11 @@ def _wickle(name: str, basis):
     if name == "r8_gpu":
         from pokerbot.autogym.improver import river_gpu_guard
         return river_gpu_guard(_wickle("r6_button", basis))
+    if name == "r8_stack":
+        # Der Versions-Kandidat: GPU-Chirurgie ZULETZT (sie prueft auch die
+        # wert_bremse-Checks), wert_bremse darunter, r6_button-Kette als Kern.
+        from pokerbot.autogym.improver import river_gpu_guard, river_wert_bremse
+        return river_gpu_guard(river_wert_bremse(_wickle("r6_button", basis)))
     raise ValueError(name)
 
 
