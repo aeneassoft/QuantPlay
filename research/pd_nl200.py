@@ -6,8 +6,8 @@ beschreibt das Spiel gegen eine Freizeit-Population. Auf NL200 spielt derselbe S
 gegen regulars, und ein Profil, das dort funktioniert, muss anders aussehen.
 
 Gemessen werden die Groessen, die fuer die STRATEGISCHE Uebersetzung zaehlen — also nicht
-alles, was ein Tracker anzeigt, sondern das, was am geopolitischen Tisch eine Entsprechung
-hat:
+alles, was ein Tracker anzeigt, sondern die Groessen, aus denen sich eine Strategie
+tatsaechlich bauen laesst:
     VPIP / PFR / Limp     -> wie breit und wie teuer wird eingestiegen
     3bet / Fold-vs-3bet   -> Verhalten gegen Widerstand
     AF postflop           -> wann Druck kommt
@@ -196,7 +196,7 @@ def main() -> None:
     a = ap.parse_args()
     M = messe()
     print(f"DAS A-GAME AUF NL200 — {M['haende']} Haende aus {M['dateien']} Dateien\n")
-    print(f"  {'Groesse':<20}{'NL200':>10}{'NL2':>10}   Bedeutung am geopolitischen Tisch")
+    print(f"  {'Groesse':<20}{'NL200':>10}{'NL2':>10}   strategische Bedeutung")
     zeilen = [
         ("vpip", "wie breit eingestiegen wird"),
         ("pfr", "wie viel davon mit Initiative"),

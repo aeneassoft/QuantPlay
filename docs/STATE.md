@@ -170,7 +170,7 @@ Formeln unveraenderlich, Orakel-Knoepfe fuer den Improver gesperrt (Goodhart), B
 Wrapper statt Quelltext-Edits, Journal-Pflicht. NAECHSTE SCHRITTE: (1) selftest E1–E4 gruen kriegen,
 (2) Mathe-Vollinventur (78 Funktionen + 443 MoP-Chunks) → Welle-1-Verdrahtung, (3) L-Leads von Rueckschau auf
 Range-Equity, (4) erst nach E1–E5 der CPU-Pod, (5) E6 = jeder ANWENDEN-Kandidat vs GTOW ($0 in-process).
-**Kontext dieser Session: Repo-Trennung vollzogen** — alles Nicht-Poker lebt in `_privat/` (gitignored +
+**Kontext dieser Session: Repo-Trennung vollzogen** — alles Nicht-Poker lebt in `#Anderes/` (gitignored +
 pre-commit-Hook), Historie lokal + GitHub bereinigt (Neuaufbau ab 9a1d36b + filter-branch fuer einen Alt-Pfad),
 Fremdprojekt-Name aus dem Kern entfernt, Backup-Bundle in `Desktop/PokerB-Backup/`.
 **Paper-Verankerung (2026-08-16 abend):** drei Extraktionen trianguliert + verankert (`docs/AUTOGYM_PLAN.md`

@@ -58,9 +58,9 @@
 
 ## Nicht im Repo
 
-`_privat/` — persoenliche Exkursionen (Lebens-Akte, Geopolitik, Zahlentheorie, Familie).
+`#Anderes/` — alles Nicht-Poker (Lebens-Akte, Geopolitik, Zahlentheorie, Familie).
 Gitignored, durch pre-commit-Hook geschuetzt, nie Teil des Repositories.
-Beschreibung: `_privat/LIESMICH.md`.
+Beschreibung: `#Anderes/LIESMICH.md`.
 
 ## pokerbot/autogym/ (AUTOGYM-Schleife, 2026-08-16/17)
 - oracle.py (Mathe-Benchmark HART/P/L/F, W1-1..W1-5) · improver.py (Guard-Wrapper + Gate + Journal)
