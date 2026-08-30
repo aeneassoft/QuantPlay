@@ -697,3 +697,14 @@ und zwar genau dort am stärksten, wo die Auflösung am feinsten ist — also do
 interessantesten Effekt vermutet. Jede Entropie-/Informationsaussage in diesem Repo braucht die
 permutierte Null-Kontrolle NEBEN dem Messwert, sonst ist sie unlesbar. (Offen: auf einen
 bias-korrigierten Schätzer umstellen, z. B. Miller-Madow oder NSB.)
+
+## GPU-TurnCFR: IP-Frequenz-Differenz zu TexasSolver (2026-08-30, offen)
+Turn-Kreuzvalidierung (research/gpu_vs_texassolver_turn.py, Ein-Arm-Kollaps eff=0.75*Pot):
+OOP-Bet-Delta 0.031, OOP-Call-Delta 0.000 (exakt), per-Combo-OOP-Korrelation 0.944 —
+aber IP-Bet-nach-Check 0.416 (TurnCFR, expl 0.002%Pot, stabil ueber 100..1600 Iter)
+vs 0.321 (TexasSolver, stabil ueber accuracy 0.1..0.02). Beide je hochkonvergiert.
+VERDACHT: Gleichgewichts-Auswahl-Differenz (2p-Nullsumme: Wert eindeutig, Frequenzen
+an indifferenten Knoten nicht). NICHT BEWIESEN — moeglicher subtiler Baum-Unterschied.
+Exakter Diskriminator (bei Bedarf): TS-Strategie in den TurnCFR-Baum laden und ihre
+Exploitability in UNSEREM Spiel messen (~0 => Multiplizitaet bestaetigt; gross => Baum-Bug).
+River-Stufe ist davon unberuehrt (Korrelation 0.999, alle Deltas <0.007).

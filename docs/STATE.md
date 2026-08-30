@@ -1,7 +1,34 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-16**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-30**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★★★ CURRENT (2026-08-30) — GPU-STAFFEL: River-CFR auf der 3080 Ti, 100% Auslastung, TexasSolver-Match 0,999; Runde 7/8 in den Gates
+**User-Auftrag: GPU+CPU voll nutzen — (1) Luecken systematisch finden, (2) selbst schliessen, (3) neue
+Bot-Version GPU+CPU, (4) Test vs eingefrorene Basis.** Stand nach Tag 1 (Commits 2b57206..c344e14):
+**GEBAUT+VERIFIZIERT (jede Stufe mit Beweis):** `pokerbot/engine/gpu_eval.py` (vektorisierter 7-Karten-
+Evaluator, 16,8M Haende/s, 250k Ordnungs-Paare 0 Fehler; Lehre: CUDA-log2 1-ulp-Falle → integer-only) ·
+`gpu_equity.py` (exakte Batch-Equity; River byte-identisch zur CPU-Enumeration; Flop 1081x1081 exakt 0,087s) ·
+`pokerbot/strategy/gpu_cfr.py` (Tensor-CFR+; Clairvoyance-Toy EXAKT: Bluff 0,333/Call 0,500/expl 0,014%;
+RiverCFRBatch B=256 = **100% GPU-Auslastung**, ~1000 Subgame-Iter/s, 0,30s/Spot; bandbreiten-bound, TF32 wirkungslos) ·
+`gpu_resolver.py` (Ranges am River-Beginn einfrieren → Batch-Solve → Sequenz-Navigation; Hero-Combo-Injektion
+gegen hand-not-in-range) · **Kreuzvalidierung vs TexasSolver** (research/gpu_vs_texassolver.py): identischer
+Spot, Frequenz-Deltas 0,007/0,000/0,001, per-Combo-Korrelation **0,999**.
+**LUECKEN-BEFUND (research/hh_luecken_mine.py + gpu_river_audit.py, Nacht-2-HH):** Verlust 87% River;
+Zelle (River,>100bb,call) = 9 Haende = **59% des v4-Verlusts**; 7/7-SIZE-Tell als Frequenz-Behauptung
+REFUTIERT (nur 11% der Turn-Bets im 2/3-Band; 0,65-Bucket = lesbarer v4-Marker ohne messbaren Exploit).
+GPU-Audit 571/571 River-Entscheidungen: check/fold solver-konform (p 0,86/0,83), **bet schwaechste Klasse**
+(p 0,45; 15% klare Widersprueche), Desaster-Calls = Solver-fold p>0,95. **Tracker-Schwellen tragen die
+River-Defense NICHT** (Trennschaerfe 0,65 vs 0,53 — deshalb starb r6_ecall; Journal R7-DIAGNOSE).
+**RUNDE 7/8 (Guards, alle A/A exakt 0):** `river_bill_guard` (exakte Enumeration, negative Marge) — Mirror
+**exakt 0,0** auf 30k (feuert im Gym nie = reiner GTOW-Achsen-Guard) · `river_wert_bremse` (keine River-
+Value-Bet mit eq<0,5 vs Range) — **r7_river +8,1±1,14 ANWENDEN** (30k, perm_p 0,0002; stammt damit komplett
+aus der wert_bremse; Einzellauf + Replikation laufen) · `river_gpu_guard` (r8: Solver-Chirurgie NUR bei
+p_basis<0,10 & p_alt>0,70, Pot≥30bb, deterministisch): auf den echten Nacht-2-Big-Pot-Calls 3/22 Folds =
+genau die Desaster, netto +66,9bb; GTO-Fold des Gluecks-Calls #2997685 (AIVAT −9,2 trotz +81,8 real —
+AIVAT und GPU-Solver einig gegen den Zufallsausgang). **QUEUE: r7_wert/r7_river-Replikation (laeuft) →
+r8_gpu A/A + Mirror (workers≤6, GPU-Arm!) → FINAL_STACK-Update + Taufe/Tag → gepaarter Finaltest vs
+autogym-basis. Danach: Turn-CFR (48-Runout-Batch), fp16-W-Matrizen, Flop-Stufe.**
 
 ## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NACHT 1 SEZIERT: -38,9 (n=1617) = 81% RIVER ohne Resolver; NACHT 2 = echter Bot + A/B
 **NACHT-1-ERGEBNIS (v4-Gym-Konfig NACKT: exploit-ON, resolver-OFF): AIVAT gepoolt -38,86 (n=1617).**
