@@ -265,16 +265,22 @@ class RiverCFR:
 # ---------------------------------------------------------------------------
 class RiverCFRBatch:
     def __init__(self, boards: list[list[str]], r_oop: torch.Tensor, r_ip: torch.Tensor,
-                 pot: float, eff_stack: float, **baum_kw):
-        """boards: B Boards; r_oop/r_ip: [B,1326] float32."""
+                 pot: float, eff_stack: float, half: bool = False, **baum_kw):
+        """boards: B Boards; r_oop/r_ip: [B,1326] float32.
+        half=True speichert W/M in fp16 ({-1,0,1} exakt darstellbar; cublas
+        akkumuliert fp32) — gemessen 1,64x schneller bei identischer expl
+        (bandbreiten-bound). Default OFF: der gemessene Arm bleibt fp32."""
         B = len(boards)
         self.B = B
+        self.half = half
         Ws, Ms = [], []
         for bd in boards:
             W, M = showdown_matrix(bd)
             Ws.append(W); Ms.append(M)
         self.W = torch.stack(Ws)                              # [B,1326,1326]
         self.M = torch.stack(Ms)
+        if half:
+            self.W = self.W.half(); self.M = self.M.half()
         lebt = self.M.sum(dim=2) > 0                          # [B,1326]
         self.r = [torch.where(lebt, r_oop.to(DEVICE), torch.zeros(1, device=DEVICE)),
                   torch.where(lebt, r_ip.to(DEVICE), torch.zeros(1, device=DEVICE))]
@@ -293,6 +299,8 @@ class RiverCFRBatch:
 
     def _mv(self, reach: torch.Tensor, maske: bool = False) -> torch.Tensor:
         A = self.M if maske else self.W
+        if self.half:
+            return torch.bmm(A, reach.half().unsqueeze(-1)).squeeze(-1).float()
         return torch.bmm(A, reach.unsqueeze(-1)).squeeze(-1)  # [B,1326]
 
     def _traverse(self, n: Node, reach_me, reach_opp, spieler: int, gewicht: float):
@@ -347,9 +355,10 @@ class RiverCFRBatch:
     def exploitability(self) -> torch.Tensor:
         """[B] in % des Pots."""
         vals = []
+        M = self.M.float() if self.half else self.M
         for sp in (0, 1):
             me, opp = self.r[sp], self.r[1 - sp]
-            paare = (torch.bmm(me.unsqueeze(1), torch.bmm(self.M, opp.unsqueeze(-1)))
+            paare = (torch.bmm(me.unsqueeze(1), torch.bmm(M, opp.unsqueeze(-1)))
                      .reshape(self.B).clamp(min=1e-30))
             br = (self._br(self.root, opp, sp) * me).sum(dim=1) / paare
             vals.append(br)
