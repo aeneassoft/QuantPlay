@@ -116,14 +116,14 @@ def _wickle(name: str, basis):
         from pokerbot.autogym.turn_gpu import turn_gpu_guard
         return turn_gpu_guard(_wickle("r8_stack", basis), min_pot_chips=5000, iters=80)
     if name == "r9_v8":
-        # Die v8-Voll-Komposition (Stapel-Reihenfolge: preflop aussen, dann
-        # Turn-Chirurgie, dann River-Play/wert_bremse auf der r6_button-Kette).
+        # Die v8-Komposition: preflop-Disziplin aussen, River-Play/wert_bremse
+        # auf der r6_button-Kette. OHNE turn_gpu_guard (Replay-Gegentest
+        # 2026-08-31: 3 Eingriffe/3904 = keine bilanzierbare Evidenz — bleibt
+        # default-OFF-Kandidat r9_turn fuer eine spaetere Runde).
         from pokerbot.autogym.improver import river_play_guard, river_wert_bremse
         from pokerbot.autogym.preflop_guards import no_limp_guard, stackoff_bremse
-        from pokerbot.autogym.turn_gpu import turn_gpu_guard
         kern = river_play_guard(river_wert_bremse(_wickle("r6_button", basis)))
-        return stackoff_bremse(no_limp_guard(turn_gpu_guard(kern, min_pot_chips=5000,
-                                                            iters=80)))
+        return stackoff_bremse(no_limp_guard(kern))
     raise ValueError(name)
 
 
