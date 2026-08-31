@@ -583,7 +583,14 @@ def river_play_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
                     return ("call", None) if to_call > 0 else ("check", None)
                 if alt == "check":
                     return ("check", None) if to_call == 0 else (a, amt)
-                # bet/raise/jam: realer Zusatz aus dem Baum-Arm, TO-Level bauen
+                # bet/raise/jam: NUR wenn legal (Engine: can_raise verlangt
+                # stack > to_call UND Gegner nicht all-in — der 30k-Mirror
+                # fand den Crash 'Cannot bet/raise' genau hier). Sonst der
+                # passive Zweig des Solver-Asts.
+                opp = st["players"][1 - st["to_act"]]
+                kann_raisen = (not opp.get("all_in")) and me["stack"] > to_call
+                if not kann_raisen:
+                    return ("call", None) if to_call > 0 else ("check", None)
                 betrag = zus[wahl] / 100.0 * pot_river
                 if alt.endswith("jam") or betrag >= me["stack"] - 1:
                     return "allin", None
