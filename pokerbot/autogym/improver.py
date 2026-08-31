@@ -418,6 +418,62 @@ def river_wert_bremse(make_strat, min_eq: float = 0.50):
     return make
 
 
+def _river_spot_und_frage(st: dict, frage_kind: str):
+    """Gemeinsamer Unterbau der River-GPU-Guards: friert die Tracker-Ranges am
+    RIVER-BEGINN ein (History-Schnitt am Deal), uebersetzt die River-Sequenz in
+    Zusatz-Betraege und baut den RiverSpot. None, wenn nicht rekonstruierbar.
+    Rueckgabe: (RiverSpot, pot_river)."""
+    from pokerbot.strategy.gpu_resolver import RiverSpot
+    from pokerbot.strategy.range_tracker import RangeTracker
+    hist = st.get("history", []) or []
+    schnitt = next((i for i, h in enumerate(hist)
+                    if h.get("action") == "deal" and h.get("street") == "river"),
+                   None)
+    if schnitt is None:
+        return None
+    st0 = dict(st)
+    st0["history"] = hist[:schnitt + 1]
+    t = RangeTracker().build(st0)
+    hero_w = t.range.get(st["to_act"], {})
+    vill_w = t.range.get(1 - st["to_act"], {})
+    if not hero_w or not vill_w:
+        return None
+    lvl = {0: 0.0, 1: 0.0}
+    seq = []
+    for h in hist[schnitt + 1:]:
+        akt, s2 = h.get("action"), h.get("player")
+        if s2 not in (0, 1):
+            continue
+        wer = "hero" if s2 == st["to_act"] else "vill"
+        if akt in ("bet", "raise", "allin"):
+            to = float(h.get("to") or h.get("amount") or 0.0)
+            seq.append((wer, "raise" if lvl[s2] or max(lvl.values()) else "bet",
+                        max(0.0, to - lvl[s2])))
+            lvl[s2] = max(lvl[s2], to)
+        elif akt == "call":
+            need = max(lvl.values()) - lvl[s2]
+            seq.append((wer, "call", need))
+            lvl[s2] = max(lvl.values())
+        elif akt == "check":
+            seq.append((wer, "check", 0.0))
+    seq.append(("hero", frage_kind, 0.0))
+    river_einsaetze = sum(z for _, k, z in seq if k in ("bet", "raise", "call"))
+    pot_river = st["pot"] - river_einsaetze
+    eff = min(p["stack"] + p["committed_street"] for p in st["players"])
+    if pot_river <= 0 or eff <= 0:
+        return None
+    me = st["players"][st["to_act"]]
+    spot = RiverSpot(st["board"], hero_w, vill_w, pot_river, eff,
+                     hero_oop=(st["to_act"] != st.get("button", 0)), seq=seq,
+                     hero_hole=tuple(me["hole"]))
+    return spot, pot_river
+
+
+def _frage_kind(a: str, to_call: int) -> str:
+    return ("raise" if a in ("raise", "allin") and to_call > 0 else
+            "bet" if a in ("bet", "raise", "allin") else a)
+
+
 def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
                     p_max_basis: float = 0.10, p_min_alt: float = 0.70):
     """Runde-8-Kandidat GPU-SOLVER-CHIRURGIE — der Befund des GPU-River-Audits
@@ -429,8 +485,7 @@ def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
     Solver sie klar verwirft (p_basis < p_max_basis UND p_alternative >
     p_min_alt) — konservative Chirurgie, das Mixing der Basis bleibt sonst
     unangetastet (Seesaw). Deterministisch (kein RNG, argmax nur im Klarfall)."""
-    from pokerbot.strategy.gpu_resolver import RiverSpot, solve_spots
-    from pokerbot.strategy.range_tracker import RangeTracker
+    from pokerbot.strategy.gpu_resolver import solve_spots
 
     def make(seat):
         base = make_strat(seat)
@@ -442,54 +497,11 @@ def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
             if st["street"] != "river" or st["pot"] < min_pot_chips:
                 return a, amt
             try:
-                # Ranges am RIVER-BEGINN: history bis zum River-Deal schneiden
-                hist = st.get("history", []) or []
-                schnitt = next((i for i, h in enumerate(hist)
-                                if h.get("action") == "deal" and h.get("street") == "river"),
-                               None)
-                if schnitt is None:
+                frage = _frage_kind(a, to_call)
+                gebaut = _river_spot_und_frage(st, frage)
+                if gebaut is None:
                     return a, amt
-                st0 = dict(st)
-                st0["history"] = hist[:schnitt + 1]
-                t = RangeTracker().build(st0)
-                hero_w = t.range.get(st["to_act"], {})
-                vill_w = t.range.get(1 - st["to_act"], {})
-                if not hero_w or not vill_w:
-                    return a, amt
-                # River-Sequenz (Zusatz-Betraege) aus der History nach dem Deal
-                lvl = {0: 0.0, 1: 0.0}
-                seq = []
-                for h in hist[schnitt + 1:]:
-                    akt, s2 = h.get("action"), h.get("player")
-                    if s2 not in (0, 1):
-                        continue
-                    wer = "hero" if s2 == st["to_act"] else "vill"
-                    if akt in ("bet", "raise", "allin"):
-                        to = float(h.get("to") or h.get("amount") or 0.0)
-                        seq.append((wer, "raise" if lvl[s2] or max(lvl.values()) else "bet",
-                                    max(0.0, to - lvl[s2])))
-                        lvl[s2] = max(lvl[s2], to)
-                    elif akt == "call":
-                        need = max(lvl.values()) - lvl[s2]
-                        seq.append((wer, "call", need))
-                        lvl[s2] = max(lvl.values())
-                    elif akt == "check":
-                        seq.append((wer, "check", 0.0))
-                # Frage-Aktion anfuegen (Basis-Entscheid als letzter seq-Eintrag)
-                frage = ("raise" if a in ("raise", "allin") and to_call > 0 else
-                         "bet" if a in ("bet", "raise", "allin") else a)
-                seq.append(("hero", frage, 0.0))
-                # Pot/eff-Stack am RIVER-BEGINN: die River-Einsaetze aus der
-                # History wieder herausrechnen (st['pot'] enthaelt sie bereits)
-                river_einsaetze = sum(z for _, k, z in seq if k in ("bet", "raise", "call"))
-                pot_river = st["pot"] - river_einsaetze
-                eff = min(p["stack"] + p["committed_street"] for p in st["players"])
-                if pot_river <= 0 or eff <= 0:
-                    return a, amt
-                btn = st.get("button", 0)
-                spot = RiverSpot(st["board"], hero_w, vill_w, pot_river, eff,
-                                 hero_oop=(st["to_act"] != btn), seq=seq,
-                                 hero_hole=tuple(me["hole"]))
+                spot, _pot_river = gebaut
                 res = solve_spots([spot], iters=iters)[0]
                 if res is None:
                     return a, amt
@@ -513,6 +525,70 @@ def river_gpu_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
                     if alt.startswith("bet") and to_call == 0:
                         # Size aus dem Baum-Arm (invest-Differenz, pot-skaliert)
                         return "bet", int(0.75 * st["pot"])
+            except Exception:  # noqa: BLE001
+                pass            # defensiv: im Zweifel bleibt die Basis-Aktion
+            return a, amt
+        return d
+    return make
+
+
+def river_play_guard(make_strat, min_pot_chips: int = 3000, iters: int = 150,
+                     half: bool = False):
+    """v8-Kandidat SOLVER-PLAY — die Praezisions-Stufe ueber der r8-Chirurgie:
+    in Big-Pot-River-Spots wird die GELOESTE Politik GESPIELT (nicht nur der
+    klare Fehler korrigiert). Der GPU-Audit hat gemessen, dass die Basis auch
+    zwischen den Chirurgie-Schwellen abweicht (bet-Klasse p=0,45 Zustimmung).
+    MIXING BLEIBT (Seesaw-Doktrin): die Aktion wird aus der Solver-Mischung
+    DETERMINISTISCH SPOT-GEHASHT gesampelt — der Hash ist eine Funktion der
+    LAGE (Karten/Boards/Pot/History-Laenge), nie der Zeit: gleiche Lage =>
+    gleiche Aktion in jedem Arm und Prozess (Paarungs-Sicherheit, A/A == 0).
+    Sizes kommen exakt aus dem Baum-Arm (zusatz_norm, pot-skaliert); die
+    Engine-Konvention amount = raise-TO-Level (game.py act) wird bedient."""
+    from pokerbot.strategy.gpu_resolver import solve_spots
+
+    def make(seat):
+        base = make_strat(seat)
+
+        def d(st):
+            a, amt = base(st)
+            me = st["players"][st["to_act"]]
+            to_call = max(0, st["current_bet"] - me["committed_street"])
+            if st["street"] != "river" or st["pot"] < min_pot_chips:
+                return a, amt
+            try:
+                frage = _frage_kind(a, to_call)
+                gebaut = _river_spot_und_frage(st, frage)
+                if gebaut is None:
+                    return a, amt
+                spot, pot_river = gebaut
+                res = solve_spots([spot], iters=iters, half=half)[0]
+                if res is None:
+                    return a, amt
+                acts, sig, zus = res["acts"], res["sigma"], res["zusatz_norm"]
+                key = "|".join((",".join(sorted(me["hole"])), ",".join(st["board"]),
+                                str(st["pot"]), str(st["current_bet"]),
+                                str(me["committed_street"]),
+                                str(len(st.get("history", []) or []))))
+                u = (zlib.crc32(("v8play|" + key).encode()) & 0xffffffff) / 2.0 ** 32
+                kum, wahl = 0.0, len(acts) - 1
+                for i2, p in enumerate(sig):
+                    kum += p
+                    if u < kum:
+                        wahl = i2
+                        break
+                alt = acts[wahl]
+                if alt == "fold":
+                    return ("fold", None) if to_call > 0 else ("check", None)
+                if alt == "call":
+                    return ("call", None) if to_call > 0 else ("check", None)
+                if alt == "check":
+                    return ("check", None) if to_call == 0 else (a, amt)
+                # bet/raise/jam: realer Zusatz aus dem Baum-Arm, TO-Level bauen
+                betrag = zus[wahl] / 100.0 * pot_river
+                if alt.endswith("jam") or betrag >= me["stack"] - 1:
+                    return "allin", None
+                to_level = int(me["committed_street"] + betrag)
+                return ("raise" if to_call > 0 else "bet"), to_level
             except Exception:  # noqa: BLE001
                 pass            # defensiv: im Zweifel bleibt die Basis-Aktion
             return a, amt

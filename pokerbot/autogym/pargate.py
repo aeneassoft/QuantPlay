@@ -27,7 +27,11 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # Runde 8: GPU-Solver-Chirurgie (RiverCFRBatch; nur klare
               # Solver-Widersprueche in Big Pots). GPU-Arme: --workers <= 6!
               # r8_stack = der Versions-Kandidat: wert_bremse + GPU-Chirurgie.
-              "r8_gpu", "r8_stack")
+              "r8_gpu", "r8_stack",
+              # Runde 9 (v8-Bau): Solver-PLAY statt Chirurgie (deterministisch
+              # spot-gehasht gesampelt, Mixing bleibt); GTOW-Replay netto
+              # +278,6bb vs +66,9bb der Chirurgie. GPU-Arme: --workers <= 6!
+              "r9_play", "r9_pre", "r9_turn", "r9_v8")
 
 
 def _wickle(name: str, basis):
@@ -99,6 +103,27 @@ def _wickle(name: str, basis):
         # wert_bremse-Checks), wert_bremse darunter, r6_button-Kette als Kern.
         from pokerbot.autogym.improver import river_gpu_guard, river_wert_bremse
         return river_gpu_guard(river_wert_bremse(_wickle("r6_button", basis)))
+    if name == "r9_play":
+        # Play statt Chirurgie: ersetzt river_gpu_guard im v5-Stack.
+        from pokerbot.autogym.improver import river_play_guard, river_wert_bremse
+        return river_play_guard(river_wert_bremse(_wickle("r6_button", basis)))
+    if name == "r9_pre":
+        # Preflop-Disziplin-Inkrement AUF dem Amtierenden (r8_stack).
+        from pokerbot.autogym.preflop_guards import no_limp_guard, stackoff_bremse
+        return stackoff_bremse(no_limp_guard(_wickle("r8_stack", basis)))
+    if name == "r9_turn":
+        # Turn-Chirurgie-Inkrement auf r8_stack; hoher Trigger (Latenz 12-14s).
+        from pokerbot.autogym.turn_gpu import turn_gpu_guard
+        return turn_gpu_guard(_wickle("r8_stack", basis), min_pot_chips=5000, iters=80)
+    if name == "r9_v8":
+        # Die v8-Voll-Komposition (Stapel-Reihenfolge: preflop aussen, dann
+        # Turn-Chirurgie, dann River-Play/wert_bremse auf der r6_button-Kette).
+        from pokerbot.autogym.improver import river_play_guard, river_wert_bremse
+        from pokerbot.autogym.preflop_guards import no_limp_guard, stackoff_bremse
+        from pokerbot.autogym.turn_gpu import turn_gpu_guard
+        kern = river_play_guard(river_wert_bremse(_wickle("r6_button", basis)))
+        return stackoff_bremse(no_limp_guard(turn_gpu_guard(kern, min_pot_chips=5000,
+                                                            iters=80)))
     raise ValueError(name)
 
 

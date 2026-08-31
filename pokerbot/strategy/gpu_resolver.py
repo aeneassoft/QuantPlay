@@ -141,8 +141,13 @@ def solve_spots(spots: list[RiverSpot], iters: int = DEFAULT_ITERS,
                     continue                     # Sequenz-Desync — ehrlich auslassen
                 sig = cfr.avg_sigma(node)[b_idx]            # [1326, n_acts]
                 ci = combo_index(*spots[i].hero_hole)
+                # Zusatz-Einsatz je Arm in POT_NORM-Einheiten (fuer Size-Ausgabe:
+                # real = zusatz_norm / POT_NORM * pot_river)
+                zusatz = [k.invest[node.actor] - node.invest[node.actor]
+                          for k in node.kids]
                 out[i] = {"acts": list(node.acts),
                           "sigma": [float(x) for x in sig[ci]],
+                          "zusatz_norm": [float(z) for z in zusatz],
                           "expl": float(expl[b_idx]),
                           "gespielt": spots[i].seq[-1][1],
                           "tag": spots[i].tag}
