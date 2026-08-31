@@ -1,21 +1,28 @@
-"""AUSLESE — die EINE Quelle des finalen HU-Stacks fuer alle Konsum-Kanaele (2026-08-18).
+"""AUSLESE — die EINE Quelle des finalen HU-Stacks fuer alle Konsum-Kanaele.
 
-Definition (Taufe auslese-v4 + Runde-6-Haertung, Journal):
-  FINAL_STACK = r6_button(turn_wert(sel_guard(basis, m15)))     [Wrapper-Kette]
+Definition (Taufe auslese-v5, 2026-08-31, GPU-Staffel):
+  FINAL_STACK = river_gpu_guard(river_wert_bremse(r6_button(turn_wert(sel_m15))))
   + AUSLESE_ENV                                                  [Import-Zeit-Flags]
 
-Evidenz: Mirror 3x30k vs basis +16,14+-2,77 (p=0,0002); r6_button Haertung im
-Fable-Retest bewiesen (Ernte 186->58 bb/100). BINDEND: RAISE_NARROW ist
-resolver-ON KONTRAINDIZIERT (v8-K3) -> setze_env(resolver_on=True) laesst RN
-weg. Die Guards sind HU-ONLY (2-Spieler-State-Ausdruecke) — NIE in den
-Multiway-Kern verdrahten (Armee-Befund 2026-08-17).
+Evidenz v5 (Journal R7-REPLIKATION + R8-FINALE): wert_bremse 3x repliziert
+(+8,10/+8,81/+7,38, drei Baenke, perm_p 0,0002); r8_stack-Inkrement vs
+r6_button 3x30k: +29,92/+23,76/+29,23 (gepoolt +27,6+-1,8, alle p=0,0002);
+vs eingefrorene BASIS +30,60+-5,03; A/A exakt 0 (GPU-Pfad deterministisch).
+Der river_gpu_guard loest Big-Pot-River-Subgames auf der GPU (RiverCFRBatch,
+TexasSolver-kreuzvalidiert r=0,999) und ueberschreibt die Basis NUR bei klarem
+Solver-Widerspruch (p_basis<0,10 & p_alt>0,70) — Chirurgie, kein Purify.
+
+Historie v4 (Tag auslese-v4): FINAL_STACK war r6_button; Mirror 3x30k vs basis
++16,14+-2,77. BINDEND bleibt: RAISE_NARROW ist resolver-ON KONTRAINDIZIERT
+(v8-K3) -> setze_env(resolver_on=True) laesst RN weg. Die Guards sind HU-ONLY
+(2-Spieler-State-Ausdruecke) — NIE in den Multiway-Kern verdrahten.
 
 Dieses Modul haelt seine Imports LAZY: setze_env() muss VOR dem Import von
 pokerbot.strategy.bot laufen (Import-Zeit-Konstanten).
 """
 from __future__ import annotations
 
-FINAL_STACK = "r6_button"
+FINAL_STACK = "r8_stack"
 AUSLESE_ENV = {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25"}
 AUSLESE_ENV_RESOLVER_OFF = {**AUSLESE_ENV, "POKERB_RAISE_NARROW": "1.0"}
 
