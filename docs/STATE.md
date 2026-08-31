@@ -34,9 +34,14 @@ z=11,85; 1040 Divergenz-Decks/3,5%, ~17bb je Eingriffs-Deck) · **vs EINGEFROREN
 (30k, CI [20,6;40,3], perm_p 0,0002). ERWARTUNGS-VERLETZUNG offen dokumentiert (Inkrement 3-4x groesser
 als vorregistriert; Big-Pot-Chirurgie-Zerlegung konsistent) + NICHT-ADDITIVITAET vs basis (Selfplay-
 Nicht-Transitivitaet — Mirror = Selektions-Kanal, Absolut-Beweis nur am GTOW-Anker, User-Kommando noetig).
-3-LAEUFE-REGEL fuer r8: Replikations-Kette LAEUFT (frischer A/A iters-150 + 2x30k vs r6_button, Baenke
-530000/560000, Task b68aziam3). fp16-Option gemessen +64% (half=True, default OFF). NACH Replikation:
-Taufe+Tag, auslese.py-FINAL_STACK, Live-Kanal-Smokes; GTOW-Anker wartet auf User-Kommando.**
+3-LAEUFE-REGEL fuer r8: ERFUELLT — Replikationen +23,76±3,07 (Bank 530k) + +29,23±3,03 (Bank 560k),
+frischer A/A (iters-150-Code) EXAKT 0. **★ TAUFE: `auslese-v5` (Tag + Commit ec11fde, 2026-08-31) —
+FINAL_STACK = r8_stack; Inkrement gepoolt +27,6±1,8; vs BASIS +30,60±5,03; Live-Smokes gruen (Flop
+0,06s; River-Kaltstart 13,5s inkl. Doppel-Resolver — spaeterer A/B: GPU ERSETZT TexasSolver-River,
+POKERB_RESOLVER=0).** fp16-Option gemessen +64% (half=True, default OFF). OFFEN/NAECHSTES: GTOW-Anker
+(ABSOLUT-Beweis; wartet auf User-Kommando, Hand-Budget) · Erwartungs-Verletzung dokumentiert (Inkrement
+3-4x ueber Vorregistrierung; Selfplay-Nicht-Transitivitaet: Mirror-Zahlen ≠ GTOW-Zahlen) · Turn-CFR-
+Einsatz + Flop-Stufe + Resolver-Ersatz-A/B als naechste GPU-Runde.**
 
 ## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NACHT 1 SEZIERT: -38,9 (n=1617) = 81% RIVER ohne Resolver; NACHT 2 = echter Bot + A/B
 **NACHT-1-ERGEBNIS (v4-Gym-Konfig NACKT: exploit-ON, resolver-OFF): AIVAT gepoolt -38,86 (n=1617).**
