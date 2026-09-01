@@ -31,7 +31,10 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # Runde 9 (v8-Bau): Solver-PLAY statt Chirurgie (deterministisch
               # spot-gehasht gesampelt, Mixing bleibt); GTOW-Replay netto
               # +278,6bb vs +66,9bb der Chirurgie. GPU-Arme: --workers <= 6!
-              "r9_play", "r9_pre", "r9_turn", "r9_v8")
+              "r9_play", "r9_pre", "r9_turn", "r9_v8",
+              # Runde 10 (v9 ERNTE-Build, HU_OPTIMAL_KARTE A1/A2): Play tief
+              # (Trigger 15bb, fp16, Solver-Sizes) + stackoff-Haertung.
+              "r10_ernte")
 
 
 def _wickle(name: str, basis):
@@ -126,6 +129,14 @@ def _wickle(name: str, basis):
         from pokerbot.autogym.improver import river_play_guard, river_wert_bremse
         from pokerbot.autogym.preflop_guards import stackoff_bremse
         kern = river_play_guard(river_wert_bremse(_wickle("r6_button", basis)))
+        return stackoff_bremse(kern)
+    if name == "r10_ernte":
+        # v9-Kandidat (HU_OPTIMAL_KARTE): die OVERFOLD/SIZE-Ernte sitzt in
+        # 8-30bb-Poetten -> Trigger 15bb; fp16 (+64%) traegt das Latenz-Budget.
+        from pokerbot.autogym.improver import river_play_guard, river_wert_bremse
+        from pokerbot.autogym.preflop_guards import stackoff_bremse
+        kern = river_play_guard(river_wert_bremse(_wickle("r6_button", basis)),
+                                min_pot_chips=1500, iters=150, half=True)
         return stackoff_bremse(kern)
     raise ValueError(name)
 
