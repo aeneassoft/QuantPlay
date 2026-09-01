@@ -708,3 +708,17 @@ an indifferenten Knoten nicht). NICHT BEWIESEN — moeglicher subtiler Baum-Unte
 Exakter Diskriminator (bei Bedarf): TS-Strategie in den TurnCFR-Baum laden und ihre
 Exploitability in UNSEREM Spiel messen (~0 => Multiplizitaet bestaetigt; gross => Baum-Bug).
 River-Stufe ist davon unberuehrt (Korrelation 0.999, alle Deltas <0.007).
+
+## ERKLAERT (2026-09-01): TurnCFR-IP-Frequenz-Differenz = Solver-abhaengige Gleichgewichts-Selektion
+Die offene Frage von 2026-08-30 (TurnCFR 0,416 vs TexasSolver 0,321 bei beiden expl~0) ist durch
+Leal, "Which Nash Equilibrium? Solver-Dependent Selection on Zero-Sum Nash Polytopes"
+(arXiv 2606.28308, books/papers/CFR/) theoretisch eingeordnet: 2p0s-Spiele haben Nash-POLYTOPE
+(gleicher Wert, materiell verschiedenes Verhalten); WELCHES Member ein Solver waehlt, ist eine
+Funktion des ALGORITHMUS (nicht des Seeds), und Regret-Averaging-Familien (CFR/CFR+) driften auf
+niedrig-Entropie-Faces (94% der 180 asymmetrischen Spiele, p<1e-27), waehrend regularisierte
+Last-Iterate-Methoden (R-NaD/MMD) das Max-Entropie-Member treffen (100%). Beide unsere Solver sind
+CFR-Familie in verschiedenen Varianten -> verschiedene Polytop-Member. KEIN Baum-Bug-Verdacht mehr.
+FOLGE-BEFUND (Kuhn, Fig. 8): das Max-Entropie-Member dominiert das CFR+-Member SCHWACH gegen ALLE
+fehlerhaften Gegner (25/25) bei exaktem Tie on-path — und dieser Hedge-Vorteil ist ein
+EXTENSIVE-FORM-Phaenomen (x5,6 vs Matrix-Spiele). Baukandidat daraus: Entropie-Anker im GPU-CFR
+(MMD-artig), Gates: expl gleich + Entropie hoeher + Adversar-Ernte (exploit_jagd/Fable) sinkt.
