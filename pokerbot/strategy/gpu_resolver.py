@@ -106,8 +106,48 @@ def _navigiere(cfr: RiverCFRBatch, spot: RiverSpot, b_idx: int) -> tuple[Node, i
     return node, b_idx
 
 
+def _navigiere_mit_reach(cfr: RiverCFRBatch, spot: RiverSpot, b_idx: int,
+                         gegner_range: torch.Tensor):
+    """Wie _navigiere, fuehrt aber die GEGNER-Reach mit (Range x avg_sigma-
+    Faktoren an jedem Gegner-Knoten des Pfads). Rueckgabe (node, reach [1326])."""
+    node = cfr.root
+    reach = gegner_range.clone()
+    skala = POT_NORM / max(spot.pot, 1e-9)
+    hero_rolle = 0 if spot.hero_oop else 1
+    for wer, kind, size in spot.seq[:-1]:
+        if node.terminal is not None:
+            return None
+        if kind == "check":
+            if "check" not in node.acts:
+                return None
+            i_arm = node.acts.index("check")
+        elif kind == "call":
+            if "call" not in node.acts:
+                return None
+            i_arm = node.acts.index("call")
+        elif kind in ("bet", "raise"):
+            kandidaten = [(i, k) for i, (a, k) in enumerate(zip(node.acts, node.kids))
+                          if a.startswith(("bet", "raise"))]
+            if not kandidaten:
+                return None
+            ziel = size * skala
+            def zusatz(k: Node) -> float:
+                return k.invest[node.actor] - node.invest[node.actor]
+            i_arm = min(kandidaten, key=lambda ik: abs(zusatz(ik[1]) - ziel))[0]
+        else:
+            return None
+        if node.actor != hero_rolle:                       # Gegner handelt
+            sig = cfr.avg_sigma(node)[b_idx]               # [1326, n_acts]
+            reach = reach * sig[:, i_arm]
+        node = node.kids[i_arm]
+    if node.terminal is not None or node.actor < 0:
+        return None
+    return node, reach
+
+
 def solve_spots(spots: list[RiverSpot], iters: int = DEFAULT_ITERS,
-                max_batch: int = 192, **baum_kw) -> list[dict | None]:
+                max_batch: int = 192, mit_evs: bool = False,
+                **baum_kw) -> list[dict | None]:
     """Loest alle Spots (geometrie-gruppiert, GPU-Batches) und liefert je Spot
     die Hero-Strategie am Frage-Knoten: {'acts': [...], 'sigma': [...],
     'gespielt': kind, 'expl': float} — None wenn Navigation/Combo scheitert."""
@@ -131,6 +171,7 @@ def solve_spots(spots: list[RiverSpot], iters: int = DEFAULT_ITERS,
                                 eff_stack=geo * POT_NORM, **baum_kw)
             cfr.solve(iters=iters)
             expl = cfr.exploitability()
+            ev_gruppen: dict[int, list] = {}     # id(node) -> [(b_idx, i, node, reach)]
             for b_idx, i in enumerate(teil):
                 nav = _navigiere(cfr, spots[i], b_idx)
                 if nav is None:
@@ -151,6 +192,26 @@ def solve_spots(spots: list[RiverSpot], iters: int = DEFAULT_ITERS,
                           "expl": float(expl[b_idx]),
                           "gespielt": spots[i].seq[-1][1],
                           "tag": spots[i].tag}
+                if mit_evs:
+                    gr = 1 - hero_rolle
+                    grange = cfr.r[gr][b_idx]
+                    navr = _navigiere_mit_reach(cfr, spots[i], b_idx, grange)
+                    if navr is not None:
+                        ev_gruppen.setdefault(id(navr[0]), []).append(
+                            (b_idx, i, navr[0], navr[1]))
+            # EV-Abfragen knoten-gruppiert: EIN _ev-Traversal je distinktem Knoten
+            for eintraege in ev_gruppen.values():
+                node = eintraege[0][2]
+                hero_rolle = node.actor
+                reach_b = torch.zeros(cfr.B, N_COMBOS, device=DEVICE)
+                for b_idx, _i, _n, reach in eintraege:
+                    reach_b[b_idx] = reach
+                av = cfr.action_values(node, reach_b, hero_rolle)   # [B,1326,n]
+                for b_idx, i, _n, _r in eintraege:
+                    ci = combo_index(*spots[i].hero_hole)
+                    # Chips der POT_NORM-Skala; NUR DIFFERENZEN verwenden
+                    # (Zentrierungs-Konstante kuerzt sich je Combo heraus).
+                    out[i]["ev_je_akt"] = [float(x) for x in av[b_idx, ci]]
     return out
 
 

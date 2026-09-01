@@ -364,6 +364,35 @@ class RiverCFRBatch:
             vals.append(br)
         return 100.0 * (vals[0] + vals[1]) / self.pot0
 
+    # ---- Aktions-EVs: Wert jeder Aktion einer Combo am Knoten, wenn danach
+    # BEIDE Seiten die Durchschnittsstrategie spielen (kein Best-Response).
+    def _ev(self, n: Node, reach_opp, spieler: int):
+        """[B,1326] CFV des Spielers, beide Seiten spielen avg_sigma."""
+        if n.terminal == "showdown":
+            return (n.sd_pot / 2.0) * self._mv(reach_opp)
+        if n.terminal == "fold":
+            eigen = n.invest[spieler]
+            nutzen = (-(self.pot0 / 2.0 + eigen) if n.fold_von == spieler
+                      else n.pot - (self.pot0 / 2.0 + eigen))
+            return nutzen * self._mv(reach_opp, maske=True)
+        sig = self.avg_sigma(n)
+        if n.actor == spieler:
+            cfv_a = torch.stack([self._ev(k, reach_opp, spieler) for k in n.kids], dim=2)
+            return (sig * cfv_a).sum(dim=2)
+        v = torch.zeros(self.B, N_COMBOS, device=DEVICE)
+        for a, k in enumerate(n.kids):
+            v = v + self._ev(k, reach_opp * sig[:, :, a], spieler, )
+        return v
+
+    def action_values(self, node: Node, reach_opp: torch.Tensor,
+                      spieler: int) -> torch.Tensor:
+        """[B,1326,n_acts] EV je Aktion (Chips ab Subgame-Start, zentriert wie
+        die Terminal-Konvention), normiert auf die kompatible Gegner-Masse.
+        reach_opp: Gegner-Reach AM Knoten (Range x avg_sigma entlang des Pfads)."""
+        cfv_a = torch.stack([self._ev(k, reach_opp, spieler) for k in node.kids], dim=2)
+        masse = self._mv(reach_opp, maske=True).clamp(min=1e-30)   # [B,1326]
+        return cfv_a / masse.unsqueeze(-1)
+
 
 # ---------------------------------------------------------------------------
 # TURN-CFR: Turn-Betting + Chance-Knoten + 48 River-Subbaeume als Batch-Dim.
