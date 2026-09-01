@@ -3,7 +3,20 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-30**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★★★★★ CURRENT (2026-08-30) — GPU-STAFFEL: River-CFR auf der 3080 Ti, 100% Auslastung, TexasSolver-Match 0,999; Runde 7/8 in den Gates
+## ★★★★★ CURRENT (2026-09-01) — v8 GEDROPPT (User-Entscheid): auslese-v5 BLEIBT der Stand; Postmortem geschrieben
+**Die v8-Stufe (Solver-PLAY statt Chirurgie + stackoff_bremse) wurde nach den Zwischenverdikten GEDROPPT:**
+play vs v5 +1,14±2,78 NEUTRAL (30k) · v8 vs v5 +3,91±2,85 / −1,23±4,36 NEUTRAL (gepoolt ~+2,3±2,4) ·
+alle A/A exakt 0. **Ursachen-Analyse: [`docs/V8_POSTMORTEM.md`](V8_POSTMORTEM.md)** — Kanal-Sättigung
+(die v5-Chirurgie hatte die Klarfälle geerntet; Play-Differenzen liegen in Indifferenz-Zonen, nz_median
+1,9bb vs 11,6bb), Spiegel bestraft Feinpräzision nicht (kein Re-Solver), seltene Grenzfälle bei 45k
+unsichtbar, Ockham bei Gleichstand. GTOW-Achsen-Evidenz der Play-Komponente bleibt dokumentiert positiv
+(+278,6bb Replay, AIVAT-konvergent) — unbewiesen ohne Anker; billigster Beweis wäre GTOW-A/B v5 vs
+v5+play (Protokoll data/runs/gtow_v8_protokoll_2026-08-31.json). r9-Arme (play/turn/stackoff) bleiben
+default-OFF registriert. **STAND: auslese-v5 (Tag ec11fde) = FINAL_STACK r8_stack; GTOW-Anker Arm B1=v5
+vorbereitet, wartet auf User-Kommando.** Neg-Ergebnisse mit Erklärung: no_limp −11,42 (Basis limpt 39%
+strategisch → richtiger Kandidat wäre Limp-Pot-DEFENSE), turn_gpu 3/3904 zu leise.
+
+## ★★★★★ (2026-08-30) — GPU-STAFFEL: River-CFR auf der 3080 Ti, 100% Auslastung, TexasSolver-Match 0,999; Runde 7/8 in den Gates
 **User-Auftrag: GPU+CPU voll nutzen — (1) Luecken systematisch finden, (2) selbst schliessen, (3) neue
 Bot-Version GPU+CPU, (4) Test vs eingefrorene Basis.** Stand nach Tag 1 (Commits 2b57206..c344e14):
 **GEBAUT+VERIFIZIERT (jede Stufe mit Beweis):** `pokerbot/engine/gpu_eval.py` (vektorisierter 7-Karten-
