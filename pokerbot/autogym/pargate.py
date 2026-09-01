@@ -172,25 +172,65 @@ def _worker(args: tuple) -> tuple:
     return job_idx, edges
 
 
+def _block_datei(kandidat: str, incumbent: str, seed: int, deck_seed0: int,
+                 chunk: int, idx: int):
+    """Ablageort eines fertigen Job-Blocks. Der Name traegt ALLE Groessen, die
+    das Ergebnis bestimmen — ein Block darf nur wiederverwendet werden, wenn
+    Arme, Seeds und Blockgroesse exakt uebereinstimmen."""
+    from pathlib import Path
+    d = Path("data/_pargate_blocks") / f"{kandidat}__vs__{incumbent}__s{seed}__b{deck_seed0}__c{chunk}"
+    d.mkdir(parents=True, exist_ok=True)
+    return d / f"job{idx:03d}.json"
+
+
 def par_gate(kandidat: str, n_decks: int, workers: int, seed: int = 1,
              deck_seed0: int = 1000, incumbent: str = "basis") -> dict:
-    """Gepaartes Gate, parallelisiert. Deck-Bloecke disjunkt via deck_seed0+i."""
+    """Gepaartes Gate, parallelisiert. Deck-Bloecke disjunkt via deck_seed0+i.
+
+    FORTSETZBAR (2026-09-01): jeder fertige Job-Block wird sofort auf Platte
+    geschrieben; ein Neustart mit identischen Parametern ueberspringt bereits
+    berechnete Bloecke. Die Bloecke sind deterministisch (fester seed + eigener
+    deck_seed je Job), ein fortgesetzter Lauf ist deshalb byte-gleich zum
+    durchgelaufenen. Grund: ein abgebrochener 30k-Lauf verlor bisher ALLES
+    (18.125 Decks am 2026-08-31)."""
+    import json as _json
     # Feinere Chunks (4 je Worker) + imap_unordered = laufender Fortschritt statt
     # Blackbox bis zum Ende; kostet nichts, macht ETA moeglich.
     n_jobs = workers * 4
     chunk = max(1, n_decks // n_jobs)
-    jobs = [(i, kandidat, seed, deck_seed0 + i, chunk, incumbent) for i in range(n_jobs)]
     t0 = time.time()
     # DECK-ORDNUNG (Niveau-Audit Rang 14): imap_unordered + extend zerstoerte das
     # Deck->Edge-Mapping — Bloecke werden per Job-Index geordnet zusammengesetzt,
     # damit edges.json lauf- und arm-uebergreifend per Deck paarbar bleibt.
     bloecke: dict[int, list] = {}
-    with mp.Pool(workers) as pool:
-        for k, (idx, blk) in enumerate(pool.imap_unordered(_worker, jobs), 1):
-            bloecke[idx] = blk
-            el = time.time() - t0
-            print(f"  [{k}/{n_jobs}] {sum(len(b) for b in bloecke.values())} Decks | {el/60:.1f} min | "
-                  f"ETA {el/k*(n_jobs-k)/60:.1f} min", flush=True)
+    offen = []
+    for i in range(n_jobs):
+        p = _block_datei(kandidat, incumbent, seed, deck_seed0, chunk, i)
+        if p.exists():
+            try:
+                bloecke[i] = _json.loads(p.read_text(encoding="utf-8"))
+                continue
+            except Exception:  # noqa: BLE001
+                pass            # unlesbarer Block wird neu gerechnet
+        offen.append((i, kandidat, seed, deck_seed0 + i, chunk, incumbent))
+    if bloecke:
+        print(f"  Fortsetzung: {len(bloecke)}/{n_jobs} Bloecke aus Zwischenstand "
+              f"({sum(len(b) for b in bloecke.values())} Decks), {len(offen)} offen", flush=True)
+    if offen:
+        with mp.Pool(workers) as pool:
+            for k, (idx, blk) in enumerate(pool.imap_unordered(_worker, offen), 1):
+                bloecke[idx] = blk
+                _block_datei(kandidat, incumbent, seed, deck_seed0, chunk, idx).write_text(
+                    _json.dumps(blk), encoding="utf-8")
+                el = time.time() - t0
+                n_fertig = sum(len(b) for b in bloecke.values())
+                # Zwischenstand in bb/100: der laufende Lauf ist nicht mehr blind
+                lauf = [e for b in bloecke.values() for e in b]
+                # Skala wie stats.robust_stats: 1/2 Haende-pro-Deck / bb * 100
+                zwischen = sum(lauf) / max(1, len(lauf)) * (1.0 / 2.0 / 100.0 * 100.0)
+                print(f"  [{k}/{len(offen)}] {n_fertig} Decks | {el/60:.1f} min | "
+                      f"ETA {el/k*(len(offen)-k)/60:.1f} min | Zwischenstand "
+                      f"{zwischen:+.2f} bb/100", flush=True)
     edges = [e for i in range(n_jobs) for e in bloecke[i]]
     from pokerbot.autogym.stats import bootstrap_ci, robust_stats, verdikt
     rs = robust_stats(edges)
