@@ -13,7 +13,8 @@ from collections import defaultdict
 
 from pokerbot import config
 
-BB = 50.0   # GTO Wizard HUNL bb (measured); the buckets are relative anyway
+BB = 100.0  # GTO Wizard HUNL: blinds=[100,50] (API GameModel.blinds, BB zuerst; gtowizard.py _gsr-Fixture) -> bb=100.
+            # WHY: der alte Wert 50 war die SB -> alle bb/100 hier um Faktor 2 ueberhoeht (V10_FAKTEN A8/E10, 2026-09-07).
 
 
 def _newest():

@@ -1,7 +1,45 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-08-30**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-08**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★★★ CURRENT (2026-09-07/08) — v10 „River-Fundament" GEBAUT + GATES G1–G5 GELAUFEN: **NICHT GTOW-reif** (G3 VERFEHLT, G2 nicht gruen); Stand bleibt auslese-v5
+**Gesamtbericht: [`docs/V10_GATES_REPORT.md`](V10_GATES_REPORT.md)** (Tabelle, Reduktionen, Befunde, Ship-Entscheid, GTOW-Staffel-Kommandos).
+Karte `docs/V10_BUILD_CARD.md`; Arme A = v5-H (`r8_stack`, PRINCE, exploit OFF, TexasSolver ON) vs B = v10 (`r10_stack` =
+K1-Hero-Likelihood-Replay `pokerbot/strategy/hero_range.py` + K2-oeffentlicher River-Plan `pokerbot/autogym/river_plan.py`
+statt `river_gpu_guard`; K3-Pruefstand `research/river_br_pruefstand.py`; K4 `pokerbot/runtime_config.py` + `gtow_ledger.py`;
+K5 `research/gtow_nacht_v10.py`, Muenze BAAB_dann_ABBA). Alles UNCOMMITTED im Working Tree (Branch poker-core, HEAD eabcef3).
+**GATES (Quellen in data/runs/v10/):**
+· **G1 GRUEN (zusammengesetzt):** 13 Bloecke exit 0 (`G1_tests.txt`); K3-Kontrollen 15/15 aus `g4_logs/kontrollen_tests.log`
+(der G1-Runner schrieb den Block nicht; pytest nicht installiert → Modul-Runner).
+· **G2a BESTANDEN:** A/A r10 vs r10 **576 Decks EXAKT 0** (bb100 0.0, se 0.0, nonzero 0; `data/runs/20260907_220348_pargate_r10_stack/result.json`);
+Golden r8-vs-basis pre == post IDENTISCH (E7-Isolation haelt).
+· **G2 NICHT GRUEN (n=10 Probe, `G2_latenz_probe10.json` status VERFEHLT_REDUZIERTE_STICHPROBE):** Gesamt-p99 v10 7,55 s > v5-H 5,54 s
+auf identischen Zustaenden; **K2-Trace: Plan gespielt 1/10, deadline 7/10, hand_not_in_range 2/10** (eine 7,5-s-Deadline blockiert
+via LIVE_SOLVE_WORKER=1/QUEUE_BUDGET_S=0,5 die Folge-Haende) → live ist v10 in ~90 % der Plan-Pots die nackte Basis. Vollmessung
+(`python -u -m research.v10_latenz --messe --n 150 --plan-min 50`) NICHT gelaufen.
+· **G3 VERFEHLT (`g3_k1_gate_20260907_231422.json`, 64 VG/145 Knoten/je Guard-Klasse ≥16, S=12):** TV K1 vs decide()-Orakel
+**mittel 0,2085 / p95 0,758 / max 0,876**; untere Schranke nach Rausch-Abzug (Floor 0,095) **0,1446 / 0,620 / 0,819** vs Budget
+0,02 / 0,05 / 0,10 → Karte: „K2 NICHT frei". Treiber turn_wert-Faelle (0,325), Klassenebene ebenfalls ueber Budget (0,104);
+Hero-Hole ausserhalb K1-Support 21/64; button_disziplin-Prior „unveraendert" messbar falsch. Live-Kanal nicht messbar (E3 offen).
+· **G4 UNVOLLSTAENDIG (11/20 Roots, Gym-Kanal; `G4_holdout.json`):** ΔE_H −113,0 ± 18,6 bb/100 (OG95 −85,4), ΔR(B-Nachteil)
+−4,04 ± 0,99 — B in 11/11 Roots weniger ausbeutbar UND weniger Regret, robust ueber 2 Villain-Familien; aber gegen v5-GYM ohne
+TexasSolver gemessen (nicht auf Live uebertragbar); Live-Pilot UNSUPPORTED (REACH_EPS-Inkonsistenz im Werkzeug). Voller Holdout ≈ 33 h,
+Oracle-Cache fp 01baf241872c setzt fort.
+· **G5 BESTANDEN (`G5_BERICHT.json`, `data/runs/20260908_002035_pargate_r10_stack/`):** r10 vs r8 **1968 Decks +11,68 ± 10,85** NEUTRAL,
+CI [−9,39, +33,06]; Katastrophen ≥150 bb 1 neg./1 pos. (symmetrisch). BEFUND: alle 3 Decks ≤ −100 bb entstehen im FALLBACK auf die
+nackte Basis (2× offtree, 1× Sub-Schwellen-Pot), Off-Tree-Quote 42 % in den grossen Divergenz-Decks; reine Plan-Decks alle positiv.
+Analyzer-Export **200** Haende (statt 1500) `data/gtow_upload/hu_v10_r10_stack_200.txt` (IDs 130000–130199, Tag 90, Seed 1109 —
+Ledger-Eintrag `g5_analyzer_ledger.json`, naechster Vorschlag 132000/91/1110).
+**SHIP-ENTSCHEID: NICHT GTOW-reif** — kein Tag auslese-v10-rc, keine G6-Staffel. **GTOW-Stand bleibt auslese-v5 (ec11fde, r8_stack).**
+Re-Release braucht (neuer Hash → alle Gates neu): size-bewusstes K1-Backend + K1-Support-Leck; K2-Fallback = r8-Chirurgie statt
+nackter Basis + Solve-Queue ohne Folge-Blockade + Off-Tree-Abbildung; K5-Legalisierungs-Kanal + E5-Patch (sonst kein_verdikt);
+G2-Vollmessung; G4 bis n ≥ 20 + Live-Kanal. Staffel-Kommandos (nur dann): `python -m research.gtow_nacht_v10 --smoke 20 --arm B`
+→ `--smoke 100 --arm B` → `--nacht 1` (B A A B) → `--nacht 2` → `--fazit-gesamt`. Journal: V10-GATES.
+
+**NACHTRAG 02:05 (Fable):** R2 war ein Live-MECHANIK-Fehler (LIVE_SOLVE_WORKER=1/QUEUE_BUDGET 0,5 s) → gefixt (3 Threads, 3 s Queue, Deadline 12 s); Nachmessung n=40 Plan-Pots live: deadline 0/40, Plan gespielt 25/40, offtree 11/40, hand_not_in_range 4/40, p99 v10 10,15 s (kein Timeout im Harness); A/A nach Fix 576 Decks EXAKT 0 (Bank 1100000). GTOW-Staffel NICHT gestartet (G3 verfehlt = vorregistrierter Blocker; Entscheid beim User). Offene Design-Luecken: Off-Tree-Fallback auf nackte Basis (Villain-Sizes ≠ Baum), K1-Support (Preflop-Klassen-Prior), K1-Genauigkeit. Detail: V10_GATES_REPORT.md Abschnitt 6.
+**NACHTRAG 03:30 (Fable, Sitzungsende):** Astra-Konsult Teil F (Vollständigkeit: NEIN, Lücken L1 Off-Tree-Fallback / L2 K1-Support / L3 K1-Genauigkeit + Policy-Closure + Kanalparität) und Teil G (Hybrid-These: H ist ein NEUER Bot, nicht Max(v5,v10); H0→H1-Bauplan, 7-Regel-Hybrid-Doktrin jetzt in CLAUDE.md). NÄCHSTER SCHRITT bei Wiederaufnahme: v10.1 = H0 (Plan, sonst unverändertes v5 je Entscheidung) → H1; Abnahmen in TOP5_KONSULT Teil G Abschnitt 6. Working Tree als Commit gesichert (poker-core), kein Tag.
+
 
 ## ★★★★★ CURRENT (2026-09-01) — v8 GEDROPPT (User-Entscheid): auslese-v5 BLEIBT der Stand; Postmortem geschrieben
 **Die v8-Stufe (Solver-PLAY statt Chirurgie + stackoff_bremse) wurde nach den Zwischenverdikten GEDROPPT:**

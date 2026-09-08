@@ -40,10 +40,22 @@ def _setup_fixed(g: HeadsUpGame, h0, h1, board5, button, start):
     g.deck.cards = list(reversed(board5))   # deal() pops from the end -> board comes out in order
 
 
-def _play_hand(g: HeadsUpGame, d0, d1, start) -> int:
+# hand_id-Adresse (V10_BUILD_CARD E4): der Engine-State traegt kein hand_id und hand_no ist im Spiegel immer
+# 1 oder 2 (game.py:301, _setup_fixed). Die Strategien (K2 river_plan: Plan-Cache + private Randomisierung)
+# brauchen eine Adresse OHNE Hole-Karten -> sie wird hier in den State-DICT injiziert, game.py bleibt unberuehrt.
+# Die Adresse ist die DECK-Identitaet (hand_id_basis + deck_idx) und fuer BEIDE Spiegelhaelften gleich: der
+# private Seed ist f(hand_id, Sitz), und A auf Sitz 0 (Haelfte 1) muss dieselbe Zahl ziehen wie B auf Sitz 0
+# (Haelfte 2) — sonst ist ein A/A nicht exakt 0 (gemessen 2026-09-07 mit 2*idx+half: 6/276 Decks nonzero,
+# Replay-identisch, z.B. u 0,05 -> fold vs 0,71 -> call). pargate hebt die Bloecke ueber hand_id_basis auseinander.
+HAND_ID_STRIDE_JE_DECKSEED = 1_000_000   # Bloecke haben << 1M Decks -> disjunkte Adressraeume je deck_seed
+
+
+def _play_hand(g: HeadsUpGame, d0, d1, start, hand_id: int | None = None) -> int:
     guard = 0
     while not g.hand_over:
         st = g.state()
+        if hand_id is not None:
+            st["hand_id"] = hand_id
         a, amt = (d0 if st["to_act"] == 0 else d1)(st)
         g.act(a, amt)
         guard += 1
@@ -52,16 +64,19 @@ def _play_hand(g: HeadsUpGame, d0, d1, start) -> int:
     return g.players[0].stack - start       # seat-0 strategy's net (zero-sum: seat1 = -this)
 
 
-def duplicate_ab(make_a, make_b, decks, start=20000, sb=50, bb=100, return_edges=False):
+def duplicate_ab(make_a, make_b, decks, start=20000, sb=50, bb=100, return_edges=False,
+                 hand_id_basis: int = 0):
     """A's card-luck-cancelled edge over B (bb/100) + stderr. Each deck: A=seat0 vs B, then B=seat0 vs A.
-    return_edges=True also returns the per-deck chip edges (for PAIRED deltas across configs on the same decks)."""
+    return_edges=True also returns the per-deck chip edges (for PAIRED deltas across configs on the same decks).
+    hand_id_basis: offset of the injected hand_id address (see HAND_ID_STRIDE_JE_DECKSEED)."""
     g = HeadsUpGame(names=("S0", "S1"), starting_stack=start, sb=sb, bb=bb, seed=0)
     edges = []
-    for h0, h1, board in decks:
+    for deck_idx, (h0, h1, board) in enumerate(decks):
+        hand_id = hand_id_basis + deck_idx                                # gleiche Adresse fuer beide Haelften
         _setup_fixed(g, h0, h1, board, 0, start)
-        x1 = _play_hand(g, make_a(0), make_b(1), start)      # A at seat0
+        x1 = _play_hand(g, make_a(0), make_b(1), start, hand_id)          # A at seat0
         _setup_fixed(g, h0, h1, board, 0, start)
-        x2 = _play_hand(g, make_b(0), make_a(1), start)      # B at seat0  (A's chips = -x2)
+        x2 = _play_hand(g, make_b(0), make_a(1), start, hand_id)          # B at seat0  (A's chips = -x2)
         edges.append(x1 - x2)                                # A's chips over the 2 mirrored hands
     n = len(edges)
     mean = sum(edges) / n
@@ -78,9 +93,9 @@ def naive_ab(make_a, make_b, hands, start=20000, sb=50, bb=100, seed=0):
     g = HeadsUpGame(names=("A", "B"), starting_stack=start, sb=sb, bb=bb, seed=seed)
     decks = gen_decks(hands, seed=seed + 999)
     nets = []
-    for h0, h1, board in decks:
+    for deck_idx, (h0, h1, board) in enumerate(decks):
         _setup_fixed(g, h0, h1, board, 0, start)
-        nets.append(_play_hand(g, make_a(0), make_b(1), start))
+        nets.append(_play_hand(g, make_a(0), make_b(1), start, deck_idx))
     n = len(nets)
     mean = sum(nets) / n
     var = sum((x - mean) ** 2 for x in nets) / max(1, n - 1)

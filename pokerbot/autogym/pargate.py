@@ -34,11 +34,37 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               "r9_play", "r9_pre", "r9_turn", "r9_v8",
               # Runde 10 (v9 ERNTE-Build, HU_OPTIMAL_KARTE A1/A2): Play tief
               # (Trigger 15bb, fp16, Solver-Sizes) + stackoff-Haertung.
-              "r10_ernte")
+              "r10_ernte",
+              # v10 (docs/V10_BUILD_CARD.md, Arm B): r8_stack-Kette, aber der
+              # hand-abhaengige river_gpu_guard ist durch den OEFFENTLICHEN
+              # River-Plan (K2, K1-Hero-Range) ersetzt. GPU-Arm.
+              "r10_stack")
+
+# K2-Kanal (V10_BUILD_CARD E4/E5): im Gym feste Iterationen + deterministischer
+# private_seed aus (hand_id, Sitz); live zusaetzlich die 7,5-s-Zeit-Deadline und
+# os.urandom-Seed. Der Trace-Pfad kommt aus der Env (K5 setzt ihn je Chunk);
+# im pargate-Worker ist die Env POKERB_*-frei -> kein Trace, deterministisch.
+K2_LIVE_DEADLINE_S = 12.0   # G2 2026-09-08: K1-Range (bis 5,7 s) + Solve (2,5 s) sprengten 7,5 s; Harness hat keinen Timeout (V10_FAKTEN A8)
+K2_TRACE_ENV = "POKERB_K2_TRACE"
+K2_KANAELE = ("gym", "live")
 
 
-def _wickle(name: str, basis):
+def _k2_kanal_kw(kanal: str) -> dict:
+    """Kanal-Parameter fuer river_plan_guard (nur der r10_stack-Aufbau liest sie)."""
+    import os
+    if kanal not in K2_KANAELE:
+        raise ValueError(f"kanal muss in {K2_KANAELE} liegen: {kanal!r}")
+    kw = {"modus": kanal, "trace_pfad": os.environ.get(K2_TRACE_ENV) or None}
+    if kanal == "live":
+        kw["deadline_s"] = K2_LIVE_DEADLINE_S
+    return kw
+
+
+def _wickle(name: str, basis, kanal: str = "gym"):
     """Legt den benannten Guard-Stack um eine FERTIGE Strategie-Fabrik.
+    kanal ('gym' | 'live') erreicht nur K2-Arme (r10_stack): Live-Kanaele
+    (auslese.wickle_decide) bekommen Deadline + os.urandom-Seed, das Gate
+    bleibt deterministisch.
     DIE EINE QUELLE der Stack-Komposition — Gate (unten) UND die Export-Kanaele
     (research/snowie_export + research/pokerstars_export) beziehen sie hier,
     damit nie wieder eine divergierende Kopie graded wird (der m0.03-Fork
@@ -138,6 +164,18 @@ def _wickle(name: str, basis):
         kern = river_play_guard(river_wert_bremse(_wickle("r6_button", basis)),
                                 min_pot_chips=1500, iters=150, half=True)
         return stackoff_bremse(kern)
+    if name == "r10_stack":
+        # v10 Arm B (Karte 'Arme', E1/E7): dieselbe Kette wie r8_stack darunter
+        # (r6_button + wert_bremse); statt der hand-abhaengigen GPU-Chirurgie
+        # spielt in Plan-Pots (pot_river >= 1500 = 15 bb, oeffentlich am
+        # River-Beginn) der EINE River-Plan je Hand (RiverCFRBatch direkt, fp32,
+        # 150 Iter, K1-Hero-Range; Basis wird dort NICHT gerufen). Unterhalb
+        # der Schwelle bleibt alles r8-identisch bis auf den fehlenden
+        # river_gpu_guard (der erst ab pot 3000 feuerte).
+        from pokerbot.autogym.improver import river_wert_bremse
+        from pokerbot.autogym.river_plan import river_plan_guard
+        return river_plan_guard(river_wert_bremse(_wickle("r6_button", basis)),
+                                min_pot_chips=1500, iters=150, **_k2_kanal_kw(kanal))
     raise ValueError(name)
 
 
@@ -165,10 +203,12 @@ def _worker(args: tuple) -> tuple:
         torch.set_num_threads(1)
     except Exception:  # noqa: BLE001
         pass
-    from pokerbot.benchmark.duplicate import duplicate_ab, gen_decks
+    from pokerbot.benchmark.duplicate import HAND_ID_STRIDE_JE_DECKSEED, duplicate_ab, gen_decks
     decks = gen_decks(n_decks, seed=deck_seed)
+    # hand_id je Lauf eindeutig (E4): Adressraum je Deck-Block = deck_seed * Stride.
     _, _, edges = duplicate_ab(_baue_fabrik(kandidat, seed), _baue_fabrik(incumbent, seed),
-                               decks, return_edges=True)
+                               decks, return_edges=True,
+                               hand_id_basis=deck_seed * HAND_ID_STRIDE_JE_DECKSEED)
     return job_idx, edges
 
 

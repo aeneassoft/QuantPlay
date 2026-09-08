@@ -229,10 +229,14 @@ def _label_to_action(lbl, la):
     return ("bet" if la.get("is_bet") else "raise"), to
 
 
-def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
-                  acc: float = _RIVER_ACC, iters: int = _RIVER_ITERS, timeout: int = _RIVER_TIMEOUT):
-    """Solve the river public state (tracked ranges) + sample our hand's GTO action. Returns (action, amount) or
-    None (-> caller plays the floor). Navigates from the OOP first-to-act root following the river line to our node."""
+def river_strategy(state, hole, board, pot, eff_stack, oop_str, ip_str, la,
+                   acc: float = _RIVER_ACC, iters: int = _RIVER_ITERS, timeout: int = _RIVER_TIMEOUT):
+    """v10 K3/E3 (docs/V10_BUILD_CARD.md E3): die VERTEILUNG des River-Resolvers fuer unsere Hand — dasselbe
+    Solve + dieselbe Baum-Navigation wie river_resolve, aber OHNE Sampling und ohne RNG-Verbrauch. Rueckgabe: das
+    rohe TexasSolver-Strategie-Dict {label: p} (gto_oracle.strategy_for) oder None in exakt den Faellen, in denen
+    river_resolve None liefert (leere Ranges, Solve-Fehler/Timeout, Off-Tree-Navigation, hand-not-in-range).
+    `la` bleibt in der Signatur (Symmetrie zu river_resolve; die Legalitaetsabbildung macht der Aufrufer via
+    _label_to_action). Policy-Abfragen (K1/K3) duerfen keine Zufallszahlen verbrauchen — deshalb kein rng."""
     if not oop_str or not ip_str:
         return None
     try:
@@ -255,6 +259,19 @@ def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
     sm = root.get("_suit_map")
     h0, h1 = (hole[0][0] + sm[hole[0][1]], hole[1][0] + sm[hole[1][1]]) if sm else (hole[0], hole[1])
     strat = O.strategy_for(node, h0, h1)
+    if not strat:
+        return None
+    return strat
+
+
+def river_resolve(state, hole, board, pot, eff_stack, oop_str, ip_str, la, rng,
+                  acc: float = _RIVER_ACC, iters: int = _RIVER_ITERS, timeout: int = _RIVER_TIMEOUT):
+    """Solve the river public state (tracked ranges) + sample our hand's GTO action. Returns (action, amount) or
+    None (-> caller plays the floor). Navigates from the OOP first-to-act root following the river line to our node.
+    v10: = river_strategy + EIN rng.choices — Byte-Identitaet zum Stand vor der Aufspaltung bewacht
+    tests/test_river_strategy_identity.py (gleicher rng-Zustand -> gleiche (action, amount), gleicher Folgezustand)."""
+    strat = river_strategy(state, hole, board, pot, eff_stack, oop_str, ip_str, la,
+                           acc=acc, iters=iters, timeout=timeout)
     if not strat:
         return None
     labels = list(strat.keys())

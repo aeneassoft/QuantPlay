@@ -26,6 +26,13 @@ from pokerbot.strategy.gto_mode import apply as _apply_gto_mode
 # pokerbot.strategy import (postflop/advisor read their flags at import time; PokerBot is imported lazily below).
 _apply_gto_mode()
 
+# K4/E8 (2026-09-07): der Auslese-Stack (POKERB_AUSLESE_STACK) braucht seine Import-Zeit-Flags (TURN_DEFENSE/
+# SLOWPLAY, auslese.AUSLESE_ENV) VOR pokerbot.strategy.bot — bisher fehlte setze_env im GTOW-Pfad (V10_FAKTEN A8).
+# resolver_on folgt POKERB_RESOLVER (default ON): mit Resolver KEIN RAISE_NARROW (v8-K3-Kontraindikation, auslese.py).
+if os.environ.get("POKERB_AUSLESE_STACK"):
+    from pokerbot.strategy.auslese import setze_env as _setze_auslese_env
+    _setze_auslese_env(resolver_on=os.environ.get("POKERB_RESOLVER", "1") != "0")
+
 _STREETS = ["preflop", "flop", "turn", "river"]
 
 
@@ -211,14 +218,53 @@ class PokerBotAgent:
         if _stack:
             from pokerbot.strategy.auslese import wickle_decide
             self._decide = wickle_decide(self.bot, _stack)
+        self.stack_name = _stack or "basis"
+        # K4 (Karte K4 + E8): Fingerprint dessen, was GELADEN ist -> Ledger (prozess_start) -> Fehlkonfig-Gatter
+        # (SystemExit, wenn POKERB_ERWARTE_PROFIL=v5-H|v10 gesetzt ist; unset = nur loggen). Erst NACH der Bot-
+        # Konstruktion, weil use_resolver/exploit am Objekt geprueft werden, nicht an der Env-Absicht.
+        from pokerbot import runtime_config
+        from pokerbot.benchmark import gtow_ledger
+        self.fingerprint = runtime_config.fingerprint_geladen(self.bot, self.stack_name)
+        self.fingerprint_hash = self.fingerprint["fingerprint_hash"]
+        gtow_ledger.standard_ledger().prozess_start(self.fingerprint)
+        runtime_config.gatter_aus_env(self.fingerprint)
+        import threading
+        self._decide_lock = threading.Lock()   # decide mutiert Bot-Zustand (Tracker) -> ein Thread zur Zeit
+        # E5-Laufzeitnachweis: act_dict DIREKT aus dem Event-Loop-Thread gerufen (= poker_agent.py:74 ungepatcht)
+        # blockiert alle parallelen Haende. Der Zaehler macht den Zustand messbar (Ledger-Ereignis 'e5_sync_act_dict'),
+        # statt ihn aus einer gitignorierten Quelldatei zu raten (docs/V10_LEDGER_PATCH.md).
+        self.loop_blockierende_aufrufe = 0
+
+    def _zaehle_loop_blockade(self) -> None:
+        """Laeuft in DIESEM Thread ein Event-Loop, blockiert der synchrone Aufruf ihn — einmal warnen, immer zaehlen."""
+        import asyncio
+        try:
+            asyncio.get_running_loop()
+        except RuntimeError:
+            return                                   # Worker-Thread (act_async) oder rein synchroner Aufrufer: kein Loop
+        self.loop_blockierende_aufrufe += 1
+        if self.loop_blockierende_aufrufe == 1:
+            import sys
+            print("[K4/E5] WARNUNG: act_dict synchron im Event-Loop gerufen -- parallele Haende blockiert; "
+                  "PokerBotMVP.act muss act_async awaiten (docs/V10_LEDGER_PATCH.md)", file=sys.stderr)
 
     def act_dict(self, gsr: dict) -> dict:
+        self._zaehle_loop_blockade()
         state = gtow_to_state(gsr)
-        self.bot.hero_idx = 0
-        decision = self._decide(state)
+        with self._decide_lock:
+            self.bot.hero_idx = 0
+            decision = self._decide(state)
         gs = gsr.get("game_state") or gsr
         la_codes = [a.lower() for a in (gs.get("legal_actions") or [])]
         return decision_to_act(decision, state["legal"], la_codes)
+
+    async def act_async(self, gsr: dict) -> dict:
+        """E5: decide im Worker-Thread (asyncio.to_thread, Vorbild tools/gtow_client/src/poker_agent.py:208) —
+        der Event-Loop bleibt fuer die parallelen Haende frei (bisher blockierte der synchrone act_dict ALLE, V10_FAKTEN
+        A8). Die Serialisierung der Entscheidungen bleibt ueber _decide_lock erhalten. PokerBotMVP.act (gitignored)
+        ruft dies statt act_dict — Patch dokumentiert in docs/V10_LEDGER_PATCH.md."""
+        import asyncio
+        return await asyncio.to_thread(self.act_dict, gsr)
 
     def hand_end(self, final_gsr: dict | None = None):
         try:

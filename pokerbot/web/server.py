@@ -14,11 +14,17 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 
-# AUSLESE-Verdrahtung (2026-08-18): die v4-Env-Flags MUESSEN vor dem bot-Import
-# stehen (Import-Zeit-Konstanten). POKERB_AUSLESE=0 schaltet auf den nackten Bot.
+# D1-FIX (HU_OPTIMAL_KARTE D1 / V10 K4, 2026-09-07): die HU-App spielte eine NIE GEMESSENE Konfig (kein PRINCE,
+# exploit=True, RAISE_NARROW=1.0 neben der r8-Kette). Jetzt = die gemessene v5-Definition = GTOW-Arm 'v5-H':
+# PRINCE-Profil + exploit OFF + FINAL_STACK (r8_stack) + TexasSolver AN; setze_env(resolver_on=True) laesst
+# RAISE_NARROW weg (v8-K3-Kontraindikation). Alles VOR dem bot-Import (Import-Zeit-Konstanten), setdefault:
+# explizite Launcher-Flags gewinnen. POKERB_AUSLESE=0 schaltet auf den nackten Bot (Debug).
 if os.environ.get("POKERB_AUSLESE", "1") != "0":
+    os.environ.setdefault("POKERB_PRINCE", "1")
+    from pokerbot.strategy.gto_mode import apply as _apply_gto_mode
+    _apply_gto_mode()
     from pokerbot.strategy.auslese import setze_env
-    setze_env()                          # resolver-OFF-Kanal: volle v4-Env inkl. RAISE_NARROW
+    setze_env(resolver_on=True)
 
 from pokerbot import config
 from pokerbot.coach.coach import Coach
@@ -34,13 +40,26 @@ app = FastAPI(title="PokerB — Heads-Up GTO Bot")
 class Session:
     def __init__(self, stack=10000, sb=50, bb=100):
         self.game = HeadsUpGame(names=("You", "Bot"), starting_stack=stack, sb=sb, bb=bb)
-        self.bot = PokerBot(BOT, seed=None, exploit=True)      # plays the bot seat
-        # AUSLESE-Wrapper-Kette (r6_button(turn_wert(sel_m15))) um decide — die
-        # externen Anker vermessen damit erstmals den AMTIERENDEN Stand.
+        auslese_an = os.environ.get("POKERB_AUSLESE", "1") != "0"
+        # D1: exploit OFF wie der gemessene v5-H-Arm (gtowizard.py mit POKERB_EXPLOIT=0 aus dem PRINCE-Profil);
+        # River-/Turn-Resolver AN wie im GTOW-Harness-Default (gtowizard.py:190-193); POKERB_RESOLVER=0 schaltet
+        # sie ab (schnellere Antwort beim Ueben — dann ist es aber nicht mehr die gemessene Konfig).
+        self.bot = PokerBot(BOT, seed=None, exploit=not auslese_an)      # plays the bot seat
+        resolver_an = auslese_an and os.environ.get("POKERB_RESOLVER", "1") != "0"
+        self.bot.use_resolver = resolver_an
+        self.bot.use_turn_resolver = resolver_an
+        # AUSLESE-Wrapper-Kette FINAL_STACK (= auslese.FINAL_STACK, r8_stack) um decide — die
+        # externen Anker vermessen damit den AMTIERENDEN Stand.
         self._bot_decide = self.bot.decide
-        if os.environ.get("POKERB_AUSLESE", "1") != "0":
-            from pokerbot.strategy.auslese import wickle_decide
+        stack_name = "basis"
+        if auslese_an:
+            from pokerbot.strategy.auslese import FINAL_STACK, wickle_decide
             self._bot_decide = wickle_decide(self.bot)
+            stack_name = FINAL_STACK
+        # K4: Fingerprint dessen, was geladen ist + Gatter (POKERB_ERWARTE_PROFIL=v5-H bricht bei Fehlkonfig ab).
+        from pokerbot import runtime_config
+        self.fingerprint = runtime_config.fingerprint_geladen(self.bot, stack_name)
+        runtime_config.gatter_aus_env(self.fingerprint)
         self.advisor = PokerBot(HUMAN, seed=None, exploit=False)  # GTO reco for the human
         self.coach = Coach(language="de")
         self.last_bot: dict | None = None       # {state, decision} for "explain"

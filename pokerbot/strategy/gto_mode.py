@@ -91,6 +91,9 @@ _FINGERPRINT_KEYS = sorted(set(PROFILE) | set(PRINCE_PROFILE) | {
     # v4 Stufe 2 (born 2026-08-17; standing rule: birth commit registers the flag): real-time
     # flop->river solver-to-terminal re-solve (VALUE_NET_PLAN robust default), default OFF:
     "POKERB_FLOP_RESOLVER",
+    # K4 (V10_FAKTEN B12, 2026-09-07): der um decide gewickelte Auslese-Stack definiert den Lauf genauso wie ein
+    # Flag — er fehlte hier, also trug kein GTOW-Fingerprint den Arm. Reiner Fingerprint-Key, kein Strategie-Code.
+    "POKERB_AUSLESE_STACK",
 })
 
 

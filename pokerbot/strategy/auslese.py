@@ -17,12 +17,22 @@ Historie v4 (Tag auslese-v4): FINAL_STACK war r6_button; Mirror 3x30k vs basis
 (v8-K3) -> setze_env(resolver_on=True) laesst RN weg. Die Guards sind HU-ONLY
 (2-Spieler-State-Ausdruecke) — NIE in den Multiway-Kern verdrahten.
 
+v10-RELEASE-KANDIDAT (docs/V10_BUILD_CARD.md, 2026-09-07): RC_STACK = r10_stack
+= dieselbe Kette darunter (r6_button + wert_bremse), aber der hand-abhaengige
+river_gpu_guard ist durch den OEFFENTLICHEN River-Plan (K2, pokerbot/autogym/
+river_plan.py: ein Solve je Hand am River-Beginn, K1-Hero-Range ohne Injektion,
+private Randomisierung) ersetzt. FINAL_STACK bleibt r8_stack, bis die Gates
+G1-G6 gruen sind und der RC getauft wird (Tag auslese-v10-rc); der GTOW-Pilot
+(K5) faehrt beide Arme ueber POKERB_AUSLESE_STACK. Live-Kanaele wickeln mit
+kanal='live' (7,5-s-Deadline, os.urandom-Seed), das Gate bleibt Gym.
+
 Dieses Modul haelt seine Imports LAZY: setze_env() muss VOR dem Import von
 pokerbot.strategy.bot laufen (Import-Zeit-Konstanten).
 """
 from __future__ import annotations
 
 FINAL_STACK = "r8_stack"
+RC_STACK = "r10_stack"          # Release-Kandidat v10; wird erst mit der Taufe FINAL_STACK
 AUSLESE_ENV = {"POKERB_TURN_DEFENSE": "0.07", "POKERB_SLOWPLAY": "0.25"}
 AUSLESE_ENV_RESOLVER_OFF = {**AUSLESE_ENV, "POKERB_RAISE_NARROW": "1.0"}
 
@@ -49,7 +59,13 @@ def wickle_decide(pb, stack: str | None = None):
             return dec["action"], dec["amount"]
         return basis
 
-    kette = _wickle(stack or FINAL_STACK, fabrik)(0)
+    stack_fabrik = _wickle(stack or FINAL_STACK, fabrik, kanal="live")
+    kette = stack_fabrik(0)
+    # K4-Fingerprint (runtime_config.private_seed_quelle liest bot.private_seed_quelle):
+    # nur der K2-Plan-Wrapper traegt eine Seed-Herkunft; andere Stacks bleiben 'keine'.
+    quelle = getattr(stack_fabrik, "private_seed_quelle", None)
+    if quelle is not None:
+        pb.private_seed_quelle = quelle
 
     def decide(st):
         a, amt = kette(st)

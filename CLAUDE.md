@@ -334,6 +334,39 @@ How I write code AND talk about it — the standing default, every turn.
 > (1) die Mathematik-Benchmark (Orakel), (2) Self-Play-Gates (gepaarte Decks), (3) der gepaarte
 > A/B-Anker NEUER BOT vs ALTE BASIS (`duplicate_ab` auf identischen Decks). GTOW nur zur Not.**
 
+> **★★★★★ v10 „RIVER-FUNDAMENT" (2026-09-07/08) — GEBAUT, GEGATED, NICHT GTOW-REIF; CHAMPION BLEIBT auslese-v5.**
+> **Wiedereinstieg in 4 Dateien:** `docs/V10_GATES_REPORT.md` (Gate-Tabelle + Nachtrag 6 = Ship-Entscheid),
+> `docs/V10_BUILD_CARD.md` (Karte + Entscheidungen E1–E11 + Nachtrag), `docs/V10_FAKTEN.md` (Code-Fakten mit
+> file:line), `docs/TOP5_KONSULT_GPT6_2026-09-07.md` (gpt-6-astra-Konsult Teil A–G: Top-5-Strategie, Netz-
+> Architektur R1/R2/R3, v10-Kritik, Vollständigkeit, Hybrid-Doktrin). Journal-Typen V10-*/KONSULT-GPT6-*.
+> **Was existiert (Branch poker-core):** K1 `pokerbot/strategy/hero_range.py` (Hero-Likelihood-Replay), K2
+> `pokerbot/autogym/river_plan.py` (öffentlicher River-Plan, private Randomisierung, Trace), K3
+> `research/{policy_oracle,river_br_pruefstand,k3_roots}.py` (exakte BR gegen feste Hero-Politik, gebatchter
+> Arm-A-Oracle), K4 `pokerbot/runtime_config.py` + `pokerbot/benchmark/gtow_ledger.py` (Fingerprint, Fehlkonfig-
+> Gatter, Ledger; HU-App D1 gefixt), K5 `research/gtow_nacht_v10.py` (Münze BAAB dann ABBA), Verträge
+> `pokerbot/strategy/contracts.py`, `research/golden_set.py`, Stack `r10_stack` in pargate, `auslese.RC_STACK`.
+> **Messlage:** A/A 576 Decks EXAKT 0 (3 Banken; Bug hand_id-je-Hälfte gefunden+gefixt), G5 Spiegel r10 vs v5
+> +11,7 ± 10,9 (1968 Decks, Gym-Kanal), G4 Plan in 11/11 Holdout-Roots weniger ausbeutbar (Gym-Arm, n=11),
+> **G3 VERFEHLT** (K1-TV 0,21 vs 0,02; Hero außerhalb K1-Support 21/64), G2 Live: Plan 25/40, offtree 11/40.
+> **Katastrophenquelle = Off-Tree-Fallback auf die NACKTE Basis ohne v5-Chirurgie** (alle Gym-Decks ≤ −100 bb).
+> **NÄCHSTER BUILD v10.1 = geschlossener Hybrid (Astra Teil G, Schritte 1–6):** H0 = Plan, sonst
+> UNVERÄNDERTES produktives v5 je Entscheidung (auch Sub-Schwellen-Eskalation) → H1 = Plan + range-konsistente
+> Fortsetzung aus der WIRKLICH ausgeführten Hybridpolitik (`v5_continuation`); K1-Prior aus der gespielten
+> Preflop-Politik (Support exakt 0 Verletzungen, KEIN Epsilon für die reale Hand); Zustandsautomat (kein
+> stiller Wiedereinstieg in alten Plan; veraltete Thread-Ergebnisse nie ausführen); erzwungene Naht-Tests statt
+> zufälliger Decks; Prüfstand mit der ausgeführten HYBRIDPOLITIK gegen PRODUKTIVES v5 (H0 vs nackt, H1 vs H0,
+> H1 vs P); dann Shadow-Nacht (v5 handelt, v10 rechnet mit = zugleich der fehlende v5-GTOW-Anker).
+> **HYBRID-DOKTRIN (bindend, 7 Regeln):** (1) bewertet wird die ausgeführte Gesamtpolitik, nie Komponenten;
+> (2) öffentliches Gating ist Standard, handabhängige Auswahl nur als vollständig modellierte Strategie;
+> (3) Ranges folgen den tatsächlich ausgeführten Aktionswahrscheinlichkeiten, private Karten reparieren keine
+> öffentliche Range; (4) jeder Wechsel hat eine geschlossene Fortsetzung; (5) kein unsichtbarer degradierter
+> Fallback; (6) EVs nur bei gleicher Bedeutung vergleichen (kein Max aus Solver-EVs verschiedener Spiele);
+> (7) Freigabe prüft Nähte und Auswahl, nicht nur die Eltern. **MESS-LEHREN:** Oracles über Solver-Guards
+> gebatcht (Injektion = ein Solve je Combo, 0,2 s); Live-K2 ≥3 Solve-Threads/3 s Queue/12 s Deadline; 40-Deck-A/A
+> reicht für K2 nicht (576); pargate-Bank je Code-Stand neu (1080000–1110000 verbraucht); Agenten-Läufe >10 min
+> nur mit Hochrechnung + stdout-Fortschritt. **Fable als Live-Orchestrator:** nur Schatten-Diagnose auf
+> geloggten Zuständen; Beweis nur mit der Engine (SE ≈ 214/√n bb/100; ±4-Band ≈ 11k Hände).
+
 ## ★ FALLBACK-PROTOKOLL (2026-08-18) — fuer JEDES Modell unterhalb Fable 5 (z.B. Opus 5) BINDEND
 Wenn du nicht Fable 5 bist: arbeite DEFENSIV nach diesen Regeln. Das Projekt ist praezise vermessen —
 ein gut gemeinter Eingriff ohne Gate zerstoert mehr als er hilft.

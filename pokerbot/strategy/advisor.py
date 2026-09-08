@@ -219,3 +219,52 @@ def _p_defense_compute(hole, board, role, size_faced, street):
     with _TORCH.no_grad():
         p = _TORCH.softmax(net(x), dim=1)[0]
     return float(p[0]), float(p[1]), float(p[2])
+
+
+def p_defense_batch(combos, board, role, size_faced: float, street: str = "flop") -> dict:
+    """v10/K1 (E11, additiv): gebatchtes (P_fold, P_call, P_raise) fuer viele Combos in EINEM Forward-Pass —
+    das Gegenstueck zu p_bet_batch fuer den Defense-Advisor (V10_FAKTEN A4: 68-70 ms je Voll-Range einzeln).
+    KEINE Gewichts-/Feature-Aenderung: die Feature-Zeile ist Zeile fuer Zeile _p_defense_compute, dasselbe Netz,
+    dieselbe Softmax; liest UND fuellt dasselbe Memo wie p_defense (eine Cache-Sicht). Die Identitaet Einzelpfad
+    == Batch (1e-6) bewacht tests/test_hero_range.py. Ergebnis: {combo(tuple): (pf, pc, pr) | None}."""
+    out: dict = {}
+    todo = []
+    for c in combos:
+        key = (tuple(c), tuple(board), role, size_faced, street)
+        if key in _PDEF_MEMO:
+            out[tuple(c)] = _PDEF_MEMO[key]
+        else:
+            todo.append(c)
+    if not todo:
+        return out
+    net = _load_defense()
+    if len(_PDEF_MEMO) >= _MEMO_MAX:
+        _PDEF_MEMO.clear()
+    if not net:
+        for c in todo:
+            _PDEF_MEMO[(tuple(c), tuple(board), role, size_faced, street)] = None
+            out[tuple(c)] = None
+        return out
+    tex = _texture(board[:3])                      # Textur am FLOP-Board, wie _p_defense_compute
+    rows = []
+    for c in todo:
+        hole = [c[0], c[1]]
+        f = hand_features(hole, board)
+        strength = 1.0 - evaluate(board, hole) / 7462.0
+        v = [1.0 if f["tier"] == t else 0.0 for t in TIERS]
+        v += [1.0 if tex == t else 0.0 for t in TEX]
+        v += [1.0 if street == s else 0.0 for s in _STREETS]
+        v.append(1.0 if role == "IP" else 0.0)
+        v += [1.0 if f[k] else 0.0 for k in BOOLS]
+        v.append(f["overcards"] / 2.0)
+        v.append(float(strength))
+        v.append(float(size_faced))
+        rows.append(v)
+    x = _TORCH.tensor(rows, dtype=_TORCH.float32)
+    with _TORCH.no_grad():
+        ps = _TORCH.softmax(net(x), dim=1)
+    for c, p in zip(todo, ps):
+        triple = (float(p[0].item()), float(p[1].item()), float(p[2].item()))
+        _PDEF_MEMO[(tuple(c), tuple(board), role, size_faced, street)] = triple
+        out[tuple(c)] = triple
+    return out
