@@ -34,14 +34,16 @@ BB_CHIPS = 100
 STRASSEN = ("preflop", "flop", "turn", "river")
 
 # Der Default-Spielstring der Kaggle-Umgebung (nicht abgeschrieben: importiert, siehe spiel()).
-_SPIEL = None
+_SPIEL: dict = {}
 
 
-def spiel():
-    """Laedt (einmalig) das Kaggle-Poker-Spiel. Der String kommt aus kaggle_environments selbst,
+def spiel(stack_einheiten: int = 200):
+    """Laedt (einmalig) das Kaggle-Poker-Spiel in der gewuenschten Stacktiefe.
+    stack_einheiten=200 -> 100 bb (Kaggles eigene Konfiguration);
+    stack_einheiten=400 -> 200 bb (die Tiefe des GTOW-Wettbewerbs, siehe docs/KAGGLE_ARENA.md). Der String kommt aus kaggle_environments selbst,
     damit eine Aenderung dort hier auffaellt statt still zu divergieren."""
     global _SPIEL
-    if _SPIEL is None:
+    if stack_einheiten not in _SPIEL:
         import pyspiel
         from kaggle_environments.envs.open_spiel_env.open_spiel_env import (
             DEFAULT_REPEATED_POKERKIT_GAME_STRING as S,
@@ -53,9 +55,11 @@ def spiel():
         # Deck-Paarung nicht steuern. Da reset_stacks=True gilt, ist eine Einzelhand oekonomisch
         # identisch — und nur so bekommen wir den gepaarten Kanal (Mess-Doktrin).
         innen = re.search(r"pokerkit_game_params=([^)]*\))", S).group(1)
+        if stack_einheiten != 200:
+            innen = innen.replace("stack_sizes=200 200", f"stack_sizes={stack_einheiten} {stack_einheiten}")
         reg(S)
-        _SPIEL = pyspiel.load_game(innen)
-    return _SPIEL
+        _SPIEL[stack_einheiten] = pyspiel.load_game(innen)
+    return _SPIEL[stack_einheiten]
 
 
 # ----------------------------------------------------------------- Beobachtung -> unser Zustand
@@ -209,9 +213,9 @@ class RufAgent:
 
 
 # ----------------------------------------------------------------- Spiel-Schleife
-def spiele_hand(agenten, deck_seed: int, hand_id: str) -> float:
+def spiele_hand(agenten, deck_seed: int, hand_id: str, stack_einheiten: int = 200) -> float:
     """EINE Hand. agenten[i] spielt Sitz i. -> Netto von Sitz 0 in Einheiten."""
-    g = spiel()
+    g = spiel(stack_einheiten)
     s = g.new_initial_state()
     rng = random.Random(deck_seed)
     historie: list = [{"button": 1}]            # HU: Sitz 1 zahlt den kleinen Blind? -> unten korrigiert
@@ -250,7 +254,7 @@ def spiele_hand(agenten, deck_seed: int, hand_id: str) -> float:
     return s.returns()[0]
 
 
-def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000) -> dict:
+def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000, stack_einheiten: int = 200) -> dict:
     """Gepaarter Kanal: jedes Deck zweimal, Sitze getauscht. -> robust_stats ueber die Deck-Kanten."""
     from pokerbot.autogym import stats
     # FRISCHE Instanzen je Haelfte: unser Bot MISCHT (Seesaw-Doktrin) aus einem RNG-STROM, der mit der
@@ -264,8 +268,8 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000) -> dict:
         # hand_id IDENTISCH je Deck (nicht je Haelfte): sie keyt die private Randomisierung des
         # Bots — verschiedene IDs zerstoerten in v10 den A/A-Nulltest (-9,4 statt 0, docs/V10_GATES_REPORT.md).
         hid = str(ds)
-        hin = spiele_hand([a_fabrik(), b_fabrik()], ds, hid)      # A auf Sitz 0
-        rueck = spiele_hand([b_fabrik(), a_fabrik()], ds, hid)    # A auf Sitz 1
+        hin = spiele_hand([a_fabrik(), b_fabrik()], ds, hid, stack_einheiten)      # A auf Sitz 0
+        rueck = spiele_hand([b_fabrik(), a_fabrik()], ds, hid, stack_einheiten)    # A auf Sitz 1
         kanten.append((hin - rueck) * CHIPS_JE_EINHEIT)   # A-Netto beider Haelften, in Chips
         if (i + 1) % 50 == 0:
             m = sum(kanten) / len(kanten) / 2 / BB_CHIPS * 100
@@ -274,6 +278,7 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000) -> dict:
     st = stats.robust_stats(kanten, bb=BB_CHIPS, haende_je_deck=2)
     st.update(stats.bootstrap_ci(kanten, bb=BB_CHIPS, haende_je_deck=2))
     st.update({"kandidat": name_a, "gegner": name_b, "n_decks": decks,
+               "stack_bb": stack_einheiten / 2,
                "kanal": "kaggle_arena", "sekunden": round(time.perf_counter() - t0, 1)})
     st["verdict"] = stats.verdikt(st)
     return st
@@ -289,6 +294,11 @@ def main():
                     help="basis | station | prince | ein Kettenname (z.B. r8_stack)")
     ap.add_argument("--aa", action="store_true", help="A/A-Nulltest (muss EXAKT 0 sein)")
     ap.add_argument("--seed0", type=int, default=90000)
+    # WHY: Kaggle spielt 100 bb, der GTOW-Wettbewerb 200 bb — und unser Preflop-Blueprint feuert erst ab
+    # 140 bb effektiv (bot.py:200). Bei 100 bb misst man deshalb einen ANDEREN Bot (Heuristik-Kaskade
+    # statt near-Nash-Blueprint). Befund von gpt-5.6-sol, am Code bestaetigt.
+    ap.add_argument("--stack-bb", type=int, default=100, choices=(100, 200),
+                    help="100 = Kaggles Konfiguration, 200 = Tiefe des GTOW-Wettbewerbs")
     args = ap.parse_args()
 
     def fabrik(name):
@@ -300,7 +310,7 @@ def main():
 
     kandidat = fabrik(args.kandidat)
     gegner = kandidat if args.aa else fabrik(args.gegner)
-    st = duell(kandidat, gegner, args.decks, args.seed0)
+    st = duell(kandidat, gegner, args.decks, args.seed0, stack_einheiten=args.stack_bb * 2)
     print(st)
     if args.aa and abs(st["bb100"]) > 1e-9:
         raise SystemExit(f"A/A NICHT null: {st['bb100']} bb/100 -> STOPP (Mess-Doktrin)")

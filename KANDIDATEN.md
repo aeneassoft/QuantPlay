@@ -39,6 +39,16 @@ Bluff-Follow-Through- und Seesaw-Mixing-Guards · B1 Range-Struktur-Runde · v10
 r8-Chirurgie statt nackter Basis, Off-Tree-Abbildung, K1-Support) · externer Analyzer-Anker fuer den neuen
 6max-`tag` nach dem Flat-Fix.
 
+## Externer Konsult gpt-5.6-sol (2026-09-10)
+
+Volle Antwort im Root: [`KONSULT_GPT56_SOL_2026-09-10.md`](KONSULT_GPT56_SOL_2026-09-10.md)
+(Briefing 37.655 Zeichen inkl. eigenem Faktencheck; Antwort 59.696 Zeichen, effort high).
+Hauptfrage war der **Zwitter**. Kurzurteil: ein Bot, der je Entscheidung einfach das beste Modul waehlt,
+ist ein spieltheoretischer Denkfehler; tragfaehig ist nur **v5 als geschlossene Baseline + genau EIN
+kohaerenter River-Experte + vollstaendige v5-Fortsetzung + konservativer oeffentlicher Selektor**.
+**Am Code bestaetigte Korrektur:** der GTOW-Wettbewerb laeuft auf **200 bb** (`gtowizard.py:98`), unser
+Blueprint feuert erst ab 140 bb (`bot.py:200`) — der Kaggle-Kanal (100 bb) misst einen ANDEREN Bot.
+
 ## Naechster Schritt (User, 2026-09-10)
 
 **v9 (`r10_ernte`) im Kaggle-Kanal messen** — der erste Referenzwert entsteht gerade.

@@ -30,9 +30,17 @@ python_repeated_pokerkit(max_num_hands=100, reset_stacks=True, rotate_dealer=Tru
                                                stack_sizes=200 200, variant=NoLimitTexasHoldem))
 ```
 
-* HUNL, Blinds 1/2 Einheiten, Stacks 200 Einheiten = **100 bb** — genau unsere Hausgroesse.
-  (Aelteres ACPC-Material nennt 200 bb; fuer DIESE Umgebung ist das falsch, der Test `test_spielkonfiguration`
-  haelt den Wert fest.)
+* HUNL, Blinds 1/2 Einheiten, Stacks 200 Einheiten = **100 bb**. Der Test `test_spielkonfiguration` haelt
+  den Wert fest.
+* **KORREKTUR (2026-09-10, Befund gpt-5.6-sol, am Code bestaetigt): 100 bb ist NICHT unsere Wettbewerbstiefe.**
+  Der GTOW-Benchmark laeuft auf **200 bb** (`starting_stack 20000`, Blinds [100,50] —
+  `pokerbot/benchmark/gtowizard.py:98`, `:281`), und unser Preflop-Blueprint feuert erst **ab 140 bb
+  effektiv** (`pokerbot/strategy/bot.py:200`: „blueprint is solved at 200bb -> only fire when genuinely
+  deep (GTOW = 200bb)"). Bei 100 bb spielt also die **Heuristik-Kaskade** statt der near-Nash-Politik:
+  der Kaggle-Kanal misst einen ANDEREN Bot als der Wettbewerbskanal. Die frueher hier stehende Behauptung
+  „genau unsere Hausgroesse" war falsch.
+  **Konsequenz:** `--stack-bb 100` repliziert Kaggle, `--stack-bb 200` misst die Wettbewerbstiefe. Nur der
+  zweite Modus ist als billiger Vorfilter fuer GTOW-Kandidaten brauchbar; der erste dient der Kaggle-Frage.
 * Stacks werden **je Hand zurueckgesetzt**, der Dealer rotiert, ein Match sind **100 Haende**.
 * Aktionen: `0` = Fold, `1` = Check/Call, `N` = Bet/Raise **TO** N Einheiten (bis 200 = All-in).
 
