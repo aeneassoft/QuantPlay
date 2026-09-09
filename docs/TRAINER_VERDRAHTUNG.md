@@ -102,9 +102,13 @@ deckt die nächste Hand nach 1,5 s automatisch aus (`T.PREFOLD_NEXT`).
 **Sonderfälle:** kommt kein Einsatz beim Hero an (Check frei, z. B. BB ohne Raise), wird der Vorab-Fold
 aufgehoben und der Hero ist normal dran (`prefold: "check_frei"`) — ein Fold statt Gratis-Check wäre reiner
 EV-Verlust; folden alle vor ihm, gewinnt er kampflos (`"kampflos"`). Doppel-Vorab-Fold → 400.
-**Klick-Rennen:** der Vorab-Fold-Button sitzt LINKS (wo im eigenen Zug der Fold-Button steht), und beim Wechsel
-Warten → „du bist dran" ist die Aktionsleiste 350 ms gesperrt (`.bar.lock`, `T.TURN_LOCK`) — beim ersten
-Browser-Test landete ein verspäteter Klick sonst auf „Raise" (27 bb mit 32s).
+**Klick-Rennen / Layout (User-QA):** der Vorab-Fold IST der Fold-Button (gleiches `mk('Fold',…)`, Klasse
+`fold`, Beschriftung „Fold") und sitzt PIXELGLEICH an der Stelle des echten Fold-Buttons — die Button-Reihe ist
+dafür linksbündig mit festem Einzug, und der Wartebalken trägt einen unsichtbaren Platzhalter der Größenzeile
+(gemessen: x 32,5 / y 490,5 in beiden Zuständen). Zusätzlich ist die Aktionsleiste beim Wechsel Warten →
+„du bist dran" 350 ms gesperrt (`.bar.lock`, `T.TURN_LOCK`) — beim ersten Browser-Test landete ein verspäteter
+Klick sonst auf „Raise" (27 bb mit 32s). Der Verlaufs-Ticker steht jetzt UNTER der Aktionsleiste (überlagerte
+vorher den Hero-Sitz bei 10 Sitzen).
 **Tests:** `python -m tests.test_prefold` (Chip-Erhaltung, Hero gefoldet + Hand vorbei in einem Aufruf, Fold als
 benotete Entscheidung, Doppel-Fold abgewiesen, Turnier-Urteil, Sonderfälle). Gilt für alle Modi des 6-max-
 Trainers (`training.html`); die HU-App (`server.py`) hat keinen Vorab-Fold.
