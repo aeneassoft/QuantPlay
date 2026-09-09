@@ -709,6 +709,7 @@ function renderEnd(v){
 
 function renderBar(v){
   const bar=$('bar'),L=v.legal||{},my=!v.hand_over&&L.to_act===v.human_seat;
+  if(my||v.hand_over)bar.dataset.state='';
   bar.classList.toggle('myturn',my);
   armedRaise=false;
   if(!my){
@@ -726,6 +727,9 @@ function renderBar(v){
       // VORAB-FOLD (User 2026-09-09): schon folden, waehrend die Gegner vor dir handeln — die Hand laeuft
       // dann im Hintergrund zu Ende (Chips wandern korrekt), du siehst nur das Ergebnis. Mehr Haende/Std.
       const heroFolded=(v.seats||[]).some(s=>s.is_human&&s.folded);
+      const key='wait:'+heroFolded;
+      if(bar.dataset.state===key){wasWaiting=true;return;}   // DOM steht schon — Button nicht ersetzen
+      bar.dataset.state=key;
       bar.innerHTML='';
       let fb=null;
       if(!heroFolded){fb=mk('Fold','F','fold',prefold);fb.id='b-prefold';
@@ -856,10 +860,18 @@ async function nextHand(){
   render(v);
   runSteps();
 }
+let prefoldPending=false;
 async function prefold(){
-  if(replayMode||!botsToAct())return;
-  cancelAutodeal();stepToken++;
+  if(replayMode||!botsToAct()||prefoldPending)return;
+  cancelAutodeal();prefoldPending=true;
+  // WHY warten: api() antwortet 'busy', solange ein /api/step laeuft (alle 420 ms) — ein Klick in dem
+  // Fenster verpuffte frueher stumm (User-QA 2026-09-09: "funktioniert nicht immer"). Der laufende Step
+  // wird noch regulaer gerendert (Protokoll bleibt vollstaendig), erst DANN haelt das Token die Schleife an.
+  for(let i=0;i<80&&busy;i++)await sleep(25);
+  stepToken++;
+  if(!botsToAct()){prefoldPending=false;renderBar(view);runSteps();return;}   // inzwischen selbst dran / Hand vorbei
   const v=await api('/api/prefold',{});
+  prefoldPending=false;
   if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
   render(v);                                     // erst die Bot-Aktionen ins Protokoll, dann die Zusammenfassung
   if(v.prefold==='check_frei'){

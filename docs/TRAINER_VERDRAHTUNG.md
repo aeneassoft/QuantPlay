@@ -111,6 +111,11 @@ als Platzhalter mit dem Wartetext (Fold in beiden Zuständen x 161,1 / y 490,5).
 „du bist dran" 350 ms gesperrt (`.bar.lock`, `T.TURN_LOCK`) — beim ersten Browser-Test landete ein verspäteter
 Klick sonst auf „Raise" (27 bb mit 32s). Der Verlaufs-Ticker steht jetzt UNTER der Aktionsleiste (überlagerte
 vorher den Hero-Sitz bei 10 Sitzen).
+**„Funktioniert nicht immer" (User-QA, behoben):** zwei Ursachen — (1) `api()` antwortet `busy`, solange ein
+`/api/step` läuft (alle 420 ms); ein Klick in diesem Fenster verpuffte stumm → `prefold()` wartet jetzt auf den
+laufenden Request (der noch regulär gerendert wird), hält erst dann die Step-Schleife an; (2) der Wartebalken
+wurde bei jedem Step neu aufgebaut, ein Klick zwischen mousedown/mouseup ging verloren → der Wartebalken-DOM
+bleibt stehen (`bar.dataset.state`). Nachmessung: 6 echte Klicks, 4 im Wartezustand → 4/4 Vorab-Folds.
 **Tests:** `python -m tests.test_prefold` (Chip-Erhaltung, Hero gefoldet + Hand vorbei in einem Aufruf, Fold als
 benotete Entscheidung, Doppel-Fold abgewiesen, Turnier-Urteil, Sonderfälle). Gilt für alle Modi des 6-max-
 Trainers (`training.html`); die HU-App (`server.py`) hat keinen Vorab-Fold.
