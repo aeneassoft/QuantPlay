@@ -134,3 +134,38 @@ Privat-Agenten, nicht aus LLMs. Stand 2026-09-10 (83 Eintraege, Rang nach der UN
 Unsere drei Eintraege stammen aus der v8-Ära; der heutige Champion (~−21 gemessen, Nacht 2) ist NIE
 gepostet worden. **Top-5 heisst konkret: Untergrenze besser als ≈ −14,8** (Platz 5), also Mittelwert
 ≈ −11 bei ~10.000 Haenden oder ≈ −13 bei ~50.000 Haenden. Gegenueber dem heutigen Stand fehlen ~8 bb/100.
+
+
+## Erster Referenzwert im Kaggle-Kanal (2026-09-10)
+
+**Champion (`prince[final]`, r8_stack) vs nackte Basis (`prince[basis]`), 300 gepaarte Decks:**
+
+| Groesse | Wert |
+|---|---|
+| roher Mittelwert | **+55,8 bb/100** |
+| SE | 38,0 |
+| 5 %-getrimmt | +6,3 |
+| Median | 0,0 |
+| Anteil Decks mit Unterschied | 32,3 % (97/300) |
+| davon positiv | 45/97 (Vorzeichen-z −0,71) |
+| Bootstrap-CI 95 % | [−16,7, +134,6] |
+| perm_p | 0,076 |
+| **Verdikt (stats.verdikt)** | **NEUTRAL** |
+| Laufzeit | 3.153 s (~10,5 s/Deck, 1 Kern) |
+
+**Was das heisst — die Kalibrierung des Kanals, nicht ein Bot-Verdikt:**
+
+* Der Mittelwert wird von wenigen grossen Decks getragen (roh +55,8 gegen getrimmt +6,3, Median 0). Der
+  Vorzeichen-Test kippt sogar leicht ins Negative. **Es ist KEIN Nachweis, dass die AUSLESE-Kette hier
+  gewinnt** — nur, dass die Verdrahtung spielt und der Kanal laeuft.
+* **Rausch-Niveau:** SE 38 bb/100 bei 300 Decks. Fuer SE ≈ 4 braeuchte man rund **27.000 Decks**, also
+  ~75 h auf einem Kern bzw. ~10 h auf 8 Kernen. Das ist die ehrliche Preisliste dieses Kanals.
+* Der Kanal ist ein **Spiegel** (unser Bot gegen unseren Bot) und damit dieselbe Nichtverschlechterungs-
+  Schranke wie das Gym — mit dem einzigen Unterschied, dass die Spielregeln exakt Kaggles sind.
+  Der Wert des Kanals liegt in der Kaggle-OEKOLOGIE (LLM-Gegner), nicht im Spiegel.
+
+**Konsequenz fuer v9 (`r10_ernte`):** der v9-Guard feuert selten (dokumentiert ~1 Trigger/400 Haende im
+Selfplay); im Smoke ueber 2 Decks war die Differenz exakt 0 bei 0 abweichenden Decks. Ein stiller Kandidat
+in einem Kanal mit SE 38 liefert in vertretbarer Zeit **kein Verdikt**. Der Lauf laeuft trotzdem, weil die
+interessante Zahl der ANTEIL abweichender Decks ist — er entscheidet, ob dieser Kanal fuer v9 ueberhaupt
+taugt.
