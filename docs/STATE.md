@@ -3,6 +3,19 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★ CURRENT (2026-09-10) — KAGGLE GAME ARENA als zweiter Messkanal (Detail: docs/KAGGLE_ARENA.md)
+Das Kaggle-Leaderboard „Heads Up Poker" misst **Mean BB/100** in einem All-play-all von Frontier-LLMs
+(v1 ueber die Kaggle-API: Spitze GPT-5.6 Sol +34,9 ± 5,1; Claude Fable 5.1 +29,7; Schluss GPT-5 mini −49,3).
+Die Umgebung ist OPEN SOURCE und laeuft lokal (Windows-Wheel fuer 3.12): `python_repeated_pokerkit`
+(Blinds 1/2, Stacks 200 Einheiten = **100 bb**, Reset je Hand, Dealer rotiert, 100 Haende/Match) — exakt unsere
+Hausgroesse. **Bruecke gebaut:** `pokerbot/benchmark/kaggle_arena.py` (Parser, Zustands-Adapter wie im
+GTOW-Harness, Legalitaets-Garantie, gepaarte Decks mit Sitztausch), `tests/test_kaggle_arena.py` 4/4 gruen,
+**A/A exakt 0**. Zwei Mess-Fallen behoben: hand_id je Spiegelhaelfte (v10-Falle) und der RNG-STROM ueber
+Haende (A/A war −37,5 → frische Instanzen je Haelfte). **Einordnung (bindend): billiger Volumen-Kanal, KEIN
+GTO-Anker** — das Feld sind LLMs, kein Re-Solver; der GTOW-Anker bleibt die Wahrheit. **Offen:** ob Kaggle
+einen Nicht-LLM-Agenten ins Benchmark-Feld laesst, ist NICHT belegt (Seiten rendern per JS; der KGAT-Token
+oeffnet die API nur lesend).
+
 ## ★★★★ CURRENT (2026-09-09 nacht) — 6MAX FLAT-FIX ANGEWENDET (Tag `sixmax-tag-flatfix-v1`)
 User-Fund im Turnier: Berater nannte A2o CO vs LJ-Open „Call" (Perzentil 0,691 > Schwelle 0,665 — das Hot-and-Cold-
 Ranking überschätzt Offsuit-Asse; Analyzer-Leak „Preflop-Caller-Linien"). Fix: `flat_guard` im tag-Kern — dominierte
