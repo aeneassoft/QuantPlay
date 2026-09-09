@@ -142,8 +142,17 @@
   .autodeal{display:inline-flex;align-items:center;gap:10px;margin-left:24px;font-size:22px;color:var(--muted);
     cursor:pointer;-webkit-user-select:none}
   .autodeal input{width:18px;height:18px;cursor:pointer}
-  .btnrow{display:flex;gap:12px;align-items:center;justify-content:flex-start;padding-left:24px}   /* Fold steht IMMER links an derselben Stelle */
-  .btnrow .wait{margin-left:18px;font-size:24px}
+  /* Aktionsleiste (User-QA 2026-09-09): die Mitte zwischen Call und Raise liegt EXAKT unter der Mitte der
+     Hero-Karten (Leiste und Tisch teilen left/width, der Hero sitzt bei 50 %). Zwei Haelften je 50 %: links
+     Fold+Check/Call rechtsbuendig, rechts Raise+All-in linksbuendig; feste Mindestbreiten + unsichtbare
+     Platzhalter halten jeden Button in JEDEM Zustand (auch beim Vorab-Fold) pixelgleich an seinem Platz. */
+  .btnrow{display:flex;align-items:center;justify-content:center}
+  .btnrow .half{display:flex;gap:12px;align-items:center;width:50%}
+  .btnrow .half.l{justify-content:flex-end;padding-right:6px}
+  .btnrow .half.r{justify-content:flex-start;padding-left:6px}
+  .btnrow button{min-width:200px}
+  .btnrow .ph{visibility:hidden}
+  .sizerow .wait{font-size:24px}
   button{cursor:pointer;border:none;border-radius:10px;padding:16px 30px;font-weight:800;font-size:23px;color:#0c1322;
     background:var(--btngold);transition:transform .05s,filter .15s}
   button:hover{filter:brightness(1.12)} button:active{transform:translateY(1px)}
@@ -717,14 +726,14 @@ function renderBar(v){
       // VORAB-FOLD (User 2026-09-09): schon folden, waehrend die Gegner vor dir handeln — die Hand laeuft
       // dann im Hintergrund zu Ende (Chips wandern korrekt), du siehst nur das Ergebnis. Mehr Haende/Std.
       const heroFolded=(v.seats||[]).some(s=>s.is_human&&s.folded);
-      bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
-      if(!heroFolded){const fb=mk('Fold','F','fold',prefold);fb.id='b-prefold';
-        fb.title='Vorab folden: die Hand wird im Hintergrund zu Ende gespielt';row.appendChild(fb);}
-      const w=document.createElement('div');w.className='wait';w.textContent='Gegner sind dran…';row.appendChild(w);
-      bar.appendChild(row);
-      // unsichtbarer Platzhalter der Groessenzeile: der Fold-Button sitzt so PIXELGLEICH wie im eigenen Zug
-      const ph=document.createElement('div');ph.className='sizerow';ph.style.visibility='hidden';
-      ph.innerHTML='<div class="qz"><button>2bb</button></div><button class="stp">−</button><input type="range" min="0" max="1000"><button class="stp">+</button><span class="amt">0bb</span>';
+      bar.innerHTML='';
+      let fb=null;
+      if(!heroFolded){fb=mk('Fold','F','fold',prefold);fb.id='b-prefold';
+        fb.title='Vorab folden: die Hand wird im Hintergrund zu Ende gespielt';}
+      bar.appendChild(btnRow(fb,null,null,null));   // nur Fold sichtbar, Rest Platzhalter -> gleiche Plaetze
+      // Groessenzeile als Platzhalter (gleiche Hoehe) mit dem Wartetext
+      const ph=document.createElement('div');ph.className='sizerow';
+      ph.innerHTML='<span class="wait">Gegner sind dran…</span><button class="stp" style="visibility:hidden">−</button>';
       bar.appendChild(ph);
     }
     wasWaiting=true;
@@ -732,13 +741,13 @@ function renderBar(v){
   }
   if(wasWaiting){bar.classList.add('lock');setTimeout(()=>bar.classList.remove('lock'),T.TURN_LOCK);}
   wasWaiting=false;
-  bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
-  if(L.can_fold)row.appendChild(mk('Fold','F','fold',()=>send('fold')));
-  if(L.can_check)row.appendChild(mk('Check','C','check',()=>send('check')));
-  if(L.can_call)row.appendChild(mk('Call '+bbs(L.call_amount)+'bb','C','call',()=>send('call')));
-  if(L.can_raise){row.appendChild(mk((L.is_bet?'Bet':'Raise')+' ▸','R','',()=>send('raise',amtChips)));
-    row.appendChild(mk('All-in','A','sec',()=>send('allin')));}
-  bar.appendChild(row);
+  bar.innerHTML='';
+  const bFold=L.can_fold?mk('Fold','F','fold',()=>send('fold')):null;
+  const bMid=L.can_check?mk('Check','C','check',()=>send('check'))
+            :(L.can_call?mk('Call '+bbs(L.call_amount)+'bb','C','call',()=>send('call')):null);
+  const bRaise=L.can_raise?mk((L.is_bet?'Bet':'Raise')+' ▸','R','',()=>send('raise',amtChips)):null;
+  const bAllin=L.can_raise?mk('All-in','A','sec',()=>send('allin')):null;
+  bar.appendChild(btnRow(bFold,bMid,bRaise,bAllin));
   if(L.can_raise){const sr=document.createElement('div');sr.className='sizerow';
     sr.innerHTML=`<div class="qz" id="qz"></div><button id="am-dn" class="stp">−</button>`+
       `<input type="range" id="sl" min="0" max="1000" step="1"><button id="am-up" class="stp">+</button>`+
@@ -785,6 +794,17 @@ function setAmt(c){amtChips=snapChips(c);const sl=$('sl');if(sl)sl.value=chipsTo
 function bumpAmt(d){setAmt(Math.max(slMin,Math.min(slMax,amtChips+d)));}
 function updAmt(){const a=$('amt');if(!a)return;
   const v=amtChips/bb;a.textContent=(v%1?v.toFixed(v<10?2:1).replace(/0$/,''):v)+'bb';}
+/* Feste Plaetze: [Fold][Check/Call] | [Raise][All-in] — fehlende Buttons werden unsichtbare Platzhalter,
+   damit jeder Button in jedem Zustand exakt an derselben Stelle bleibt (auch der Vorab-Fold). */
+function btnRow(fold,mid,raise,allin){
+  const row=document.createElement('div');row.className='btnrow';
+  const ph=t=>{const b=document.createElement('button');b.className='ph';b.textContent=t;b.tabIndex=-1;return b;};
+  const l=document.createElement('div');l.className='half l';
+  l.append(fold||ph('Fold'),mid||ph('Call'));
+  const r=document.createElement('div');r.className='half r';
+  r.append(raise||ph('Raise ▸'),allin||ph('All-in'));
+  row.append(l,r);return row;
+}
 function mk(t,kbd,c,fn){const b=document.createElement('button');
   b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');if(c)b.className=c;b.onclick=fn;return b;}
 

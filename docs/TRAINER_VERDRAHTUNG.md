@@ -103,9 +103,11 @@ deckt die nächste Hand nach 1,5 s automatisch aus (`T.PREFOLD_NEXT`).
 aufgehoben und der Hero ist normal dran (`prefold: "check_frei"`) — ein Fold statt Gratis-Check wäre reiner
 EV-Verlust; folden alle vor ihm, gewinnt er kampflos (`"kampflos"`). Doppel-Vorab-Fold → 400.
 **Klick-Rennen / Layout (User-QA):** der Vorab-Fold IST der Fold-Button (gleiches `mk('Fold',…)`, Klasse
-`fold`, Beschriftung „Fold") und sitzt PIXELGLEICH an der Stelle des echten Fold-Buttons — die Button-Reihe ist
-dafür linksbündig mit festem Einzug, und der Wartebalken trägt einen unsichtbaren Platzhalter der Größenzeile
-(gemessen: x 32,5 / y 490,5 in beiden Zuständen). Zusätzlich ist die Aktionsleiste beim Wechsel Warten →
+`fold`, Beschriftung „Fold") und sitzt PIXELGLEICH an der Stelle des echten Fold-Buttons. Layout der Reihe
+(`btnRow`): zwei Hälften je 50 % — links [Fold][Check/Call] rechtsbündig, rechts [Raise][All-in] linksbündig —
+so liegt die Mitte zwischen Call und Raise EXAKT unter der Mitte der Hero-Karten (gemessen: beide x 384);
+fehlende Buttons werden unsichtbare Platzhalter (`.ph`, min-width 200), der Wartebalken trägt die Größenzeile
+als Platzhalter mit dem Wartetext (Fold in beiden Zuständen x 161,1 / y 490,5). Zusätzlich ist die Aktionsleiste beim Wechsel Warten →
 „du bist dran" 350 ms gesperrt (`.bar.lock`, `T.TURN_LOCK`) — beim ersten Browser-Test landete ein verspäteter
 Klick sonst auf „Raise" (27 bb mit 32s). Der Verlaufs-Ticker steht jetzt UNTER der Aktionsleiste (überlagerte
 vorher den Hero-Sitz bei 10 Sitzen).
