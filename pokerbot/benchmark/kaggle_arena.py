@@ -282,18 +282,25 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000) -> dict:
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--decks", type=int, default=100)
-    ap.add_argument("--gegner", choices=("basis", "station", "prince"), default="basis")
+    # --kandidat: Name einer AUSLESE-Kette aus pargate (z.B. r10_ernte = v9-River-Ernte);
+    # "final" = der Champion (FINAL_STACK/r8_stack), "basis" = nackter Bot ohne Kette.
+    ap.add_argument("--kandidat", default="final")
+    ap.add_argument("--gegner", default="basis",
+                    help="basis | station | prince | ein Kettenname (z.B. r8_stack)")
     ap.add_argument("--aa", action="store_true", help="A/A-Nulltest (muss EXAKT 0 sein)")
     ap.add_argument("--seed0", type=int, default=90000)
     args = ap.parse_args()
 
-    def champion():
-        return PrinceAgent()
+    def fabrik(name):
+        if name == "station":
+            return RufAgent
+        if name == "basis":
+            return BasisAgent
+        return lambda: PrinceAgent(stack=("final" if name in ("final", "prince") else name))
 
-    gegner = {"basis": BasisAgent, "station": RufAgent, "prince": champion}[args.gegner]
-    if args.aa:
-        gegner = champion
-    st = duell(champion, gegner, args.decks, args.seed0)
+    kandidat = fabrik(args.kandidat)
+    gegner = kandidat if args.aa else fabrik(args.gegner)
+    st = duell(kandidat, gegner, args.decks, args.seed0)
     print(st)
     if args.aa and abs(st["bb100"]) > 1e-9:
         raise SystemExit(f"A/A NICHT null: {st['bb100']} bb/100 -> STOPP (Mess-Doktrin)")
