@@ -3,6 +3,14 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★ CURRENT (2026-09-09 nacht) — 6MAX FLAT-FIX ANGEWENDET (Tag `sixmax-tag-flatfix-v1`)
+User-Fund im Turnier: Berater nannte A2o CO vs LJ-Open „Call" (Perzentil 0,691 > Schwelle 0,665 — das Hot-and-Cold-
+Ranking überschätzt Offsuit-Asse; Analyzer-Leak „Preflop-Caller-Linien"). Fix: `flat_guard` im tag-Kern — dominierte
+Offsuit-Broadways (A2o–A9o, K2o–K9o, Q2o–Q9o, J2o–J8o) werden nie vs Open geflattet. **Gate pargate6, 3 Läufe à 2992
+Decks vs altem tag: +17,7±6,4 (ANWENDEN, p 0,0035) / +11,4±6,9 (NEUTRAL, p 0,057) / +19,2±7,0 (ANWENDEN, p 0,0035)**
+→ angewendet auf `PROFILES["tag"]` (Liga, Berater, Turnier). Alter Kern = Tag `sixmax-tag-pre-flatfix`. Logs
+`data/runs/pargate6_tag_flatfix*_2026-09-09.log`. Offen: externer Anker (Analyzer-Export des neuen tag).
+
 ## ★★★★ CURRENT (2026-09-09 abends) — TURNIER-MODUS im Trainer (Detail: docs/TURNIER_MODUS.md)
 MTT 60 Spieler, 6 Tische à 10, 10 Level 25/50→800/1600 (Ante ab L3, 12 Hero-Hände je Level), Tischausgleich ±1,
 Kollaps bis Final Table, Top 9 bezahlt; Feld = Online-Population-PRIOR (station 30/tag 22/lag 15/nit 12/rock 8/

@@ -54,7 +54,9 @@ class Knobs:
 
 PROFILES = {
     "nit":     Knobs("nit",     open_mult=0.70, tb_pct=0.95, fb_pct=0.97, flat_hi=0.22, cont_lo=0.14, bluff_mult=0.4, call_delta=0.06),
-    "tag":     Knobs("tag",     open_mult=1.00, tb_pct=0.92, fb_pct=0.95, flat_hi=0.34, cont_lo=0.18, bluff_mult=1.0, call_delta=0.0),
+    # FLAT-FIX ANGEWENDET (Tag sixmax-tag-flatfix-v1, 2026-09-09): pargate6 3x vs altem tag = +17,7±6,4 / +11,4±6,9 /
+    # +19,2±7,0 bb/100 (2992 Decks je Lauf, gepoolt ~+16 bei ~4 SE). Alter Kern = Tag sixmax-tag-pre-flatfix.
+    "tag":     Knobs("tag",     open_mult=1.00, tb_pct=0.92, fb_pct=0.95, flat_hi=0.34, cont_lo=0.18, bluff_mult=1.0, call_delta=0.0, flat_guard=True),
     # Kandidat (User-Fund 2026-09-09: A2o CO vs LJ-Open als "Call" — Perzentil 0,691 > Schwelle 0,665, weil das
     # Hot-and-Cold-Ranking Offsuit-Asse ueberschaetzt; Analyzer-Leak "Preflop-Caller-Linien"). Gate: pargate6.
     "tag_flatfix": Knobs("tag_flatfix", open_mult=1.00, tb_pct=0.92, fb_pct=0.95, flat_hi=0.34, cont_lo=0.18, bluff_mult=1.0, call_delta=0.0, flat_guard=True),
