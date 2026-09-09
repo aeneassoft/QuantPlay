@@ -12,9 +12,14 @@ Hausgroesse. **Bruecke gebaut:** `pokerbot/benchmark/kaggle_arena.py` (Parser, Z
 GTOW-Harness, Legalitaets-Garantie, gepaarte Decks mit Sitztausch), `tests/test_kaggle_arena.py` 4/4 gruen,
 **A/A exakt 0**. Zwei Mess-Fallen behoben: hand_id je Spiegelhaelfte (v10-Falle) und der RNG-STROM ueber
 Haende (A/A war −37,5 → frische Instanzen je Haelfte). **Einordnung (bindend): billiger Volumen-Kanal, KEIN
-GTO-Anker** — das Feld sind LLMs, kein Re-Solver; der GTOW-Anker bleibt die Wahrheit. **Offen:** ob Kaggle
-einen Nicht-LLM-Agenten ins Benchmark-Feld laesst, ist NICHT belegt (Seiten rendern per JS; der KGAT-Token
-oeffnet die API nur lesend).
+GTO-Anker** — das Feld sind LLMs, kein Re-Solver; der GTOW-Anker bleibt die Wahrheit. **Eichung Kaggle->GTOW (User-Idee): SCHWACH** — 6 gemeinsame Modelle, r=0,37/R²=0,14
+(Residual-SD 15,5); nur nach Streichen von Grok 4 r=0,88 — das ist Kurvenanpassung, kein Verdikt.
+**★ Der eigentliche Befund: benchmark.gtowizard.com nimmt EIGENE Agenten** („Evaluate Your Model"), die
+Spitze sind Privat-Bots (Bitcrumbs −3,1/52k Haende, Trainer −6,2, Roman_SL −7,4, tangtang −12,6) und
+**drei Eintraege von „Hampe" stehen schon drauf** (Quantplay −30,4 Rang 31, Quantplay v8 −31,6 Rang 33,
+Experimental Poker Bot −51,7 Rang 47) — alle aus der v8-Ära, der heutige Champion (~−21) ist NIE gepostet.
+Rang = UNTERGRENZE des 95-%-Intervalls, Haende zaehlen also wie der Mittelwert: **Top 5 = LCB besser als
+≈ −14,8**, d. h. ~−11 bei 10k Haenden oder ~−13 bei 50k. Luecke zum heutigen Stand ≈ 8 bb/100.
 
 ## ★★★★ CURRENT (2026-09-09 nacht) — 6MAX FLAT-FIX ANGEWENDET (Tag `sixmax-tag-flatfix-v1`)
 User-Fund im Turnier: Berater nannte A2o CO vs LJ-Open „Call" (Perzentil 0,691 > Schwelle 0,665 — das Hot-and-Cold-

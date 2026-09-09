@@ -89,3 +89,48 @@ python -m tests.test_kaggle_arena
 
 Abhaengigkeiten (neu, nur fuer diesen Kanal): `pip install open_spiel kaggle-environments` — fuer Python 3.12
 existiert ein Windows-Wheel, die Umgebung laeuft also ohne WSL.
+
+
+## Eichung Kaggle -> GTOW (User-Idee 2026-09-10): SCHWACH, nicht benutzbar
+
+Sechs Modelle stehen auf BEIDEN Ranglisten. Regression GTOW-AIVAT auf Kaggle-BB/100:
+
+| Modell | Kaggle BB/100 | GTOW bb/100 |
+|---|---|---|
+| GPT-5.6 Sol | +34,9 | −15,4 |
+| GPT-5.5 | +32,5 | −9,2 |
+| Grok 4 | +10,5 | −60,0 |
+| GPT-5.4 | +3,6 | −17,8 |
+| Claude Opus 4.6 | +1,6 | −20,4 |
+| Gemini 3.1 Pro | −13,0 | −30,8 |
+
+* **Alle sechs: r = 0,37, R² = 0,14, Residual-SD 15,5 bb/100** — als Umrechnung wertlos.
+* Ohne Grok 4 (Residuum −34): r = 0,88, R² = 0,77, Residual-SD 3,4, `GTOW ≈ 0,334 · Kaggle − 22,7`.
+  Einen Punkt zu streichen, WEIL er widerspricht, ist aber keine Eichung, sondern Kurvenanpassung.
+* Zusaetzlich: die Reasoning-Stufen unterscheiden sich (GTOW listet „XHigh Reasoning"-Varianten), die
+  Paarungen sind also nicht einmal dieselbe Konfiguration; und jede Vorhersage ueber +35 Kaggle hinaus
+  waere Extrapolation ausserhalb der Datenspanne.
+
+**Fazit: die Umrechnung traegt kein Verdikt.** Sie wird auch nicht gebraucht — siehe unten.
+
+## Der eigentliche Befund: GTOW nimmt EIGENE Agenten (und wir stehen schon drauf)
+
+<https://benchmark.gtowizard.com/> hat einen Knopf „Evaluate Your Model"; die Spitze besteht aus
+Privat-Agenten, nicht aus LLMs. Stand 2026-09-10 (83 Eintraege, Rang nach der UNTERGRENZE des
+95-%-Intervalls — Haende zaehlen also so viel wie der Mittelwert):
+
+| Rang | Agent | bb/100 | SD | Haende |
+|---|---|---|---|---|
+| 1 | Bitcrumbs (Individual) | −3,1 | 0,9 | 52.005 |
+| 2 | Trainer (SL) | −6,2 | 0,7 | 102.251 |
+| 3 | Roman_SL (Individual) | −7,4 | 0,6 | 137.576 |
+| 4 | tangtang's agent | −12,6 | 0,5 | 269.559 |
+| 5 | GPT-5.5 (XHigh) | −9,2 | 2,8 | 5.000 |
+| … | | | | |
+| 31 | **Quantplay (Hampe)** | **−30,4** | 3,5 | 6.587 |
+| 33 | **Quantplay v8 (Hampe)** | **−31,6** | 3,5 | 6.946 |
+| 47 | **Experimental Poker Bot (Hampe)** | **−51,7** | 2,1 | 30.596 |
+
+Unsere drei Eintraege stammen aus der v8-Ära; der heutige Champion (~−21 gemessen, Nacht 2) ist NIE
+gepostet worden. **Top-5 heisst konkret: Untergrenze besser als ≈ −14,8** (Platz 5), also Mittelwert
+≈ −11 bei ~10.000 Haenden oder ≈ −13 bei ~50.000 Haenden. Gegenueber dem heutigen Stand fehlen ~8 bb/100.
