@@ -9,8 +9,11 @@ Kollaps bis Final Table, Top 9 bezahlt; Feld = Online-Population-PRIOR (station 
 whale 5/maniac 4/shark 4). Hero-Tisch voll gerechnet (Liga-Bots), Nebentische pro Hero-Hand ≈ 120–130 ms.
 Berater = tag-Kern-Oracle je Hero-Aktion (`GTO ✓` / `Abweichung: …`) + ICM-Hinweis ab ≤ 12 Verbliebenen; GTO-Quote
 und Top-Abweichungen im HUD/Endbild. Code: `pokerbot/arena/mtt.py`, `six_server` Modus `tournament`, `training.html`
-(Turnier-Button/HUD/Urteil/Ergebnis), `tests/test_tournament_mode.py` (7 Tests grün). Browser-verifiziert (zwei
-UI-Fehler dabei gefixt: unsichtbares HUD via display:none, Tischnummer aus Namens-Offset). Kein Mess-Verdikt — der
+(Turnier-Button/HUD/Urteil/Ergebnis), `tests/test_tournament_mode.py` (8 Tests grün). Browser-verifiziert (zwei
+UI-Fehler dabei gefixt: unsichtbares HUD via display:none, Tischnummer aus Namens-Offset). **User-QA-Fix
+(abends): Hand-Kontinuitäts-Bug** — frische Table je Hand hatte hand_no 1 → `_log_if_done` übersprang alles nach
+Hand 1 (Stacks/Busts/Feedback eingefroren: „immer 100 bb", „immer gut gespielt"); gefixt + `test_hand_continuity`,
+zwei volle TestClient-Turniere + Browser-Schnelllauf (3.671 Renders, 0 Fehler). Leerer Tisch nicht reproduziert. Kein Mess-Verdikt — der
 Modus ist Trainer-Produkt, kein Bot-Kandidat; die GTOW-Lage (v4-auf-PRINCE −21,1 als einziger Anker) ist unverändert.
 
 ## ★★★★★ CURRENT (2026-09-09) — TRAINER-VERDRAHTUNG + 6MAX-VERDIKT + EXPLOIT-GATE (Detail: docs/TRAINER_VERDRAHTUNG.md)

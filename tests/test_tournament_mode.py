@@ -139,6 +139,34 @@ def test_server_smoke():
           f"Nebentische {v['tournament']['side_ms']} ms, Spieler {v['tournament']['players_left']}")
 
 
+def test_hand_continuity():
+    """Regression (User-Fund 2026-09-09): jede Hand ist eine frische Table (hand_no 0 -> 1); ohne Fortfuehrung
+    hielt _log_if_done jede Hand nach der ersten fuer geloggt -> keine Stack-Rueckgabe ans Feld, keine Busts,
+    Feedback/Verlauf blieben auf Hand 1 ("immer 100 bb", "immer gut gespielt")."""
+    from fastapi.testclient import TestClient
+
+    from pokerbot.web import six_server as S
+    c = TestClient(S.app)
+    v = c.post("/api/new_session", json={"mode": "tournament", "seed": 42, "step": True}).json()
+    for hand in range(1, 4):
+        while not v["hand_over"]:
+            if v["to_act"] == v["human_seat"]:
+                L = v["legal"]
+                v = c.post("/api/action", json={"action": "check" if L.get("can_check") else "fold", "step": True}).json()
+            else:
+                v = c.post("/api/step", json={}).json()
+            assert "error" not in v, v.get("error")
+        assert v["hand_no"] == hand and S.SESSION.hands_done == hand and S.SESSION.logged_hand == hand,             f"Handnummer laeuft nicht weiter: hand_no {v['hand_no']}, hands_done {S.SESSION.hands_done}"
+        assert (v.get("coach") or {}).get("hand_no") == hand, "Feedback gehoert nicht zur aktuellen Hand"
+        v = c.post("/api/hand", json={"step": True}).json()
+    m = S.SESSION.mtt
+    # der Hero foldet ausserhalb der Blinds 3 Haende lang chipneutral -> die Rueckgabe zeigt sich am Hero-TISCH
+    host = m.hero_host()
+    assert any(m.entrants[nm].stack != START_STACK for nm in host.names), "Hero-Tisch-Stacks flossen nie ans Feld zurueck"
+    assert m.round_no == 3, f"Turnieruhr lief nicht mit: round_no {m.round_no}"
+    print(f"  Hand-Kontinuitaet: 3 Haende, hero {m.entrants[m.hero_name].stack}, Runden {m.round_no}")
+
+
 def run():
     test_field_and_payouts()
     test_levels()
@@ -147,7 +175,8 @@ def run():
     test_determinism()
     test_full_mtt_bots_only_invariants()
     test_server_smoke()
-    print("TURNIER-MODUS: alle 7 Tests bestanden")
+    test_hand_continuity()
+    print("TURNIER-MODUS: alle 8 Tests bestanden")
 
 
 if __name__ == "__main__":

@@ -100,6 +100,24 @@ alten Plätzen), Avatar-Farben auf 10 Sitze erweitert. Mobile-Tauglichkeit = die
   (0/10/20…), nicht der Tisch-Index → `i // seats_per_table` (verschiebt die Deck-Seeds der Tische; alle 7
   Tests danach grün, Chip-Erhaltung und Determinismus unverändert).
 
+## Nachtrag (2026-09-09, User-QA) — der Hand-Kontinuitäts-Bug
+
+**Befund des Users:** „immer 100 bb pro Spieler", „immer gut gespielt", einmal ein leerer Tisch.
+**Ursache (reproduziert per TestClient):** jede Turnierhand ist eine frische `Table` (hand_no 0 → 1);
+`_log_if_done` prüft `t.hand_no != logged_hand` und hielt deshalb JEDE Hand nach der ersten für schon geloggt →
+keine Stack-Rückgabe ans Feld (`after_table_hand`), keine Busts, keine Turnieruhr, kein neues Feedback: alle
+Hände starteten wieder von den Stacks nach Hand 1, das Banner zeigte das Hand-1-Urteil. **Fix:** die neue Table
+übernimmt die Handnummer der alten (`_tournament_prepare`). **Regression:** `test_hand_continuity` (3 Hände:
+hand_no/hands_done/logged_hand laufen mit, Feedback gehört zur aktuellen Hand, Hero-Stack fließt zurück, Uhr +3).
+**Nachmessung:** zwei volle Turniere per TestClient (Seeds 3/11, Zufalls-Hero): Hände 6 bzw. 31, Feedback folgt
+der Hand, Busts/Platz korrekt (Platz = Verbliebene zum Bust-Zeitpunkt), Urteile gemischt (Seed 11: 38 GTO ✓ /
+41 Abweichung); Browser-Schnelllauf über >3 Turniere, 3.671 Renders: 0 leere Tische, 0 Konsolenfehler.
+**Leerer Tisch:** NICHT reproduziert (weder vor noch nach dem Fix bei 1.400 + 3.671 Renders); die einzige
+Stelle, die Sitze entfernt, ist `render()` — ein Fehler dort NACH dem Entfernen würde genau dieses Bild
+erzeugen. Beobachtung erbeten: wann (nach „Nächste Hand", bei Tischwechsel, am Ende?).
+**Beobachtung Feldtempo:** 60 → ~30 Spieler in ~25 Runden (Maniacs/Whales gehen bei 100 bb früh all-in) — für
+eine Trainingssitzung praktisch (Geld in ~30–50 Händen), aber schneller als ein echtes Online-MTT.
+
 ## Grenzen
 
 * ICM exakt erst ab ≤ 12 Verbliebenen; davor nur das Bubble-Fenster-Heuristik-Druckfeld, kein BF-Hinweis

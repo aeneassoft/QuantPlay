@@ -352,7 +352,12 @@ class Session:
             return False
         if self.table.hand_no == 0:            # der im Konstruktor gebaute Tisch ist noch ungespielt
             return True
+        # WHY Handnummer fortfuehren: jede Hand ist eine frische Table (hand_no 0 -> 1); ohne Fortfuehrung
+        # hielt _log_if_done (t.hand_no != logged_hand) JEDE Hand nach der ersten fuer schon geloggt ->
+        # keine Stack-Rueckgabe ans Feld, keine Busts, Feedback/Verlauf blieben auf Hand 1 (User-Fund 2026-09-09).
+        hand_no = self.table.hand_no
         self.table = m.build_table(m.hero_host())
+        self.table.hand_no = hand_no
         self.bots = m.bots_for(self.table)
         self.profile_assign = {i: m.entrants[s.name].profile for i, s in enumerate(self.table.seats) if i != HUMAN}
         self._t_pressure_cache, self._aggressor = {}, None
