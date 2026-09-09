@@ -30,7 +30,7 @@ START_STACK, SB, BB = 10000, 50, 100                # 100bb Cash, jede Hand zuru
 MAX_AKTIONEN_JE_HAND = 400                          # Schleifen-Wache wie sixmax_export.play_hand
 ROTATIONS_STRIDE = 8                                # Seed-Adressraum: deck_id*64 + rot*8 + seat (n_seats <= 8)
 SEED_OFFSET = 10 ** 12                              # --seed verschiebt den RNG-Adressraum (Replikationslauf)
-KANDIDATEN = ("tag", "tag_reads", "hybrid", "hybrid_r8", "hybrid_r10")
+KANDIDATEN = ("tag", "tag_reads", "tag_flatfix", "hybrid", "hybrid_r8", "hybrid_r10")
 JOBS_JE_WORKER = 2                                  # feinere Bloecke = laufender Fortschritt + ETA
 # Env je Arm (VOR den Imports im frischen Prozess): die AUSLESE-Kette braucht ihre Import-Zeit-Flags
 # (resolver-OFF-Variante inkl. RAISE_NARROW, wie das HU-Gate); der nackte Prince nur das PRINCE-Profil.
@@ -80,9 +80,9 @@ def _seed(deck_id: int, rot: int, seat: int, seed: int = 0) -> int:
 def held_fabrik(name: str):
     """Standard-Helden: SixMaxBot-Kern (Reads AUS = GTO-Modus-Paritaet / AN) oder der Hybrid-Verbund."""
     from pokerbot.arena.sixmax import PROFILES, SixMaxBot
-    if name in ("tag", "tag_reads"):
-        bot = SixMaxBot(0, PROFILES["tag"])
-        if name == "tag":
+    if name in ("tag", "tag_reads", "tag_flatfix"):
+        bot = SixMaxBot(0, PROFILES["tag_flatfix" if name == "tag_flatfix" else "tag"])
+        if name != "tag_reads":
             bot._read = lambda obs: {}
         return bot
     from pokerbot.arena.hybrid import HybridHero

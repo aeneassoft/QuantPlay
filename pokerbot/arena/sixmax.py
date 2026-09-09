@@ -49,11 +49,15 @@ class Knobs:
     raise_eq: float = 0.74          # postflop raise-for-value equity
     bluff_mult: float = 1.0         # scales bluff frequency
     call_delta: float = 0.0         # bluff-catch bias: + folds more, - calls wider
+    flat_guard: bool = False        # FLAT-FIX (2026-09-09): dominierte Offsuit-Broadways nie vs Open flatten
 
 
 PROFILES = {
     "nit":     Knobs("nit",     open_mult=0.70, tb_pct=0.95, fb_pct=0.97, flat_hi=0.22, cont_lo=0.14, bluff_mult=0.4, call_delta=0.06),
     "tag":     Knobs("tag",     open_mult=1.00, tb_pct=0.92, fb_pct=0.95, flat_hi=0.34, cont_lo=0.18, bluff_mult=1.0, call_delta=0.0),
+    # Kandidat (User-Fund 2026-09-09: A2o CO vs LJ-Open als "Call" — Perzentil 0,691 > Schwelle 0,665, weil das
+    # Hot-and-Cold-Ranking Offsuit-Asse ueberschaetzt; Analyzer-Leak "Preflop-Caller-Linien"). Gate: pargate6.
+    "tag_flatfix": Knobs("tag_flatfix", open_mult=1.00, tb_pct=0.92, fb_pct=0.95, flat_hi=0.34, cont_lo=0.18, bluff_mult=1.0, call_delta=0.0, flat_guard=True),
     "lag":     Knobs("lag",     open_mult=1.35, tb_pct=0.87, fb_pct=0.92, flat_hi=0.40, cont_lo=0.26, bluff_mult=1.7, call_delta=-0.03),
     "station": Knobs("station", open_mult=1.10, tb_pct=0.96, fb_pct=0.98, flat_hi=0.52, cont_lo=0.30, bluff_mult=0.4, call_delta=-0.10),
     "maniac":  Knobs("maniac",  open_mult=1.65, tb_pct=0.82, fb_pct=0.88, flat_hi=0.34, cont_lo=0.30, bluff_mult=2.4, call_delta=-0.05),
@@ -82,6 +86,20 @@ PROFILES = {
 
 # Sitzbelegung des Punishment-Tisches (Trainer-Modus 'punish'): 5 Jaeger, je ein gemessenes Leak.
 PUNISHER_ASSIGN = {1: "sheriff", 2: "iso_hammer", 3: "value_press", 4: "trap_nit", 5: "blind_fighter"}
+
+
+_FLAT_GUARD_MIN_KICKER = {"A": "T", "K": "T", "Q": "T", "J": "9"}   # Offsuit-Broadway braucht mindestens diesen Kicker
+_RANK_ORDER = "23456789TJQKA"
+
+
+def _dominated_offsuit(hc: str) -> bool:
+    """A2o..A9o, K2o..K9o, Q2o..Q9o, J2o..J8o: vs eine Open-Range dominiert (jedes hoehere Ax/Kx schlaegt uns,
+    Equity kaum realisierbar) — im Hot-and-Cold-Perzentil aber hoch gerankt. Suited + Paare unberuehrt."""
+    if len(hc) != 3 or hc[2] != "o":
+        return False
+    hi, lo = hc[0], hc[1]
+    need = _FLAT_GUARD_MIN_KICKER.get(hi)
+    return need is not None and _RANK_ORDER.index(lo) < _RANK_ORDER.index(need)
 
 
 def _eff_bb(obs: dict) -> float:
@@ -180,7 +198,7 @@ def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
         if pct >= k.tb_pct and can_raise:                   # vs a single open: value 3-bet the top
             return mk("raise", raise_to(round(cur + 1.0 * (pot + to_call))), f"3-bet for value with {hc}.")
         flat = max(0.12, min(k.flat_hi, 0.80 - 1.6 * req)) + pos_bonus + read.get("flat_bonus", 0.0)
-        if obs["can_call"] and pct >= 1 - flat:
+        if obs["can_call"] and pct >= 1 - flat and not (k.flat_guard and _dominated_offsuit(hc)):
             return mk("call", None, f"Flat {hc} vs open (Top {int(flat*100)}%).")
         return mk("check" if can_check else "fold", None, f"Fold {hc} vs the open.")
 
