@@ -30,6 +30,34 @@ import re
 import time
 
 CHIPS_JE_EINHEIT = 50          # Kaggle-BB 2 Einheiten == unsere 100 Chips
+# Basisrate planfaehiger River-Wurzeln (gpt-5.6-sol nannte sie als die #1 fehlende Zahl): wie oft steht
+# ueberhaupt eine River-Entscheidung mit Pot >= 15 bb an? Unabhaengig von v10 gezaehlt, rein aus dem Spiel.
+PLAN_POT_CHIPS = 1500
+_ZAEHLER = {"entscheidungen": 0, "river": 0, "river_planfaehig": 0, "haende": 0}
+# v10-Instrumentierung: NUR Zaehler, keine Strategie-Aenderung. Der River-Plan meldet sonst nirgends nach
+# aussen, ob er gespielt hat — ohne das ist ein v10-Lauf nicht interpretierbar (gemessen 2026-09-10: ohne
+# deal-Marke im Adapter spielte er 0-mal und der Lauf sah wie "identisch zum Champion" aus).
+_PLAN = {"aktivierungen": 0, "gespielt": 0, "fallback": {}}
+
+
+def instrumentiere_plan() -> None:
+    """Haengt Zaehler an river_plan (idempotent). Aendert keine Entscheidung."""
+    from pokerbot.autogym import river_plan as rp
+    if getattr(rp, "_kaggle_instrumentiert", False):
+        return
+    orig_akt, orig_fb = rp.ist_aktiviert, rp.RiverPlanFabrik._fallback
+
+    def akt(st, min_pot_chips=rp.DEFAULT_MIN_POT_CHIPS):
+        aktiv, pot = orig_akt(st, min_pot_chips)
+        _PLAN["aktivierungen"] += int(aktiv)
+        return aktiv, pot
+
+    def fb(self, z, st, status, *a, **kw):
+        _PLAN["fallback"][status] = _PLAN["fallback"].get(status, 0) + 1
+        return orig_fb(self, z, st, status, *a, **kw)
+
+    rp.ist_aktiviert, rp.RiverPlanFabrik._fallback = akt, fb
+    rp._kaggle_instrumentiert = True
 BB_CHIPS = 100
 STRASSEN = ("preflop", "flop", "turn", "river")
 
@@ -220,6 +248,8 @@ def spiele_hand(agenten, deck_seed: int, hand_id: str, stack_einheiten: int = 20
     rng = random.Random(deck_seed)
     historie: list = [{"button": 1}]            # HU: Sitz 1 zahlt den kleinen Blind? -> unten korrigiert
     button_gesetzt = False
+    letzte_strasse = "preflop"
+    _ZAEHLER["haende"] += 1
     for a in agenten:
         a.neue_hand()
     while not s.is_terminal():
@@ -235,12 +265,28 @@ def spiele_hand(agenten, deck_seed: int, hand_id: str, stack_einheiten: int = 20
                 s.apply_action(aus[-1][0])
             continue
         p = s.current_player()
+        _b = parse_beobachtung(s.observation_string(p))
+        _ZAEHLER["entscheidungen"] += 1
+        if _b["strasse"] >= 3:
+            _ZAEHLER["river"] += 1
+            # Planfaehig = Pot am RIVER-BEGINN (river_plan.pot_river_aus_state: Pot minus laufende
+            # Strasseneinsaetze). Die erste Fassung zaehlte den Pot INKLUSIVE Einsatz und ueberschaetzte
+            # die Basisrate deutlich (84 statt des korrekten Werts je 100 Haende).
+            pot_river = (_b["pot_gesamt"] - sum(_b["bets"])) * CHIPS_JE_EINHEIT
+            if pot_river >= PLAN_POT_CHIPS:
+                _ZAEHLER["river_planfaehig"] += 1
         if not button_gesetzt:                  # Button = kleiner Blind = kleinerer Preflop-Einsatz
             b = parse_beobachtung(s.observation_string(p))
             historie[0]["button"] = 0 if b["bets"][0] < b["bets"][1] else 1
             button_gesetzt = True
         vor = parse_beobachtung(s.observation_string(p))
         strasse = STRASSEN[min(vor["strasse"], 3)]
+        if strasse != letzte_strasse:
+            # DEAL-MARKE wie im GTOW-Adapter (_parse_history): river_plan.state_am_river_beginn schneidet
+            # die Historie daran. Ohne sie meldete v10 'fehler:root_nicht_rekonstruierbar' und spielte NIE
+            # (gemessen 2026-09-10: 30 Haende, 1 Aktivierung, 0 Plaene).
+            historie.append({"action": "deal", "street": strasse})
+            letzte_strasse = strasse
         aktion = agenten[p](s, p, historie, hand_id)
         if aktion == 0:
             name = "fold"
@@ -262,6 +308,10 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000, stack_einheiten: i
     # beiden Spiegelhaelften auseinander -> A/A war -37,5 statt 0 (gemessen 2026-09-10, 8 Decks). Mit je
     # frischen Instanzen ist jede Haelfte ein deterministischer Wiederholungslauf -> A/A EXAKT 0.
     kanten, t0 = [], time.perf_counter()
+    instrumentiere_plan()
+    for k in _ZAEHLER:
+        _ZAEHLER[k] = 0
+    _PLAN.update(aktivierungen=0, gespielt=0, fallback={})
     name_a, name_b = a_fabrik().name, b_fabrik().name
     for i in range(decks):
         ds = seed0 + i
@@ -277,6 +327,11 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000, stack_einheiten: i
                   f"({(time.perf_counter()-t0)/(i+1):.2f} s/Deck)", flush=True)
     st = stats.robust_stats(kanten, bb=BB_CHIPS, haende_je_deck=2)
     st.update(stats.bootstrap_ci(kanten, bb=BB_CHIPS, haende_je_deck=2))
+    z = dict(_ZAEHLER)
+    _PLAN["gespielt"] = _PLAN["aktivierungen"] - sum(_PLAN["fallback"].values())
+    st.update({"plan": dict(_PLAN)})
+    st.update({"basisrate": {**z,
+                             "planfaehig_je_100_haende": round(100 * z["river_planfaehig"] / max(1, z["haende"]), 1)}})
     st.update({"kandidat": name_a, "gegner": name_b, "n_decks": decks,
                "stack_bb": stack_einheiten / 2,
                "kanal": "kaggle_arena", "sekunden": round(time.perf_counter() - t0, 1)})

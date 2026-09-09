@@ -38,7 +38,13 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # v10 (docs/V10_BUILD_CARD.md, Arm B): r8_stack-Kette, aber der
               # hand-abhaengige river_gpu_guard ist durch den OEFFENTLICHEN
               # River-Plan (K2, K1-Hero-Range) ersetzt. GPU-Arm.
-              "r10_stack")
+              "r10_stack",
+              # v10.0-Patch (User 2026-09-10, "schnell v10 patchen"): H0-LITE. Identisch zu r10_stack,
+              # aber der Plan sitzt auf der VOLLSTAENDIGEN v5-Kette (r8_stack) statt auf r8-ohne-Chirurgie.
+              # WARUM: der dokumentierte Katastrophenherd war der Fallback in Plan-Pots — er liess
+              # river_gpu_guard (feuert ab Pot 3000) weg, also genau in den grossen Poetten
+              # (docs/V10_GATES_REPORT.md, Re-Release-Punkt "K2-Fallback auf r8-Chirurgie").
+              "r10_h0")
 
 # K2-Kanal (V10_BUILD_CARD E4/E5): im Gym feste Iterationen + deterministischer
 # private_seed aus (hand_id, Sitz); live zusaetzlich die 7,5-s-Zeit-Deadline und
@@ -175,6 +181,12 @@ def _wickle(name: str, basis, kanal: str = "gym"):
         from pokerbot.autogym.improver import river_wert_bremse
         from pokerbot.autogym.river_plan import river_plan_guard
         return river_plan_guard(river_wert_bremse(_wickle("r6_button", basis)),
+                                min_pot_chips=1500, iters=150, **_k2_kanal_kw(kanal))
+    if name == "r10_h0":
+        # H0-LITE: Plan, sonst UNVERAENDERTES produktives v5 (inkl. river_gpu_guard) je Entscheidung.
+        # Ein Fallback (offtree/deadline/hand_not_in_range/fehler) landet damit nie unter dem Champion.
+        from pokerbot.autogym.river_plan import river_plan_guard
+        return river_plan_guard(_wickle("r8_stack", basis),
                                 min_pot_chips=1500, iters=150, **_k2_kanal_kw(kanal))
     raise ValueError(name)
 
