@@ -51,7 +51,7 @@
   #thud .row{display:flex;flex-wrap:wrap;gap:6px 22px}
   #verdict{display:none;background:#070d18;border-radius:8px;padding:10px 14px;font-size:24px;line-height:1.4}
   #verdict.ok{color:var(--win)}#verdict.dev{color:#ffcf6e}#verdict .icm{display:block;color:#b48cff;font-size:20px}
-  #tourend{position:fixed;inset:0;background:#060a14ee;z-index:60;display:none;align-items:center;justify-content:center}
+  #tourend{position:fixed;inset:0;background:#060a14ee;z-index:60;display:none;align-items:flex-start;justify-content:center;padding:24px 12px;box-sizing:border-box}
   #tourend .mo-card{max-width:760px}#tourend .big{font-size:44px;font-weight:900;color:var(--gold);margin:6px 0}
   #tourend ul{text-align:left;font-size:16px;color:#d9ccff;line-height:1.5}
 
@@ -220,9 +220,13 @@
   #matchcount.comp b{color:var(--cyan)}
 
   /* start overlay: GTO/Exploit mode toggle (P0-0 UI) */
-  #modeoverlay{position:fixed;inset:0;background:#060a14ee;z-index:50;display:flex;align-items:center;justify-content:center}
+  /* Startseite SCROLLBAR (User 2026-09-09): bei Browser-Zoom / kleinem Fenster ist die Karte hoeher als der
+     Viewport; align-items:center schnitt oben ab. Loesung: flex-start + margin:auto auf der Karte (zentriert,
+     solange sie passt; sonst scrollt das Overlay) — gilt auch fuer das Turnier-Endbild. */
+  #modeoverlay,#tourend{overflow-y:auto;-webkit-overflow-scrolling:touch}
+  #modeoverlay{position:fixed;inset:0;background:#060a14ee;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:24px 12px;box-sizing:border-box}
   .mo-card{background:linear-gradient(180deg,#16223a,#0c1626);border:1px solid #2c3f5e;border-radius:16px;
-    padding:38px 46px;text-align:center;max-width:620px;box-shadow:0 18px 50px #000a}
+    padding:38px 46px;text-align:center;max-width:620px;box-shadow:0 18px 50px #000a;margin:auto;flex-shrink:0}
   .mo-card h2{margin:0 0 6px;font-size:26px}
   .mo-card p{color:var(--muted);font-size:15px}
   .mo-card button{margin:10px;padding:18px 34px;font-size:19px}
