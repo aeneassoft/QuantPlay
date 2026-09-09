@@ -134,7 +134,12 @@
   .bar{position:absolute;left:20px;top:906px;width:1400px;height:120px;background:#0b1424cc;border:1px solid #24344f;
     border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px}
   .bar.myturn{box-shadow:0 0 0 2px #37e0c890;border-color:#37e0c866}   /* statisch, nie blinkend */
-  .bar .wait{color:var(--muted);text-align:center;font-size:24px}
+  .bar .wait{color:var(--muted);text-align:center;font-size:24px;display:flex;align-items:center;justify-content:center;gap:26px}
+  /* Vorab-Fold links wie der echte Fold-Button, damit ein verspaeteter Klick nie auf Call/Raise faellt */
+  .bar .wait button{font-size:22px;padding:12px 26px;background:#7a3a35;color:#fff;border-radius:10px;cursor:pointer}
+  .bar .wait button:hover{filter:brightness(1.15)}
+  /* Eingabesperre beim Wechsel Warten -> "du bist dran": Klicks der ersten 350 ms verfallen (Klick-Rennen) */
+  .bar.lock{pointer-events:none;opacity:.85}
   /* bewusst dezenter: der große Deal-Button lenkte vom Feedback-Text ab (User-QA 2026-08-02) */
   .big{font-size:24px;padding:13px 32px}
   .autodeal{display:inline-flex;align-items:center;gap:10px;margin-left:24px;font-size:22px;color:var(--muted);
@@ -304,7 +309,8 @@
 const $=id=>document.getElementById(id);
 // ── timing constants: everything gating input <=300ms; POP is a non-blocking floater; AUTODEAL per plan (P2-3) ──
 // STEP/STREETPAUSE: real-flow bot pacing — schneller als ein Mensch, aber jede Aktion einzeln sichtbar
-const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000, STEP:420, STREETPAUSE:650};
+const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000, STEP:420, STREETPAUSE:650, PREFOLD_NEXT:1500, TURN_LOCK:350};
+let wasWaiting=false;                             // Klick-Rennen: Wartebalken -> Aktionsleiste
 const SUIT={s:'♠',h:'♥',d:'♦',c:'♣'},RED={h:1,d:1};
 const SC6=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];         // die bewährten 6-max-Plätze (byte-identisch)
 // Multiway-Plätze (Turnier bis 10 Sitze, Generator aus six.html): Hero unten mittig, Rest auf der Ellipse
@@ -709,9 +715,18 @@ function renderBar(v){
       $('b-deal').onclick=dealNow;
       $('cb-auto').onchange=e=>{autoDealOn=e.target.checked;localStorage.setItem('autoDeal',autoDealOn?'1':'0');
         if(!autoDealOn)cancelAutodeal();};
-    }else bar.innerHTML='<div class="wait">Gegner sind dran…</div>';
+    }else{
+      // VORAB-FOLD (User 2026-09-09): schon folden, waehrend die Gegner vor dir handeln — die Hand laeuft
+      // dann im Hintergrund zu Ende (Chips wandern korrekt), du siehst nur das Ergebnis. Mehr Haende/Std.
+      const heroFolded=(v.seats||[]).some(s=>s.is_human&&s.folded);
+      bar.innerHTML='<div class="wait">'+(heroFolded?'':'<button id="b-prefold" title="Vorab folden: die Hand wird im Hintergrund zu Ende gespielt">Fold vorab <span class="kbd">F</span></button>')+'<span>Gegner sind dran…</span></div>';
+      if(!heroFolded)$('b-prefold').onclick=prefold;
+    }
+    wasWaiting=true;
     return;
   }
+  if(wasWaiting){bar.classList.add('lock');setTimeout(()=>bar.classList.remove('lock'),T.TURN_LOCK);}
+  wasWaiting=false;
   bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
   if(L.can_fold)row.appendChild(mk('Fold','F','fold',()=>send('fold')));
   if(L.can_check)row.appendChild(mk('Check','C','check',()=>send('check')));
@@ -815,6 +830,22 @@ async function nextHand(){
   if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
   render(v);
   runSteps();
+}
+async function prefold(){
+  if(replayMode||!botsToAct())return;
+  cancelAutodeal();stepToken++;
+  const v=await api('/api/prefold',{});
+  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+  render(v);                                     // erst die Bot-Aktionen ins Protokoll, dann die Zusammenfassung
+  if(v.prefold==='check_frei'){
+    log('<span class="y">Vorab-Fold aufgehoben</span> — kein Einsatz kam an, dein Check ist frei.','y');
+  }else if(v.prefold==='kampflos'){
+    log('<span class="y">Vorab-Fold nicht noetig</span> — alle haben gefoldet, du gewinnst die Blinds.','y');
+  }else{
+    log('<span class="y">Du</span>: fold (vorab) — die Hand lief im Hintergrund zu Ende.','y');
+  }
+  if(v.hand_over&&(v.prefold==='gefoldet'||v.prefold==='kampflos')&&!replayMode){cancelAutodeal();advTimer=setTimeout(nextHand,T.PREFOLD_NEXT);}
+  else runSteps();
 }
 async function send(a,amt){
   if(replayMode)return;                          // no live actions from inside a replay
@@ -1030,7 +1061,7 @@ function onKey(e){
     return;
   }
   const myTurn=view.legal&&view.legal.to_act===view.human_seat;   // action keys only on the human's turn
-  if(!myTurn)return;
+  if(!myTurn){if((k==='f'||k==='F')&&botsToAct()&&$('b-prefold'))prefold();return;}
   const L=view.legal;
   if(k==='f'||k==='F'){if(L.can_fold)send('fold');}
   else if(k==='c'||k==='C'){if(L.can_check)send('check');else if(L.can_call)send('call');}

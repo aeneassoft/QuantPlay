@@ -90,3 +90,21 @@ ist damit nicht belegt, sondern für diesen Pfad refutiert (konsistent mit PRINC
 Befund). 6-max-Reads sind neutral (harmlos). **Produktentscheid:** Exploit bleibt in allen Modi AUS; der
 `six_server`-Modus „exploit" (Reads) bleibt als Spielgefühl-Variante. Ein echter Exploit bräuchte einen neuen
 Mechanismus (Selektion statt Frequenz, mehr als River-only) mit diesem Gate als Abnahme.
+
+
+## Vorab-Fold (User, 2026-09-09) — mehr Hände pro Stunde
+
+**Was:** Solange die Gegner vor dir handeln, zeigt der Wartebalken links „Fold vorab" (Taste F). Ein Klick
+setzt `POST /api/prefold`: der Server spielt die Hand SOFORT im Hintergrund zu Ende — Bots handeln, der Hero
+foldet an seiner Stelle regulär über `human_action("fold")` (Decision-Capture, Benotung, Turnier-Urteil wie ein
+normaler Fold), die Chips wandern korrekt. Der Client zeigt nur das Ergebnis (Board, Gewinner, Protokoll) und
+deckt die nächste Hand nach 1,5 s automatisch aus (`T.PREFOLD_NEXT`).
+**Sonderfälle:** kommt kein Einsatz beim Hero an (Check frei, z. B. BB ohne Raise), wird der Vorab-Fold
+aufgehoben und der Hero ist normal dran (`prefold: "check_frei"`) — ein Fold statt Gratis-Check wäre reiner
+EV-Verlust; folden alle vor ihm, gewinnt er kampflos (`"kampflos"`). Doppel-Vorab-Fold → 400.
+**Klick-Rennen:** der Vorab-Fold-Button sitzt LINKS (wo im eigenen Zug der Fold-Button steht), und beim Wechsel
+Warten → „du bist dran" ist die Aktionsleiste 350 ms gesperrt (`.bar.lock`, `T.TURN_LOCK`) — beim ersten
+Browser-Test landete ein verspäteter Klick sonst auf „Raise" (27 bb mit 32s).
+**Tests:** `python -m tests.test_prefold` (Chip-Erhaltung, Hero gefoldet + Hand vorbei in einem Aufruf, Fold als
+benotete Entscheidung, Doppel-Fold abgewiesen, Turnier-Urteil, Sonderfälle). Gilt für alle Modi des 6-max-
+Trainers (`training.html`); die HU-App (`server.py`) hat keinen Vorab-Fold.

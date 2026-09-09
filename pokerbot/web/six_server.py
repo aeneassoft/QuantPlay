@@ -101,6 +101,7 @@ class Session:
         self.hands_done = 0
         self.mode = mode                          # 'gto' | 'exploit' (P0-0)
         self._pending_decisions: list[dict] = []  # captured this hand, graded+flushed at hand end (P0-1/P0-5)
+        self.prefold_state: str | None = None     # VORAB-FOLD (User 2026-09-09): None | 'gefoldet' | 'check_frei'
         self.last_graded: list[dict] = []         # the graded records of the last completed hand
         self.last_hand_record: dict | None = None
         self.last_feedback: dict | None = None    # {text, html, terms} for /api/feedback/last
@@ -323,6 +324,31 @@ class Session:
         self._log_if_done()
         return events
 
+    def prefold(self) -> list[dict]:
+        """VORAB-FOLD (User 2026-09-09): der Mensch foldet, BEVOR er dran ist. Die Hand laeuft sofort im
+        Hintergrund zu Ende (Bots handeln, der Hero foldet an seiner Stelle regulaer ueber human_action ->
+        Decision-Capture + Benotung + Turnier-Urteil wie ein normaler Fold), die Chips wandern korrekt.
+        Ausnahme: kommt KEIN Einsatz beim Hero an (Check ist frei, z.B. BB ohne Raise), wird der Vorab-Fold
+        aufgehoben und der Hero ist normal dran — ein Fold statt Gratis-Check waere ein reiner EV-Verlust."""
+        t = self.table
+        if t.hand_over or t.seats[HUMAN].folded:
+            raise RuntimeError("Vorab-Fold: Hand vorbei oder schon gefoldet")
+        events: list[dict] = []
+        self.prefold_state = None
+        while not t.hand_over and t.to_act is not None:
+            if t.seats[t.to_act].is_human:
+                if t.legal_actions().get("can_check"):
+                    self.prefold_state = "check_frei"
+                    break
+                self.prefold_state = "gefoldet"
+                events.extend(self.human_action("fold", None, step_mode=False))
+                break
+            events.append(self._bot_act())
+        if t.hand_over and self.prefold_state is None:   # alle anderen folden -> der Hero gewinnt kampflos
+            self.prefold_state = "kampflos"
+        self._log_if_done()
+        return events
+
     def _arena_churn(self) -> None:
         """Online-Fluktuation (nur Arena): mit ARENA_SWAP_P verlässt ein Gegner den Tisch — ein neuer
         Spieler mit frischem Profil (Duplikate erlaubt), neuem Namen und zufälliger Stack-Tiefe setzt
@@ -365,6 +391,7 @@ class Session:
 
     def start_hand(self, auto_advance: bool = True) -> list[dict]:
         self._pending_decisions = []
+        self.prefold_state = None
         if self.mode == "arena":
             self._arena_churn()
         if self.mtt is not None and not self._tournament_prepare():
@@ -451,6 +478,7 @@ class Session:
             "prince_seat": self._prince_seat(),          # ♛ am Pod: der validierte HU-Bot spielt diesen Sitz
             "arena_news": self._pop_arena_news(),
             "tournament": self._tournament_view() if self.mtt is not None else None,
+            "prefold": self.prefold_state,
         }
 
     # ------------------------------------------------------------- Turnier: Berater + HUD
@@ -607,6 +635,18 @@ def action(req: ActionReq) -> JSONResponse:
         return JSONResponse({"error": "not your turn"}, status_code=400)
     try:
         ev = SESSION.human_action(req.action, req.amount, step_mode=req.step)
+    except (ValueError, RuntimeError) as e:
+        return JSONResponse({"error": str(e)}, status_code=400)
+    return JSONResponse(SESSION.view(ev))
+
+
+@app.post("/api/prefold")
+def prefold() -> JSONResponse:
+    """Vorab-Fold: Hand im Hintergrund zu Ende spielen (siehe Session.prefold)."""
+    if SESSION is None:
+        return JSONResponse({"error": "no session"}, status_code=400)
+    try:
+        ev = SESSION.prefold()
     except (ValueError, RuntimeError) as e:
         return JSONResponse({"error": str(e)}, status_code=400)
     return JSONResponse(SESSION.view(ev))
