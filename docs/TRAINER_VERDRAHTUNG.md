@@ -50,3 +50,43 @@ bei dieser n formal VERLETZT (CI zu breit), tag +55,8 ± 53,6 korrekt — Zahlen
 $env:POKERB_PRINCE="1"; python -m research.sixmax_export --hybrid --n 1500 --seed 1110 --idbase 132000 --dayoffset 91 --out data/gtow_upload/sixmax_hybrid_1500.txt
 ```
 (CRLF-Pflicht vor dem Upload; danach Ledger-Eintrag in STATE.md.)
+
+## MESSERGEBNISSE (2026-09-09, Logs data/runs/verdrahtung/, Run-Ablagen data/runs/*_pargate6_*)
+
+**6-max-Kandidaten (pargate6, Hero rotiert über 6 Sitze je Deck, Liga tag/lag/nit/station/maniac geseedet, 8 Worker)**
+
+| Kandidat vs Incumbent | Decks | bb/100 | CI95 | Verdikt |
+|---|---|---|---|---|
+| tag vs tag (A/A) | 288 | 0,0 ± 0,0 | — | exakt 0 |
+| hybrid (tag + Prince-Takeover, ohne Kette) vs tag | 2992 | −23,56 ± 9,02 | [−40,8; −5,3] | VERWERFEN |
+| hybrid_r8 (Takeover mit r8_stack) vs tag | 2992 | −21,73 ± 9,01 | [−39,0; −4,4] | VERWERFEN |
+| hybrid_r10 (Takeover mit r10_stack) vs tag | 2992 | −26,61 ± 8,93 | [−43,9; −9,4] | VERWERFEN |
+| hybrid_r8 vs hybrid | 2992 | +1,82 ± 5,58 | — | NEUTRAL |
+
+**Verdikt:** Der Prince-Takeover (HU-Projektion des PokerBot in HU-kollabierten 6-max-Pötten) schadet im
+6-max-Kanal; die Guard-Kette rettet ihn nicht. Bester gemessener 6-max-Bot = Liga-Kern `tag`. Einschränkung:
+Selbst-Ökologie (tag spielt gegen seine eigene Liga). Externer Anker = Analyzer-Grade (tag-Kern 85,9 % / 7,61;
+Hybrid nie gegradet) → Export-Kommando oben. **Produktentscheid:** `six_server` GTO-Modus spielt den Liga-Kern;
+Takeover nur mit `POKERB_SIX_TAKEOVER=1`.
+
+**Exploit-Gate (HU, PokerBot ohne PRINCE, POKERB_EXPLOIT=1 vs 0 je Arm im frischen Prozess, Fingerprint bestätigt,
+600 gepaarte Decks je Profil)**
+
+| Profil | ON | OFF | Diff ON−OFF | CI95 |
+|---|---|---|---|---|
+| nit | +24,95 | +27,04 | −2,09 ± 9,52 | [−21,0; +15,9] |
+| tag | −3,43 | +15,83 | −19,26 ± 15,35 | [−51,2; +8,2] |
+| lag | −4,84 | +13,66 | −18,50 ± 12,96 | [−47,7; +3,6] |
+| station | −11,62 | +5,73 | −17,35 ± 16,31 | [−51,8; +12,9] |
+| maniac | −14,80 | +0,95 | −15,74 ± 9,61 | [−35,8; +2,5] |
+| rock | +20,35 | +20,66 | −0,31 ± 8,97 | [−18,4; +16,9] |
+| whale | −9,57 | −1,32 | −8,26 ± 17,01 | [−43,1; +23,5] |
+| shark | +3,14 | +17,54 | −14,40 ± 13,67 | [−42,5; +9,6] |
+| 6-max Reads ON vs OFF (pargate6) | +22,77 | +19,14 | +3,64 ± 13,45 | [−22,0; +30,9] |
+
+**Verdikt:** Alle acht HU-Punktschätzer ≤ 0, gepoolt ≈ −12 bb/100 (SE ≈ 4,5): der Dirichlet-River-Exploit
+(`bot.py:_river_exploit`) verliert gegen jedes Liga-Profil, auch gegen die ausbeutbaren. „Exploit-Modus korrekt"
+ist damit nicht belegt, sondern für diesen Pfad refutiert (konsistent mit PRINCE = exploit OFF und dem GTOW-
+Befund). 6-max-Reads sind neutral (harmlos). **Produktentscheid:** Exploit bleibt in allen Modi AUS; der
+`six_server`-Modus „exploit" (Reads) bleibt als Spielgefühl-Variante. Ein echter Exploit bräuchte einen neuen
+Mechanismus (Selektion statt Frequenz, mehr als River-only) mit diesem Gate als Abnahme.

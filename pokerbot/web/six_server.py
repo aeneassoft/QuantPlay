@@ -125,7 +125,12 @@ class Session:
         # das Chaos. Resolver bleiben aus (Antwortzeit); Profil-Flags via POKERB_PRINCE=1 im Launcher.
         self.prince = None
         self.prince_decisions = 0
-        if mode == "gto":
+        # WHY Default AUS (2026-09-09, pargate6, je 2992 gepaarte Decks vs Liga-Kern 'tag'): der Prince-Takeover
+        # in HU-kollabierten 6-max-Poetten VERLIERT -23,6+-9,0 (ohne Kette), -21,7+-9,0 (r8_stack), -26,6+-8,9
+        # (r10_stack), alle VERWERFEN (Journal VERDRAHTUNG-6MAX-VERDIKT). POKERB_SIX_TAKEOVER=1 schaltet ihn
+        # fuer Experimente wieder ein; der externe Anker (Analyzer-Grade des Hybrids) steht noch aus.
+        takeover_an = os.environ.get("POKERB_SIX_TAKEOVER", "0") == "1"
+        if mode == "gto" and takeover_an:
             orc = _coach("oracle")
             if orc is not None:
                 try:

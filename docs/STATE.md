@@ -1,7 +1,21 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-08**.
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+
+## ★★★★★ CURRENT (2026-09-09) — TRAINER-VERDRAHTUNG + 6MAX-VERDIKT + EXPLOIT-GATE (Detail: docs/TRAINER_VERDRAHTUNG.md)
+**HU-Trainer:** Gegner UND Berater = Champion-Konfig (PRINCE, exploit OFF, Resolver AN, `wickle_decide(FINAL_STACK=r8_stack)`),
+Fingerprints beider Bots im /api/view + GET /api/advice. **6-max-Trainer:** Liga-Kern `tag` spielt; der Prince-Takeover
+in HU-kollabierten Poetten ist DEFAULT AUS (`POKERB_SIX_TAKEOVER=1` schaltet ein; Stack via `POKERB_SIX_STACK`), weil
+pargate6 (NEU, gepaarte 6-max-Arena, A/A exakt 0) ihn refutiert: hybrid −23,6±9,0 / hybrid_r8 −21,7±9,0 / hybrid_r10
+−26,6±8,9 vs tag (je 2992 Decks, alle VERWERFEN; Journal VERDRAHTUNG-6MAX-VERDIKT). Bester gemessener 6-max-Bot = `tag`
+(Selbst-Oekologie; externer Anker = Analyzer-Grade 85,9 %/7,61, Hybrid-Export-Kommando steht bereit).
+**Exploit-Gate (NEU):** ON vs OFF je Liga-Profil, 600 gepaarte Decks: alle 8 Diffs ≤ 0 (gepoolt ≈ −12 bb/100) → der
+Dirichlet-River-Exploit ist REFUTIERT, Exploit bleibt ueberall AUS; 6-max-Reads neutral (+3,6±13,5). Journal
+EXPLOIT-GATE-VERDIKT. **GTOW-bestaetigt ist weiterhin nur v4-auf-PRINCE (−21,1, Nacht 2); v5 (r8_stack) hat Spiegel-
+Evidenz, kein Anker** — Shadow-Nacht (v5 handelt, v10 rechnet mit) bleibt der naechste GTOW-Schritt.
+Infrastruktur neu: `pokerbot/autogym/pargate6.py`, `pokerbot/autogym/exploit_gate.py`, `pokerbot/arena/hybrid.py`,
+`SixMaxBot(seed=)`, `PrinceOracle(stack=, kanal=)`, Tests test_sixmax_seed/test_hybrid/test_pargate6.
 
 ## ★★★★★ CURRENT (2026-09-07/08) — v10 „River-Fundament" GEBAUT + GATES G1–G5 GELAUFEN: **NICHT GTOW-reif** (G3 VERFEHLT, G2 nicht gruen); Stand bleibt auslese-v5
 **Gesamtbericht: [`docs/V10_GATES_REPORT.md`](V10_GATES_REPORT.md)** (Tabelle, Reduktionen, Befunde, Ship-Entscheid, GTOW-Staffel-Kommandos).
