@@ -29,6 +29,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 
 from pokerbot import config
+from pokerbot.arena.mtt import MTT
 from pokerbot.arena.sixmax import PROFILES, PUNISHER_ASSIGN, SixMaxBot
 from pokerbot.engine.table import Table
 from pokerbot.web.session_log import append_record, build_hand_record
@@ -37,7 +38,9 @@ NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve", "Finn", "Gina", "Hugo", "Iris
 HUMAN = 0
 _INDEX = (Path(__file__).parent / "static" / "six.html").read_text(encoding="utf-8")
 GRADING_BUDGET_MS = 800          # whole-hand grading must fit the client's auto-deal window
-TRAINER_MODES = ("gto", "exploit", "arena", "punish")
+TRAINER_MODES = ("gto", "exploit", "arena", "punish", "tournament")
+TOP_DEVIATIONS = 3               # Ergebnis-Screen: die groessten Abweichungen (Rang = Pot in bb, Proxy fuer Kosten)
+ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet", "raise": "Raise", "allin": "All-in"}
 # ARENA-Modus (User, 2026-08-02): eine "verrückte Online-Landschaft" — zufällige, ADAPTIVE Gegnertypen
 # (Duplikate erlaubt: auch 2 Maniacs), Spieler kommen und gehen mit wechselnden Stack-Tiefen. Die GTO-
 # Bewertungsschicht bleibt UNVERÄNDERT — der Modus tauscht nur die Gegner, nie den Maßstab.
@@ -69,10 +72,26 @@ def _six_stack_aus_env() -> str | None:
 
 
 class Session:
-    def __init__(self, stack=10000, sb=50, bb=100, mode="gto", players=6):
+    def __init__(self, stack=10000, sb=50, bb=100, mode="gto", players=6, seed=None):
         # Multiway (2026-08-04): Tischgroesse 2..10 waehlbar; Default 6 = unveraendertes Erlebnis.
         n = max(2, min(len(NAMES), int(players or 6)))
-        self.table = Table(NAMES[:n], starting_stack=stack, sb=sb, bb=bb, human_seat=HUMAN)
+        # TURNIER-MODUS (2026-09-09, docs/TURNIER_MODUS.md): 60 Spieler an 6 Tischen; der Mensch sitzt am
+        # Hero-Tisch (voll gespielt), die Nebentische spielt der MTT-Direktor je eine Hand pro Hero-Hand.
+        self.mtt: MTT | None = None
+        if mode == "tournament":
+            self.mtt = MTT(seed=seed if seed is not None else random.randrange(1 << 30), hero_name=NAMES[HUMAN])
+            self.table = self.mtt.build_table(self.mtt.hero_host())
+            self._t_start_stacks: dict[str, int] = {}
+            self._t_pressure_cache: dict = {}
+            self._aggressor: int | None = None
+            self._hero_busts: list = []
+            self._round_due = False           # True zwischen Hero-Handende und naechster Hand
+            self.finished = False
+            self._six_oracle = None           # lazy: SixMaxOracle (tag-Kern) / PrinceOracle (HU-Ende)
+            self._prince_hu = None
+            self.t_stats = {"decisions": 0, "gto": 0, "deviations": [], "last": None}
+        else:
+            self.table = Table(NAMES[:n], starting_stack=stack, sb=sb, bb=bb, human_seat=HUMAN)
         sid = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.session_id = sid
         self.path = config.DATA_DIR / "sessions" / f"session_{sid}.jsonl"
@@ -96,6 +115,8 @@ class Session:
             _assign = {s: self._arena_rng.choice(list(PROFILES)) for s in range(1, self.table.n)}
             for s in range(1, self.table.n):
                 self.table.seats[s].stack = self._arena_rng.randint(*ARENA_STACK_BB) * bb
+        elif mode == "tournament":
+            _assign = {i: self.mtt.entrants[s.name].profile for i, s in enumerate(self.table.seats) if i != HUMAN}
         elif mode == "punish":
             # PUNISHMENT (User, 2026-08-03): 5 Jäger, jeder auf ein GEMESSENES Princedarkness-Leak gebaut
             # (sixmax.PUNISHER_ASSIGN — sheriff/iso_hammer/value_press/trap_nit/blind_fighter). Reads AN,
@@ -113,7 +134,10 @@ class Session:
                 except Exception:  # noqa: BLE001 — controller optional; default composition on any trouble
                     pass
         self.profile_assign = dict(_assign)
-        self.bots = {s: SixMaxBot(s, PROFILES[_assign.get(s, "tag")]) for s in range(1, self.table.n)}
+        if self.mtt is not None:           # Turnier: die geseedeten Liga-Bots der Entrants (Reads AUS)
+            self.bots = self.mtt.bots_for(self.table)
+        else:
+            self.bots = {s: SixMaxBot(s, PROFILES[_assign.get(s, "tag")]) for s in range(1, self.table.n)}
         if mode == "gto":
             # GTO-Modus: the league's bounded exploit reads are OFF — bots play their profiles straight.
             # (Exploit + Arena lassen die Reads AN: online passen sich Gegner an — genau der Stresstest.)
@@ -158,6 +182,9 @@ class Session:
             self.hands_done += 1
             self.last_hand_net_bb = hand_net / t.bb              # the feedback names (never grades) the result
             self._grade_and_flush()
+            if self.mtt is not None:
+                self._hero_busts = self.mtt.after_table_hand(t, self.mtt.hero_host(), self._t_start_stacks)
+                self._round_due = True
 
     def _grade_and_flush(self):
         """P0-5: grade every captured decision of the finished hand + build the feedback. Runs INSIDE the
@@ -252,6 +279,10 @@ class Session:
         seat = t.to_act
         obs = t.obs_for(seat)
         street, to_call, praises = t.street, obs["to_call"], obs["preflop_raises"]
+        if self.mtt is not None:           # ICM-Brille der Bots (exakt ab <= 12 Verbliebenen, sonst Druck/None)
+            ctx = self.mtt.icm_ctx(t, seat, self._aggressor, self._t_start_stacks, self._t_pressure_cache)
+            if ctx is not None:
+                obs["icm"] = ctx
         try:
             dec = None
             if seat == self._prince_seat():
@@ -268,6 +299,8 @@ class Session:
             action = "check" if la.get("can_check") else ("call" if la.get("can_call") else "fold")
             t.act(action)
             amount = None
+        if self.mtt is not None and action in ("bet", "raise", "allin"):
+            self._aggressor = seat
         self._observe_all(seat, street, action, to_call, praises)
         return {"seat": seat, "name": t.seats[seat].name, "pos": t.position_label(seat),
                 "action": action, "amount": amount, "street": street}
@@ -308,11 +341,32 @@ class Session:
         self.profile_assign[seat] = profil
         self._arena_news = f"{alt} verlässt den Tisch — {neu} setzt sich ({int(self.table.seats[seat].stack / self.table.bb)}bb)."
 
+    def _tournament_prepare(self) -> bool:
+        """Rundenschluss (Nebentische, Busts, Balancing) + frischer Hero-Tisch. False = Turnier vorbei."""
+        m = self.mtt
+        if self._round_due:
+            m.advance_round(self._hero_busts)
+            self._round_due, self._hero_busts = False, []
+        if m.hero_out() or m.over():
+            self.finished = True
+            return False
+        if self.table.hand_no == 0:            # der im Konstruktor gebaute Tisch ist noch ungespielt
+            return True
+        self.table = m.build_table(m.hero_host())
+        self.bots = m.bots_for(self.table)
+        self.profile_assign = {i: m.entrants[s.name].profile for i, s in enumerate(self.table.seats) if i != HUMAN}
+        self._t_pressure_cache, self._aggressor = {}, None
+        return True
+
     def start_hand(self, auto_advance: bool = True) -> list[dict]:
         self._pending_decisions = []
         if self.mode == "arena":
             self._arena_churn()
+        if self.mtt is not None and not self._tournament_prepare():
+            return []
         self.table.start_hand()
+        if self.mtt is not None:
+            self._t_start_stacks = self.mtt.start_stacks(self.table)
         for b in self.bots.values():
             b.new_hand(list(range(self.table.n)))
         if not auto_advance:                      # step mode: the client drives bots via /api/step
@@ -333,9 +387,19 @@ class Session:
                 rec = dl.capture_decision(t, self.session_id, t.hand_no, self.mode, action, amount)
             except Exception:  # noqa: BLE001 — capture must never block the action itself
                 rec = None
+        icm_hint = None
+        if self.mtt is not None and rec is not None:
+            try:                                   # VOR t.act: invested/committed beschreiben den Spot
+                icm_hint = self.mtt.hero_icm(t, HUMAN, self._aggressor, self._t_start_stacks, rec["obs"])
+            except Exception:  # noqa: BLE001 — der Hinweis ist optional
+                icm_hint = None
         t.act(action, amount)
         if rec is not None:
             self._pending_decisions.append(rec)
+            if self.mtt is not None:
+                self._tournament_advise(rec, icm_hint)
+        if self.mtt is not None and action in ("bet", "raise", "allin"):
+            self._aggressor = HUMAN
         self._observe_all(HUMAN, street, action, to_call, praises)
         # Step mode plays like real online poker EXCEPT after a hero fold: then the rest of the hand is
         # not worth watching — fast-forward to the end so the next hand is one click away (user rule).
@@ -381,7 +445,88 @@ class Session:
             "difficulty": {"profiles": self.profile_assign, "error_rate": self.last_error_rate},
             "prince_seat": self._prince_seat(),          # ♛ am Pod: der validierte HU-Bot spielt diesen Sitz
             "arena_news": self._pop_arena_news(),
+            "tournament": self._tournament_view() if self.mtt is not None else None,
         }
+
+    # ------------------------------------------------------------- Turnier: Berater + HUD
+    def _tournament_oracle(self):
+        """tag-Kern-Referenz (SixMaxOracle); ist das Turnier heads-up, Prince mit auslese.FINAL_STACK."""
+        orc = _coach("oracle")
+        if orc is None:
+            return None
+        if self.table.n == 2:
+            if self._prince_hu is None:
+                from pokerbot.strategy.auslese import FINAL_STACK
+                self._prince_hu = orc.PrinceOracle(stack=FINAL_STACK, kanal="live")
+            return self._prince_hu
+        if self._six_oracle is None:
+            self._six_oracle = orc.SixMaxOracle()
+        return self._six_oracle
+
+    def _tournament_advise(self, rec: dict, icm_hint: dict | None) -> None:
+        """Sofort-Urteil nach jeder Hero-Aktion: 'GTO ✓' oder 'Abweichung: <Aktion> — <Grund>' (+ ICM-Hinweis)."""
+        st = self.t_stats
+        verdict = {"hand_no": self.table.hand_no, "street": rec.get("street"),
+                   "human": rec["human_action"]["action"], "icm": icm_hint}
+        try:
+            orc = _coach("oracle")
+            oracle = self._tournament_oracle()
+            dec = oracle.decide(rec)
+            diff = orc.oracle_diff(rec, dec)
+            verdict["oracle"] = dec.get("action")
+            verdict["match"] = bool(diff.get("match"))
+            if diff.get("match"):
+                verdict["text"] = "GTO ✓"
+            else:
+                reason = (dec.get("rationale") or {}).get("reasoning") or f"Referenz ({dec.get('source')})"
+                amt = dec.get("amount")
+                size = f" {amt / self.table.bb:.1f}bb" if amt and dec.get("action") in ("bet", "raise") else ""
+                verdict["text"] = f"Abweichung: {ACTION_DE.get(dec.get('action'), dec.get('action'))}{size} — {reason}"
+            st["decisions"] += 1
+            st["gto"] += int(verdict["match"])
+            if not verdict["match"]:
+                pot_bb = round((rec.get("obs") or {}).get("pot", 0) / self.table.bb, 1)
+                st["deviations"].append({**verdict, "pot_bb": pot_bb})
+        except Exception as e:  # noqa: BLE001 — sichtbar, nie stumm (Doktrin); das Spiel laeuft weiter
+            verdict["text"] = f"(Berater nicht verfuegbar: {e!r})"
+            verdict["match"] = None
+        st["last"] = verdict
+
+    def _tournament_stats(self) -> dict:
+        st = self.t_stats
+        n = st["decisions"]
+        top = sorted(st["deviations"], key=lambda d: -d["pot_bb"])[:TOP_DEVIATIONS]
+        return {"decisions": n, "gto": st["gto"], "gto_quote": round(st["gto"] / n, 3) if n else None,
+                "top_deviations": top}
+
+    def _tournament_view(self) -> dict:
+        m = self.mtt
+        lv = m.level()
+        me = m.entrants[NAMES[HUMAN]]
+        nxt = m.next_payout()
+        host = m.hero_host()
+        pays = m.payouts()
+        place = m.hero_place
+        payout = pays[place - 1] if place and place <= len(pays) else 0.0
+        return {
+            "level": m.level_index() + 1, "sb": lv.sb, "bb": lv.bb, "ante": lv.ante,
+            "players_left": len(m.alive), "n_entries": m.n_players,
+            "rank": m.rank_of(me.name) if me.alive else None,
+            "hero_stack_bb": round(me.stack / lv.bb, 1), "avg_stack_bb": round(m.avg_stack() / lv.bb, 1),
+            "next_payout": {"place": nxt[0], "amount": nxt[1]} if nxt else None,
+            "hands_to_level": m.hands_to_level(), "round_no": m.round_no,
+            "table_no": (host.uid + 1) if host else None, "tables": len(m.tables),
+            "final_table": m.is_final_table(), "table_change": self._pop_table_change(),
+            "finished": self.finished or m.hero_out() or m.over(),
+            "place": place, "payout": payout, "prize_pool": m.prize_pool(), "payouts": pays,
+            "side_ms": round(m.last_side_ms, 1),
+            "avatars": {s.name: m.entrants[s.name].avatar for s in self.table.seats},
+            "advisor": {"last": self.t_stats["last"], "stats": self._tournament_stats()},
+        }
+
+    def _pop_table_change(self) -> str | None:
+        msg, self.mtt.table_change = self.mtt.table_change, None
+        return msg
 
     def _pop_arena_news(self) -> str | None:
         news, self._arena_news = self._arena_news, None   # einmalig ausliefern (view läuft pro Step)
@@ -396,6 +541,7 @@ class NewReq(BaseModel):
     mode: str = "gto"               # P0-0: 'gto' | 'exploit'
     step: bool = False              # real-flow mode: client animates bots one action at a time (/api/step)
     players: int = 6                # Multiway: 2..10 (Default 6 = unveraendert)
+    seed: int | None = None         # Turnier: deterministischer Turnier-Seed (None = zufaellig)
 
 
 class ActionReq(BaseModel):
@@ -434,7 +580,7 @@ def new_session(req: NewReq) -> JSONResponse:
             reg.register_end(SESSION)
         except Exception:  # noqa: BLE001
             pass
-    SESSION = Session(stack=req.stack_bb * 100, sb=50, bb=100, mode=req.mode, players=req.players)
+    SESSION = Session(stack=req.stack_bb * 100, sb=50, bb=100, mode=req.mode, players=req.players, seed=req.seed)
     ev = SESSION.start_hand(auto_advance=not req.step)
     return JSONResponse(SESSION.view(ev))
 

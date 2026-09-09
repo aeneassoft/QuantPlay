@@ -42,6 +42,18 @@
   .zbtn:hover{background:#1b2f52}
   #zoomlbl{font-size:19px;color:var(--muted);min-width:56px;text-align:center;font-weight:700}
   #modebadge.exploit{background:var(--gold)}
+  #modebadge.tournament{background:#b48cff;color:#120a22}
+  #m-tournament{background:#8f5cff;color:#fff}
+  /* Turnier-HUD (2026-09-09): Level/Blinds/Feld/Rang/Stacks/Payout/Level-Uhr — nur im Turniermodus sichtbar */
+  #thud{display:none;background:#0d0a1e;border:1px solid #3d2a6e;border-radius:8px;padding:8px 12px;font-size:19px;
+    line-height:1.45;color:#d9ccff}
+  #thud b{color:#fff}#thud .k{color:#a58cff}
+  #thud .row{display:flex;flex-wrap:wrap;gap:6px 22px}
+  #verdict{display:none;background:#070d18;border-radius:8px;padding:10px 14px;font-size:24px;line-height:1.4}
+  #verdict.ok{color:var(--win)}#verdict.dev{color:#ffcf6e}#verdict .icm{display:block;color:#b48cff;font-size:20px}
+  #tourend{position:fixed;inset:0;background:#060a14ee;z-index:60;display:none;align-items:center;justify-content:center}
+  #tourend .mo-card{max-width:760px}#tourend .big{font-size:44px;font-weight:900;color:var(--gold);margin:6px 0}
+  #tourend ul{text-align:left;font-size:16px;color:#d9ccff;line-height:1.5}
 
   /* ── table zone LEFT ~60% ─────────────────────────────────────────── */
   .table{position:absolute;left:20px;top:48px;width:1400px;height:830px;border-radius:415px/248px;
@@ -233,6 +245,8 @@
   <div class="panel">
     <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Session-Netto (bb)</div></div>
     <div id="matchcount" style="display:none"></div>
+    <div id="thud"></div>
+    <div id="verdict"></div>
     <div class="mini">
       <button id="b-new" class="sec">Neu</button>
       <button id="b-an">Analyse</button>
@@ -263,13 +277,25 @@
       <button id="m-exploit">Exploit-Modus</button>
       <button id="m-arena">Arena-Modus</button>
       <button id="m-punish">Punishment</button>
+      <button id="m-tournament">Turnier</button>
       <button id="m-match" class="sec">Match — nur spielen</button>
     </div>
     <p><b style="color:#eaf2ff">GTO:</b> die Bots spielen ihre Grundlinie — und sobald ein Pot heads-up ist, übernimmt ♛ Prince, unser bester Bot.<br/>
        <b style="color:#eaf2ff">Exploit:</b> die Bots lernen dich live und nutzen deine Leaks — du erlebst deine Ausbeutbarkeit.<br/>
        <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.<br/>
        <b style="color:#ff7b6e">Punishment:</b> fünf Jäger, gebaut aus DEINEN vermessenen Leaks — der Sheriff callt deinen einen Schlag, der Iso-Hammer bestraft jeden Limp, die Value-Presse kassiert deine Call-downs, der Trap-Nit wartet auf deinen Riesenpott, der Blind-Fighter 3-bettet dich weich. Bewertet wird unverändert streng.<br/>
+       <b style="color:#c9b3ff">Turnier:</b> MTT mit 60 Spielern an 6 Tischen à 10 — normale Online-Population (Stations, Regs, Nits, Maniacs), steigende Blinds mit Antes, Tischausgleich bis zum Final Table, Top 9 bezahlt. Nach jeder Aktion ein Urteil (GTO ✓ / Abweichung) und ICM-Hinweise, sobald der Bubble-Faktor greift.<br/>
        <b style="color:#eaf2ff">Match:</b> dieselben GTO-Gegner + ♛ Prince, aber OHNE Coaching und Ablenkung — nur du, der Tisch und ein Hand-Zähler (150 Testhände, dann open end). Alles wird still mitgeschrieben und benotet — auswerten kannst du hinterher.</p>
+  </div>
+</div>
+
+<div id="tourend">
+  <div class="mo-card">
+    <h2>🏁 Turnier beendet</h2>
+    <div class="big" id="te-place"></div>
+    <p id="te-body"></p>
+    <ul id="te-dev"></ul>
+    <div><button id="te-new">Turnier neu</button><button id="te-menu" class="sec">Zum Menü</button></div>
   </div>
 </div>
 
@@ -280,8 +306,11 @@ const $=id=>document.getElementById(id);
 // STEP/STREETPAUSE: real-flow bot pacing — schneller als ein Mensch, aber jede Aktion einzeln sichtbar
 const T={FLY:260, DEALER:260, BETPOP:180, BANNER:250, POP:900, AUTODEAL:3000, STEP:420, STREETPAUSE:650};
 const SUIT={s:'♠',h:'♥',d:'♦',c:'♣'},RED={h:1,d:1};
-const SC=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];          // seat -> %x,%y of felt
-const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066'];
+const SC6=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];         // die bewährten 6-max-Plätze (byte-identisch)
+// Multiway-Plätze (Turnier bis 10 Sitze, Generator aus six.html): Hero unten mittig, Rest auf der Ellipse
+function seatCoords(n){if(n===6)return SC6;const o=[];for(let i=0;i<n;i++){const a=Math.PI/2+2*Math.PI*i/n;o.push([50+44*Math.cos(a),50+46*Math.sin(a)]);}return o;}
+let SC=SC6;
+const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066','#c9b3ff','#ff9b9b','#8ee0ff','#e6d68a'];
 const RANK_DE={'High Card':'Hohe Karte','Pair':'Paar','Two Pair':'Zwei Paare','Three of a Kind':'Drilling',
   'Straight':'Straße','Flush':'Flush','Full House':'Full House','Four of a Kind':'Vierling',
   'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
@@ -529,7 +558,9 @@ function render(v){
   if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const mb=$('modebadge');mb.textContent=curMode().toUpperCase();
-  mb.className={exploit:'exploit',arena:'arena',punish:'punish'}[curMode()]||'';
+  mb.className={exploit:'exploit',arena:'arena',punish:'punish',tournament:'tournament'}[curMode()]||'';
+  if(v.seats&&v.seats.length!==SC.length)SC=seatCoords(v.seats.length);   // Turnier: bis 10 Sitze
+  renderTournament(v.tournament);
   // Match-Zähler: Testphase bis 150 abgeschlossene Hände (mit Balken), danach Wettkampf open end
   const mc=$('matchcount');
   if(MATCH&&mc){
@@ -574,8 +605,9 @@ function render(v){
     el.style.left=x+'%'; el.style.top=y+'%';
     const ini=s.name[0].toUpperCase();
     const crown=(v.prince_seat===s.seat&&!s.folded)?'♛ ':'';   // Prince v2 spielt diesen Sitz (HU-Takeover)
+    const av=(v.tournament&&v.tournament.avatars&&v.tournament.avatars[s.name])||ini;   // Turnier: Profil-Avatar
     el.innerHTML=`<div class="holes" id="h${s.seat}"></div>
-      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat]}">${ini}</span>
+      <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat%AVCOL.length]}">${av}</span>
         <span class="nm" ${crown?'title="Prince v2 — unser bester HU-Bot — spielt diesen Sitz"':''}>${s.is_turn?'▶ ':''}${crown}${s.name}</span><span class="pos">${s.pos}</span></div>
         <div class="stk">${bbs(s.stack)} bb${s.all_in?' · ALL-IN':''}</div></div>`;
     $('felt').appendChild(el);
@@ -667,6 +699,10 @@ function renderBar(v){
   bar.classList.toggle('myturn',my);
   armedRaise=false;
   if(!my){
+    if(v.hand_over&&v.tournament&&v.tournament.finished){
+      bar.innerHTML='<button id="b-deal" class="big">Turnier neu</button>';
+      $('b-deal').onclick=()=>startWith('tournament');return;
+    }
     if(v.hand_over){                             // explicit deal button — nothing advances behind your back
       bar.innerHTML='<button id="b-deal" class="big">Nächste Hand <span class="kbd">Leertaste</span></button>'+
         `<label class="autodeal"><input type="checkbox" id="cb-auto"${autoDealOn?' checked':''}> automatisch</label>`;
@@ -1020,6 +1056,43 @@ function setQuick(n){
 }
 document.addEventListener('keydown',onKey);
 
+/* ── Turnier-HUD / Berater-Urteil / Ergebnis (2026-09-09, docs/TURNIER_MODUS.md) ── */
+let lastVerdictKey=null, finalBannerShown=false;
+function renderTournament(t){
+  const hud=$('thud'),vd=$('verdict'),te=$('tourend');
+  if(!t){hud.style.display='none';vd.style.display='none';te.style.display='none';return;}
+  const np=t.next_payout?`Platz ${t.next_payout.place}: ${t.next_payout.amount.toFixed(2)}`:'—';
+  hud.style.display='block';   // WHY 'block': '' loescht nur den Inline-Stil, die CSS-Regel display:none bliebe wirksam
+  hud.innerHTML=`<div class="row"><span><span class="k">Level</span> <b>${t.level}</b> · ${t.sb}/${t.bb}${t.ante?' A'+t.ante:''}</span>`+
+    `<span><span class="k">Spieler</span> <b>${t.players_left}</b>/${t.n_entries}</span>`+
+    `<span><span class="k">Rang</span> <b>${t.rank!=null?t.rank:'–'}</b></span>`+
+    `<span><span class="k">Tisch</span> ${t.table_no||'–'}/${t.tables}${t.final_table?' · <b>FINAL TABLE</b>':''}</span></div>`+
+    `<div class="row"><span><span class="k">Stack</span> <b>${t.hero_stack_bb}</b> bb</span>`+
+    `<span><span class="k">Ø</span> ${t.avg_stack_bb} bb</span>`+
+    `<span><span class="k">Nächste Stufe</span> ${np}</span>`+
+    `<span><span class="k">Level in</span> ${t.hands_to_level} H.</span>`+
+    `<span><span class="k">GTO</span> ${pct(t.advisor.stats.gto_quote)} (${t.advisor.stats.decisions})</span></div>`;
+  if(t.table_change){log('🪑 '+esc(t.table_change),'r');pushTicker(view.street,t.table_change);}
+  if(t.final_table&&!finalBannerShown){finalBannerShown=true;log('🏆 <b>FINAL TABLE</b> — die letzten '+t.players_left+' Spieler.','r');
+    const ban=$('banner');ban.textContent='FINAL TABLE';ban.style.color='var(--gold)';ban.classList.add('show');}
+  const a=t.advisor.last;
+  if(a&&a.text){
+    const key=a.hand_no+':'+a.street+':'+a.human+':'+a.text;
+    vd.style.display='block';vd.className=a.match?'ok':'dev';
+    vd.innerHTML=`<b>${STREET_DE[a.street]||a.street}</b> · ${esc(a.text)}`+(a.icm&&a.icm.text?`<span class="icm">${esc(a.icm.text)}</span>`:'');
+    if(key!==lastVerdictKey){lastVerdictKey=key;log((a.match?'✓ ':'△ ')+esc(a.text),a.match?'y':'b');}
+  }else vd.style.display='none';
+  if(t.finished){
+    const st=t.advisor.stats;
+    $('te-place').textContent=t.place?`Platz ${t.place} von ${t.n_entries}`:'Turnier vorbei';
+    $('te-body').innerHTML=`Payout <b>${(t.payout||0).toFixed(2)}</b> (Pool ${t.prize_pool.toFixed(0)}) · GTO-Quote <b>${pct(st.gto_quote)}</b> bei ${st.decisions} Entscheidungen`;
+    $('te-dev').innerHTML=(st.top_deviations||[]).map(d=>`<li>Hand #${d.hand_no} ${STREET_DE[d.street]||d.street} (Pot ${d.pot_bb} bb): du ${ACTION_DE[d.human]||d.human} — ${esc(d.text)}</li>`).join('')||'<li>Keine Abweichungen — sauber gespielt.</li>';
+    te.style.display='flex';
+  }else te.style.display='none';
+}
+$('te-new').onclick=()=>{$('tourend').style.display='none';finalBannerShown=false;lastVerdictKey=null;startWith('tournament');};
+$('te-menu').onclick=()=>{$('tourend').style.display='none';showOverlay();};
+
 /* ── start flow: mode toggle first (P0-0), then session ──────────────── */
 function showOverlay(){cancelAutodeal();$('modeoverlay').style.display='flex';}
 function startWith(mode,match=false){
@@ -1032,6 +1105,7 @@ $('m-gto').onclick=()=>startWith('gto');
 $('m-exploit').onclick=()=>startWith('exploit');
 $('m-arena').onclick=()=>startWith('arena');
 $('m-punish').onclick=()=>startWith('punish');    // 5 Jäger auf die vermessenen Leaks (Reads AN)
+$('m-tournament').onclick=()=>{finalBannerShown=false;lastVerdictKey=null;startWith('tournament');};
 $('m-match').onclick=()=>startWith('gto',true);   // Match = GTO-Gegner + Prince, Anzeige stumm
 $('b-new').onclick=showOverlay;
 $('b-an').onclick=analyze;

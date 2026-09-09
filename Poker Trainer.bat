@@ -14,6 +14,7 @@ echo   Modi auf dem Startbildschirm:
 echo       GTO     - Grundlinie; heads-up uebernimmt Prince v2
 echo       Exploit - die Bots lernen dich und nutzen deine Leaks
 echo       Arena   - wilde Online-Landschaft als Stresstest
+echo       Turnier - MTT 60 Spieler / 6 Tische, ICM-Berater (docs/TURNIER_MODUS.md)
 echo   Zum Beenden: dieses Fenster schliessen  (oder Strg+C).
 echo ============================================================
 echo.

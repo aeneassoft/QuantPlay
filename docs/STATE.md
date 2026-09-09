@@ -3,6 +3,16 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★ CURRENT (2026-09-09 abends) — TURNIER-MODUS im Trainer (Detail: docs/TURNIER_MODUS.md)
+MTT 60 Spieler, 6 Tische à 10, 10 Level 25/50→800/1600 (Ante ab L3, 12 Hero-Hände je Level), Tischausgleich ±1,
+Kollaps bis Final Table, Top 9 bezahlt; Feld = Online-Population-PRIOR (station 30/tag 22/lag 15/nit 12/rock 8/
+whale 5/maniac 4/shark 4). Hero-Tisch voll gerechnet (Liga-Bots), Nebentische pro Hero-Hand ≈ 120–130 ms.
+Berater = tag-Kern-Oracle je Hero-Aktion (`GTO ✓` / `Abweichung: …`) + ICM-Hinweis ab ≤ 12 Verbliebenen; GTO-Quote
+und Top-Abweichungen im HUD/Endbild. Code: `pokerbot/arena/mtt.py`, `six_server` Modus `tournament`, `training.html`
+(Turnier-Button/HUD/Urteil/Ergebnis), `tests/test_tournament_mode.py` (7 Tests grün). Browser-verifiziert (zwei
+UI-Fehler dabei gefixt: unsichtbares HUD via display:none, Tischnummer aus Namens-Offset). Kein Mess-Verdikt — der
+Modus ist Trainer-Produkt, kein Bot-Kandidat; die GTOW-Lage (v4-auf-PRINCE −21,1 als einziger Anker) ist unverändert.
+
 ## ★★★★★ CURRENT (2026-09-09) — TRAINER-VERDRAHTUNG + 6MAX-VERDIKT + EXPLOIT-GATE (Detail: docs/TRAINER_VERDRAHTUNG.md)
 **HU-Trainer:** Gegner UND Berater = Champion-Konfig (PRINCE, exploit OFF, Resolver AN, `wickle_decide(FINAL_STACK=r8_stack)`),
 Fingerprints beider Bots im /api/view + GET /api/advice. **6-max-Trainer:** Liga-Kern `tag` spielt; der Prince-Takeover
