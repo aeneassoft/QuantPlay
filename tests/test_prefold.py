@@ -66,9 +66,32 @@ def test_prefold_tournament():
     assert S.SESSION.mtt.total_chips() == 60 * 5000
 
 
+def test_fractional_amount_is_rounded():
+    """User-Fund 2026-09-09 (leerer Tisch): Turnier-bb 50 -> Slider-Raster 12,5 Chips -> amount 187.5 -> frueher
+    422 {"detail"} (vom Client als Zustand gerendert). Jetzt: float wird gerundet, Antwort ist ein Zustand."""
+    c = TestClient(S.app)
+    for seed in range(1, 40):
+        v = _new(c, seed, mode="tournament")
+        while not v["hand_over"] and v["to_act"] != HUMAN:
+            v = c.post("/api/step", json={}).json()
+        if v["hand_over"] or not v["legal"].get("can_raise"):
+            continue
+        amt = v["legal"]["raise_min"] + 12.5
+        r = c.post("/api/action", json={"action": "raise", "amount": amt, "step": True})
+        assert r.status_code == 200, r.text
+        v = r.json()
+        assert "seats" in v and "error" not in v, v
+        me = v["seats"][HUMAN]
+        assert float(me["committed_street"]).is_integer(), "Chips muessen ganzzahlig bleiben"
+        print(f"  Betrag {amt} -> gesetzt {me['committed_street']} (Seed {seed})")
+        return
+    raise AssertionError("kein Raise-Spot in 40 Seeds")
+
+
 def run():
     test_prefold_folds_and_finishes()
     test_prefold_tournament()
+    test_fractional_amount_is_rounded()
     print("VORAB-FOLD: alle Tests bestanden")
 
 

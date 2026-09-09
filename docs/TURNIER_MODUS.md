@@ -112,9 +112,14 @@ hand_no/hands_done/logged_hand laufen mit, Feedback gehört zur aktuellen Hand, 
 **Nachmessung:** zwei volle Turniere per TestClient (Seeds 3/11, Zufalls-Hero): Hände 6 bzw. 31, Feedback folgt
 der Hand, Busts/Platz korrekt (Platz = Verbliebene zum Bust-Zeitpunkt), Urteile gemischt (Seed 11: 38 GTO ✓ /
 41 Abweichung); Browser-Schnelllauf über >3 Turniere, 3.671 Renders: 0 leere Tische, 0 Konsolenfehler.
-**Leerer Tisch:** NICHT reproduziert (weder vor noch nach dem Fix bei 1.400 + 3.671 Renders); die einzige
-Stelle, die Sitze entfernt, ist `render()` — ein Fehler dort NACH dem Entfernen würde genau dieses Bild
-erzeugen. Beobachtung erbeten: wann (nach „Nächste Hand", bei Tischwechsel, am Ende?).
+**Leerer Tisch — GEFUNDEN + BEHOBEN (zweiter User-Screenshot: „Hand #undefined · Pot NaNbb", Netto „NaN"):**
+Turnier-Blinds sind 50/75/150 … Chips; das Viertel-bb-Raster des Bet-Sliders ergibt dann z. B. 3,75 bb =
+187,5 Chips → `ActionReq.amount: int` → FastAPI-422 `{"detail": …}` → die Antwort hatte keinen `error`-Schlüssel
+→ der Client renderte sie als Spielzustand: Sitze entfernt, `v.seats.forEach` warf, Board blieb stehen. Im
+Cash-Trainer (bb 100, Raster 25) trat das nie auf. **Fix (3 Schichten):** Server `amount: float` + Rundung auf
+ganze Chips; Client `api()` macht jede Nicht-OK-/Nicht-Zustands-Antwort zu `{error}`; `render()` rendert nie
+ohne `seats`; `send()` rundet den Betrag. Regression `test_fractional_amount_is_rounded` (212,5 → 212, Antwort
+ist ein Zustand); Browser: provozierte 422 → Fehlerzeile, 10 Sitze bleiben; 112,5 Chips → 113 gesetzt.
 **Beobachtung Feldtempo:** 60 → ~30 Spieler in ~25 Runden (Maniacs/Whales gehen bei 100 bb früh all-in) — für
 eine Trainingssitzung praktisch (Geld in ~30–50 Händen), aber schneller als ein echtes Online-MTT.
 

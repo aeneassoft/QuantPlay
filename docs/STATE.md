@@ -13,7 +13,7 @@ und Top-Abweichungen im HUD/Endbild. Code: `pokerbot/arena/mtt.py`, `six_server`
 UI-Fehler dabei gefixt: unsichtbares HUD via display:none, Tischnummer aus Namens-Offset). **User-QA-Fix
 (abends): Hand-Kontinuitäts-Bug** — frische Table je Hand hatte hand_no 1 → `_log_if_done` übersprang alles nach
 Hand 1 (Stacks/Busts/Feedback eingefroren: „immer 100 bb", „immer gut gespielt"); gefixt + `test_hand_continuity`,
-zwei volle TestClient-Turniere + Browser-Schnelllauf (3.671 Renders, 0 Fehler). Leerer Tisch nicht reproduziert. **Vorab-Fold (User-Wunsch, abends):** „Fold vorab" im Wartebalken (Taste F) —
+zwei volle TestClient-Turniere + Browser-Schnelllauf (3.671 Renders, 0 Fehler). Leerer Tisch GEFUNDEN: Turnier-bb 50 → Slider-Betrag 187,5 Chips → 422 ohne `error` → als Zustand gerendert; 3-Schicht-Fix (Server rundet float, Client api()/render()-Guards). **Vorab-Fold (User-Wunsch, abends):** „Fold vorab" im Wartebalken (Taste F) —
 Hand läuft sofort im Hintergrund zu Ende, Fold regulär benotet, Chips korrekt, nächste Hand nach 1,5 s; Gratis-Check
 hebt den Vorab-Fold auf; 350-ms-Klicksperre beim Zugwechsel. `tests/test_prefold.py`; Doku TRAINER_VERDRAHTUNG.md. Kein Mess-Verdikt — der
 Modus ist Trainer-Produkt, kein Bot-Kandidat; die GTOW-Lage (v4-auf-PRINCE −21,1 als einziger Anker) ist unverändert.

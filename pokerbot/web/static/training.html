@@ -567,6 +567,7 @@ $('botread').addEventListener('toggle',()=>{if($('botread').open)loadBotRead();}
 /* ── render: the single redraw point (six.html architecture) ─────────── */
 function curMode(){return (view&&view.mode)||MODE;}
 function render(v){
+  if(!v||!Array.isArray(v.seats)){log('Fehler: Zustand ohne Sitze — nicht gerendert','s');return;}   // Schutz: nie den Tisch leeren
   view=v; bb=v.bb;
   if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
@@ -818,7 +819,12 @@ async function api(p,b){
   busy=true;
   try{
     const r=await fetch(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})});
-    return await r.json();
+    const j=await r.json();
+    // WHY: eine Nicht-OK-Antwort ohne "error" (z.B. FastAPI-422 {"detail":...}) wurde als Spielzustand gerendert
+    // -> leerer Tisch, "Hand #undefined" (User-Fund 2026-09-09). Alles, was kein Zustand ist, wird ein Fehler.
+    if(!r.ok&&!j.error)return {error:'HTTP '+r.status+' '+(j.detail?JSON.stringify(j.detail).slice(0,160):'')};
+    if(!j.error&&!Array.isArray(j.seats))return {error:'unerwartete Antwort von '+p};
+    return j;
   }catch(err){return {error:String(err)};}
   finally{busy=false;}
 }
@@ -888,6 +894,7 @@ async function send(a,amt){
   if(replayMode)return;                          // no live actions from inside a replay
   cancelAutodeal();stepToken++;
   const street=view?view.street:null;
+  if(amt!=null)amt=Math.round(amt);              // Chips sind ganzzahlig (Turnier-bb 50: Viertel-bb = 12,5)
   const v=await api('/api/action',{action:a,amount:amt,step:true});
   if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
   pushTicker(street,'Du '+(VERB2[a]||a)+(amt?' '+bbs(amt)+'bb':''));

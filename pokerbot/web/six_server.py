@@ -579,7 +579,10 @@ class NewReq(BaseModel):
 
 class ActionReq(BaseModel):
     action: str
-    amount: int | None = None
+    # WHY float: im Turnier (bb 50/75/150 ...) liefert das Viertel-bb-Raster des Sliders Betraege wie 187,5 Chips;
+    # als int haette pydantic mit 422 {"detail": ...} geantwortet, was der Client als Spielzustand renderte
+    # (leerer Tisch, "Hand #undefined", User-Fund 2026-09-09). Chips sind ganzzahlig -> gerundet in action().
+    amount: float | None = None
     step: bool = False
 
 
@@ -633,8 +636,9 @@ def action(req: ActionReq) -> JSONResponse:
     t = SESSION.table
     if t.hand_over or t.to_act != HUMAN:
         return JSONResponse({"error": "not your turn"}, status_code=400)
+    amount = int(round(req.amount)) if req.amount is not None else None
     try:
-        ev = SESSION.human_action(req.action, req.amount, step_mode=req.step)
+        ev = SESSION.human_action(req.action, amount, step_mode=req.step)
     except (ValueError, RuntimeError) as e:
         return JSONResponse({"error": str(e)}, status_code=400)
     return JSONResponse(SESSION.view(ev))
