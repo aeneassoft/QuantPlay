@@ -46,9 +46,11 @@ def setze_env(resolver_on: bool = False) -> None:
         os.environ.setdefault(k, v)
 
 
-def wickle_decide(pb, stack: str | None = None):
+def wickle_decide(pb, stack: str | None = None, kanal: str = "live"):
     """Legt den FINAL_STACK dict-erhaltend um PokerBot.decide (HU-Kanaele:
-    Web-App, GTOW-Harness). Der Guard-Eingriff wird im rationale markiert."""
+    Web-App, GTOW-Harness). Der Guard-Eingriff wird im rationale markiert.
+    kanal 'live' (Default, unveraendert) = Deadline + os.urandom-Seed fuer K2-Arme;
+    'gym' = deterministisch (gepaarte Gates wie pargate6 brauchen A/A exakt 0)."""
     from pokerbot.autogym.pargate import _wickle
     merker: dict = {}
 
@@ -59,7 +61,7 @@ def wickle_decide(pb, stack: str | None = None):
             return dec["action"], dec["amount"]
         return basis
 
-    stack_fabrik = _wickle(stack or FINAL_STACK, fabrik, kanal="live")
+    stack_fabrik = _wickle(stack or FINAL_STACK, fabrik, kanal=kanal)
     kette = stack_fabrik(0)
     # K4-Fingerprint (runtime_config.private_seed_quelle liest bot.private_seed_quelle):
     # nur der K2-Plan-Wrapper traegt eine Seed-Herkunft; andere Stacks bleiben 'keine'.

@@ -173,17 +173,25 @@ class PrinceOracle:
     cache river solve costs seconds, and the sparse resolver rationale lacks the equity/mdf keys P1 renders.
     """
 
-    def __init__(self, seed: int = ORACLE_SEED):
+    def __init__(self, seed: int = ORACLE_SEED, stack: str | None = None, kanal: str = "gym"):
         from pokerbot.strategy.bot import PokerBot   # lazy: torch-free module import until an oracle exists
         self.bot = PokerBot(0, seed=seed, exploit=False)
         self.bot.use_resolver = False
         self.bot.use_turn_resolver = False
+        # AUSLESE-Kette (2026-09-09): stack=None = das bisherige Verhalten (nackter Prince v2.2); ein Stack-
+        # Name (auslese.FINAL_STACK / RC_STACK) legt die validierte Guard-Kette um decide — damit spielt der
+        # HU-Takeover im 6-max-Trainer dieselbe Politik wie die HU-App. kanal 'gym' = deterministisch.
+        self.stack = stack
+        self._decide = self.bot.decide
+        if stack:
+            from pokerbot.strategy.auslese import wickle_decide
+            self._decide = wickle_decide(self.bot, stack, kanal=kanal)
 
     def decide(self, rec: dict) -> dict:
         state = record_to_hu_state(rec)
         self.bot.hero_idx = 0                        # re-pin (gtowizard.py:208 idiom); cheap, explicit
         self.bot.rng = random.Random(rec["spot_fp"])  # fresh per-spot rng -> repeatable grading
-        dec = self.bot.decide(state)
+        dec = self._decide(state)
         action, amount = _legalized(rec, dec["action"], dec["amount"])
         # rationale families the P1 renderer must branch on: preflop / postflop / sparse-resolver / deepcfr
         # (bot.py:1242 _mk always adds 'reasoning'; equity/required_equity/mdf/defense_advisor/advisor_pbet*

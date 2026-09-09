@@ -107,6 +107,12 @@ def _made_tier(hole, board, made: str) -> str:
 _RNG = random.Random()  # persistent module rng -> REAL mixing for stateless callers
 
 
+def seed_modul_rng(seed: int | None) -> None:
+    """Macht die Modul-RNG (Pfad der zustandslosen Aufrufer, decide_6max) reproduzierbar — fuer gepaarte
+    6-max-Laeufe (pargate6). Nicht aufrufen = das bisherige echte Mixing bleibt byte-identisch."""
+    _RNG.seed(seed)
+
+
 def _decide(obs: dict, k: Knobs, read: dict, aggressor: bool | None = None,
             rng: random.Random | None = None) -> dict:
     """Core decision, parametrized by a profile `k` and live exploit deltas `read`. `aggressor` = does this
@@ -269,10 +275,12 @@ class OppModel:
 class SixMaxBot:
     """One independent seat: a profile + an opponent model built only from observed public actions."""
 
-    def __init__(self, seat: int, knobs: Knobs):
+    def __init__(self, seat: int, knobs: Knobs, seed: int | None = None):
         self.seat = seat
         self.k = knobs
-        self.rng = random.Random()      # one persistent rng per seat -> real (non-deterministic) mixing
+        # one persistent rng per seat -> real mixing; seed=None (Default) = unveraendert nicht-deterministisch,
+        # ein Seed macht die Entscheidungsfolge reproduzierbar (gepaarte 6-max-Gates, pargate6).
+        self.rng = random.Random(seed)
         self.opp: dict[int, OppModel] = defaultdict(OppModel)
         self._new_hand_state([])
 

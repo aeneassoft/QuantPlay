@@ -14,7 +14,7 @@ from __future__ import annotations
 TRIM = 0.05          # Anteil je Rand, der fuer den getrimmten Mittelwert faellt
 
 
-def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
+def robust_stats(edges: list, bb: int = 100, trim: float = TRIM, haende_je_deck: int = 2) -> dict:
     """Rohe + robuste Lage/Streuung der per-Deck-Edges, beides in bb/100.
 
     ESTIMATOR v2 (2026-08-17 abend, vorregistriert VOR der Replikations-Runde,
@@ -29,7 +29,7 @@ def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
     n = len(edges)
     if n == 0:
         return {"n_decks": 0}
-    skala = 1.0 / 2.0 / bb * 100.0
+    skala = 1.0 / haende_je_deck / bb * 100.0     # HU-Spiegel 2 Haende/Deck; pargate6 = eine je Sitz-Rotation
     mean = sum(edges) / n
     var = sum((e - mean) ** 2 for e in edges) / max(1, n - 1)
     s = sorted(edges)
@@ -56,7 +56,7 @@ def robust_stats(edges: list, bb: int = 100, trim: float = TRIM) -> dict:
     }
 
 
-def bootstrap_ci(edges: list, b: int = 4000, seed: int = 17, bb: int = 100) -> dict:
+def bootstrap_ci(edges: list, b: int = 4000, seed: int = 17, bb: int = 100, haende_je_deck: int = 2) -> dict:
     """SPARSE-bewusster Perzentil-Bootstrap + Vorzeichen-Flip-Permutations-p
     (Niveau-Audit Rang 2, 2026-08-17 nacht): die CLT-2SE unterdeckt bei duennen
     Kanaelen (RN10: n_eff~55 fettrandige Divergenz-Decks von 12k). Nullen
@@ -66,7 +66,7 @@ def bootstrap_ci(edges: list, b: int = 4000, seed: int = 17, bb: int = 100) -> d
     n = len(edges)
     nz = [e for e in edges if e != 0]
     m = len(nz)
-    skala = 1.0 / 2.0 / bb * 100.0
+    skala = 1.0 / haende_je_deck / bb * 100.0
     if n == 0 or m == 0:
         return {"ci95_lo": 0.0, "ci95_hi": 0.0, "perm_p": 1.0, "boot_b": b}
     rng = random.Random(seed)

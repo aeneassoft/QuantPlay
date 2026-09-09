@@ -56,6 +56,18 @@ def _coach(name: str):
         return None
 
 
+
+ENV_SIX_STACK = "POKERB_SIX_STACK"
+_STACK_AUS = ("", "0", "none", "basis")
+
+
+def _six_stack_aus_env() -> str | None:
+    """Stack-Name fuer den Prince-Takeover im GTO-Modus: Env-Override, sonst auslese.FINAL_STACK."""
+    from pokerbot.strategy.auslese import FINAL_STACK
+    wert = os.environ.get(ENV_SIX_STACK, FINAL_STACK).strip().lower()
+    return None if wert in _STACK_AUS else wert
+
+
 class Session:
     def __init__(self, stack=10000, sb=50, bb=100, mode="gto", players=6):
         # Multiway (2026-08-04): Tischgroesse 2..10 waehlbar; Default 6 = unveraendertes Erlebnis.
@@ -117,7 +129,9 @@ class Session:
             orc = _coach("oracle")
             if orc is not None:
                 try:
-                    self.prince = orc.PrinceOracle()
+                    # AUSLESE-Kette um den Takeover (2026-09-09): Default = auslese.FINAL_STACK (dieselbe
+                    # Politik wie die HU-App); POKERB_SIX_STACK ueberschreibt ('basis'/'0' = nackter Prince).
+                    self.prince = orc.PrinceOracle(stack=_six_stack_aus_env(), kanal="live")
                 except Exception:  # noqa: BLE001 — ohne Prince spielt die Liga weiter (fail-soft)
                     self.prince = None
         if reg is not None:

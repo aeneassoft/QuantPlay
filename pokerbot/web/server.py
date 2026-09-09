@@ -60,7 +60,17 @@ class Session:
         from pokerbot import runtime_config
         self.fingerprint = runtime_config.fingerprint_geladen(self.bot, stack_name)
         runtime_config.gatter_aus_env(self.fingerprint)
-        self.advisor = PokerBot(HUMAN, seed=None, exploit=False)  # GTO reco for the human
+        # BERATER = CHAMPION-POLITIK (2026-09-09): der Berater-Bot fuer den Menschen war ungewickelt und ohne
+        # Resolver-Flags -> seine Empfehlung war NICHT die gemessene v5-H-Politik des Gegners. Jetzt exakt
+        # dieselbe Konfiguration (Exploit, Resolver, FINAL_STACK-Kette), nur der Sitz ist der des Menschen.
+        self.advisor = PokerBot(HUMAN, seed=None, exploit=not auslese_an)
+        self.advisor.use_resolver = resolver_an
+        self.advisor.use_turn_resolver = resolver_an
+        self._advisor_decide = self.advisor.decide
+        if auslese_an:
+            self._advisor_decide = wickle_decide(self.advisor)
+        self.fingerprint_advisor = runtime_config.fingerprint_geladen(self.advisor, stack_name)
+        runtime_config.gatter_aus_env(self.fingerprint_advisor, log=lambda m: print("[K4 Berater]", m))
         self.coach = Coach(language="de")
         self.last_bot: dict | None = None       # {state, decision} for "explain"
         self.last_human: dict | None = None      # {state, action, amount, reco} for "review"
@@ -105,7 +115,7 @@ class Session:
         st = g.state()
         # advisor recommendation (for later review) + feed bot's opponent model
         try:
-            reco = self.advisor.decide(st)
+            reco = self._advisor_decide(st)
         except Exception:  # noqa: BLE001
             reco = None
         facing = st["legal"].get("to_call", 0) > 0
@@ -116,10 +126,25 @@ class Session:
         self._maybe_end()
         return self.advance()
 
+    def beratung(self) -> dict | None:
+        """Die Champion-Empfehlung fuer den Menschen am aktuellen Entscheidungspunkt (None = nicht am Zug)."""
+        g = self.game
+        if g.hand_over or g.to_act != HUMAN:
+            return None
+        return self._advisor_decide(g.state())
+
+    def fingerprints(self) -> dict:
+        """Kernfelder beider Bots (K4) — beweist im /api/view, dass Gegner und Berater dieselbe Politik spielen."""
+        kern = ("fingerprint_hash", "stack", "exploit", "use_resolver", "use_turn_resolver", "prince",
+                "prince_geladen", "turn_defense", "slowplay")
+        return {name: {k: fp.get(k) for k in kern}
+                for name, fp in (("bot", self.fingerprint), ("advisor", self.fingerprint_advisor))}
+
     def view(self, events: list[dict] | None = None) -> dict:
         st = self.game.state(hide=BOT)
         return {
             "state": st,
+            "fingerprints": self.fingerprints(),
             "human_idx": HUMAN, "bot_idx": BOT,
             "bot_events": events or [],
             "coach_available": self.coach.available,
@@ -187,6 +212,18 @@ def state() -> JSONResponse:
     if SESSION is None:
         return JSONResponse({"error": "no game"}, status_code=400)
     return JSONResponse(SESSION.view())
+
+
+@app.get("/api/advice")
+def advice() -> JSONResponse:
+    """Champion-Empfehlung (Berater = dieselbe Politik wie der Gegner) fuer den Menschen am Zug."""
+    if SESSION is None:
+        return JSONResponse({"error": "no game"}, status_code=400)
+    reco = SESSION.beratung()
+    if reco is None:
+        return JSONResponse({"error": "not your turn"}, status_code=400)
+    return JSONResponse({"action": reco["action"], "amount": reco["amount"],
+                         "rationale": reco.get("rationale", {}), "fingerprints": SESSION.fingerprints()})
 
 
 @app.post("/api/coach/explain")

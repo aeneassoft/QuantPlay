@@ -56,43 +56,8 @@ def _snap_hero(table: Table, decision: dict) -> tuple[str, int | None]:
     return action, int(target)
 
 
-class HybridHero:
-    """Das ECHTE Produkt (--hybrid): tag-Kern multiway, und sobald der Pot heads-up Hero-vs-EIN-Villain ist,
-    entscheidet der validierte Prince v2.2 — exakt der Verbund, den der Trainer im GTO-Modus live spielt
-    (six_server.Session._prince_seat/_prince_decide). Fail-soft: jedes Prince-Problem fällt auf den Kern."""
-
-    def __init__(self):
-        from pokerbot.coach.oracle import PrinceOracle
-        self.bot = SixMaxBot(HERO, PROFILES["tag"])
-        self.bot._read = lambda obs: {}          # GTO-Modus-Parität: Liga-Exploit-Reads AUS
-        self.prince = PrinceOracle()
-        self.table = None
-        self.prince_decisions = 0
-
-    def bind_table(self, table):
-        self.table = table
-
-    def _heads_up(self) -> bool:
-        live = [i for i, s in enumerate(self.table.seats) if not s.folded]
-        return len(live) == 2 and HERO in live
-
-    def decide(self, obs):
-        if self.table is not None and not self.table.hand_over and self._heads_up():
-            try:
-                from dataclasses import asdict
-                from pokerbot.brain.format_spot import spot_from_table
-                from pokerbot.coach.decision_log import spot_fingerprint
-                spot = asdict(spot_from_table(self.table, HERO))
-                rec = {"spot": spot, "obs": self.table.obs_for(HERO), "legal": self.table.legal_actions(),
-                       "history": [dict(h) for h in self.table.history if "player" in h],
-                       "street": self.table.street, "hand_id": f"exp-{self.table.hand_no}",
-                       "spot_fp": spot_fingerprint(spot)}
-                dec = self.prince.decide(rec)
-                self.prince_decisions += 1
-                return dec
-            except Exception:  # noqa: BLE001
-                pass
-        return self.bot.decide(obs)
+# HybridHero lebt seit 2026-09-09 in pokerbot/arena/hybrid.py (reiner Move; hier nur der Import).
+from pokerbot.arena.hybrid import HybridHero  # noqa: E402
 
 
 def play_hand(table: Table, bots: dict) -> dict:
