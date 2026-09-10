@@ -212,17 +212,16 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > des Projekts). AIVAT vs Snowie: voll nicht möglich (kein Showdown-Logging); Leiter definiert
 > (Showdown-Logger → All-in-Glücksbereinigung → MIVAT-light).
 >
-> **★★★★ NEW SESSION? READ [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) FIRST (the ROOT MARKER, 2026-07-04)** —
-> the current mission in one page: **VERSION "PRINCE"** ([`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md) = the
-> ACTIVE BUILD CARD with the merged lever queue + measurement ladder). The measured stand: GTO-mode **−11.61** (n=100
-> smoke) / HEAD **−20.09** (n=974) = #11 leaderboard; the deception layer SHIPPED (turn-defense + slowplay, canary +
-> mechanics ✓, live in the HU app). Doctrine (measured): **the GTO-score is DEAD as a target — ONLY bb count**
-> (frequency-matching GTOW cost EV). Opponent intel: [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) — GTOW = the Ruse
-> REAL-TIME re-solver; bet-size/translation attacks REFUTED ($0, 13.5k hands). PRE-STAGED top-3 levers (flop-resolver
-> go/no-go · river-eCall · line-U + instruments first) await the user's build command.
+> **★★★★ HISTORIE (2026-07-04) — `_PRINCE_START_HERE.md` ist NICHT mehr der Einstieg.** Der Root-Marker nennt
+> „PRINCE v3" als geshippt; das ist ueberholt (Revert auf v2.2, danach die AUSLESE-Kette bis v5). **Nicht mehr
+> als Lagebild verwenden** — dafuer ist [`docs/STATE.md`](docs/STATE.md) da. Dauerhaft gueltig bleiben zwei
+> Dinge daraus: die Doktrin **nur bb zaehlt** (Frequenz-Matching gegen GTOW kostete EV, 3x gemessen) und das
+> Gegner-Dossier [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) (GTOW = Ruse-Re-Solver; Sizing- und
+> Translations-Angriffe refutiert, 13,5k Haende, $0).
 >
-> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth. Live repo tree =
-> [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = what's happening now.
+> **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth.
+> Bausteine = [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md) · Zahlen = [`docs/MESSKATALOG.md`](docs/MESSKATALOG.md)
+> · Repo-Baum = [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = now.
 >
 > **★ DU WILLST EINE NEUE BOT-VERSION VON GRUND AUF BAUEN? → [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md)**
 > (2026-09-10). Jeder Baustein dieses Projekts EINZELN beschrieben — Zweck, Schnittstelle mit Signatur,
@@ -314,7 +313,8 @@ How I write code AND talk about it — the standing default, every turn.
 > BEVOR ein Anker laeuft. QUEUE: Fable-Retest vs gehaertetem Stack, Follow-Through-/Seesaw-Mixing-Guards
 > (stateful), princegate, pargate6, GTOW-Adapter (Specs fertig in data/runs/).**
 > **★ GTOW-ERSTKONTAKT v4 (2026-08-18 nacht, LAEUFT — Live-Stand in STATE.md!): finaler Bot verdrahtet
-> (pokerbot/strategy/auslese.py = EINE Quelle: FINAL_STACK r6_button + AUSLESE_ENV; HU-App/six_server/
+> (pokerbot/strategy/auslese.py = EINE Quelle: FINAL_STACK — DAMALS r6_button, HEUTE `r8_stack`
+> (auslese.py:34; Release-Kandidat RC_STACK = r10_stack) + AUSLESE_ENV; HU-App/six_server/
 > gtowizard-Adapter, alle smoke-gruen; finaler Stack vs basis Mirror +23,36±5,32 ANWENDEN). GTOW-Staffel
 > Key #3: Smokes 20/100 mechanisch fehlerfrei (2 Bugs gefunden+gefixt: 409-Waisen→clear_inprogress-Pflicht
 > vor jedem Start; dict+str in wickle_decide), aber AIVAT gepoolt ~−53±12 = ROTES TUCH (v8-Muster; Verdacht:
@@ -380,7 +380,9 @@ How I write code AND talk about it — the standing default, every turn.
 ## ★ FALLBACK-PROTOKOLL (2026-08-18) — fuer JEDES Modell unterhalb Fable 5 (z.B. Opus 5) BINDEND
 Wenn du nicht Fable 5 bist: arbeite DEFENSIV nach diesen Regeln. Das Projekt ist praezise vermessen —
 ein gut gemeinter Eingriff ohne Gate zerstoert mehr als er hilft.
-**1. EINSTIEG (immer in dieser Reihenfolge):** docs/STATE.md oberster CURRENT-Block lesen → data/runs/STAND.md
+**1. EINSTIEG (immer in dieser Reihenfolge):** docs/STATE.md oberster CURRENT-Block lesen → VOR jeder Zahl
+docs/MESSKATALOG.md (Kanal + Gueltigkeit; der Varianzkoeffizient ist c=294, NICHT 214) → VOR jedem Neubau
+docs/MODULKATALOG.md + KANDIDATEN.md (die Chance ist gross, dass es das schon gibt oder refutiert ist) → data/runs/STAND.md
 → bei GTOW-Fragen das Journal: `python -c "import json; [print(l.strip()) for l in open('data/autogym/journal.jsonl', encoding='utf-8').readlines()[-30:]]"`.
 **2. SICHERE STANDARD-AKTIONEN (ohne Rueckfrage erlaubt):** Journal/result.json/STAND lesen und ZITIEREN;
 fertige Kommandos AUS DER DOKU woertlich ausfuehren (pargate/envgate/orakel_duell/gtow_nacht — Muster stehen
@@ -422,7 +424,7 @@ die Rohdaten und die Person bleiben draussen.
 - HU app (background/validation only now): `python -m pokerbot.web.server --open`.
 - Always run from the project root as `python -m <module>`. Windows / PowerShell, Python 3.12. `pip install -r requirements.txt`.
 
-## Architecture (logical; the live tree is [`INDEX.md`](INDEX.md))
+## Architecture (logical; Modul fuer Modul = [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md))
 - `pokerbot/engine/` — cards, treys evaluator, MC equity (`equity.py`), the **N-player `table.py` = the 6-max RL
   ENVIRONMENT** (start_hand / legal_actions / act / obs_for / result, side pots), HU `game.py`.
 - `pokerbot/strategy/` — the engine PRIMITIVES the brain calls: `preflop_blueprint.py`, `range_tracker.py`,

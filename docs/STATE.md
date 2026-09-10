@@ -3,6 +3,22 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ⏸ PAUSE-STAND (2026-09-10, alle Prozesse gestoppt)
+**Wo weitermachen — drei Punkte, in dieser Reihenfolge:**
+1. **v10s Fehlerquote.** Im einzigen gueltigen Kandidaten-Lauf endeten **10 von 23 Plan-Aktivierungen im
+   FEHLER** (43 %). Das ist der naechste Ansatzpunkt, NICHT die H1-Fortsetzung (docs/KAGGLE_ARENA.md, letzter
+   Abschnitt). gpt-5.6-sol empfiehlt dasselbe: K2 auf Oracle-Ranges gegen v5 bewerten, BEVOR H0/H1-Code entsteht.
+2. **Der v5-Anker fehlt weiterhin.** Der einzige GTOW-Anker (−21,12 ± **9,40**) gehoert v4/r6_button. Ohne
+   einen v5-Anker ist jede Staerke-Aussage spekulativ. Achtung: **c = 294, nicht 214** → SE 4 braucht 5.407 Haende.
+3. **Abgebrochene Messung:** `kaggle_v9_vs_champion_WDH` stand bei 100/300 Decks mit **−17,2 bb/100**
+   (vorlaeufig, kein Verdikt). Der v9-Guard feuert nach dem deal-Marken-Fix also SEHR WOHL — der fruehere
+   Nullbefund war ein Adapterfehler.
+
+**Frisch im Repo:** [`MODULKATALOG.md`](MODULKATALOG.md) (272 Module) · [`MESSKATALOG.md`](MESSKATALOG.md)
+(alle Messungen + drei Korrekturen) · [`AIVAT_KAGGLE.md`](AIVAT_KAGGLE.md) (Entwurf, nichts gebaut) ·
+[`../KONSULT_GPT56_SOL_2026-09-10.md`](../KONSULT_GPT56_SOL_2026-09-10.md) (Zwitter-Konsult) ·
+[`../KANDIDATEN.md`](../KANDIDATEN.md). Geloescht: der Ordner `#Anderes/`.
+
 ## ★★★★★ CURRENT (2026-09-10) — ZWEI KATALOGE + eine Korrektur, die die Hand-Budgets aendert
 **Neu: [`docs/MODULKATALOG.md`](MODULKATALOG.md)** (272 Modul-Eintraege, je Zweck/Schnittstelle/Abhaengigkeiten/
 Zustand/Kosten/**Mess-Status**/Fallstrick; refutierte Bausteine ausdruecklich enthalten) und
