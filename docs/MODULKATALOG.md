@@ -5,6 +5,10 @@
 > der eine Fallstrick. Zielgruppe ist ein Entwickler, der unseren Bot NICHT kennt und aus diesen Teilen
 > etwas Eigenes bauen will — er soll je Modul entscheiden koennen: nehmen oder selbst bauen.
 >
+> **Achtung vor dem Weiterrechnen:** der Messkatalog korrigiert oben drei Dinge, die im Projekt lange falsch
+> zitiert wurden (Varianzkoeffizient 294 statt 214, der Anker gehoert v4 nicht v5, zwei ungueltige
+> Kaggle-Messungen). Wer aus diesem Modulkatalog baut, sollte das ZUERST lesen.
+>
 > **Lies dazu:** [`MESSKATALOG.md`](MESSKATALOG.md) — dort steht, was an jedem Baustein tatsaechlich
 > GEMESSEN wurde und was davon heute noch gilt. Der Modulkatalog sagt, was ein Teil TUT; der Messkatalog
 > sagt, ob es FUNKTIONIERT. Lagebild: [`STATE.md`](STATE.md). Doktrin: [`../CLAUDE.md`](../CLAUDE.md).

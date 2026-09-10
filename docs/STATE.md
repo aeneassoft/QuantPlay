@@ -3,6 +3,19 @@
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
 > The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★★★★★ CURRENT (2026-09-10) — ZWEI KATALOGE + eine Korrektur, die die Hand-Budgets aendert
+**Neu: [`docs/MODULKATALOG.md`](MODULKATALOG.md)** (272 Modul-Eintraege, je Zweck/Schnittstelle/Abhaengigkeiten/
+Zustand/Kosten/**Mess-Status**/Fallstrick; refutierte Bausteine ausdruecklich enthalten) und
+**[`docs/MESSKATALOG.md`](MESSKATALOG.md)** (alle echten Messungen mit Quelle, Verdikt und Gueltigkeit).
+CLAUDE.md verweist oben darauf. Modulkatalog = was ein Teil TUT, Messkatalog = ob es FUNKTIONIERT.
+**★ KORREKTUR (nachgerechnet aus den Handhistorien, nicht uebernommen): der Varianzkoeffizient des heutigen
+Bots ist c = 294, nicht 214.** Aus `gtow_hands_1787027076/_1787033025.jsonl` (n=979): Mittel −21,12,
+per-Hand-SD 294,1, **SE 9,40** (nicht 6,8). Die 214 stammen aus der v2.2-Aera (dort SD 213,5 bei n=2393).
+Folge: fuer SE = 4 bb/100 braucht es **5.407 statt 2.862 Haende**; das 95-%-Band des einzigen Ankers ist
+rund [−39,5, −2,7]. Jede Budget-Rechnung auf c = 214 ist zu korrigieren.
+**Ausserdem ungueltig:** der Kaggle-Referenzwert und der v9-Kaggle-Lauf (fehlende deal-Marke, betraf auch die
+GPU-Chirurgie des Champions) — siehe KAGGLE_ARENA.md. Der Ordner `#Anderes/` wurde geloescht.
+
 ## ★★★★ CURRENT (2026-09-10) — KAGGLE GAME ARENA als zweiter Messkanal (Detail: docs/KAGGLE_ARENA.md)
 Das Kaggle-Leaderboard „Heads Up Poker" misst **Mean BB/100** in einem All-play-all von Frontier-LLMs
 (v1 ueber die Kaggle-API: Spitze GPT-5.6 Sol +34,9 ± 5,1; Claude Fable 5.1 +29,7; Schluss GPT-5 mini −49,3).
