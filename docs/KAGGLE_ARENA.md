@@ -177,3 +177,24 @@ Selfplay); im Smoke ueber 2 Decks war die Differenz exakt 0 bei 0 abweichenden D
 in einem Kanal mit SE 38 liefert in vertretbarer Zeit **kein Verdikt**. Der Lauf laeuft trotzdem, weil die
 interessante Zahl der ANTEIL abweichender Decks ist — er entscheidet, ob dieser Kanal fuer v9 ueberhaupt
 taugt.
+
+
+## AIVAT fuer diesen Kanal? — Entwurf liegt vor: [`AIVAT_KAGGLE.md`](AIVAT_KAGGLE.md)
+
+Kurzfassung des gegengeprueften Ergebnisses (drei unabhaengige Widerlegungsversuche):
+
+* **Der Zufallsknoten-Term ist hier sauber** — und aus einem staerkeren Grund als erwartet: der Kartenstrom
+  hat einen EIGENEN, hand-lokalen RNG (`kaggle_arena.py`, `random.Random(deck_seed)`), der Bot mischt aus
+  einem getrennten Strom. Keine Aktion verschiebt den Kartenstrom, also ist die Korrektur PUNKTWEISE
+  erwartungstreu, nicht nur im Mittel.
+* **Der Aktions-Term ist tot.** Unser Bot ist im Kanal bedingt aufs Deck DETERMINISTISCH (fester Seed,
+  frische Instanzen je Haelfte, `neue_hand` ist ein No-op, weil `PokerBot` kein `new_hand` hat). Damit ist die
+  einzige zulaessige „Politik" eine Punktmasse und der Korrekturterm identisch null — oder verzerrt.
+* **Die „10x"-Reduktion aus dem GTOW-Kanal ist NICHT uebertragbar.** Alle drei Angriffe nannten das die
+  staerkste Stelle des Entwurfs: die gepaarte Spiegelung hat die Kartenvarianz bereits geloescht.
+* **Die Korrektur gehoert auf DECK-Ebene, nie je Haelfte.** Je Haelfte kann sie die Varianz massiv ERHOEHEN
+  (durchgerechneter Fall: Faktor ~1045, wenn ein Arm all-in und der andere im Showdown endet).
+* **Kosten der exakten Enumeration** (nachgemessen): River 1,3 ms, Turn 18,5 ms, Flop 285 ms, Preflop ~31 s
+  -> preflop-exakt ist unbezahlbar, dort nur Budget-Kuerzung.
+* **Vorbedingung G0:** die Referenzzahlen (300 Decks) stammen von VOR der deal-Marke im Adapter; sie muessen
+  neu erhoben werden, bevor irgendetwas gebaut wird.
