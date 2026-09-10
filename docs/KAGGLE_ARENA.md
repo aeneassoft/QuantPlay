@@ -219,3 +219,36 @@ Kurzfassung des gegengeprueften Ergebnisses (drei unabhaengige Widerlegungsversu
   -> preflop-exakt ist unbezahlbar, dort nur Budget-Kuerzung.
 * **Vorbedingung G0:** die Referenzzahlen (300 Decks) stammen von VOR der deal-Marke im Adapter; sie muessen
   neu erhoben werden, bevor irgendetwas gebaut wird.
+
+
+## v10-H0 im Kaggle-Kanal — erster GUELTIGER Kandidaten-Lauf (2026-09-10)
+
+`r10_h0` (River-Plan auf der VOLLSTAENDIGEN v5-Kette) vs Champion `r8_stack`, 150 gepaarte Decks = 300 Haende,
+nach dem deal-Marken-Fix, also gueltig:
+
+| Groesse | Wert |
+|---|---|
+| bb/100 | **−0,67 ± 2,46** |
+| Bootstrap-CI 95 % | [−5,33, +4,33] |
+| perm_p | 0,749 |
+| abweichende Decks | **3 von 150 (2,0 %)** |
+| **Verdikt** | **NEUTRAL** |
+
+**Das Plan-Protokoll ist der eigentliche Ertrag dieses Laufs:**
+
+| Plan-Ereignis | Anzahl |
+|---|---|
+| Aktivierungen | 23 |
+| Plan tatsaechlich GESPIELT | **8** |
+| Fallback `fehler` | **10** |
+| Fallback `offtree` | 3 |
+| Fallback `hand_not_in_range` | 2 |
+
+* **Basisrate:** 46 planfaehige River-Entscheidungen auf 346 River-Entscheidungen in 300 Haenden =
+  **15,3 je 100 Haende** (die von gpt-5.6-sol als fehlend benannte Zahl, jetzt gemessen).
+* **43 % der Aktivierungen enden in einem FEHLER.** Das ist kein Fallback-Design, das ist ein Defekt —
+  und er ist der naechste Ansatzpunkt, nicht die H1-Fortsetzung.
+* **Der H0-Patch tut, was er soll:** keine Katastrophen-Decks mehr, nur 3 abweichende Decks, Median −200 Chips.
+  Der gepatchte Fallback landet auf dem produktiven Champion statt auf der nackten Basis.
+* **Aber:** bei 8 gespielten Plaenen auf 300 Haende kann dieser Kanal kein Staerke-Verdikt liefern. Der
+  Kandidat beruehrt zu wenig Entscheidungen, um sich in bb/100 zu zeigen.
