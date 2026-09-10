@@ -1,5 +1,9 @@
 # CLAUDE.md — PokerB
 
+> **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10). LIES ZUERST [`!_PROJEKT_BILANZ_2026-09-10.md`](!_PROJEKT_BILANZ_2026-09-10.md)**
+> — die kritische Bilanz: Ziel verfehlt, warum, was Wert hat, und in welcher Reihenfolge man weitermacht.
+> Wichtig: der Branch `poker-core` liegt NICHT auf GitHub. Die Doktrin-Bloecke unten sind Geschichte, nicht Auftrag.
+
 **Goal: a world-class 6-max No-Limit Hold'em AI that PLAYS GTO — i.e. approaches TRUE GTO.** The AI is three
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the
 scaffold** the brain drives. Built across many sessions — see the user memory + `docs/STATE.md` for history.

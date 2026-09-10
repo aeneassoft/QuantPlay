@@ -1,7 +1,8 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
 > Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
-> The cross-session memory lives at `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
+> The cross-session memory lives at> **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10): zuerst [`../!_PROJEKT_BILANZ_2026-09-10.md`](../!_PROJEKT_BILANZ_2026-09-10.md) lesen.**
+>  `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
 ## ⏸ PAUSE-STAND (2026-09-10, alle Prozesse gestoppt)
 **Wo weitermachen — drei Punkte, in dieser Reihenfolge:**
