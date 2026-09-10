@@ -1587,9 +1587,7 @@ bekommt `TypeError` statt eines konservativen Reads. Und: dieselbe Klasse heißt
 ### Nicht in diesem Repo: `robustheit.py`
 Im Auftrag genannt, aber **in `C:\Users\hampe\Desktop\PokerB` existiert keine Datei mit `robust` im Namen außer
 `research/runpod_solve_robust.sh`** (ein Shell-Skript für Solver-Läufe auf dem Pod, kein Strategie-Modul).
-Die Datei `strategie/robustheit.py` liegt in einem **anderen** Projekt (`C:\Users\hampe\Desktop\Neuro-model`) und
-gehört nicht zu diesem Bot. Sie ist hier nicht beschrieben, weil ich sie nicht als Teil dieses Codebestands
-verifizieren kann.
+Eine Datei `strategie/robustheit.py` gehört nicht zu diesem Bot und ist deshalb hier nicht beschrieben.
 
 ---
 
@@ -8648,7 +8646,7 @@ harter Regel im Modul selbst: keine erfundenen Zahlen, n je Metrik, `[DATEN FEHL
 fehlen (`prince_protocol.py:4`). Als EV-Hebel fuer einen Bot: UNGEMESSEN (es sind Spielerberichte).
 **Allein benutzbar?** Fuer einen Fremden praktisch nicht — die Pfade zeigen auf private Dateien.
 **Fallstricke.** REPO-GRENZE. CLAUDE.md zieht eine ausdrueckliche Linie: persoenliche Akten und Berichte
-ueber reale Personen gehoeren nach `#Anderes/` und werden nie versioniert. Diese Module leben in
+ueber reale Personen gehoeren ausserhalb dieses Repos und werden nie versioniert. Diese Module leben in
 `research/`, lesen aber personenbezogene Daten von ausserhalb — wer den Baustein uebernimmt, uebernimmt
 diese Grenzfrage mit. Der uebertragbare Teil ist die METHODE (Parser + Statistiktabelle + n je Metrik),
 nicht die Person.

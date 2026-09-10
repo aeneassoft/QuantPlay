@@ -1985,7 +1985,7 @@ Verschieben bricht den Bot.
 | Datum | Was gemessen | Instrument/Kanal | Ergebnis (Zahl ± Streuung, n) | Verdikt | Quelle (datei:zeile) | Gilt heute? |
 |---|---|---|---|---|---|---|
 | 2026-08-16 | Eigene Hand-Histories | os.walk | `hand histories/` = 162,6 MB, n=80 (`Days/` 125,2 KB n=8, `Historisch/` 162,5 MB n=72) | gitignored; Grundlage der Spieler-Report-Pipeline | `.gitignore:37` | ja |
-| 2026-08-16 | Berichte (gemischt) | ls | `data/reports/` 699,7 KB n=10 (u. a. `Q9o_Finaltisch_Bericht.pdf`, `Roadmap_Tiefenarbeit.pdf`); `data/bericht/` 1,4 MB n=13 — darunter **`karte_asien.png`, `nuklear.png`, `ruestung.png`, `sigma.png`** | `data/bericht/` enthaelt **projektfremde** Grafiken, die laut Repo-Grenze nach `#Anderes/` gehoerten | `data/bericht/` (Dateinamen); Regel CLAUDE.md-Block „Grenze" | Grenzverletzung, siehe „Offen" |
+| 2026-08-16 | Berichte (gemischt) | ls | `data/reports/` (heute nur Poker-Berichte, u. a. `Q9o_Finaltisch_Bericht.pdf`, `Simulation_Heute.pdf`) | **Nachtrag 2026-09-10:** alle projektfremden Teile (Geopolitik-Modell samt Bericht, persoenliche Psychologie-Dokumente, Grafiken einer Beziehungsanalyse) wurden aus dem Repo verschoben | `Desktop/PokerB_ausgelagert_2026-09-10/LIESMICH.txt` | erledigt |
 | 2026-07-01 | Coach-Artefakte | ls | `data/coach/` 1,0 MB n=24 (`deep_stats.json`, `style_sim.json`, `synth.json`, `range_chart.svg`, `Poker_Report.md` …) | Zwischenstufen der Report-Pipeline | `data/coach/` | ja |
 
 ---
@@ -2013,10 +2013,11 @@ Verschieben bricht den Bot.
   `pokerbot/config.py:30` hart referenziert. Ein frischer Klon hat sie nicht — und ohne
   `data/*_data.jsonl` (1,4 GB, ebenfalls gitignored) sind sie nicht nachtrainierbar. Das ist die
   gefaehrlichste Luecke der ganzen Landkarte.
-- **Repo-Grenze verletzt**: `data/bericht/` enthaelt projektfremde Grafiken (`karte_asien.png`, `nuklear.png`,
-  `ruestung.png`); `knowledge_base/hand_histories/players - handhistories/Coin Poker/` enthaelt **41
-  versionierte** personenbezogene 5-Card-PLO-MTT-Histories eines Dritten. Beides steht im Widerspruch zum
-  CLAUDE.md-Block „Grenze — was NICHT in dieses Repo gehoert". Nicht angefasst (nur berichtet).
+- **Repo-Grenze:** Die projektfremden Dateien in `data/` (Geopolitik-Modell samt Bericht, persoenliche
+  Psychologie-Dokumente, Grafiken einer Beziehungsanalyse) wurden am **2026-09-10 aus dem Repo verschoben**,
+  nach `Desktop/PokerB_ausgelagert_2026-09-10/` mit LIESMICH. Weiterhin im Repo:
+  `knowledge_base/hand_histories/players - handhistories/Coin Poker/` mit **41 versionierten**
+  5-Card-PLO-MTT-Histories eines Dritten. Das sind Pokerdaten, aber personenbezogen; bewusst belassen.
 
 ---
 
