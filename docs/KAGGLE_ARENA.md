@@ -144,7 +144,28 @@ gepostet worden. **Top-5 heisst konkret: Untergrenze besser als ≈ −14,8** (P
 ≈ −11 bei ~10.000 Haenden oder ≈ −13 bei ~50.000 Haenden. Gegenueber dem heutigen Stand fehlen ~8 bb/100.
 
 
-## Erster Referenzwert im Kaggle-Kanal (2026-09-10)
+## ⚠ UNGUELTIG: der erste Referenzwert und der v9-Lauf (Befund 2026-09-10, 02:40)
+
+**Beide Messungen unten liefen OHNE die deal-Marke im Adapter und sind damit hinfaellig.**
+`improver._river_spot_und_frage` (`pokerbot/autogym/improver.py:421-433`) ist der gemeinsame Unterbau
+ALLER River-GPU-Guards und liefert `None`, wenn in der Historie keine Zeile `action=='deal' &
+street=='river'` steht. Der Kaggle-Adapter schrieb diese Marke bis Commit `d22d400` (01:59) nicht.
+
+Betroffen ist nicht nur der Kandidat, sondern **der Champion selbst**: `river_gpu_guard` ist Teil von
+`r8_stack` (`pargate.py:134`). In allen Laeufen vor 01:59 konnte die GPU-Chirurgie des Champions also gar
+nicht feuern — gemessen wurde ein Champion ohne eines seiner eigenen Bauteile.
+
+| Lauf | Ende | gueltig? |
+|---|---|---|
+| Champion vs Basis, 300 Decks (+55,8 ± 38,0) | 01:06 | **NEIN** (vor der Marke) |
+| v9 `r10_ernte` vs Champion, 600 Decks (exakt 0,0) | 02:37 | **NEIN** (Lauf startete vor der Marke) |
+| v10-H0 vs Champion, 150 Decks | laeuft seit 02:27 | ja (nach der Marke gestartet) |
+
+Der v9-Lauf ueber 600 gepaarte Decks (1.200 Haende, 6.913 s) zeigte 0 abweichende Decks. Das ist **kein
+Verdikt ueber v9**, sondern die Folge desselben fehlenden Markers: `river_play_guard` haengt an genau
+demselben Unterbau. Beide Messungen werden wiederholt.
+
+## Erster Referenzwert im Kaggle-Kanal (2026-09-10) — HINFAELLIG, siehe oben
 
 **Champion (`prince[final]`, r8_stack) vs nackte Basis (`prince[basis]`), 300 gepaarte Decks:**
 
