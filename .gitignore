@@ -36,14 +36,11 @@ Thumbs.db
 # User-Handhistorien (persoenliche Daten, gross)
 hand histories/
 
-# ALLES, WAS NICHT AUSSCHLIESSLICH POKER IST, liegt sichtbar im Root unter
-# "#Anderes/" und ist nicht Teil dieses Repositories. Dieses Repo verankert
-# ausschliesslich den Pokerbot und den Poker-Trainer.
+# ALLES, WAS NICHT AUSSCHLIESSLICH POKER IST, gehoert nicht in dieses Repository.
+# Dieses Repo verankert ausschliesslich den Pokerbot und den Poker-Trainer.
+# Nicht-Poker-Arbeiten liegen ausserhalb des Repos (bis 2026-09-10 im geloeschten
+# Root-Ordner "#Anderes/"; seither getrennte Ordner ausserhalb von PokerB).
 # Ein lokaler pre-commit-Hook (.git/hooks/, selbst nicht versioniert) blockiert
-# den Ordner zusaetzlich -- auch gegen "git add -f".
-# Hinweis: "#" ist nur am ZEILENANFANG ein Kommentarzeichen; nach dem fuehrenden
-# "/" steht es woertlich. Der alte Pfad /_privat/ bleibt aus Sicherheitsgruenden
-# mit ignoriert, falls er irgendwo wieder auftaucht.
-/#Anderes/
+# die Alt-Pfade zusaetzlich -- auch gegen "git add -f".
 /_privat/
 /raw_*.json

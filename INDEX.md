@@ -58,9 +58,9 @@
 
 ## Nicht im Repo
 
-`#Anderes/` — alles Nicht-Poker (Lebens-Akte, Geopolitik, Zahlentheorie, Familie).
-Gitignored, durch pre-commit-Hook geschuetzt, nie Teil des Repositories.
-Beschreibung: `#Anderes/LIESMICH.md`.
+Alles Nicht-Poker liegt AUSSERHALB dieses Repositories, in eigenen Ordnern neben `PokerB`.
+Bis 2026-09-10 gab es dafuer den gitignorierten Root-Ordner `#Anderes/`; er ist geloescht,
+sein Inhalt wurde herausgezogen. Ein lokaler pre-commit-Hook blockiert die Alt-Pfade weiter.
 
 ## pokerbot/autogym/ (AUTOGYM-Schleife, 2026-08-16/17)
 - oracle.py (Mathe-Benchmark HART/P/L/F, W1-1..W1-5) · improver.py (Guard-Wrapper + Gate + Journal)

@@ -394,10 +394,11 @@ nicht gemessen hast, Agenten-Armeen ohne klaren Auftrag, GTOW-Laeufe ueber die d
 
 ## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
 Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche
-Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) liegt im
-Root unter **`#Anderes/`**: gitignored (`/#Anderes/`), durch einen lokalen `pre-commit`-Hook blockiert,
-nie gepusht. Beschreibung dort in `#Anderes/LIESMICH.md`. **Nichts daraus wird versioniert, auch nicht
-mit `git add -f`** (Hook getestet). Das Repo verankert ausschliesslich **Pokerbot + Poker-Trainer**.
+Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) gehoert
+**ausserhalb dieses Repositories**, in eigene Ordner neben `PokerB` — nicht in einen Unterordner.
+Bis 2026-09-10 gab es dafuer den gitignorierten Root-Ordner `#Anderes/`; er ist **geloescht**, sein Inhalt
+herausgezogen. Ein lokaler `pre-commit`-Hook blockiert die Alt-Pfade weiter, auch gegen `git add -f`.
+Das Repo verankert ausschliesslich **Pokerbot + Poker-Trainer**.
 Wenn aus einer solchen Arbeit ein echter Poker-Befund faellt, wandert er ENTPERSONALISIERT in den Kern
 (so geschehen: das 66-bb/100-Abflachen in `docs/POKER_NUTSHELL.md`, der Entropie-Bias in `NOTES.md`) —
 die Rohdaten und die Person bleiben draussen.
