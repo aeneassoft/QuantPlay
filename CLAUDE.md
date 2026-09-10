@@ -224,6 +224,16 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth. Live repo tree =
 > [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = what's happening now.
 >
+> **★ DU WILLST EINE NEUE BOT-VERSION VON GRUND AUF BAUEN? → [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md)**
+> (2026-09-10). Jeder Baustein dieses Projekts EINZELN beschrieben — Zweck, Schnittstelle mit Signatur,
+> Ein-/Ausgabeformat, Abhaengigkeiten (hart oder ersetzbar), Zustand, Kosten, **Mess-Status** und der eine
+> Fallstrick. Gedacht fuer jemanden, der den Bot NICHT kennt und je Modul entscheiden will: nehmen oder selbst
+> bauen. **REFUTIERTE Bausteine stehen ausdruecklich mit drin** — was wir gemessen widerlegt haben, ist fuer
+> einen Neubau die wertvollste Information. Dazu gehoert [`docs/MESSKATALOG.md`](docs/MESSKATALOG.md): was an
+> jedem Teil TATSAECHLICH gemessen wurde, mit Quelle, Verdikt und der Frage, ob die Zahl heute noch gilt.
+> Der Modulkatalog sagt, was ein Teil TUT; der Messkatalog sagt, ob es FUNKTIONIERT. Nie am Anker gemessene
+> Kandidaten mit ihren vorregistrierten Erwartungen: [`KANDIDATEN.md`](KANDIDATEN.md).
+>
 > **⟳ KEEP STATE.md CURRENT — standing rule.** After any turn that moves a headline number (a measurement), lands a
 > build, or shifts priorities, UPDATE STATE.md's top CURRENT section *before ending the turn* — lead with the current
 > frontier, demote superseded numbers to a one-line "history" pointer. A fresh context must start from the truth.
