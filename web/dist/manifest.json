@@ -1,0 +1,13 @@
+{
+  "build": "e768f351cd",
+  "bundle": "pokerbot_bundle.zip",
+  "bundle_sha1": "aabee1dcfe",
+  "wheels": [
+    "annotated_doc-0.0.5-py3-none-any.whl",
+    "fastapi-0.141.1-py3-none-any.whl",
+    "starlette-1.7.0-py3-none-any.whl",
+    "treys-0.1.8-py3-none-any.whl",
+    "typing_inspection-0.4.4-py3-none-any.whl"
+  ],
+  "pyodide": "0.28.3"
+}
