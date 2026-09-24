@@ -4,6 +4,24 @@
 > The cross-session memory lives at> **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10): zuerst [`../!_PROJEKT_BILANZ_2026-09-10.md`](../!_PROJEKT_BILANZ_2026-09-10.md) lesen.**
 >  `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
+## ★ 2026-09-24 — VEROEFFENTLICHT: Repo `aeneassoft/QuantPlay` (public) + Browser-Trainer auf quantplay.io
+- **GitHub:** `PokerB` → `QuantPlay` umbenannt (das alte Spiel-Repo → `quantplay-herzlichter`), `poker-core`
+  gepusht und Default-Branch, Sichtbarkeit public. Historie unveraendert (kein Rewrite). Vorher aus dem Baum
+  genommen: 41 CoinPoker-HHs eines Dritten (`knowledge_base/hand_histories/players - handhistories/`, jetzt in
+  `Desktop/PokerB_ausgelagert_2026-09-10/knowledge_base_hand_histories/`). Secret-Scan ueber alle 401 Commits:
+  keine Token-Muster. `data/preflop_strength.json` (3 KB Equity-Cache) ist jetzt versioniert, damit ein Klon spielt.
+- **Browser-Trainer (`web/`):** dieselbe `six_server.Session` laeuft in Pyodide 0.28.3 (Python 3.13/WASM) im
+  Web Worker des Besuchers; `pokerbot/web/browser_bridge.py` ruft die FastAPI-Endpunkte direkt auf (Pyodide hat
+  keine Threads → ASGI-Threadpool scheitert, gemessen). Bundle 1,23 MB (pokerbot/*.py+html, knowledge_base
+  math/ranges/cfr/postflop-json/tournament, preflop_strength.json) + 5 Wheels 0,34 MB. **Gemessen (Node+Pyodide):**
+  Import 0,9 s; 5 Haende inkl. Grader 0,32 s, langsamste Anfrage 0,11 s; Turnier 12 Haende 3,5 s, langsamste 0,35 s.
+  Alle 6 Modi + Feedback/Replay/Panel/Report/Analyse/Glossar im Browser geprueft (lokal und live auf quantplay.io).
+  Prince-Takeover bleibt aus (Default seit 2026-09-09), Advisor-Netze (.pt) nicht im Bundle (kein torch im Browser).
+- **Vercel:** Projekt `quantplay` von `aeneassoft/QuantPlay` (Spiel) getrennt, Passwort-Middleware weg, Deploy per
+  CLI aus `web/` (`vercel deploy --prod`), Alias quantplay.io. Keine Git-Anbindung (Root-Verzeichnis ist per CLI
+  nicht setzbar) → nach Aenderungen: `python web/build.py` + Deploy von Hand.
+- Offen: LICENSE nicht gewaehlt; UI nur Deutsch; Layout fuer 2560×1440 skaliert, auf Handy eng.
+
 ## ⏸ PAUSE-STAND (2026-09-10, alle Prozesse gestoppt)
 **Wo weitermachen — drei Punkte, in dieser Reihenfolge:**
 1. **v10s Fehlerquote.** Im einzigen gueltigen Kandidaten-Lauf endeten **10 von 23 Plan-Aktivierungen im

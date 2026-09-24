@@ -53,8 +53,12 @@ Wettrennen mit Spezialisten auf einem Benchmark.
 Offene Einzelpunkte stehen im Pause-Stand von `docs/STATE.md` (u. a. v10: 43 % Fehler bei Plan-Aktivierungen).
 
 ## Sicherung — Stand beim Abschluss
-- **Der Branch `poker-core` existiert NICHT auf GitHub.** GitHub (`aeneassoft/PokerB`) hat nur `master`
-  (Stand 16.06.2026) und `serverless-worker`. Drei Monate Arbeit liegen nur lokal und auf dem USB-Stick.
+- **Nachtrag 2026-09-24:** Das Repo wurde als **`aeneassoft/QuantPlay` veröffentlicht** (Default-Branch
+  `poker-core`, vorher nur lokal). Der Trainer läuft seither ohne Server im Browser des Besuchers auf
+  **https://quantplay.io** (`web/`, Pyodide). Handhistorien Dritter wurden vorher aus dem Baum genommen
+  (`Desktop/PokerB_ausgelagert_2026-09-10/knowledge_base_hand_histories/`); die Git-Historie enthält sie weiter.
+- ~~**Der Branch `poker-core` existiert NICHT auf GitHub.**~~ (bis 2026-09-24) GitHub (`aeneassoft/PokerB`) hatte
+  nur `master` (Stand 16.06.2026) und `serverless-worker`. Drei Monate Arbeit lagen nur lokal und auf dem USB-Stick.
 - **Ordnergröße 62 GB:** `data/` 45 GB (davon 37 GB `data/_solve_cache`), `models/` 17 GB (LLM-Spur, geparkt).
   Code plus Git-Historie sind nur rund 20 MB. Keine Einzeldatei über 4 GB.
 - **Nicht im Ordner:** die API-Schlüssel (`Desktop/Secret keys`) sowie die Claude-Sitzungsprotokolle und das

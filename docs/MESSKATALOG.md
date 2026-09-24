@@ -1700,6 +1700,7 @@ r=0,999 zwischen zwei Solvern heisst nur, dass die Kerne bei gleichen Inputs ueb
 | 2026-08-02 | Trainer-Grading-Budget | Integrationstest des Coach-Pfades | Prewarm liess den ersten `decide()` kalt: **1,6 s** von 800 ms Budget → nach Fix (Wegwerf-Record) **erste Hand 7,8 ms** | gefixt; Restrisiko bei uvicorn-Importstring ohne `main()` dokumentiert | docs/STATE.md:493-495; docs/TRAINER_PLAN.md:431 | ja |
 | 2026-08-04 | Snowie-Bruecken-Durchsatz | s. Abschnitt 1 | 13,3 Haende/min | — | docs/STATE.md:422 | ja |
 | 2026-09-09 | MTT-Nebentische | s. Abschnitt 3 | mean 120–129 ms, max ≈ 213 ms je Hero-Hand | — | docs/TURNIER_MODUS.md:100-102 | ja |
+| 2026-09-24 | Trainer in Pyodide (Browser-Build, quantplay.io) | Node 24 + Pyodide 0.28.3, Scratch-Spike gegen den gemounteten Repo-Baum, Skript-Hero (check/call/fold) | Import `six_server` **0,9 s**; GTO 8 Haende/36 Anfragen **0,56 s** (langsamste 0,11 s); exploit/arena/punish je 6 Haende 0,21–0,24 s; 9-max 6 Haende 0,22 s; **Turnier 12 Haende 3,51 s, langsamste 0,35 s**; alle 6 Routen (feedback/replay/panel/report/analyze/glossary) 200 | Browser-Version tragfaehig; ASGI-Pfad scheitert (kein Thread) → direkter Endpunkt-Aufruf | docs/STATE.md (Block 2026-09-24); pokerbot/web/browser_bridge.py Docstring | ja — Erstaufruf zusaetzlich ~10 MB Pyodide-Download vom CDN |
 
 ---
 

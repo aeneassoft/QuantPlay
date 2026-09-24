@@ -1,8 +1,19 @@
-# CLAUDE.md — PokerB
+# CLAUDE.md — QuantPlay (bis 2026-09-24: PokerB)
 
 > **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10). LIES ZUERST [`!_PROJEKT_BILANZ_2026-09-10.md`](!_PROJEKT_BILANZ_2026-09-10.md)**
 > — die kritische Bilanz: Ziel verfehlt, warum, was Wert hat, und in welcher Reihenfolge man weitermacht.
-> Wichtig: der Branch `poker-core` liegt NICHT auf GitHub. Die Doktrin-Bloecke unten sind Geschichte, nicht Auftrag.
+> Die Doktrin-Bloecke unten sind Geschichte, nicht Auftrag.
+>
+> **★ VEROEFFENTLICHT (2026-09-24).** Das Repo heisst jetzt **`aeneassoft/QuantPlay`** (oeffentlich; das fruehere
+> Spiel liegt unter `aeneassoft/quantplay-herzlichter`), Default-Branch `poker-core`. Der Trainer laeuft als
+> **statische Browser-Version auf https://quantplay.io** — dieselbe `six_server`-Session in Pyodide (Python/WASM)
+> im Web Worker des Besuchers, kein Server: `web/build.py` baut `web/dist/`, `web/src/{bridge,worker}.js` leiten
+> `fetch('/api/…')` an `pokerbot/web/browser_bridge.py` (ruft die FastAPI-Endpunkte direkt, Pyodide hat keine
+> Threads). Deploy: `python web/build.py && cd web && vercel deploy --prod` (Projekt `quantplay`, Git-Anbindung
+> bewusst getrennt). **Regeln fuer ein oeffentliches Repo:** keine Handhistorien Dritter, keine Schluessel, keine
+> Personen-Dateien (die CoinPoker-HHs wurden am 2026-09-24 nach `Desktop/PokerB_ausgelagert_2026-09-10/`
+> verschoben; in der Git-Historie sind sie weiter enthalten — Historie wird nicht umgeschrieben). Kein LICENSE
+> gewaehlt (= alle Rechte vorbehalten), bewusst dem Operator ueberlassen. Test: `python -m tests.test_browser_bridge`.
 
 **Goal: a world-class 6-max No-Limit Hold'em AI that PLAYS GTO — i.e. approaches TRUE GTO.** The AI is three
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the

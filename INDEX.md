@@ -1,4 +1,10 @@
-# PokerB — Repository Index (navigation map)
+# QuantPlay (formerly PokerB) — Repository Index (navigation map)
+
+> **2026-09-24 — public.** Repo `aeneassoft/QuantPlay`, default branch `poker-core`. The trainer runs in the
+> browser at **https://quantplay.io** from [`web/`](web/) (`build.py` → `dist/`; `src/bridge.js` + `src/worker.js`
+> = Pyodide worker; server-less dispatcher [`pokerbot/web/browser_bridge.py`](pokerbot/web/browser_bridge.py),
+> test `tests/test_browser_bridge.py`). Public overview: [`README.md`](README.md). Closure note:
+> [`!_PROJEKT_BILANZ_2026-09-10.md`](!_PROJEKT_BILANZ_2026-09-10.md).
 
 > **Start here.** ① [`_PRINCE_START_HERE.md`](_PRINCE_START_HERE.md) (the ROOT MARKER — the current mission in one
 > page) → ② [`docs/STATE.md`](docs/STATE.md) (live state) → ③ [`docs/VERSION_PRINCE.md`](docs/VERSION_PRINCE.md)
@@ -32,7 +38,8 @@
 | `pokerbot/brain/` | **the LLM-brain interface (SECONDARY now):** `api.py` (engine-as-API), `format_spot.py` (canonical spot), `executor.py` (program-of-thought sandbox), `understanding.py` (consolidated strategic read for UNSOLVED spots, gated `POKERB_UNDERSTANDING`), `claude_brain.py`, `policy.py` |
 | `pokerbot/arena/` | `sixmax.py` — the opponent LEAGUE (TAG/LAG/nit/station/maniac) |
 | `pokerbot/vision/` | **NEW — `screen_reader.py` = universal VLM poker-table reader** (any site/skin, dHash change-gate, `--watch`) |
-| `pokerbot/{web,benchmark,coach,analysis}/` | apps; benchmarks (`slumbot`,`gtowizard`,`lbr`,`duplicate`); coaching; analysis |
+| `pokerbot/{web,benchmark,coach,analysis}/` | apps; benchmarks (`slumbot`,`gtowizard`,`lbr`,`duplicate`); coaching; analysis. **`web/browser_bridge.py` (2026-09-24)** = the trainer's routes without HTTP, for the browser build |
+| `web/` | **the static browser trainer (quantplay.io, 2026-09-24):** `build.py` (bundle + hash → `dist/`), `src/bridge.js` (fetch shim + boot overlay), `src/worker.js` (Pyodide 0.28.3 from jsDelivr, vendored `wheels/`), `vercel.json`. Committed `dist/` is what Vercel serves |
 | `dataset/` | **NEW — THE GOLD:** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards |
 | `training/` | **NEW — Qwen:** `qwen_sft.py` (SFT, 8B QLoRA), `qwen_grpo.py` (RL self-play, to build), `qwen_eval.py` |
 | `pipeline/` | **NEW — the PC-hub program:** frontier-loop + EV-truth filter + monitor + scp-orchestration (to build) |

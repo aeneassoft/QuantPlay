@@ -5386,6 +5386,36 @@ antwortete mit pydantic-422, was der Client als Spielzustand rendert (leerer Tis
 
 ---
 
+### Browser-Bruecke (serverloser Trainer) — `pokerbot/web/browser_bridge.py` + `web/` (2026-09-24)
+**Zweck.** Laesst den kompletten Trainer (`six_server.Session`, Liga, Grader, Feedback, Replay, Report) im
+Browser des Besuchers laufen — Pyodide (Python 3.13 als WebAssembly) in einem Web Worker, kein Server. Das ist
+die Fassung auf https://quantplay.io.
+**Schnittstelle.** `dispatch(method: str, path: str, body: str | None) -> str` liefert JSON
+`{"status": int, "body": str}`; `body` ist der Antworttext des FastAPI-Endpunkts. Unbekannte Routen → 404
+(die Fallbacks der UI `/api/feedback`→`/api/feedback/last`, `/api/glossar`→`/api/glossary` bleiben intakt),
+ungueltige Bodies → 422, Ausnahmen → 500 mit Text (der Tisch friert nie ein). Query-Strings werden ignoriert.
+**Warum nicht die ASGI-App selbst:** FastAPI fuehrt synchrone Endpunkte im Threadpool aus; Pyodide hat keine
+Threads (`RuntimeError: can't start new thread`, gemessen 2026-09-24). Daher werden die Endpunkt-Funktionen
+direkt aufgerufen und ihre pydantic-Modelle aus dem Body rekonstruiert (`typing.get_type_hints`, weil die
+Annotationen Strings sind).
+**Browser-Seite.** `web/src/bridge.js` ersetzt `window.fetch` fuer `/api/*` (als ERSTES Script im `<head>`,
+injiziert von `web/build.py`), zeigt ein Lade-Overlay und reicht Anfragen an `web/src/worker.js` weiter; der
+Worker laedt Pyodide 0.28.3 von jsDelivr, die Pyodide-Pakete (pydantic, anyio, …), fuenf vendorte Wheels
+(`web/wheels/`: fastapi, starlette, treys, typing_inspection, annotated_doc — mit `deps=False`, sonst versucht
+micropip PyPI) und das Bundle `pokerbot_bundle.zip` (pokerbot/*.py+*.html ohne vision/benchmark, knowledge_base
+math/ranges/cfr/postflop-json/tournament, `data/preflop_strength.json`). `training.html` selbst ist unveraendert
+(eine Quelle fuer lokal und online).
+**Abhaengigkeiten.** Hart: `six_server` importierbar ohne torch (Prince-Takeover aus, Advisor-Netze fehlen im
+Bundle und werden lazy geladen → Fallback). `six_server` liest `static/six.html` beim Import → HTML gehoert ins
+Bundle (erster Live-Fehler). Session-Logs landen im MEMFS des Workers (fluechtig).
+**Zustand.** Produktiv auf quantplay.io; lokal `python web/build.py` + `python -m http.server 8765 --directory
+web/dist`. Deploy: `cd web && vercel deploy --prod` (Projekt `quantplay`, ohne Git-Anbindung).
+**Kosten.** Erstaufruf: Pyodide ~10 MB + Pakete (CDN, gecacht) + 1,6 MB eigene Dateien; danach Cache.
+**Mess-Status.** Node+Pyodide: Import 0,9 s; 5 Haende mit Benotung 0,32 s, langsamste Anfrage 0,11 s
+(Turnier 0,35 s). Kein Staerke-Mass — identischer Code wie lokal. Tests: `tests/test_browser_bridge.py` (5).
+**Fallstrick.** Wer `web/dist/` nicht neu baut, deployt den alten Trainer: `dist/` ist versioniert und wird von
+Vercel 1:1 ausgeliefert; `index.html` traegt den Build-Hash, das Bundle wird ueber `?v=` cache-gebrochen.
+
 ### Hand-Logger — `pokerbot/web/session_log.py`
 **Zweck.** Verwandelt einen fertig gespielten `Table` in EINEN JSONL-Record und haengt ihn an eine Datei an.
 

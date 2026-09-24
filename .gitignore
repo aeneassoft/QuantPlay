@@ -5,7 +5,8 @@
 .env.*
 
 # Large / transient / regenerable
-data/
+data/*
+!data/preflop_strength.json
 tools/
 Information/
 # retrieved LoRA adapters / nets (large binaries; keep out of git)
@@ -44,3 +45,7 @@ hand histories/
 # die Alt-Pfade zusaetzlich -- auch gegen "git add -f".
 /_privat/
 /raw_*.json
+
+# Handhistorien Dritter (CoinPoker-PLO eines anderen Spielers, personenbezogen): 2026-09-24 nach
+# Desktop/PokerB_ausgelagert_2026-09-10/knowledge_base_hand_histories verschoben, nicht mehr versioniert
+knowledge_base/hand_histories/players - handhistories/
