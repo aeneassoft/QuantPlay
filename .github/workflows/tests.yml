@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: "3.12"
       # The trainer + engine need only these; the heavy optional deps (LLM SDKs, PDF tools, Kaggle env) are skipped.
-      - run: pip install treys phevaluator numpy fastapi pydantic
+      - run: pip install treys phevaluator numpy fastapi pydantic httpx httpx2
       - run: python -m tests.test_browser_bridge
       - run: python -m tests.test_prefold
       - run: python -m tests.test_tournament_mode
