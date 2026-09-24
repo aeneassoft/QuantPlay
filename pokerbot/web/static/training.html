@@ -333,6 +333,8 @@ const RANK_DE={'High Card':'High Card','Pair':'Pair','Two Pair':'Two Pair','Thre
   'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
 const STREET_DE={preflop:'Preflop',flop:'Flop',turn:'Turn',river:'River',showdown:'Showdown'};
 const ICON={ok:'✓',teuer:'～',leak:'✗'};
+// player-facing names of the frozen grade vocabulary (ok/teuer/leak stay the wire values)
+const GRADE_LABEL={ok:'solid',teuer:'costly',leak:'leak'};
 // third person for the ticker, second person for the human's own line, noun for replay labels
 const VERB3={fold:'folds',check:'checks',call:'calls',bet:'bets',raise:'raises',allin:'shoves'};
 const VERB2={fold:'fold',check:'check',call:'call',bet:'bet',raise:'raise',allin:'shove'};
@@ -507,7 +509,7 @@ function renderCoach(c){
   grades.forEach(g=>{const st=g.street||'?';(byStreet[st]=byStreet[st]||[]).push(g);});
   const badges=Object.keys(byStreet).sort((a,b)=>(stOrder[a]??9)-(stOrder[b]??9)).map(st=>
     `<span class="badge">${esc(STREET_DE[st]||st)}${byStreet[st].map(g=>
-      `<span class="dot ${esc(g.grade||'')}" title="${esc(actionTxt(g.human_action))} — ${esc(g.grade||'?')}"></span>`).join('')}</span>`
+      `<span class="dot ${esc(g.grade||'')}" title="${esc(actionTxt(g.human_action))} — ${esc(GRADE_LABEL[g.grade]||g.grade||'?')}"></span>`).join('')}</span>`
   ).join('');
   const body=c.html?c.html:`<div>${markTerms(c.text||'')}</div>`;   // server html keeps its term() spans — never re-marked
   $('coach').innerHTML=
@@ -818,7 +820,7 @@ function mk(t,kbd,c,fn){const b=document.createElement('button');
   b.innerHTML=t+(kbd?`<span class="kbd">${kbd}</span>`:'');if(c)b.className=c;b.onclick=fn;return b;}
 
 /* ── fetch layer: busy flag stops hotkey double-fire racing the request ─ */
-async function api(p,b){
+async function api(p,b,expectState=true){
   if(busy)return {error:'busy'};
   busy=true;
   try{
@@ -827,7 +829,7 @@ async function api(p,b){
     // WHY: eine Nicht-OK-Antwort ohne "error" (z.B. FastAPI-422 {"detail":...}) wurde als Spielzustand gerendert
     // -> leerer Tisch, "Hand #undefined" (User-Fund 2026-09-09). Alles, was kein Zustand ist, wird ein Fehler.
     if(!r.ok&&!j.error)return {error:'HTTP '+r.status+' '+(j.detail?JSON.stringify(j.detail).slice(0,160):'')};
-    if(!j.error&&!Array.isArray(j.seats))return {error:'unexpected response from '+p};
+    if(expectState&&!j.error&&!Array.isArray(j.seats))return {error:'unexpected response from '+p};
     return j;
   }catch(err){return {error:String(err)};}
   finally{busy=false;}
@@ -908,14 +910,33 @@ async function send(a,amt){
 }
 async function analyze(){
   $('out').textContent='… analyzing …';
-  const v=await api('/api/analyze',{});
+  const v=await api('/api/analyze',{},false);
   if(v.error&&v.error!=='busy'){$('out').textContent='Analysis unavailable: '+v.error;return;}
   if(v.report_html){$('out').innerHTML=v.report_html;return;}   // P1-E rich report (server-marked terms)
   const s=v.stats||{};
-  const head=`Hands: ${s.hands!=null?s.hands:'–'}\nVPIP ${s.vpip_pct!=null?s.vpip_pct:'–'}% · PFR ${s.pfr_pct!=null?s.pfr_pct:'–'}% · 3bet ${s.threebet_pct!=null?s.threebet_pct:'–'}%\n`+
-    `Aggression ${s.postflop_aggression_factor!=null?s.postflop_aggression_factor:'–'} · Showdown ${s.went_to_showdown_pct!=null?s.went_to_showdown_pct:'–'}%\n`+
+  const head=`Hands: ${s.hands!=null?s.hands:'–'}
+VPIP ${s.vpip_pct!=null?s.vpip_pct:'–'}% · PFR ${s.pfr_pct!=null?s.pfr_pct:'–'}% · 3bet ${s.threebet_pct!=null?s.threebet_pct:'–'}%
+`+
+    `Aggression ${s.postflop_aggression_factor!=null?s.postflop_aggression_factor:'–'} · Showdown ${s.went_to_showdown_pct!=null?s.went_to_showdown_pct:'–'}%
+`+
     `Net: ${s.net_bb!=null?s.net_bb:'–'} bb (${s.bb_per_100!=null?s.bb_per_100:'–'} bb/100)`;
-  $('out').innerHTML=esc(head).replace(/\n/g,'<br>')+(v.narrative?'<br><br>'+markTerms(v.narrative):'');
+  let html=esc(head).split(String.fromCharCode(10)).join('<br>');
+  // WHY the local report: the optional LLM narrative needs an API key the browser build never has; the graded
+  // decision report is computed on the player's machine and always available.
+  try{
+    const r=await fetch('/api/report'); const rep=r.ok?await r.json():null;
+    if(rep&&!rep.error){
+      const d=rep.grade_dist||{};
+      html+=`<br><br><b>Graded decisions:</b> ${rep.n_decisions||0} · ${d.ok||0} solid · ${d.teuer||0} costly · ${d.leak||0} leaks`+
+        (rep.error_rate!=null?` (error rate ${(100*rep.error_rate).toFixed(1)}%, learning band 10–20%)`:'');
+      if(rep.narrative_de)html+='<br><br>'+markTerms(rep.narrative_de);
+      if((rep.leak_top||[]).length)html+='<br><br><b>Most expensive patterns:</b><br>'+
+        rep.leak_top.map(t=>`• ${t.count}× ${markTerms(t.erklaerung_kurz||'')}`).join('<br>');
+    }
+  }catch(err){}
+  const nar=v.narrative||'';
+  if(nar&&!nar.startsWith('('))html+='<br><br>'+markTerms(nar);
+  $('out').innerHTML=html;
 }
 
 /* ── replay (P2-6): step-through from GET /api/replay/last ───────────── */
@@ -1026,7 +1047,7 @@ function renderReplayCoach(st){
     const d=st.decision||st.coach;    // plan name 'decision'; the live server ships 'coach'
     h+=`<div>Played: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
     if(d){
-      const badge=`<span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span>`;
+      const badge=`<span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(GRADE_LABEL[d.grade]||d.grade||'')}</span>`;
       // Frequenz nur, wo sie SINN macht (User-Regel): bei einem echten Mix (2. Aktion >=15%) ersetzt sie
       // das gewürfelte 'Empfohlen' (das war irreführend: 'Empfohlen: raise' über '87% Check'); bei klaren
       // Spots bleibt allein die Empfehlung — eine '100% Fold'-Klammer wäre Ballast.

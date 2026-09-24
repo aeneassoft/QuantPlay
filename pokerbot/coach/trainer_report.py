@@ -27,6 +27,10 @@ from pathlib import Path
 GRADES = ("ok", "teuer", "leak")          # pinned vocabulary (TRAINER_DESIGN par.1.2)
 ERROR_GRADES = frozenset({"teuer", "leak"})
 LEAK_TOP_N = 3                            # top grade_typ buckets shown in the report
+# Player-facing names of the grade_typ vocabulary (the keys themselves are a frozen contract).
+THEME_LABEL = {"pot_odds": "calling without the right price", "mdf": "over-folding against bets",
+               "sizing": "bet sizing", "advisor_freq": "picking the rare side of a solver mix",
+               "oracle_diff": "deviating from the reference line"}
 LEARN_BAND = (0.10, 0.20)                 # adaptive error-rate band (TRAINER_DESIGN par.5)
 DEFAULT_BB = 100                          # chips per bb (repo convention, CLAUDE.md)
 
@@ -193,7 +197,7 @@ def _narrative_de(n_hands: int, n_decisions: int, dist: dict, error_rate: float,
     if leak_top:
         top = leak_top[0]
         grund = f" ({top['erklaerung_kurz'].rstrip('.')})" if top["erklaerung_kurz"] else ""
-        saetze.append(f"Most frequent theme: {top['grade_typ']} "
+        saetze.append(f"Most frequent theme: {THEME_LABEL.get(top['grade_typ'], top['grade_typ'])} "
                       f"({top['count']}x){grund}".rstrip("."))
     elif worst is None:
         saetze.append("No recurring costly mistake this session — strong")

@@ -1,7 +1,7 @@
 {
-  "build": "48efb0b2c0",
+  "build": "e4760613db",
   "bundle": "pokerbot_bundle.zip",
-  "bundle_sha1": "b67411a808",
+  "bundle_sha1": "bf1ada5a9e",
   "wheels": [
     "annotated_doc-0.0.5-py3-none-any.whl",
     "fastapi-0.141.1-py3-none-any.whl",
