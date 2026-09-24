@@ -12,8 +12,10 @@
 > Threads). Deploy: `python web/build.py && cd web && vercel deploy --prod` (Projekt `quantplay`, Git-Anbindung
 > bewusst getrennt). **Regeln fuer ein oeffentliches Repo:** keine Handhistorien Dritter, keine Schluessel, keine
 > Personen-Dateien (die CoinPoker-HHs wurden am 2026-09-24 nach `Desktop/PokerB_ausgelagert_2026-09-10/`
-> verschoben; in der Git-Historie sind sie weiter enthalten — Historie wird nicht umgeschrieben). Kein LICENSE
-> gewaehlt (= alle Rechte vorbehalten), bewusst dem Operator ueberlassen. Test: `python -m tests.test_browser_bridge`.
+> verschoben; in der Git-Historie sind sie weiter enthalten — Historie wird nicht umgeschrieben). **Lizenz:
+> PolyForm Noncommercial 1.0.0** (`LICENSE.md`, Operator-Entscheid 2026-09-24): nicht-kommerziell frei, jede
+> kommerzielle Nutzung nur mit schriftlicher Erlaubnis; die `Required Notice:`-Zeile muss bei jeder Kopie bleiben.
+> Test: `python -m tests.test_browser_bridge`.
 
 **Goal: a world-class 6-max No-Limit Hold'em AI that PLAYS GTO — i.e. approaches TRUE GTO.** The AI is three
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the

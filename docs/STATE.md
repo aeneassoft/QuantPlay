@@ -20,7 +20,8 @@
 - **Vercel:** Projekt `quantplay` von `aeneassoft/QuantPlay` (Spiel) getrennt, Passwort-Middleware weg, Deploy per
   CLI aus `web/` (`vercel deploy --prod`), Alias quantplay.io. Keine Git-Anbindung (Root-Verzeichnis ist per CLI
   nicht setzbar) → nach Aenderungen: `python web/build.py` + Deploy von Hand.
-- Offen: LICENSE nicht gewaehlt; UI nur Deutsch; Layout fuer 2560×1440 skaliert, auf Handy eng.
+- **Lizenz (2026-09-24, Operator):** PolyForm Noncommercial 1.0.0 (`LICENSE.md`) — kommerzielle Nutzung der
+  Poker-Assets nur mit schriftlicher Erlaubnis. Offen: UI nur Deutsch; Layout fuer 2560×1440 skaliert, auf Handy eng.
 
 ## ⏸ PAUSE-STAND (2026-09-10, alle Prozesse gestoppt)
 **Wo weitermachen — drei Punkte, in dieser Reihenfolge:**

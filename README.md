@@ -108,6 +108,15 @@ heads-up better than this bot. Ideas that were **refuted** by measurement are li
 `CLAUDE.md` holds the working conventions for AI-assisted sessions, including the measurement doctrine
 (paired decks, A/A null test must be exactly 0, pre-registered expectations, three-run rule).
 
+## License
+
+**[PolyForm Noncommercial 1.0.0](LICENSE.md).** You may use, copy, modify and share everything here for
+noncommercial purposes: personal study, research, teaching, hobby projects, and use by noncommercial
+organizations. **Any commercial use — selling, running as a paid service, using the bot, trainer, ranges,
+knowledge base or measurements inside a commercial product or to make money at the tables for a business —
+requires written permission.** Ask via a GitHub issue or the contact on the organization page. Keep the
+`Required Notice:` line from `LICENSE.md` with every copy.
+
 ## Status
 
 Closed on 2026-09-10, reopened only to publish. Large artifacts (solver caches, trained nets, LLM
