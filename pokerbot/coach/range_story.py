@@ -41,13 +41,13 @@ HIT = ("top-pair", "two-pair+", "monster")     # "Treffer" = Top-Paar oder besse
 TOLD_VIEL, TOLD_WENIG = 0.50, 0.35
 
 _SUIT = {"s": "♠", "h": "♥", "d": "♦", "c": "♣"}
-MADE_DE = {"air": "Luft", "pair": "ein Paar", "top-pair": "Top-Paar",
-           "two-pair+": "zwei Paar oder besser", "monster": "ein Monster (Straße oder besser)"}
+MADE_DE = {"air": "air", "pair": "a pair", "top-pair": "top pair",
+           "two-pair+": "two pair or better", "monster": "a monster (straight or better)"}
 _TAG = {"preflop": "PREFLOP", "flop": "FLOP", "turn": "TURN", "river": "RIVER"}
 
 
 def _card_de(c: str) -> str:
-    """'Ks' -> 'K♠', 'Ts' -> '10♠' (kein T-Jargon für Einsteiger)."""
+    """'Ks' -> 'K♠', 'Ts' -> '10♠' (kein T-Jargon für Einsteiger). Name bleibt: Karten-Rendering ist sprachneutral."""
     r = "10" if c[:1] == "T" else c[:1]
     return r + _SUIT.get(c[1:2], c[1:2])
 
@@ -97,17 +97,17 @@ def _pre_line(records: list[dict]) -> str:
               and h.get("action") in ("bet", "raise", "allin")]
     n = min(len(raises), 3)
     if n == 0:
-        return (f"{_TAG['preflop']} · Kein Raise — alle Ranges bleiben breit "
-                f"(über die Hälfte aller Starthände).")
+        return (f"{_TAG['preflop']} · No raise — every range stays wide "
+                f"(more than half of all starting hands).")
     frac, gegner_frac = RAISER_FRAC[n], CALLER_FRAC[n]
     edge = ", ".join(sorted(ps.range_top(frac), key=ps.percentile)[:N_EDGE_BEISPIELE])
     wer_hero = raises[-1].get("player") == hero_seat
     verb = RAISE_NAME[n]
     if wer_hero:
-        return (f"{_TAG['preflop']} · Dein {verb} repräsentiert ~{frac * 100:.0f}% der Starthände "
-                f"(bis runter zu {edge}) — wer dagegen callt, zeigt ~{gegner_frac * 100:.0f}%.")
-    return (f"{_TAG['preflop']} · Sein {verb} repräsentiert ~{frac * 100:.0f}% der Starthände "
-            f"(bis runter zu {edge}) — dein Call dagegen: ~{gegner_frac * 100:.0f}%.")
+        return (f"{_TAG['preflop']} · Your {verb} represents ~{frac * 100:.0f}% of starting hands "
+                f"(down to {edge}) — whoever calls it shows ~{gegner_frac * 100:.0f}%.")
+    return (f"{_TAG['preflop']} · Their {verb} represents ~{frac * 100:.0f}% of starting hands "
+            f"(down to {edge}) — your call against it: ~{gegner_frac * 100:.0f}%.")
 
 
 def _hu_tracker(rec: dict):
@@ -138,13 +138,13 @@ def _vill_ansage(hu_state: dict, street: str) -> str:
             if h.get("player") == 1 and str(h.get("street")) == street]
     last = acts[-1] if acts else None
     if last in ("bet", "raise", "allin"):
-        verb = {"bet": "Bet", "raise": "Raise", "allin": "All-in"}[last]
-        return f"seine {verb} erzählt einen Treffer"
+        verb = {"bet": "bet", "raise": "raise", "allin": "all-in"}[last]
+        return f"their {verb} claims a hit"
     if last == "call":
-        return "sein Call hält die Mitte"
+        return "their call keeps the middle"
     if last == "check":
-        return "sein Check meldet wenig an"
-    return "noch keine Ansage von ihm"
+        return "their check announces little"
+    return "no signal from them yet"
 
 
 def _street_line(rec: dict, street: str) -> tuple[str, object] | None:
@@ -163,9 +163,9 @@ def _street_line(rec: dict, street: str) -> tuple[str, object] | None:
     hero_hole = list((rec.get("spot") or {}).get("hero_hole") or [])
     rng = random.Random(zlib.crc32(f"{rec.get('spot_fp')}:{street}".encode()))
     eq = equity_vs_weighted_range(hero_hole, tracker.range[1], board, iters=EQ_ITERS, rng=rng)
-    eq_txt = f" Deine Equity dagegen: {eq * 100:.0f}%." if eq == eq else ""   # NaN-Guard
-    return (f"{_TAG[street]} {_cards_de(board)} · {_vill_ansage(st, street)} — seine Range: "
-            f"{hit * 100:.0f}% Treffer (Top-Paar+), {luft * 100:.0f}% Luft.{eq_txt}", tracker)
+    eq_txt = f" Your equity against it: {eq * 100:.0f}%." if eq == eq else ""   # NaN-Guard
+    return (f"{_TAG[street]} {_cards_de(board)} · {_vill_ansage(st, street)} — their range: "
+            f"{hit * 100:.0f}% hits (top pair+), {luft * 100:.0f}% air.{eq_txt}", tracker)
 
 
 def _du_line(rec: dict, tracker) -> str | None:
@@ -181,20 +181,20 @@ def _du_line(rec: dict, tracker) -> str | None:
         for suit in "shdc":
             if (sum(1 for c in hole + board if c[1:2] == suit) == 4
                     and any(c[1:2] == suit for c in hole)):
-                fd = " plus Flush-Draw"
+                fd = " plus a flush draw"
                 break
     real_hit = real in HIT
     if real_hit and told < TOLD_WENIG:
-        urteil = "mehr Blatt als Geschichte — hier bleibt Value liegen."
+        urteil = "more hand than story — value is being left on the table here."
     elif not real_hit and told >= TOLD_VIEL:
         # ein Paar ist halbe Substanz, kein reiner Bluff — die Probe nannte beides "Bluff-Territorium"
-        urteil = ("mehr Geschichte als Blatt — Bluff-Territorium, nur mit Plan." if real == "air"
-                  else "mehr Geschichte als Blatt — halbe Substanz: als Semi-Bluff okay, als Value zu dünn.")
+        urteil = ("more story than hand — bluff territory, only with a plan." if real == "air"
+                  else "more story than hand — half substance: fine as a semi-bluff, too thin as value.")
     elif real_hit:
-        urteil = "Geschichte und Blatt decken sich."
+        urteil = "story and hand line up."
     else:
-        urteil = "beides dünn — kleine Töpfe sind hier dein Freund."
-    return (f"DU · Deine Linie repräsentiert {told * 100:.0f}% Treffer — du hältst "
+        urteil = "both thin — small pots are your friend here."
+    return (f"YOU · Your line represents {told * 100:.0f}% hits — you hold "
             f"{MADE_DE.get(real, real)}{fd}: {urteil}")
 
 
@@ -221,16 +221,16 @@ def _showdown_line(records: list[dict], hand_result: dict) -> str | None:
         # nur LUFT ist ein echter Bluff — ein aufgedecktes mittleres Paar, das gesetzt hat, ist
         # Schutz/dünne Value (die Probe nannte beides "Bluff", das lehrt falsch).
         if vcls in HIT:
-            urteil = "die Geschichte stimmte."
+            urteil = "the story was true."
         elif vcls == "air":
-            urteil = "die Geschichte war geliehen (Bluff)."
+            urteil = "the story was borrowed (a bluff)."
         else:
-            urteil = "mittleres Paar — eher Schutz als reiner Bluff."
+            urteil = "a middling pair — protection rather than a pure bluff."
     elif vcls in HIT:
-        urteil = "still gespielt, stark gehalten (Slowplay)."
+        urteil = "played quietly, held strong (slowplay)."
     else:
         return None                     # passiv + dünn gewonnen = keine Lektion, kein Rauschen
-    return f"SHOWDOWN · Er zeigt {_cards_de(hole)} = {MADE_DE.get(vcls, vcls)} — {urteil}"
+    return f"SHOWDOWN · They show {_cards_de(hole)} = {MADE_DE.get(vcls, vcls)} — {urteil}"
 
 
 # ---------------------------------------------------------------- Public API
@@ -297,7 +297,7 @@ def _selftest() -> None:
     assert kalt == lines and lines, "Story leer oder kalt/warm verschieden"
     assert lines[0].startswith("PREFLOP"), lines[0]
     assert any(l.split()[0] in ("FLOP", "TURN", "RIVER") for l in lines[1:]) or len(records) == 1, lines
-    assert any("Treffer" in l for l in lines), lines
+    assert any("hits" in l for l in lines), lines
     # Determinismus: zweiter Lauf byte-identisch (MC-Equity ist spot_fp-geseedet)
     assert build_story(records, result) == lines, "Range-Story nicht deterministisch"
     # Fail-soft: Müll-Records und leere Eingaben stören nie

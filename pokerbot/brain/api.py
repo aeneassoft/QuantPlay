@@ -1,4 +1,4 @@
-"""The engine-as-API — the typed primitive library the LLM brain calls in a program-of-thought (docs/DATASET_SPEC.md).
+"""The engine-as-API — the typed primitive library the LLM brain calls in a program-of-thought (docs/doctrine/DATASET_SPEC.md).
 THIN wrappers over existing, tested engine code (no logic duplication): equity, the Mathematics-of-Poker formulas,
 board texture, hand strength, and a legal-action coercer. The brain emits Python calling THESE; `executor.py` runs it.
 

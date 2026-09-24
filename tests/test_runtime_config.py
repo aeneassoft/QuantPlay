@@ -29,7 +29,7 @@ _SMOKE_TIMEOUT_S = 600            # Bot-Import + TexasSolver-faehiger Bot: kalt 
 ENV_SMOKE_WARM_FIRST = "K4_SMOKE_WARM_FIRST"   # --gtow: alle Advisor-Netze VOR dem Agenten laden (Warm-up-Invarianz)
 ENV_E5_PFLICHT = "POKERB_K4_E5_PFLICHT"        # =1 sobald der Integrator den Client-Patch angewandt hat -> Test wird scharf
 _CLIENT_AGENT_DATEI = Path(__file__).resolve().parents[1] / "tools" / "gtow_client" / "src" / "poker_agent.py"
-_E5_CLIENT_PATCH = "await self._a.act_async("   # docs/V10_LEDGER_PATCH.md 'Zweiter Patch'
+_E5_CLIENT_PATCH = "await self._a.act_async("   # docs/reports/V10_LEDGER_PATCH.md 'Zweiter Patch'
 _E5_SIMULIERTE_LATENZ_S = 0.25                  # kuenstliche decide-Dauer, damit der Heartbeat-Test deterministisch ist
 _E5_HEARTBEAT_S = 0.02
 _E5_MIN_TICKS = 5                               # blockierte der Loop, saehe der Heartbeat waehrend decide 0 Ticks
@@ -347,7 +347,7 @@ class SubprozessSmokeTest(unittest.TestCase):
 
     def test_e5_client_patch_status(self):
         """E5 ist erst LIVE, wenn PokerBotMVP.act (gitignored, poker_agent.py:74) act_async awaitet. Der Patch ist
-        Integrator-Sache (docs/V10_LEDGER_PATCH.md); bis dahin meldet der Test den Stand als Skip mit Klartext.
+        Integrator-Sache (docs/reports/V10_LEDGER_PATCH.md); bis dahin meldet der Test den Stand als Skip mit Klartext.
         POKERB_K4_E5_PFLICHT=1 macht ihn scharf (rot, sobald der Patch fehlt oder verloren geht)."""
         if not _CLIENT_AGENT_DATEI.exists():
             self.skipTest(f"GTOW-Client nicht vorhanden: {_CLIENT_AGENT_DATEI}")
@@ -355,7 +355,7 @@ class SubprozessSmokeTest(unittest.TestCase):
         gepatcht = _E5_CLIENT_PATCH in quelle
         if not gepatcht and os.environ.get(ENV_E5_PFLICHT) != "1":
             self.skipTest("E5 NICHT LIVE: poker_agent.py ruft act_dict synchron (Event-Loop blockiert, V10_FAKTEN A8)"
-                          " -- Integrator-Patch aus docs/V10_LEDGER_PATCH.md ausstehend")
+                          " -- Integrator-Patch aus docs/reports/V10_LEDGER_PATCH.md ausstehend")
         self.assertTrue(gepatcht, f"E5-Client-Patch fehlt in {_CLIENT_AGENT_DATEI}: erwartet '{_E5_CLIENT_PATCH}'")
         self.assertNotIn("return ActRequest(**self._a.act_dict(gsr))", quelle, "synchroner act_dict-Aufruf noch vorhanden")
 

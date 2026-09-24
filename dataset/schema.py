@@ -1,4 +1,4 @@
-"""The training-example SCHEMA + dataset-side hygiene (docs/DATASET_SPEC.md). One JSONL record per example:
+"""The training-example SCHEMA + dataset-side hygiene (docs/doctrine/DATASET_SPEC.md). One JSONL record per example:
 
   {"source","type","spot","completion","action":{action,size_bb}|None,"meta":{...}}
 

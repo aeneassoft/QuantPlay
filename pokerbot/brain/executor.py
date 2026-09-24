@@ -1,4 +1,4 @@
-"""The program-of-thought executor (docs/DATASET_SPEC.md): run the LLM's emitted Python "decision program" in a
+"""The program-of-thought executor (docs/doctrine/DATASET_SPEC.md): run the LLM's emitted Python "decision program" in a
 RESTRICTED sandbox with `spot` + `api` + a `decide(...)` callback in scope, then LEGAL-GATE the result via the engine.
 
 Contract for the program the brain writes:

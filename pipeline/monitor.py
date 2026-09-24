@@ -2,7 +2,7 @@
 report, identifies Qwen's WEAK CLUSTERS (street × position × SPR × texture), and emits targets so
 pipeline/frontier_loop.py grows the dataset exactly where the model is weakest. The cluster taxonomy is SHARED with
 eval-time tagging via `cluster_of(spot)`, so the pod's report and the PC's targeting speak the same language.
-Per docs/QWEN_6MAX_PLAN.md.
+Per docs/plans/QWEN_6MAX_PLAN.md.
 """
 from __future__ import annotations
 

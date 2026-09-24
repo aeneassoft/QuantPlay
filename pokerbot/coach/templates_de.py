@@ -1,12 +1,12 @@
-"""Deterministische deutsche Feedback-Templates fuer den Trainer (P1-B, docs/TRAINER_PLAN.md).
+"""Deterministische Feedback-Templates fuer den Trainer (P1-B, docs/plans/TRAINER_PLAN.md) — Spielertext auf Englisch.
 
-WHY: die Sprachschicht ENTSCHEIDET nichts und RECHNET nichts (TRAINER_DESIGN.md par.3) — sie uebersetzt die vom
-Grader (P0) gefuellten Decision-Records in warme, konkrete deutsche Saetze nach der Fairness-Doktrin par.1:
-nie Ergebnisse graden, gute Zuege EXPLIZIT feiern, ein Leak heisst "teurer Kauf", jede Kritik traegt die
-Alternative + den Ein-Satz-Grund, gemischter Support wird GESAGT ("... beides gut"). Zahlen erscheinen einmal
-als Zahl und dann als Vergleich ("brauchte 1-von-3, hatte 1-von-4").
+WHY: die Sprachschicht ENTSCHEIDET nichts und RECHNET nichts (docs/doctrine/TRAINER_DESIGN.md par.3) — sie uebersetzt die vom
+Grader (P0) gefuellten Decision-Records in warme, konkrete Saetze nach der Fairness-Doktrin par.1:
+nie Ergebnisse graden, gute Zuege EXPLIZIT feiern, ein Leak heisst "costly" (teurer Kauf), jede Kritik traegt die
+Alternative + den Ein-Satz-Grund, gemischter Support wird GESAGT ("... both fine"). Zahlen erscheinen einmal
+als Zahl und dann als Vergleich ("needed 1-in-3, had 1-in-4").
 
-INPUT-KONTRAKT (TRAINER_DESIGN.md par.4, BINDEND — jeder Zugriff via .get() mit deutschem Fallback):
+INPUT-KONTRAKT (docs/doctrine/TRAINER_DESIGN.md par.4, BINDEND — jeder Zugriff via .get() mit Fallback):
     record = {hand_id, ts, street, spot_fp, state_kompakt, human_action: {action, amount}|str,
               oracle_action: str|{action,...}, advisor_dist: {aktion: p}, equity, pot_odds, mdf,
               grade: 'ok'|'teuer'|'leak' (PINNED — unbekannter Grade -> ValueError),
@@ -41,30 +41,34 @@ except Exception:                                     # noqa: BLE001
 GRADE_ICON = {"ok": "✓", "teuer": "～", "leak": "✗"}
 GRADE_TYPEN = ("pot_odds", "mdf", "sizing", "advisor_freq", "oracle_diff")
 MIX_SUPPORT_MIN = 0.15        # Fairness-Doktrin par.1.2: Aktion im gemischten Support ab ~15% Advisor-Frequenz
-MIN_HAND_LINES, MAX_HAND_LINES = 3, 5                 # TRAINER_DESIGN.md par.6: 3-5 Zeilen Feedback pro Hand
-EINS_VON_MAX = 20             # "1-von-N"-Vergleich wird jenseits davon unlesbar -> Wortband stattdessen
+MIN_HAND_LINES, MAX_HAND_LINES = 3, 5                 # docs/doctrine/TRAINER_DESIGN.md par.6: 3-5 Zeilen Feedback pro Hand
+EINS_VON_MAX = 20             # "1-in-N"-Vergleich wird jenseits davon unlesbar -> Wortband stattdessen
 
 ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet", "raise": "Raise", "allin": "All-in"}
-STREET_DE = {"preflop": "Preflop", "flop": "am Flop", "turn": "am Turn", "river": "am River"}
-_STREET_BIS = {"preflop": "Preflop", "flop": "zum Flop", "turn": "zum Turn", "river": "zum River"}
+STREET_DE = {"preflop": "preflop", "flop": "on the flop", "turn": "on the turn", "river": "on the river"}
+_STREET_BIS = {"preflop": "ended preflop", "flop": "went to the flop", "turn": "went to the turn",
+               "river": "went to the river"}
 _STREET_ORDER = {"preflop": 0, "flop": 1, "turn": 2, "river": 3}
-BOT_LABEL = "(Bot-Einschätzung)"                 # Unsicherheits-Hierarchie par.1.3: sichtbares Konfidenz-Label
+# Unsicherheits-Hierarchie par.1.3: sichtbares Konfidenz-Label. Der Kern-String ist der Marker, auf den
+# render_decision_feedback prueft (Label nie doppelt anhaengen); grader.CONF_ORACLE traegt 'Bot' im Namen.
+BOT_LABEL_CORE = "bot estimate"
+BOT_LABEL = f"({BOT_LABEL_CORE})"
 
 # Term-Ids (P1-A Glossar) -> Oberflaechenformen, wie sie in den Template-Strings vorkommen. Grundlage fuer die
 # 'terms'-Liste jeder Rueckgabe UND fuer TERMS_USED (der statische Vollstaendigkeits-Check liest dieses Symbol).
 TERM_SURFACES: dict[str, tuple[str, ...]] = {
-    "equity": ("Equity",),
-    "pot_odds": ("Pot Odds", "Pot-Odds"),
+    "equity": ("Equity", "equity"),
+    "pot_odds": ("Pot Odds", "Pot-Odds", "pot odds"),
     "mdf": ("MDF",),
-    "sizing": ("Sizing",),
-    "mixing": ("mischt", "gemischte Strategie"),
+    "sizing": ("Sizing", "sizing"),
+    "mixing": ("mixes", "mixed strategy", "mix"),
     "gto": ("GTO",),
-    "bluff": ("Bluff",),
-    "value_bet": ("Value-Bet",),
-    "range": ("Range",),
-    "advisor_frequenz": ("Advisor-Frequenz",),
-    "resolver": ("Resolver",),
-    "overbet": ("Overbet",),
+    "bluff": ("Bluff", "bluff"),
+    "value_bet": ("Value-Bet", "value bet", "value-bet"),
+    "range": ("Range", "range"),
+    "advisor_frequenz": ("Advisor-Frequenz", "advisor frequency"),
+    "resolver": ("Resolver", "resolver"),
+    "overbet": ("Overbet", "overbet"),
 }
 TERMS_USED: frozenset[str] = frozenset(TERM_SURFACES)          # BINDING: exakt dieser Symbolname (P2-2 prueft)
 
@@ -74,91 +78,91 @@ _TERM_RE = {tid: re.compile(r"\b(?:" + "|".join(re.escape(s) for s in surfs) + r
 
 # ---------------------------------------------------------------- Zahlen -> Vergleiche (Doktrin: nie nackte Zahlenwand)
 def eins_von(p) -> str:
-    """0.33 -> '1-von-3'. Der Kern des 'brauchte 1-von-3, hatte 1-von-4'-Vergleichs."""
+    """0.33 -> '1-in-3'. Der Kern des 'needed 1-in-3, had 1-in-4'-Vergleichs."""
     if not isinstance(p, (int, float)) or p <= 0:
-        return "praktisch nie"
+        return "practically never"
     if p >= 0.999:
-        return "praktisch immer"
+        return "practically always"
     n = max(2, round(1 / p))
-    return f"1-von-{n}" if n <= EINS_VON_MAX else "praktisch nie"
+    return f"1-in-{n}" if n <= EINS_VON_MAX else "practically never"
 
 
 def freq_vergleich(p: float) -> str:
     """Banded Haeufigkeits-Wort fuer Advisor-Frequenzen — deterministisch, keine Prozentwand."""
     if p <= 0.02:
-        return "praktisch nie"
+        return "practically never"
     if p <= 0.15:
-        return "selten (etwa 1 von 10)"
+        return "rarely (about one time in ten)"
     if p <= 0.29:
-        return "etwa jede vierte"
+        return "about one time in four"
     if p <= 0.40:
-        return "etwa jede dritte"
+        return "about one time in three"
     if p <= 0.60:
-        return "etwa jede zweite"
+        return "about every other time"
     if p <= 0.85:
-        return "meistens"
-    return "fast immer"
+        return "most of the time"
+    return "almost always"
 
 
 def pot_frac_de(frac) -> str:
-    """Bet-Groesse als deutscher Pot-Bruch ('halber Pot', 'Overbet (1.6x Pot)')."""
+    """Bet-Groesse als Pot-Bruch ('half pot', 'overbet (1.6x pot)')."""
     if not isinstance(frac, (int, float)) or frac <= 0:
-        return "eine kleine Bet"
+        return "a small bet"
     if frac <= 0.29:
-        return "ein Viertel Pot"
+        return "a quarter pot"
     if frac <= 0.415:
-        return "ein Drittel Pot"
+        return "a third pot"
     if frac <= 0.59:
-        return "halber Pot"
+        return "half pot"
     if frac <= 0.79:
-        return "zwei Drittel Pot"
+        return "two-thirds pot"
     if frac <= 1.25:
-        return "Pot-Größe"
-    return f"Overbet ({frac:.1f}x Pot)"
+        return "pot-sized"
+    return f"an overbet ({frac:.1f}x pot)"
 
 
 def equity_satz(eq, req) -> str:
-    """'du brauchtest 1-von-3 (33%), hattest etwa 1-von-4 (25%)' — Zahl einmal, dann Vergleich.
-    QA-Fix (50-Hand-Probe): wenn beide Werte auf DASSELBE 1-von-N runden (38% und 33% -> beide '1-von-3'),
-    las sich der Satz als Widerspruch ('brauchtest 1-von-3, hattest 1-von-3 — zu wenig'). Dann nur Prozente."""
+    """'you needed 1-in-3 (33%), had about 1-in-4 (25%)' — Zahl einmal, dann Vergleich.
+    QA-Fix (50-Hand-Probe): wenn beide Werte auf DASSELBE 1-in-N runden (38% und 33% -> beide '1-in-3'),
+    las sich der Satz als Widerspruch ('needed 1-in-3, had 1-in-3 — too little'). Dann nur Prozente."""
     if isinstance(req, (int, float)) and isinstance(eq, (int, float)):
         a, b = eins_von(req), eins_von(eq)
         if a == b:
-            return f"du brauchtest {req * 100:.0f}% Equity, hattest nur {eq * 100:.0f}%"
-        return f"du brauchtest {a} ({req * 100:.0f}% Equity), hattest etwa {b} ({eq * 100:.0f}%)"
+            return f"you needed {req * 100:.0f}% equity, had only {eq * 100:.0f}%"
+        return f"you needed {a} ({req * 100:.0f}% equity), had about {b} ({eq * 100:.0f}%)"
     if isinstance(req, (int, float)):
-        return f"du brauchtest {eins_von(req)} ({req * 100:.0f}% Equity)"
-    return "der genaue Preis ließ sich hier nicht rekonstruieren"
+        return f"you needed {eins_von(req)} ({req * 100:.0f}% equity)"
+    return "the exact price could not be reconstructed here"
 
 
 def _anteil_wort(p: float) -> str:
     if p >= 0.75:
-        return "drei von vier Händen"
+        return "three out of four hands"
     if p >= 0.60:
-        return "zwei von drei Händen"
+        return "two out of three hands"
     if p >= 0.45:
-        return "gut die Hälfte deiner Hände"
-    return "einen guten Teil deiner Hände"
+        return "a good half of your hands"
+    return "a good share of your hands"
 
 
 # ---------------------------------------------------------------- tolerante Record-Zugriffe (P0-Drift-Panzer)
 def _action_de(x) -> str:
     a = (x or {}).get("action") if isinstance(x, dict) else x
-    return ACTION_DE.get(str(a or "").lower(), str(a) if a else "dein Zug")
+    return ACTION_DE.get(str(a or "").lower(), str(a) if a else "your move")
 
 
 def _human(rec: dict) -> str:
     return _action_de(rec.get("human_action"))
 
 
-def _alternative(rec: dict, default: str = "die ruhigere Linie") -> str:
+def _alternative(rec: dict, default: str = "the quieter line") -> str:
     orc = rec.get("oracle") or {}
     oa = rec.get("oracle_action") or orc.get("oracle_action") or orc.get("action")   # P0-3 nistet 'oracle_action'
     return _action_de(oa) if oa else default
 
 
 def _street_de(rec: dict) -> str:
-    return STREET_DE.get(str(rec.get("street", "")).lower(), "in diesem Spot")
+    return STREET_DE.get(str(rec.get("street", "")).lower(), "in this spot")
 
 
 def _check(rec: dict, name: str) -> dict:
@@ -176,7 +180,7 @@ def _num(*vals):
 
 
 def _support_dist(rec: dict) -> list[tuple[str, float]]:
-    """Advisor-Mix normalisiert zu [(deutsche Aktion, p)], deterministisch sortiert (-p, Name). Leer = kein Advisor."""
+    """Advisor-Mix normalisiert zu [(Aktionswort, p)], deterministisch sortiert (-p, Name). Leer = kein Advisor."""
     dist = rec.get("advisor_dist")
     if not isinstance(dist, dict):
         adv = _check(rec, "advisor")
@@ -198,13 +202,13 @@ def _support_dist(rec: dict) -> list[tuple[str, float]]:
 
 
 def _mix_satz(dist: list[tuple[str, float]]) -> str | None:
-    """Doktrin par.1.2: mehrere Aktionen im Support werden GESAGT — 'GTO mischt hier: ... — beides gut.'"""
+    """Doktrin par.1.2: mehrere Aktionen im Support werden GESAGT — 'GTO mixes here: ... — both fine.'"""
     sup = [(a, p) for a, p in dist if p >= MIX_SUPPORT_MIN]
     if len(sup) < 2:
         return None
     teile = " / ".join(f"{p * 100:.0f}% {a}" for a, p in sup)
-    schluss = "beides gut" if len(sup) == 2 else "alles spielbar"
-    return f"GTO mischt hier: {teile} — {schluss}."
+    schluss = "both fine" if len(sup) == 2 else "all playable"
+    return f"GTO mixes here: {teile} — {schluss}."
 
 
 # ---------------------------------------------------------------- die fuenf grade_typ-Zweige (x ok/teuer/leak)
@@ -214,33 +218,33 @@ def _fb_pot_odds(rec: dict, grade: str) -> str:
     eq = _num(po.get("eq_max"), rec.get("equity"), (rec.get("rationale") or {}).get("equity"))
     satz, ha, alt = equity_satz(eq, req), _human(rec), _alternative(rec, "Fold")
     if grade == "ok":
-        return f"Guter {ha}: der Preis stimmte — {satz}. Genau so rechnet man Pot Odds."
+        return f"Good {ha}: the price was right — {satz}. That is exactly how pot odds work."
     if grade == "teuer":
-        return (f"Dein {ha} war etwas teuer eingekauft: {satz}. Besser {alt} — "
-                f"die Pot Odds geben den Preis vor, und der passte hier nicht ganz.")
-    return (f"Teurer Kauf: {satz} — selbst gegen jede Hand zu wenig. Besser {alt}, "
-            f"denn ohne den richtigen Preis lohnt sich der Call auf Dauer nie.")
+        return (f"Your {ha} was a bit pricey: {satz}. Better {alt} — "
+                f"pot odds set the price, and it did not quite fit here.")
+    return (f"Costly: {satz} — not enough even against any two cards. Better {alt}, "
+            f"because without the right price the call never pays off in the long run.")
 
 
 def _fb_mdf(rec: dict, grade: str) -> str:
     md = _check(rec, "mdf")
     m = _num(md.get("mdf"), rec.get("mdf"), (rec.get("rationale") or {}).get("mdf"))
-    m_satz = (f"MDF sagt: mindestens {m * 100:.0f}% verteidigen ({_anteil_wort(m)})"
-              if m is not None else "MDF sagt: genug verteidigen")
+    m_satz = (f"MDF says: defend at least {m * 100:.0f}% ({_anteil_wort(m)})"
+              if m is not None else "MDF says: defend enough")
     ha, alt, stark = _human(rec), _alternative(rec, "Call"), _num(md.get("strength"))
     if grade == "ok":
-        return f"Gut verteidigt {_street_de(rec)}: {m_satz} — dein {ha} hält deine Range zusammen."
-    hand_wort = "eine starke Hand" if (stark is not None and stark >= STRONG_MADE) else \
-        "eine brauchbare Hand" if (stark is not None and stark >= MEDIUM_MADE) else "diese Hand"
+        return f"Well defended {_street_de(rec)}: {m_satz} — your {ha} keeps your range intact."
+    hand_wort = "a strong hand" if (stark is not None and stark >= STRONG_MADE) else \
+        "a playable hand" if (stark is not None and stark >= MEDIUM_MADE) else "this hand"
     if grade == "teuer":
-        return (f"Dieser {ha} war etwas teuer: {m_satz}. {alt} wäre die robustere Wahl — "
-                f"wer zu oft aufgibt, wird zu leicht vom Pot geschoben.")
-    return (f"Teurer Kauf: {hand_wort} gegen eine kleine Bet aufgegeben. {m_satz} — besser {alt}, "
-            f"sonst kann dich jeder Bluff vom Pot schieben.")
+        return (f"That {ha} was a bit costly: {m_satz}. {alt} would be the sturdier choice — "
+                f"give up too often and you get pushed off the pot too easily.")
+    return (f"Costly: {hand_wort} folded to a small bet. {m_satz} — better {alt}, "
+            f"otherwise any bluff can push you off the pot.")
 
 
 def _sizing_worte(rec: dict, hf, sf) -> tuple[str, str]:
-    """Preflop misst man in BIG BLINDS, nicht in Pot-Vielfachen — 'Overbet (29.2x Pot)' für einen
+    """Preflop misst man in BIG BLINDS, nicht in Pot-Vielfachen — 'overbet (29.2x pot)' für einen
     Preflop-Raise war technisch richtig und praktisch unbrauchbar (User-QA 2026-08-02)."""
     if str(rec.get("street", "")).lower() != "preflop":
         return pot_frac_de(hf), pot_frac_de(sf)
@@ -248,8 +252,8 @@ def _sizing_worte(rec: dict, hf, sf) -> tuple[str, str]:
     bb = _num(obs.get("bb")) or 100
     ha = rec.get("human_action") or {}
     amt = _num(ha.get("amount")) if isinstance(ha, dict) else None
-    gespielt = f"Raise auf {amt / bb:.1f}bb" if amt else "diese Raise-Größe"
-    return gespielt, "eine Standard-Open-Größe (2–3bb, gegen einen Raise ~3x)"
+    gespielt = f"a raise to {amt / bb:.1f}bb" if amt else "this raise size"
+    return gespielt, "a standard open size (2–3bb, ~3x when facing a raise)"
 
 
 def _sizing_ratio(rec: dict, hf, sf):
@@ -274,15 +278,15 @@ SIZING_TOLERANZ = 0.15        # <15% Abweichung: keine Prozent-Korrektur — das
 
 
 def _sizing_korrektur(ratio) -> str:
-    """'→ wähle die Bet ~45 % kleiner' — die konkrete Prozent-Korrektur (User-QA 2026-08-02: gut
+    """'→ size the bet ~45% smaller' — die konkrete Prozent-Korrektur (User-QA 2026-08-02: gut
     sichtbar zeigen, um wie viel die Bet höher/niedriger gehört; ab 2x als Faktor, Prozente >100 lügen)."""
     if ratio is None or (1 - SIZING_TOLERANZ) <= ratio <= (1 + SIZING_TOLERANZ):
         return ""
     if ratio >= 2:
-        return f" → wähle die Bet ~{ratio:.1f}-mal so groß."
+        return f" → size the bet ~{ratio:.1f}x as large."
     if ratio > 1:
-        return f" → wähle die Bet ~{(ratio - 1) * 100:.0f} % größer."
-    return f" → wähle die Bet ~{(1 - ratio) * 100:.0f} % kleiner."
+        return f" → size the bet ~{(ratio - 1) * 100:.0f}% larger."
+    return f" → size the bet ~{(1 - ratio) * 100:.0f}% smaller."
 
 
 def _fb_sizing(rec: dict, grade: str) -> str:
@@ -290,15 +294,15 @@ def _fb_sizing(rec: dict, grade: str) -> str:
     hf, sf = _num(sz.get("human_frac")), _num(sz.get("snapped_frac"))
     gespielt, plan = _sizing_worte(rec, hf, sf)
     if grade == "ok":
-        return f"Sauberes Sizing: {gespielt} passt hier — so bleibt deine Value-Bet glaubwürdig."
-    # Plan-Größe nur EINMAL nennen — die preflop-Variante ist lang ('Standard-Open-Größe (2–3bb …)') und
+        return f"Clean sizing: {gespielt} fits here — that keeps your value bet credible."
+    # Plan-Größe nur EINMAL nennen — die preflop-Variante ist lang ('a standard open size (2–3bb …)') und
     # las sich doppelt genannt wie ein Stottern (User-QA 2026-08-02).
     korrektur = _sizing_korrektur(_sizing_ratio(rec, hf, sf))
     if grade == "teuer":
-        return (f"Dein Sizing war etwas daneben: gespielt {gespielt}, der Plan sieht {plan} vor — "
-                f"die Größe erzählt die stimmigere Geschichte.{korrektur}")
-    return (f"Teurer Kauf beim Sizing: {gespielt}, der Plan sieht {plan} vor — "
-            f"die Geometrie gibt die Größe vor, nicht das Bauchgefühl.{korrektur}")
+        return (f"Your sizing was a bit off: you played {gespielt}, the plan calls for {plan} — "
+                f"the size tells the more coherent story.{korrektur}")
+    return (f"Costly sizing: {gespielt}, the plan calls for {plan} — "
+            f"geometry sets the size, not gut feeling.{korrektur}")
 
 
 def _fb_advisor_freq(rec: dict, grade: str) -> str:
@@ -307,56 +311,56 @@ def _fb_advisor_freq(rec: dict, grade: str) -> str:
     p_chosen = next((p for a, p in dist if a == ha), None)
     if grade == "ok":
         if mix:
-            return f"{mix} Dein {ha} liegt voll im Mix."
-        return f"Voll im Plan: die Advisor-Frequenz spielt deinen {ha} hier {freq_vergleich(p_chosen or 1.0)}."
-    alt = _alternative(rec, dist[0][0] if dist else "die häufigere Linie")
-    grund = (f"die Advisor-Frequenz sieht deinen {ha} {freq_vergleich(p_chosen)}"
-             if p_chosen is not None else "die Advisor-Frequenz trägt deinen Zug hier kaum")
+            return f"{mix} Your {ha} is squarely in the mix."
+        return f"Right on plan: the advisor frequency plays your {ha} here {freq_vergleich(p_chosen or 1.0)}."
+    alt = _alternative(rec, dist[0][0] if dist else "the more common line")
+    grund = (f"the advisor frequency has your {ha} {freq_vergleich(p_chosen)}"
+             if p_chosen is not None else "the advisor frequency barely supports your move here")
     if grade == "teuer":
-        return f"Dein {ha} war die teure Seite des Mixes: {grund}. Besser {alt} — gegen eine vernünftige Range ist das die häufigere Wahl."
-    return f"Teurer Kauf: {grund}. Besser {alt} — gegen eine vernünftige Range ist das klar die bessere Seite."
+        return f"Your {ha} was the costly side of the mix: {grund}. Better {alt} — against a reasonable range that is the more common choice."
+    return f"Costly: {grund}. Better {alt} — against a reasonable range that is clearly the better side."
 
 
 def _fb_oracle_diff(rec: dict, grade: str) -> str:
     ha, alt = _human(rec), _alternative(rec)
     resolver = bool((rec.get("rationale") or {}).get("resolver"))
-    quelle = "River-Urteil vom Resolver (harte Referenz)" if resolver else "Bot-Einschätzung"
+    quelle = "river verdict from the resolver (hard reference)" if resolver else BOT_LABEL_CORE
     if grade == "ok":
-        return f"Gute Wahl: der Bot spielt hier genauso {ha} — zwei Wege, gleiche Logik ({quelle})."
-    # QA-Fix (50-Hand-Probe): erklaerung_kurz beginnt selbst mit 'Teurer Kauf: der Referenz-Bot spielt hier X'
-    # — im Rahmensatz wiederholt ergab das 'Etwas teuer: … — Teurer Kauf: … spielt hier Call …' (doppelt,
+        return f"Good choice: the bot plays {ha} here as well — two roads, same logic ({quelle})."
+    # QA-Fix (50-Hand-Probe): erklaerung_kurz beginnt selbst mit 'Costly: the reference bot plays X here'
+    # — im Rahmensatz wiederholt ergab das 'A bit costly: … — Costly: … plays Call here …' (doppelt,
     # verschachtelt). Wir übernehmen nur den BEGRÜNDUNGS-Schwanz nach dem Gedankenstrich.
-    grund = rec.get("erklaerung_kurz") or "seine Linie hält die Range besser zusammen"
-    grund = re.sub(r"^(Teurer Kauf|Etwas teuer|Sauber)\s*:\s*", "", grund).strip()
-    if f"spielt hier {alt}" in grund and "—" in grund:
+    grund = rec.get("erklaerung_kurz") or "its line keeps the range together better"
+    grund = re.sub(r"^(Costly|A bit costly|Clean)\s*:\s*", "", grund).strip()
+    if f"plays {alt} here" in grund and "—" in grund:
         grund = grund.split("—", 1)[1].strip().rstrip(".")
     grund = grund.rstrip(".")
     if grade == "teuer":
-        return f"Etwas teuer: dein {ha}, der Bot wählt {alt} — {grund} ({quelle})."
-    return f"Teurer Kauf: {ha} statt {alt} — {grund} ({quelle})."
+        return f"A bit costly: your {ha}, the bot picks {alt} — {grund} ({quelle})."
+    return f"Costly: {ha} instead of {alt} — {grund} ({quelle})."
 
 
 def _fb_generic(rec: dict, grade: str) -> str:
     """Missing-Check-Fallback: grade_typ fehlt/unbekannt — warm bleiben, nichts erfinden."""
     ha, street = _human(rec), _street_de(rec)
     if grade == "ok":
-        return f"Guter Zug: dein {ha} {street} passt — weiter so."
+        return f"Good move: your {ha} {street} fits — keep it up."
     alt = _alternative(rec)
-    grund = rec.get("erklaerung_kurz") or "die einfachere Linie kostet hier weniger"
+    grund = rec.get("erklaerung_kurz") or "the simpler line costs less here"
     if grade == "teuer":
-        return f"Dein {ha} {street} war vermutlich etwas teuer: besser {alt} — {grund}."
-    return f"Teurer Kauf {street}: {ha} statt {alt} — {grund}."
+        return f"Your {ha} {street} was probably a bit costly: better {alt} — {grund}."
+    return f"Costly {street}: {ha} instead of {alt} — {grund}."
 
 
 _TYP_RENDERER = {"pot_odds": _fb_pot_odds, "mdf": _fb_mdf, "sizing": _fb_sizing,
                  "advisor_freq": _fb_advisor_freq, "oracle_diff": _fb_oracle_diff}
 
 MERKSATZ = {                                                     # optionale L5 der Hand-Zusammenfassung
-    "pot_odds": "Merksatz: Pot Odds zuerst — zähle, wie oft du gewinnen musst, bevor du zahlst.",
-    "mdf": "Merksatz: MDF schützt dich — wer zu oft foldet, lädt jeden Bluff ein.",
-    "sizing": "Merksatz: Sizing folgt dem Plan — die Bet-Größe erzählt deine Geschichte.",
-    "advisor_freq": "Merksatz: GTO mischt — es gibt oft mehr als einen guten Zug.",
-    "oracle_diff": "Merksatz: gleiche Spots, gleiche Logik — der Bot ist nur eine zweite Meinung.",
+    "pot_odds": "Takeaway: pot odds first — count how often you need to win before you pay.",
+    "mdf": "Takeaway: MDF protects you — fold too often and you invite every bluff.",
+    "sizing": "Takeaway: sizing follows the plan — the bet size tells your story.",
+    "advisor_freq": "Takeaway: GTO mixes — there is often more than one good move.",
+    "oracle_diff": "Takeaway: same spots, same logic — the bot is just a second opinion.",
 }
 
 
@@ -376,17 +380,17 @@ def _finish(text: str) -> dict:
 def _validate_grade(rec: dict) -> str:
     grade = (rec or {}).get("grade")
     if grade not in GRADE_ICON:
-        raise ValueError(f"Unbekannter Grade: {grade!r} (erlaubt: {sorted(GRADE_ICON)})")
+        raise ValueError(f"Unknown grade: {grade!r} (allowed: {sorted(GRADE_ICON)})")
     return grade
 
 
 def render_decision_feedback(rec: dict) -> dict:
-    """EINE benotete Entscheidung -> 1-2 warme deutsche Saetze -> {'text','html','terms'}."""
+    """EINE benotete Entscheidung -> 1-2 warme Saetze -> {'text','html','terms'}."""
     grade = _validate_grade(rec)
     renderer = _TYP_RENDERER.get(rec.get("grade_typ"), _fb_generic)
     text = renderer(rec, grade)
     conf = str(rec.get("confidence") or "")
-    if "Bot" in conf and "Bot-Einschätzung" not in text:     # Konfidenz-Label sichtbar (Doktrin par.1.3)
+    if "Bot" in conf and BOT_LABEL_CORE not in text:      # Konfidenz-Label sichtbar (Doktrin par.1.3)
         text += f" {BOT_LABEL}"
     return _finish(text)
 
@@ -398,7 +402,7 @@ def _grade_rang(rec: dict) -> int:
 # Formel-Monotonie-Bremse (49/50 identische Openings gemessen). DETERMINISTISCH: der Opener hängt an der
 # hand_id, nicht an einem Zähler — gleicher Input ergibt exakt denselben Text (P1-B-Vertrag), verschiedene
 # Hände variieren trotzdem.
-_OPENER = ("Hand-Rückblick", "Kurz zur Hand", "Rückblick")
+_OPENER = ("Hand review", "Quick recap", "Recap")
 
 
 def _opener_for(records: list[dict]) -> str:
@@ -413,19 +417,19 @@ def _hand_rahmen(records: list[dict], hand_result) -> str:
     QA-Fix: die alte Zeile nannte den End-Pot des TISCHES ('Pot am Ende 200 bb' nach Hero-Fold preflop —
     zwei Bots stackten off), was als Hero-Zahl gelesen wurde. Jetzt zählt nur Heros eigenes Ergebnis."""
     letzte = max(records, key=lambda r: _STREET_ORDER.get(str(r.get("street", "")).lower(), 0))
-    street = _STREET_BIS.get(str(letzte.get("street", "")).lower(), "zum Ende")
+    street = _STREET_BIS.get(str(letzte.get("street", "")).lower(), "played to the end")
     n = len(records)
     opener = _opener_for(records)
     zusatz = ""
     net = (hand_result or {}).get("hero_net_bb") if isinstance(hand_result, dict) else None
     if isinstance(net, (int, float)) and abs(net) >= 1:
-        zusatz = f" — Ergebnis {net:+.0f} bb"
+        zusatz = f" — result {net:+.0f} bb"
         grades = {r["grade"] for r in records}
         if net <= -5 and grades == {"ok"}:
-            zusatz += " (sauber gespielt und trotzdem verloren — genau so verliert man richtig)"
+            zusatz += " (played clean and still lost — that is exactly how you lose the right way)"
         elif net >= 5 and "leak" in grades:
-            zusatz += " (gewonnen, aber der teure Kauf bleibt teuer — das Ergebnis adelt ihn nicht)"
-    return f"{opener}: {n} Entscheidung{'en' if n != 1 else ''}, gespielt bis {street}{zusatz}."
+            zusatz += " (won, but the costly call stays costly — the result does not redeem it)"
+    return f"{opener}: {n} decision{'s' if n != 1 else ''}, {street}{zusatz}."
 
 
 def _dist_str(rec: dict) -> str:
@@ -438,13 +442,13 @@ def _dist_str(rec: dict) -> str:
 
 _STREET_TAG = {"preflop": "PREFLOP", "flop": "FLOP", "turn": "TURN", "river": "RIVER"}
 _HERO_SEAT = 0                       # six_server.HUMAN — der Trainer setzt den Menschen immer auf Sitz 0
-_RANGE_WORT = {1: "etwa die besten 20% der Hände", 2: "etwa die besten 8% (3-Bet-Range)",
-               3: "nur die absolute Spitze (~4%, 4-Bet-Range)"}
+_RANGE_WORT = {1: "roughly the top 20% of hands", 2: "roughly the top 8% (3-bet range)",
+               3: "only the very top (~4%, 4-bet range)"}
 
 
 def _kurz(txt: str) -> str:
     """Grade-Präfixe raus — Icon + Straßen-Tag tragen das schon; der Satz startet direkt mit dem Grund."""
-    return re.sub(r"^(Teurer Kauf|Etwas teuer|Dein Sizing war etwas daneben)\s*[:—-]\s*", "", txt).strip()
+    return re.sub(r"^(Costly sizing|Costly|A bit costly|Your sizing was a bit off)\s*[:—-]\s*", "", txt).strip()
 
 
 def _strategie(records: list[dict], hand_result: dict | None = None) -> list[str]:
@@ -463,16 +467,16 @@ def _strategie(records: list[dict], hand_result: dict | None = None) -> list[str
     obs = last.get("obs") or {}
     pre_raises = [e for e in hist if str(e.get("street")) == "preflop" and e.get("action") in ("raise", "bet", "allin")]
     if pre_raises:
-        wer = "Du repräsentierst" if pre_raises[-1].get("player") == _HERO_SEAT else "Der Gegner repräsentiert"
+        wer = "You represent" if pre_raises[-1].get("player") == _HERO_SEAT else "Villain represents"
         out.append(f"Preflop: {wer} {_RANGE_WORT.get(min(len(pre_raises), 3), _RANGE_WORT[3])}.")
     else:
-        out.append("Preflop: nur Limps/Calls — alle Ranges bleiben breit und unsortiert.")
+        out.append("Preflop: only limps/calls — every range stays wide and unsorted.")
     for st in ("river", "turn", "flop"):
         agg = [e for e in hist if str(e.get("street")) == st and e.get("player") != _HERO_SEAT
                and e.get("action") in ("bet", "raise", "allin")]
         if agg:
-            verb = "Raise" if agg[-1].get("action") == "raise" else "Bet"
-            out.append(f"{_STREET_TAG[st].capitalize()}: seine {verb} erzählt einen Treffer — Top-Paar oder besser.")
+            verb = "raise" if agg[-1].get("action") == "raise" else "bet"
+            out.append(f"{_STREET_TAG[st].capitalize()}: his {verb} says he connected — top pair or better.")
             break
     hole, board = obs.get("hole") or [], obs.get("board") or []
     halt = None
@@ -480,8 +484,8 @@ def _strategie(records: list[dict], hand_result: dict | None = None) -> list[str
         from pokerbot.brain import api as _api
         if board:
             _name, st_val = _api.hand_rank(hole, board)
-            halt = ("eine starke Made Hand" if st_val >= STRONG_MADE
-                    else "eine mittlere Hand" if st_val >= MEDIUM_MADE else "wenig Substanz")
+            halt = ("a strong made hand" if st_val >= STRONG_MADE
+                    else "a medium-strength hand" if st_val >= MEDIUM_MADE else "little substance")
     except Exception:  # noqa: BLE001 — Strategie ist Zusatz, nie Blocker
         pass
     fd = ""
@@ -489,14 +493,14 @@ def _strategie(records: list[dict], hand_result: dict | None = None) -> list[str
         for suit in "shdc":
             tot = sum(1 for c in hole + board if len(c) > 1 and c[1] == suit)
             if tot == 4 and any(len(c) > 1 and c[1] == suit for c in hole):
-                fd = " plus Flush-Draw"
+                fd = " plus a flush draw"
                 break
     aggro = any(str(r.get("street")) != "preflop"
                 and str(((r.get("human_action") or {}).get("action") if isinstance(r.get("human_action"), dict)
                          else r.get("human_action"))) in ("bet", "raise", "allin") for r in records)
-    linie = "Stärke — du repräsentierst den Treffer" if aggro else "Zurückhaltung — Marginales oder Draws"
+    linie = "strength — you represent the hit" if aggro else "restraint — marginal hands or draws"
     if halt:
-        out.append(f"Du hältst {halt}{fd}; deine Linie erzählt {linie}.")
+        out.append(f"You hold {halt}{fd}; your line tells {linie}.")
     return out[:3]
 
 
@@ -506,7 +510,7 @@ def render_hand_feedback(records: list[dict], hand_result: dict | None = None, m
     der Strategie-Abschnitt (Range-Erzählung). Alles ok -> ein Satz + der knappste Spot als Frequenz-Fenster."""
     records = [r for r in (records or []) if isinstance(r, dict)]
     if not records:
-        return _finish("Keine Hero-Entscheidung zu bewerten — Fold preflop ist oft der beste Kauf.")
+        return _finish("No hero decision to grade — folding preflop is often the best move.")
     for r in records:
         _validate_grade(r)
     lines: list[str] = []
@@ -523,19 +527,20 @@ def render_hand_feedback(records: list[dict], hand_result: dict | None = None, m
         if r is None:
             continue
         n_st = sum(1 for x in bad if str(x.get("street", "")).lower() == st)
-        mehr = f" (+{n_st - 1} weitere {_STREET_TAG.get(st, '')}-Spots)" if n_st > 1 else ""
+        mehr = f" (+{n_st - 1} more {_STREET_TAG.get(st, '')} spot{'s' if n_st > 2 else ''})" if n_st > 1 else ""
         txt = _kurz(render_decision_feedback(r)["text"])
         lines.append(f"{GRADE_ICON[r['grade']]} {_STREET_TAG.get(st, '?')} · {_human(r)}: {txt}{_dist_str(r)}{mehr}")
     if not bad:
-        lines.append(f"✓ Alle {len(records)} Entscheidungen im Plan — nichts zu verbessern.")
+        n = len(records)
+        lines.append(f"✓ All {n} decision{'s' if n != 1 else ''} on plan — nothing to improve.")
         mit_dist = [r for r in records if _support_dist(r)]
         if mit_dist:
             knapp = min(mit_dist, key=lambda r: max((p for _, p in _support_dist(r)), default=1.0))
             tag = _STREET_TAG.get(str(knapp.get("street", "")).lower(), "?")
-            lines.append(f"Knappster Spot — {tag} · {_human(knapp)}:{_dist_str(knapp)}")
+            lines.append(f"Closest spot — {tag} · {_human(knapp)}:{_dist_str(knapp)}")
     strat = _strategie(records, hand_result)
     if strat:
-        lines.append("— Strategie (Bot-Lesart) —")
+        lines.append("— Strategy (bot read) —")
         lines.extend(strat)
     return _finish("\n".join(lines))
 
@@ -544,7 +549,7 @@ def render_hand_feedback(records: list[dict], hand_result: dict | None = None, m
 def _rec(typ, grade, **kw) -> dict:
     base = {"hand_id": "selftest-1", "street": kw.pop("street", "turn"), "grade": grade, "grade_typ": typ,
             "human_action": {"action": kw.pop("ha", "call"), "amount": kw.pop("amount", None)},
-            "oracle_action": kw.pop("oa", "fold"), "confidence": kw.pop("conf", "Mathe (unanfechtbar)"),
+            "oracle_action": kw.pop("oa", "fold"), "confidence": kw.pop("conf", "Math (indisputable)"),
             "checks": kw.pop("checks", {}), "rationale": kw.pop("rationale", {})}
     base.update(kw)
     return base
@@ -566,18 +571,18 @@ def _selftest_fixtures() -> list[dict]:
         _rec("sizing", "leak", ha="raise", checks={"sizing": {"human_frac": 0.1, "snapped_frac": 0.75, "err": 0.65}}),
         # advisor_freq x 3 (+ single-support ok) (gto/mixing/range/advisor_frequenz-Oberflaechen)
         _rec("advisor_freq", "ok", ha="check", advisor_dist={"bet": 0.6, "check": 0.4},
-             conf="Solver-Frequenz (HU-trainiert, Näherung)"),
+             conf="Solver frequency (HU-trained, approximation)"),
         _rec("advisor_freq", "ok", ha="call", advisor_dist={"call": 0.95, "fold": 0.04, "raise": 0.01}),
         _rec("advisor_freq", "teuer", ha="call", oa="fold", advisor_dist={"fold": 0.9, "call": 0.02, "raise": 0.08}),
         _rec("advisor_freq", "leak", ha="raise", oa="fold", advisor_dist={"fold": 0.97, "call": 0.02, "raise": 0.01}),
         # oracle_diff x 3, ok = sparse Resolver-Shape OHNE equity/mdf-Keys (Resolver-Oberflaeche)
-        _rec("oracle_diff", "ok", ha="call", oa="call", street="river", conf="Bot-Einschätzung",
+        _rec("oracle_diff", "ok", ha="call", oa="call", street="river", conf="Bot estimate",
              rationale={"phase": "postflop", "street": "river", "made_hand": "two pair", "resolver": True, "range_conf": 0.8}),
-        _rec("oracle_diff", "teuer", ha="bet", oa="check", conf="Bot-Einschätzung",
-             erklaerung_kurz="der Check hält die schwachen Hände in seiner Range"),
-        _rec("oracle_diff", "leak", ha="allin", oa="fold", conf="Bot-Einschätzung"),
+        _rec("oracle_diff", "teuer", ha="bet", oa="check", conf="Bot estimate",
+             erklaerung_kurz="the check keeps the weak hands in his range"),
+        _rec("oracle_diff", "leak", ha="allin", oa="fold", conf="Bot estimate"),
         # Missing-Check-Fallbacks: unbekannter/fehlender grade_typ + leere checks bei gesetztem typ
-        _rec(None, "ok"), _rec(None, "teuer", conf="Bot-Einschätzung"), _rec("nonsense_typ", "leak"),
+        _rec(None, "ok"), _rec(None, "teuer", conf="Bot estimate"), _rec("nonsense_typ", "leak"),
         _rec("pot_odds", "teuer", checks={}),
     ]
     return f
@@ -595,38 +600,38 @@ def _selftest() -> None:
         assert a["text"] and a["html"] and isinstance(a["terms"], list), rec
         assert json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True), ("nicht deterministisch", rec)
         outs.append(a)
-    # 2) Kritik traegt Alternative: teuer/leak-Texte nennen 'Besser'/'wählt'/'statt' (Alternative + Grund)
+    # 2) Kritik traegt Alternative: teuer/leak-Texte nennen 'Better'/'picks'/'instead of' (Alternative + Grund)
     for rec, out in zip(fixtures, outs):
         if rec["grade"] in ("teuer", "leak"):
-            assert any(w in out["text"] for w in ("Besser", "besser", "wählt", "statt", "wäre", "Nimm",
-                                                  "sieht", "Plan")), out["text"]
+            assert any(w in out["text"] for w in ("Better", "better", "picks", "instead of", "would be",
+                                                  "calls for", "plan")), out["text"]
     # 3) Bot-Einschaetzung sichtbar gelabelt
-    bot_out = render_decision_feedback(_rec(None, "teuer", conf="Bot-Einschätzung"))
-    assert "Bot-Einschätzung" in bot_out["text"]
-    # 3b) Sizing-Korrektur in Prozent (User-QA 2026-08-02): 1.6x Pot statt 0.75 -> '~53 % kleiner';
-    #     0.1 statt 0.75 -> Faktor-Wortlaut; Preflop 12bb-Open vs 2.5bb-Plan -> '% kleiner' in bb-Logik
-    assert "% kleiner" in render_decision_feedback(fixtures[7])["text"], fixtures[7]
-    assert "-mal so groß" in render_decision_feedback(fixtures[8])["text"], fixtures[8]
+    bot_out = render_decision_feedback(_rec(None, "teuer", conf="Bot estimate"))
+    assert BOT_LABEL_CORE in bot_out["text"]
+    # 3b) Sizing-Korrektur in Prozent (User-QA 2026-08-02): 1.6x Pot statt 0.75 -> '~53% smaller';
+    #     0.1 statt 0.75 -> Faktor-Wortlaut; Preflop 12bb-Open vs 2.5bb-Plan -> '% smaller' in bb-Logik
+    assert "% smaller" in render_decision_feedback(fixtures[7])["text"], fixtures[7]
+    assert "x as large" in render_decision_feedback(fixtures[8])["text"], fixtures[8]
     pre_sz = _rec("sizing", "leak", ha="raise", amount=1200, street="preflop",
                   obs={"bb": 100}, history=[], checks={"sizing": {"human_frac": 8.0, "snapped_frac": 1.0}})
-    assert "% kleiner" in render_decision_feedback(pre_sz)["text"], render_decision_feedback(pre_sz)["text"]
+    assert "% smaller" in render_decision_feedback(pre_sz)["text"], render_decision_feedback(pre_sz)["text"]
     # 4) Hand-Feedback (Lern-Impuls-Struktur, User-QA 2026-08-02): NUR suboptimale Entscheidungen, je eine
     #    Zeile mit STRASSEN-TAG + Bot-Frequenzen, danach der Strategie-Abschnitt; KEIN Lob, KEIN Ergebnis-Text.
     hand = render_hand_feedback([fixtures[0], fixtures[7], fixtures[9]], {"pot": 2400}, "gto")
     assert any(t in hand["text"] for t in ("PREFLOP", "FLOP", "TURN", "RIVER")), hand["text"]
-    assert "Strategie (Bot-Lesart)" in hand["text"], hand["text"]
-    assert "Stark:" not in hand["text"], "Lob-Zeile gehoert nicht mehr ins Hand-Feedback"
-    assert "Ergebnis" not in hand["text"], "Ergebnis-Text ist Sache des UI, nicht des Coach-Textes"
-    for verboten in ("gewonnen", "verloren", "leider", "Fehler"):
+    assert "Strategy (bot read)" in hand["text"], hand["text"]
+    assert "Strong:" not in hand["text"], "Lob-Zeile gehoert nicht mehr ins Hand-Feedback"
+    assert "result" not in hand["text"].lower(), "Ergebnis-Text ist Sache des UI, nicht des Coach-Textes"
+    for verboten in ("won", "lost", "unfortunately", "mistake"):
         assert verboten not in hand["text"], (verboten, hand["text"])
     hand2 = render_hand_feedback([fixtures[0], fixtures[7], fixtures[9]], {"pot": 2400}, "gto")
     assert hand["text"] == hand2["text"], "Hand-Feedback nicht deterministisch"
     outs.append(hand)
     all_ok = render_hand_feedback([fixtures[0], fixtures[3]], None, "gto")
-    assert "im Plan" in all_ok["text"], all_ok["text"]        # Alles-ok-Zweig bleibt knapp und ehrlich
+    assert "on plan" in all_ok["text"], all_ok["text"]        # Alles-ok-Zweig bleibt knapp und ehrlich
     outs.append(all_ok)
     leer = render_hand_feedback([], None, "gto")
-    assert "Keine Hero-Entscheidung" in leer["text"] and leer["html"]
+    assert "No hero decision" in leer["text"] and leer["html"]
     # 5) TERMS_USED: nicht-leer, und JEDER Eintrag kommt in mindestens einem gerenderten Template vor
     assert TERMS_USED and TERMS_USED == frozenset(TERM_SURFACES)
     alle_texte = "\n".join(o["text"] for o in outs) + "\n" + "\n".join(MERKSATZ.values())
@@ -644,7 +649,7 @@ def _selftest() -> None:
             pass
     # 8) sparse Resolver-Record (keine equity/mdf-Keys) rendert ohne KeyError, nennt den Resolver
     res = render_decision_feedback(fixtures[13])
-    assert "Resolver" in res["text"], res["text"]
+    assert "resolver" in res["text"], res["text"]
     # 9) Render-Pfad laedt kein torch (Advisor bleibt draussen — Plan P1-B Schritt 1)
     assert "torch" not in sys.modules, "templates_de darf torch nicht laden"
     # 10) Glossar-Fallback: ohne glossar_de ist html == text (guarded import)

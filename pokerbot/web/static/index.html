@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -65,7 +65,7 @@
 <body>
 <header>
   <h1>♠ Poker<span>B</span> — Heads-Up GTO Bot</h1>
-  <div class="meta" id="meta">Bereit.</div>
+  <div class="meta" id="meta">Ready.</div>
 </header>
 
 <div class="wrap">
@@ -82,7 +82,7 @@
       <div class="seat you" id="seat-you">
         <div class="bet" id="bet-you"></div>
         <div class="cards" id="hole-you"></div>
-        <div class="name">Du <span class="badge" id="btn-you" style="display:none">BTN</span></div>
+        <div class="name">You <span class="badge" id="btn-you" style="display:none">BTN</span></div>
         <div class="stack" id="stack-you">—</div>
       </div>
       <div class="result" id="result"></div>
@@ -90,8 +90,8 @@
 
     <div class="controls" id="controls">
       <div class="row" id="setup">
-        Start-Stack (bb): <input id="cfg-stack" type="number" value="100" style="width:70px"/>
-        <button id="btn-new">Neues Spiel</button>
+        Starting stack (bb): <input id="cfg-stack" type="number" value="100" style="width:70px"/>
+        <button id="btn-new">New game</button>
         <span class="small">Blinds 0.5 / 1 bb</span>
       </div>
       <div class="row" id="actions" style="display:none"></div>
@@ -107,21 +107,21 @@
     <div>
       <h3>🧠 Coach <span class="small" id="coach-state"></span></h3>
       <div class="row">
-        <button class="sec" id="c-explain">Bot-Zug erklären</button>
-        <button class="sec" id="c-review">Meinen Zug bewerten</button>
+        <button class="sec" id="c-explain">Explain bot's move</button>
+        <button class="sec" id="c-review">Review my move</button>
       </div>
-      <div class="coachbox" id="coachbox">Spiele eine Hand und lass dir vom Coach (Claude, gegroundet in deinen 3 Büchern) Tipps geben.</div>
+      <div class="coachbox" id="coachbox">Play a hand and let the coach (Claude, grounded in your 3 poker books) give you tips.</div>
       <div class="row">
-        <textarea id="ask" rows="2" placeholder="Frag den Coach etwas (z.B. 'Wie verteidige ich die BB?')"></textarea>
+        <textarea id="ask" rows="2" placeholder="Ask the coach something (e.g. 'How do I defend the big blind?')"></textarea>
       </div>
-      <div class="row"><button class="sec" id="c-ask">Fragen</button></div>
+      <div class="row"><button class="sec" id="c-ask">Ask</button></div>
     </div>
     <div>
-      <h3>⚙ Bot-Denkprozess</h3>
+      <h3>⚙ Bot reasoning</h3>
       <div class="think" id="think">—</div>
     </div>
     <div>
-      <h3>📜 Verlauf</h3>
+      <h3>📜 History</h3>
       <div class="log" id="log"></div>
     </div>
   </div>
@@ -150,10 +150,10 @@ function logLine(html, cls){ const l=$('log'); const d=document.createElement('d
 function render(v){
   view = v; const s=v.state; bb=s.bb;
   $('meta').textContent = `Hand #${s.hand_no} · ${s.street} · Pot ${bbs(s.pot)}bb`;
-  $('coach-state').textContent = v.coach_available ? '(Claude bereit)' : '(kein Key)';
+  $('coach-state').textContent = v.coach_available ? '(Claude ready)' : '(no API key)';
   const you=s.players[v.human_idx], bot=s.players[v.bot_idx];
-  $('stack-you').textContent = `Stack: ${bbs(you.stack)}bb` + (you.committed_street?`  (im Pot: ${bbs(you.committed_street)}bb)`:'');
-  $('stack-bot').textContent = `Stack: ${bbs(bot.stack)}bb` + (bot.committed_street?`  (im Pot: ${bbs(bot.committed_street)}bb)`:'');
+  $('stack-you').textContent = `Stack: ${bbs(you.stack)}bb` + (you.committed_street?`  (in pot: ${bbs(you.committed_street)}bb)`:'');
+  $('stack-bot').textContent = `Stack: ${bbs(bot.stack)}bb` + (bot.committed_street?`  (in pot: ${bbs(bot.committed_street)}bb)`:'');
   setCards($('hole-you'), you.hole);
   setCards($('hole-bot'), bot.hole);
   setCards($('board'), s.board);
@@ -183,14 +183,14 @@ function renderResult(v){
   let html='';
   if(res.reason==='fold'){
     const w=s.players[res.winner].name;
-    html=`<b>${w} gewinnt ${bbs(res.pot)}bb</b><br><span class="small">(Fold)</span>`;
+    html=`<b>${w} wins ${bbs(res.pot)}bb</b><br><span class="small">(fold)</span>`;
   } else if(res.reason==='showdown'){
-    const w = res.winner===null? 'Split' : s.players[res.winner].name+' gewinnt';
+    const w = res.winner===null? 'Split pot' : s.players[res.winner].name+' wins';
     html=`<b>${w} — ${bbs(res.pot)}bb</b><br>`;
     (res.hands||[]).forEach(h=> html+=`<div class="small">${h.name}: ${h.hole.join(' ')} — ${h.rank}</div>`);
   }
-  if(v.match_over) html+=`<br><b style="color:#e9c46a">Match vorbei!</b><br><button id="btn-rematch">Neues Match</button>`;
-  else html+=`<br><button id="btn-next">Nächste Hand ▸</button>`;
+  if(v.match_over) html+=`<br><b style="color:#e9c46a">Match over!</b><br><button id="btn-rematch">New match</button>`;
+  else html+=`<br><button id="btn-next">Next hand ▸</button>`;
   r.innerHTML=html; r.classList.add('show');
   if($('btn-next')) $('btn-next').onclick=nextHand;
   if($('btn-rematch')) $('btn-rematch').onclick=newGame;
@@ -239,24 +239,24 @@ async function newGame(){
   const stackBb=parseInt($('cfg-stack').value)||100;
   $('log').innerHTML=''; $('think').textContent='—';
   const v=await api('/api/new_game',{stack:stackBb*100, sb:50, bb:100});
-  logLine('— Neues Spiel —','sys'); render(v);
+  logLine('— New game —','sys'); render(v);
 }
-async function nextHand(){ const v=await api('/api/next_hand',{}); logLine('— Nächste Hand —','sys'); render(v); }
+async function nextHand(){ const v=await api('/api/next_hand',{}); logLine('— Next hand —','sys'); render(v); }
 async function send(action, amount){
   const v=await api('/api/action',{action,amount});
-  if(v.error){ logLine('Fehler: '+v.error,'sys'); return; }
+  if(v.error){ logLine('Error: '+v.error,'sys'); return; }
   const amt = amount? ' '+bbs(amount)+'bb':'';
-  logLine(`<span class="y">Du</span>: ${action}${amt}`,'y');
+  logLine(`<span class="y">You</span>: ${action}${amt}`,'y');
   render(v);
 }
 async function coach(path){
-  $('coachbox').textContent='… Coach denkt nach …';
-  const v=await api(path,{}); $('coachbox').textContent=v.text||'(keine Antwort)';
+  $('coachbox').textContent='… Coach is thinking …';
+  const v=await api(path,{}); $('coachbox').textContent=v.text||'(no answer)';
 }
 async function ask(){
   const q=$('ask').value.trim(); if(!q) return;
-  $('coachbox').textContent='… Coach denkt nach …';
-  const v=await api('/api/coach/ask',{question:q}); $('coachbox').textContent=v.text||'(keine Antwort)';
+  $('coachbox').textContent='… Coach is thinking …';
+  const v=await api('/api/coach/ask',{question:q}); $('coachbox').textContent=v.text||'(no answer)';
 }
 
 $('btn-new').onclick=newGame;

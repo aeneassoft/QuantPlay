@@ -17,7 +17,7 @@ Before a multi-hour run, build the MEASURED-run pieces, then relaunch:
 1. **Distillation driver** (net imitates TexasSolver GTO — the compute-efficient path) +
 2. **TexasSolver-Linux + the GTO-benchmark scoring the net ON the pod** (the selector; fast on the
    pod's 192 CPU cores).
-Relaunch is ~2 min: `runpod_run --launch --fast` + the torch-cu128/dm-tree/open_spiel install (`pod_bootstrap.sh`).
+Relaunch is ~2 min: `runpod_run --launch --fast` + the torch-cu128/dm-tree/open_spiel install (`../../infra/serverless/pod_bootstrap.sh`).
 
 ### 30-min measured run — BUILT + VALIDATED locally (awaiting GO)
 Fast path for 30 min = **distillation** (not blind self-play), Claude-Opus actively directing:

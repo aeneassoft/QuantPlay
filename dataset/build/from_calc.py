@@ -1,6 +1,6 @@
 """Convert the ENGINE-VERIFIED calc toolkits (postflop_calc_verified + strategy_calc_verified — GPT-5.5-generated,
 gated) into DSL MATH training examples: teach the model that `api.<fn>` exists, what it computes, and a real verified
-call. This is the number-sense layer (MathGLM, docs/math_accuracy_strategy.md) — so Qwen PROPOSES these engine
+call. This is the number-sense layer (MathGLM, docs/plans/math_accuracy_strategy.md) — so Qwen PROPOSES these engine
 functions correctly in its decision programs (the engine still computes the value). type='math'."""
 from __future__ import annotations
 

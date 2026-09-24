@@ -61,7 +61,7 @@ def main() -> None:
     ap.add_argument("--open", action="store_true")
     a = ap.parse_args()
     url = f"http://{a.host}:{a.port}"
-    print(f"Training dashboard: {url}  (Strg+C to stop)", flush=True)
+    print(f"Training dashboard: {url}  (Ctrl+C to stop)", flush=True)
     if a.open:
         import threading
         import webbrowser

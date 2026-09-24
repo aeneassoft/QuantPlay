@@ -1,7 +1,7 @@
 """scp-ORCHESTRATION — moves data PC<->pod for the 2-node system (Phase 3). Bundles the code+dataset into ONE tarball
 (one fast scp, per the cfv_pod_campaign lesson: scp -r of hundreds of small files stalls), pushes it to the RunPod
 trainer, and pulls the best adapter + eval report back. Reuses the SSH key + scp pattern from
-infra/cfv_pod_campaign.py; pod lifecycle = infra/runpod_run.py. Per docs/QWEN_6MAX_PLAN.md.
+infra/cfv_pod_campaign.py; pod lifecycle = infra/runpod_run.py. Per docs/plans/QWEN_6MAX_PLAN.md.
 
 HARD RULE (CLAUDE.md): this moves the DATASET + CODE to the pod; frontier APIs NEVER touch the pod (PC hub only).
 The lean bundle deliberately EXCLUDES knowledge_base/hand_histories + books/ (huge, not needed by the trainer/RL env).

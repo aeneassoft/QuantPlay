@@ -114,7 +114,7 @@ def make_league_bot(profile: str, seed: int) -> SixMaxBot:
 class MTT:
     """Zustand + Uhr eines Multi-Table-Turniers; der Trainer treibt es Runde fuer Runde."""
 
-    def __init__(self, seed: int, hero_name: str = "Du", hero_bot: SixMaxBot | None = None,
+    def __init__(self, seed: int, hero_name: str = "You", hero_bot: SixMaxBot | None = None,
                  n_players: int = N_PLAYERS, seats_per_table: int = SEATS_PER_TABLE,
                  hands_per_level: int = HANDS_PER_LEVEL, start_stack: int = START_STACK):
         self.seed = seed
@@ -149,7 +149,7 @@ class MTT:
         self.rng.shuffle(profiles)
         self.entrants[self.hero_name] = Entrant(self.hero_name, "hero", self.start_stack, hero_bot)
         for i, prof in enumerate(profiles):
-            name = pool[i] if i < len(pool) else f"Spieler{i}"
+            name = pool[i] if i < len(pool) else f"Player{i}"
             self.entrants[name] = Entrant(name, prof, self.start_stack,
                                           make_league_bot(prof, self.seed * 104729 + i))
 
@@ -358,7 +358,7 @@ class MTT:
             small.names.append(big.names.pop(self.rng.randrange(len(big.names))))
         after = self.hero_host()
         if after is not None and before_uid is not None and after.uid != before_uid:
-            self.table_change = f"Tischwechsel: du sitzt jetzt an Tisch {after.uid + 1}."
+            self.table_change = f"Table change: you're now seated at table {after.uid + 1}."
         if after is not None and self.is_final_table() and not self.final_table_reached:
             self.final_table_reached = True
 
@@ -412,19 +412,19 @@ class MTT:
             req_icm = icm_scaled_req(req, o, to_call, pot)
             out["req_chip"] = round(req, 3)
             out["req_icm"] = round(req_icm, 3)
-            out["text"] = (f"ICM: Call braucht +{(req_icm - req) * 100:.0f} pp Equity "
-                           f"({req_icm:.0%} statt {req:.0%}; Bubble-Faktor {bf:.2f} vs {out['villain']})")
+            out["text"] = (f"ICM: calling needs +{(req_icm - req) * 100:.0f} pp equity "
+                           f"({req_icm:.0%} instead of {req:.0%}; bubble factor {bf:.2f} vs {out['villain']})")
         else:
             flip = icm_required_equity(0.5, bf)
-            out["text"] = (f"ICM: Bubble-Faktor {bf:.2f} — ein Flip braucht {flip:.0%}; "
-                           f"Fold Equity ist jetzt die geschuetzte Equity-Form")
+            out["text"] = (f"ICM: bubble factor {bf:.2f} — a flip needs {flip:.0%}; "
+                           f"fold equity is the protected kind of equity right now")
         return out
 
     # ------------------------------------------------------------ Simulation (Tests / Bots-only)
     def run_bots_only(self, max_rounds: int = MAX_ROUNDS, audit: bool = False) -> dict:
         """Ganzes Turnier ohne Menschen (Hero als Bot). -> Sieger, Plaetze, Runden."""
         if self.entrants[self.hero_name].bot is None:
-            raise ValueError("run_bots_only braucht einen hero_bot")
+            raise ValueError("run_bots_only requires a hero_bot")
         while not self.over() and self.round_no < max_rounds:
             self.play_round_all()
             if audit:

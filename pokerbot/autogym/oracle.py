@@ -309,6 +309,6 @@ def manifest() -> dict:
             "outs_to_equity_rule_2_and_4", "compute_spr",
             "count_hand_combos_with_blockers", "breakeven_bluff_percentage",
             "equity_realization",
-            "34 Postflop-Formeln aus knowledge_base/math (DSL-Konvertierung, NOTES.md)",
+            "34 Postflop-Formeln aus knowledge_base/math (DSL-Konvertierung, docs/NOTES.md)",
         ],
     }

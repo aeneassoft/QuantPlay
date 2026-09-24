@@ -7,7 +7,7 @@ knowledge_base artifacts) gets a stable key, a ROLE, an honest one-line descript
 WHY: the data was opaque — ambiguous shard names (`solver_mass` vs `c_decide`), undocumented `.pt` nets, hardcoded shard
 lists scattered in the training pipeline — so you had to open files or grep code to know what anything was. Now the
 training pipeline asks THIS registry for data by ROLE (e.g. `sft_gold()`), not by hardcoded path → the data is
-structured for the AI's training logic, and `dataset/build_manifest.py` renders a never-stale CATALOG.md from it.
+structured for the AI's training logic, and `dataset/build_manifest.py` renders a never-stale docs/catalogs/DATA_CATALOG.md from it.
 
 $0, no torch/trl: pure path + jsonl-stat, safe to import anywhere (the training pipeline imports `sft_gold`).
 HARD RULE (CLAUDE.md): the `.pt` advisors + knowledge_base paths are hard-referenced by config.py + strategy/* — this

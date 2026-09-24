@@ -1,4 +1,4 @@
-"""CoinPoker hand-history -> engine Spots, for the personal coaching path (docs/ROADMAP.md §B).
+"""CoinPoker hand-history -> engine Spots, for the personal coaching path (docs/plans/ROADMAP.md §B).
 
 The one genuinely-new piece the roadmap flagged: a CoinPoker HH parser + a replay that snapshots each HERO decision as
 a canonical `Spot` (pokerbot/brain/format_spot.py). Once a decision is a Spot, the whole engine stack works on it —

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -119,10 +119,10 @@
   </div></div>
   <div class="bar" id="bar"><div class="wait">…</div></div>
   <div class="panel">
-    <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Dein Session-Netto (bb)</div></div>
-    <div class="mini"><button id="b-new" class="sec">Neu</button><button id="b-an">Analyse</button></div>
-    <h3>Analyse</h3><div class="out" id="out">Spiel ~100 Hände, dann „Analyse".</div>
-    <h3>Verlauf</h3><div class="log" id="log"></div>
+    <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Your session net (bb)</div></div>
+    <div class="mini"><button id="b-new" class="sec">New</button><button id="b-an">Analyze</button></div>
+    <h3>Analysis</h3><div class="out" id="out">Play ~100 hands, then hit "Analyze".</div>
+    <h3>History</h3><div class="log" id="log"></div>
   </div>
 </div>
 <script>
@@ -140,8 +140,8 @@ function seatCoords(n){
 }
 let SC=seatCoords(6);
 const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066','#c9a2ff','#7fe0a0','#f2a2a2','#a2c2f2'];
-const RANK_DE={'High Card':'Hohe Karte','Pair':'Paar','Two Pair':'Zwei Paare','Three of a Kind':'Drilling',
-  'Straight':'Straße','Flush':'Flush','Full House':'Full House','Four of a Kind':'Vierling',
+const RANK_DE={'High Card':'High Card','Pair':'Pair','Two Pair':'Two Pair','Three of a Kind':'Three of a Kind',
+  'Straight':'Straight','Flush':'Flush','Full House':'Full House','Four of a Kind':'Four of a Kind',
   'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
 let bb=100, view=null, advTimer=null, lastBtn=null;
 
@@ -170,7 +170,7 @@ function render(v){
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const sn=(v.session_net||0)/bb;
   $('snet').textContent=(sn>=0?'+':'')+bbs(v.session_net); $('snet').className='v '+(sn>0?'pos':sn<0?'neg':'');
-  $('snetl').textContent=`Dein Session-Netto (bb) · ${v.hands_done||0} Hände`;
+  $('snetl').textContent=`Your session net (bb) · ${v.hands_done||0} hands`;
   document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
   const winnerSeats=new Set((v.result&&v.result.winners||[]).map(w=>w.seat));
   v.seats.forEach(s=>{
@@ -225,19 +225,19 @@ function renderEnd(v){
   const me=v.seats[v.human_seat], net=me.net||0;
   const myWin=(v.result.winners||[]).find(w=>w.seat===v.human_seat);
   let txt='';
-  if(net>0) txt=`Du gewinnst +${bbs(net)} bb${myWin&&myWin.rank?' · '+(RANK_DE[myWin.rank]||myWin.rank):''} 🎉`;
-  else if(net<0) txt=`Du verlierst ${bbs(net)} bb`;
+  if(net>0) txt=`You win +${bbs(net)} bb${myWin&&myWin.rank?' · '+(RANK_DE[myWin.rank]||myWin.rank):''} 🎉`;
+  else if(net<0) txt=`You lose ${bbs(net)} bb`;
   ban.textContent=txt; ban.classList.toggle('show', net!==0);
   ban.style.color = net>0?'var(--win)':'var(--red)';
   // log: who won with what (no opponent amounts), your net separately
   const wl=(v.result.winners||[]).map(w=>`${v.seats[w.seat].name}${w.rank?' ('+(RANK_DE[w.rank]||w.rank)+')':''}`).join(', ');
-  log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
+  log('🏆 '+wl+(net?` · you ${net>0?'+':''}${bbs(net)}bb`:''),'r');
   advTimer=setTimeout(nextHand, 2400);
 }
 
 function renderBar(v){
   const bar=$('bar'),L=v.legal||{},my=!v.hand_over&&L.to_act===v.human_seat;
-  if(!my){bar.innerHTML='<div class="wait">'+(v.hand_over?'Nächste Hand…':'Gegner sind dran…')+'</div>';return;}
+  if(!my){bar.innerHTML='<div class="wait">'+(v.hand_over?'Next hand…':'Opponents are acting…')+'</div>';return;}
   bar.innerHTML='';const row=document.createElement('div');row.className='btnrow';
   if(L.can_fold)row.appendChild(mk('Fold','fold',()=>send('fold')));
   if(L.can_check)row.appendChild(mk('Check','check',()=>send('check')));
@@ -258,18 +258,18 @@ function renderBar(v){
 }
 function mk(t,c,fn){const b=document.createElement('button');b.textContent=t;if(c)b.className=c;b.onclick=fn;return b;}
 async function api(p,b){const r=await fetch(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})});return r.json();}
-async function start(){$('log').innerHTML='';log('— Neues Spiel —','s');
+async function start(){$('log').innerHTML='';log('— New game —','s');
   const np=parseInt(new URLSearchParams(location.search).get('players'))||6;   // ?players=9 -> 9-max
   render(await api('/api/new_session',{stack_bb:100, players:np}));}
 async function nextHand(){advTimer=null;render(await api('/api/hand',{}));}
 async function send(a,amt){if(advTimer){clearTimeout(advTimer);advTimer=null;}
   const v=await api('/api/action',{action:a,amount:amt});
-  if(v.error){log('Fehler: '+v.error,'s');return;}
-  log(`<span class="y">Du</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');render(v);}
-async function analyze(){$('out').textContent='… analysiere …';const v=await api('/api/analyze',{});const s=v.stats||{};
-  $('out').textContent=`Hände: ${s.hands}\nVPIP ${s.vpip_pct}% · PFR ${s.pfr_pct}% · 3bet ${s.threebet_pct}%\n`+
+  if(v.error){log('Error: '+v.error,'s');return;}
+  log(`<span class="y">You</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');render(v);}
+async function analyze(){$('out').textContent='… analyzing …';const v=await api('/api/analyze',{});const s=v.stats||{};
+  $('out').textContent=`Hands: ${s.hands}\nVPIP ${s.vpip_pct}% · PFR ${s.pfr_pct}% · 3bet ${s.threebet_pct}%\n`+
     `Aggression ${s.postflop_aggression_factor} · Showdown ${s.went_to_showdown_pct}%\n`+
-    `Netto: ${s.net_bb} bb (${s.bb_per_100} bb/100)\n\n${v.narrative||''}`;}
+    `Net: ${s.net_bb} bb (${s.bb_per_100} bb/100)\n\n${v.narrative||''}`;}
 $('b-new').onclick=start;$('b-an').onclick=analyze;
 start();
 </script>

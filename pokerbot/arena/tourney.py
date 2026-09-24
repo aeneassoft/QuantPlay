@@ -1,6 +1,6 @@
 """TURNIER-ARENA — Single-Table-SNGs des Bots gegen das sixmax-Feld, mit gepaarten Seeds.
 
-Die Spielschleife ist die bewährte aus research/coinpoker_ecology.simulate (decide mit Fallback,
+Die Spielschleife ist die bewährte aus der frueheren Oekologie-Simulation (decide mit Fallback,
 observe-Fanout), MINUS Stack-Reset, PLUS Director (Level/Antes/Eliminierung/Payouts) und der
 obs['icm']-Injektion pro Entscheidung. Gepaarte Seeds = Arm A und Arm B spielen DIESELBEN Decks
 gegen DIESELBEN Feld-Profile — Kartenglück kürzt sich (die Grounded-Gate-Doktrin).

@@ -1,5 +1,5 @@
-"""RIVER-BR-PRUEFSTAND — beide Hero-Arme im SELBEN River-Root-Spiel bewertet (v10 K3; Karte docs/V10_BUILD_CARD.md
-K3 + E3/E9; Fakten docs/V10_FAKTEN.md A6/B10/B13).
+"""RIVER-BR-PRUEFSTAND — beide Hero-Arme im SELBEN River-Root-Spiel bewertet (v10 K3; Karte docs/plans/V10_BUILD_CARD.md
+K3 + E3/E9; Fakten docs/reports/V10_FACTS.md A6/B10/B13).
 
 Je Quellhand EIN Root (research/k3_roots.py: River-Beginn). Gemeinsames Root-Spiel rho_s = (Hero-Range: K1 falls
 vorhanden sonst Tracker [Flag], Villain: Tracker). Zwei Hero-Politiken:

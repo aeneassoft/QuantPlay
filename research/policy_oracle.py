@@ -1,5 +1,5 @@
 """POLICY-ORACLE — die Verteilung der AUSGEFUEHRTEN v5-Politik (Arm A, Stack r8_stack) je Hero-Combo an einem
-River-Knoten (v10 K3, docs/V10_BUILD_CARD.md K3 'Politiken' + E3; Fakten docs/V10_FAKTEN.md A3/A5/B7).
+River-Knoten (v10 K3, docs/plans/V10_BUILD_CARD.md K3 'Politiken' + E3; Fakten docs/reports/V10_FACTS.md A3/A5/B7).
 
 Ergebnis je Knoten: contracts.PolicyTable [angefragte board-kompatible Combos x ActionKey] + Meta.
 

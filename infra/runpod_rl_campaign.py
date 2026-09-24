@@ -43,7 +43,7 @@ GPULOAD_LOCAL = str(config.ROOT / "data" / "gpu_load.jsonl")           # nvidia-
 
 # SCALE = the full-mega-GPU-load run (vs the default 40-60min smoke). The user's directive: fully load BOTH the compute
 # AND the vRAM, with SIZE-AGNOSTIC training (BASE = 8B preferred, 32B/70B to fill a bigger card). The three full-load
-# levers (docs/full_gpu_load.md): (1) REWARD_WORKERS parallelizes the CPU reward so the GPU isn't starved [the real
+# levers (docs/plans/full_gpu_load.md): (1) REWARD_WORKERS parallelizes the CPU reward so the GPU isn't starved [the real
 # bottleneck], (2) VLLM_MEM high fills vRAM with vLLM KV cache (more concurrent gen), (3) BASE↑ + bigger G/batch fill
 # compute. All env-driven so one file serves smoke + scale.
 # MODE = "train" (the SFT->GRPO deployment-model run) OR "teacher" (a frontier-scale Qwen GENERATES gated DSL data on the

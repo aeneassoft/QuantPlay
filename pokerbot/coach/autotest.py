@@ -1,10 +1,10 @@
 """Autotest-Harness (P4-A): Liga-Bots spielen den Menschen-Sitz durch den KOMPLETTEN Trainer-Stack.
 
-WHY (TRAINER_DESIGN.md par.7, verbindlich vor Menschen-Einsatz): der volle Pfad Logger -> Grader ->
+WHY (docs/doctrine/TRAINER_DESIGN.md par.7, verbindlich vor Menschen-Einsatz): der volle Pfad Logger -> Grader ->
 Renderer -> Report muss N Haende ohne Crash ueberleben, die Latenz-Budgets halten und eine plausible
 Grade-Verteilung liefern (station wird schlechter benotet als tag — die Sanity des Graders selbst).
 Der Treiber normalisiert SixMaxBot-'bet' zu 'raise' und klemmt amounts in [raise_min, raise_max]
-aus view.legal (BINDING, TRAINER_PLAN.md P4-A) — sonst 400t der Harness und zero_crash scheitert
+aus view.legal (BINDING, docs/plans/TRAINER_PLAN.md P4-A) — sonst 400t der Harness und zero_crash scheitert
 faelschlich. Ein persistenter injizierter rng pro Arm (KEIN per-Spot-Reseed — der Fake-Mixing-Trap,
 arena/sixmax.py:96-97).
 

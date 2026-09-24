@@ -1,6 +1,6 @@
 """Convert knowledge_base/math (Mathematics of Poker → formulas) into VERIFIED math-reasoning examples that teach the
 brain to use the engine-API math (api.pot_odds / mdf / spr / ...) rather than do LLM arithmetic. Answers are the
-formula's own `verify_result` → high-precision, low-leakage (docs/DATASET_SPEC.md)."""
+formula's own `verify_result` → high-precision, low-leakage (docs/doctrine/DATASET_SPEC.md)."""
 from __future__ import annotations
 
 import json

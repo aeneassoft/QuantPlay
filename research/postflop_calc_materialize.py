@@ -1,6 +1,6 @@
 """Materialize the ENGINE-VERIFIED post-flop calcs (postflop_calc_verified.json) into ONE importable module
 `knowledge_base/math/postflop_formulas.py`, then re-verify ALL of them TOGETHER (catches name collisions the per-spec
-gate can't). The module is the callable library the engine-API wraps for the brain. Per docs/math_accuracy_strategy.md.
+gate can't). The module is the callable library the engine-API wraps for the brain. Per docs/plans/math_accuracy_strategy.md.
 
 Run: python -m research.postflop_calc_materialize
 """
@@ -18,7 +18,7 @@ OUT = config.KNOWLEDGE_DIR / "math" / f"{_BASE.replace('_calc', '_formulas')}.py
 
 _HEADER = ('"""Post-flop NLHE calculations — GPT-5.5-generated, ENGINE-VERIFIED (each self-check passes; gate +\n'
            'materialize in research/postflop_calc_*). Pure stdlib. The callable library the engine-API exposes to the\n'
-           'brain. Regenerate via `python -m research.postflop_calc_materialize`. Per docs/math_accuracy_strategy.md."""\n'
+           'brain. Regenerate via `python -m research.postflop_calc_materialize`. Per docs/plans/math_accuracy_strategy.md."""\n'
            "from __future__ import annotations\n\n"
            "import itertools  # noqa: F401\n"
            "import math  # noqa: F401\n"

@@ -1,7 +1,7 @@
 """Flop-LIBRARY calibration pilot: what does ONE flop->terminal solve really cost to convergence?
 
 The 2026-07-05 feasibility gate (research/flop_feasibility.py) capped at 300s and got 49/50 TIMEOUTS —
-so the true per-solve cost is UNKNOWN, and the library budget (1755 canonical flops x lines, NOTES.md
+so the true per-solve cost is UNKNOWN, and the library budget (1755 canonical flops x lines, docs/NOTES.md
 Queue #1) cannot be planned. This pilot removes the cap (30 min/solve), runs 4 texture-representative
 canonical flops through TWO trees:
   MINIMAL  - 1 bet size/street (the EVPA-minimal-menu retest whose bwfga5qs2 result died with its session)

@@ -67,10 +67,44 @@ def _write_bundle(target: Path) -> str:
     return hashlib.sha1(target.read_bytes()).hexdigest()[:10]
 
 
+SITE_URL = "https://quantplay.io/"
+SITE_TITLE = "QuantPlay — 6-max No-Limit Hold'em trainer in your browser"
+SITE_DESCRIPTION = ("Free 6-max No-Limit Hold'em poker trainer that runs entirely in your browser: profiled bot "
+                    "opponents, every decision graded with an explanation, exploit and arena modes, a 60-player "
+                    "tournament with ICM. No account, no server, open source.")
+
+
+def _site_head() -> str:
+    """SEO / social / machine-readable metadata for the deployed site only (the local server does not need it)."""
+    ld = {
+        "@context": "https://schema.org", "@type": "WebApplication", "name": "QuantPlay",
+        "url": SITE_URL, "description": SITE_DESCRIPTION, "applicationCategory": "GameApplication",
+        "operatingSystem": "Any (browser, WebAssembly)", "browserRequirements": "WebAssembly, Web Workers",
+        "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "license": "https://polyformproject.org/licenses/noncommercial/1.0.0",
+        "codeRepository": "https://github.com/aeneassoft/QuantPlay",
+        "author": {"@type": "Person", "name": "Leonhard Hampe"},
+        "keywords": "poker trainer, 6-max, no-limit holdem, GTO, exploit, ICM, tournament, Pyodide, WebAssembly",
+    }
+    return (
+        f'<meta name="description" content="{SITE_DESCRIPTION}"/>\n'
+        f'<link rel="canonical" href="{SITE_URL}"/>\n'
+        f'<link rel="license" href="https://polyformproject.org/licenses/noncommercial/1.0.0"/>\n'
+        f'<meta property="og:type" content="website"/>\n<meta property="og:url" content="{SITE_URL}"/>\n'
+        f'<meta property="og:title" content="{SITE_TITLE}"/>\n<meta property="og:description" content="{SITE_DESCRIPTION}"/>\n'
+        f'<meta property="og:image" content="{SITE_URL}og.png"/>\n<meta property="og:image:width" content="1200"/>\n'
+        f'<meta property="og:image:height" content="630"/>\n<meta name="twitter:card" content="summary_large_image"/>\n'
+        f'<meta name="twitter:title" content="{SITE_TITLE}"/>\n<meta name="twitter:description" content="{SITE_DESCRIPTION}"/>\n'
+        f'<meta name="twitter:image" content="{SITE_URL}og.png"/>\n'
+        f'<link rel="icon" href="favicon.svg" type="image/svg+xml"/>\n'
+        f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
+    )
+
+
 def _inject_bridge(html: str, build_id: str) -> str:
     """The bridge must be the FIRST script: it replaces window.fetch before the page's own code runs."""
     tag = (f'<script>window.QP_BUILD={json.dumps({"v": build_id, "pyodide": PYODIDE_VERSION})}</script>\n'
-           f'<script src="bridge.js?v={build_id}"></script>\n')
+           f'<script src="bridge.js?v={build_id}"></script>\n' + _site_head())
     marker = "<head>\n"
     if marker not in html:
         sys.exit("training.html: <head> marker not found")
@@ -96,9 +130,10 @@ def build() -> None:
         "build": build_id, "bundle": BUNDLE_NAME, "bundle_sha1": bundle_hash,
         "wheels": [w.name for w in wheels], "pyodide": PYODIDE_VERSION,
     }, indent=2), encoding="utf-8")
-    for extra in ("favicon.svg",):
-        if (WEB / extra).exists():
-            shutil.copy2(WEB / extra, DIST / extra)
+    # web/site/: robots.txt, sitemap.xml, llms.txt, og.png, favicon.svg — served 1:1 at the site root
+    for extra in sorted((WEB / "site").glob("*")) if (WEB / "site").exists() else []:
+        if extra.is_file():
+            shutil.copy2(extra, DIST / extra.name)
     size_mb = sum(p.stat().st_size for p in DIST.rglob("*") if p.is_file()) / 1e6
     print(f"web/dist built: build={build_id} bundle={bundle_hash} ({(DIST / BUNDLE_NAME).stat().st_size / 1e6:.2f} MB) "
           f"wheels={len(wheels)} total={size_mb:.2f} MB")

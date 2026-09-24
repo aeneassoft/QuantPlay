@@ -1,4 +1,4 @@
-"""Turnier-Modus des Trainers (docs/TURNIER_MODUS.md): MTT-Direktor + Server-Smoke.
+"""Turnier-Modus des Trainers (docs/reports/TOURNAMENT_MODE.md): MTT-Direktor + Server-Smoke.
 
   python -m tests.test_tournament_mode
 """
@@ -129,7 +129,7 @@ def test_server_smoke():
             assert "error" not in v, v.get("error")
             acts += 1
             last = v["tournament"]["advisor"]["last"]
-            assert last and last["text"] and (last["text"] == "GTO ✓" or last["text"].startswith("Abweichung"))
+            assert last and last["text"] and (last["text"] == "GTO ✓" or last["text"].startswith("Deviation"))
         else:
             v = c.post("/api/step", json={}).json()
     st = v["tournament"]["advisor"]["stats"]

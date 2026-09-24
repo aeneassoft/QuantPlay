@@ -1,4 +1,4 @@
-"""G2 LATENZ — Live-Kanal-Latenz beider v10-Arme auf ECHTEN River-Zustaenden (docs/V10_BUILD_CARD.md E10).
+"""G2 LATENZ — Live-Kanal-Latenz beider v10-Arme auf ECHTEN River-Zustaenden (docs/plans/V10_BUILD_CARD.md E10).
 
 Gate (E10): Plan-Pot-Entscheidungen p99 < 8 s UND Gesamt-p99 v10 <= Gesamt-p99 v5-H UND kein Aufruf >= 30 s.
 

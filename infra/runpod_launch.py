@@ -20,7 +20,7 @@ from pokerbot import config
 KEY_FILE = r"C:\Users\hampe\Desktop\Secret keys\Runpod-machiavel key.txt"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
-BOOTSTRAP = config.ROOT / "pod_bootstrap.sh"
+BOOTSTRAP = config.ROOT / "infra/serverless/pod_bootstrap.sh"
 EST_MIN, EST_MAX = 0.5, 3.0      # estimated USD for one full run (CPU pod, ~30-90 min)
 
 

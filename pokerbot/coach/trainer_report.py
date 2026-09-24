@@ -2,9 +2,9 @@
 
 WHY: Nach einer Trainings-Session braucht der Mensch EINEN warmen, ehrlichen Blick zurueck:
 wie viele Entscheidungen, welche Grade-Verteilung (ok/teuer/leak — NIE Ergebnisse graden,
-TRAINER_DESIGN.md par.1), wo das wiederkehrende Leck sitzt, und der beste Moment EXPLIZIT
+docs/doctrine/TRAINER_DESIGN.md par.1), wo das wiederkehrende Leck sitzt, und der beste Moment EXPLIZIT
 gefeiert (par.1.5). Format ist kontrolliert (session_log.build_hand_record + das P0
-decision-Schema aus TRAINER_DESIGN.md par.4) — kein Parser noetig.
+decision-Schema aus docs/doctrine/TRAINER_DESIGN.md par.4) — kein Parser noetig.
 
 Input-Vertrag (key-tolerant via .get — P0-Drift-Panzerung):
 - session JSONL: build_hand_record-Schema (session_log.py:8-32)
@@ -31,11 +31,13 @@ LEARN_BAND = (0.10, 0.20)                 # adaptive error-rate band (TRAINER_DE
 DEFAULT_BB = 100                          # chips per bb (repo convention, CLAUDE.md)
 
 def _de_num(x: float, nachkomma: int = 1) -> str:
-    """German decimal comma — also keeps the sentence counter honest (no '.' in numbers)."""
-    return f"{x:.{nachkomma}f}".replace(".", ",")
+    """Number formatting for the narrative (English decimal point since the 2026-09 translation;
+    the name is kept for API stability — the selftest's sentence counter skips digit-adjacent dots)."""
+    return f"{x:.{nachkomma}f}"
 
 
-STREET_DE = {"preflop": "Preflop", "flop": "Flop", "turn": "Turn", "river": "River"}
+# street phrase as used after an action verb: "Call preflop" / "Call on the flop"
+STREET_DE = {"preflop": "preflop", "flop": "on the flop", "turn": "on the turn", "river": "on the river"}
 ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet",
              "raise": "Raise", "allin": "All-in"}
 
@@ -133,10 +135,10 @@ def _leak_top(decisions: list[dict]) -> list[dict]:
     """Top grade_typ buckets over non-ok decisions, count desc (ties alphabetical
     for determinism), each with one example erklaerung_kurz."""
     bad = [d for d in decisions if d.get("grade") in ERROR_GRADES]
-    counts = Counter(d.get("grade_typ") or "unbekannt" for d in bad)
+    counts = Counter(d.get("grade_typ") or "unknown" for d in bad)
     beispiel = {}
     for d in bad:  # first occurrence in log order = deterministic example
-        beispiel.setdefault(d.get("grade_typ") or "unbekannt",
+        beispiel.setdefault(d.get("grade_typ") or "unknown",
                             d.get("erklaerung_kurz") or "")
     ordered = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
     return [{"grade_typ": typ, "count": n, "erklaerung_kurz": beispiel.get(typ, "")}
@@ -159,7 +161,7 @@ def _moment_satz(dec: dict) -> str:
     """Ein deterministischer Halbsatz, der einen Entscheidungs-Moment benennt."""
     street = STREET_DE.get(dec.get("street"), str(dec.get("street") or "?"))
     act = (dec.get("human_action") or {}).get("action") or "?"
-    return f"{ACTION_DE.get(act, act)} am {street} bei {_de_num(_pot_bb(dec))} bb im Pot"
+    return f"{ACTION_DE.get(act, act)} {street} with {_de_num(_pot_bb(dec))} bb in the pot"
 
 
 # ---------------------------------------------------------------- narrative
@@ -167,38 +169,38 @@ def _moment_satz(dec: dict) -> str:
 def _band_satz(error_rate: float, n: int) -> str:
     lo, hi = LEARN_BAND
     if n == 0:
-        return "Noch keine bewertete Entscheidung — die naechste Session liefert die Daten."
+        return "No graded decisions yet — the next session will deliver the data."
     pct = _de_num(100 * error_rate) + "%"
     if error_rate < lo:
-        return (f"Deine Fehlerquote liegt bei {pct} — unter dem Lernband von 10–20%, "
-                "du darfst dir ruhig staerkere Gegner goennen.")
+        return (f"Your error rate is {pct} — below the 10–20% learning band, "
+                "feel free to take on tougher opponents.")
     if error_rate <= hi:
-        return f"Deine Fehlerquote liegt bei {pct} — genau im Lern-Sweetspot von 10–20%."
-    return (f"Deine Fehlerquote liegt bei {pct} — ueber dem Lernband, kein Drama, "
-            "wir drehen die Schwierigkeit einen Tick runter.")
+        return f"Your error rate is {pct} — right in the 10–20% learning sweet spot."
+    return (f"Your error rate is {pct} — above the learning band; no drama, "
+            "we'll dial the difficulty down a notch.")
 
 
 def _narrative_de(n_hands: int, n_decisions: int, dist: dict, error_rate: float,
                   leak_top: list[dict], best: dict | None, worst: dict | None) -> str:
     """Deterministische 4-6 Saetze: warm, progress-orientiert, nie Ergebnis-gradend."""
-    saetze = [f"Schoene Session — {n_hands} Haende gespielt und {n_decisions} "
-              "Entscheidungen ehrlich bewertet",
-              f"Davon waren {dist['ok']} solide, {dist['teuer']} teuer "
-              f"und {dist['leak']} echte Leaks",
+    saetze = [f"Nice session — {n_hands} hands played and {n_decisions} "
+              "decisions graded honestly",
+              f"Of those, {dist['ok']} were solid, {dist['teuer']} costly "
+              f"and {dist['leak']} real leaks",
               _band_satz(error_rate, n_decisions).rstrip(".")]
     if best is not None:
-        saetze.append(f"Dein bester Moment: {_moment_satz(best)} — genau so weiter")
+        saetze.append(f"Your best moment: {_moment_satz(best)} — keep it up")
     if leak_top:
         top = leak_top[0]
-        grund = f" ({top['erklaerung_kurz']})" if top["erklaerung_kurz"] else ""
-        saetze.append(f"Haeufigstes Thema: {top['grade_typ']} "
+        grund = f" ({top['erklaerung_kurz'].rstrip('.')})" if top["erklaerung_kurz"] else ""
+        saetze.append(f"Most frequent theme: {top['grade_typ']} "
                       f"({top['count']}x){grund}".rstrip("."))
     elif worst is None:
-        saetze.append("Kein wiederkehrender teurer Kauf in dieser Session — stark")
+        saetze.append("No recurring costly mistake this session — strong")
     if worst is not None:
         alt = _oracle_action(worst)
-        alt_txt = f" — Alternative: {ACTION_DE.get(alt, alt)}" if alt else ""
-        saetze.append(f"Der teuerste Kauf war {_moment_satz(worst)}{alt_txt}")
+        alt_txt = f" — alternative: {ACTION_DE.get(alt, alt)}" if alt else ""
+        saetze.append(f"The most expensive mistake was {_moment_satz(worst)}{alt_txt}")
     return ". ".join(saetze[:6]) + "."
 
 
@@ -232,28 +234,28 @@ def format_report_text(rep: dict) -> str:
     """Der Report als schlichter deutscher Textblock (Panel/Konsole/Log)."""
     dist = rep.get("grade_dist", {})
     stats = rep.get("stats", {})
-    lines = ["=== Session-Report ===",
-             f"Haende: {rep.get('n_hands', 0)} · bewertete Entscheidungen: "
+    lines = ["=== Session Report ===",
+             f"Hands: {rep.get('n_hands', 0)} · graded decisions: "
              f"{rep.get('n_decisions', 0)}",
-             f"Grades: {dist.get('ok', 0)} ok · {dist.get('teuer', 0)} teuer · "
+             f"Grades: {dist.get('ok', 0)} ok · {dist.get('teuer', 0)} costly · "
              f"{dist.get('leak', 0)} leak "
-             f"(Fehlerquote {100 * rep.get('error_rate', 0.0):.1f}%)"]
+             f"(error rate {100 * rep.get('error_rate', 0.0):.1f}%)"]
     stat_teile = [f"{label} {stats[key]}" for key, label in
                   (("vpip_pct", "VPIP%"), ("pfr_pct", "PFR%"),
-                   ("went_to_showdown_pct", "WTSD%"), ("net_bb", "Netto bb"),
+                   ("went_to_showdown_pct", "WTSD%"), ("net_bb", "Net bb"),
                    ("bb_per_100", "bb/100"))
                   if stats.get(key) is not None]
     if stat_teile:
-        lines.append("Statistik: " + " · ".join(stat_teile))
+        lines.append("Stats: " + " · ".join(stat_teile))
     if rep.get("leak_top"):
-        lines.append("Teuerste Muster:")
+        lines.append("Most expensive patterns:")
         for item in rep["leak_top"]:
             bsp = f" — {item['erklaerung_kurz']}" if item.get("erklaerung_kurz") else ""
             lines.append(f"  {item['count']}x {item['grade_typ']}{bsp}")
     if rep.get("best_moment"):
-        lines.append(f"Bester Moment: {_moment_satz(rep['best_moment'])}")
+        lines.append(f"Best moment: {_moment_satz(rep['best_moment'])}")
     if rep.get("teuerstes_moment"):
-        lines.append(f"Teuerster Kauf: {_moment_satz(rep['teuerstes_moment'])}")
+        lines.append(f"Most expensive mistake: {_moment_satz(rep['teuerstes_moment'])}")
     lines.append("")
     lines.append(rep.get("narrative_de", ""))
     return "\n".join(lines)
@@ -337,14 +339,15 @@ def _selftest() -> None:
               (rep["teuerstes_moment"] or {}).get("grade") == "leak")
         nar = rep["narrative_de"]
         check("narrative_de nicht leer", bool(nar.strip()))
-        n_saetze = len([s for s in re.split(r"[.!?]+", nar) if s.strip()])
+        # sentence boundary = punctuation followed by whitespace/end ("12.5 bb" is not a boundary)
+        n_saetze = len([s for s in re.split(r"[.!?]+(?=\s|$)", nar) if s.strip()])
         check(f"narrative_de 4-6 Saetze (ist {n_saetze})", 4 <= n_saetze <= 6)
-        check("narrative_de deutsch/warm ('Schoene Session')", "Schoene Session" in nar)
+        check("narrative_de englisch/warm ('Nice session')", "Nice session" in nar)
         check("deterministisch (2 Laeufe identisch)", rep == report(sess, decs))
 
         txt = format_report_text(rep)
         check("format_report_text nicht leer + Header",
-              txt.startswith("=== Session-Report ===") and "Fehlerquote 37.5%" in txt)
+              txt.startswith("=== Session Report ===") and "error rate 37.5%" in txt)
 
         # drifted schema -> fallback stats, no crash
         bad = Path(td) / "session_drift.jsonl"

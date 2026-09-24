@@ -1,32 +1,32 @@
-# PokerB 6-max — Spielen & Analyse
+# PokerB 6-max — play & analysis
 
-## 🎮 Sofort spielen
-**Doppelklick auf `PokerB 6max spielen.bat`** (liegt auf dem Desktop) → Browser öffnet sich, du
-spielst gegen **5 Bots**. Schnell, **ohne Tipps**. Buttons: Fold / Check / Call /
-Bet-Raise (Slider + ½ / ¾ / Pot) / All-in. Nach jeder Hand „Nächste Hand ▸".
+## 🎮 Play right away
+**Double-click `PokerB 6max spielen.bat`** (on the desktop) → the browser opens, you
+play against **5 bots**. Fast, **without hints**. Buttons: Fold / Check / Call /
+Bet-Raise (slider + ½ / ¾ / pot) / All-in. After every hand "Next hand ▸".
 
-## 📝 Deine Hände werden geloggt
-Jede Hand (Positionen, **deine Aktionen + Einsatzgrößen**, Board, Ergebnis, Netto pro Spieler) wird
-in `data/sessions/session_<zeitstempel>.jsonl` gespeichert.
+## 📝 Your hands are logged
+Every hand (positions, **your actions + bet sizes**, board, result, net per player) is
+stored in `data/sessions/session_<timestamp>.jsonl`.
 
-## 📊 Analyse am Ende
-Klick **„Meine Hände analysieren"** → Statistik (VPIP, PFR, 3-bet, Postflop-Aggression, Showdown-%,
-**bb/100**) + eine ehrliche Spielstil-Einordnung und deine größten Leaks (von Claude formuliert).
-(Validiert: nach 15 Test-Händen als „Calling Station" wurde genau das erkannt.)
+## 📊 Analysis at the end
+Click **"Analyze my hands"** → statistics (VPIP, PFR, 3-bet, postflop aggression, showdown %,
+**bb/100**) + an honest playing-style classification and your biggest leaks (phrased by Claude).
+(Validated: after 15 test hands played as a "calling station", exactly that was detected.)
 
-## 🤖 Profi-Daten katalogisiert (zum Lernen)
-**10.000 Pluribus-Hände** (der superhumane 6-max-Bot) sind in `knowledge_base/hand_histories/`
-normalisiert (`pluribus_hands.jsonl`) + Positions-Stats (`pluribus_stats.json`). Quelle: PHH-Dataset
-(Uni Toronto). So spielt Pluribus 6-max (Open-Frequenzen eng EP → weit LP) — nutzbar, um unseren Bot
-Richtung dieses Profils zu tunen.
+## 🤖 Pro data catalogued (for learning)
+**10,000 Pluribus hands** (the superhuman 6-max bot) are normalized in `knowledge_base/hand_histories/`
+(`pluribus_hands.jsonl`) + position stats (`pluribus_stats.json`). Source: PHH dataset
+(University of Toronto). This is how Pluribus plays 6-max (open frequencies tight EP → wide LP) — usable to tune our bot
+toward this profile.
 
-## 📐 Mathe-Buch
-„The Mathematics of Poker" wird via **gpt-5.1** in `knowledge_base/math/mathematics_of_poker.json`
-(+ `.md`) extrahiert (Toy-Games, Indifferenz, optimale Bluff-/Bet-Sizing-Frequenzen).
+## 📐 Math book
+"The Mathematics of Poker" is extracted via **gpt-5.1** into `knowledge_base/math/mathematics_of_poker.json`
+(+ `.md`) (toy games, indifference, optimal bluff/bet-sizing frequencies).
 
-## ⚙️ Unter der Haube
-Echte **N-Spieler-Engine mit Side-Pots** (`pokerbot/engine/table.py`) — stress-getestet über 500
-Hände (374 Side-Pot-Hände), Chip-Erhaltung hielt jede Hand. Bots: `pokerbot/arena/sixmax.py`
-(positionsbewusste Ranges + Equity + Fold-Equity-Sizing), instant (kein LLM im Spiel).
+## ⚙️ Under the hood
+Real **N-player engine with side pots** (`pokerbot/engine/table.py`) — stress-tested over 500
+hands (374 side-pot hands), chip conservation held every hand. Bots: `pokerbot/arena/sixmax.py`
+(position-aware ranges + equity + fold-equity sizing), instant (no LLM in the game).
 
-Start auch manuell: `python -m pokerbot.web.six_server --open`
+Start manually as well: `python -m pokerbot.web.six_server --open`

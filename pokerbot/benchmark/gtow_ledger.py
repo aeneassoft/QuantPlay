@@ -1,6 +1,6 @@
 """K4 — persistentes Hand-Ledger fuer GTOW-Laeufe (append-only JSONL, Flush nach jedem Write).
 
-WARUM (docs/V10_FAKTEN.md A8): der Harness schrieb die Hand-Histories erst NACH allen Haenden mit open('w') —
+WARUM (docs/reports/V10_FACTS.md A8): der Harness schrieb die Hand-Histories erst NACH allen Haenden mit open('w') —
 Chunk 4 der Nacht 2 ging komplett verloren; kein Fingerprint, kein Arm, keine Hand-Kennung je Zeile. Dieses Ledger
 schreibt JEDES Ereignis sofort auf Platte (open('a') + flush + fsync), damit ein Abbruch nach hand_end nichts
 verliert, und listet beim Wiederanlauf die OFFENEN Haende (start ohne end) fuer den clear_inprogress-Abgleich (K5).

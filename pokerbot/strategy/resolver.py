@@ -37,7 +37,7 @@ if _CENSUS:
     ]
     _RIVER_ACC, _RIVER_ITERS, _RIVER_TIMEOUT = 0.25, 200, 90
     _TURN_ACC, _TURN_ITERS, _TURN_TIMEOUT = 0.4, 120, 150
-    # v4 Stufe 2 (2026-08-17, VALUE_NET_PLAN.md:82-84 "robust default"): FLOP solver-to-terminal
+    # v4 Stufe 2 (2026-08-17, docs/plans/VALUE_NET_PLAN.md:82-84 "robust default"): FLOP solver-to-terminal
     # (flop->turn->river EXPLIZIT, KEIN Netz -> kein Spurious-Equilibrium-Risiko aus Gate 0c).
     # Drei explizite Strassen = multiplikativ groesster Baum -> LEANE Arme (je 2 Bet-Sizes,
     # 1 Raise-Size, allin), Census-nahe Groessen (Flop/Turn 35/75, River 65/100 = dominant).
@@ -231,7 +231,7 @@ def _label_to_action(lbl, la):
 
 def river_strategy(state, hole, board, pot, eff_stack, oop_str, ip_str, la,
                    acc: float = _RIVER_ACC, iters: int = _RIVER_ITERS, timeout: int = _RIVER_TIMEOUT):
-    """v10 K3/E3 (docs/V10_BUILD_CARD.md E3): die VERTEILUNG des River-Resolvers fuer unsere Hand — dasselbe
+    """v10 K3/E3 (docs/plans/V10_BUILD_CARD.md E3): die VERTEILUNG des River-Resolvers fuer unsere Hand — dasselbe
     Solve + dieselbe Baum-Navigation wie river_resolve, aber OHNE Sampling und ohne RNG-Verbrauch. Rueckgabe: das
     rohe TexasSolver-Strategie-Dict {label: p} (gto_oracle.strategy_for) oder None in exakt den Faellen, in denen
     river_resolve None liefert (leere Ranges, Solve-Fehler/Timeout, Off-Tree-Navigation, hand-not-in-range).

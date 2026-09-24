@@ -1,7 +1,7 @@
 # Architecture: GTO floor (Deep-CFR net) + LLM strategist + verify/gate bridge
 
 > The design for fusing the **Poker LLM** (Qwen LoRA, fine-tuned on PokerBench) with the **DeepMind-style
-> Deep-CFR net** into one bot. Companion to [STATE.md](STATE.md). Written 2026-06-14.
+> Deep-CFR net** into one bot. Companion to [STATE.md](../STATE.md). Written 2026-06-14.
 
 ## The core problem this solves
 Our honest weakness: we are a strong **exploiter without a GTO floor** — vs near-GTO Slumbot the heuristic
@@ -30,7 +30,7 @@ ideas is the **solver + benchmark + calibration loop**, not game rollouts.
    opponents we haven't profiled live yet (nearest-profile lookup).
 3. **Verify (math disposes)** — the solver/benchmark checks the proposed deviation against an
    **exploitability budget** (does this exploit lose more vs a GTO opponent than it gains? → reject); the
-   **calibration loop** ([calibration.py](../pokerbot/strategy/calibration.py)) checks it against observed
+   **calibration loop** ([calibration.py](../../pokerbot/strategy/calibration.py)) checks it against observed
    outcomes (are folds actually as frequent as predicted?).
 4. **Gate** — apply only when cross-confirmed: the **two-model gate** (fold-curve ⊕ aggression agree) AND
    calibration confidence are high enough. Otherwise → play the floor.
@@ -52,10 +52,10 @@ ideas is the **solver + benchmark + calibration loop**, not game rollouts.
 1. **`pokerbot/strategy/cfr_policy.py`** (NEW) — load the trained Deep-CFR net; `policy(infoset) -> probs`.
    Becomes `AdaptiveExploiter.base` (replacing / blending with the analytic `gto_baseline`). = the floor.
 2. **Playbook → adaptive overlay** — nearest-profile lookup over `playbook*.jsonl`, applied as the
-   cold-start overlay in [adaptive.py](../pokerbot/strategy/adaptive.py) (bounded + gated; reuses existing
+   cold-start overlay in [adaptive.py](../../pokerbot/strategy/adaptive.py) (bounded + gated; reuses existing
    `_pending`/two-model-gate/calibration machinery).
 3. **Serve Qwen via vLLM** → `meta_coach(provider="openai", base_url=…)`; run async per session to refine
-   the overlay from live reads. → [meta_coach.py](../pokerbot/coach/meta_coach.py)
+   the overlay from live reads. → [meta_coach.py](../../pokerbot/coach/meta_coach.py)
 4. **Verify hook** — `gto_benchmark`/`gto_oracle` scores each directive's exploitability cost;
    `translate.directive_to_change` → clamped param delta. Reject over-budget deviations.
 5. **Calibration everywhere** — extend the loop (now in HU adaptive) to 6-max; feed its summary back to the

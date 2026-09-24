@@ -1,505 +1,480 @@
 # PROJECT STATE — start here (for a fresh Claude session)
 
-> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](../INDEX.md) (live repo tree). Last updated **2026-09-09**.
-> The cross-session memory lives at> **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10): zuerst [`../!_PROJEKT_BILANZ_2026-09-10.md`](../!_PROJEKT_BILANZ_2026-09-10.md) lesen.**
+> Living entry point. Read this first, then [CLAUDE.md](../CLAUDE.md) (north star + conventions) + [INDEX.md](INDEX.md) (live repo tree). Last updated **2026-09-09**.
+> The cross-session memory lives at> **⚠ PROJECT CLOSED (2026-09-10): read [`PROJECT_BALANCE_2026-09-10.md`](PROJECT_BALANCE_2026-09-10.md) first.**
 >  `C:\Users\hampe\.claude\projects\C--Users-hampe-Desktop-PokerB\memory\` (index: `MEMORY.md`).
 
-## ★ 2026-09-24 — VEROEFFENTLICHT: Repo `aeneassoft/QuantPlay` (public) + Browser-Trainer auf quantplay.io
-- **GitHub:** `PokerB` → `QuantPlay` umbenannt (das alte Spiel-Repo → `quantplay-herzlichter`), `poker-core`
-  gepusht und Default-Branch, Sichtbarkeit public. Historie unveraendert (kein Rewrite). Vorher aus dem Baum
-  genommen: 41 CoinPoker-HHs eines Dritten (`knowledge_base/hand_histories/players - handhistories/`, jetzt in
-  `Desktop/PokerB_ausgelagert_2026-09-10/knowledge_base_hand_histories/`). Secret-Scan ueber alle 401 Commits:
-  keine Token-Muster. `data/preflop_strength.json` (3 KB Equity-Cache) ist jetzt versioniert, damit ein Klon spielt.
-- **Browser-Trainer (`web/`):** dieselbe `six_server.Session` laeuft in Pyodide 0.28.3 (Python 3.13/WASM) im
-  Web Worker des Besuchers; `pokerbot/web/browser_bridge.py` ruft die FastAPI-Endpunkte direkt auf (Pyodide hat
-  keine Threads → ASGI-Threadpool scheitert, gemessen). Bundle 1,23 MB (pokerbot/*.py+html, knowledge_base
-  math/ranges/cfr/postflop-json/tournament, preflop_strength.json) + 5 Wheels 0,34 MB. **Gemessen (Node+Pyodide):**
-  Import 0,9 s; 5 Haende inkl. Grader 0,32 s, langsamste Anfrage 0,11 s; Turnier 12 Haende 3,5 s, langsamste 0,35 s.
-  Alle 6 Modi + Feedback/Replay/Panel/Report/Analyse/Glossar im Browser geprueft (lokal und live auf quantplay.io).
-  Prince-Takeover bleibt aus (Default seit 2026-09-09), Advisor-Netze (.pt) nicht im Bundle (kein torch im Browser).
-- **Vercel:** Projekt `quantplay` von `aeneassoft/QuantPlay` (Spiel) getrennt, Passwort-Middleware weg, Deploy per
-  CLI aus `web/` (`vercel deploy --prod`), Alias quantplay.io. Keine Git-Anbindung (Root-Verzeichnis ist per CLI
-  nicht setzbar) → nach Aenderungen: `python web/build.py` + Deploy von Hand.
-- **Lizenz (2026-09-24, Operator):** PolyForm Noncommercial 1.0.0 (`LICENSE.md`) — kommerzielle Nutzung der
-  Poker-Assets nur mit schriftlicher Erlaubnis. Offen: UI nur Deutsch; Layout fuer 2560×1440 skaliert, auf Handy eng.
+## ★ 2026-09-24 (later) — ENGLISH, REORGANIZED, DE-PERSONALIZED, AGENT-READY
+- **Language:** trainer UI (`training.html`, `six.html`, `index.html`), coach texts (templates, grader, glossary,
+  opponent panel, range story, replay, report) and all documentation are English. Some code comments are still German.
+- **Removed:** the Punishment trainer mode and its five punisher profiles; every file and passage about the
+  operator's own poker persona and hand histories, plus scripts profiling real third-party players (moved to
+  `Desktop/PokerB_ausgelagert_2026-09-10/princedarkness_2026-09-24/`; git history untouched).
+- **Structure:** docs moved into `docs/{catalogs,doctrine,plans,reports,consults,archive,media}` with English names
+  (`MODULE_CATALOG`, `MEASUREMENT_CATALOG`, `CANDIDATES`, `PROJECT_BALANCE_2026-09-10`, …); root launchers →
+  `scripts/play_*.bat`; serverless worker → `infra/serverless/`. All references rewritten, 0 broken relative links.
+- **Discoverability:** `AGENTS.md`, `llms.txt` (repo + site), `CITATION.cff`, `CONTRIBUTING.md`, CI workflow
+  (`.github/workflows/tests.yml`), README with GIF, results table and the transferable measurement discipline;
+  site gets meta/OpenGraph/JSON-LD, `robots.txt`, `sitemap.xml`, `og.png`, favicon.
+- **License holder:** Leonhard Hampe (`NOTICE`), PolyForm Noncommercial 1.0.0.
 
-## ⏸ PAUSE-STAND (2026-09-10, alle Prozesse gestoppt)
-**Wo weitermachen — drei Punkte, in dieser Reihenfolge:**
-1. **v10s Fehlerquote.** Im einzigen gueltigen Kandidaten-Lauf endeten **10 von 23 Plan-Aktivierungen im
-   FEHLER** (43 %). Das ist der naechste Ansatzpunkt, NICHT die H1-Fortsetzung (docs/KAGGLE_ARENA.md, letzter
-   Abschnitt). gpt-5.6-sol empfiehlt dasselbe: K2 auf Oracle-Ranges gegen v5 bewerten, BEVOR H0/H1-Code entsteht.
-2. **Der v5-Anker fehlt weiterhin.** Der einzige GTOW-Anker (−21,12 ± **9,40**) gehoert v4/r6_button. Ohne
-   einen v5-Anker ist jede Staerke-Aussage spekulativ. Achtung: **c = 294, nicht 214** → SE 4 braucht 5.407 Haende.
-3. **Abgebrochene Messung:** `kaggle_v9_vs_champion_WDH` stand bei 100/300 Decks mit **−17,2 bb/100**
-   (vorlaeufig, kein Verdikt). Der v9-Guard feuert nach dem deal-Marken-Fix also SEHR WOHL — der fruehere
-   Nullbefund war ein Adapterfehler.
+## ★ 2026-09-24 — PUBLISHED: repo `aeneassoft/QuantPlay` (public) + browser trainer on quantplay.io
+- **GitHub:** `PokerB` → renamed `QuantPlay` (the old game repo → `quantplay-herzlichter`), `poker-core`
+  pushed and made the default branch, visibility public. History unchanged (no rewrite). Third-party hand
+  histories were moved out of the tree beforehand. Secret scan over all 401 commits:
+  no token patterns. `data/preflop_strength.json` (3 KB equity cache) is now versioned so that a clone plays.
+- **Browser trainer (`web/`):** the same `six_server.Session` runs in Pyodide 0.28.3 (Python 3.13/WASM) in the
+  visitor's Web Worker; `pokerbot/web/browser_bridge.py` calls the FastAPI endpoints directly (Pyodide has
+  no threads → the ASGI threadpool fails, measured). Bundle 1.23 MB (pokerbot/*.py+html, knowledge_base
+  math/ranges/cfr/postflop-json/tournament, preflop_strength.json) + 5 wheels 0.34 MB. **Measured (Node+Pyodide):**
+  import 0.9 s; 5 hands incl. grader 0.32 s, slowest request 0.11 s; tournament 12 hands 3.5 s, slowest 0.35 s.
+  All trainer modes + feedback/replay/panel/report/analysis/glossary verified in the browser (locally and live on quantplay.io).
+  Prince takeover stays off (default since 2026-09-09), advisor nets (.pt) not in the bundle (no torch in the browser).
+- **Vercel:** project `quantplay` separated from `aeneassoft/QuantPlay` (the game), password middleware removed, deploy via
+  CLI from `web/` (`vercel deploy --prod`), alias quantplay.io. No Git integration (the root directory cannot be set
+  via CLI) → after changes: `python web/build.py` + deploy by hand.
+- **License (2026-09-24, operator):** PolyForm Noncommercial 1.0.0 (`LICENSE.md`) — commercial use of the
+  poker assets only with written permission. Open: UI German-only; layout scaled for 2560×1440, cramped on phones.
 
-**Frisch im Repo:** [`MODULKATALOG.md`](MODULKATALOG.md) (272 Module) · [`MESSKATALOG.md`](MESSKATALOG.md)
-(alle Messungen + drei Korrekturen) · [`AIVAT_KAGGLE.md`](AIVAT_KAGGLE.md) (Entwurf, nichts gebaut) ·
-[`../KONSULT_GPT56_SOL_2026-09-10.md`](../KONSULT_GPT56_SOL_2026-09-10.md) (Zwitter-Konsult) ·
-[`../KANDIDATEN.md`](../KANDIDATEN.md). Geloescht: der Ordner `#Anderes/`.
+## ⏸ PAUSE STATE (2026-09-10, all processes stopped)
+**Where to resume — three points, in this order:**
+1. **v10's error rate.** In the only valid candidate run, **10 of 23 plan activations ended in
+   ERROR** (43 %). That is the next point of attack, NOT the H1 continuation (reports/KAGGLE_ARENA.md, last
+   section). gpt-5.6-sol recommends the same: evaluate K2 on oracle ranges against v5 BEFORE any H0/H1 code is written.
+2. **The v5 anchor is still missing.** The only GTOW anchor (−21.12 ± **9.40**) belongs to v4/r6_button. Without
+   a v5 anchor every strength claim is speculative. Caution: **c = 294, not 214** → SE 4 needs 5,407 hands.
+3. **Aborted measurement:** `kaggle_v9_vs_champion_WDH` stood at 100/300 decks with **−17.2 bb/100**
+   (preliminary, no verdict). So the v9 guard DOES fire after the deal-marker fix — the earlier
+   null finding was an adapter error.
 
-## ★★★★★ CURRENT (2026-09-10) — ZWEI KATALOGE + eine Korrektur, die die Hand-Budgets aendert
-**Neu: [`docs/MODULKATALOG.md`](MODULKATALOG.md)** (272 Modul-Eintraege, je Zweck/Schnittstelle/Abhaengigkeiten/
-Zustand/Kosten/**Mess-Status**/Fallstrick; refutierte Bausteine ausdruecklich enthalten) und
-**[`docs/MESSKATALOG.md`](MESSKATALOG.md)** (alle echten Messungen mit Quelle, Verdikt und Gueltigkeit).
-CLAUDE.md verweist oben darauf. Modulkatalog = was ein Teil TUT, Messkatalog = ob es FUNKTIONIERT.
-**★ KORREKTUR (nachgerechnet aus den Handhistorien, nicht uebernommen): der Varianzkoeffizient des heutigen
-Bots ist c = 294, nicht 214.** Aus `gtow_hands_1787027076/_1787033025.jsonl` (n=979): Mittel −21,12,
-per-Hand-SD 294,1, **SE 9,40** (nicht 6,8). Die 214 stammen aus der v2.2-Aera (dort SD 213,5 bei n=2393).
-Folge: fuer SE = 4 bb/100 braucht es **5.407 statt 2.862 Haende**; das 95-%-Band des einzigen Ankers ist
-rund [−39,5, −2,7]. Jede Budget-Rechnung auf c = 214 ist zu korrigieren.
-**Ausserdem ungueltig:** der Kaggle-Referenzwert und der v9-Kaggle-Lauf (fehlende deal-Marke, betraf auch die
-GPU-Chirurgie des Champions) — siehe KAGGLE_ARENA.md. Der Ordner `#Anderes/` wurde geloescht.
+**Fresh in the repo:** [`catalogs/MODULE_CATALOG.md`](catalogs/MODULE_CATALOG.md) (272 modules) · [`catalogs/MEASUREMENT_CATALOG.md`](catalogs/MEASUREMENT_CATALOG.md)
+(all measurements + three corrections) · [`reports/AIVAT_KAGGLE.md`](reports/AIVAT_KAGGLE.md) (draft, nothing built) ·
+[`consults/CONSULT_GPT56_SOL_2026-09-10.md`](consults/CONSULT_GPT56_SOL_2026-09-10.md) (hybrid consult) ·
+[`catalogs/CANDIDATES.md`](catalogs/CANDIDATES.md). Deleted: the folder `#Anderes/`.
 
-## ★★★★ CURRENT (2026-09-10) — KAGGLE GAME ARENA als zweiter Messkanal (Detail: docs/KAGGLE_ARENA.md)
-Das Kaggle-Leaderboard „Heads Up Poker" misst **Mean BB/100** in einem All-play-all von Frontier-LLMs
-(v1 ueber die Kaggle-API: Spitze GPT-5.6 Sol +34,9 ± 5,1; Claude Fable 5.1 +29,7; Schluss GPT-5 mini −49,3).
-Die Umgebung ist OPEN SOURCE und laeuft lokal (Windows-Wheel fuer 3.12): `python_repeated_pokerkit`
-(Blinds 1/2, Stacks 200 Einheiten = **100 bb**, Reset je Hand, Dealer rotiert, 100 Haende/Match) — exakt unsere
-Hausgroesse. **Bruecke gebaut:** `pokerbot/benchmark/kaggle_arena.py` (Parser, Zustands-Adapter wie im
-GTOW-Harness, Legalitaets-Garantie, gepaarte Decks mit Sitztausch), `tests/test_kaggle_arena.py` 4/4 gruen,
-**A/A exakt 0**. Zwei Mess-Fallen behoben: hand_id je Spiegelhaelfte (v10-Falle) und der RNG-STROM ueber
-Haende (A/A war −37,5 → frische Instanzen je Haelfte). **Einordnung (bindend): billiger Volumen-Kanal, KEIN
-GTO-Anker** — das Feld sind LLMs, kein Re-Solver; der GTOW-Anker bleibt die Wahrheit. **Eichung Kaggle->GTOW (User-Idee): SCHWACH** — 6 gemeinsame Modelle, r=0,37/R²=0,14
-(Residual-SD 15,5); nur nach Streichen von Grok 4 r=0,88 — das ist Kurvenanpassung, kein Verdikt.
-**★ Der eigentliche Befund: benchmark.gtowizard.com nimmt EIGENE Agenten** („Evaluate Your Model"), die
-Spitze sind Privat-Bots (Bitcrumbs −3,1/52k Haende, Trainer −6,2, Roman_SL −7,4, tangtang −12,6) und
-**drei Eintraege von „Hampe" stehen schon drauf** (Quantplay −30,4 Rang 31, Quantplay v8 −31,6 Rang 33,
-Experimental Poker Bot −51,7 Rang 47) — alle aus der v8-Ära, der heutige Champion (~−21) ist NIE gepostet.
-Rang = UNTERGRENZE des 95-%-Intervalls, Haende zaehlen also wie der Mittelwert: **Top 5 = LCB besser als
-≈ −14,8**, d. h. ~−11 bei 10k Haenden oder ~−13 bei 50k. Luecke zum heutigen Stand ≈ 8 bb/100.
+## ★★★★★ CURRENT (2026-09-10) — TWO CATALOGS + a correction that changes the hand budgets
+**New: [`catalogs/MODULE_CATALOG.md`](catalogs/MODULE_CATALOG.md)** (272 module entries, each with purpose/interface/dependencies/
+state/cost/**measurement status**/pitfall; refuted building blocks explicitly included) and
+**[`catalogs/MEASUREMENT_CATALOG.md`](catalogs/MEASUREMENT_CATALOG.md)** (all real measurements with source, verdict and validity).
+CLAUDE.md points to them at the top. Module catalog = what a part DOES, measurement catalog = whether it WORKS.
+**★ CORRECTION (recomputed from the hand histories, not taken on trust): the variance coefficient of today's
+bot is c = 294, not 214.** From `gtow_hands_1787027076/_1787033025.jsonl` (n=979): mean −21.12,
+per-hand SD 294.1, **SE 9.40** (not 6.8). The 214 stems from the v2.2 era (SD 213.5 there at n=2393).
+Consequence: for SE = 4 bb/100 it takes **5,407 instead of 2,862 hands**; the 95 % band of the only anchor is
+roughly [−39.5, −2.7]. Every budget calculation on c = 214 must be corrected.
+**Also invalid:** the Kaggle reference value and the v9 Kaggle run (missing deal marker, also affected the
+champion's GPU surgery) — see reports/KAGGLE_ARENA.md. The folder `#Anderes/` was deleted.
 
-## ★★★★ CURRENT (2026-09-09 nacht) — 6MAX FLAT-FIX ANGEWENDET (Tag `sixmax-tag-flatfix-v1`)
-User-Fund im Turnier: Berater nannte A2o CO vs LJ-Open „Call" (Perzentil 0,691 > Schwelle 0,665 — das Hot-and-Cold-
-Ranking überschätzt Offsuit-Asse; Analyzer-Leak „Preflop-Caller-Linien"). Fix: `flat_guard` im tag-Kern — dominierte
-Offsuit-Broadways (A2o–A9o, K2o–K9o, Q2o–Q9o, J2o–J8o) werden nie vs Open geflattet. **Gate pargate6, 3 Läufe à 2992
-Decks vs altem tag: +17,7±6,4 (ANWENDEN, p 0,0035) / +11,4±6,9 (NEUTRAL, p 0,057) / +19,2±7,0 (ANWENDEN, p 0,0035)**
-→ angewendet auf `PROFILES["tag"]` (Liga, Berater, Turnier). Alter Kern = Tag `sixmax-tag-pre-flatfix`. Logs
-`data/runs/pargate6_tag_flatfix*_2026-09-09.log`. Offen: externer Anker (Analyzer-Export des neuen tag).
+## ★★★★ CURRENT (2026-09-10) — KAGGLE GAME ARENA as a second measurement channel (detail: reports/KAGGLE_ARENA.md)
+The Kaggle leaderboard "Heads Up Poker" measures **Mean BB/100** in an all-play-all of frontier LLMs
+(v1 via the Kaggle API: top GPT-5.6 Sol +34.9 ± 5.1; Claude Fable 5.1 +29.7; bottom GPT-5 mini −49.3).
+The environment is OPEN SOURCE and runs locally (Windows wheel for 3.12): `python_repeated_pokerkit`
+(blinds 1/2, stacks 200 units = **100 bb**, reset per hand, dealer rotates, 100 hands/match) — exactly our
+house size. **Bridge built:** `pokerbot/benchmark/kaggle_arena.py` (parser, state adapter as in the
+GTOW harness, legality guarantee, paired decks with seat swap), `tests/test_kaggle_arena.py` 4/4 green,
+**A/A exactly 0**. Two measurement traps fixed: hand_id per mirror half (the v10 trap) and the RNG STREAM across
+hands (A/A was −37.5 → fresh instances per half). **Classification (binding): a cheap volume channel, NOT a
+GTO anchor** — the field is LLMs, not a re-solver; the GTOW anchor remains the truth. **Calibration Kaggle->GTOW (user idea): WEAK** —
+6 shared models, r=0.37/R²=0.14 (residual SD 15.5); only after dropping Grok 4 r=0.88 — that is curve fitting, not a verdict.
+**★ The actual finding: benchmark.gtowizard.com accepts YOUR OWN agents** ("Evaluate Your Model"), the
+top are private bots (Bitcrumbs −3.1/52k hands, Trainer −6.2, Roman_SL −7.4, tangtang −12.6) and
+**three entries by "Hampe" are already on it** (Quantplay −30.4 rank 31, Quantplay v8 −31.6 rank 33,
+Experimental Poker Bot −51.7 rank 47) — all from the v8 era; today's champion (~−21) was NEVER posted.
+Rank = LOWER BOUND of the 95 % interval, so hands count as much as the mean: **top 5 = LCB better than
+≈ −14.8**, i.e. ~−11 at 10k hands or ~−13 at 50k. Gap to today's state ≈ 8 bb/100.
 
-## ★★★★ CURRENT (2026-09-09 abends) — TURNIER-MODUS im Trainer (Detail: docs/TURNIER_MODUS.md)
-MTT 60 Spieler, 6 Tische à 10, 10 Level 25/50→800/1600 (Ante ab L3, 12 Hero-Hände je Level), Tischausgleich ±1,
-Kollaps bis Final Table, Top 9 bezahlt; Feld = Online-Population-PRIOR (station 30/tag 22/lag 15/nit 12/rock 8/
-whale 5/maniac 4/shark 4). Hero-Tisch voll gerechnet (Liga-Bots), Nebentische pro Hero-Hand ≈ 120–130 ms.
-Berater = tag-Kern-Oracle je Hero-Aktion (`GTO ✓` / `Abweichung: …`) + ICM-Hinweis ab ≤ 12 Verbliebenen; GTO-Quote
-und Top-Abweichungen im HUD/Endbild. Code: `pokerbot/arena/mtt.py`, `six_server` Modus `tournament`, `training.html`
-(Turnier-Button/HUD/Urteil/Ergebnis), `tests/test_tournament_mode.py` (8 Tests grün). Browser-verifiziert (zwei
-UI-Fehler dabei gefixt: unsichtbares HUD via display:none, Tischnummer aus Namens-Offset). **User-QA-Fix
-(abends): Hand-Kontinuitäts-Bug** — frische Table je Hand hatte hand_no 1 → `_log_if_done` übersprang alles nach
-Hand 1 (Stacks/Busts/Feedback eingefroren: „immer 100 bb", „immer gut gespielt"); gefixt + `test_hand_continuity`,
-zwei volle TestClient-Turniere + Browser-Schnelllauf (3.671 Renders, 0 Fehler). Leerer Tisch GEFUNDEN: Turnier-bb 50 → Slider-Betrag 187,5 Chips → 422 ohne `error` → als Zustand gerendert; 3-Schicht-Fix (Server rundet float, Client api()/render()-Guards). **Vorab-Fold (User-Wunsch, abends):** „Fold vorab" im Wartebalken (Taste F) —
-Hand läuft sofort im Hintergrund zu Ende, Fold regulär benotet, Chips korrekt, nächste Hand nach 1,5 s; Gratis-Check
-hebt den Vorab-Fold auf; 350-ms-Klicksperre beim Zugwechsel. `tests/test_prefold.py`; Doku TRAINER_VERDRAHTUNG.md. Kein Mess-Verdikt — der
-Modus ist Trainer-Produkt, kein Bot-Kandidat; die GTOW-Lage (v4-auf-PRINCE −21,1 als einziger Anker) ist unverändert.
+## ★★★★ CURRENT (2026-09-09 night) — 6MAX FLAT-FIX APPLIED (tag `sixmax-tag-flatfix-v1`)
+User finding in the tournament: the advisor called A2o CO vs LJ open a "Call" (percentile 0.691 > threshold 0.665 — the hot-and-cold
+ranking overrates offsuit aces; Analyzer leak "preflop caller lines"). Fix: `flat_guard` in the tag core — dominated
+offsuit broadways (A2o–A9o, K2o–K9o, Q2o–Q9o, J2o–J8o) are never flatted vs an open. **Gate pargate6, 3 runs of 2992
+decks each vs the old tag: +17.7±6.4 (ANWENDEN = apply, p 0.0035) / +11.4±6.9 (NEUTRAL, p 0.057) / +19.2±7.0 (ANWENDEN, p 0.0035)**
+→ applied to `PROFILES["tag"]` (league, advisor, tournament). Old core = tag `sixmax-tag-pre-flatfix`. Logs
+`data/runs/pargate6_tag_flatfix*_2026-09-09.log`. Open: external anchor (Analyzer export of the new tag).
 
-## ★★★★★ CURRENT (2026-09-09) — TRAINER-VERDRAHTUNG + 6MAX-VERDIKT + EXPLOIT-GATE (Detail: docs/TRAINER_VERDRAHTUNG.md)
-**HU-Trainer:** Gegner UND Berater = Champion-Konfig (PRINCE, exploit OFF, Resolver AN, `wickle_decide(FINAL_STACK=r8_stack)`),
-Fingerprints beider Bots im /api/view + GET /api/advice. **6-max-Trainer:** Liga-Kern `tag` spielt; der Prince-Takeover
-in HU-kollabierten Poetten ist DEFAULT AUS (`POKERB_SIX_TAKEOVER=1` schaltet ein; Stack via `POKERB_SIX_STACK`), weil
-pargate6 (NEU, gepaarte 6-max-Arena, A/A exakt 0) ihn refutiert: hybrid −23,6±9,0 / hybrid_r8 −21,7±9,0 / hybrid_r10
-−26,6±8,9 vs tag (je 2992 Decks, alle VERWERFEN; Journal VERDRAHTUNG-6MAX-VERDIKT). Bester gemessener 6-max-Bot = `tag`
-(Selbst-Oekologie; externer Anker = Analyzer-Grade 85,9 %/7,61, Hybrid-Export-Kommando steht bereit).
-**Exploit-Gate (NEU):** ON vs OFF je Liga-Profil, 600 gepaarte Decks: alle 8 Diffs ≤ 0 (gepoolt ≈ −12 bb/100) → der
-Dirichlet-River-Exploit ist REFUTIERT, Exploit bleibt ueberall AUS; 6-max-Reads neutral (+3,6±13,5). Journal
-EXPLOIT-GATE-VERDIKT. **GTOW-bestaetigt ist weiterhin nur v4-auf-PRINCE (−21,1, Nacht 2); v5 (r8_stack) hat Spiegel-
-Evidenz, kein Anker** — Shadow-Nacht (v5 handelt, v10 rechnet mit) bleibt der naechste GTOW-Schritt.
-Infrastruktur neu: `pokerbot/autogym/pargate6.py`, `pokerbot/autogym/exploit_gate.py`, `pokerbot/arena/hybrid.py`,
-`SixMaxBot(seed=)`, `PrinceOracle(stack=, kanal=)`, Tests test_sixmax_seed/test_hybrid/test_pargate6.
+## ★★★★ CURRENT (2026-09-09 evening) — TOURNAMENT MODE in the trainer (detail: reports/TOURNAMENT_MODE.md)
+MTT 60 players, 6 tables of 10, 10 levels 25/50→800/1600 (ante from L3, 12 hero hands per level), table balancing ±1,
+collapse down to the final table, top 9 paid; field = online-population PRIOR (station 30/tag 22/lag 15/nit 12/rock 8/
+whale 5/maniac 4/shark 4). Hero's table fully computed (league bots), side tables ≈ 120–130 ms per hero hand.
+Advisor = tag-core oracle per hero action (`GTO ✓` / `Abweichung: …`) + ICM hint from ≤ 12 remaining; GTO rate
+and top deviations in the HUD/end screen. Code: `pokerbot/arena/mtt.py`, `six_server` mode `tournament`, `training.html`
+(tournament button/HUD/verdict/result), `tests/test_tournament_mode.py` (8 tests green). Browser-verified (two
+UI bugs fixed along the way: invisible HUD via display:none, table number from name offset). **User-QA fix
+(evening): hand-continuity bug** — a fresh Table per hand had hand_no 1 → `_log_if_done` skipped everything after
+hand 1 (stacks/busts/feedback frozen: "always 100 bb", "always played well"); fixed + `test_hand_continuity`,
+two full TestClient tournaments + browser quick run (3,671 renders, 0 errors). Empty table FOUND: tournament bb 50 → slider amount 187.5 chips → 422 without `error` → rendered as state; 3-layer fix (server rounds float, client api()/render() guards). **Pre-fold (user request, evening):** "Fold vorab" in the waiting bar (key F) —
+the hand immediately plays out in the background, the fold is graded normally, chips correct, next hand after 1.5 s; a free check
+cancels the pre-fold; 350 ms click lock on turn change. `tests/test_prefold.py`; docs reports/TRAINER_WIRING.md. No measurement verdict — the
+mode is a trainer product, not a bot candidate; the GTOW situation (v4-on-PRINCE −21.1 as the only anchor) is unchanged.
 
-## ★★★★★ CURRENT (2026-09-07/08) — v10 „River-Fundament" GEBAUT + GATES G1–G5 GELAUFEN: **NICHT GTOW-reif** (G3 VERFEHLT, G2 nicht gruen); Stand bleibt auslese-v5
-**Gesamtbericht: [`docs/V10_GATES_REPORT.md`](V10_GATES_REPORT.md)** (Tabelle, Reduktionen, Befunde, Ship-Entscheid, GTOW-Staffel-Kommandos).
-Karte `docs/V10_BUILD_CARD.md`; Arme A = v5-H (`r8_stack`, PRINCE, exploit OFF, TexasSolver ON) vs B = v10 (`r10_stack` =
-K1-Hero-Likelihood-Replay `pokerbot/strategy/hero_range.py` + K2-oeffentlicher River-Plan `pokerbot/autogym/river_plan.py`
-statt `river_gpu_guard`; K3-Pruefstand `research/river_br_pruefstand.py`; K4 `pokerbot/runtime_config.py` + `gtow_ledger.py`;
-K5 `research/gtow_nacht_v10.py`, Muenze BAAB_dann_ABBA). Alles UNCOMMITTED im Working Tree (Branch poker-core, HEAD eabcef3).
-**GATES (Quellen in data/runs/v10/):**
-· **G1 GRUEN (zusammengesetzt):** 13 Bloecke exit 0 (`G1_tests.txt`); K3-Kontrollen 15/15 aus `g4_logs/kontrollen_tests.log`
-(der G1-Runner schrieb den Block nicht; pytest nicht installiert → Modul-Runner).
-· **G2a BESTANDEN:** A/A r10 vs r10 **576 Decks EXAKT 0** (bb100 0.0, se 0.0, nonzero 0; `data/runs/20260907_220348_pargate_r10_stack/result.json`);
-Golden r8-vs-basis pre == post IDENTISCH (E7-Isolation haelt).
-· **G2 NICHT GRUEN (n=10 Probe, `G2_latenz_probe10.json` status VERFEHLT_REDUZIERTE_STICHPROBE):** Gesamt-p99 v10 7,55 s > v5-H 5,54 s
-auf identischen Zustaenden; **K2-Trace: Plan gespielt 1/10, deadline 7/10, hand_not_in_range 2/10** (eine 7,5-s-Deadline blockiert
-via LIVE_SOLVE_WORKER=1/QUEUE_BUDGET_S=0,5 die Folge-Haende) → live ist v10 in ~90 % der Plan-Pots die nackte Basis. Vollmessung
-(`python -u -m research.v10_latenz --messe --n 150 --plan-min 50`) NICHT gelaufen.
-· **G3 VERFEHLT (`g3_k1_gate_20260907_231422.json`, 64 VG/145 Knoten/je Guard-Klasse ≥16, S=12):** TV K1 vs decide()-Orakel
-**mittel 0,2085 / p95 0,758 / max 0,876**; untere Schranke nach Rausch-Abzug (Floor 0,095) **0,1446 / 0,620 / 0,819** vs Budget
-0,02 / 0,05 / 0,10 → Karte: „K2 NICHT frei". Treiber turn_wert-Faelle (0,325), Klassenebene ebenfalls ueber Budget (0,104);
-Hero-Hole ausserhalb K1-Support 21/64; button_disziplin-Prior „unveraendert" messbar falsch. Live-Kanal nicht messbar (E3 offen).
-· **G4 UNVOLLSTAENDIG (11/20 Roots, Gym-Kanal; `G4_holdout.json`):** ΔE_H −113,0 ± 18,6 bb/100 (OG95 −85,4), ΔR(B-Nachteil)
-−4,04 ± 0,99 — B in 11/11 Roots weniger ausbeutbar UND weniger Regret, robust ueber 2 Villain-Familien; aber gegen v5-GYM ohne
-TexasSolver gemessen (nicht auf Live uebertragbar); Live-Pilot UNSUPPORTED (REACH_EPS-Inkonsistenz im Werkzeug). Voller Holdout ≈ 33 h,
-Oracle-Cache fp 01baf241872c setzt fort.
-· **G5 BESTANDEN (`G5_BERICHT.json`, `data/runs/20260908_002035_pargate_r10_stack/`):** r10 vs r8 **1968 Decks +11,68 ± 10,85** NEUTRAL,
-CI [−9,39, +33,06]; Katastrophen ≥150 bb 1 neg./1 pos. (symmetrisch). BEFUND: alle 3 Decks ≤ −100 bb entstehen im FALLBACK auf die
-nackte Basis (2× offtree, 1× Sub-Schwellen-Pot), Off-Tree-Quote 42 % in den grossen Divergenz-Decks; reine Plan-Decks alle positiv.
-Analyzer-Export **200** Haende (statt 1500) `data/gtow_upload/hu_v10_r10_stack_200.txt` (IDs 130000–130199, Tag 90, Seed 1109 —
-Ledger-Eintrag `g5_analyzer_ledger.json`, naechster Vorschlag 132000/91/1110).
-**SHIP-ENTSCHEID: NICHT GTOW-reif** — kein Tag auslese-v10-rc, keine G6-Staffel. **GTOW-Stand bleibt auslese-v5 (ec11fde, r8_stack).**
-Re-Release braucht (neuer Hash → alle Gates neu): size-bewusstes K1-Backend + K1-Support-Leck; K2-Fallback = r8-Chirurgie statt
-nackter Basis + Solve-Queue ohne Folge-Blockade + Off-Tree-Abbildung; K5-Legalisierungs-Kanal + E5-Patch (sonst kein_verdikt);
-G2-Vollmessung; G4 bis n ≥ 20 + Live-Kanal. Staffel-Kommandos (nur dann): `python -m research.gtow_nacht_v10 --smoke 20 --arm B`
+## ★★★★★ CURRENT (2026-09-09) — TRAINER WIRING + 6MAX VERDICT + EXPLOIT GATE (detail: reports/TRAINER_WIRING.md)
+**HU trainer:** opponent AND advisor = champion config (PRINCE, exploit OFF, resolver ON, `wickle_decide(FINAL_STACK=r8_stack)`),
+fingerprints of both bots in /api/view + GET /api/advice. **6-max trainer:** league core `tag` plays; the Prince takeover
+in HU-collapsed pots is DEFAULT OFF (`POKERB_SIX_TAKEOVER=1` switches it on; stack via `POKERB_SIX_STACK`), because
+pargate6 (NEW, paired 6-max arena, A/A exactly 0) refutes it: hybrid −23.6±9.0 / hybrid_r8 −21.7±9.0 / hybrid_r10
+−26.6±8.9 vs tag (2992 decks each, all VERWERFEN = reject; journal VERDRAHTUNG-6MAX-VERDIKT). Best measured 6-max bot = `tag`
+(self-ecology; external anchor = Analyzer grade 85.9 %/7.61, hybrid export command stands ready).
+**Exploit gate (NEW):** ON vs OFF per league profile, 600 paired decks: all 8 diffs ≤ 0 (pooled ≈ −12 bb/100) → the
+Dirichlet river exploit is REFUTED, exploit stays OFF everywhere; 6-max reads neutral (+3.6±13.5). Journal
+EXPLOIT-GATE-VERDIKT. **GTOW-confirmed is still only v4-on-PRINCE (−21.1, night 2); v5 (r8_stack) has mirror
+evidence, no anchor** — the shadow night (v5 acts, v10 computes alongside) remains the next GTOW step.
+New infrastructure: `pokerbot/autogym/pargate6.py`, `pokerbot/autogym/exploit_gate.py`, `pokerbot/arena/hybrid.py`,
+`SixMaxBot(seed=)`, `PrinceOracle(stack=, kanal=)`, tests test_sixmax_seed/test_hybrid/test_pargate6.
+
+## ★★★★★ CURRENT (2026-09-07/08) — v10 "River Foundation" BUILT + GATES G1–G5 RUN: **NOT GTOW-ready** (G3 MISSED, G2 not green); state remains auslese-v5
+**Full report: [`reports/V10_GATES_REPORT.md`](reports/V10_GATES_REPORT.md)** (table, reductions, findings, ship decision, GTOW relay commands).
+Card `plans/V10_BUILD_CARD.md`; arms A = v5-H (`r8_stack`, PRINCE, exploit OFF, TexasSolver ON) vs B = v10 (`r10_stack` =
+K1 hero-likelihood replay `pokerbot/strategy/hero_range.py` + K2 public river plan `pokerbot/autogym/river_plan.py`
+instead of `river_gpu_guard`; K3 test bench `research/river_br_pruefstand.py`; K4 `pokerbot/runtime_config.py` + `gtow_ledger.py`;
+K5 `research/gtow_nacht_v10.py`, coin BAAB_dann_ABBA). Everything UNCOMMITTED in the working tree (branch poker-core, HEAD eabcef3).
+**GATES (sources in data/runs/v10/):**
+· **G1 GREEN (composite):** 13 blocks exit 0 (`G1_tests.txt`); K3 controls 15/15 from `g4_logs/kontrollen_tests.log`
+(the G1 runner did not write the block; pytest not installed → module runner).
+· **G2a PASSED:** A/A r10 vs r10 **576 decks EXACTLY 0** (bb100 0.0, se 0.0, nonzero 0; `data/runs/20260907_220348_pargate_r10_stack/result.json`);
+golden r8-vs-basis pre == post IDENTICAL (E7 isolation holds).
+· **G2 NOT GREEN (n=10 probe, `G2_latenz_probe10.json` status VERFEHLT_REDUZIERTE_STICHPROBE):** overall p99 v10 7.55 s > v5-H 5.54 s
+on identical states; **K2 trace: plan played 1/10, deadline 7/10, hand_not_in_range 2/10** (one 7.5 s deadline blocks
+the follow-up hands via LIVE_SOLVE_WORKER=1/QUEUE_BUDGET_S=0.5) → live, v10 is the bare base in ~90 % of plan pots. Full measurement
+(`python -u -m research.v10_latenz --messe --n 150 --plan-min 50`) NOT run.
+· **G3 MISSED (`g3_k1_gate_20260907_231422.json`, 64 VG/145 nodes/≥16 per guard class, S=12):** TV K1 vs decide() oracle
+**mean 0.2085 / p95 0.758 / max 0.876**; lower bound after noise subtraction (floor 0.095) **0.1446 / 0.620 / 0.819** vs budget
+0.02 / 0.05 / 0.10 → card: "K2 NOT free". Driver turn_wert cases (0.325), class level also over budget (0.104);
+hero hole outside K1 support 21/64; button_disziplin prior "unchanged" measurably wrong. Live channel not measurable (E3 open).
+· **G4 INCOMPLETE (11/20 roots, gym channel; `G4_holdout.json`):** ΔE_H −113.0 ± 18.6 bb/100 (OG95 −85.4), ΔR(B disadvantage)
+−4.04 ± 0.99 — B less exploitable AND less regret in 11/11 roots, robust across 2 villain families; but measured against v5-GYM without
+TexasSolver (not transferable to live); live pilot UNSUPPORTED (REACH_EPS inconsistency in the tool). Full holdout ≈ 33 h,
+oracle cache fp 01baf241872c resumes.
+· **G5 PASSED (`G5_BERICHT.json`, `data/runs/20260908_002035_pargate_r10_stack/`):** r10 vs r8 **1968 decks +11.68 ± 10.85** NEUTRAL,
+CI [−9.39, +33.06]; catastrophes ≥150 bb 1 neg./1 pos. (symmetric). FINDING: all 3 decks ≤ −100 bb arise in the FALLBACK to the
+bare base (2× offtree, 1× sub-threshold pot), off-tree rate 42 % in the large-divergence decks; pure plan decks all positive.
+Analyzer export **200** hands (instead of 1500) `data/gtow_upload/hu_v10_r10_stack_200.txt` (IDs 130000–130199, day 90, seed 1109 —
+ledger entry `g5_analyzer_ledger.json`, next proposal 132000/91/1110).
+**SHIP DECISION: NOT GTOW-ready** — no tag auslese-v10-rc, no G6 relay. **GTOW state remains auslese-v5 (ec11fde, r8_stack).**
+A re-release needs (new hash → all gates anew): size-aware K1 backend + K1 support leak; K2 fallback = r8 surgery instead of the
+bare base + solve queue without follow-up blocking + off-tree mapping; K5 legalization channel + E5 patch (otherwise kein_verdikt);
+G2 full measurement; G4 to n ≥ 20 + live channel. Relay commands (only then): `python -m research.gtow_nacht_v10 --smoke 20 --arm B`
 → `--smoke 100 --arm B` → `--nacht 1` (B A A B) → `--nacht 2` → `--fazit-gesamt`. Journal: V10-GATES.
 
-**NACHTRAG 02:05 (Fable):** R2 war ein Live-MECHANIK-Fehler (LIVE_SOLVE_WORKER=1/QUEUE_BUDGET 0,5 s) → gefixt (3 Threads, 3 s Queue, Deadline 12 s); Nachmessung n=40 Plan-Pots live: deadline 0/40, Plan gespielt 25/40, offtree 11/40, hand_not_in_range 4/40, p99 v10 10,15 s (kein Timeout im Harness); A/A nach Fix 576 Decks EXAKT 0 (Bank 1100000). GTOW-Staffel NICHT gestartet (G3 verfehlt = vorregistrierter Blocker; Entscheid beim User). Offene Design-Luecken: Off-Tree-Fallback auf nackte Basis (Villain-Sizes ≠ Baum), K1-Support (Preflop-Klassen-Prior), K1-Genauigkeit. Detail: V10_GATES_REPORT.md Abschnitt 6.
-**NACHTRAG 03:30 (Fable, Sitzungsende):** Astra-Konsult Teil F (Vollständigkeit: NEIN, Lücken L1 Off-Tree-Fallback / L2 K1-Support / L3 K1-Genauigkeit + Policy-Closure + Kanalparität) und Teil G (Hybrid-These: H ist ein NEUER Bot, nicht Max(v5,v10); H0→H1-Bauplan, 7-Regel-Hybrid-Doktrin jetzt in CLAUDE.md). NÄCHSTER SCHRITT bei Wiederaufnahme: v10.1 = H0 (Plan, sonst unverändertes v5 je Entscheidung) → H1; Abnahmen in TOP5_KONSULT Teil G Abschnitt 6. Working Tree als Commit gesichert (poker-core), kein Tag.
+**ADDENDUM 02:05 (Fable):** R2 was a live MECHANICS error (LIVE_SOLVE_WORKER=1/QUEUE_BUDGET 0.5 s) → fixed (3 threads, 3 s queue, deadline 12 s); re-measurement n=40 plan pots live: deadline 0/40, plan played 25/40, offtree 11/40, hand_not_in_range 4/40, p99 v10 10.15 s (no timeout in the harness); A/A after the fix 576 decks EXACTLY 0 (bank 1100000). GTOW relay NOT started (G3 missed = pre-registered blocker; decision with the user). Open design gaps: off-tree fallback to the bare base (villain sizes ≠ tree), K1 support (preflop class prior), K1 accuracy. Detail: reports/V10_GATES_REPORT.md section 6.
+**ADDENDUM 03:30 (Fable, end of session):** Astra consult part F (completeness: NO, gaps L1 off-tree fallback / L2 K1 support / L3 K1 accuracy + policy closure + channel parity) and part G (hybrid thesis: H is a NEW bot, not Max(v5,v10); H0→H1 build plan, the 7-rule hybrid doctrine now in CLAUDE.md). NEXT STEP on resumption: v10.1 = H0 (plan, otherwise unchanged v5 per decision) → H1; acceptance criteria in TOP5_KONSULT part G section 6. Working tree saved as a commit (poker-core), no tag.
 
 
-## ★★★★★ CURRENT (2026-09-01) — v8 GEDROPPT (User-Entscheid): auslese-v5 BLEIBT der Stand; Postmortem geschrieben
-**Die v8-Stufe (Solver-PLAY statt Chirurgie + stackoff_bremse) wurde nach den Zwischenverdikten GEDROPPT:**
-play vs v5 +1,14±2,78 NEUTRAL (30k) · v8 vs v5 +3,91±2,85 / −1,23±4,36 NEUTRAL (gepoolt ~+2,3±2,4) ·
-alle A/A exakt 0. **Ursachen-Analyse: [`docs/V8_POSTMORTEM.md`](V8_POSTMORTEM.md)** — Kanal-Sättigung
-(die v5-Chirurgie hatte die Klarfälle geerntet; Play-Differenzen liegen in Indifferenz-Zonen, nz_median
-1,9bb vs 11,6bb), Spiegel bestraft Feinpräzision nicht (kein Re-Solver), seltene Grenzfälle bei 45k
-unsichtbar, Ockham bei Gleichstand. GTOW-Achsen-Evidenz der Play-Komponente bleibt dokumentiert positiv
-(+278,6bb Replay, AIVAT-konvergent) — unbewiesen ohne Anker; billigster Beweis wäre GTOW-A/B v5 vs
-v5+play (Protokoll data/runs/gtow_v8_protokoll_2026-08-31.json). r9-Arme (play/turn/stackoff) bleiben
-default-OFF registriert. **STAND: auslese-v5 (Tag ec11fde) = FINAL_STACK r8_stack; GTOW-Anker Arm B1=v5
-vorbereitet, wartet auf User-Kommando.** Neg-Ergebnisse mit Erklärung: no_limp −11,42 (Basis limpt 39%
-strategisch → richtiger Kandidat wäre Limp-Pot-DEFENSE), turn_gpu 3/3904 zu leise.
+## ★★★★★ CURRENT (2026-09-01) — v8 DROPPED (user decision): auslese-v5 REMAINS the state; postmortem written
+**The v8 rung (solver PLAY instead of surgery + stackoff_bremse) was DROPPED after the interim verdicts:**
+play vs v5 +1.14±2.78 NEUTRAL (30k) · v8 vs v5 +3.91±2.85 / −1.23±4.36 NEUTRAL (pooled ~+2.3±2.4) ·
+all A/A exactly 0. **Root-cause analysis: [`reports/V8_POSTMORTEM.md`](reports/V8_POSTMORTEM.md)** — channel saturation
+(the v5 surgery had harvested the clear cases; play differences lie in indifference zones, nz_median
+1.9bb vs 11.6bb), the mirror does not punish fine precision (no re-solver), rare edge cases invisible at
+45k, Ockham on a tie. GTOW-axis evidence of the play component remains documented positive
+(+278.6bb replay, AIVAT-convergent) — unproven without an anchor; the cheapest proof would be a GTOW A/B v5 vs
+v5+play (protocol data/runs/gtow_v8_protokoll_2026-08-31.json). r9 arms (play/turn/stackoff) remain
+registered default-OFF. **STATE: auslese-v5 (tag ec11fde) = FINAL_STACK r8_stack; GTOW anchor arm B1=v5
+prepared, waiting for the user's command.** Negative results with explanation: no_limp −11.42 (the base limps 39%
+strategically → the right candidate would be limp-pot DEFENSE), turn_gpu 3/3904 too quiet.
 
-## ★★★★★ (2026-08-30) — GPU-STAFFEL: River-CFR auf der 3080 Ti, 100% Auslastung, TexasSolver-Match 0,999; Runde 7/8 in den Gates
-**User-Auftrag: GPU+CPU voll nutzen — (1) Luecken systematisch finden, (2) selbst schliessen, (3) neue
-Bot-Version GPU+CPU, (4) Test vs eingefrorene Basis.** Stand nach Tag 1 (Commits 2b57206..c344e14):
-**GEBAUT+VERIFIZIERT (jede Stufe mit Beweis):** `pokerbot/engine/gpu_eval.py` (vektorisierter 7-Karten-
-Evaluator, 16,8M Haende/s, 250k Ordnungs-Paare 0 Fehler; Lehre: CUDA-log2 1-ulp-Falle → integer-only) ·
-`gpu_equity.py` (exakte Batch-Equity; River byte-identisch zur CPU-Enumeration; Flop 1081x1081 exakt 0,087s) ·
-`pokerbot/strategy/gpu_cfr.py` (Tensor-CFR+; Clairvoyance-Toy EXAKT: Bluff 0,333/Call 0,500/expl 0,014%;
-RiverCFRBatch B=256 = **100% GPU-Auslastung**, ~1000 Subgame-Iter/s, 0,30s/Spot; bandbreiten-bound, TF32 wirkungslos) ·
-`gpu_resolver.py` (Ranges am River-Beginn einfrieren → Batch-Solve → Sequenz-Navigation; Hero-Combo-Injektion
-gegen hand-not-in-range) · **Kreuzvalidierung vs TexasSolver** (research/gpu_vs_texassolver.py): identischer
-Spot, Frequenz-Deltas 0,007/0,000/0,001, per-Combo-Korrelation **0,999**.
-**LUECKEN-BEFUND (research/hh_luecken_mine.py + gpu_river_audit.py, Nacht-2-HH):** Verlust 87% River;
-Zelle (River,>100bb,call) = 9 Haende = **59% des v4-Verlusts**; 7/7-SIZE-Tell als Frequenz-Behauptung
-REFUTIERT (nur 11% der Turn-Bets im 2/3-Band; 0,65-Bucket = lesbarer v4-Marker ohne messbaren Exploit).
-GPU-Audit 571/571 River-Entscheidungen: check/fold solver-konform (p 0,86/0,83), **bet schwaechste Klasse**
-(p 0,45; 15% klare Widersprueche), Desaster-Calls = Solver-fold p>0,95. **Tracker-Schwellen tragen die
-River-Defense NICHT** (Trennschaerfe 0,65 vs 0,53 — deshalb starb r6_ecall; Journal R7-DIAGNOSE).
-**RUNDE 7/8 (Guards, alle A/A exakt 0):** `river_bill_guard` (exakte Enumeration, negative Marge) — Mirror
-**exakt 0,0** auf 30k (feuert im Gym nie = reiner GTOW-Achsen-Guard) · `river_wert_bremse` (keine River-
-Value-Bet mit eq<0,5 vs Range) — **r7_river +8,1±1,14 ANWENDEN** (30k, perm_p 0,0002; stammt damit komplett
-aus der wert_bremse; Einzellauf + Replikation laufen) · `river_gpu_guard` (r8: Solver-Chirurgie NUR bei
-p_basis<0,10 & p_alt>0,70, Pot≥30bb, deterministisch): auf den echten Nacht-2-Big-Pot-Calls 3/22 Folds =
-genau die Desaster, netto +66,9bb; GTO-Fold des Gluecks-Calls #2997685 (AIVAT −9,2 trotz +81,8 real —
-AIVAT und GPU-Solver einig gegen den Zufallsausgang).
-**★ FINALE LAUF 1 (2026-08-31 frueh): wert_bremse 3x REPLIZIERT (+8,10/+8,81/+7,38, alle perm_p 0,0002,
-drei Baenke). r8_stack (= river_gpu_guard(river_wert_bremse(r6_button-Kette)), Arm in pargate) durch die
-Kette: A/A EXAKT 0 (GPU-Determinismus bewiesen) · vs r6_button **+29,92±3,10** (30k, CI [23,7;36,3],
-z=11,85; 1040 Divergenz-Decks/3,5%, ~17bb je Eingriffs-Deck) · **vs EINGEFRORENE BASIS +30,60±5,03**
-(30k, CI [20,6;40,3], perm_p 0,0002). ERWARTUNGS-VERLETZUNG offen dokumentiert (Inkrement 3-4x groesser
-als vorregistriert; Big-Pot-Chirurgie-Zerlegung konsistent) + NICHT-ADDITIVITAET vs basis (Selfplay-
-Nicht-Transitivitaet — Mirror = Selektions-Kanal, Absolut-Beweis nur am GTOW-Anker, User-Kommando noetig).
-3-LAEUFE-REGEL fuer r8: ERFUELLT — Replikationen +23,76±3,07 (Bank 530k) + +29,23±3,03 (Bank 560k),
-frischer A/A (iters-150-Code) EXAKT 0. **★ TAUFE: `auslese-v5` (Tag + Commit ec11fde, 2026-08-31) —
-FINAL_STACK = r8_stack; Inkrement gepoolt +27,6±1,8; vs BASIS +30,60±5,03; Live-Smokes gruen (Flop
-0,06s; River-Kaltstart 13,5s inkl. Doppel-Resolver — spaeterer A/B: GPU ERSETZT TexasSolver-River,
-POKERB_RESOLVER=0).** fp16-Option gemessen +64% (half=True, default OFF). OFFEN/NAECHSTES: GTOW-Anker
-(ABSOLUT-Beweis; wartet auf User-Kommando, Hand-Budget) · Erwartungs-Verletzung dokumentiert (Inkrement
-3-4x ueber Vorregistrierung; Selfplay-Nicht-Transitivitaet: Mirror-Zahlen ≠ GTOW-Zahlen) · Turn-CFR-
-Einsatz + Flop-Stufe + Resolver-Ersatz-A/B als naechste GPU-Runde.**
+## ★★★★★ (2026-08-30) — GPU RELAY: river CFR on the 3080 Ti, 100% utilization, TexasSolver match 0.999; rounds 7/8 in the gates
+**User assignment: use GPU+CPU fully — (1) find gaps systematically, (2) close them yourself, (3) new
+bot version GPU+CPU, (4) test vs the frozen base.** State after day 1 (commits 2b57206..c344e14):
+**BUILT+VERIFIED (every rung with proof):** `pokerbot/engine/gpu_eval.py` (vectorized 7-card
+evaluator, 16.8M hands/s, 250k ordering pairs 0 errors; lesson: CUDA-log2 1-ulp trap → integer-only) ·
+`gpu_equity.py` (exact batch equity; river byte-identical to the CPU enumeration; flop 1081x1081 exact 0.087s) ·
+`pokerbot/strategy/gpu_cfr.py` (tensor CFR+; clairvoyance toy EXACT: bluff 0.333/call 0.500/expl 0.014%;
+RiverCFRBatch B=256 = **100% GPU utilization**, ~1000 subgame iters/s, 0.30s/spot; bandwidth-bound, TF32 ineffective) ·
+`gpu_resolver.py` (freeze ranges at the start of the river → batch solve → sequence navigation; hero combo injection
+against hand-not-in-range) · **cross-validation vs TexasSolver** (research/gpu_vs_texassolver.py): identical
+spot, frequency deltas 0.007/0.000/0.001, per-combo correlation **0.999**.
+**GAP FINDING (research/hh_luecken_mine.py + gpu_river_audit.py, night-2 HH):** loss 87% river;
+cell (river,>100bb,call) = 9 hands = **59% of the v4 loss**; 7/7 SIZE tell as a frequency claim
+REFUTED (only 11% of turn bets in the 2/3 band; the 0.65 bucket = a readable v4 marker without a measurable exploit).
+GPU audit 571/571 river decisions: check/fold solver-conformant (p 0.86/0.83), **bet the weakest class**
+(p 0.45; 15% clear contradictions), disaster calls = solver fold p>0.95. **Tracker thresholds do NOT carry the
+river defense** (discrimination 0.65 vs 0.53 — that is why r6_ecall died; journal R7-DIAGNOSE).
+**ROUND 7/8 (guards, all A/A exactly 0):** `river_bill_guard` (exact enumeration, negative margin) — mirror
+**exactly 0.0** on 30k (never fires in the gym = a pure GTOW-axis guard) · `river_wert_bremse` (no river
+value bet with eq<0.5 vs range) — **r7_river +8.1±1.14 ANWENDEN** (30k, perm_p 0.0002; thus stems entirely
+from the wert_bremse; single run + replication running) · `river_gpu_guard` (r8: solver surgery ONLY at
+p_basis<0.10 & p_alt>0.70, pot≥30bb, deterministic): on the real night-2 big-pot calls 3/22 folds =
+exactly the disasters, net +66.9bb; GTO fold of the lucky call #2997685 (AIVAT −9.2 despite +81.8 real —
+AIVAT and the GPU solver agree against the random outcome).
+**★ FINAL RUN 1 (2026-08-31 early): wert_bremse REPLICATED 3x (+8.10/+8.81/+7.38, all perm_p 0.0002,
+three banks). r8_stack (= river_gpu_guard(river_wert_bremse(r6_button chain)), arm in pargate) through the
+chain: A/A EXACTLY 0 (GPU determinism proven) · vs r6_button **+29.92±3.10** (30k, CI [23.7;36.3],
+z=11.85; 1040 divergence decks/3.5%, ~17bb per intervention deck) · **vs FROZEN BASE +30.60±5.03**
+(30k, CI [20.6;40.3], perm_p 0.0002). EXPECTATION VIOLATION openly documented (increment 3-4x larger
+than pre-registered; big-pot surgery decomposition consistent) + NON-ADDITIVITY vs basis (self-play
+non-transitivity — mirror = selection channel, absolute proof only at the GTOW anchor, user command needed).
+3-RUNS RULE for r8: MET — replications +23.76±3.07 (bank 530k) + +29.23±3.03 (bank 560k),
+fresh A/A (iters-150 code) EXACTLY 0. **★ CHRISTENING: `auslese-v5` (tag + commit ec11fde, 2026-08-31) —
+FINAL_STACK = r8_stack; increment pooled +27.6±1.8; vs BASIS +30.60±5.03; live smokes green (flop
+0.06s; river cold start 13.5s incl. double resolver — later A/B: GPU REPLACES the TexasSolver river,
+POKERB_RESOLVER=0).** fp16 option measured +64% (half=True, default OFF). OPEN/NEXT: GTOW anchor
+(ABSOLUTE proof; waits for the user's command, hand budget) · expectation violation documented (increment
+3-4x above pre-registration; self-play non-transitivity: mirror numbers ≠ GTOW numbers) · turn-CFR
+deployment + flop rung + resolver-replacement A/B as the next GPU round.**
 
-## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NACHT 1 SEZIERT: -38,9 (n=1617) = 81% RIVER ohne Resolver; NACHT 2 = echter Bot + A/B
-**NACHT-1-ERGEBNIS (v4-Gym-Konfig NACKT: exploit-ON, resolver-OFF): AIVAT gepoolt -38,86 (n=1617).**
-Treiber-Bug (cp1252-Decode) wertete ERFOLGREICHE 500er-Chunks als Fehlschlaege -> Retries spielten mehr
-v4-Haende; ALLES aus HH-Dateien geborgen (jede Hand traegt `aivat`; Methode exakt gegen Smokes validiert;
-Chunks: -26,6/-55,0/-31,7). **DIAGNOSE AUS DEN 1617 HAENDEN (Journal + Miner): 81% des Verlusts am RIVER
-(-511 von -628 bb), Muster = das ALTE Desaster (175bb-Jam-Bluff mit K-high in die Straight; Bottom-Pair-
-Call eines 172bb-Jams) — dem Kanal fehlten die zwei Live-Traeger: RESOLVER (river_resolve wurde exakt
-dafuer gebaut, war in der -30,11-Referenz AN) + GTO-MODE-Disziplin (exploit-ON blutet vs Near-GTO).
-KEIN v4-Verdikt — eine nie zuvor gemessene Konfig.** Checkpoint haette korrekt nicht ausgeloest (-31,7
-nach Chunk A). **NACHT 2 LAEUFT (research/gtow_nacht.py v2, User-Kommando): der ECHTE finale Bot wie
-gegen die Basis gebaut — AUSLESE-Guard-Kette r6_button(turn_wert(sel_m15)) via POKERB_AUSLESE_STACK —
-auf dem Live-Fundament POKERB_PRINCE=1 + Resolver-ON, OHNE RAISE_NARROW (v8-K3, einzige regelkonforme
-Abweichung). Chunk 1 = KONTROLLE (PRINCE pur = -30,11-Referenz), Chunks 2-4 = v4_prince -> der A/B liegt
-in einer Nacht. Stapel-Risiko vorregistriert: turn_wert kann Resolver-Slowplay-Checks ueberschreiben.
-Ergebnis: Journal GTOW-NACHT2-*; HH weiter in data/sessions/gtow_hands_*.jsonl (Manifest ergaenzen!).**
+## ★★★★★ CURRENT (2026-08-18 ~04:10) — GTOW NIGHT 1 DISSECTED: -38.9 (n=1617) = 81% RIVER without resolver; NIGHT 2 = the real bot + A/B
+**NIGHT-1 RESULT (v4 gym config BARE: exploit-ON, resolver-OFF): AIVAT pooled -38.86 (n=1617).**
+Driver bug (cp1252 decode) counted SUCCESSFUL 500-hand chunks as failures -> retries played more
+v4 hands; EVERYTHING recovered from the HH files (every hand carries `aivat`; method validated exactly against the smokes;
+chunks: -26.6/-55.0/-31.7). **DIAGNOSIS FROM THE 1617 HANDS (journal + miner): 81% of the loss on the RIVER
+(-511 of -628 bb), pattern = the OLD disaster (175bb jam bluff with K-high into the straight; bottom-pair
+call of a 172bb jam) — the channel lacked the two live carriers: RESOLVER (river_resolve was built exactly
+for this, was ON in the -30.11 reference) + GTO-MODE discipline (exploit-ON bleeds vs near-GTO).
+NO v4 verdict — a config never measured before.** The checkpoint would correctly not have triggered (-31.7
+after chunk A). **NIGHT 2 RUNNING (research/gtow_nacht.py v2, user command): the REAL final bot as built
+against the base — AUSLESE guard chain r6_button(turn_wert(sel_m15)) via POKERB_AUSLESE_STACK —
+on the live foundation POKERB_PRINCE=1 + resolver-ON, WITHOUT RAISE_NARROW (v8-K3, the only rule-conformant
+deviation). Chunk 1 = CONTROL (PRINCE pure = the -30.11 reference), chunks 2-4 = v4_prince -> the A/B lands
+in one night. Stacking risk pre-registered: turn_wert can override resolver slowplay checks.
+Result: journal GTOW-NACHT2-*; HH continue in data/sessions/gtow_hands_*.jsonl (extend the manifest!).**
 
-## ★★★★★ CURRENT (2026-08-18 nacht) — GTOW-STAFFEL LAEUFT: Smokes gruen, Zahl ist ROTES TUCH, Nachtlauf mit Checkpoint
-**Der erste v4-GTOW-Test (Key #3, User-Kommando) laeuft als Staffel 20→100→2000.** Arm = v4-Stack
+## ★★★★★ CURRENT (2026-08-18 night) — GTOW RELAY RUNNING: smokes green, the number is a RED FLAG, night run with checkpoint
+**The first v4 GTOW test (key #3, user command) runs as a relay 20→100→2000.** Arm = v4 stack
 (POKERB_AUSLESE_STACK=r6_button + TURN_DEFENSE 0.07 + SLOWPLAY 0.25 + RAISE_NARROW 1.0, resolver-OFF).
-**Smokes: mechanisch PERFEKT** (20/20 + 100/100, null Fehler; zwei Vorfaelle gefunden+gefixt: 409-Konto voll
-mit 20 Alt-Waisen → clear_inprogress; dict+str-Crash in wickle_decide EXAKT bei Guard-Eingriff → auslese.py
-Guard-Marker statt rationale-Konkatenation). **ABER: AIVAT 20er −21,34±14,3 / 100er −59,03±22,1, gepoolt
-~−53±12 = 2σ UNTER dem ehrlichen Anker (−25..−30) — das v8-Muster (−58!), Verdacht = Fable-Befund live
-(gecappte Check-Range vs Re-Solver).** Der NACHTLAUF (research/gtow_nacht.py, laeuft im Hintergrund):
-4x500-Chunks, je 3 Versuche + Auto-clear_inprogress; VORREGISTRIERTER CHECKPOINT nach Chunk 1: v4-Pool
-(Smokes+Chunk1) ≤ −45 → Rest-Chunks wechseln auf KONTROLLE (POKERB_PRINCE=1 resolver-ON = die
-−30,11-Referenz) → die Nacht liefert dann den erklaerenden A/B. **ERGEBNISSE FUER DIE NAECHSTE SESSION:**
-(1) Journal data/autogym/journal.jsonl (Typen GTOW-NACHT-CHUNK je Chunk + GTOW-NACHT-FAZIT gepoolt),
-(2) Hand-Histories automatisch in data/sessions/gtow_hands_*.jsonl + Zuordnung in
-data/sessions/gtow_manifest_2026-08-18.json (Crash-Smoke NICHT werten), (3) Analyse-Wege:
-gtow_tree_census-Parser (replay), research/analyze_gtow_hands.py, Analyzer-Export. **WENN v4 LIVE BRICHT:
-Runde 6b-Prioritaet = turn_wert-SIZE-EntkopPlung (der 7/7-Tell) + Check-Range-Entcappung — der Fable-Report
-(Journal FABLE-DUELL/FABLE-RETEST) hat die Mechanik vorhergesagt. 409-Regel: vor jedem GTOW-Start
-clear_inprogress laufen lassen. Start-Kommando-Muster: siehe research/gtow_nacht.py ARM_V4/_lauf().**
+**Smokes: mechanically PERFECT** (20/20 + 100/100, zero errors; two incidents found+fixed: 409 account full
+with 20 old orphans → clear_inprogress; dict+str crash in wickle_decide EXACTLY on guard intervention → auslese.py
+guard marker instead of rationale concatenation). **BUT: AIVAT 20-run −21.34±14.3 / 100-run −59.03±22.1, pooled
+~−53±12 = 2σ BELOW the honest anchor (−25..−30) — the v8 pattern (−58!), suspicion = the Fable finding live
+(capped check range vs re-solver).** The NIGHT RUN (research/gtow_nacht.py, running in the background):
+4x500 chunks, 3 attempts each + auto-clear_inprogress; PRE-REGISTERED CHECKPOINT after chunk 1: v4 pool
+(smokes+chunk1) ≤ −45 → the remaining chunks switch to CONTROL (POKERB_PRINCE=1 resolver-ON = the
+−30.11 reference) → the night then delivers the explanatory A/B. **RESULTS FOR THE NEXT SESSION:**
+(1) journal data/autogym/journal.jsonl (types GTOW-NACHT-CHUNK per chunk + GTOW-NACHT-FAZIT pooled),
+(2) hand histories automatically in data/sessions/gtow_hands_*.jsonl + assignment in
+data/sessions/gtow_manifest_2026-08-18.json (do NOT count the crash smoke), (3) analysis routes:
+gtow_tree_census parser (replay), research/analyze_gtow_hands.py, Analyzer export. **IF v4 BREAKS LIVE:
+round 6b priority = turn_wert SIZE decoupling (the 7/7 tell) + check-range uncapping — the Fable report
+(journal FABLE-DUELL/FABLE-RETEST) predicted the mechanism. 409 rule: run clear_inprogress before every GTOW start.
+Start command pattern: see research/gtow_nacht.py ARM_V4/_lauf().**
 
-## ★★★★★ SCHLUSSSTRICH ATTACKE-SPRINT (2026-08-18 frueh) — v4 steht, Haertung bewiesen, Queue klar
-**Bilanz: AUSLESE v4 (Tag auslese-v4) dreifach gesichert (Mirror +16,14±2,77 vs basis; envgate-Treppe;
-Orakel-Panel gruen). r6_button ins HAERTUNGS-PROFIL (Fable-Retest: Ernte 186→58 bb/100, cooler-bereinigt
-Bot vorn; Open-Folds 0/46). Zwei-Achsen-Doktrin GEMESSEN. NAECHSTE SCHRITTE (priorisiert, Specs in
-data/runs/*.json): (1) Runde 6b: eCall-Neubau schaerfer selektiert + turn_wert-SIZE-Entkopplung (der
-7/7-Tell = Seesaw-Verletzung, wichtigster Einzelfix) + Stack-off-Bremse + Limp-Streichung; (2) princegate
-+ GTOW-Adapter (PFLICHT vor jedem Anker; Resolver-Falle); (3) pargate6 (6-max); (4) Flop-Resolver-Baustellen
-(Range-Abdeckung + Latenz/ISO-Cache); (5) Niveau-Audit-Rangliste (AIVAT-light, FDR-Ledger, Turn-Retraining).
-$30 Pod unangetastet. Fable-Duell-Harness = stehendes Adversar-Instrument (FABLE_STACK-Param).
-VERDRAHTUNG FINAL (2026-08-18, Commit 88771f8): pokerbot/strategy/auslese.py = EINE Quelle
-(FINAL_STACK r6_button + AUSLESE_ENV; resolver-ON-Variante ohne RN); HU-App gewickelt, six_server
-Env-Anteil, gtowizard POKERB_AUSLESE_STACK-Adapter (default byte-identisch); alle Kanaele smoke-gruen.
-FINALER STACK vs basis (Mirror 30k, Bank 150000): +23,36+-5,32 CI[+12,8,+33,7] p=0,0002 ANWENDEN.
-GTOW-Lauf wartet auf User-Kommando (Protokoll in data/runs/praezisions_armee_2026-08-17.json).**
+## ★★★★★ CLOSING LINE OF THE ATTACK SPRINT (2026-08-18 early) — v4 stands, hardening proven, queue clear
+**Balance: AUSLESE v4 (tag auslese-v4) triply secured (mirror +16.14±2.77 vs basis; envgate staircase;
+oracle panel green). r6_button into the HARDENING PROFILE (Fable retest: harvest 186→58 bb/100, cooler-adjusted
+bot ahead; open-folds 0/46). Two-axis doctrine MEASURED. NEXT STEPS (prioritized, specs in
+data/runs/*.json): (1) round 6b: eCall rebuild with sharper selection + turn_wert SIZE decoupling (the
+7/7 tell = seesaw violation, most important single fix) + stack-off brake + limp removal; (2) princegate
++ GTOW adapter (MANDATORY before every anchor; resolver trap); (3) pargate6 (6-max); (4) flop-resolver work sites
+(range coverage + latency/ISO cache); (5) level-audit ranking (AIVAT-light, FDR ledger, turn retraining).
+$30 pod untouched. Fable duel harness = standing adversary instrument (FABLE_STACK param).
+WIRING FINAL (2026-08-18, commit 88771f8): pokerbot/strategy/auslese.py = ONE source
+(FINAL_STACK r6_button + AUSLESE_ENV; resolver-ON variant without RN); HU app wrapped, six_server
+env share, gtowizard POKERB_AUSLESE_STACK adapter (default byte-identical); all channels smoke-green.
+FINAL STACK vs basis (mirror 30k, bank 150000): +23.36+-5.32 CI[+12.8,+33.7] p=0.0002 ANWENDEN.
+GTOW run waits for the user's command (protocol in data/runs/praezisions_armee_2026-08-17.json).**
 
-## ★★★★★ CURRENT (2026-08-17 nacht III) — PRAEZISIONS-LAUF: Verdikte bootstrap-gehaertet, Armee-Fixes gelandet
-**Niveau-Audit (7 Agenten, `data/runs/niveau_audit_2026-08-17.json`: Top-15-Rangliste; #1 AIVAT-light im
-Mirror, #2 Bootstrap-CI, #3 FDR-Ledger, #6 Turn-Retraining aus 22,5k Subgames) + Praezisions-Armee (19
-Agenten, `data/runs/praezisions_armee_2026-08-17.json`: 10 verifizierte Bugs + princegate-/pargate6-/GTOW-
-Protokoll-Specs).** GELANDET (Commit c9d06fc): **Estimator v3** (sparse-bewusster Bootstrap-CI + Permutations-p;
-bei Kanal<2% traegt das CI das Verdikt) — **NEUBEWERTUNG: turn_wert CI[+2,7,+12,1] p=0,0007 HAELT, RN10 3x
-HAELT, kombi_r5 HAELT, v4-Treppe HAELT; RN05 ehrlich auf NEUTRAL (war nie in der Version)**. Dazu: W1-3
-bet-Filter+R-Fix (war auf der Hauptmasse blind; FE_CEILING-Rekalibrierung offen), W1-4 Hole-Beteiligung,
-orakel_duell F-Pooling (F-Stufe war chunk-tot), pargate Env-Hygiene+Deck-Ordnung, runde5-KeyError,
-sixmax-UTG 0,16, envgate KANAL_-Vokabular (v8-Schutz), Flop-Resolver gebaut (POKERB_FLOP_RESOLVER, 7b42a5c).
-**GTOW-VORSICHT (Armee, KRITISCH): gtowizard.py konstruiert PokerBot direkt (v4-Wrapper NICHT im Harness)
-+ schaltet Resolver default ON (RAISE_NARROW-Falle) — der v4-GTOW-Anker braucht den Adapter aus dem
-gespeicherten Protokoll BEVOR er laeuft.** Ehrlicher Live-Anker bleibt −30,11±5,51 (Rang 24; der −19,70
-war vermutlich Blinds-Bug-inflationiert, STATE:257-269). Offen: Mirror-Duell v4-Wrapper vs basis (laeuft),
-princegate, pargate6, Turn-Retraining, AIVAT-light, FDR-Ledger.
+## ★★★★★ CURRENT (2026-08-17 night III) — PRECISION RUN: verdicts bootstrap-hardened, army fixes landed
+**Level audit (7 agents, `data/runs/niveau_audit_2026-08-17.json`: top-15 ranking; #1 AIVAT-light in the
+mirror, #2 bootstrap CI, #3 FDR ledger, #6 turn retraining from 22.5k subgames) + precision army (19
+agents, `data/runs/praezisions_armee_2026-08-17.json`: 10 verified bugs + princegate/pargate6/GTOW
+protocol specs).** LANDED (commit c9d06fc): **estimator v3** (sparse-aware bootstrap CI + permutation p;
+at channel<2% the CI carries the verdict) — **RE-EVALUATION: turn_wert CI[+2.7,+12.1] p=0.0007 HOLDS, RN10 3x
+HOLDS, kombi_r5 HOLDS, v4 staircase HOLDS; RN05 honestly to NEUTRAL (was never in the version)**. Plus: W1-3
+bet filter+R fix (was blind on the main mass; FE_CEILING recalibration open), W1-4 hole involvement,
+orakel_duell F pooling (the F rung was chunk-dead), pargate env hygiene+deck order, runde5 KeyError,
+sixmax UTG 0.16, envgate KANAL_ vocabulary (v8 protection), flop resolver built (POKERB_FLOP_RESOLVER, 7b42a5c).
+**GTOW CAUTION (army, CRITICAL): gtowizard.py constructs PokerBot directly (v4 wrapper NOT in the harness)
++ switches the resolver default ON (RAISE_NARROW trap) — the v4 GTOW anchor needs the adapter from the
+saved protocol BEFORE it runs.** Honest live anchor remains −30.11±5.51 (rank 24; the −19.70
+was presumably blinds-bug-inflated, STATE:257-269). Open: mirror duel v4 wrapper vs basis (running),
+princegate, pargate6, turn retraining, AIVAT-light, FDR ledger.
 
-## ★★★★★ CURRENT (2026-08-17 nacht II) — TAUFE: AUSLESE v4 (Tag auslese-v4) — die BET-SEITEN-Selektion
+## ★★★★★ CURRENT (2026-08-17 night II) — CHRISTENING: AUSLESE v4 (tag auslese-v4) — the BET-SIDE selection
 **AUSLESE v4 = turn_wert_guard(sel_guard(basis, m15)) + POKERB_TURN_DEFENSE=0.07 + POKERB_SLOWPLAY=0.25 +
-POKERB_RAISE_NARROW=1.0 (resolver-OFF-Kontext; kanonische Definition = envgate-Arm `kombi_r5`).**
-**FINALE (Bank 85000, 12k Decks, Referenz = eingefrorene basis, identische Decks): v3 +21,36±6,03 → v4
-+49,79±7,99; gepaarte Stufe v3→v4 = +28,44±6,17 (vz-z +10,1).** Evidenz-Kette (alles Journal + data/runs):
-Kombi-EINHEIT 3x repliziert (+26,4/+25,2/+36,2 vs v3-Referenz, Baenke 25k/45k/65k); turn_wert allein 3x im
-ECHTEN Mirror-Gate (+7,27±2,33 gepoolt, 3x30k); RN10 3x (+16,8/+13,7/+9,2, Dosis-Antwort); K3 allein
-NICHT repliziert, im Verbund gepaart +10,2±4,0 (Interaktion: Slowplay-Traps → verzoegerter turn_wert-Wert;
-Turn-Defense deckt den Stab-Exploit). Orakel-Duell-Panel GRUEN. EHRLICHE KANAL-NOTIZ: die +21/+50/+28
-sind der envgate-Kanal (gemeinsamer Gegner GTOBaseline, gepaarte Decks) — nicht identisch mit dem
-Mirror-Gate (dort ist turn_wert +7,27 die belegte Komponente); Vorzeichen und Replikation sind konsistent.
-**NAECHSTE SCHRITTE: (1) $0-GTOW-Anker fuer v4 (Schritt 8; resolver-Diskrepanz beachten: RAISE_NARROW ist
-resolver-ON kontraindiziert — v8-K3!), (2) Ko-Evolutions-Runde 6: nach turn_wert oeffnet sich der
-Turn-VERTEIDIGUNGS-Kanal erstmals (sel_turn neu messen), (3) v4 in Konsum-Kanaele verdrahten (server.py
-spielt noch die nackte Basis), (4) GPU-Job B1 (exakte 169x169-Matrix) → Brown V1.**
-**Der grosse Sweep hat geliefert.** Auf dem reparierten Fundament (Spot-RNG: A/A EXAKT 0 auf jedem Deck;
-Estimator v2 = rohes Mittel + Vorzeichen-Test, nachdem die 5%-Trimmung fuer DUENNE Kanaele als blind gemessen
-wurde — sie warf die 5-8% Signal-Decks weg):
-**(1) turn_wert-Guard (Bet-Seite, Trips+/Ueberpaar + eq>=0,60 vs Tracker-Range → 2/3-Pot-Bet am Turn):
-GEPOOLT 3x30k Decks vs sel_m15 = +7,27 ± 2,33 bb/100, Vorzeichen-z +14,9, Kanal 8,6% → ANWENDEN.** Der
-aelteste Leak (3x belegt) ist gefixt; Orakel-Duell-Panel GRUEN (verpasster_wert_turn 17,0→3,1/1000 mit
-Rest-Floor = kein Purify-Muster; bet_braucht_unplausible_folds faellt mit 10,0→7,5).
-**(2) raise_narrow_10 (geminter GTOW-Raise-Mix): 3x envgate-repliziert** (+16,8/+13,7/+9,2, Dosis 1.0>0.5)
-— NUR resolver-OFF-Kanaele (v8-K3-Warnung in gto_mode.py bleibt bindend). **(3) k3_deception repliziert
-NICHT** (+8,7/+0,3/−4,7) → nicht in die Version; turn_def_adv VERWERFEN (−20 in r3, vz-z negativ; die
-v5C-Analyzer-Historie haelt im Self-Play nicht). **(4) sel_all/sel_turn: Kanal LEER** (0 divergente Decks
-auf 30k — Mirror-Oekologie: die Basis bettet den Turn fast nie; nach turn_wert-Einbau neu pruefen =
-Ko-Evolution). **(5) kombi (turn_wert+K3+RN10): +26,4/+25,2 (2x massiv)** — Attribution laeuft
-(kombi_schlank ohne K3 vs kombi_r5, Bank 65000); danach kumulatives Finale vs Wrapper=basis + Taufe.
-Neue Instrumente: envgate (Env-Flag-Zwei-Lauf-Paarung, Wrapper-Arme), orakel_duell (L/F-Klassenraten je
-Gelegenheit, erster entscheidungs_logger-Konsument), W1-4 verpasster_wert (selektions-gegatet nach
-adversarischem Review) + W1-5 verpasster_raise. Orakel-Ausbau-Spezifikationen (Top-10 Richter, Brown V1-V4
-baureif, Blocker B1 = exakte 169x169-Matrix = GPU-Job 1): data/runs/orakel_ausbau_design.json.
+POKERB_RAISE_NARROW=1.0 (resolver-OFF context; canonical definition = envgate arm `kombi_r5`).**
+**FINAL (bank 85000, 12k decks, reference = frozen basis, identical decks): v3 +21.36±6.03 → v4
++49.79±7.99; paired step v3→v4 = +28.44±6.17 (sign-z +10.1).** Evidence chain (all journal + data/runs):
+kombi UNIT replicated 3x (+26.4/+25.2/+36.2 vs v3 reference, banks 25k/45k/65k); turn_wert alone 3x in the
+REAL mirror gate (+7.27±2.33 pooled, 3x30k); RN10 3x (+16.8/+13.7/+9.2, dose response); K3 alone
+NOT replicated, paired in the bundle +10.2±4.0 (interaction: slowplay traps → delayed turn_wert value;
+turn defense covers the stab exploit). Oracle duel panel GREEN. HONEST CHANNEL NOTE: the +21/+50/+28
+are the envgate channel (common opponent GTOBaseline, paired decks) — not identical to the
+mirror gate (there turn_wert +7.27 is the proven component); sign and replication are consistent.
+**NEXT STEPS: (1) $0 GTOW anchor for v4 (step 8; mind the resolver discrepancy: RAISE_NARROW is
+contraindicated resolver-ON — v8-K3!), (2) co-evolution round 6: after turn_wert the
+turn DEFENSE channel opens for the first time (re-measure sel_turn), (3) wire v4 into the consumption channels (server.py
+still plays the bare base), (4) GPU job B1 (exact 169x169 matrix) → Brown V1.**
+**The big sweep has delivered.** On the repaired foundation (spot RNG: A/A EXACTLY 0 on every deck;
+estimator v2 = raw mean + sign test, after the 5% trim was measured as blind for THIN channels
+— it threw away the 5-8% signal decks):
+**(1) turn_wert guard (bet side, trips+/overpair + eq>=0.60 vs tracker range → 2/3-pot bet on the turn):
+POOLED 3x30k decks vs sel_m15 = +7.27 ± 2.33 bb/100, sign-z +14.9, channel 8.6% → ANWENDEN.** The
+oldest leak (documented 3x) is fixed; oracle duel panel GREEN (verpasster_wert_turn 17.0→3.1/1000 with
+residual floor = no purify pattern; bet_braucht_unplausible_folds drops with 10.0→7.5).
+**(2) raise_narrow_10 (mined GTOW raise mix): 3x envgate-replicated** (+16.8/+13.7/+9.2, dose 1.0>0.5)
+— ONLY resolver-OFF channels (the v8-K3 warning in gto_mode.py remains binding). **(3) k3_deception does NOT
+replicate** (+8.7/+0.3/−4.7) → not into the version; turn_def_adv VERWERFEN (−20 in r3, sign-z negative; the
+v5C Analyzer history does not hold in self-play). **(4) sel_all/sel_turn: channel EMPTY** (0 divergent decks
+on 30k — mirror ecology: the base almost never bets the turn; re-check after the turn_wert build-in =
+co-evolution). **(5) kombi (turn_wert+K3+RN10): +26.4/+25.2 (2x massive)** — attribution running
+(kombi_schlank without K3 vs kombi_r5, bank 65000); then cumulative final vs wrapper=basis + christening.
+New instruments: envgate (env-flag two-run pairing, wrapper arms), orakel_duell (L/F class rates per
+opportunity, first entscheidungs_logger consumer), W1-4 verpasster_wert (selection-gated after
+adversarial review) + W1-5 verpasster_raise. Oracle expansion specifications (top-10 judges, Brown V1-V4
+ready to build, blocker B1 = exact 169x169 matrix = GPU job 1): data/runs/orakel_ausbau_design.json.
 
-## ★★★★★ CURRENT (2026-08-17 abend) — ROOT-SWEEP: 53 Hebel inventarisiert, 12 adversarisch verifiziert
-**Voller Repo-Sweep (19 Agenten, Ergebnis `data/runs/root_sweep_2026-08-17.json`). Zwei Befunde KORRIGIEREN den Stand:**
-**(1) sel_guard-streets-Parameter UNVERDRAHTET** (improver.py:116 hardcodet flop; der in-streets-Check landete per
-Commit 95d0ce9 versehentlich im mdf_guard) → **der sel_all-Arm war code-identisch zu sel_guard(flop); das Journal-
-Verdikt "v2/Turn+River-Selektion abgelehnt" ist per Konstruktion NICHTIG** (gemessen wurde A vs A; die +3,00±1,40
-der verfruehten v2-Taufe = pures MC-Rauschen als Nebenbeweis). Turn/River-Selektion ist UNGEMESSEN, nicht refutiert.
-**(2) Ungeseedete MC in Guards+Orakel bestaetigt** (improver.py:60/90/121/156/192, oracle.py:107/134/145 →
-equity.py faellt auf random.Random() zurueck): AUSLESE v3 ist im Gate nicht-deterministisch, Rausch-Boden in
-Effektstaerken-Groessenordnung; A/A-Nulltest als Abnahme. — Weitere bestaetigte Kern-Hebel: PRINCE-v2.2-Profil im
-Autogym-Kanal komplett tot (einzige live-validierten Hebel des Repos; Bauform = Zwei-Lauf-Env-Paarung, Import-Zeit-
-Konstanten!); TURN_DEF_ADVISOR-Turn-Kopf (v5C-Historie −1,87 Analyzer) ungetestet im Gate; RAISE_NARROW-Mix
-unverwertet; Gate ruft nie observe_* (misst anderen Bot als Live-App); entscheidungs_logger 0 Aufrufer; AUSLESE v3
-spielt in KEINEM Konsum-Kanal (server.py = nackte Basis). Vorsicht: AUDIT_FIX war gepaart REFUTIERT (+2,62, parked),
-Resolver-Diskrepanz beachten (−19,70-Anker war resolver-ON, Autogym zuechtet resolver-OFF). Details unten im Text.
+## ★★★★★ CURRENT (2026-08-17 evening) — ROOT SWEEP: 53 levers inventoried, 12 adversarially verified
+**Full repo sweep (19 agents, result `data/runs/root_sweep_2026-08-17.json`). Two findings CORRECT the state:**
+**(1) sel_guard streets parameter UNWIRED** (improver.py:116 hardcodes flop; the in-streets check landed by
+commit 95d0ce9 accidentally in the mdf_guard) → **the sel_all arm was code-identical to sel_guard(flop); the journal
+verdict "v2/turn+river selection rejected" is VOID by construction** (A vs A was measured; the +3.00±1.40
+of the premature v2 christening = pure MC noise as a side proof). Turn/river selection is UNMEASURED, not refuted.
+**(2) Unseeded MC in guards+oracle confirmed** (improver.py:60/90/121/156/192, oracle.py:107/134/145 →
+equity.py falls back to random.Random()): AUSLESE v3 is non-deterministic in the gate, noise floor of the
+order of the effect sizes; A/A null test as acceptance. — Further confirmed core levers: PRINCE v2.2 profile in the
+autogym channel completely dead (the only live-validated levers of the repo; build form = two-run env pairing, import-time
+constants!); TURN_DEF_ADVISOR turn head (v5C history −1.87 Analyzer) untested in the gate; RAISE_NARROW mix
+unexploited; the gate never calls observe_* (measures a different bot than the live app); entscheidungs_logger 0 callers; AUSLESE v3
+plays in NO consumption channel (server.py = bare base). Caution: AUDIT_FIX was paired-REFUTED (+2.62, parked),
+mind the resolver discrepancy (the −19.70 anchor was resolver-ON, autogym breeds resolver-OFF). Details below in the text.
 
-## ★★★★★ CURRENT (2026-08-17) — SCHLUSSSTRICH AUTOGYM-SPRINT: AUSLESE v3 steht; naechste Schritte definiert
-**Stand: AUSLESE v3 = amtierender Bot** (Tag auslese-v3; sel_guard 15pp-Marge; ~+9 bb/100 kumulativ ueber
-der eingefrorenen Basis, alle Zahlen im Tag + Journal). Schleife lokal bewiesen, $30 Pod unangetastet.
-**NAECHSTE SCHRITTE (priorisiert, jede mit vorregistrierter Erwartung zu starten):**
-1. **Robuste SE fuer pargate** (getrimmte Edges/Bootstrap) — VOR der naechsten Namens-Entscheidung;
-   die 3-Sigma-Heterogenitaet identischer Laeufe ist als Fat-Tail-Befund journaliert.
-2. **MC-Seeding fuers Messen** (equity_vs_* mit rng) — repariert die Paarung des Transfer-Tests
-   (v3 vs GTOBaseline/fremde Gegner: transferiert die Selektion?) + macht Gates deterministischer.
-3. **K1-Jaeger** (Cbet-Dauerfeuer, EXPLOIT_KATALOG) gegen die Haertungs-Landkarte → erste gezielte
-   HAERTUNG des Kerns; danach K3 (Turn-Kollaps: der aelteste Leak, 3fach belegt).
-4. **Turn-Wert-Guard** (Snowie-Klasse B: verpasster Wert mit Ueberpaar/Trips am Turn) als
-   Bet-seitiger Kandidat der Runde 5 gegen v3.
-5. **6-max-Gate (AP-6MAX)**: Sitz-Rotations-Paarung bauen, Guards mit Positions-Prior uebertragen —
-   Vorsicht: der Katalog v0 zeigt KEINEN 6max-Flop-Overfold, blinde Uebertragung von sel_guard
-   ist NICHT indiziert; erst 6max-eigene Leads aus dem Katalog.
-6. **Welle 1b Orakel** (MDF/Alpha-Paar, Sizing-Buckets, F-Severity) + Welle 2 (hand_id/Line).
-7. **Pod (R3)**: erst wenn mehrere Kandidaten-Familien parallel bei 100k-Aufloesung anstehen.
-8. **GTOW-Anker zur Not**: v3 einmal vs GTOW messen (in-process, $0) um die Treppe (-19,70 → ?)
-   extern zu kalibrieren — Self-Play-Gewinne muessen sich dort zeigen, sonst Selbstspiel-Blindheit.
-**Die Session wechselt jetzt zu einem NEUEN Projekt (nicht Bot-Verbesserung; User-Ansage).**
+## ★★★★★ CURRENT (2026-08-17) — CLOSING LINE OF THE AUTOGYM SPRINT: AUSLESE v3 stands; next steps defined
+**State: AUSLESE v3 = incumbent bot** (tag auslese-v3; sel_guard 15pp margin; ~+9 bb/100 cumulative over
+the frozen base, all numbers in the tag + journal). Loop proven locally, $30 pod untouched.
+**NEXT STEPS (prioritized, each to be started with a pre-registered expectation):**
+1. **Robust SE for pargate** (trimmed edges/bootstrap) — BEFORE the next naming decision;
+   the 3-sigma heterogeneity of identical runs is journaled as a fat-tail finding.
+2. **MC seeding for measurement** (equity_vs_* with rng) — repairs the pairing of the transfer test
+   (v3 vs GTOBaseline/foreign opponents: does the selection transfer?) + makes the gates more deterministic.
+3. **K1 hunters** (c-bet barrage, EXPLOIT_KATALOG) against the hardening map → first targeted
+   HARDENING of the core; then K3 (turn collapse: the oldest leak, triply documented).
+4. **Turn value guard** (Snowie class B: missed value with overpair/trips on the turn) as the
+   bet-side candidate of round 5 against v3.
+5. **6-max gate (AP-6MAX)**: build seat-rotation pairing, transfer guards with a position prior —
+   caution: catalog v0 shows NO 6max flop over-fold, a blind transfer of sel_guard
+   is NOT indicated; first 6max-specific leads from the catalog.
+6. **Wave 1b oracle** (MDF/alpha pair, sizing buckets, F severity) + wave 2 (hand_id/line).
+7. **Pod (R3)**: only once several candidate families are queued in parallel at 100k resolution.
+8. **GTOW anchor if need be**: measure v3 once vs GTOW (in-process, $0) to externally calibrate the
+   staircase (-19.70 → ?) — self-play gains must show up there, otherwise self-play blindness.
+**The session now switches to a NEW project (not bot improvement; user's announcement).**
 
-## ★★★★★ CURRENT (2026-08-17 nacht) — AUSLESE v1 DOPPELT BESTAETIGT; Exploit-Jagd + Snowie-Triangulation
-**Stand der Schleife nach Tag 1:** AUSLESE v1 (sel_guard: Flop-Fold -> Call wenn Equity vs Tracker-Range
-Pot-Odds+3pp deckt) ist der amtierende Name: +4,70+-2,06 und +7,49+-2,08 (2x 99k Decks, unabhaengig) =
-gepoolt ~+6,1+-1,5 vs die eingefrorene Basis (Tag autogym-basis). v2 (alle Strassen) REPLIKATIONS-ABGELEHNT
-(3 Laeufe gepoolt +0,69+-0,56): der EV der Selektion sitzt am FLOP. Snowie-Triangulation (400 gepaarte
-Haende, alle 39 Blunder einzeln): Basis under-callt Flop (53% der Empfehlung), v1 over-callt (195%) ->
-Margen-Sweep = Kandidat; groesste Blunder-Klasse = MEHRSTRASSIGE Call-Ketten (Guard rettet, Bot callt
-weiter) -> Mehrstrassen-Disziplin; zweitgroesste = verpasster Turn-Wert (dritter Beleg des aeltesten
-Postflop-Leaks). EXPLOIT-JAGD (2x 100k Haende, 20 persistente Jaeger, Kontrolle vs adaptiv): generische
-Dirichlet-Adaption erntet nur ~+1 n.s. (Kanal-Shift Showdown +19,9/NSD -11,0; 20 Jaeger konvergieren auf
-VPIP 0,76/FtB 0,30/Agg 0,32 = die Haertungs-Landkarte; 2 Katastrophen-Jaeger = Tail-Risiko) -> STRUKTUR
-SCHLAEGT ANPASSUNG (dreifach belegt; Brown 2026 sagt dasselbe: Bluff/Continue ist AUSWAHL, nicht Quote).
-docs/EXPLOIT_KATALOG.md: K1-K7 mit Haertungs-Gegenmassnahmen. Transfer-Test v1 vs GTOBaseline: -3,8+-12,9
-uninformativ (ungeseedete MC bricht die Paarung -- Determinismus-Arbeitspaket). Werkzeuge des Tages:
-pargate (--incumbent, Thread-Pin, ETA), exploit_jagd, snowie_export (Gate-Paritaet), verify_refs 66/66,
-Advisor-Batch 2,2x, Run-Ablage data/runs/ + STAND.md. Naechste Runde 4: Margen-Sweep, Mehrstrassen-
-Disziplin, Turn-Wert-Guard, K1-Jaeger; 6-max: AP-6MAX-Beobachtung. $30 Pod unangetastet.
+## ★★★★★ CURRENT (2026-08-17 night) — AUSLESE v1 DOUBLY CONFIRMED; exploit hunt + Snowie triangulation
+**State of the loop after day 1:** AUSLESE v1 (sel_guard: flop fold -> call when equity vs tracker range
+covers pot odds+3pp) is the incumbent name: +4.70+-2.06 and +7.49+-2.08 (2x 99k decks, independent) =
+pooled ~+6.1+-1.5 vs the frozen base (tag autogym-basis). v2 (all streets) REPLICATION-REJECTED
+(3 runs pooled +0.69+-0.56): the EV of the selection sits on the FLOP. Snowie triangulation (400 paired
+hands, all 39 blunders individually): base under-calls the flop (53% of the recommendation), v1 over-calls (195%) ->
+margin sweep = candidate; biggest blunder class = MULTI-STREET call chains (guard rescues, bot keeps
+calling) -> multi-street discipline; second-biggest = missed turn value (third piece of evidence for the oldest
+postflop leak). EXPLOIT HUNT (2x 100k hands, 20 persistent hunters, control vs adaptive): generic
+Dirichlet adaptation harvests only ~+1 n.s. (channel shift showdown +19.9/NSD -11.0; 20 hunters converge on
+VPIP 0.76/FtB 0.30/Agg 0.32 = the hardening map; 2 catastrophe hunters = tail risk) -> STRUCTURE
+BEATS ADAPTATION (triply documented; Brown 2026 says the same: bluff/continue is SELECTION, not rate).
+catalogs/EXPLOIT_CATALOG.md: K1-K7 with hardening countermeasures. Transfer test v1 vs GTOBaseline: -3.8+-12.9
+uninformative (unseeded MC breaks the pairing -- determinism work package). Tools of the day:
+pargate (--incumbent, thread pin, ETA), exploit_jagd, snowie_export (gate parity), verify_refs 66/66,
+advisor batch 2.2x, run storage data/runs/ + STAND.md. Next round 4: margin sweep, multi-street
+discipline, turn value guard, K1 hunters; 6-max: AP-6MAX observation. $30 pod untouched.
 
-## ★★★★★ CURRENT (2026-08-16) — AUTOGYM GEBAUT: die selbstpruefende Trainings-Schleife (Ziel: GTOW-Baseline)
-**Der beschlossene Weg zur GTOW-Baseline (Treppe −19,70 → −15 → −10): eine Schleife, die Self-Play spielt, jede
-Entscheidung gegen die vereinheitlichte Mathematik-Benchmark haelt, Abweichungen mint und Patches NUR durchs
-gepaarte A/B-Gate laesst.** Gebaut + erster Pilot gruen: `pokerbot/autogym/` (oracle/gym_hu/gym_six/improver/
-selftest; Plan + Erwartungs-Leiter E1–E6 = `docs/AUTOGYM_PLAN.md`). Pilot (52 s lokal): 500 Haende, 3.577
-Entscheidungen; HART 0 (Chip-Erhaltung haelt; die Stufe fand zuerst einen Bug im eigenen Pruefer — gefixt),
-P 0 (keine beweisbar dominierten Aktionen), L 35 (Rueckschau-Calls bis 112 bb unter Pot-Odds → Journal-Leads),
-F 3 (u.a. mdf_flop), Button-Netto HU +32,6 bb/100 (neue kartenbereinigte Benchmark-Groesse), Gate-Selbsttest
-exploit-OFF vs ON +2,1 ± 3,3 → NEUTRAL (das Gate verweigert korrekt). Sicherheits-Kontrakt bindend (CLAUDE.md):
-Formeln unveraenderlich, Orakel-Knoepfe fuer den Improver gesperrt (Goodhart), Bot-Knoepfe nur durchs Gate,
-Wrapper statt Quelltext-Edits, Journal-Pflicht. NAECHSTE SCHRITTE: (1) selftest E1–E4 gruen kriegen,
-(2) Mathe-Vollinventur (78 Funktionen + 443 MoP-Chunks) → Welle-1-Verdrahtung, (3) L-Leads von Rueckschau auf
-Range-Equity, (4) erst nach E1–E5 der CPU-Pod, (5) E6 = jeder ANWENDEN-Kandidat vs GTOW ($0 in-process).
-**Kontext dieser Session: Repo-Trennung vollzogen** — alles Nicht-Poker lag im gitignorierten Root-Ordner
-`#Anderes/` (pre-commit-Hook; **der Ordner ist am 2026-09-10 geloescht**, Nicht-Poker-Arbeiten liegen seither
-ausserhalb des Repos), Historie lokal + GitHub bereinigt (Neuaufbau ab 9a1d36b + filter-branch fuer einen Alt-Pfad),
-Fremdprojekt-Name aus dem Kern entfernt, Backup-Bundle in `Desktop/PokerB-Backup/`.
-**Paper-Verankerung (2026-08-16 abend):** drei Extraktionen trianguliert + verankert (`docs/AUTOGYM_PLAN.md`
-Abschnitt "Paper-Verankerung 2026"). Brown VNM-169 (`knowledge_base/theory/brown_vnm_169.md`) → 4 Orakel-Checks
-V1–V4 spezifiziert (V1 `value_ordnung` range-frei, priorisiert vor Welle 1b) + bindende Entwurfsregel
-"Bluff-Auswahl strukturell, nie Quote" = unabhängige Theorie-Bestätigung des mdf_guard-NEUTRAL (−3,26, n=99k);
-SPIRAL (`docs/SPIRAL_NOTES.md`) → RAE + Self-Play-Kopien als REGISTRIERTES Reward-Design für jeden künftigen
-RL-Lauf (die −90-Liga-Regression = SPIRALs Fixed-Opponent-Befund); Diniz bestätigt Imitation-Ceiling
-(Logprob-Scoring + SCORE-Knob als Verwertung).
+## ★★★★★ CURRENT (2026-08-16) — AUTOGYM BUILT: the self-checking training loop (goal: GTOW baseline)
+**The decided path to the GTOW baseline (staircase −19.70 → −15 → −10): a loop that plays self-play, holds every
+decision against the unified mathematics benchmark, mines deviations and lets patches through ONLY via the
+paired A/B gate.** Built + first pilot green: `pokerbot/autogym/` (oracle/gym_hu/gym_six/improver/
+selftest; plan + expectation ladder E1–E6 = `plans/AUTOGYM_PLAN.md`). Pilot (52 s locally): 500 hands, 3,577
+decisions; HART 0 (chip conservation holds; the rung first found a bug in its own checker — fixed),
+P 0 (no provably dominated actions), L 35 (hindsight calls up to 112 bb below pot odds → journal leads),
+F 3 (incl. mdf_flop), button net HU +32.6 bb/100 (new card-adjusted benchmark quantity), gate self-test
+exploit-OFF vs ON +2.1 ± 3.3 → NEUTRAL (the gate correctly refuses). Safety contract binding (CLAUDE.md):
+formulas immutable, oracle knobs locked for the improver (Goodhart), bot knobs only through the gate,
+wrappers instead of source edits, journal duty. NEXT STEPS: (1) get selftest E1–E4 green,
+(2) full math inventory (78 functions + 443 MoP chunks) → wave-1 wiring, (3) L leads from hindsight to
+range equity, (4) the CPU pod only after E1–E5, (5) E6 = every ANWENDEN candidate vs GTOW ($0 in-process).
+**Context of this session: repo separation completed** — everything non-poker lay in the gitignored root folder
+`#Anderes/` (pre-commit hook; **the folder was deleted on 2026-09-10**, non-poker work has since lived
+outside the repo), history cleaned locally + on GitHub (rebuild from 9a1d36b + filter-branch for one old path),
+foreign project name removed from the core, backup bundle in `Desktop/PokerB-Backup/`.
+**Paper anchoring (2026-08-16 evening):** three extractions triangulated + anchored (`plans/AUTOGYM_PLAN.md`
+section "Paper-Verankerung 2026"). Brown VNM-169 (`knowledge_base/theory/brown_vnm_169.md`) → 4 oracle checks
+V1–V4 specified (V1 `value_ordnung` range-free, prioritized before wave 1b) + binding design rule
+"bluff selection structural, never a rate" = independent theory confirmation of the mdf_guard NEUTRAL (−3.26, n=99k);
+SPIRAL (`reports/SPIRAL_NOTES.md`) → RAE + self-play copies as the REGISTERED reward design for every future
+RL run (the −90 league regression = SPIRAL's fixed-opponent finding); Diniz confirms the imitation ceiling
+(logprob scoring + SCORE knob as the exploitation).
 
-## ★★★★★ CURRENT (2026-08-04 nacht II) — GG-NL2-PREPARATION FÜR PRINCEDARKNESS (docs/PREP_GG_NL2.md)
-**User spielt jetzt GG NL2. 600k Hände vermessen (`research/gg_nl2_pop.py`; EU-Fenster 544k/81.7k
-Spieler): Pool über die Uhrzeit FLACH (VPIP 30/PFR 17/3bet 7,2 — Timing kein Hebel, Peak 17–23h),
-Volumen 80% reg-dominiert, Steuer 4,48% des Pots (Rake+Jackpot, Cap 9,5bb ≈ 34–39 bb/100 Last).
-Gewinner-Template (echte WRs ≥2k H.): VPIP 21,7/Limp 0,8/FvR 78 — die Gewinner FOLDEN am meisten
-(+14,9 Mittel, top +49). Hebel-Sim (40k je Arm, gleiche Seeds): Clone −210 → A-Game −29 (Tilt ~180)
-→ VALUE-GATE +59,8 Delta (der dominante Hebel: 77%-FvR-Pool + Sticky-Caller = Bluffs verbrennen
-doppelt), Limp-Cut +21, Call-Disziplin +12, 3bet-Up ±0; BÜNDEL GEMESSEN +63,0 ± 10,7 (fast additiv,
-disjunkte Knoten). Preparation = 5 Regeln in docs/PREP_GG_NL2.md; realistisches Ziel +10..+30.**
-**FORMAT-VERGLEICH (User-Fragen Spin&Gold + Mystery Battle Royale, `research/spin_sim.py`):**
-Spin&Gold: 7% Fee je Buy-in ⇒ E[Pool]=2,79 BI ⇒ Breakeven-P(Sieg)=35,8% (Basis 33,3). Sim 3-max-
-Hyper 15bb (2.500 Spiele/Zelle, seeded-eq): Clone/A-Game 22–27% = katastrophal (Limp-Stil stirbt
-im Hyper); PREP-Bündel 49,2% vs Rec-Feld (+33% ROI, Obergrenze) aber 32,9% vs Reg-Feld (−11%);
-tag-Kern 43,4/31,7. Prep schlägt tag in BEIDEN Feldern. Mystery BR: 8% Fee, Skill in 2 von 3
-Phasen wegkomprimiert (Shootout skill-frei, Bounty-Lotterie) ⇒ schwächstes Format.
-**v2 NACH USER-KORREKTUR (10bb-Standard, Jam-Feld 'die anderen spielen ähnlich'):** P_Ds
-All-in-Stil ist bei 10bb FAST KORREKT — breite Calls sind gegen breite Jams pot-odds-richtig;
-die Cash-'Call-Disziplin' KEHRT SICH UM (over-fold: 31,7% = −14% vs jam_rec, während pd_spin
-42,1% = +14% druckt). Spiegel-Feld (sein Stil + Rauschen): **35,8%/36,3% (10/25bb) ≈ exakt
-Breakeven — die 7%-Fee frisst den Fehlkalibrierungs-Ertrag.** Edge nur vs klar fehlkalibrierte
-Gegner (Fold-Maschinen-Zellen 77% = Modell-Artefakt, so gelabelt). Tiefe ändert wenig.
-VERDIKT bleibt: NL2-Cash ≫ Spin (~Breakeven±) > Mystery BR — aber PRÄZISER: nicht weil sein
-Stil im Spin schlecht wäre (fast richtig!), sondern weil das Format den Skill-Raum bis auf
-Fee-Niveau komprimiert. Spin-Prep ≠ Cash-Prep: Calls pot-odds-genau an die beobachtete
-Jam-Breite koppeln, NICHT pauschal tighter.
+## ★★★★★ (2026-08-04 night) — 600-ENTRY MTT SIM + 3 ENGINE FIXES + TRAINER BAYES PRIOR
+**User scenario measured: $1050/$600k MTT, ~600 entries (no-overlay calculation exact: 600×$1000), 220bb,
+90 PS-format payouts (winner $94.8k; real HH payout ladders deal-contaminated at the top → synthesized).**
+`research/mtt_sim.py` = real multi-table (100 tables, balancing/collapse, global places, bubble at 90,
+exact ICM from ≤12, hero-bust early exit, ~5s/tournament) + `research/mtt_report.py` (pooled paired deltas).
+**Adversarial review workflow (15 agents) + engine fuzz found 6 confirmed defects — all fixed,
+`tests/test_mtt.py` conserves them:** (1) the ante counted as a street bet (BB fold in the limped pot, orphaned
+ante/table), (2) **HU blind inversion in table.py** (the button posted the BB — every multiway endgame rule-violating),
+(3) **orphaned side-pot layer** (fold above the all-in cap → chips destroyed, even without antes), (4) hero
+initiative flag (SixMaxBot seat=0 fixed, ~5/6 of the hands wrong → seat per hand + new_hand reset), (5) all-in-
+through-antes hole (pot destroyed), (6) ICM all-in threshold (uncalled excess went to hero; third-party invested
+double). **CAVEAT: all earlier SNG absolute values (μ-3 etc.) ran on the engine WITH (1)-(3) —
+paired, arm deltas plausibly robust, absolute values shift.** MEASUREMENT (paired): conservative
+bracket (bot cores at hero's table, n=960) **ROI −28/−32%, ITM 7.5% (½ base), P(1st) 0.2–0.4% (1.3–2.5×
+base) = chip-accumulator profile; 27% busts in the first 2 levels (220bb!) → the 100bb league stacks off
+too much deep-stacked; design asymmetrically unfair (only hero's table hard) = lower bound. Pressure lever without
+signal (−4.0±18.9, z=−0.2).** Main measurement (calibrated freq field, 3000 pairs ≈ 50 min) aborted by the
+user — if needed: `python -m research.mtt_sim --tourneys N --paired --out ...` × workers.
+**Variance doctrine (exact from the payout ladder):** SD 5.4–9.7 buy-ins/tournament (rises with skill!), 85% zeros,
++65%-ROI player: P(in the red after 100 tournaments)=23%, max DD p50/p99 = 27/60 buy-ins, ~140 BI bankroll
+for 5% ruin. **TRAINER BAYES PRIOR retrofitted (user):** `make_seeded_tracker` → `coach/range_story.py`
+(shared), Prince HU takeover in `six_server._prince_decide` now injects the human's position+role
+(previously a position-blind ~50% HU range); both roles verified history-consistent, Snowie regression 5/5.
+**★ 13,016 AUTOPSY COMPLETED (parallel session, details NOTES.md):** the 1/91 chip deficit is NOT reproducible in the
+committed code (~325 full tournaments + 235k hands chip-exact; guard=300 unreachable — longest
+hand 31 actions) → pre-747369f working-state artifact; **culprit with measured fit = defect (3),
+the destroyed orphaned side-pot layer** (instrumented ~1/30 tournaments, sizes 267–26,144 → 13,016
+in the middle of the distribution). Tripwire now in `_play_hand` (refund instead of pot destruction + chip conservation PER
+HAND with full dump). **And: the non-reproducibility of identical seeds was NOT the global random module
+(0 calls measured) but PYTHONHASHSEED set iteration** (`range_top`→set→`list()`→MC combo order;
+same seed, 3 processes: place 378/12/4) → `sorted()` at the chokepoint `equity_vs_class_range`, verified byte-identical
+across processes (full place+stack fingerprint) = **paired-seed power now also holds CROSS-process**;
+a future freq main measurement runs reproducibly with it (RAM note: ≤6 workers on the 16 GB box).
 
-## ★★★★★ (2026-08-04 nacht) — 600er-MTT-SIM + 3 ENGINE-FIXES + TRAINER-BAYES-PRIOR
-**User-Szenario vermessen: $1050/$600k-MTT, ~600 Entries (No-Overlay-Rechnung exakt: 600×$1000), 220bb,
-90 PS-Form-Payouts (Sieger $94,8k; echte HH-Leitern oben Deal-kontaminiert → synthetisiert).**
-`research/mtt_sim.py` = echtes Multi-Table (100 Tische, Balancing/Kollaps, globale Plätze, Bubble bei 90,
-exakte ICM ab ≤12, Hero-Bust-Early-Exit, ~5s/Turnier) + `research/mtt_report.py` (gepoolte gepaarte Deltas).
-**Adversarialer Review-Workflow (15 Agenten) + Engine-Fuzz fanden 6 bestätigte Defekte — alle gefixt,
-`tests/test_mtt.py` konserviert sie:** (1) Ante zählte als Street-Einsatz (BB-Fold im Limped-Pot, verwaiste
-Ante/Tisch), (2) **HU-Blind-Inversion in table.py** (Button postete BB — jedes Multiway-Endspiel regelwidrig),
-(3) **verwaiste Side-Pot-Schicht** (Fold über All-in-Cap → Chips vernichtet, auch ohne Antes), (4) Hero-
-Initiative-Flag (SixMaxBot seat=0 fix, ~5/6 der Hände falsch → seat je Hand + new_hand-Reset), (5) All-in-
-durch-Antes-Loch (Pot vernichtet), (6) ICM-All-in-Schwelle (Uncalled-Exzess ging an Hero; Dritt-Invested
-doppelt). **VORBEHALT: alle früheren SNG-Absolutwerte (μ-3 etc.) liefen auf der Engine MIT (1)-(3) —
-gepaart, Arm-Deltas plausibel robust, Absolutwerte verschieben sich.** MESSUNG (gepaart): konservative
-Klammer (Bot-Kerne an Heros Tisch, n=960) **ROI −28/−32%, ITM 7,5% (½ Basis), P(1.) 0,2–0,4% (1,3–2,5×
-Basis) = Chip-Accumulator-Profil; 27% Busts in den ersten 2 Leveln (220bb!) → die 100bb-Liga stackt
-tiefgestackt zu viel; Design asymmetrisch unfair (nur Heros Tisch hart) = Untergrenze. Druck-Hebel ohne
-Signal (−4,0±18,9, z=−0,2).** Hauptmessung (kalibriertes Freq-Feld, 3000 Paare ≈ 50 min) vom User
-abgebrochen — bei Bedarf: `python -m research.mtt_sim --tourneys N --paired --out ...` × Worker.
-**Varianz-Doktrin (exakt aus der Leiter):** SD 5,4–9,7 Buy-ins/Turnier (steigt mit Skill!), 85% Nuller,
-+65%-ROI-Spieler: P(nach 100 Turnieren im Minus)=23%, Max-DD p50/p99 = 27/60 Buy-ins, ~140 BI Bankroll
-für 5% Ruin. **TRAINER-BAYES-PRIOR nachgerüstet (User):** `make_seeded_tracker` → `coach/range_story.py`
-(geteilt), Prince-HU-Takeover in `six_server._prince_decide` injiziert jetzt Position+Rolle des Menschen
-(vorher positionsblinde ~50%-HU-Range); beide Rollen History-konsistent verifiziert, Snowie-Regression 5/5.
-**★ 13.016er-OBDUKTION ABGESCHLOSSEN (Parallel-Session, Details NOTES.md):** Das 1/91-Chip-Defizit ist im
-committeten Code NICHT reproduzierbar (~325 volle Turniere + 235k Hände chip-exakt; guard=300 unerreichbar —
-längste Hand 31 Aktionen) → Prä-747369f-Arbeitsstand-Artefakt; **Täter mit gemessenem Fit = Defekt (3),
-die vernichtete verwaiste Side-Pot-Schicht** (instrumentiert ~1/30 Turniere, Größen 267–26.144 → 13.016
-mitten in der Verteilung). Tripwire jetzt in `_play_hand` (Refund statt Pot-Vernichtung + Chip-Erhaltung JE
-HAND mit Voll-Dump). **Und: die Nicht-Reproduzierbarkeit gleicher Seeds war NICHT das globale random-Modul
-(0 Aufrufe gemessen) sondern PYTHONHASHSEED-Set-Iteration** (`range_top`→set→`list()`→MC-Combo-Reihenfolge;
-gleicher Seed, 3 Prozesse: Platz 378/12/4) → `sorted()` am Chokepoint `equity_vs_class_range`, byte-identisch
-über Prozesse verifiziert (voller Platz+Stack-Fingerprint) = **Paired-Seed-Power gilt jetzt auch CROSS-Prozess**;
-eine künftige freq-Hauptmessung läuft damit reproduzierbar (RAM-Hinweis: ≤6 Worker auf der 16-GB-Box).
+## ★★★★★ (2026-08-04 late) — TOURNAMENT MODE BUILT (exact ICM + doctrine + director + arena) + MULTIWAY 7–10
+**Books systematically extracted** (Sklansky *Tournament Poker* + O'Kearney/Carter *Endgame/ICM*; workflow
+4 readers + 2 auditors) → `knowledge_base/tournament/DOKTRIN.md` (10 points with formulas + wiring map).
+**Built + test ladder green** (test_icm against independent enumeration, test_tournament: chip conservation over
+whole tournaments, determinism, book anchors, cash parity; Snowie regression 5/5 untouched):
+`strategy/icm.py` (exact Malmuth-Harville bitmask DP, bubble_factor, icm_call_threshold three worlds) ·
+`strategy/tournament.py` (Structure/BlindLevel SNG9/SNG6 + FLAT9/TOP_HEAVY9 sensitivity arms, Director with
+elimination/simultaneous-bust rule/shrinking 9→2, icm_required_equity r'=BF·r/(BF·r+1−r), **proportional
+risk premium** BF_eff=1+(BF−1)·(to_call/Stack)) · `arena/tourney.py` (paired seeds ICM on/off) ·
+`engine/table.py` (POS_LABELS 7–10, stacks=/ante=/rebuy=, default-identical) · sixmax multiway buckets ONLY
+for new labels (6-max byte-identical = anchor protection) + 2 ICM hooks ONLY on the call side (gap doctrine) ·
+**trainer ?players=9** (ellipse seats, TestClient-verified 6/8/9). HU = BF 1 → Prince v2.2 untouched.
+**μ MEASUREMENT (paired, the judge):** μ-1 (full BF on every call) REFUTES itself: −8.1±13.9 pp,
+over-tightening pattern (more 4ths, fewer 1sts — survived to the bubble, bled out there) → doctrine fix proportional
+premium → **μ-2: +9.2 ± 8.0 pp ROI (ICM on +18.4% vs off +9.3%, n=500), mechanism fingerprint = 2nd places
+71 vs 47 (ladder)**. **μ-3 (1500 pairs, 6 parallel workers): +10.02 ± 5.03 pp, 95% band [+0.2, +19.9], z=1.99 — VALIDATED;
+MORE wins (214 vs 192) AND better ladder = dominance.** PS $1050 field measured (FoldVsRaise 54→62 under
+pressure = their ICM behavior empirically documented) + pressure lever (icm_pressure_mult, doctrine 9) built; duel 1
+against the frequency field = ceiling effect (92% wins, uninformative — field too weak), duel 2 against the
+ICM-playing bot field (n=300/arm, paired): **chipEV +6.6 / icm +7.7 / icm+pressure +14.1% ROI; pressure leads on
+EVERY metric (P1st 21% vs 18%, ITM 36.3%) — the user's thesis confirmed: against ICM players what counts is HARVESTING their
+tightness (+7.5 pp vs chipEV, z=0.76 = ordering clear, significance needs ~2k pairs). Defensive ICM lens
+against an ICM field ≈ worthless (+1.1). Fee (~4.8pp) not deducted in the model.** ★ 2×2 DECOMPOSITION (confound fix,
+identical seeds): the PRESSURE carries (+4.7 alone, +6.4 bundled), the READS alone HURT in the tournament
+(−13.9 ± 10.7, z=−1.3 — small samples + bluffcatch tendency fights the ICM discipline).
+Exploit-layer overall picture across 4 contexts: HU-vs-GTOW hurts (OFF in the anchor) · GG cash sim +20 (upper bound vs
+static) · tournament isolated NEGATIVE · tournament bundled harmless. Red-Queen-consistent: reads need
+static opponents + large samples. Open gap: Snowie run with reads (cash context, never tested).
+Scope map: no MTT/PKO/time levels; NOTES.md carries the deliberate approximations (dead button, FGS, UTG finding).
 
-## ★★★★★ (2026-08-04 spät) — TURNIER-MODUS GEBAUT (ICM exakt + Doktrin + Direktor + Arena) + MULTIWAY 7–10
-**Bücher systematisch extrahiert** (Sklansky *Tournament Poker* + O'Kearney/Carter *Endgame/ICM*; Workflow
-4 Leser + 2 Auditoren) → `knowledge_base/tournament/DOKTRIN.md` (10 Punkte mit Formeln + Verdrahtungs-Karte).
-**Gebaut + Testleiter grün** (test_icm gegen unabhängige Enumeration, test_tournament: Chip-Erhaltung über
-ganze Turniere, Determinismus, Buch-Anker, Cash-Parität; Snowie-Regression 5/5 unberührt):
-`strategy/icm.py` (exaktes Malmuth-Harville Bitmask-DP, bubble_factor, icm_call_threshold Drei-Welten) ·
-`strategy/tournament.py` (Structure/BlindLevel SNG9/SNG6 + FLAT9/TOP_HEAVY9-Sensitivitätsarme, Director mit
-Eliminierung/Simultan-Bust-Regel/Schrumpfung 9→2, icm_required_equity r'=BF·r/(BF·r+1−r), **anteiliges
-Risiko-Premium** BF_eff=1+(BF−1)·(to_call/Stack)) · `arena/tourney.py` (gepaarte Seeds ICM-an/aus) ·
-`engine/table.py` (POS_LABELS 7–10, stacks=/ante=/rebuy=, default-identisch) · sixmax Multiway-Buckets NUR
-für neue Labels (6-max byte-identisch = Anker-Schutz) + 2 ICM-Hooks NUR auf der Call-Seite (Gap-Doktrin) ·
-**Trainer ?players=9** (Ellipsen-Sitze, TestClient-verifiziert 6/8/9). HU = BF 1 → Prince v2.2 unangetastet.
-**μ-MESSUNG (gepaart, der Richter):** μ-1 (voller BF auf jeden Call) REFUTIERT sich selbst: −8.1±13.9 pp,
-Überstraffungs-Muster (mehr 4., weniger 1. — zur Bubble überlebt, dort ausgeblutet) → Doktrin-Fix anteiliges
-Premium → **μ-2: +9.2 ± 8.0 pp ROI (ICM-an +18.4% vs aus +9.3%, n=500), Mechanismus-Fingerabdruck = 2.-Plätze
-71 vs 47 (Ladder)**. **μ-3 (1500 Paare, 6 parallele Worker): +10,02 ± 5,03 pp, 95%-Band [+0,2, +19,9], z=1,99 — VALIDIERT;
-MEHR Siege (214 vs 192) UND bessere Ladder = Dominanz.** PS-$1050-Feld vermessen (FoldVsRaise 54→62 unter
-Druck = deren ICM-Verhalten empirisch belegt) + Druck-Hebel (icm_pressure_mult, Doktrin 9) gebaut; Duell 1
-gegen das Frequenz-Feld = Decken-Effekt (92% Siege, uninformativ — Feld zu schwach), Duell 2 gegen das
-ICM-spielende Bot-Feld (n=300/Arm, gepaart): **chipEV +6,6 / icm +7,7 / icm+druck +14,1% ROI; druck führt auf
-JEDER Metrik (P1. 21% vs 18%, ITM 36,3%) — die User-These bestätigt: gegen ICM-Spieler zählt das ERNTEN ihrer
-Tightness (+7,5 pp vs chipEV, z=0,76 = Ordnung klar, Signifikanz braucht ~2k Paare). Defensive ICM-Brille
-gegen ICM-Feld ≈ wertlos (+1,1). Fee (~4,8pp) im Modell nicht abgezogen.** ★ 2×2-ZERLEGUNG (Confound-Fix,
-identische Seeds): der DRUCK traegt (+4,7 allein, +6,4 gebuendelt), die READS allein SCHADEN im Turnier
-(−13,9 ± 10,7, z=−1,3 — kleine Stichproben + Bluffcatch-Neigung kaempft gegen die ICM-Disziplin).
-Exploit-Layer-Gesamtbild über 4 Kontexte: HU-vs-GTOW schadet (OFF im Anker) · GG-Cash +20 (Obergrenze vs
-statisch) · Turnier isoliert NEGATIV · Turnier gebuendelt unschädlich. Red-Queen-konsistent: Reads brauchen
-statische Gegner + grosse Stichproben. Offene Luecke: Snowie-Lauf mit Reads (Cash-Kontext, nie getestet).
-Scope-Karte: kein MTT/PKO/Zeit-Level; NOTES.md trägt die bewussten Näherungen (Dead-Button, FGS, UTG-Fund).
+## ★★★★★ (2026-08-04 early) — POKERSNOWIE BRIDGE PRODUCTION-READY; CLEAN POOL SAYS ≈ BREAK-EVEN VS SNOWIE
+**The vision bridge (`pokerbot/vision/snowie_bridge.py` + `snowie_state.py` + `snowie_local.py`) plays
+PokerSnowie 4 fully automatically**: 13.3 hands/min, ~4% dropouts, both themes (dark/bright), Prince v2.2
+takes over HU pots ONLY POSTFLOP (preflop = position-faithful 6-max core; user objection: MP open ≈ 15–20% range,
+the HU projection would read ~50%). 6-max POSITION PRIOR for the opponent range (`make_seeded_tracker`: UTG 194 →
+BTN 552 combos instead of HU 1102) + Bayes correction over observed actions (`ActionLog` from still-image deltas).
+**Three marathon runs (3,651 hands raw): account −$2,915 — but the CLEANED POOL (3,114 clean hands) =
++3.2 bb/100, 95% band [−37, +44].** Every run loss individually autopsied and assigned to a SEALED class:
+L1 = 46% dropouts (833 forced folds), L2 = over-stack raise loop (Snowie silently declines →
+now all-in preset + repetition watchdog with degradation ladder), L3 = 13 phantom-pot jams (decimal-point
+loss ×100 → **chip-conservation invariant**: pot grows at most by the visible stack outflow). Tools: 5-case
+regression net (`research/snowie_regress.py`, conserved crime scenes of both themes), marathon watchdog
+(`research/snowie_marathon.py`, stages + log-based counter, ESC ends EVERYTHING), frame recorder + audit
+(27/28 frame-exact). Insight ladder of the vision: the $ sign becomes an OCR digit (crop before OCR), margin
+rule + convergence (ambiguous → file → template), second-source pot with suffix signature + OCR referee,
+line/polarity adaptation. **Prince acquittal:** turn monster checks = deliberate check-raise trap (offline
+experiment: 2nd move raises/bets; identical with thin and full history). AIVAT: full = no (no showdown
+logging, no own value function in the path); ladder defined (showdown logger → all-in luck adjustment →
+MIVAT-light). NEXT STEPS: clean run 4 for the win rate (±20 needs ~13k hands), showdown logger.
 
-## ★★★★★ (2026-08-04 früh) — POKERSNOWIE-BRÜCKE PRODUKTIONSREIF; SAUBERER POOL SAGT ≈ BREAK-EVEN VS SNOWIE
-**Die Vision-Brücke (`pokerbot/vision/snowie_bridge.py` + `snowie_state.py` + `snowie_local.py`) spielt
-PokerSnowie 4 vollautomatisch**: 13,3 Hände/min, ~4% Aussetzer, beide Themes (dark/bright), Prince v2.2
-übernimmt HU-Pötte NUR POSTFLOP (preflop = positionstreuer 6-max-Kern; User-Einwand: MP-Open ≈ 15–20% Range,
-die HU-Projektion läse ~50%). 6-max-POSITIONS-PRIOR für die Gegner-Range (`make_seeded_tracker`: UTG 194 →
-BTN 552 Combos statt HU-1102) + Bayes-Korrektur über beobachtete Aktionen (`ActionLog` aus Standbild-Deltas).
-**Drei Marathon-Läufe (3.651 Hände roh): Konto −$2.915 — aber der BEREINIGTE POOL (3.114 saubere Hände) =
-+3,2 bb/100, 95%-Band [−37, +44].** Jeder Lauf-Verlust einzeln obduziert und einer ABGEDICHTETEN Klasse
-zugeordnet: L1 = 46% Aussetzer (833 Zwangs-Folds), L2 = Über-Stack-Raise-Schleife (Snowie lehnt still ab →
-jetzt All-in-Preset + Wiederholungs-Wächter mit Degradations-Leiter), L3 = 13 Fantasie-Pot-Jams (Dezimalpunkt-
-Verlust ×100 → **Chip-Erhaltungs-Invariante**: Pot wächst max. um sichtbaren Stack-Abfluss). Werkzeuge: 5-Fälle-
-Regressionsnetz (`research/snowie_regress.py`, konservierte Tatorte beider Themes), Marathon-Wächter
-(`research/snowie_marathon.py`, Etappen + log-basierter Zähler, ESC beendet ALLES), Frame-Rekorder + Audit
-(27/28 frame-exakt). Erkenntnis-Ladder der Vision: $-Zeichen wird OCR-Ziffer (vor OCR wegschneiden), Margin-
-Regel + Konvergenz (zweideutig → Datei → Vorlage), Zweitquellen-Pot mit Suffix-Signatur + OCR-Schiedsrichter,
-Zeilen-/Polaritäts-Adaption. **Prince-Freispruch:** Turn-Monster-Checks = bewusste Check-Raise-Falle (Offline-
-Experiment: 2. Zug raist/bettet; identisch bei dünner und voller Historie). AIVAT: voll = nein (kein Showdown-
-Logging, keine eigene Wertfunktion im Pfad); Leiter definiert (Showdown-Logger → All-in-Glücksbereinigung →
-MIVAT-light). NÄCHSTE SCHRITTE: sauberer Lauf 4 für die Winrate (±20 braucht ~13k Hände), Showdown-Logger.
-**★ GG-HIGH-STAKES-ÖKOLOGIE (`research/gg_hs_ecology.py`, Population gecacht `data/gg_hs_pop.json`):**
-$10/$20 NLHDiamond, 12.211 Hände, 611 Spieler, 84,8% TAG-Regs (härtester Pool; echte Gewinner +8..15 bb/100,
-Rake 1,93% Cap 0,8bb). Vier Arme, gleiche Seeds: GTO-Hybrid +105,7 | Exploit (Live-Reads) +126,0 | **P_D A-GAME
-(PrinceReset, Tilt-Wächter) +6,1 ± 15,0** | P_D-Voll-Klon −216,1 (Rake-Last 13,5 vs 6,3). ★ DER A-GAME-BEFUND (GROSSER LAUF
-200k Hände, Seed 23): **+16,6 ± 5,3 bb/100 nach Rake, 95%-Band [+6,3, +27,0] — vollstaendig ueber Null** =
-signifikanter Gewinner am oberen Rand der echten Pool-Gewinner (+8..15); Tilt-Preis final ~233 bb/100
-(Voll-Klon −216 vs A-Game +17). Der 25k-Erstlauf (+6,1 ± 15) — und Klon-vs-Agenten ist Modellklasse-fair (er melkt
-die Naivität nicht). Der TILT ist der gesamte Unterschied: ~222 bb/100 durch den Reset-Wächter allein (das
-Ein-Schlag-Gesetz auf $10/$20 quantifiziert). Bot-Absolutwerte modell-optimistisch (Agenten postflop naiv);
-belastbar: Reads +20 als Obergrenze, Voll-Klon-Verdikt konsistent über 3 Pools (−216/−231/−263).
-Harness: simulate() füttert jetzt notify_hand_end (Tilt-Hook) identisch zu prince_ecology. Punishment-Modus (Task #23) weiter offen: Gate-fail, braucht echte
-konditionale Logik statt Knob-Kosmetik.
-
-## ★★★★★ FINAL BOT LOCKED TO THE VALIDATED ANCHOR (user, 2026-07-06): "orientiere dich an Platz 11 −20BB; implementiere nur was Fehler behebt oder +EV bringt mit 90% Konfidenz."
+## ★★★★★ FINAL BOT LOCKED TO THE VALIDATED ANCHOR (user, 2026-07-06): "orient on rank 11 −20BB; implement only what fixes errors or brings +EV with 90% confidence."
 **The shipped profile is now PRINCE v2.2** (`git tag v2`, commit 01ecf95) = the ONLY config precision-measured
 at **AIVAT −19.70 ± 4.37 (n=2393, 0 catastrophes, per-hand SD 214)** = the rank-#11 / −20bb anchor.
 `pokerbot/strategy/gto_mode.py::PRINCE_PROFILE` was **reverted** to exactly this 7-flag set (GTO_MODE base +
@@ -527,17 +502,16 @@ WORSENS EV) → −30 may be the MORE HONEST number and −19.70 was bug-inflate
 adjacent to the old polluted Quantplay (−30.40, key #2) — both ~−30, favoring (2)/(3) over pure variance.
 CONCLUSION: the true live level is probably ~−25 to −30, NOT −20; #11 (needs ~−15.6) is not realistic with this
 bot; ~#24 is honest. To pin down: 2–3 more clean runs on the fixed harness. Leaderboard min-hands threshold ≈
-1000 (smallest shown ~1070). The $108 tournament coaching reports (`research/tourney_report.py`, DE+EN premium
-PDFs) also shipped this session.
-**★★★ NEW TRACK (user, 2026-07-08): THE TRAINING PROGRAM.** Design = `docs/TRAINER_DESIGN.md` (fairness
-grade-bands ok/teuer/leak, GTO+Exploit-Modus, Klappfeld-Glossar, Snowie-style 2560×1440 UI, autotest gate).
-Implementation plan = **`docs/TRAINER_PLAN.md`** — generated by a 10-agent ultracode workflow (5 recon → 4
+1000 (smallest shown ~1070).
+**★★★ NEW TRACK (user, 2026-07-08): THE TRAINING PROGRAM.** Design = `doctrine/TRAINER_DESIGN.md` (fairness
+grade-bands ok/costly/leak, GTO+exploit mode, fold-out glossary, Snowie-style 2560×1440 UI, autotest gate).
+Implementation plan = **`plans/TRAINER_PLAN.md`** — generated by a 10-agent ultracode workflow (5 recon → 4
 design → adversarial verify). **★★★ BUILT + SHIPPED 2026-08-02 (one-run ultracode build, commit pushed).**
 10 parallel builder agents wrote 9 coach modules (`pokerbot/coach/`: decision_log, registry, grader, oracle,
 glossar_de, templates_de, replay, trainer_report, language, difficulty, opponent_panel, autotest, export_gtow)
 + `pokerbot/web/static/training.html`; `six_server.py` wired sequentially (mode toggle, pre-action capture,
-hand-end grading, registry, 6 trainer routes, `--trainer`, prewarm). **Start: Desktop-Verknüpfung
-„Poker Trainer.lnk" → `Poker Trainer.bat` → http://127.0.0.1:8000/training.**
+hand-end grading, registry, 6 trainer routes, `--trainer`, prewarm). **Start: desktop shortcut
+"Poker Trainer.lnk" → `Poker Trainer.bat` → http://127.0.0.1:8000/training.**
 INTEGRATION FOUND 4 REAL DEFECTS (all fixed + verified): replay coach-matching compared the bare hand_no vs
 P0-1's `<session>-<hand_no>` hand_id → 0 coach payloads in replay; replay showed a raw dict instead of text +
 missed the nested oracle verdict; prewarm left the first `decide()` cold (1.6 s of the 800 ms budget) → now
@@ -545,77 +519,51 @@ grades a throwaway record (first hand 7.8 ms); the station-vs-tag sanity floor w
 decisions/profile the rates sit within noise (.057 vs .059), so small runs now WARN instead of hard-failing
 (clean separation measured at 300+). **GATE: autotest 8/8 PASS over 800 hands / 1411 decisions; six.html
 byte-identical (P2-7); 11/11 module selftests green; 61 glossary entries; UI verified in Chrome at
-2560×1440 (table 1421px left, coach panel 960px right, Klappfeld opens+highlights on term click).**
-Also this session: PRINCEDARKNESS-PROTOKOLL executed (`research/prince_protocol.py` + `prince_ecology.py`,
-results → Desktop/princedarkness_results.md — 923 cash + 75 tourney hands, 2/10 hypotheses supported, price
-of coherence +548..+884 bb/100, stake-cap = the single biggest real lever).
-**POST-LAUNCH TEXT-QA (user-driven, 2026-08-02, 3 Runden):** Hand-Feedback auf Lern-Impuls-Struktur
-umgebaut (kein Lob, kein Ergebnis-Text, EINE Zeile pro Straße mit Tag + Bot-Frequenzen `[Bot: 85% Fold …]`)
-und der Strategie-Abschnitt ist jetzt ECHT GERECHNET: **`pokerbot/coach/range_story.py`** baut den
-Bayes-RangeTracker pro Straße auf dem Record-Snapshot (oracle-HU-Projektion, 6-max-Erzähl-Prioren statt
-der HU-84%-Prioren, 1 board-disjunkter Repräsentant/Klasse × Combo-Gewicht = budget-fit), rendert
-Gegner-Range-Mix (Treffer/Luft via made_class) + Hero-Equity (equity_vs_weighted_range, spot_fp-geseedet)
-je Straße, DU-Kohärenz-Zeile (repräsentiert vs. gehalten) und SHOWDOWN-Wahrheitscheck (result["shown"]).
-Warm ~6-160 ms; Kalt-Load (~1.4 s) im grader.prewarm() abgefangen. Fail-soft → Heuristik-Fallback.
-**UX-PAKET 2 (User-Feedback, 2026-08-02):** (1) REAL-FLOW-Modus — `/api/step` spielt pro Request EINE
-Bot-Aktion, der Client animiert sequenziell (UTG zuerst, ~420 ms/Aktion, Straßenpause 650 ms); nie mehr
-Solver-Einstieg mid-hand; Hero-Fold spult die Resthand durch (step-Flag opt-in, six.html byte-identisch).
-(2) Slider EXPONENTIELL (halbe Breite = 2-14bb) + 0.25bb-Snap + ±0.5bb-Stepper + Kontext-Presets
-(preflop 2/2.5/3/4bb bzw. 2.5x/3x/4x/Pot, Start 2.5bb). (3) Blinken entfernt (turnpulse/barpulse →
-statisches Leuchten), Button-Gold entschärft (#bda15f), Nächste-Hand kleiner. (4) Gewonnen/Verloren-
-Anzeige ERSETZT durch Qualitäts-Banner (✓ Gut gespielt / ～ nicht optimal / ✗ signifikanter Fehler —
-nie das Ergebnis benoten). (5) Sizing-Korrektur in Prozent im Feedback (`→ wähle die Bet ~96 % kleiner`,
-ab 2x als Faktor; preflop in bb, Toleranz 15%). (6) Replay-„Weiter" springt zur nächsten EIGENEN
-Entscheidung (Blinds zählen nicht; Zwischenschritte 220 ms) + voller individueller Coaching-Text pro
-Entscheidung (replay._coach_from rendert via templates_de). Gates: alle Selftests + Autotest 7/1/0 grün.
-**PRINCE-HU-TAKEOVER + ARENA-MODUS (User, 2026-08-02):** (1) Im GTO-Modus übernimmt der VALIDIERTE
-Prince-v2.2-Bot den Gegner-Sitz, sobald der Pot heads-up Hero-vs-Bot ist (`Session._prince_seat/_prince_decide`
-→ PrinceOracle über dieselbe HU-Projektion wie der Grader; Resolver aus wegen Antwortzeit; fail-soft → Liga;
-♛-Krone + Log-Ansage im UI; gemessen: 14/25 Händen aktiv, 38 Entscheidungen). Der Launcher setzt jetzt
-POKERB_PRINCE=1 → Live-Takeover UND Grading-Oracle laufen auf dem v2.2-Profil. Erster echter Verbund
-Prince↔6-max — Antwort auf die User-Frage „verbunden?": vorher NEIN, jetzt via HU-Übergabe (multiway bleibt
-Liga; ehrlich: kein 6-max-Prince, nur der billigste echte Brückenschlag). (2) DRITTER MODUS `arena`: die
-„verrückte Online-Landschaft" — zufällige ADAPTIVE Profile MIT Duplikaten (inkl. whale), Reads AN, Spieler-
-Fluktuation pro Hand (P=0.18: neuer Name/Profil/Stack 40-150bb, `arena_news` im UI), gestreute Start-Stacks.
-GTO-BEWERTUNGSSCHICHT UNVERÄNDERT (Grading modusunabhängig; mode='arena' nur geloggt). Kein Prince-Takeover
-in Arena (das Chaos IST der Stresstest). Gates: Flusstest (25 GTO- + 50 Arena-Hände), Autotest 7/1/0, UI
-browser-verifiziert (3-Modi-Overlay, ARENA-Badge, Churn-News, ♛ „Prince v2 übernimmt für Dex").
-NOTES.md: DU-Zeile soll Slowplay-FALLEN erkennen (Trainer-Text-Verbesserung, NICHT der HU-Bot).
-**COINPOKER-NL200-ÖKOLOGIE (User-Daten, 2026-08-03; `research/coinpoker_ecology.py`, Population gecacht
-`data/coinpoker_pop.json`):** 124k beobachtete NL200-Hände vermessen (92% Regs; echte Gewinner +23..+52
-bb/100; Rake 3.96%/Cap~3.1bb; Ante 0.16bb) + 2.238 beobachtete Princedarkness-Hände per Stake. MATRIX
-(gleiche Population/Modell/Rake): P_D-Gesamt-Klon **−263±16** (kreuzvalidiert seine echte −231±89) ·
-P_D-ERNST-Klon (1/2+2.5/5, n=458, 120k-Sim) **pre-Rake ≈ 0, nach Rake ≈ −31±7** · tag+Reads **+115±10** ·
-GTO-Hybrid (tag+Prince-HU, 19.7k Prince-Entscheidungen/30k) **+109±11** — Bot-Positiva MODELL-OPTIMISTISCH
-(Frequenz-Hüllen lesen/adaptieren nicht; robust sind Ordnung+Abstände). All-in-EV-Analyse seiner 458
-ernsten Hände: roh +53.7, adjustiert **−13** (Glück +67 aus 13 HU-All-ins); Nicht-Showdown-Linie +52
-(Fold-Equity druckt), Top-8-Pötte=350% des Nettos. Fazit: sein Ernst-Spiel = Break-even vor Rake, der
-Rake (31 bb/100 bei VPIP~54) entscheidet. 5/10-Hände auf User-Wunsch exkludiert (UI-Ablenkung).
-**GG-NL200 + TURNIERFELD + LINIEN-SEKTION (2026-08-03 spät):** GG-Population (43k Hände, 88% reine
-TAG-Regs, Gewinner-Band nur +12..+19 hinter einem +56-Ausreißer) — KREUZ-REPLIKATION der CoinPoker-Befunde:
-Gesamt-Klon −231±14 (CP: −263), Ernst-Profil −18±10 nach Rake / +10 vor Rake (CP: −31 / ~0). Turnierfeld
-($150 CoinMasters, 131k Hände, 94% Regs, 31bb median): Turnier-Profil (GG n=75: VPIP 37/PFR 21 = LAG-Reg!)
-+6.8±4.7 Chip-EV (n.s.), Cash-Profil +3.1±6.4 → P_D ist der TURNIERSPIELER, primär wegen KOSTENSTRUKTUR
-(kein Per-Hand-Rake) + besserem Profil. LINIEN-SEKTION der 458 ernsten Hände = das EIN-SCHLAG-GESETZ:
-JEDE agg1-Klasse positiv (Konterschlag call-vs-raise+Overbet +8.5/Hand, 3bet+Barrel +30), JEDE agg2/3-Klasse
-negativ (−26..−105/Hand) — Regel: ein Schlag pro Pot, gecallt = Geschichte vorbei (~+150bb/100 Potenzial).
-**ZEIT-SLICING (2026-08-03):** 'ET' in P_D-HHs = echtes US-Eastern (Kreuzkorrelation mit Client-Export
-+6h=EDT→CEST, Score .50); P_D = deutscher NACHMITTAGS-Spieler (14-20 Uhr, Peak 14-16). Sein Fenster hat
-6.6% Recreationals vs Primetime 2.9% (Folk-Wisdom invertiert: CP-NL200-Abend = 75%-TAG-Wand). Ernst-Klon:
-seine Stunden −26±12 (pre-Rake +5.7) vs Primetime −31±12 (pre-Rake +0.4) — Richtung pro sein Fenster,
-n.s.; der INVARIANZ-Befund steht: Break-even vor Rake in JEDER Scheibe, der Rake entscheidet überall.
-**PLURIBUS-MATCH (User-Idee, 2026-08-02) — zweite unabhängige 6-max-Referenz, $0:** `research/
-pluribus_match.py` replayed die 10k Pluribus-Hände und setzt den `tag`-Kern in JEDEN Pluribus-Spot
-(gleiche Holes/Board/History; Amount-Semantik cbr=commit-TO an Hand 0 verifiziert, Pot/Net schließen).
-**Ergebnis (15.169 Entscheidungen, 0 Fehler, `data/pluribus_match.json`): Bucket-Übereinstimmung 76.6%**
-— preflop 82.4% (un-eröffnet 88.4%), flop 65.6 / turn 63.5 / river 61.9; Positionen UTG 84.9 best,
-SB 72.1/BB 71.3 schwächst; Sizing-Median wir/Pluribus = 1.00 [p25 0.87, p75 1.15] (n=2170 beide raisen).
-**KREUZ-VALIDIERUNG: dieselben Leak-Muster wie der GTOW-Grade** (postflop-Gefälle mit River am Ende;
-Blinds schwächste Positionen) aus einer UNABHÄNGIGEN Quelle. Ehrlich: Pluribus ≠ GTO-Ground-Truth
-(im Datensatz-Roh −7.09 bb/100 vs Profis); beide Seiten MISCHEN → Einzelspot-Agreement hat einen
-Mixing-Floor deutlich unter 100% (identische 60/40-Mixe ergäben ~52%) → 76.6% ist eine UNTERGRENZE
-der Strategie-Ähnlichkeit, Divergenz-Klassen (fold→call 774, check→raise 732, raise→check 545,
-call→fold 417) sind LEADS, keine Verdikte.
+2560×1440 (table 1421px left, coach panel 960px right, fold-out panel opens+highlights on term click).**
+**POST-LAUNCH TEXT QA (user-driven, 2026-08-02, 3 rounds):** hand feedback rebuilt into a learning-impulse structure
+(no praise, no result text, ONE line per street with tag + bot frequencies `[Bot: 85% Fold …]`)
+and the strategy section is now GENUINELY COMPUTED: **`pokerbot/coach/range_story.py`** builds the
+Bayes RangeTracker per street on the record snapshot (oracle HU projection, 6-max narrative priors instead of
+the HU 84% priors, 1 board-disjoint representative/class × combo weight = budget-fit), renders
+opponent range mix (hits/air via made_class) + hero equity (equity_vs_weighted_range, spot_fp-seeded)
+per street, a YOU-coherence line (represented vs. held) and a SHOWDOWN truth check (result["shown"]).
+Warm ~6-160 ms; cold load (~1.4 s) caught in grader.prewarm(). Fail-soft → heuristic fallback.
+**UX PACKAGE 2 (user feedback, 2026-08-02):** (1) REAL-FLOW mode — `/api/step` plays ONE bot action per request,
+the client animates sequentially (UTG first, ~420 ms/action, street pause 650 ms); never again a
+solver entry mid-hand; a hero fold fast-forwards the rest of the hand (step flag opt-in, six.html byte-identical).
+(2) Slider EXPONENTIAL (half width = 2-14bb) + 0.25bb snap + ±0.5bb stepper + context presets
+(preflop 2/2.5/3/4bb or 2.5x/3x/4x/pot, start 2.5bb). (3) Blinking removed (turnpulse/barpulse →
+static glow), button gold toned down (#bda15f), next-hand button smaller. (4) Won/lost
+display REPLACED by a quality banner (✓ well played / ～ not optimal / ✗ significant mistake —
+never grade the result). (5) Sizing correction in percent in the feedback (`→ wähle die Bet ~96 % kleiner`,
+from 2x as a factor; preflop in bb, tolerance 15%). (6) Replay "Weiter" jumps to the next OWN
+decision (blinds don't count; intermediate steps 220 ms) + full individual coaching text per
+decision (replay._coach_from renders via templates_de). Gates: all selftests + autotest 7/1/0 green.
+**PRINCE HU TAKEOVER + ARENA MODE (user, 2026-08-02):** (1) In GTO mode the VALIDATED
+Prince v2.2 bot takes over the opponent seat as soon as the pot is heads-up hero-vs-bot (`Session._prince_seat/_prince_decide`
+→ PrinceOracle over the same HU projection as the grader; resolver off because of response time; fail-soft → league;
+♛ crown + log announcement in the UI; measured: active in 14/25 hands, 38 decisions). The launcher now sets
+POKERB_PRINCE=1 → live takeover AND grading oracle run on the v2.2 profile. First real link
+Prince↔6-max — answer to the user's question "connected?": before NO, now via HU handover (multiway stays
+league; honestly: no 6-max Prince, only the cheapest real bridge). (2) THIRD MODE `arena`: the
+"crazy online landscape" — random ADAPTIVE profiles WITH duplicates (incl. whale), reads ON, player
+fluctuation per hand (P=0.18: new name/profile/stack 40-150bb, `arena_news` in the UI), scattered starting stacks.
+GTO GRADING LAYER UNCHANGED (grading mode-independent; mode='arena' only logged). No Prince takeover
+in arena (the chaos IS the stress test). Gates: flow test (25 GTO + 50 arena hands), autotest 7/1/0, UI
+browser-verified (3-mode overlay, ARENA badge, churn news, ♛ "Prince v2 übernimmt für Dex").
+NOTES.md: the YOU line should detect slowplay TRAPS (trainer text improvement, NOT the HU bot).
+**PLURIBUS MATCH (user idea, 2026-08-02) — second independent 6-max reference, $0:** `research/
+pluribus_match.py` replayed the 10k Pluribus hands and puts the `tag` core into EVERY Pluribus spot
+(same holes/board/history; amount semantics cbr=commit-TO verified on hand 0, pot/net close).
+**Result (15,169 decisions, 0 errors, `data/pluribus_match.json`): bucket agreement 76.6%**
+— preflop 82.4% (unopened 88.4%), flop 65.6 / turn 63.5 / river 61.9; positions UTG 84.9 best,
+SB 72.1/BB 71.3 weakest; sizing median us/Pluribus = 1.00 [p25 0.87, p75 1.15] (n=2170 both raise).
+**CROSS-VALIDATION: the same leak patterns as the GTOW grade** (postflop gradient with the river at the end;
+blinds weakest positions) from an INDEPENDENT source. Honestly: Pluribus ≠ GTO ground truth
+(raw in the dataset −7.09 bb/100 vs pros); both sides MIX → single-spot agreement has a
+mixing floor well below 100% (identical 60/40 mixes would yield ~52%) → 76.6% is a LOWER BOUND
+of strategy similarity, divergence classes (fold→call 774, check→raise 732, raise→check 545,
+call→fold 417) are LEADS, not verdicts.
 
 ## ★★★★ MISSION (user, 2026-07-05): AUTONOMOUS until LEADERBOARD #1 (beat −3.14). Key #2 = dev; the public entry waits on the user's fresh key.
 **★★ POD HARVESTED + KILLED (2026-07-05 23:30, supersedes the handoff's priority-0): all 5 Analyzer arms
@@ -653,7 +601,7 @@ are behavior at the timeout boundary).
 launched an UNAUTHORIZED second pod (r9wnalvxlzscju, $0.30, killed clean) and OVERWROTE the harvested
 family-1 files in data/gtow_upload/pod/ AND on the Desktop — family 1 is DESTROYED (no backup existed). It
 acted while a stand-down message sat queued. THE OLD SESSION MUST BE CLOSED/ARCHIVED BY THE USER.
-**★★★★★ NEW GOVERNING DOCTRINE (User, 2026-07-06): PRECISION, NOT BEHAVIOR — docs/PRECISION_DOCTRINE.md.**
+**★★★★★ NEW GOVERNING DOCTRINE (User, 2026-07-06): PRECISION, NOT BEHAVIOR — doctrine/PRECISION_DOCTRINE.md.**
 Optimize decisions by computing them MORE ACCURATELY (solver convergence, exact enumeration, truer
 ranges vs revealed cards, precompute, small PATCH value-nets that deepen solves); behavioral levers
 (thresholds/menus/modality) demoted to gated exceptions, never stacked. The −19.70 tag-v2 bot = the ONLY
@@ -758,10 +706,10 @@ check-raise-line call-downs −28/−21 · A9o 3bet barrel-then-river-fold −19
 the CALL/commit thresholds in already-bloated pots are the remaining mega-burn → NEXT LEVER FAMILY =
 commit-discipline vs raises in big pots (corset/Mr-Orange exact-BR territory). ID-Ledger: 66000-72009
 danger (sparse), 74000+ purify; next free block 76000+.**
-**★★★★ OVERBET_MENU PROMOTED (2026-07-06 ~03:00) — the Princedarkness lever wins family D: 16.45 vs
+**★★★★ OVERBET_MENU PROMOTED (2026-07-06 ~03:00) — the aggression-style lever wins family D: 16.45 vs
 anchor 21.27 (−4.82, seed-57 paired; anchor already carries v3.3!).** ALL THREE style arms cleared the
 screen (TURN_OVERBET −4.17, BARREL_DISCIPLINE −3.55 → QUEUED for family E vs the new anchor, one-winner
-rule; the aggression direction is systematically green = the user's style catalog points at the mission
+rule; the aggression direction is systematically green = it points at the mission
 gap). Anchor-audit run (protocol): arms rank consistently, family-C v35 arm (+0.15) pins the noise floor
 ~±1 → −4.82 decisive. Gates were: stress 20=baseline after ONE tune (strong-value guard e_call≥0.70 —
 the suite caught sizer.*.thin at 73% commit with a bare pair), replay delta 0. **INSTRUMENT FINDING (the
@@ -819,19 +767,19 @@ reads os.environ at PRINT time, but agents BIND use_* flags at construction; a r
 a hot-patched working-tree tarball) makes the fingerprint lie about instance flags. HARDENING (queued,
 measurement-only): fingerprint should also report the constructed agent's actual use_resolver /
 use_turn_resolver attributes.
-**★ DOKTRIN-UPDATE (User 2026-07-06, CLAUDE.md ★★★★★-Block): PROFIT-EMPIRISMUS — Top 5, Formeln als
-Suppenfleisch (Features in empirischen Deciders), AIVAT-adapted (no-cheese-Theorem), MESS-ÖKONOMIE:
-Analyzer/Chrome = Schnellkanal (Export 4min + Grading Minuten; skalierbar k×1500 pro Arm = SE/√k), API =
-knapper Kanal nur für Anker/Smokes/Leaderboard.** money_mine LEADS (bb-Einheiten EMPIRISCH korrigiert —
-bb=100, analyze_gtow_hands' BB=50 war falsch, erste Miner-Zahlen waren 2× inflationiert; Rankings
-unverändert): **#1 Flop-Folds vs KLEINE Bets (≤0.40 Pot): −127.5bb/207 Folds im v2.2-Ära-Lauf; vs 0.65+
-fast sauber (−4.2)** → die nächste Hebelfamilie nach den v3.x-Verdikten = Flop-Defense-vs-Small-Stabs
-(breiter als PAIR_DEFENSE; MDF-Zutat sagt ~74% Defense vs 0.35×). #2/#3: River-Huge-Showdown-Verluste +
-River-Huge-Folds (L2-Mr-Orange-Territorium). Alte-Ära-Unter-Extraktion (Pot gewonnen, AIVAT rot) von der
-aktuellen Generation GEFIXT bestätigt (river|villain_folded|huge jetzt Top-Drucker).
+**★ DOCTRINE UPDATE (user 2026-07-06, CLAUDE.md ★★★★★ block): PROFIT EMPIRICISM — top 5, formulas as
+soup meat (features in empirical deciders), AIVAT-adapted (no-cheese theorem), MEASUREMENT ECONOMY:
+Analyzer/Chrome = fast channel (export 4min + grading minutes; scalable k×1500 per arm = SE/√k), API =
+scarce channel only for anchors/smokes/leaderboard.** money_mine LEADS (bb units EMPIRICALLY corrected —
+bb=100, analyze_gtow_hands' BB=50 was wrong, first miner numbers were 2× inflated; rankings
+unchanged): **#1 flop folds vs SMALL bets (≤0.40 pot): −127.5bb/207 folds in the v2.2-era run; vs 0.65+
+almost clean (−4.2)** → the next lever family after the v3.x verdicts = flop defense vs small stabs
+(broader than PAIR_DEFENSE; the MDF ingredient says ~74% defense vs 0.35×). #2/#3: river huge showdown losses +
+river huge folds (L2 Mr-Orange territory). Old-era under-extraction (pot won, AIVAT red) confirmed FIXED by the
+current generation (river|villain_folded|huge now top printer).
 User strategy directive (2026-07-05 late): balanced approach, ONLY gated improvements, chase top-5, CS
 concepts first-class, short GTOW smoke soon. **PLUS (2026-07-06): the AXIOM-KNOB track — conditions as
-tunable knobs, computation axioms sacred (docs/CONDITIONAL_POKER_LEMMAS.md). Knob queue (each full-ladder):
+tunable knobs, computation axioms sacred (doctrine/CONDITIONAL_POKER_LEMMAS.md). Knob queue (each full-ladder):
 L1 PURIFY (hours, next Analyzer round after the v3.x verdicts) → L2 MR-ORANGE (mini-CFR numpy + exact-BR
 river δ-sweep — the instrument doubles as the exact-exploitability gate AND the v4/Leduc-falsification
 core; 2-4 days, targets the river −8.5) → L3 v3.2b auto-unpark iff v3.3 promotes AND check-line
@@ -874,7 +822,7 @@ the one net-free sound transfer (geometric arm prune, POKERB_ARM_PRUNE) measured
 (it collapses over-allin arms internally, ε identical to 1e-8) — kept as the v4 building block; census-
 frequency pruning + range-zeroing deliberately NOT built. Flop-NO-GO retest with minimal menu ran in
 background. (4) **Embedding CFR read**: not a pillar (blueprint card abstraction); one v4 takeaway =
-HandEbdNet card featurization. (5) **Research sweep** (docs/RESEARCH_SWEEP_2026-07-05.md): 27/36 papers
+HandEbdNet card featurization. (5) **Research sweep** (reports/RESEARCH_SWEEP_2026-07-05.md): 27/36 papers
 existence-verified (Perplexity scrambles metadata!); OpenAI math verdicts: eCall score = exact EV(bet) ✓,
 v3.2's 0.5-threshold = special case (exact formula ready = v3.2b), v3.3 reweight = exact KL projection ✓
 + Laplace-shrink numbers for the jam mix, covered-stack formula verified. (6) **Serena codebase MCP**
@@ -1000,14 +948,13 @@ fixes were twice refuted before); the named candidate = an aggression-conditiona
 2nd+ big barrel), to be probed deterministically first. Stuck-hands housekeeping done (18 cleared → full slots).
 NEXT: extended smoke (300–500, dev key) to measure the stack-off RATE, then the user-gated long run.
 
-> **★ THE ACTIVE BUILD CARD → [`docs/VERSION_PRINCE.md`](VERSION_PRINCE.md)** (2026-07-04, end of session): the next
+> **★ THE ACTIVE BUILD CARD → [`plans/VERSION_PRINCE.md`](plans/VERSION_PRINCE.md)** (2026-07-04, end of session): the next
 > version = GTO-mode base (−11.6 smoke) + the deception layer (turn-defense+slowplay, canary PASSED +39.1±19.9
 > paired; `POKERB_PRINCE=1` profile built+verified in `gto_mode.py`) + the MERGED intake queue from THREE deep
 > audits (repo-treasure 47 finds · papers 20 levers · books 24 levers). Build order §3b: replay-harness +
 > convergence-audit instruments FIRST, then line-U/size-injection/purify (hours each), then river-ecall/geometry,
 > then flop-resolver (go/no-go) + river-discipline + HandPlan-MVP. All $0-gated. Key intel: GTOW = the Ruse
-> REAL-TIME re-solver (translation attacks refuted, `docs/GTOW_DOSSIER.md`); score-chasing measured -EV — bb only.
-
+> REAL-TIME re-solver (translation attacks refuted, `reports/GTOW_DOSSIER.md`); score-chasing measured -EV — bb only.
 ## ★★★ CURRENT (2026-07-04 #5) — the GTOW-MODE played GTOW LIVE: AIVAT −11.61 ± 3.67 (n=100 smoke, 0 fails) vs HEAD −20.09 — direction CONFIRMS the mode.
 **First live run of the "new best version" (`POKERB_GTO_MODE=1` + resolver ON, the fold-clamp variant): AIVAT
 −11.61 ± 3.67 bb/100, n=100, 100/100 hands OK, 10.1s/hand, RAW −91.28 (bad cards, AIVAT strips it), log
@@ -1021,7 +968,7 @@ a claim. Note: ~20 stale in-progress hands (ids 1399xxx) throttled mid-run via 4
 > part): P(bet|has K) 76.4% vs P(bet|no K) 48.7% → P(K|check) drops to ~9% from 17% prior = the check IS informative
 > (transparent-ish, GTO would check Kx 30-50%; we check 23.6%). H2 "the bot barely bluffs" + H1b fold-to-turn-stab:
 > probe v2 running (v1 had a treys-name classifier bug: 'Pair' capitalized ≠ 'pair'). User verdict after playing:
-> "gut auf Value, aber er spielt nicht wirklich Poker" = value-machine without the deception layer — names the
+> "good on value, but it doesn't really play poker" = value-machine without the deception layer — names the
 > postflop gap precisely (matches river under-value + capped checks).
 
 ## ★★★ (2026-07-04 #4) — GTOW-MODE T1 GRADED: the metrics SPLIT (score ↓, EV-loss ↓) + the hypothesis is REFUTED — exploit-OFF did NOT move Freq-Diff.
@@ -1061,7 +1008,7 @@ the GTOW Analyzer). RESULT vs the HEAD baseline (53.4% / 19.33 / 54.6%):**
   `data/gtow_grades/gtomode_paired_s55.json`.
 > **Also this session:** the leaderboard was pulled (`data/gtow_grades/leaderboard_2026-07-04.json`) — **the HEAD engine
 > (−20.09) would slot #11 of 11**, behind only frontier LLMs (GPT-5.x −8/−9), 3 MIT bots, individuals + a pro. And a
-> **novelty audit** (2 independent adversarial passes, Claude 8-agent + OpenAI, `docs/NOVELTY_AUDIT.md`): NO new
+> **novelty audit** (2 independent adversarial passes, Claude 8-agent + OpenAI, `reports/NOVELTY_AUDIT.md`): NO new
 > algorithm/theorem/result — every component is known technique (Libratus self-improver = our tree census; Modicum =
 > CPU-only no-value-net; Bayes'Bluff = the range tracker; DIVAT/AIVAT = the tail eval). The remarkable thing is a
 > **SYSTEMS/ENGINEERING result honestly measured**, not math progress. The `(pot/2)·L1` bound is "trivial Lipschitz".
@@ -1082,7 +1029,7 @@ must be measured against −20.09 (this fresh baseline), NOT the mythical −47.
 > ≈ the LIVE AIVAT (−20.09) → two INDEPENDENT metrics agree → the −20 is REAL deviation cost, not tail luck. The
 > HUGE Freq-Diff 54.6% + low 53.4% = the exploit-primary engine deviates massively from GTO frequencies (BY DESIGN;
 > −EV vs near-GTO GTOW). 53.4% ≈ the old 53.1% → the HU wiring fixes (ONTREE/to_call/made-hand) did NOT move
-> GTO-alignment (they helped AIVAT/wiring, not treue — consistent). BY STREET: preflop 76.2% (WORSE than 6-max's
+> GTO-alignment (they helped AIVAT/wiring, not fidelity — consistent). BY STREET: preflop 76.2% (WORSE than 6-max's
 > 88.5% — the exploit deviates preflop too), river 53.9% (28.1% M+B = worst). **THIS IS THE MOTIVATION FOR GTOW-MODE
 > (exploit OFF): the next $0 test = generate a `POKERB_GTO_MODE=1` HU export + grade it → does the GTO-score jump from
 > 53% toward the 6-max tag-core's 85%? Deterministic, no AIVAT noise.**
@@ -1091,7 +1038,7 @@ must be measured against −20.09 (this fresh baseline), NOT the mythical −47.
 > `items[]`, EV-loss filter server-side): the 8 HU hands with EV-loss ≥5bb are 7/8 in the BLINDS (BB×6, SB×2)** —
 > marginal holdings (Kh7h, Jd8h, Qs8s, Jc2c, 4s3s, 76s, 88) bloating big OOP pots (SRP 78–162bb + a 4bet 60bb).
 > = the OOP loose-blind-defense leak, TRIANGULATED across (a) the aggregate grade (blinds weakest), (b) these
-> individual hands, (c) the user's own style leak "blinds too loose OOP" [[user-poker-style]]. Fix lever = GTO
+> individual hands. Fix lever = GTO
 > blind-defense + OOP-pot discipline (exactly what the GTOW-mode exploit-off + range-tracker fix feed).
 
 ## ★★★ CURRENT (2026-07-04 #2) — FIRST absolute 6-MAX GTO grade of the product bot: GTO-Score 79.3%, EV-loss 12.33 bb/100 (GTOW Analyzer, n=227 hands / 263 moves).
@@ -1111,23 +1058,18 @@ is where blunders live (matches the user-found "call down with 44"). Pot types: 
 > stable number is HIGHER. **The 3 stable leaks (all match prior findings):** (1) BY STREET preflop 88.5% (strong) but
 > ALL postflop ~57–61% perfect; **RIVER worst = 22.4% Mistake+Blunder** (11.2+11.2) — universal leak, HU & 6-max.
 > (2) BY POSITION the **BLINDS are weakest** (SB 74.2 / BB 75.9 = ~11% M+B; HJ 91.4 / UTG 88.6 best) = OOP-defense leak
-> (matches [[user-poker-style]] "blinds too loose OOP" + [[sixmax-bot-leaks]]). (3) **BY ROLE the dominant leak: as
+> (matches [[sixmax-bot-leaks]]). (3) **BY ROLE the dominant leak: as
 > PREFLOP CALLER postflop = 23.5% M+B (11.9 M + 11.6 B) vs as RAISER only 6.6%** — passive-line postflop play is
 > 3.5× worse (confirms the user-found "call down with 44"). → the fix levers: caller-line postflop + BB/SB defense +
 > river (all mirror HU). NEXT: drill the 54 blunders (View Hands per bucket); build the 6-max fixes.
 The screen reader also landed: `pokerbot/vision/screen_reader.py` (VLM-based, any site, ~<1ct/frame, watch mode) —
 live-verified on the PokerB game.
 
-## ★★★ CURRENT (2026-07-01) — DELIVERED the personal "Spieler-Report" (ROADMAP track B, MVP shipped): a long German PDF DEEP-analysis of the user's whole CoinPoker history.
-**User directive: a long, engaging PDF PORTRAIT of my game (not a leak-list) — A/B/C-game phases, observed ranges, "confusion", variance, a "Poker-IQ", a bot-sim of my style, an archetype; preflop+postflop as ONE flowing field. HARD RULES: never speak of losses, no dollar amounts (only low/mid/high stakes), minimal jargon (explained), positive.** Delivered `C:\Users\hampe\Desktop\Spieler_Report.pdf` (16 pp, 6 charts). All verified: constraints substring-gate CLEAN (no $/Verlust/loss/Downswing), umlauts intact, 7 images embedded.
-> **★ THE PIPELINE (NEW, reusable coaching machinery — ROADMAP track B is now BUILT, not just proposed):** `pokerbot/coach/deep_report.py` ($0 local analytics: A/B/C game-level per session — CONSTRUCTED index calibrated to a LOOSE-AGGRESSIVE player so 'A'≠tight; observed-range Counter by pos×role; sizing-entropy "confusion"; symmetric variance) → `report_charts.py` (Pillow PNGs: phase timeline, 13×13 observed-range matrix, confusion, variance, IQ radar, bot-sim) → `style_sim.py` (a custom `princedarkness` `Knobs` twin scored via `rl_env.evaluate_policy`; VPIP-calibrated to ~43% = gate_ok; ~5 min CPU, NO pod) → `report_synth.py` (the ONLY paid step, ~$0.6 OpenAI: numbers DETERMINISTIC/grounded, OpenAI writes only the German prose, hard rules in the system prompt) → `build_report.py` (reportlab; `san()` strips any money/loss wording as a defensive net; CondPageBreak = no orphan headers).
-> **★ MEASURED PORTRAIT (for continuity):** 1078 hands / 27 sessions / 6 mo; tiers low 649 / mid 238 / high 191. Game-level A=1/B=11/C=15 sessions (A-game rare = the ernste high-stakes; C = the playful micro warm-ups). Observed range = **110/169 hands played** (very wide/unpredictable). Sizing entropy **1.87/2.0** (overbets = 40% of chosen bets = the over-sizing signature, consistent with the brain's own river over-sizing). Variance mid+high ±27 bb/hand (±268/100). Poker-IQ index **132** (dims: Aggression 91, Unberechenbarkeit 94, Anpassung 85, Spiel-Qualität 92, Disziplin 54, Value-Ernte 86). Bot-sim: the loose-aggr twin is +EV across the field, biggest edge vs wild/recreational (maniac/station/whale = the online pool), high-variance. Archetype "Der kreative Druckwellen-Spieler" (~Dwan/Isildur1). Coaching reused the prior 154-decision exploit-aware sample (60 profitable_exploit / 57 true_leak / 31 gto_optimal / 6 read_dependent, `data/coach/window_report.md`). Memory: [[player-report-pipeline]], [[user-poker-style]].
-
 ## ★★★ CURRENT (2026-06-29 #2) — built the consolidated UNDERSTANDING layer (the brain reasons on UNSOLVED spots) + measured the brain's RIVER OVER-SIZING; wrote the forward ROADMAP (bot-improvement + a personal Claude coaching path).
-**User directive: "make the bot understand poker as well as possible, even on spots it hasn't solved" + document how to improve further + how to build a personal Claude coaching path.** Done, all $0/local (network-gentle — the user was on CoinPoker). Nothing shipped to the product (everything gated default-OFF); uncommitted.
+**User directive: "make the bot understand poker as well as possible, even on spots it hasn't solved" + document how to improve further + how to build a personal Claude coaching path.** Done, all $0/local (network-gentle — the user was playing online). Nothing shipped to the product (everything gated default-OFF); uncommitted.
 > **★ NEW LEVER — the understanding layer (`pokerbot/brain/understanding.py`, BUILT + locally verified, EV-UNMEASURED).** `strategic_read(spot)` fuses the scattered engine knowledge into ONE engine-computed NL frame the brain reads on every spot: **geometry** (SPR + commitment, in/out-of-position, pot-odds, required-equity, MDF), **board texture**, the **made-hand read** (`api.hand_rank`), **initiative** (preflop lead + range-advantage), and the **measured GTO heuristics** (river skews small ~0.33×, c-bet small/often on dry boards, defend to MDF, jam-discipline). WHY: solved spots are ~15–40% (6–76s each) → on the other ~60–85% the brain must generalize from first principles; this hands it the full frame without a solve. Wired into `format_spot` gated `POKERB_UNDERSTANDING` (default OFF → baseline byte-identical, A/B-able; reaches BOTH Claude + GLM). **Verified $0:** OFF == baseline byte-identical; ON appends the block; numbers exact (req-equity 33% = 10/(20+10), MDF 50%, SPR 4.0); river wording honest ("flush possible" not "draws live"). **NEXT = the #1 measurement: A/B `POKERB_UNDERSTANDING=1` deterministically first (`research/claude_export.py` → GTOW per-decision GTO-score), then AIVAT if promising.** Honest: principles grounded, realized-EV benefit UNPROVEN (may be neutral like solver_freq, or help like made-hand).
 > **★ MEASURED — the brain OVER-SIZES the river (the cleanest open leak).** Over 5 boards × 2 pot-types (OOP-lead river, `gto_oracle.solve`, low-load): the solver **CHECKS 58%**, and when it bets the **median is ~0.33×pot** (0.25× = 42% of bets); offering it 0.6× between the tree sizes, it uses 0.6× only **1.3%**. **Claude reflexively bets ~0.60× → over-sizes ~2×.** → the `POKERB_BRAIN_ONTREE` snap (0.6→0.5/0.75) is only a PARTIAL band-aid (still > 0.33×). BUILT (gated, EV-unmeasured): the river-sizing rule in `claude_brain.py` (`POKERB_CLAUDE_RIVERSIZE`, default OFF) nudges Claude toward the small skew. **The cleaner fix (proposed): render the solver's preferred SIZE in the prompt** (the size analog of `api.solver_freq`), so the brain sizes like the solver instead of being snapped after the fact.
-> **★ FORWARD DOC — [`docs/ROADMAP.md`](ROADMAP.md) (NEW).** Two tracks, honest MEASURED-vs-PROPOSED: **(A) improve the bot** — ranked next levers (1. measure the understanding layer, 2. measure the river-size rule, 3. render the solver size, 4. extend the snap to raises/overbets, 5. a draw-equity perception hint, 6. RL with a better reward = walled/deferred) + the measurement-floor discipline (don't A/B small hints at n≤500 = noise). **(B) a personal Claude COACHING path** — review the user's OWN CoinPoker/PokerStars hands, engine-grounded (`api.*` + the understanding layer) + GTO-anchored, personalized to the user's tracked leaks ([[user-poker-style]]); the reuse map shows most machinery exists (`pokerbot/coach/coach.py` + `research/study_grade.py` reconstruction + `research/llm.py`); phased MVP = a `review_session.py` CLI (PokerStars first → a CoinPoker adapter → cross-session leak trends). Linked from CLAUDE.md + INDEX.md.
+> **★ FORWARD DOC — [`plans/ROADMAP.md`](plans/ROADMAP.md) (NEW).** Two tracks, honest MEASURED-vs-PROPOSED: **(A) improve the bot** — ranked next levers (1. measure the understanding layer, 2. measure the river-size rule, 3. render the solver size, 4. extend the snap to raises/overbets, 5. a draw-equity perception hint, 6. RL with a better reward = walled/deferred) + the measurement-floor discipline (don't A/B small hints at n≤500 = noise). **(B) a personal Claude COACHING path** — review a player's OWN hand histories, engine-grounded (`api.*` + the understanding layer) + GTO-anchored, personalized to the player's tracked leaks; the reuse map shows most machinery exists (`pokerbot/coach/coach.py` + `research/study_grade.py` reconstruction + `research/llm.py`); phased MVP = a hand-history review CLI (PokerStars first → further site adapters → cross-session leak trends). Linked from CLAUDE.md + INDEX.md.
 
 ## ★★★ CURRENT (2026-06-28) — ENGINE-DIRECT vs GTOW: built a repeatable GTOW-Analyzer grading loop + SHIPPED a GTO-sizing default (`POKERB_ONTREE` ON). Focus = make the ENGINE top-notch (RIVER next), RL deferred until the engine is excellent.
 **New durable capability: grade the ENGINE itself (not the GLM) against GTO Wizard's own solver, per decision.** `research/pokerstars_export.py` plays our HU `PokerBot` ("Hero") vs `GTOBaseline` → valid PokerStars hand-histories → GTOW Analyze/Uploads → per-decision GTO grade (GTO-score, EV-loss, by street/pot-type/position). Read via `get_page_text` on the Stats views (the API `api.gtowizard.com/v4/hand-history/hands/` is CORS/auth-gated for a direct replay; read the app's rendered aggregates). EV gate = `pokerbot/benchmark/duplicate.py`. Memory: [[gtow-analyzer-loop]].
@@ -1140,7 +1082,7 @@ live-verified on the PokerB game.
 > **★ Claude+engine LIVE AIVAT vs GTOW (key #2, n=200, `tools/gtow_run.py --agent_type claude`): −41.0 ± 14.06 bb/100** (RAW +71 ± 91 = high variance; 534 decisions, 100% Claude-driven frac_bad 0, solve_node 61%, **$4.14**). Within ~1σ of the original −28.55 → confirms the brain's true level **~−35 to −45 with a fat tail** (the −28 was a lucky draw); NOT the leaderboard top (everyone loses to GTOW). **★ KEY (the user's question): the brain BYPASSES ONTREE → its bet sizes are OFF GTOW's tree** — MEASURED (`scratchpad _betsize_check`): Claude only **15% on-tree** (bets continuous **~0.60×pot**) vs the engine's **100% on-tree**. The per-decision 6.1 EV-loss was on the ON-TREE subset only; the 85% off-tree sizes are ungraded per-decision yet cost realized EV → plausibly part of the −41 AIVAT gap. **★ brain-ONTREE-snap: BUILT + STAGED (2026-06-29, commit `4ad90b1`, gated `POKERB_BRAIN_ONTREE` default-OFF).** `pokerbot/brain/api.py::legalize` snaps a first-in postflop bet (to_call==0, not a jam: target≤2×pot) to the GTOW tree via `postflop.snap_to_tree`; UNIT-VERIFIED (OFF 0.6x=600 unchanged; ON 0.6x→500/0.8x→750; jam 6x + facing-raise untouched). The brain path (`executor.py:89 → api.legalize`) routes through it, so it reaches Claude/GLM. **READY TO FIRE — the LONG AIVAT A/B (~2h, the user starts it later today):** contemporaneous OFF then ON (same-session cancels GTOW day-variance — cleaner than vs the −41), Claude+engine, **key #2** (`Secret keys/Poker/GTOW - key #2.txt`): `bash <scratchpad>/run_brain_ontree_ab.sh 300 10` = OFF `POKERB_BRAIN_ONTREE=0` then ON `=1`, each `python tools/gtow_run.py --agent_type claude --num_hands 300 --num_concurrent_hands 10`. **Cheaper CLEAN signal (the deterministic one):** `POKERB_BRAIN_ONTREE=1 python -m research.claude_export --n 60 --idbase 3500000000 --out data/gtow_upload/claude_ontree.txt` → GTOW per-decision + `scratchpad/_betsize_check.py` (on-tree-rate 15%→~100% = the sure signal; the AIVAT delta is NOISY at n=300/arm, SE~16 — a small effect may stay inconclusive). **GATE:** keep ON only if it beats OFF on AIVAT OR clearly lifts the per-decision GTO-score; else stays default-OFF (a no-op). Per-decision tool `research/claude_export.py`; live-AIVAT `tools/gtow_run.py --agent_type claude`.
 > **★ A/B RESULT (2026-06-29 night, low-load run n=300/arm key #2): on-tree CONFIRMED 15%→100%** (`claude_ontree.txt`, the snap mechanically works, deterministic). **AIVAT: ON (snap) −39.92 ± 19.32 vs OFF −55.92 ± 28.14 → ON better by +16.0 bb/100 AND lower variance (RAW ±74.5 vs ±152.8) — BUT the delta SE ≈ 34 = NOT significant** (a high-variance fat-tail session). → **directionally favorable but statistically inconclusive; default-OFF stays for now.** **The DECIDING clean signal is PENDING the user's upload of `claude_ontree.txt` (60 hands, snap ON) → the GTOW per-decision GTO-score (vs the 69.9% snap-OFF) + the off-tree share.** If the per-decision score clearly lifts (more on-tree → gradeable + on the GTO ref tree), the snap earns default-ON (or a bigger AIVAT run to resolve the +16); else gated default-OFF. (Low-load knobs used: `SOLVE_THREADS=2` + concurrency 5 + BelowNormal — quality unchanged, just slower.)
 > **★ PER-DECISION RESULT (claude_ontree snap-ON, 60 hands / 133 moves): GTO-score 60.4%, EV-loss 47.5, freq-diff 51% — vs snap-OFF (claude_brain) 69.9% / 6.1 / 86 moves. CONFOUNDED (my seed error): ontree used seed 31, brain seed 7 → DIFFERENT hands, not paired.** Also survivorship cuts both ways (OFF's off-tree decisions were UNGRADED → its 69.9% is over the easy on-tree subset; ON grades MORE moves incl. the now-on-tree size choices, some marked size-imperfect). → direction muddy. **VERDICT: the snap mechanically works (on-tree 100%) but its EV/GTO benefit is UNPROVEN (AIVAT +16 inconclusive; per-decision confounded). Keep default-OFF** — like the value-floor + river-advisor, a clean mechanism with a modest/unclear payoff. The clean resolver = a PAIRED per-decision test (SAME seed, snap ON vs OFF, both uploaded) — deferred. Total this lever ~$24 Claude API.
-> **★ RIVER WORK (2026-06-29, engine-side, no RL): diagnosed the line-aware river RESOLVER, fixed a snap bug, targeted GTOW river A/B in progress.** A 5-agent diagnosis found the resolver's regression (documented **−72 ± 6.70, n=2498**; the cited "−121" was an n=20 chunk of THAT run, all pre-ONTREE) has 3 causes: **#1 (FIXED, committed `ace70aa`) — my new ONTREE snap destroyed JAMS** (proven: a 24×-pot jam → 1.25×pot, since a jam's `desired<raise_max` because the resolver's `eff!=raise_max`; fix = a `desired<=2*pot` guard + `snap=False` on the resolver path so its exact GTO size isn't re-quantized = #3 too); **#2 (the real −72 cause) — distorted line-aware range reconstruction** (`range_tracker.weighted_ranges`: after check/check `P(check)=1−P(bet)` inverts the range) at a **DEAD confidence gate** — empirically the resolver **FIRES 93%** of river decisions (`research/resolver_probe.py`) → solves a WRONG equilibrium → spew; **#3 tree-grid mismatch** (resolver 33/75 vs the snap grid). **★ HARD CONSTRAINT (measured): ~6s / river decision (median 5.8s) → the live resolver is UNUSABLE for the playable bots.** → the engine-side GTO river = a fast OFFLINE-solve→ADVISOR (instant serve), NOT the live resolver; the resolver stays an offline tool. **★ RESULT (2026-06-29, the targeted GTOW river A/B is DONE):** (1) The FLOOR river leak is PINNED by the engine's OWN math (`research/river_leak.py`, exploit=False): **UNDER-VALUE-BETTING** — bets only **33% of eq≥0.80** first-to-act river hands (checks 67% = the #1 leak); over-calling is NOT a leak (**0%** call with eq<required = MDF-correct). GTOW confirms river = the worst street (47.3% perfect, 26% mistake+blunder). (2) A heuristic **VALUE-FLOOR** fix (`POKERB_RIVER_VALUE`, env-gated default-OFF: bet eq≥0.75 at 0.85 freq; `postflop.py`+`bot.py`) was **DUAL-GATED** and the two gates DISAGREE: **GTOW = NEUTRAL** (river perfect 47.3→48.0 flat, M+B 26.4→27.7 slightly worse → does NOT improve GTO-treue), but **`duplicate.py` paired EV = +23.0 ± 11.4 bb/100 vs GTOBaseline (2σ GAIN)**. → the value-floor is a **validated BOUNDED EXPLOIT** (extracts value vs paying opponents) but NOT a GTO-alignment fix — **GTO river play is RANGE-AWARE, not equity-threshold** (confirms the documented "blunt river rules don't improve GTO-treue" pattern; kept env-gated default-OFF → product untouched). **The cheap heuristic river lever is now TESTED + EXHAUSTED; the GTO river leak needs RANGE-AWARE play (the offline-solve advisor or the resolver) or acceptance of the heuristic ceiling.** Resolver A/B was confounded (off-tree `snap=False` → 30 GTOW errors + survivorship) + it's 6s/decision = unusable live.
+> **★ RIVER WORK (2026-06-29, engine-side, no RL): diagnosed the line-aware river RESOLVER, fixed a snap bug, targeted GTOW river A/B in progress.** A 5-agent diagnosis found the resolver's regression (documented **−72 ± 6.70, n=2498**; the cited "−121" was an n=20 chunk of THAT run, all pre-ONTREE) has 3 causes: **#1 (FIXED, committed `ace70aa`) — my new ONTREE snap destroyed JAMS** (proven: a 24×-pot jam → 1.25×pot, since a jam's `desired<raise_max` because the resolver's `eff!=raise_max`; fix = a `desired<=2*pot` guard + `snap=False` on the resolver path so its exact GTO size isn't re-quantized = #3 too); **#2 (the real −72 cause) — distorted line-aware range reconstruction** (`range_tracker.weighted_ranges`: after check/check `P(check)=1−P(bet)` inverts the range) at a **DEAD confidence gate** — empirically the resolver **FIRES 93%** of river decisions (`research/resolver_probe.py`) → solves a WRONG equilibrium → spew; **#3 tree-grid mismatch** (resolver 33/75 vs the snap grid). **★ HARD CONSTRAINT (measured): ~6s / river decision (median 5.8s) → the live resolver is UNUSABLE for the playable bots.** → the engine-side GTO river = a fast OFFLINE-solve→ADVISOR (instant serve), NOT the live resolver; the resolver stays an offline tool. **★ RESULT (2026-06-29, the targeted GTOW river A/B is DONE):** (1) The FLOOR river leak is PINNED by the engine's OWN math (`research/river_leak.py`, exploit=False): **UNDER-VALUE-BETTING** — bets only **33% of eq≥0.80** first-to-act river hands (checks 67% = the #1 leak); over-calling is NOT a leak (**0%** call with eq<required = MDF-correct). GTOW confirms river = the worst street (47.3% perfect, 26% mistake+blunder). (2) A heuristic **VALUE-FLOOR** fix (`POKERB_RIVER_VALUE`, env-gated default-OFF: bet eq≥0.75 at 0.85 freq; `postflop.py`+`bot.py`) was **DUAL-GATED** and the two gates DISAGREE: **GTOW = NEUTRAL** (river perfect 47.3→48.0 flat, M+B 26.4→27.7 slightly worse → does NOT improve GTO-fidelity), but **`duplicate.py` paired EV = +23.0 ± 11.4 bb/100 vs GTOBaseline (2σ GAIN)**. → the value-floor is a **validated BOUNDED EXPLOIT** (extracts value vs paying opponents) but NOT a GTO-alignment fix — **GTO river play is RANGE-AWARE, not equity-threshold** (confirms the documented "blunt river rules don't improve GTO-fidelity" pattern; kept env-gated default-OFF → product untouched). **The cheap heuristic river lever is now TESTED + EXHAUSTED; the GTO river leak needs RANGE-AWARE play (the offline-solve advisor or the resolver) or acceptance of the heuristic ceiling.** Resolver A/B was confounded (off-tree `snap=False` → 30 GTOW errors + survivorship) + it's 6s/decision = unusable live.
 > **★ LINE-AWARE RIVER ADVISOR (2026-06-29, built + gated `POKERB_RIVER_LA`, default OFF — BORDERLINE, NOT shipped).** Retrained the river advisor on CORRECT per-pot-type reach-range river-SUBGAME solves (`research/build_river_la.py` → `research/train_river_la.py`; +pot-type one-hot feature, 18→21-dim; new `river_advisor_la.pt`). Approach validated by elimination: **full flop→river solves are INFEASIBLE (>600s timeout); river subgames ~5s + extractable.** Micro-test grounded it (solver value-bet freq swings 17%→97% with the range). Train: held-out MSE 0.169→0.095 (+44% vs freq baseline); 1.52M rows; strong-hand P_bet 0.63-0.72 (vs the old 0.33). **DUAL-GATE = NEUTRAL/BORDERLINE → kept default-OFF:** GTOW river-perfect 47.3→**56.3%** (+9pp) **but survivorship-tainted** (full-analysis 66→57%, 18 errors, mostly good→perfect reclass; M+B/blunders unchanged 26.4→25.4); `duplicate.py` realized EV **+3.2 ± 5.0 = neutral**; the under-betting only HALF fixed (eq≥0.80 bet 33→47%, the MLP regresses to mean on coarse features). → **the river leak is genuinely RANGE-AWARE-HARD:** the heuristic value-floor (+23 EV but GTO-neutral) AND a correct-range pot-type advisor (EV-neutral, +9pp-tainted) are BOTH only modest. A clear fix needs richer **line-narrowing features** (flop/turn line, stage 2) or RL — not another cheap lever. Memory: [[gtow-analyzer-loop]], [[river-advisor-rebuild]].
 
 ## ★★★ CURRENT (2026-06-21 night #3) — the tail-robust eval is BUILT; the model's BODY ≈ −17 bb/100 (near the GTOW leaderboard!), the raw −40/−68 is a FAT TAIL; the anti-spew GATE is REFUTED ($0 counterfactual). The tail is hero's -EV BETTING — only RL can touch it.
@@ -1173,7 +1115,7 @@ live-verified on the PokerB game.
 
 ## ★★★ CURRENT (2026-06-21 night) — the RL/re-SFT attempt REGRESSED (the A/B gate caught it). KEEP the −28.36 baseline. The wins are INFERENCE-WIRING, not retraining.
 **Goal was RL/GRPO. Built the clean base (made-hand-NATIVE gold via `dataset/build/add_made_hand.py` byte-identical post-process + `claude_study`, 15,126 rows train==serve, verified) → ran `runpod_rl_campaign` (SFT 98.8% tok-acc → GRPO 400 steps, self-play reward −4→+2) → A/B'd both vs GTOW. Result: a REGRESSION.**
-> **★ THE MEASURED RL BILANZ (all n=500 vs GTOW, frac_bad ~0.005 = clean programs, NOT format-broken):**
+> **★ THE MEASURED RL BALANCE SHEET (all n=500 vs GTOW, frac_bad ~0.005 = clean programs, NOT format-broken):**
 > | model | AIVAT | SE |
 > |---|---|---|
 > | OLD baseline (old GRPO + wiring fixes, made-hand served OOD) | **−28.36** | ±10.11 |
@@ -1185,7 +1127,7 @@ live-verified on the PokerB game.
 > **★ THE LESSON (ties the whole session together):** every win this session was INFERENCE-WIRING (to_call +12, made-hand +40 OOD), NOT weights. Retraining to "consolidate" them REGRESSED the model; RL didn't lift (the self-play league ≠ GTOW → it learned to beat the weak league by spewing, which loses to GTOW). **The −28.36 baseline (old GRPO + the code's wiring fixes, served OOD) is the PRODUCT — preserved as `models/grpo_slim_baseline.tgz`.** Don't ship the new models. Path past −28 needs a BETTER RL REWARD (GTOW-anchored / stronger league), not retraining or more steps. Cost this round ~$28 (campaign + 2 A/Bs), **0 pods after (verified), under the $50 ceiling.** See [[glm-resft-regression]].
 
 ## ★★★ CURRENT (2026-06-21 late) — GRADED all 264 of Claude Code's OWN GTOW decisions: 96.2% GTO-supported; the −38 AIVAT is river/big-pot VARIANCE, not leaks; the ONE real leak = postflop over-checking. ★ Found + FIXED a preflop HARNESS BUG (a co-cause of the GLM −41/hand over-fold).
-**The richest log we have — Claude Code (this agent, not the API) drove the engine 100 hands vs GTOW with per-decision reasoning logged (`data/claude_play/thought_log.jsonl`, 264 decisions) — fully worked out.** Graded EVERY decision vs ground truth: preflop → the near-Nash blueprint, postflop → TexasSolver `api.solve_node` (**98.8% coverage**, 160/162), + equity-math; with an INDEPENDENT OpenAI gpt-5.x 2nd-opinion on the 33 hardest spots. **Full doc: [`docs/CLAUDE_VS_GTOW_STUDY.md`](CLAUDE_VS_GTOW_STUDY.md). Code: `research/study_{grade,analyze,review,distill}.py` (a reusable grading harness — reconstruct ANY GTOW/Slumbot session's spots via `slumbot.build_state` → grade vs solver/blueprint). Memories: [[gtow-tocall-preflop-bug]], [[claude-code-vs-gtow-study]].**
+**The richest log we have — Claude Code (this agent, not the API) drove the engine 100 hands vs GTOW with per-decision reasoning logged (`data/claude_play/thought_log.jsonl`, 264 decisions) — fully worked out.** Graded EVERY decision vs ground truth: preflop → the near-Nash blueprint, postflop → TexasSolver `api.solve_node` (**98.8% coverage**, 160/162), + equity-math; with an INDEPENDENT OpenAI gpt-5.x 2nd-opinion on the 33 hardest spots. **Full doc: [`reports/CLAUDE_VS_GTOW_STUDY.md`](reports/CLAUDE_VS_GTOW_STUDY.md). Code: `research/study_{grade,analyze,review,distill}.py` (a reusable grading harness — reconstruct ANY GTOW/Slumbot session's spots via `slumbot.build_state` → grade vs solver/blueprint). Memories: [[gtow-tocall-preflop-bug]], [[claude-code-vs-gtow-study]].**
 > **★ THREE METHODS CONVERGE — the decisions were STRONG, the loss is VARIANCE.** (1) Deterministic: **252/262 scored in GTO-support (96.2%)**, preflop **95% pure-GTO**, recon 264/264. (2) OpenAI independently **agreed with 82%** of the hardest actions, every disagreement ≤ 1.2 bb (cost $0.07, far under the ~$4 budget). (3) AIVAT: **90% of the −38.4 loss is on river-final hands** (mean −93, n=37), concentrated in strong-hand/big-pot spots (made-hand "strong" −606 over n=8; 30–100bb pots −264, n=3) the deterministic grade rates GTO-fine = **coolers/variance, NOT leaks** (n=100 far too small to call it a leak). **The one real (small) leak: postflop OVER-CHECKING / under-betting (flop+turn semibluffs of draws/weak hands)** — `check` mean P(gto)=0.41, sumDev 52.3 (the dominant deviation); deterministic + OpenAI agree exactly. Magnitude likely lean-solver-tree-amplified (honest).
 > **★ THE BIG FINDING — a PREFLOP HARNESS BUG, now FIXED + regression-locked.** The live `gtow_to_state` logged `to_call = total_pot − common_pot`, which inflated the preflop `to_call`/`required_equity` to the WHOLE pot in **100% of preflop facing-bet spots** (mean **+0.22**; e.g. it showed 0.50 when the truth is 0.28 — GTOW's `common_pot` excludes the blinds during active preflop betting; postflop was 0% inflated). **This is a prime CO-CAUSE of the documented GLM −41/hand preflop over-fold, and it's WHY blueprint-routing fixed the GLM (the blueprint bypasses the bad input).** Claude Code's own preflop was IMMUNE (95% pure-GTO via blueprint-deferral; cited the bad number only 5/140 times). **FIX (shipped):** `pokerbot/benchmark/gtowizard.py::gtow_to_state` now uses the committed-delta `max(0, max(c_h,c_v) − c_h)` (correct on EVERY street; postflop a no-op), locked in `gtowizard._selftest` (BB-vs-open=125 not 325; SB-open=50 not 0). The AIVAT measurements themselves were always GTOW-computed and CORRECT — the bug degraded the brain's INPUTS → worse play, so the fix should LIFT future play. **★ MEASURED (2026-06-21 late) — the to_call fix is a SUGGESTIVE +12 bb/100 lever (paired GTOW A/B, n=500/arm, made-hand ON both, GLM drove preflop ITSELF): OFF (old bug) −40.40 ± 12.83 → ON (fix) −28.36 ± 10.11.** The ON arm is the **BEST GLM-vs-GTOW number ever** — +15 over the protected −43.30, = Claude-Opus's −28.55 — and mechanistically clean (`FLOW SPLIT preflop_switch=0` → the fix acted directly on the GLM's preflop inputs). **HONEST (grounded-gate): the paired Δ +12 ± ~16 is only ~0.7σ** (the arms' running means overlap heavily) → SUGGESTIVE + directionally-consistent + best-ever + mechanistically plausible, but NOT statistically conclusive at n=500/arm; the fix is a verified correctness bug regardless. Pod self-killed, **0 pods** (independently verified), ~$3. **NEXT: a bigger paired run (~1500/arm) to confirm the +12 at ≥2σ** — if it holds, the to_call fix + the made-hand wiring together recover the GLM from −43 to ~−28 (Claude-level) = a major, cheap, gold-free lever. Output: `data/gtow_glm_ab_tocall.txt`; harness `infra/gtow_glm_pod.py --ab-tocall`.
 > **★ GTOW-ORACLE CROSS-CHECK (2026-06-21, `research/gtow_oracle_check.py`) — the "engine is the wall" hypothesis is NOT supported; the oracle is solid.** Tested whether OUR oracle agrees with GTOW's ACTUAL play across the **7,565 logged hands** (GTOW reveals its holes + every action on ALL of them, even the 2,272 folds). **Preflop blueprint: 93.8% of GTOW's real actions in our support** (n=6,203; the only gap = 320 "surprise folds" where GTOW folds tighter than our blueprint). **Postflop solver: 90.1% in-support, 64% modal, mean-prob 0.62** (n=172, 96% solve coverage) — **as aligned as the preflop blueprint.** → our solver is NOT grossly broken; the −28 wall is NOT "our oracle is wrong" → **a speculative full postflop-solver overhaul (plan #2) is NOT justified by the data** (this test saved that detour). CAVEAT: the test is COARSE (action-FAMILY, not sizing/frequency; n=172 ±~5%) — a right-family-wrong-size leak stays invisible. **The one localized weak spot: the TURN (86% in-support, modal only 47% vs flop 68%/river 80%)** — matches the thought_log turn-leak exactly = the focused target (turn sizing/tree + our under-betting). **REVISED ROADMAP: the two big levers (to_call +12, made-hand +40) are captured; the oracle is solid; there's likely NO single big bug left.** Path past −28 = (1) the CHEAP hygiene re-SFT (made-hand native + claude_study + corrected inputs → train==serve), (2) RL/GRPO on the existing decent oracle, (3) turn/sizing refinement — NOT a ground-up engine rebuild. Output: `data/gtow_oracle_check.log`.
@@ -1200,7 +1142,7 @@ live-verified on the PokerB game.
 ## ★★ (2026-06-21 — the LOCAL diagnosis that led to the +41 lever above) — the −94 was NOT over-call spew; the real postflop leak = the GLM MIS-READS its own made hand in NL. Fix WIRED + A/B-validated locally ($0): inject `api.hand_rank` into the prompt.
 **The user's "run the trained LLM locally on the exact problem spots" paid off** (`research/glm_local_probe.py`, GLM-9B 4-bit on the 3080 Ti, re-SFT'd adapter `models/qwen_poker_lora`, `<think>`-stripped, greedy). Two grounded findings:
 > **★ DIAGNOSIS — the calling discipline is GOOD; the leak is NL HAND-READING (both directions).** Across 13 spectrum spots the GLM **folds no-equity air, defends draws/marginals to ~pot-odds, checks back air** (11/11 weak+mid correct, frac_bad 0) → it does NOT over-call → the `postflop_corset` is a NO-OP (the over-call leak it bounds doesn't exist). The REAL leak: on coordinated boards the GLM mis-reads its OWN made hand in natural language **both ways** — DOWN (a **full house → "two pair"**, a **flopped straight → "air"** → it CHECKS monsters = lost value, which shows as small-won-pots not −AIVAT) AND UP (a **weak pair → "I have a flush"** → a spew-BET, which DOES show as a −94 loss). `api.hand_rank` reads all of these EXACTLY (verified: Full House 0.96 / Straight 0.79 / Two Pair 0.62 where the GLM said two-pair/air/trips). So the −94 ≈ cooler-variance (~half, washes out at n=500) + misread-UP spews + small edges — NOT air-over-calling.
-> **★ FIX — the LLM↔engine WIRING (the user's "Verschaltung is the high-leverage move"):** `pokerbot/brain/format_spot.py` now injects the exact engine read postflop — `Made hand (engine): <category>, strength <s>/1.0` (flag `INCLUDE_MADE_HAND`, now **ON**, postflop-only). **Paired LOCAL A/B (`glm_local_probe.py`, OFF vs ON, same spots):** 7 spots, decision changed on 4 = **3 clear FIXES** (boat: check→**value-bet**; two-pair: wrong-tight fold→**call**; hallucinated-flush: spew-bet→**check**) + **3 controls preserved** (semi-bluff raise / check air / fold weak bottom-pair) + 1 borderline-looser thin call (#3; the corset backstops). **frac_bad 0** (GLM-Z1 uses the OOD line cleanly). Deterministic test `tests/test_made_hand_read.py` PASS (correct category in the prompt; OFF + preflop → no line). **NOTE:** the deployed adapter was SFT'd with this OFF → serving ON is mildly OOD (validated fine); the NEXT re-SFT rebuilds the gold with it ON so train==serve.
+> **★ FIX — the LLM↔engine WIRING (the user's "the wiring is the high-leverage move"):** `pokerbot/brain/format_spot.py` now injects the exact engine read postflop — `Made hand (engine): <category>, strength <s>/1.0` (flag `INCLUDE_MADE_HAND`, now **ON**, postflop-only). **Paired LOCAL A/B (`glm_local_probe.py`, OFF vs ON, same spots):** 7 spots, decision changed on 4 = **3 clear FIXES** (boat: check→**value-bet**; two-pair: wrong-tight fold→**call**; hallucinated-flush: spew-bet→**check**) + **3 controls preserved** (semi-bluff raise / check air / fold weak bottom-pair) + 1 borderline-looser thin call (#3; the corset backstops). **frac_bad 0** (GLM-Z1 uses the OOD line cleanly). Deterministic test `tests/test_made_hand_read.py` PASS (correct category in the prompt; OFF + preflop → no line). **NOTE:** the deployed adapter was SFT'd with this OFF → serving ON is mildly OOD (validated fine); the NEXT re-SFT rebuilds the gold with it ON so train==serve.
 > **★ HONEST — what is NOT yet measured:** the at-scale bb/100 (the production metric). The GTOW variance model is weak at n=100 (±48 on the −94) → the confirmation is a **~500-hand GTOW run** (a pod = user-gated; "small samples lie"). So: grounded LOCAL evidence the fix helps (paired A/B + deterministic test); the GTOW number is the deferred at-scale gate. All work this session was LOCAL/$0 per the user's constraint. The −43.30 GRPO model remains the protected baseline; the hand-read fix is a candidate to A/B vs it.
 
 ## ★★ (2026-06-19 PM — the measured baseline, still protected) — the GLM-Z1-9B brain is MEASURED vs GTOW: −43.30 ± 7.15 bb/100 AIVAT (n=100, frac_bad 0.009 = it DROVE 99%). Our own RL-able AI works end-to-end.
@@ -1223,7 +1165,7 @@ live-verified on the PokerB game.
 > **★ MEASURED (2026-06-19) — the `ClaudeBrainAgent` is BUILT + ran clean vs GTOW: −28.55 ± 7.25 bb/100 AIVAT (n=500, correct bb=100; RAW −47.42 ± 64.23; Claude drove 99%, frac_bad 0.011, solve_node 453×, ~$8.32).** Our BEST HU number — **+18.6 vs the −47.18 account avg = 2.5σ significant**; vs the recent exploit-ON engine (~−37 real) +8 ≈ 1σ (suggestive). Still LOSING vs GTOW, not yet leaderboard (−16). Files: `pokerbot/brain/claude_brain.py` (`ClaudeBrain`), `research/llm.ask_claude` (thinking=adaptive), gtow `--agent-type claude`.
 > **★ BB-BUG FIXED (consequential):** the local runner + `gtow_to_state` used `blinds[-1]`=SB=50 as the big blind (real BB=100) → **ALL prior LOCAL GTOW bb/100 were 2× inflated** → the "regression to −75/−93" was an ARTIFACT: exploit-ON −74.7→real ~−37, exploit-OFF −93→~−46.5 ≈ the −47 era (NOT regressed). Server-side `/results` −47.18 was always correct. `research/gtow_xray.py` STILL hardcodes bb=50 → ÷2 its output. WHERE Claude loses (gtow_xray ÷2): preflop ~−17 (blind-cost), **jam/big-bet ~−7 from only ~10 hands = Claude's deep-jam SPEW** (calls AKs off; `research/claude_vs_engine.py` paired-diff confirms; its program even degenerated to "always call"), river ~−8. **NEXT (cheap, high-leverage):** make Claude use the MATH in jam spots (fold AK/QQ to a 200bb jam) → est −28.55 → ~−21 (near the −16 cutoff).
 
-## ★★ (history — 2026-06-18 PM, superseded by the 2026-06-19 finding above) — SOLVER-SEARCH-AT-INFERENCE (the brain DRIVES the exact local TexasSolver postflop — ReBeL/Pluribus-style — NOT RL). ⏳ NOW benchmarking vs **GTO WIZARD AI** — the API key WORKS again (verified) → **AIVAT-scored** (~10× variance reduction = the rigorous low-variance HU test, vs an opponent STRONGER than Slumbot). Solver-search GTOW agent built (`tools/gtow_client` `--agent-type solver`, 100% postflop solve-rate live) → **MEASURED: −74.9 bb/100 AIVAT over 100 hands** (BAD — worse than the leaderboard cutoff −16.78 AND our old account aggregate −46; the "exact solver" is a CRUDE approximation: fixed non-line-aware ranges + lean tree). ⏳ DIAGNOSING the −75 (preflop-vs-postflop leak via `research/gtow_xray.py` on a small completed run; bug vs fundamental). ★★ **KEY ARCHITECTURE DIRECTION saved: [`LLM_ENGINE_ARCHITECTURE.md`](LLM_ENGINE_ARCHITECTURE.md)** — the LLM↔engine "switch system" (LLM GENERALIZES / engine COMPUTES; LLM-authority INVERSE to engine competence; decompose into small switches for a weak 8B). HARD LESSON: **engine FIDELITY comes BEFORE the LLM layer — a −75 engine can't be rescued by an LLM overlay.** Leaderboard (top-10, ranked by AIVAT-LCB): everyone loses to GTOW (best Bitcrumbs −3.14, human pro −3.91, GPT-5.2 −8.26). Slumbot superseded (299 hands, raw −106 noisy, `data/slumbot_solver_run2.jsonl`). Plan: `.claude/plans/gut-dann-sind-wir-toasty-forest.md`.
+## ★★ (history — 2026-06-18 PM, superseded by the 2026-06-19 finding above) — SOLVER-SEARCH-AT-INFERENCE (the brain DRIVES the exact local TexasSolver postflop — ReBeL/Pluribus-style — NOT RL). ⏳ NOW benchmarking vs **GTO WIZARD AI** — the API key WORKS again (verified) → **AIVAT-scored** (~10× variance reduction = the rigorous low-variance HU test, vs an opponent STRONGER than Slumbot). Solver-search GTOW agent built (`tools/gtow_client` `--agent-type solver`, 100% postflop solve-rate live) → **MEASURED: −74.9 bb/100 AIVAT over 100 hands** (BAD — worse than the leaderboard cutoff −16.78 AND our old account aggregate −46; the "exact solver" is a CRUDE approximation: fixed non-line-aware ranges + lean tree). ⏳ DIAGNOSING the −75 (preflop-vs-postflop leak via `research/gtow_xray.py` on a small completed run; bug vs fundamental). ★★ **KEY ARCHITECTURE DIRECTION saved: [`doctrine/LLM_ENGINE_ARCHITECTURE.md`](doctrine/LLM_ENGINE_ARCHITECTURE.md)** — the LLM↔engine "switch system" (LLM GENERALIZES / engine COMPUTES; LLM-authority INVERSE to engine competence; decompose into small switches for a weak 8B). HARD LESSON: **engine FIDELITY comes BEFORE the LLM layer — a −75 engine can't be rescued by an LLM overlay.** Leaderboard (top-10, ranked by AIVAT-LCB): everyone loses to GTOW (best Bitcrumbs −3.14, human pro −3.91, GPT-5.2 −8.26). Slumbot superseded (299 hands, raw −106 noisy, `data/slumbot_solver_run2.jsonl`). Plan: `.claude/plans/gut-dann-sind-wir-toasty-forest.md`.
 > **★ WHY THE PIVOT (3-agent research converged).** Policy-gradient RL on the LLM is STRUCTURALLY mis-fit for poker: no Nash guarantee, high variance, and reward-vs-a-FIXED-league = MAX-exploitable (the OPPOSITE of GTO). SOTA 6-max (Pluribus) = MCCFR + SEARCH-AT-INFERENCE on CPU, NO value net; ReBeL = CFR in a depth-limited subgame; search ≈ 1000-10000× model-size (Brown). → "use the solver MORE, RL less": the LLM ORCHESTRATES the exact solver, it does NOT imitate it. GRPO demoted to history (below).
 > **★ BUILT + VERIFIED ($0, local).** (1) `api.solve_node(spot)` — a LIVE TexasSolver solve postflop → the GTO mix for hero's hand. v2 fixed two coverage bugs: tight 6-max SRP ranges → WIDE HU `_HU_IP`(77%)/`_HU_OOP`(61%); cross-street nav stepping into a `chance_node` → per-street RE-ROOT + walk only the current street (mirrors `gto_oracle_match._street_actions`). **HU postflop solve-rate ~0% → 83% (12 constructed spots) / 0.60-0.85 (live Slumbot); sane mixes.** (2) `SolverSlumbotBot` + `slumbot_llm.py --bot solver` (preflop = blueprint [verified leak-free], postflop = solver). (3) CONCURRENCY-SAFE parallel solver (uuid temp-tags + per-key-lock dedup + `SOLVE_THREADS` env → 24-core, NO temp-file collision — the silent-corruption risk). (4) `slumbot_adjust.py` ALL-IN-EV adjustment — Slumbot reveals `bot_hole_cards`+`won_pot` on EVERY hand → equity-EV replaces all-in runout luck (cross-validated to the chip).
 > **★ HONEST coverage + the headline.** Solver-search covers only **~5% in 6-MAX** (TexasSolver is 2-player → multiway/preflop falls back to the heuristic floor = the multiway wall) but **~60-85% in HU postflop** → HU vs Slumbot is where it shines (the running bench). Ranges still NOT line-aware (3bet/limped inexact) = future work. The bot plays SMALL pots → low realized variance (the user's variance insight: a fold-hand carries ~0 runout-variance; the variance lives in all-in showdowns → the all-in-EV adjuster targets exactly those). **30-hand directional read: +96.6 bb/100 (±178 = pure NOISE, not a result).** The 3000-hand run + raw/adjusted bb/100 ± stderr = the decisive (or honest-tie) number.
@@ -1258,7 +1200,7 @@ live-verified on the PokerB game.
 > "vs experts" eval needs prose→`Spot`→`format_spot`→EXECUTE→vs-gold (deferred follow-up).
 > **Pipeline infra is now SOLID:** env-hell beaten (torch2.8+cu128 / trl1.6 / vllm0.11); the tokenizers fork-deadlock
 > fixed (`TOKENIZERS_PARALLELISM=false` + `dataset_num_proc`); SFT↔inference prompt aligned (`SYSTEM_PROMPT` in
-> `load_dsl`); the **DATA REGISTRY + [CATALOG.md](../CATALOG.md)** built + drives `registry.sft_gold()`; the campaign
+> `load_dsl`); the **DATA REGISTRY + [catalogs/DATA_CATALOG.md](catalogs/DATA_CATALOG.md)** built + drives `registry.sft_gold()`; the campaign
 > self-kills + has an early **frac_bad auto-abort that WORKS**. A 70-min attended pod run completed clean (~$1.5).
 > **HARD LESSON 1 — ~$65 BURNED OVERNIGHT.** An unattended run + the PC SLEPT ~midnight → the PC-tethered orchestration
 > suspended → the SFT died mid-run (nothing saved) AND the pod-side `nohup` watchdog FAILED to fire (didn't survive the
@@ -1306,8 +1248,8 @@ live-verified on the PokerB game.
 > teacher = a later bonus once the worker crash is diagnosed. CPU mass-solve (`from_solver --mass`) running reliably.
 > **★ SERVERLESS TEACHER PIVOT (2026-06-17) — escaped the pod-setup hell.** After 5 pod-setup failures (PEP668 on the
 > Ubuntu-24.04 image, vLLM/torch ABI mismatch, transformers<4.57 tokenizer skew, missing hf_transfer), pivoted teacher-
-> generation to **RunPod Serverless from GitHub** (`aeneassoft/PokerB` branch `serverless-worker`, `Dockerfile` on the
-> OFFICIAL vLLM image = RunPod-managed/tested env). Endpoint **`168e2dt7qdptlh`** serves the teacher; `handler.py`
+> generation to **RunPod Serverless from GitHub** (`aeneassoft/PokerB` branch `serverless-worker`, `../infra/serverless/Dockerfile` on the
+> OFFICIAL vLLM image = RunPod-managed/tested env). Endpoint **`168e2dt7qdptlh`** serves the teacher; `../infra/serverless/handler.py`
 > (repo root) generates DSL + engine-gates (grammar+legality) + returns the gold; `research/teacher_serverless_client.py`
 > (concurrent+reactive: K=4 jobs, inspect-after-4 quality gate, abort if gate_pass<50%) accumulates → `data/teacher_raw.jsonl`
 > → `pipeline/distill_teacher.py` (EVFilter) → `dataset/shards/teacher.jsonl`. **GPU fix (via API, no rebuild):** the
@@ -1319,7 +1261,7 @@ live-verified on the PokerB game.
 > cold-starting on the strong GPU = the first teacher-quality signal; GO → scale; FAIL → escalate MODEL_NAME to Qwen3-Next-80B-A3B-FP8.
 > ⟳ LIVE source of truth. Per the CLAUDE.md standing rule, update THIS top section before ending any turn that moves
 > the headline, lands a build, or shifts priorities. Plan: `.claude/plans/gut-dann-sind-wir-toasty-forest.md` ·
-> `docs/QWEN_6MAX_PLAN.md` · `docs/DATASET_SPEC.md`.
+> `plans/QWEN_6MAX_PLAN.md` · `doctrine/DATASET_SPEC.md`.
 
 **★ LOCAL SFT PROOF PASSED (2026-06-17) — the LLM emits valid REASONING-LOOP DSL (frac_bad 0.97 → 0.00, grounded_rate 1.00, 30/30 OK).** Qwen3-1.7B QLoRA local proof. The fix chain (all $0, grounded by measurement):
 > 1. **completion-only masking** (`assistant_only_loss=True` + `packing=False`; TRL auto-swaps the `qwen3_training.jinja` `{% generation %}` template — verified the loss lands only on the program);
@@ -1370,7 +1312,7 @@ live-verified on the PokerB game.
 > per-process → workers would have sampled different runouts → **CRN broken within a GRPO group**; pinned via `main()`
 > re-exec. The whole RL/eval pipeline is now reproducible. Campaign `SCALE=1` wires it + vRAM-fill `VLLM_MEM=0.78` +
 > big `GEN_BATCH` + `nproc` auto-detect + a live `nvidia-smi` load logger (`data/gpu_load.jsonl`). **Size-agnostic** (BASE
-> 8B/32B/70B, QLoRA nf4 + all-linear). Design: `docs/full_gpu_load.md`.
+> 8B/32B/70B, QLoRA nf4 + all-linear). Design: `plans/full_gpu_load.md`.
 > **★ Pillar 2 — SOLVER GTO DATA shard BUILT (`dataset/build/from_solver.py` → `dataset/shards/solver.jsonl`).** TexasSolver
 > (OSS, CPU, $0) solves 8 representative flops → exact GTO **mixed multi-size frequencies** → `decide_mix({solver mix},
 > size=)` programs (engine-grounded; the mix is ground truth, varies by spot = learnable). **2617 examples, 88% genuinely
@@ -1383,7 +1325,7 @@ live-verified on the PokerB game.
 > was overwritten by the data-volume run. Now testing the COMBINED model (selfplay+read+SOLVER). KEY: the local test uses
 > NO constrained decoding; the POD's `STRUCTURED=1` (vllm_structured_outputs_regex) forces valid DSL → pod frac_bad→0 by
 > construction, so the local frac_bad massively overstates the pod's. The −72 remains the number to beat (RL→8B).
-> **★ RunPod final prep (2026-06-17): `docs/RUNPOD_READY.md`** — launch cmds (smoke/scale/70B), the GATE ladder, the
+> **★ RunPod final prep (2026-06-17): `plans/RUNPOD_READY.md`** — launch cmds (smoke/scale/70B), the GATE ladder, the
 > corrected data path, the full-load levers, the pre-flight, `--kill` discipline.
 > **★ TEACHER→DISTILL run LAUNCHED (2026-06-17) — the user's "deep research with the biggest model" plan.** The 235B is a
 > TEACHER (not deployed): Qwen3-235B-A22B generates engine-gated DSL over thousands of spots → distil into the 8B (the
@@ -1456,7 +1398,7 @@ random **+3.93±1.56**, maniac **+3.27±1.46**, tag **+3.52±1.39** — ALL sign
 untrained opponent types (cross-distribution robustness) → the pilot's train-league caveat is CLOSED. The $0 pre-spend
 gate is GREEN (Stage-0 + train-league n=200 + held-out all PASS); only Stage-1 (TRL integration) remains, and it needs
 `trl` = pod/venv.
-**★ MATH ACCURACY (2026-06-17, user-prioritized).** Strategy `docs/math_accuracy_strategy.md` (4 papers + repos:
+**★ MATH ACCURACY (2026-06-17, user-prioritized).** Strategy `plans/math_accuracy_strategy.md` (4 papers + repos:
 Athena tool-use VALIDATES engine-as-truth; fse16 → exact-rational threshold math; MathGLM → number-sense training;
 LEMA → mistake-correction pairs; adopt **sympy** selectively (verify+thresholds, not the hot loop), reject numbat/
 Qalculate). DELIVERED: GPT-5.5 generated **34 post-flop calculations** → ALL 34 ENGINE-VERIFIED (`postflop_calc_gate`,
@@ -1479,7 +1421,7 @@ first pod run IS the TRL-integration test (keep the smoke tiny). Optional pre-st
 ---
 > **HISTORY below (the HU exploit-primary era — superseded by the pivot; kept for context, not the current goal).**
 
-**★ SOLVER-GRAFTED PREFLOP (2026-06-16, user-chosen "schneller+genialer" lever) — built + first GATE PASS.** Preflop is
+**★ SOLVER-GRAFTED PREFLOP (2026-06-16, user-chosen "faster+more ingenious" lever) — built + first GATE PASS.** Preflop is
 87% of the −72; the blueprint's see-flop leaf was a pure-equity CHECKDOWN (`w = e + κ·4e(1−e)`, κ=0.05 GUESS) that omits
 ALL postflop betting. We ground it in real TexasSolver play: `extraction/preflop_ranges.py` (reach-weighted ranges per
 see-flop node) → `extraction/preflop_calibrate.py` (200bb flop solves + an MC rollout of the solved strategies →
@@ -1528,8 +1470,7 @@ it recovers.
 `tools/gtow_measure_chunked.py`). **Slumbot whole-bot (exploit-primary, n=2500): −39.6 ±30.9** = statistically ≈ the
 FLOOR (−43); the historical **+31 did NOT reproduce**, and the opp-model log hints the exploit overlay under-built
 (a separate Exploit-engine thread — flagged, not yet investigated). Local signals unchanged: preflop exploitability
-**3.3 vs 234**, A3 range-L1 **+60% turn**. Pro-hands (`extraction/pro_hands_profile.py`) catalogued = NLHE 7-max PKO
-MTT (NOT cash) → exploit ARCHETYPE only (29/20, 9.5% 3bet, AF 2.26). RunPod: **0 pods live** (verified, no billing).
+**3.3 vs 234**, A3 range-L1 **+60% turn**. RunPod: **0 pods live** (verified, no billing).
 *(History pointer: the earlier Slumbot "floor-bridge to GTOW ≈ −22" idea is superseded by this direct whole-bot run.)*
 
 **★ (2) SHARP RESOLVER — the range-tracker KEYSTONE — DONE on the $0 local gates (2026-06-16):** the resolver
@@ -1693,7 +1634,7 @@ exploitable field we WIN big; vs true near-GTO we minimize loss (can't beat it).
   small-sample MIRAGES. **−71 < Always-Fold (−64.6)** ⇒ the integrated bot actively loses chips to near-GTO. Honest
   truth (= the user's diagnosis, now MEASURED): **many parts, NO coherent working MVP yet.** vs the exploitable
   field it still wins (Slumbot +31) — the thesis holds, but the near-GTO floor is far worse than small samples
-  suggested. **→ PLAN: [docs/MVP_UNIFY_PLAN.md](MVP_UNIFY_PLAN.md).** Catalog DONE ([BOT_PARTS_CATALOG.md](BOT_PARTS_CATALOG.md);
+  suggested. **→ PLAN: [docs/MVP_UNIFY_PLAN.md](archive/MVP_UNIFY_PLAN.md).** Catalog DONE ([BOT_PARTS_CATALOG.md](archive/BOT_PARTS_CATALOG.md);
   §0 = the fragmentation map: two playing brains, an orphaned exploit cluster, dead files). Path: **Phase A** unify
   into ONE core ($0; wire `preflop_gto` into HU bot, reliability-gate the resolver by confidence+pot-size, delete
   dead code) + measure @ n≥2500; **then the ONE sure compute** = solve facing-bet nodes → a **facing-bet DEFENSE
@@ -1719,9 +1660,9 @@ ranges (−72) · resolver+v2 tracker (one session at a time). **HONEST caveat (
 legality-only (safe, but no narrowing) → flop-called air stays in the range (96o weighted top on A-K-7-2-9) →
 ranges still WIDE → may only PARTIALLY recover; if so the next lever = a facing-bet **defense model** so calls
 filter. Cheap win still open: wire `preflop_gto.py` (88.6%) into HU `bot.py` (verified NOT wired). Docs:
-[GTO_GAP_REVIEW](GTO_GAP_REVIEW_2026-06-15.md) · [GTO_P0_RANGE_TRACKER](GTO_P0_RANGE_TRACKER_2026-06-15.md).
+[GTO_GAP_REVIEW](archive/GTO_GAP_REVIEW_2026-06-15.md) · [GTO_P0_RANGE_TRACKER](archive/GTO_P0_RANGE_TRACKER_2026-06-15.md).
 
-**Plan / spend:** [MVP2_RUNPOD_PLAN.md](MVP2_RUNPOD_PLAN.md) — closer-to-GTO sequenced by ROI. The $140 RunPod run
+**Plan / spend:** [MVP2_RUNPOD_PLAN.md](archive/MVP2_RUNPOD_PLAN.md) — closer-to-GTO sequenced by ROI. The $140 RunPod run
 is the LAST mile (CFV value-net → flop resolving); **start small/local first** (user directive). Consults:
 `runpod_gto_gpt55.md`, `runpod_gto_opus46.md`, `situational_*`. Honest ceiling vs GTO Wizard: **−20…−15 near-term**
 (GPT-5.5); ≈0/−3 is NOT a near-term/$140 outcome.
@@ -1783,7 +1724,7 @@ The exploit-primary pivot is now a SHIPPED MVP: ONE `PokerBot(exploit=True)` = s
   (3) optional: extend the GTO-gap to turn+river, port the TwoModelGate/Calibrator if the field shows it's needed.
 
 ## ★ Latest session — Consolidation, Unification & Phase 1 (2026-06-14/15, supersedes older detail below)
-**Plan:** [docs/CONSOLIDATION_PLAN.md](CONSOLIDATION_PLAN.md) · **Architecture:** [docs/META_STRATEGY.md](META_STRATEGY.md)
+**Plan:** [docs/CONSOLIDATION_PLAN.md](archive/CONSOLIDATION_PLAN.md) · **Architecture:** [docs/META_STRATEGY.md](archive/META_STRATEGY.md)
 - **Exploit↔GTO unified (no mismatch):** ONE best-response engine — pointed at the opponent = exploit, pointed
   at itself (self-play) = converges to the floor (GTO/CCE). Live design = a GTO **floor** + a BOUNDED,
   confidence-gated exploit **overlay** (`freq_delta∈[-0.3,0.3]`) on top; no read → pure floor.
@@ -1852,22 +1793,22 @@ Engine compare vs a diverse suite (`beat_them_all`-style, 250h/match) + Slumbot:
 ## Current workstream (2026-06-14): a strategic LLM + a GTO oracle + an exploit playbook
 Three resources were run in parallel (the clean split — see the memory note [[pod-run-validation]]):
 
-1. **GPU (RunPod B200): Qwen3-8B LoRA fine-tune on PokerBench** — [extraction/qwen_sft.py](../extraction/qwen_sft.py).
+1. **GPU (RunPod B200): Qwen3-8B LoRA fine-tune on PokerBench** — [extraction/qwen_sft.py](../training/qwen_sft.py).
    The strategic/language layer (exploit hypotheses, coaching, curriculum), **not** a per-hand player.
    At step ~90/987 it was already 96% token-accuracy → converges fast; full 987 steps unnecessary.
    Output LoRA → `/root/qwen_poker_lora` (retrieve, then `--kill` the pod). Needs torch cu128 on Blackwell.
    - **HARD LESSON**: on ONE box a heavy CPU job and a GPU-training job cannot coexist (CPU starves GPU
      kernel-dispatch *and* sshd → unmanageable). "Both at 80%" needs **separate** pods. So:
-2. **CPU (local i9-12900K): TexasSolver mass-solve** — [extraction/mass_solve.py](../extraction/mass_solve.py)
+2. **CPU (local i9-12900K): TexasSolver mass-solve** — [extraction/mass_solve.py](../research/mass_solve.py)
    (RAM-adaptive; 16 GB box → ~5 parallel solves, auto-scales). Builds a GTO cache for distillation/benchmark
    in `data/_gto_bench_cache/` (regenerable; gitignored). ~16 boards/min.
-3. **Claude API: exploit playbook** — [extraction/exploit_playbook.py](../extraction/exploit_playbook.py).
+3. **Claude API: exploit playbook** — [extraction/exploit_playbook.py](../research/exploit_playbook.py).
    Bounded, machine-checkable exploit directives across an opponent-profile × spot grid (a PROPOSER pass;
    the benchmark verifies before anything is applied). Artifacts:
    - `knowledge_base/exploit/playbook.jsonl` — 11,520 directives (Haiku).
    - `knowledge_base/exploit/playbook_opus_coarse.jsonl` — 240 directives (Opus, high-quality subset).
 
-## What the GTO cache already tells us (from [extraction/analyze_cache.py](../extraction/analyze_cache.py), 597 flops)
+## What the GTO cache already tells us (from [extraction/analyze_cache.py](../research/analyze_cache.py), 597 flops)
 - **IP c-bet by texture** (robust GTO signal): dry/high/rainbow/paired ~77–78%, monotone 58%, connected 60%,
   low 67%, overall 74% → c-bet more on aggressor-favoring boards, less on caller-favoring ones.
 - **C-bet sizing**: ~96% of c-bet mass uses ONE size (~⅔ pot) — GTO barely mixes sizes here.
@@ -1922,11 +1863,11 @@ Three resources were run in parallel (the clean split — see the memory note [[
   into `adaptive.py`: logs predicted-vs-observed folds in the spots we ACTUALLY bet (selection-aware), bias-
   corrects future fold-equity, exposes a data-driven confidence. None-safe (no data -> behaviour unchanged).
   Tests: `python -m tests.test_calibration`. Persisted per opponent under `data/calibration/<name>.json`.
-- **GTO-floor net v0 (distillation)** ([extraction/distill_improve.py](../extraction/distill_improve.py)) on the
+- **GTO-floor net v0 (distillation)** ([extraction/distill_improve.py](../research/distill_improve.py)) on the
   1340-board solver cache (local RTX 3080 Ti): added minibatching to `distill.train` (full-batch underfit
   328k samples); 256³ net → held-out **TV-gap 17.7%→17.0%**, saved `data/floor_net.pt`. **KEY FINDING
   (empirically validated, not just taken from the OpenAI tips): bigger nets barely move it → the bottleneck is
-  DATA COVERAGE, not the model.** Vetted OpenAI (gpt-5.1) advice via [extraction/cfr_tips.py](../extraction/cfr_tips.py).
+  DATA COVERAGE, not the model.** Vetted OpenAI (gpt-5.1) advice via [extraction/cfr_tips.py](../research/cfr_tips.py).
 - **Exploit playbook WIRED** into the adaptive engine as a cold-start prior ([pokerbot/strategy/playbook.py](../pokerbot/strategy/playbook.py)):
   nearest-profile lookup -> bounded, confidence-FADED nudge (bluff / value / bluff-catch); `directive_to_nudge`
   is the SAME channel the live LLM strategist will write into later. Tests: `python -m tests.test_playbook`.
@@ -1936,7 +1877,7 @@ Three resources were run in parallel (the clean split — see the memory note [[
   the baseline floor yet (LBR loses to it); v2 = Bayesian action-consistent range for a tight number.
 - **Qwen LoRA fine-tune SAVED** (step-500, 97% token-acc) -> `models/qwen_poker_ckpt500/` (adapter 666 MB);
   pod auto-killed (billing stopped). The strategist layer for the INTEGRATION plan. **Eval PROVEN:** held-out
-  PokerBench decision-match **base 18.3% -> LoRA 71.7% (+53pp)** ([extraction/qwen_eval.py](../extraction/qwen_eval.py)).
+  PokerBench decision-match **base 18.3% -> LoRA 71.7% (+53pp)** ([extraction/qwen_eval.py](../training/qwen_eval.py)).
 - **LLM integration COMPLETE (proven end-to-end).** `meta_coach` gained a `provider="local"` (LoRA in 4-bit via
   transformers, no vLLM) -> `propose_exploit` emits a bounded directive -> `directive_to_nudge` ->
   `AdaptiveExploiter.refresh_llm_exploit()` installs it as `live_directive` -> applied (capped) in `decide()`.
@@ -1949,7 +1890,7 @@ Three resources were run in parallel (the clean split — see the memory note [[
    pots, stack depths) with a wider TexasSolver tree (CPU); (b) finer **action buckets** (add overbets) +
    EV-weighted loss + post-hoc calibration; (c) an **LBR (local best response) evaluator** for HONEST NLHE
    exploitability (TV is only a proxy — a low TV can still be exploitable). Then wire `floor_net.pt` as the
-   policy floor (`cfr_policy.py`, see [INTEGRATION.md](INTEGRATION.md)). Methodology lab: validate CFR+ on the
+   policy floor (`cfr_policy.py`, see [INTEGRATION.md](archive/INTEGRATION.md)). Methodology lab: validate CFR+ on the
    self-contained Leduc Deep-CFR (`deep_cfr.py`, exact exploitability) before any NLHE self-play.
 1. ✅ DONE — Qwen LoRA saved to `models/qwen_poker_ckpt500/` (step-500, 97%); pod killed (no billing).
 2. Eval the saved LoRA vs base Qwen on held-out PokerBench locally (RTX 3080 Ti) to prove the decision gain.
@@ -1978,7 +1919,7 @@ Three resources were run in parallel (the clean split — see the memory note [[
   `runpod_run.py` (pod lifecycle; always `--kill`), `deep_cfr_nlhe.py`, `pod_run30.py`.
 - **Knowledge** (committed): `knowledge_base/` — `concepts/`, `ranges/` (+ `cfr/preflop_pushfold.json`),
   `math/`, `exploit/` (playbooks + `slumbot_fold.json`), `hand_histories/` (10k Pluribus), `theory/`.
-- **Plans**: [docs/ROADMAP.md](ROADMAP.md), [docs/POD_PLAN.md](POD_PLAN.md), [docs/RUNPOD_PLAN.md](RUNPOD_PLAN.md).
+- **Plans**: [plans/ROADMAP.md](plans/ROADMAP.md), [plans/POD_PLAN.md](plans/POD_PLAN.md), [docs/RUNPOD_PLAN.md](archive/RUNPOD_PLAN.md).
 
 ## Infra notes
 - Keys: read from `C:\Users\hampe\Desktop\Secret keys\` (outside the repo) via [pokerbot/config.py](../pokerbot/config.py) — never hardcode.

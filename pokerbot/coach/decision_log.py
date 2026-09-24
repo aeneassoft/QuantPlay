@@ -1,4 +1,4 @@
-"""Per-decision capture for the trainer (schema ``trainer.decision.v1``, TRAINER_PLAN.md P0-1).
+"""Per-decision capture for the trainer (schema ``trainer.decision.v1``, docs/plans/TRAINER_PLAN.md P0-1).
 
 WHY a snapshot BEFORE ``table.act()``: the grader (P0-2..P0-5) must score the human's choice against
 the exact PRE-mutation state — obs/legal/history/pot as the human saw them; after act() the table has

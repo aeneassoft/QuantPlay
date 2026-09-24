@@ -1,66 +1,66 @@
-# CLAUDE.md — QuantPlay (bis 2026-09-24: PokerB)
+# CLAUDE.md — QuantPlay (PokerB until 2026-09-24)
 
-> **⚠ PROJEKT ABGESCHLOSSEN (2026-09-10). LIES ZUERST [`!_PROJEKT_BILANZ_2026-09-10.md`](!_PROJEKT_BILANZ_2026-09-10.md)**
-> — die kritische Bilanz: Ziel verfehlt, warum, was Wert hat, und in welcher Reihenfolge man weitermacht.
-> Die Doktrin-Bloecke unten sind Geschichte, nicht Auftrag.
+> **⚠ PROJECT CLOSED (2026-09-10). READ FIRST [`docs/PROJECT_BALANCE_2026-09-10.md`](docs/PROJECT_BALANCE_2026-09-10.md)**
+> — the critical balance sheet: goal missed, why, what has value, and in which order to continue.
+> The doctrine blocks below are history, not a mandate.
 >
-> **★ VEROEFFENTLICHT (2026-09-24).** Das Repo heisst jetzt **`aeneassoft/QuantPlay`** (oeffentlich; das fruehere
-> Spiel liegt unter `aeneassoft/quantplay-herzlichter`), Default-Branch `poker-core`. Der Trainer laeuft als
-> **statische Browser-Version auf https://quantplay.io** — dieselbe `six_server`-Session in Pyodide (Python/WASM)
-> im Web Worker des Besuchers, kein Server: `web/build.py` baut `web/dist/`, `web/src/{bridge,worker}.js` leiten
-> `fetch('/api/…')` an `pokerbot/web/browser_bridge.py` (ruft die FastAPI-Endpunkte direkt, Pyodide hat keine
-> Threads). Deploy: `python web/build.py && cd web && vercel deploy --prod` (Projekt `quantplay`, Git-Anbindung
-> bewusst getrennt). **Regeln fuer ein oeffentliches Repo:** keine Handhistorien Dritter, keine Schluessel, keine
-> Personen-Dateien (die CoinPoker-HHs wurden am 2026-09-24 nach `Desktop/PokerB_ausgelagert_2026-09-10/`
-> verschoben; in der Git-Historie sind sie weiter enthalten — Historie wird nicht umgeschrieben). **Lizenz:
-> PolyForm Noncommercial 1.0.0** (`LICENSE.md`, Operator-Entscheid 2026-09-24): nicht-kommerziell frei, jede
-> kommerzielle Nutzung nur mit schriftlicher Erlaubnis; die `Required Notice:`-Zeile (`NOTICE`) muss bei jeder Kopie bleiben.
+> **★ PUBLISHED (2026-09-24).** The repo is now called **`aeneassoft/QuantPlay`** (public; the earlier
+> game lives under `aeneassoft/quantplay-herzlichter`), default branch `poker-core`. The trainer runs as a
+> **static browser version at https://quantplay.io** — the same `six_server` session in Pyodide (Python/WASM)
+> in the visitor's Web Worker, no server: `web/build.py` builds `web/dist/`, `web/src/{bridge,worker}.js` route
+> `fetch('/api/…')` to `pokerbot/web/browser_bridge.py` (calls the FastAPI endpoints directly, Pyodide has no
+> threads). Deploy: `python web/build.py && cd web && vercel deploy --prod` (project `quantplay`, Git integration
+> deliberately disconnected). **Rules for a public repo:** no third-party hand histories, no keys, no
+> personal files (the hand-history files were moved to `Desktop/PokerB_ausgelagert_2026-09-10/` on 2026-09-24;
+> they remain in the git history — history is not rewritten). **License:
+> PolyForm Noncommercial 1.0.0** (`LICENSE.md`, operator decision 2026-09-24; rights holder per `NOTICE`: Leonhard Hampe): free for non-commercial use, any
+> commercial use only with written permission; the `Required Notice:` line (`NOTICE`) must stay with every copy.
 > Test: `python -m tests.test_browser_bridge`.
 
 **Goal: a world-class 6-max No-Limit Hold'em AI that PLAYS GTO — i.e. approaches TRUE GTO.** The AI is three
 assets ("the gold"): a **self-growing, EV-grounded dataset**, a **fine-tuned Qwen "brain"**, and **our engine as the
 scaffold** the brain drives. Built across many sessions — see the user memory + `docs/STATE.md` for history.
 
-> **★★★★★ POKER IN A NUTSHELL — DIE FUNDAMENTALE LINIE (User-Zeichnung, 2026-07-06; docs/POKER_NUTSHELL.md).**
-> Poker = die UNVORHERSEHBARE WELLE (Over/Underbet) um die Handstärke, gerahmt von zwei berechenbaren Ankern
-> (Preflop = pure Statistik; River = „The Bill", wo alles beglichen wird). Die Welle (Flop/Turn = Spieltheorie)
-> dient zwei Zwecken: FOLD EQUITY (mehr betten → Folds) + EXTRACTION/Milking (weniger betten → Gegner melken).
-> Das Ganze MUSS ein SEESAW sein (always switching up → unpredictable + noise) — hörst du auf zu schaukeln,
-> wirst du lesbar. **DIESES MODELL IST PRÄDIKTIV:** es erklärt den v8-Live-Bruch (Purify flachte das Seesaw ab →
-> Check-Range transparent → −20 auf −58), die Value/Bluff-Polarisierung (Gewicht je Ast am Bill), die Straßen-
-> Doktrin (Preflop/River rechnen, Flop/Turn = Welle, Fold-Equity-Job) und die River-Primacy. **BINDEND: der Bot
-> ist ein Seesaw, kein Fixpunkt — das Mixing/die Deception NIE abflachen. Balance = nicht-verhandelbar; das
-> Schaukeln SELBST ist der Edge; gegen adaptive Gegner wird das Umschalten über Zeit (Red Queen) zum Exploit.
-> Bankroll/Varianz (mehr Bluffen = mehr Varianz) = eine noch un-formalisierte Achse.** OBFUSCATION-Erweiterung
-> (User): kryptografische Unvorhersehbarkeit der REALISIERUNG (CSPRNG statt Mersenne-Twister) für maximale
-> Uneinsichtbarkeit — relevant vs ADAPTIVE Gegner (Menschen), irrelevant vs statischen GTOW (der die RANGE
-> exploitet, nicht die RNG-Sequenz); zweit-Ordnung ÜBER der Balance (obfuscation ≠ balance). Determinismus-
-> Tension: geseedete RNG fürs MESSEN, CSPRNG fürs LIVE-Spiel vs Menschen (Kontext-Split, wie Purify).
+> **★★★★★ POKER IN A NUTSHELL — THE FUNDAMENTAL LINE (user sketch, 2026-07-06; docs/doctrine/POKER_NUTSHELL.md).**
+> Poker = the UNPREDICTABLE WAVE (over/underbet) around hand strength, framed by two computable anchors
+> (preflop = pure statistics; river = "The Bill", where everything is settled). The wave (flop/turn = game theory)
+> serves two purposes: FOLD EQUITY (bet more → folds) + EXTRACTION/milking (bet less → milk the opponent).
+> The whole thing MUST be a SEESAW (always switching up → unpredictable + noise) — stop rocking and
+> you become readable. **THIS MODEL IS PREDICTIVE:** it explains the v8 live break (Purify flattened the seesaw →
+> check range transparent → −20 to −58), the value/bluff polarization (weight per branch at the Bill), the street
+> doctrine (preflop/river compute, flop/turn = wave, fold-equity job) and river primacy. **BINDING: the bot
+> is a seesaw, not a fixed point — NEVER flatten the mixing/deception. Balance = non-negotiable; the
+> rocking ITSELF is the edge; against adaptive opponents the switching over time (Red Queen) becomes the exploit.
+> Bankroll/variance (more bluffing = more variance) = a still un-formalized axis.** OBFUSCATION extension
+> (user): cryptographic unpredictability of the REALIZATION (CSPRNG instead of Mersenne Twister) for maximum
+> opacity — relevant vs ADAPTIVE opponents (humans), irrelevant vs the static GTOW (which exploits the RANGE,
+> not the RNG sequence); second order ABOVE balance (obfuscation ≠ balance). Determinism
+> tension: seeded RNG for MEASURING, CSPRNG for LIVE play vs humans (context split, like Purify).
 >
-> **★★★★★ OPERATIVE DOKTRIN (User, 2026-07-06) — PROFIT-EMPIRISMUS. ZIEL: GTOW-LEADERBOARD TOP 5.**
-> Wir sind zuerst eine **statistische Mustererkennungs-Maschine über Millionen Händen**: es zählt
-> ausschließlich, was bb druckt ("nur bb zählen", jetzt radikalisiert). **Formeln sind SUPPENFLEISCH** —
-> MDF/Pot-Odds/e_call/Blocker schwimmen als Features/Prioren IN den empirisch abgeschmeckten Deciders
-> (die Advisor-MLPs sind das Muster), nie als Dogma darüber. Mathematisch elegant + druckt nicht = Tonne
-> (gemessen: frequency-matching 3× refuted). Mathematisch "falsch" + druckt = shipped (gemessen: SB-fold-clamp).
-> **Axiome als Knöpfe:** MODELL-Annahmen/Gleichgewichts-Begriffe/Präzisions-Budgets/Spiel-Perturbationen sind
-> frei drehbar mit explizitem Bedingungs-Test (`docs/CONDITIONAL_POKER_LEMMAS.md`: L1 Purify, L2 Mr-Orange,
-> L3 v3.2b, L4 Iso). NICHT drehbar (nicht aus Dogma — es ist das Scoreboard selbst): Chip-Erhaltung,
-> Σp=1, EV-Linearität (`tests/test_math_suite.py` bewacht; 17/17 deep). Lead-Generator: `research/money_mine.py`
-> (AIVAT-gewichtete P&L-Attribution; Buckets = Leads, nicht Beweise — konditionierte Teilmengen sind nicht
-> unverzerrt). Der einzige Geschmackstest bleibt die Gate-Leiter — ein Degenerierter ohne ehrliches
-> Scoreboard weiß nicht, was druckt.
-> **AIVAT-ADAPTED (Paper arXiv:1612.06915 gelesen, Ledger):** der Mittelwert ist per Theorem NICHT gambar
-> ("cannot appear to do better by changing play") → Metrik-Gaming-Ideen sind Artefakte per Konstruktion.
-> Legitime Anpassung: (1) pures EV, (2) niedrigvarianter Stil = engere SE = billigere Wahrheit (per-Hand-SD
-> 1000→214 gemessen), (3) On-Tree-Sizings = besserer Baseline-Fit = weniger Mess-Rauschen.
-> **MESS-ÖKONOMIE (User-Beobachtung 2026-07-06, hart):** der **Chrome/Analyzer-Kanal ist um Größenordnungen
-> schneller als die API** — Export 1500 Hände ≈ 4 min lokal (post-Memoisierung), Analyzer graded sie in
-> Minuten; die Live-API braucht ~8-9h für 2500. → **Analyzer-first**: μ-Vergleiche/Arm-Verdikte laufen über
-> gepaarte seed-Exports + Chrome-Upload (skalierbar: mehrere 1500er-Blöcke pro Arm = SE/√k); die API ist der
-> knappe Kanal NUR für Live-Anker, Tail-Smokes und Leaderboard-Einträge. Upload-Regeln: CRLF pflicht,
-> Hand-IDs verbrennen beim ERSTEN Kontakt (auch bei gescheiterten Uploads — nie idbase/dayoffset wiederholen;
-> Ledger in STATE).
+> **★★★★★ OPERATING DOCTRINE (user, 2026-07-06) — PROFIT EMPIRICISM. GOAL: GTOW LEADERBOARD TOP 5.**
+> We are first of all a **statistical pattern-recognition machine over millions of hands**: the only thing that
+> counts is what prints bb („nur bb zählen" — "only bb count", now radicalized). **Formulas are SOUP MEAT** (stock, not
+> the dish) — MDF/pot odds/e_call/blockers swim as features/priors INSIDE the empirically seasoned deciders
+> (the advisor MLPs are the pattern), never as dogma above them. Mathematically elegant + doesn't print = bin
+> (measured: frequency-matching 3× refuted). Mathematically "wrong" + prints = shipped (measured: SB-fold-clamp).
+> **Axioms as knobs:** MODEL assumptions/equilibrium notions/precision budgets/game perturbations are
+> freely turnable with an explicit condition test (`docs/doctrine/CONDITIONAL_POKER_LEMMAS.md`: L1 Purify, L2 Mr-Orange,
+> L3 v3.2b, L4 Iso). NOT turnable (not out of dogma — it is the scoreboard itself): chip conservation,
+> Σp=1, EV linearity (`tests/test_math_suite.py` guards; 17/17 deep). Lead generator: `research/money_mine.py`
+> (AIVAT-weighted P&L attribution; buckets = leads, not proofs — conditioned subsets are not
+> unbiased). The only taste test remains the gate ladder — a degenerate without an honest
+> scoreboard doesn't know what prints.
+> **AIVAT-ADAPTED (paper arXiv:1612.06915 read, ledger):** the mean is by theorem NOT gameable
+> ("cannot appear to do better by changing play") → metric-gaming ideas are artifacts by construction.
+> Legitimate adaptation: (1) pure EV, (2) low-variance style = tighter SE = cheaper truth (per-hand SD
+> 1000→214 measured), (3) on-tree sizings = better baseline fit = less measurement noise.
+> **MEASUREMENT ECONOMICS (user observation 2026-07-06, hard):** the **Chrome/Analyzer channel is orders of magnitude
+> faster than the API** — export of 1500 hands ≈ 4 min locally (post-memoization), the Analyzer grades them in
+> minutes; the live API needs ~8-9h for 2500. → **Analyzer-first**: μ comparisons/arm verdicts run via
+> paired seed exports + Chrome upload (scalable: several 1500-blocks per arm = SE/√k); the API is the
+> scarce channel ONLY for live anchors, tail smokes and leaderboard entries. Upload rules: CRLF mandatory,
+> hand IDs burn on FIRST contact (also on failed uploads — never repeat idbase/dayoffset;
+> ledger in STATE).
 
 > **★ NORTH STAR (2026-06-17) — PLAY GTO / ACHIEVE TRUE GTO, in 6-max NLHE.**
 > Rigorous target = the **robust correlated equilibrium**. (Einy–Haimanko–Lagziel, *Economic Theory* 2022,
@@ -77,7 +77,7 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > which EXECUTES → an exact, verifiable action. The LLM does NOT *be* a solver; it *orchestrates* one (math by code =
 > no LLM-arithmetic errors; legality by the engine; judgment by NL). SOTA value-nets (DeepStack/Supremus) are HU-only;
 > a from-scratch 6-max net is DEPRIORITIZED (no clean GTO benchmark + extreme complexity). Plan:
-> `.claude/plans/gut-dann-sind-wir-toasty-forest.md` · `docs/QWEN_6MAX_PLAN.md` · `docs/DATASET_SPEC.md`.
+> `.claude/plans/gut-dann-sind-wir-toasty-forest.md` · `docs/plans/QWEN_6MAX_PLAN.md` · `docs/doctrine/DATASET_SPEC.md`.
 >
 > **★★★ CURRENT TRUTH + VEHICLE (2026-07-04) — THE "−47 ENGINE" IS DEAD; the ENGINE-ALONE is the vehicle toward GTOW,
 > and it is FAR better than every number in this repo claimed.** Two things flipped this session:
@@ -91,7 +91,7 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > pokerstars_export.py` HU + `research/sixmax_export.py` 6-max): **HU 53.4% GTO-score / Freq-Diff 54.6%** (the shipped
 > EXPLOIT-PRIMARY engine deviates from GTO by design → −EV vs near-GTO GTOW) vs **6-max 85.9% / EV-loss 7.61** (the
 > `tag` core, far more GTO-aligned). The user chose the **ENGINE-ALONE path** (fast, $0/hand, fully ours); **the goal
-> (explicit, 2026-07-04): TIE GTOW (0 bb/100)** — staged via −10; the full ledger + path = `docs/TIE_GTOW.md`
+> (explicit, 2026-07-04): TIE GTOW (0 bb/100)** — staged via −10; the full ledger + path = `docs/plans/TIE_GTOW.md`
 > (the 19.33 bb/100 gap decomposes into a spread exploit-frequency deviation ≈10.7 + named concentrated leaks ≈8.6:
 > BB-flop-over-fold 2.9, river-aggression 1.6, cbet-fold 1.3, river-value 1.0 …). **The active lever = `POKERB_GTO_MODE` (built this session, `pokerbot/strategy/gto_mode.py`, default
 > OFF): flip exploit OFF + play GTOW's MEASURED tree** (the 12.5k-hand census `data/census/gtow_tree.json` →
@@ -184,13 +184,13 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > **THE v4 PATH (post-lever-ladder, decided):** real-time depth-limited CFR + neural leaves per Li&Huang
 > (`books/papers/CFR/2605.19928v1.pdf`) + EVPA (ICLR25, read: ensemble pruning needs the nets; the geometric
 > transfer measured NO-OP vs TexasSolver — it prunes internally) + TurboReBeL (leaf training) — ladder ≈ −10
-> asymptote, v4 = the way below −8. Research ledger: `docs/RESEARCH_SWEEP_2026-07-05.md` (27/36 papers
+> asymptote, v4 = the way below −8. Research ledger: `docs/reports/RESEARCH_SWEEP_2026-07-05.md` (27/36 papers
 > existence-verified; Perplexity scrambles metadata — NEVER cite unverified). Codebase MCP: Serena (`.mcp.json`,
 > LSP symbol navigation, active from the next session). Analyzer sequencing: v3.2 → v3.3 → v3.4 → v3.5, one arm
 > per user upload, fresh anchors from the fixed exporter.
 >
 > **★ FUTURE BUILD CANDIDATE (user-flagged 2026-07-07, deferred) — the VALUE-OF-COMPUTATION ARBITER**
-> ([`docs/SURFING_CONSULT.md`](docs/SURFING_CONSULT.md), memory [[value-of-computation-arbiter]]). From extracting
+> ([`docs/consults/SURFING_CONSULT.md`](docs/consults/SURFING_CONSULT.md), memory [[value-of-computation-arbiter]]). From extracting
 > Andy Clark's *Surfing Uncertainty* (predictive processing) + a GPT-5.5 math/CS translation: PP is mostly an
 > elegant re-description of RL/solver methods (NO new poker objective — poker stays chip-EV, not prediction-error
 > min), BUT 3 concepts converge on ONE buildable high-leverage lever = **precision-weighted value-of-computation
@@ -199,74 +199,71 @@ scaffold** the brain drives. Built across many sessions — see the user memory 
 > features (advisor policy+entropy, range-confidence, pot/SPR, top-2 margin, cache age, board texture, opponent
 > line-surprise) → invoke the resolver iff `E[ΔEV] − λ·solve_ms > threshold` (+ river-all-in triggers). This is the
 > IMPLEMENTABLE core of the v4 path (it decides WHERE the real-time CFR runs) and attacks the −20 postflop leak
-> directly; aligns with `docs/PRECISION_DOCTRINE.md`. The transferable book-insight: the brain rivals machines at
+> directly; aligns with `docs/doctrine/PRECISION_DOCTRINE.md`. The transferable book-insight: the brain rivals machines at
 > poker via metareasoning EFFICIENCY (optimal scarce-compute allocation), not raw compute or a better objective.
 >
-> **★★★★★ 2026-08-04 — DREI NEUE STANDBEINE (Detail: STATE.md): SNOWIE-BRÜCKE, TURNIER-MODUS, MULTIWAY.**
-> **(1) PokerSnowie-Brücke produktionsreif** (`pokerbot/vision/snowie_*`): spielt PokerSnowie 4 vollautomatisch
-> (13,3 Hände/min, ~4% Aussetzer, beide Themes). Härtungs-Doktrin daraus: NIE mit falschen Zahlen rechnen
-> (Gatter → Eskalation nur bei sauberen Kernfeldern → ehrlicher Ausschluss), Chip-Erhaltung als Gatter,
-> Zweitquellen-Pflicht für den Pot, Klick-/Aktions-Verifikation, 5-Fälle-Regressionsnetz (`research/
-> snowie_regress.py`) + Marathon-Wächter. **Messung (3 Läufe, 3.651 Hände): Konto −$2.915, aber der BEREINIGTE
-> Pool (3.114 saubere Hände) = +3,2 bb/100 [−37,+44] — der Bot war ≈ break-even vs Snowie, die Automatisierungs-
-> Steuer fraß das Konto** (jede Klasse einzeln obduziert + abgedichtet). Prince-HU in der Brücke NUR postflop
-> (User-Einwand korrekt: MP-Open ≈ 15–20% Range, die HU-Projektion läse ~50%); 6-max-POSITIONS-PRIOR für die
-> Gegner-Range + Bayes-Korrektur über beobachtete Aktionen (`make_seeded_tracker`/`ActionLog`).
-> **(2) TURNIER-MODUS GEBAUT + VALIDIERT** (Sklansky + Endgame/ICM systematisch extrahiert →
-> `knowledge_base/tournament/DOKTRIN.md`): exaktes Malmuth-Harville (`strategy/icm.py`, gegen unabhängige
-> Enumeration getestet), Doktrin-Schicht (`strategy/tournament.py`: BF-Skalierung NUR der Call-Seite =
-> Gap-Doktrin; **anteiliges Risiko-Premium** BF_eff = 1+(BF−1)·(to_call/Stack) — der volle BF wurde vom
-> gepaarten Experiment REFUTIERT (−8pp, Bubble-Ausbluten), das anteilige VALIDIERT: **μ-3 n=1500 gepaart:
-> +10,0 ± 5,0 pp ROI, 95%-Band [+0,2, +19,9], MEHR Siege UND bessere Ladder**), Direktor (Level/Antes/
-> Eliminierung/Schrumpfung), Arena mit gepaarten Seeds (`arena/tourney.py`). HU = BF 1 → Prince v2.2 spielt
-> Turnier-Endspiele UNANGETASTET. Druck-Hebel (Doktrin 9, `icm_pressure_mult`): der Coverstack erntet die
-> Zwangs-Tightness ICM-spielender Gegner — die PS-$1050-Vermessung belegt dieses Tightening empirisch
-> (FoldVsRaise 54→62%, Jam 1,1→13,1%; `research/ps_tourney_field.py` + `ps_tourney_duel.py`).
-> **(3) MULTIWAY 7–10**: Engine-Labels bis 10-max, sixmax-Buckets NUR für neue Labels (6-max byte-identisch =
-> Anker-Schutz), Trainer `?players=9`. **Ökologie-Erkenntnisse:** GG-$10/$20 (härtester Pool, 85% TAG):
-> GTO +106/Exploit +126 (modell-optimistisch), P_D-Klon −216 vs **P_D-A-GAME (Reset-Klon) +16,6 ± 5,3
-> [+6,3,+27] = signifikanter Gewinner — der TILT kostet ~233 bb/100** (die teuerste gemessene Verhaltensvariable
-> des Projekts). AIVAT vs Snowie: voll nicht möglich (kein Showdown-Logging); Leiter definiert
-> (Showdown-Logger → All-in-Glücksbereinigung → MIVAT-light).
+> **★★★★★ 2026-08-04 — THREE NEW PILLARS (detail: STATE.md): SNOWIE BRIDGE, TOURNAMENT MODE, MULTIWAY.**
+> **(1) PokerSnowie bridge production-ready** (`pokerbot/vision/snowie_*`): plays PokerSnowie 4 fully automatically
+> (13.3 hands/min, ~4% dropouts, both themes). Hardening doctrine derived from it: NEVER compute with wrong numbers
+> (gate → escalation only with clean core fields → honest exclusion), chip conservation as a gate,
+> mandatory second source for the pot, click/action verification, 5-case regression net (`research/
+> snowie_regress.py`) + marathon watchdog. **Measurement (3 runs, 3,651 hands): account −$2,915, but the CLEANED
+> pool (3,114 clean hands) = +3.2 bb/100 [−37,+44] — the bot was ≈ break-even vs Snowie, the automation
+> tax ate the account** (every class autopsied individually + sealed). Prince-HU in the bridge ONLY postflop
+> (user objection correct: MP open ≈ 15–20% range, the HU projection would read ~50%); 6-max POSITION PRIOR for the
+> opponent range + Bayes correction over observed actions (`make_seeded_tracker`/`ActionLog`).
+> **(2) TOURNAMENT MODE BUILT + VALIDATED** (Sklansky + endgame/ICM systematically extracted →
+> `knowledge_base/tournament/DOKTRIN.md`): exact Malmuth-Harville (`strategy/icm.py`, tested against an independent
+> enumeration), doctrine layer (`strategy/tournament.py`: BF scaling of the call side ONLY =
+> gap doctrine; **proportional risk premium** BF_eff = 1+(BF−1)·(to_call/stack) — the full BF was REFUTED by the
+> paired experiment (−8pp, bubble bleed-out), the proportional one VALIDATED: **μ-3 n=1500 paired:
+> +10.0 ± 5.0 pp ROI, 95% band [+0.2, +19.9], MORE wins AND a better ladder**), director (levels/antes/
+> elimination/shrinkage), arena with paired seeds (`arena/tourney.py`). HU = BF 1 → Prince v2.2 plays
+> tournament endgames UNTOUCHED. Pressure lever (doctrine 9, `icm_pressure_mult`): the covering stack harvests the
+> forced tightness of ICM-playing opponents — the PS-$1050 survey documents this tightening empirically
+> (FoldVsRaise 54→62%, jam 1.1→13.1%; `research/ps_tourney_field.py` + `ps_tourney_duel.py`).
+> **(3) MULTIWAY 7–10**: engine labels up to 10-max, sixmax buckets ONLY for new labels (6-max byte-identical =
+> anchor protection), trainer `?players=9`. AIVAT vs Snowie: not fully possible (no showdown logging); ladder defined
+> (showdown logger → all-in luck adjustment → MIVAT-light).
 >
-> **★★★★ HISTORIE (2026-07-04) — `_PRINCE_START_HERE.md` ist NICHT mehr der Einstieg.** Der Root-Marker nennt
-> „PRINCE v3" als geshippt; das ist ueberholt (Revert auf v2.2, danach die AUSLESE-Kette bis v5). **Nicht mehr
-> als Lagebild verwenden** — dafuer ist [`docs/STATE.md`](docs/STATE.md) da. Dauerhaft gueltig bleiben zwei
-> Dinge daraus: die Doktrin **nur bb zaehlt** (Frequenz-Matching gegen GTOW kostete EV, 3x gemessen) und das
-> Gegner-Dossier [`docs/GTOW_DOSSIER.md`](docs/GTOW_DOSSIER.md) (GTOW = Ruse-Re-Solver; Sizing- und
-> Translations-Angriffe refutiert, 13,5k Haende, $0).
+> **★★★★ HISTORY (2026-07-04) — `docs/archive/PRINCE_START_HERE_2026-07.md` is NO LONGER the entry point.** The root marker names
+> "PRINCE v3" as shipped; that is outdated (revert to v2.2, then the AUSLESE chain up to v5). **No longer
+> to be used as the situation picture** — that is what [`docs/STATE.md`](docs/STATE.md) is for. Two things from it
+> remain permanently valid: the doctrine **only bb count** (frequency matching against GTOW cost EV, measured 3x) and the
+> opponent dossier [`docs/reports/GTOW_DOSSIER.md`](docs/reports/GTOW_DOSSIER.md) (GTOW = ruse re-solver; sizing and
+> translation attacks refuted, 13.5k hands, $0).
 >
 > **New Claude session? Start with [`docs/STATE.md`](docs/STATE.md)** — the LIVE source of truth.
-> Bausteine = [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md) · Zahlen = [`docs/MESSKATALOG.md`](docs/MESSKATALOG.md)
-> · Repo-Baum = [`INDEX.md`](INDEX.md). This file = stable conventions + the north star; `STATE.md` = now.
+> Building blocks = [`docs/catalogs/MODULE_CATALOG.md`](docs/catalogs/MODULE_CATALOG.md) · numbers = [`docs/catalogs/MEASUREMENT_CATALOG.md`](docs/catalogs/MEASUREMENT_CATALOG.md)
+> · repo tree = [`docs/INDEX.md`](docs/INDEX.md). This file = stable conventions + the north star; `STATE.md` = now.
 >
-> **★ DU WILLST EINE NEUE BOT-VERSION VON GRUND AUF BAUEN? → [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md)**
-> (2026-09-10). Jeder Baustein dieses Projekts EINZELN beschrieben — Zweck, Schnittstelle mit Signatur,
-> Ein-/Ausgabeformat, Abhaengigkeiten (hart oder ersetzbar), Zustand, Kosten, **Mess-Status** und der eine
-> Fallstrick. Gedacht fuer jemanden, der den Bot NICHT kennt und je Modul entscheiden will: nehmen oder selbst
-> bauen. **REFUTIERTE Bausteine stehen ausdruecklich mit drin** — was wir gemessen widerlegt haben, ist fuer
-> einen Neubau die wertvollste Information. Dazu gehoert [`docs/MESSKATALOG.md`](docs/MESSKATALOG.md): was an
-> jedem Teil TATSAECHLICH gemessen wurde, mit Quelle, Verdikt und der Frage, ob die Zahl heute noch gilt.
-> Der Modulkatalog sagt, was ein Teil TUT; der Messkatalog sagt, ob es FUNKTIONIERT. Nie am Anker gemessene
-> Kandidaten mit ihren vorregistrierten Erwartungen: [`KANDIDATEN.md`](KANDIDATEN.md).
+> **★ YOU WANT TO BUILD A NEW BOT VERSION FROM SCRATCH? → [`docs/catalogs/MODULE_CATALOG.md`](docs/catalogs/MODULE_CATALOG.md)**
+> (2026-09-10). Every building block of this project described INDIVIDUALLY — purpose, interface with signature,
+> input/output format, dependencies (hard or replaceable), state, cost, **measurement status** and the one
+> pitfall. Meant for someone who does NOT know the bot and wants to decide per module: take it or build it
+> yourself. **REFUTED building blocks are explicitly included** — what we have measurably disproved is the most
+> valuable information for a rebuild. Alongside it belongs [`docs/catalogs/MEASUREMENT_CATALOG.md`](docs/catalogs/MEASUREMENT_CATALOG.md): what was
+> ACTUALLY measured on each part, with source, verdict and the question whether the number still holds today.
+> The module catalog says what a part DOES; the measurement catalog says whether it WORKS. Candidates never
+> measured at the anchor, with their pre-registered expectations: [`docs/catalogs/CANDIDATES.md`](docs/catalogs/CANDIDATES.md).
 >
 > **⟳ KEEP STATE.md CURRENT — standing rule.** After any turn that moves a headline number (a measurement), lands a
 > build, or shifts priorities, UPDATE STATE.md's top CURRENT section *before ending the turn* — lead with the current
 > frontier, demote superseded numbers to a one-line "history" pointer. A fresh context must start from the truth.
 >
-> **Deferred-precision / open questions:** [`NOTES.md`](NOTES.md) — approximations we ship now + should compute
+> **Deferred-precision / open questions:** [`docs/NOTES.md`](docs/NOTES.md) — approximations we ship now + should compute
 > exactly later. Add an entry when you ship a heuristic.
 >
-> **★ FORWARD PLAN — how to improve the bot + the personal coaching path:** [`docs/ROADMAP.md`](docs/ROADMAP.md). Two
+> **★ FORWARD PLAN — how to improve the bot + the personal coaching path:** [`docs/plans/ROADMAP.md`](docs/plans/ROADMAP.md). Two
 > tracks. **(A) Make the bot UNDERSTAND poker as well as possible** — the live lever is the consolidated
 > **understanding layer** (`pokerbot/brain/understanding.py::strategic_read` = SPR/position/pot-odds/MDF + board
 > texture + the made-hand read + the MEASURED GTO heuristics fused into ONE engine-computed frame, gated
 > `POKERB_UNDERSTANDING`, default OFF), so the brain reasons from first principles even on the ~60–85% of spots the
 > solver never covers; next = measure it (deterministic GTOW per-decision first), the river over-size fix, render the
-> solver's preferred SIZE. **(B) A Claude-API COACHING path for the user PERSONALLY** — review the user's own
-> CoinPoker/PokerStars hands, engine-grounded (`api.*` + the understanding layer) + GTO-anchored, personalized to their
+> solver's preferred SIZE. **(B) A Claude-API COACHING path for a human player** — review a player's own
+> hand histories, engine-grounded (`api.*` + the understanding layer) + GTO-anchored, personalized to their
 > tracked leaks; most machinery exists (`pokerbot/coach/coach.py` + `research/study_grade.py`). Honest: the
-> understanding layer is BUILT but EV-UNMEASURED; the coaching path is PROPOSED. Details + the reuse map in ROADMAP.md.
+> understanding layer is BUILT but EV-UNMEASURED; the coaching path is PROPOSED. Details + the reuse map in docs/plans/ROADMAP.md.
 
 ## Working discipline — Fable-5 verified mode (embedded from `github.com/fivetaku/fablize`)
 How to work on THIS project. Transfers PROCEDURE, not capability — *make the work reach its own ceiling, don't fake it.*
@@ -294,154 +291,154 @@ How I write code AND talk about it — the standing default, every turn.
   LLM failure mode; this IS the Verification-grounding gate restated). CONSISTENT: uniform format; write code that reads
   like the surrounding code (match its naming, comment density, idiom).
 
-> **★★★★★ AKTIVER PLAN (2026-08-16) — AUTOGYM: die selbstpruefende Trainings-Schleife. ZIEL = an die
-> GTOW-BASELINE herankommen** (Referenz −19,70 ± 4,37; Treppe −15 → −10 → Leaderboard-Band, jede Stufe vs GTOW
-> gemessen, $0 in-process). Gebaut: `pokerbot/autogym/` — `oracle.py` (die VEREINHEITLICHTE Mathematik-Benchmark:
-> die 78 Formelfunktionen aus `knowledge_base/math/` werden stufenweise zu Urteilen ueber echte
-> Self-Play-Entscheidungen verdrahtet; Stufen HART/P/L/F), `gym_hu.py` + `gym_six.py` (getrennte Self-Play-Gyms
-> mit Buchfuehrung; HU auf gepaarten Decks mit Button-Tausch → Paar-Drift als Symmetrie-Check, Button-Netto als
-> kartenbereinigter Positionswert), `improver.py` (minen → patchen → gepaartes A/B-Gate → Journal),
-> `selftest.py` (der lokale Beweis E1–E4). **Sicherheits-Kontrakt (bindend): Formeln unveraenderlich +
-> Fraction-Referenz-Pflicht; Orakel-Knoepfe = Mess-Konfig, fuer den Improver GESPERRT (Goodhart); Bot-Knoepfe
-> tunable mit Schranken, Anwendung NUR durchs Gate; P-Patches als Wrapper, nie Quelltext; alles ins Journal.**
-> Doktrin: ueberall VORREGISTRIERTE Erwartungen; die Schleife muss LOKAL bewiesen sein (Erwartungs-Leiter
-> E1–E6, `docs/AUTOGYM_PLAN.md`), erst dann der Pod (CPU-Kerne, keine GPU — CFR/Self-Play-Rechnung).
-> Erster Pilot: 500 Haende + 3.577 gegradete Entscheidungen in 52 s lokal; HART 0, P 0, L 35, F 3.
-> **★ ERGEBNIS NACH 2 TAGEN (2026-08-17): DIE SCHLEIFE FUNKTIONIERT. Versionskette basis → AUSLESE v1
-> (+6,1±1,5, 2x99k repliziert) → AUSLESE v3 (~+9 kumulativ; 15pp-Marge; 3 Direktlaeufe gepoolt +3,9±0,95
-> vs v1 + 183k-Anker +8,68±1,28 vs Basis) → AUSLESE v4 (Tag auslese-v4, 2026-08-17 nacht: die BET-Seite —
-> turn_wert_guard [Trips+/Ueberpaar + eq>=0,60 → 2/3-Pot-Turn-Bet; der aelteste Leak, 3x Mirror-repliziert
-> +7,27±2,33] + TURN_DEFENSE 0,07 + SLOWPLAY 0,25 + RAISE_NARROW 1,0 [NUR resolver-OFF]; Finale auf
-> identischen Decks vs basis: v3 +21,4 → v4 +49,8, gepaarte Stufe +28,4±6,2, envgate-Kanal; Instrumente
-> neu: envgate/orakel_duell/W1-4+W1-5; Estimator v2 = rohes Mittel + Vorzeichen-Test, Trim war fuer
-> duenne Kanaele blind; A/A-Nulltest exakt 0 nach Spot-RNG-Seeding).**
-> **★ RUNDE 5/6-NACHTRAG (2026-08-18 frueh): v4-Kern im MIRROR vs basis = +16,14±2,77 (3x30k, CI[+10,7,+21,6],
-> p=0,0002) — exakt im vorregistrierten Band. NEUES INSTRUMENT: der Fable-LLM-Adversar (`research/fable_duell.py`,
-> dateibasiert, Replay-deterministisch): 62 Haende vs v4 = +115bb mit GEZAEHLTEN Mustern (River-Station,
-> Button-Open-Fold 29%, Check-Raise ohne Follow-Through, gecappte Check-Range = der v8-Purify-Mechanismus LIVE
-> am v4 beobachtet). GEMESSENE ZWEI-ACHSEN-DOKTRIN (bindend): Haertungs-Guards gegen ADAPTIVE Gegner sind im
-> Mirror unsichtbar bis negativ (r6_ecall VERWERFEN −4,15 = Value-Folds in der Self-Play-Oekologie; r6_button
-> NEUTRAL trotz Exploit-Praevention) → Mirror = NICHTVERSCHLECHTERUNGS-Schranke, Adversar (Fable-Retest/
-> exploit_jagd) = Wirkungs-Beweis. Bug-Ernte der Armeen (alle data/runs/*_2026-08-17.json): OpenBLAS-Caps in
-> allen Workern (bewiesene Haenger-Ursache), W1-3 bet-Filter+R-Fix, _wickle = EINE Stack-Quelle (Export-Paritaet),
-> Flop-Resolver gebaut aber Erstflug 0/3 (Latenz 75-121s + hand-not-in-range der 35-Klassen-Hero-Range —
-> Stufe-2-Baustelle). GTOW-EHRLICHKEIT: Live-Anker ~−25..−30 (der −19,70 war Blinds-Bug-inflationiert);
-> gtowizard.py braucht den v4-ADAPTER (Wrapper fehlt im Harness, Resolver default ON = RAISE_NARROW-Falle)
-> BEVOR ein Anker laeuft. QUEUE: Fable-Retest vs gehaertetem Stack, Follow-Through-/Seesaw-Mixing-Guards
-> (stateful), princegate, pargate6, GTOW-Adapter (Specs fertig in data/runs/).**
-> **★ GTOW-ERSTKONTAKT v4 (2026-08-18 nacht, LAEUFT — Live-Stand in STATE.md!): finaler Bot verdrahtet
-> (pokerbot/strategy/auslese.py = EINE Quelle: FINAL_STACK — DAMALS r6_button, HEUTE `r8_stack`
-> (auslese.py:34; Release-Kandidat RC_STACK = r10_stack) + AUSLESE_ENV; HU-App/six_server/
-> gtowizard-Adapter, alle smoke-gruen; finaler Stack vs basis Mirror +23,36±5,32 ANWENDEN). GTOW-Staffel
-> Key #3: Smokes 20/100 mechanisch fehlerfrei (2 Bugs gefunden+gefixt: 409-Waisen→clear_inprogress-Pflicht
-> vor jedem Start; dict+str in wickle_decide), aber AIVAT gepoolt ~−53±12 = ROTES TUCH (v8-Muster; Verdacht:
-> Fable-Befund live — gecappte Check-Range vs Re-Solver). Nachtlauf 4x500 mit vorregistriertem Checkpoint
-> (v4-Pool ≤ −45 nach Chunk 1 → Kontroll-Arm PRINCE-resolver-ON). Hand-Histories aller Laeufe:
-> data/sessions/gtow_hands_*.jsonl + gtow_manifest_2026-08-18.json. Ergebnis: Journal GTOW-NACHT-*.
-> NACHT-1-BEFUND (~04:10): Gym-Konfig nackt = −38,86 (n=1617, aus HH-Dateien geborgen nach cp1252-
-> Treiber-Bug — jede Hand traegt `aivat`, Bergung exakt validiert); 81% des Verlusts am RIVER im alten
-> Jam-Spew-/Station-Muster = dem Arm fehlten Resolver + GTO-Disziplin, KEIN v4-Verdikt. NACHT 2 (laeuft):
-> der echte finale Bot (AUSLESE-Kette + PRINCE + Resolver-ON, ohne RN) mit Kontroll-Chunk als A/B —
-> Journal GTOW-NACHT2-*. LEKTIONEN (bindend): subprocess IMMER encoding="utf-8" (cp1252-Falle);
-> HH-Logging ist die Versicherung jedes Laufs; Live-Arme brauchen das Live-Fundament (Gym-Konfig
-> transplantiert sich NICHT nackt).** Kern-Doktrin GEMESSEN (3x + Brown 2026 Theorie): SELEKTION
-> schlaegt Frequenz/Anpassung — welche Haende, nie wie oft. Abgelehnt (Replikations-Pflicht!): v2/sel_all,
-> einmal_guard, mdf/podds/lizenz_guard. Mess-Lektionen (bindend): kein Name ohne 3 Laeufe (2x verfruehte
-> Taufe verhindert); per-Deck-Edges sind FETTRANDIG → 2SE-Intervalle zu optimistisch (robuste SE = offenes
-> Paket); leiser Kanal (Kandidat vs Kandidat) >> lauter (vs Basis); Kanal VOR dem Bau vermessen (AP8);
-> ungeseedete MC bricht Paarungen; eine Worker-Flotte zur Zeit (RAM). Werkzeuge: pargate (--incumbent,
-> Thread-Pin, ETA), exploit_jagd (20 persistente Jaeger; Haertungs-Landkarte VPIP 0,76/FtB 0,30/Agg 0,32),
-> snowie_export (Gate-Paritaet!), verify_refs (66/66), Advisor-Batch (2,2x), runde4-Kampagnen-Muster,
-> data/runs/+STAND.md. 6-max-Katalog v0 (30k Haende): Flop-Overfold ist HU-SPEZIFISCH (6max foldet 0,216
-> bei erlaubt 0,30). Papers verankert: Brown (27 Bluffs strukturell, Band 0,36-0,50) + SPIRAL-RAE
-> (Reward-Design fuer kuenftiges RL). Detail: docs/AUTOGYM_PLAN.md + EXPLOIT_KATALOG.md + Journal.
-> **VERSIONIERUNGS-REGEL (User, 2026-08-16, bindend): VOR jeder Bot-Veraenderung wird der Stand
-> eingefroren (git-Tag; aktuelle Basis = Tag `autogym-basis`); ein veraenderter Bot bekommt am ENDE einen
-> NAMEN und wird als Tag versioniert. MESS-DOKTRIN: NICHT vs GTOW messen — die drei Instrumente sind
-> (1) die Mathematik-Benchmark (Orakel), (2) Self-Play-Gates (gepaarte Decks), (3) der gepaarte
-> A/B-Anker NEUER BOT vs ALTE BASIS (`duplicate_ab` auf identischen Decks). GTOW nur zur Not.**
+> **★★★★★ ACTIVE PLAN (2026-08-16) — AUTOGYM: the self-checking training loop. GOAL = approach the
+> GTOW BASELINE** (reference −19.70 ± 4.37; staircase −15 → −10 → leaderboard band, each step measured vs GTOW,
+> $0 in-process). Built: `pokerbot/autogym/` — `oracle.py` (the UNIFIED math benchmark:
+> the 78 formula functions from `knowledge_base/math/` are wired step by step into verdicts over real
+> self-play decisions; tiers HART/P/L/F), `gym_hu.py` + `gym_six.py` (separate self-play gyms
+> with bookkeeping; HU on paired decks with button swap → pair drift as a symmetry check, button net as
+> card-adjusted position value), `improver.py` (mine → patch → paired A/B gate → journal),
+> `selftest.py` (the local proof E1–E4). **Safety contract (binding): formulas immutable +
+> Fraction reference mandatory; oracle knobs = measurement config, LOCKED for the improver (Goodhart); bot knobs
+> tunable within bounds, applied ONLY through the gate; P patches as wrappers, never source code; everything into the journal.**
+> Doctrine: PRE-REGISTERED expectations everywhere; the loop must be proven LOCALLY (expectation ladder
+> E1–E6, `docs/plans/AUTOGYM_PLAN.md`), only then the pod (CPU cores, no GPU — CFR/self-play computation).
+> First pilot: 500 hands + 3,577 graded decisions in 52 s locally; HART 0, P 0, L 35, F 3.
+> **★ RESULT AFTER 2 DAYS (2026-08-17): THE LOOP WORKS. Version chain basis → AUSLESE v1
+> (+6.1±1.5, replicated 2x99k) → AUSLESE v3 (~+9 cumulative; 15pp margin; 3 direct runs pooled +3.9±0.95
+> vs v1 + 183k anchor +8.68±1.28 vs basis) → AUSLESE v4 (tag auslese-v4, night of 2026-08-17: the BET side —
+> turn_wert_guard [trips+/overpair + eq>=0.60 → 2/3-pot turn bet; the oldest leak, replicated 3x in the mirror
+> +7.27±2.33] + TURN_DEFENSE 0.07 + SLOWPLAY 0.25 + RAISE_NARROW 1.0 [ONLY resolver-OFF]; final on
+> identical decks vs basis: v3 +21.4 → v4 +49.8, paired step +28.4±6.2, envgate channel; new instruments:
+> envgate/orakel_duell/W1-4+W1-5; estimator v2 = raw mean + sign test, the trim was blind for
+> thin channels; A/A null test exactly 0 after spot-RNG seeding).**
+> **★ ROUND 5/6 ADDENDUM (early 2026-08-18): v4 core in the MIRROR vs basis = +16.14±2.77 (3x30k, CI[+10.7,+21.6],
+> p=0.0002) — exactly in the pre-registered band. NEW INSTRUMENT: the Fable LLM adversary (`research/fable_duell.py`,
+> file-based, replay-deterministic): 62 hands vs v4 = +115bb with COUNTED patterns (river station,
+> button open-fold 29%, check-raise without follow-through, capped check range = the v8 Purify mechanism observed LIVE
+> on v4). MEASURED TWO-AXIS DOCTRINE (binding): hardening guards against ADAPTIVE opponents are
+> invisible to negative in the mirror (r6_ecall REJECT −4.15 = value folds in the self-play ecology; r6_button
+> NEUTRAL despite exploit prevention) → mirror = NON-REGRESSION bound, adversary (Fable retest/
+> exploit_jagd) = proof of effect. Bug harvest of the agent armies (all data/runs/*_2026-08-17.json): OpenBLAS caps in
+> all workers (proven cause of hangs), W1-3 bet filter+R fix, _wickle = ONE stack source (export parity),
+> flop resolver built but first flight 0/3 (latency 75-121s + hand-not-in-range of the 35-class hero range —
+> tier-2 construction site). GTOW HONESTY: live anchor ~−25..−30 (the −19.70 was inflated by the blinds bug);
+> gtowizard.py needs the v4 ADAPTER (wrapper missing in the harness, resolver default ON = RAISE_NARROW trap)
+> BEFORE an anchor runs. QUEUE: Fable retest vs hardened stack, follow-through/seesaw-mixing guards
+> (stateful), princegate, pargate6, GTOW adapter (specs ready in data/runs/).**
+> **★ GTOW FIRST CONTACT v4 (night of 2026-08-18, RUNNING — live status in STATE.md!): final bot wired
+> (pokerbot/strategy/auslese.py = ONE source: FINAL_STACK — THEN r6_button, TODAY `r8_stack`
+> (auslese.py:34; release candidate RC_STACK = r10_stack) + AUSLESE_ENV; HU app/six_server/
+> gtowizard adapter, all smoke-green; final stack vs basis mirror +23.36±5.32 APPLY). GTOW batch
+> key #3: smokes 20/100 mechanically error-free (2 bugs found+fixed: 409 orphans→clear_inprogress mandatory
+> before every start; dict+str in wickle_decide), but AIVAT pooled ~−53±12 = RED FLAG (v8 pattern; suspicion:
+> Fable finding live — capped check range vs re-solver). Night run 4x500 with pre-registered checkpoint
+> (v4 pool ≤ −45 after chunk 1 → control arm PRINCE-resolver-ON). Hand histories of all runs:
+> data/sessions/gtow_hands_*.jsonl + gtow_manifest_2026-08-18.json. Result: journal GTOW-NACHT-*.
+> NIGHT-1 FINDING (~04:10): gym config bare = −38.86 (n=1617, recovered from HH files after the cp1252
+> driver bug — every hand carries `aivat`, recovery validated exactly); 81% of the loss on the RIVER in the old
+> jam-spew/station pattern = the arm lacked resolver + GTO discipline, NO v4 verdict. NIGHT 2 (running):
+> the real final bot (AUSLESE chain + PRINCE + resolver-ON, without RN) with a control chunk as A/B —
+> journal GTOW-NACHT2-*. LESSONS (binding): subprocess ALWAYS encoding="utf-8" (cp1252 trap);
+> HH logging is the insurance of every run; live arms need the live foundation (the gym config
+> does NOT transplant bare).** Core doctrine MEASURED (3x + Brown 2026 theory): SELECTION
+> beats frequency/adaptation — which hands, never how often. Rejected (replication mandatory!): v2/sel_all,
+> einmal_guard, mdf/podds/lizenz_guard. Measurement lessons (binding): no name without 3 runs (2x premature
+> naming prevented); per-deck edges are FAT-TAILED → 2SE intervals too optimistic (robust SE = open
+> item); quiet channel (candidate vs candidate) >> loud (vs basis); measure the channel BEFORE the build (AP8);
+> unseeded MC breaks pairings; one worker fleet at a time (RAM). Tools: pargate (--incumbent,
+> thread pin, ETA), exploit_jagd (20 persistent hunters; hardening map VPIP 0.76/FtB 0.30/Agg 0.32),
+> snowie_export (gate parity!), verify_refs (66/66), advisor batch (2.2x), runde4 campaign pattern,
+> data/runs/+STAND.md. 6-max catalog v0 (30k hands): flop overfold is HU-SPECIFIC (6max folds 0.216
+> where 0.30 is allowed). Papers anchored: Brown (27 bluffs structural, band 0.36-0.50) + SPIRAL-RAE
+> (reward design for future RL). Detail: docs/plans/AUTOGYM_PLAN.md + docs/catalogs/EXPLOIT_CATALOG.md + journal.
+> **VERSIONING RULE (user, 2026-08-16, binding): BEFORE every bot change the state is
+> frozen (git tag; current basis = tag `autogym-basis`); a changed bot receives a NAME at the END
+> and is versioned as a tag. MEASUREMENT DOCTRINE: do NOT measure vs GTOW — the three instruments are
+> (1) the math benchmark (oracle), (2) self-play gates (paired decks), (3) the paired
+> A/B anchor NEW BOT vs OLD BASIS (`duplicate_ab` on identical decks). GTOW only as a last resort.**
 
-> **★★★★★ v10 „RIVER-FUNDAMENT" (2026-09-07/08) — GEBAUT, GEGATED, NICHT GTOW-REIF; CHAMPION BLEIBT auslese-v5.**
-> **Wiedereinstieg in 4 Dateien:** `docs/V10_GATES_REPORT.md` (Gate-Tabelle + Nachtrag 6 = Ship-Entscheid),
-> `docs/V10_BUILD_CARD.md` (Karte + Entscheidungen E1–E11 + Nachtrag), `docs/V10_FAKTEN.md` (Code-Fakten mit
-> file:line), `docs/TOP5_KONSULT_GPT6_2026-09-07.md` (gpt-6-astra-Konsult Teil A–G: Top-5-Strategie, Netz-
-> Architektur R1/R2/R3, v10-Kritik, Vollständigkeit, Hybrid-Doktrin). Journal-Typen V10-*/KONSULT-GPT6-*.
-> **Was existiert (Branch poker-core):** K1 `pokerbot/strategy/hero_range.py` (Hero-Likelihood-Replay), K2
-> `pokerbot/autogym/river_plan.py` (öffentlicher River-Plan, private Randomisierung, Trace), K3
-> `research/{policy_oracle,river_br_pruefstand,k3_roots}.py` (exakte BR gegen feste Hero-Politik, gebatchter
-> Arm-A-Oracle), K4 `pokerbot/runtime_config.py` + `pokerbot/benchmark/gtow_ledger.py` (Fingerprint, Fehlkonfig-
-> Gatter, Ledger; HU-App D1 gefixt), K5 `research/gtow_nacht_v10.py` (Münze BAAB dann ABBA), Verträge
-> `pokerbot/strategy/contracts.py`, `research/golden_set.py`, Stack `r10_stack` in pargate, `auslese.RC_STACK`.
-> **Messlage:** A/A 576 Decks EXAKT 0 (3 Banken; Bug hand_id-je-Hälfte gefunden+gefixt), G5 Spiegel r10 vs v5
-> +11,7 ± 10,9 (1968 Decks, Gym-Kanal), G4 Plan in 11/11 Holdout-Roots weniger ausbeutbar (Gym-Arm, n=11),
-> **G3 VERFEHLT** (K1-TV 0,21 vs 0,02; Hero außerhalb K1-Support 21/64), G2 Live: Plan 25/40, offtree 11/40.
-> **Katastrophenquelle = Off-Tree-Fallback auf die NACKTE Basis ohne v5-Chirurgie** (alle Gym-Decks ≤ −100 bb).
-> **NÄCHSTER BUILD v10.1 = geschlossener Hybrid (Astra Teil G, Schritte 1–6):** H0 = Plan, sonst
-> UNVERÄNDERTES produktives v5 je Entscheidung (auch Sub-Schwellen-Eskalation) → H1 = Plan + range-konsistente
-> Fortsetzung aus der WIRKLICH ausgeführten Hybridpolitik (`v5_continuation`); K1-Prior aus der gespielten
-> Preflop-Politik (Support exakt 0 Verletzungen, KEIN Epsilon für die reale Hand); Zustandsautomat (kein
-> stiller Wiedereinstieg in alten Plan; veraltete Thread-Ergebnisse nie ausführen); erzwungene Naht-Tests statt
-> zufälliger Decks; Prüfstand mit der ausgeführten HYBRIDPOLITIK gegen PRODUKTIVES v5 (H0 vs nackt, H1 vs H0,
-> H1 vs P); dann Shadow-Nacht (v5 handelt, v10 rechnet mit = zugleich der fehlende v5-GTOW-Anker).
-> **HYBRID-DOKTRIN (bindend, 7 Regeln):** (1) bewertet wird die ausgeführte Gesamtpolitik, nie Komponenten;
-> (2) öffentliches Gating ist Standard, handabhängige Auswahl nur als vollständig modellierte Strategie;
-> (3) Ranges folgen den tatsächlich ausgeführten Aktionswahrscheinlichkeiten, private Karten reparieren keine
-> öffentliche Range; (4) jeder Wechsel hat eine geschlossene Fortsetzung; (5) kein unsichtbarer degradierter
-> Fallback; (6) EVs nur bei gleicher Bedeutung vergleichen (kein Max aus Solver-EVs verschiedener Spiele);
-> (7) Freigabe prüft Nähte und Auswahl, nicht nur die Eltern. **MESS-LEHREN:** Oracles über Solver-Guards
-> gebatcht (Injektion = ein Solve je Combo, 0,2 s); Live-K2 ≥3 Solve-Threads/3 s Queue/12 s Deadline; 40-Deck-A/A
-> reicht für K2 nicht (576); pargate-Bank je Code-Stand neu (1080000–1110000 verbraucht); Agenten-Läufe >10 min
-> nur mit Hochrechnung + stdout-Fortschritt. **Fable als Live-Orchestrator:** nur Schatten-Diagnose auf
-> geloggten Zuständen; Beweis nur mit der Engine (SE ≈ 214/√n bb/100; ±4-Band ≈ 11k Hände).
+> **★★★★★ v10 "RIVER FOUNDATION" (2026-09-07/08) — BUILT, GATED, NOT GTOW-READY; CHAMPION REMAINS auslese-v5.**
+> **Re-entry in 4 files:** `docs/reports/V10_GATES_REPORT.md` (gate table + addendum 6 = ship decision),
+> `docs/plans/V10_BUILD_CARD.md` (card + decisions E1–E11 + addendum), `docs/reports/V10_FACTS.md` (code facts with
+> file:line), `docs/consults/TOP5_CONSULT_GPT6_2026-09-07.md` (gpt-6-astra consult parts A–G: top-5 strategy, net
+> architecture R1/R2/R3, v10 critique, completeness, hybrid doctrine). Journal types V10-*/KONSULT-GPT6-*.
+> **What exists (branch poker-core):** K1 `pokerbot/strategy/hero_range.py` (hero-likelihood replay), K2
+> `pokerbot/autogym/river_plan.py` (public river plan, private randomization, trace), K3
+> `research/{policy_oracle,river_br_pruefstand,k3_roots}.py` (exact BR against a fixed hero policy, batched
+> arm-A oracle), K4 `pokerbot/runtime_config.py` + `pokerbot/benchmark/gtow_ledger.py` (fingerprint, misconfig
+> gate, ledger; HU app D1 fixed), K5 `research/gtow_nacht_v10.py` (coin BAAB then ABBA), contracts
+> `pokerbot/strategy/contracts.py`, `research/golden_set.py`, stack `r10_stack` in pargate, `auslese.RC_STACK`.
+> **Measurement status:** A/A 576 decks EXACTLY 0 (3 banks; bug hand_id-per-half found+fixed), G5 mirror r10 vs v5
+> +11.7 ± 10.9 (1968 decks, gym channel), G4 plan less exploitable in 11/11 holdout roots (gym arm, n=11),
+> **G3 MISSED** (K1-TV 0.21 vs 0.02; hero outside K1 support 21/64), G2 live: plan 25/40, offtree 11/40.
+> **Catastrophe source = off-tree fallback onto the BARE basis without the v5 surgery** (all gym decks ≤ −100 bb).
+> **NEXT BUILD v10.1 = closed hybrid (Astra part G, steps 1–6):** H0 = plan, otherwise
+> UNCHANGED productive v5 per decision (including sub-threshold escalation) → H1 = plan + range-consistent
+> continuation from the ACTUALLY executed hybrid policy (`v5_continuation`); K1 prior from the played
+> preflop policy (support exactly 0 violations, NO epsilon for the real hand); state machine (no
+> silent re-entry into an old plan; never execute stale thread results); forced seam tests instead of
+> random decks; test bench with the executed HYBRID POLICY against PRODUCTIVE v5 (H0 vs bare, H1 vs H0,
+> H1 vs P); then shadow night (v5 acts, v10 computes alongside = at the same time the missing v5 GTOW anchor).
+> **HYBRID DOCTRINE (binding, 7 rules):** (1) the executed overall policy is evaluated, never components;
+> (2) public gating is the standard, hand-dependent selection only as a fully modeled strategy;
+> (3) ranges follow the actually executed action probabilities, private cards repair no
+> public range; (4) every switch has a closed continuation; (5) no invisible degraded
+> fallback; (6) compare EVs only with the same meaning (no max over solver EVs of different games);
+> (7) release checks seams and selection, not only the parents. **MEASUREMENT LESSONS:** oracles batched over solver
+> guards (injection = one solve per combo, 0.2 s); live K2 ≥3 solve threads/3 s queue/12 s deadline; a 40-deck A/A
+> is not enough for K2 (576); pargate bank fresh per code state (1080000–1110000 used up); agent runs >10 min
+> only with extrapolation + stdout progress. **Fable as live orchestrator:** shadow diagnosis only on
+> logged states; proof only with the engine (SE ≈ 214/√n bb/100; ±4 band ≈ 11k hands).
 
-## ★ FALLBACK-PROTOKOLL (2026-08-18) — fuer JEDES Modell unterhalb Fable 5 (z.B. Opus 5) BINDEND
-Wenn du nicht Fable 5 bist: arbeite DEFENSIV nach diesen Regeln. Das Projekt ist praezise vermessen —
-ein gut gemeinter Eingriff ohne Gate zerstoert mehr als er hilft.
-**1. EINSTIEG (immer in dieser Reihenfolge):** docs/STATE.md oberster CURRENT-Block lesen → VOR jeder Zahl
-docs/MESSKATALOG.md (Kanal + Gueltigkeit; der Varianzkoeffizient ist c=294, NICHT 214) → VOR jedem Neubau
-docs/MODULKATALOG.md + KANDIDATEN.md (die Chance ist gross, dass es das schon gibt oder refutiert ist) → data/runs/STAND.md
-→ bei GTOW-Fragen das Journal: `python -c "import json; [print(l.strip()) for l in open('data/autogym/journal.jsonl', encoding='utf-8').readlines()[-30:]]"`.
-**2. SICHERE STANDARD-AKTIONEN (ohne Rueckfrage erlaubt):** Journal/result.json/STAND lesen und ZITIEREN;
-fertige Kommandos AUS DER DOKU woertlich ausfuehren (pargate/envgate/orakel_duell/gtow_nacht — Muster stehen
-in STATE.md und den Moduldocstrings); vor jedem GTOW-Start `clear_inprogress.py` (409-Waisen); Ergebnisse
-berichten MIT Quelle (Datei+Zeile). Jede Zahl ohne Quelle ist verboten — NIE Zahlen aus dem Gedaechtnis.
-**3. VERBOTSZONEN (nur mit explizitem User-Auftrag UND durchs Gate):** knowledge_base/math/* (Formeln
-unveraenderlich), Orakel-Schwellen/Knoepfe in oracle.py (Mess-Konfig, Goodhart-Sperre), pokerbot/strategy/*
-(Strategie-Code — Aenderungen NUR als Guard-Wrapper + gepaartes Gate), eingefrorene Tags (autogym-basis,
-auslese-v1..v4, v2), laufende Hintergrund-Jobs (nie killen ohne Diagnose), git-Historie (kein rebase/reset).
-**4. MESS-DISZIPLIN (nicht verhandelbar):** VOR jeder Messreihe A/A-Nulltest (Kandidat==Incumbent muss
-EXAKT 0 sein — sonst STOPP und Befund melden, nicht reparieren); eine Worker-Flotte zur Zeit; mp-Treiber
-nie als Heredoc (`python -m` Module nutzen); Verdikte nur via stats.verdikt (Bootstrap bei duennen Kanaelen);
-3-Laeufe-Regel vor jeder Taufe; envgate-Ergebnisse heissen KANAL_* und sind NIE Ship-Evidenz.
-**5. ESKALATION:** Bei inkonsistenten Zahlen, kaputtem A/A, unklaren Diffs im Working Tree oder JEDEM
-Verdacht auf eine zweite Session (Memory: one-session-per-repo): STOPPEN, Befund mit Quellen an den User,
-NICHTS eigenmaechtig fixen. Ein ehrliches "ich weiss es nicht, hier ist der Stand" ist immer richtig;
-eine plausible Erfindung ist immer falsch.
-**6. WAS DU NICHT TUN SOLLTEST, AUCH WENN ES NAHELIEGT:** grosse Refactors, "Aufraeumen" von Code den du
-nicht gemessen hast, Agenten-Armeen ohne klaren Auftrag, GTOW-Laeufe ueber die dokumentierte Staffel hinaus
-(Hand-Budget!), Aendern von CLAUDE.md-Doktrin-Bloecken. Im Zweifel: lesen, berichten, fragen.
+## ★ FALLBACK PROTOCOL (2026-08-18) — BINDING for EVERY model below Fable 5 (e.g. Opus 5)
+If you are not Fable 5: work DEFENSIVELY by these rules. The project is precisely measured —
+a well-meant intervention without a gate destroys more than it helps.
+**1. ENTRY (always in this order):** read the top CURRENT block of docs/STATE.md → BEFORE every number
+docs/catalogs/MEASUREMENT_CATALOG.md (channel + validity; the variance coefficient is c=294, NOT 214) → BEFORE every new build
+docs/catalogs/MODULE_CATALOG.md + docs/catalogs/CANDIDATES.md (the chance is high that it already exists or is refuted) → data/runs/STAND.md
+→ for GTOW questions the journal: `python -c "import json; [print(l.strip()) for l in open('data/autogym/journal.jsonl', encoding='utf-8').readlines()[-30:]]"`.
+**2. SAFE STANDARD ACTIONS (allowed without asking):** read and CITE journal/result.json/STAND;
+execute ready-made commands FROM THE DOCS verbatim (pargate/envgate/orakel_duell/gtow_nacht — patterns are
+in STATE.md and the module docstrings); before every GTOW start `clear_inprogress.py` (409 orphans); report results
+WITH source (file+line). Any number without a source is forbidden — NEVER numbers from memory.
+**3. NO-GO ZONES (only with an explicit user mandate AND through the gate):** knowledge_base/math/* (formulas
+immutable), oracle thresholds/knobs in oracle.py (measurement config, Goodhart lock), pokerbot/strategy/*
+(strategy code — changes ONLY as guard wrappers + paired gate), frozen tags (autogym-basis,
+auslese-v1..v4, v2), running background jobs (never kill without diagnosis), git history (no rebase/reset).
+**4. MEASUREMENT DISCIPLINE (non-negotiable):** BEFORE every measurement series an A/A null test (candidate==incumbent must
+be EXACTLY 0 — otherwise STOP and report the finding, do not repair); one worker fleet at a time; mp drivers
+never as a heredoc (use `python -m` modules); verdicts only via stats.verdikt (bootstrap for thin channels);
+3-runs rule before every naming; envgate results are called KANAL_* and are NEVER ship evidence.
+**5. ESCALATION:** On inconsistent numbers, a broken A/A, unclear diffs in the working tree or ANY
+suspicion of a second session (memory: one-session-per-repo): STOP, report the finding with sources to the user,
+fix NOTHING on your own. An honest "I don't know, here is the state" is always right;
+a plausible invention is always wrong.
+**6. WHAT YOU SHOULD NOT DO, EVEN IF IT SEEMS OBVIOUS:** large refactors, "cleaning up" code you
+have not measured, agent armies without a clear mandate, GTOW runs beyond the documented batch
+(hand budget!), changing CLAUDE.md doctrine blocks. When in doubt: read, report, ask.
 
-## Grenze — was NICHT in dieses Repo gehoert (stehende Regel, 2026-08-16)
-Der Kern ist **Pokerbot, Poker-Trainer, Poker-Verstaendnis** — sonst nichts. Alles andere (persoenliche
-Akten, Beziehungs-/Chat-Analysen, Geopolitik, Zahlentheorie, Berichte ueber reale Personen) gehoert
-**ausserhalb dieses Repositories**, in eigene Ordner neben `PokerB` — nicht in einen Unterordner.
-Bis 2026-09-10 gab es dafuer den gitignorierten Root-Ordner `#Anderes/`; er ist **geloescht**, sein Inhalt
-herausgezogen. Ein lokaler `pre-commit`-Hook blockiert die Alt-Pfade weiter, auch gegen `git add -f`.
-Das Repo verankert ausschliesslich **Pokerbot + Poker-Trainer**.
-Wenn aus einer solchen Arbeit ein echter Poker-Befund faellt, wandert er ENTPERSONALISIERT in den Kern
-(so geschehen: das 66-bb/100-Abflachen in `docs/POKER_NUTSHELL.md`, der Entropie-Bias in `NOTES.md`) —
-die Rohdaten und die Person bleiben draussen.
+## Boundary — what does NOT belong in this repo (standing rule, 2026-08-16)
+The core is **poker bot, poker trainer, poker understanding** — nothing else. Everything else (personal
+files, relationship/chat analyses, geopolitics, number theory, reports about real persons) belongs
+**outside this repository**, in its own folders next to `PokerB` — not in a subfolder.
+Until 2026-09-10 the gitignored root folder `#Anderes/` existed for this; it is **deleted**, its content
+pulled out. A local `pre-commit` hook continues to block the old paths, even against `git add -f`.
+The repo anchors exclusively **poker bot + poker trainer**.
+If a genuine poker finding falls out of such work, it moves DEPERSONALIZED into the core
+(as happened: the 66-bb/100 flattening in `docs/doctrine/POKER_NUTSHELL.md`, the entropy bias in `docs/NOTES.md`) —
+the raw data and the person stay outside.
 
 ## Run / play
 - **6-max vs 5 bots (the app):** `python -m pokerbot.web.six_server --open` → http://127.0.0.1:8000 (launcher
   `PokerB 6max spielen.bat`). Logs each hand to `data/sessions/`; "Analyse" = end-of-session breakdown.
-  Multiway: `http://127.0.0.1:8000?players=9` (2–10 Sitze). Turnier-Arena (Sim): `python -m pokerbot.arena.tourney`.
-- **PokerSnowie automatisch spielen:** PokerSnowie 4 öffnen (Cash-Tisch) → `python -m pokerbot.vision.snowie_bridge
-  --hands 20 --loose`; Langläufe über `python -m research.snowie_marathon --hands 2000` (ESC beendet ALLES).
+  Multiway: `http://127.0.0.1:8000?players=9` (2–10 seats). Tournament arena (sim): `python -m pokerbot.arena.tourney`.
+- **Play PokerSnowie automatically:** open PokerSnowie 4 (cash table) → `python -m pokerbot.vision.snowie_bridge
+  --hands 20 --loose`; long runs via `python -m research.snowie_marathon --hands 2000` (ESC ends EVERYTHING).
 - HU app (background/validation only now): `python -m pokerbot.web.server --open`.
 - Always run from the project root as `python -m <module>`. Windows / PowerShell, Python 3.12. `pip install -r requirements.txt`.
 
-## Architecture (logical; Modul fuer Modul = [`docs/MODULKATALOG.md`](docs/MODULKATALOG.md))
+## Architecture (logical; module by module = [`docs/catalogs/MODULE_CATALOG.md`](docs/catalogs/MODULE_CATALOG.md))
 - `pokerbot/engine/` — cards, treys evaluator, MC equity (`equity.py`), the **N-player `table.py` = the 6-max RL
   ENVIRONMENT** (start_hand / legal_actions / act / obs_for / result, side pots), HU `game.py`.
 - `pokerbot/strategy/` — the engine PRIMITIVES the brain calls: `preflop_blueprint.py`, `range_tracker.py`,
@@ -453,17 +450,17 @@ die Rohdaten und die Person bleiben draussen.
   UNSOLVED spots), `claude_brain.py` (Claude-as-brain), `policy.py` (the shared SYSTEM_PROMPT + DSL).
 - `pokerbot/arena/` — `sixmax.py` (the opponent LEAGUE: TAG/LAG/nit/station/maniac profiles).
 - `pokerbot/{web,benchmark,coach,analysis}/` — apps; benchmarks (`slumbot.py`, `gtowizard.py`, `lbr.py`,
-  `duplicate.py`); coaching; session analysis. Trainer-Multiway: `six_server` + `six.html` bis 10-max (`?players=9`).
-- `pokerbot/vision/` — **die PokerSnowie-Brücke (NEU 2026-08-04):** `snowie_local.py` (Karten/Glyphen,
-  Template-Matching mit Margin-Regel), `snowie_state.py` (kompletter Tisch-Zustand, Zweitquellen-Pot,
-  Gatter-Kette), `snowie_bridge.py` (Spielschleife, Prince-HU postflop, ActionLog, Wächter). Regressionsnetz
-  `research/snowie_regress.py` (konservierte Tatorte), Marathon `research/snowie_marathon.py`.
-- **Turnier (NEU 2026-08-04):** `pokerbot/strategy/icm.py` (exaktes Malmuth-Harville + bubble_factor +
-  icm_call_threshold), `pokerbot/strategy/tournament.py` (Structure/Director/anteiliges Risiko-Premium/
-  Druck-Hebel), `pokerbot/arena/tourney.py` (gepaarte SNG-Arena). Doktrin: `knowledge_base/tournament/DOKTRIN.md`.
+  `duplicate.py`); coaching; session analysis. Trainer multiway: `six_server` + `six.html` up to 10-max (`?players=9`).
+- `pokerbot/vision/` — **the PokerSnowie bridge (NEW 2026-08-04):** `snowie_local.py` (cards/glyphs,
+  template matching with margin rule), `snowie_state.py` (complete table state, second-source pot,
+  gate chain), `snowie_bridge.py` (game loop, Prince-HU postflop, ActionLog, watchdog). Regression net
+  `research/snowie_regress.py` (preserved crime scenes), marathon `research/snowie_marathon.py`.
+- **Tournament (NEW 2026-08-04):** `pokerbot/strategy/icm.py` (exact Malmuth-Harville + bubble_factor +
+  icm_call_threshold), `pokerbot/strategy/tournament.py` (Structure/Director/proportional risk premium/
+  pressure lever), `pokerbot/arena/tourney.py` (paired SNG arena). Doctrine: `knowledge_base/tournament/DOKTRIN.md`.
 - `dataset/` — **the GOLD (NEW):** `build/` (KB→DSL JSONL converters) + the self-growing dataset shards + **`registry.py`**
   = the single source of truth for ALL data (every asset's role/schema/provenance; the training pipeline reads gold by
-  ROLE via `registry.sft_gold()`) → **[`CATALOG.md`](CATALOG.md)** the generated data map (`python -m dataset.build_manifest`).
+  ROLE via `registry.sft_gold()`) → **[`docs/catalogs/DATA_CATALOG.md`](docs/catalogs/DATA_CATALOG.md)** the generated data map (`python -m dataset.build_manifest`).
 - `training/` — **Qwen (NEW):** `qwen_sft.py` (SFT, Qwen3-8B QLoRA on the DSL data), `qwen_grpo.py` (RL self-play),
   `qwen_eval.py` (PokerBench-acc + bb/100 + LBR).
 - `pipeline/` — **the PC-hub program (NEW):** `frontier_loop.py` (gated active distillation), `filter.py` (the
@@ -476,9 +473,9 @@ die Rohdaten und die Person bleiben draussen.
   `hand_histories/` (10k Pluribus). **Hard-referenced by `config.py` + strategy — do not move without updating both.**
 - `books/` — the 6 poker books (`poker/`: Mathematics of Poker, Beyond GTO, Exploitative Poker, Modern Poker Theory,
   NLHE Theory & Practice, Theory of Poker) + `papers/` (CFR, Pluribus, Supremus, the PokerBench-LLM + Nash-robustness PDFs).
-- `docs/` (`STATE.md` entry point + `ROADMAP.md` forward plan + plans/consults) · `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client).
+- `docs/` (`STATE.md` entry point + `docs/plans/ROADMAP.md` forward plan + plans/consults) · `tests/` · `data/` (gitignored) · `models/` (`qwen_poker_ckpt500`) · `tools/` (TexasSolver + GTOW client).
 
-## The common language (DSL) — see [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md)
+## The common language (DSL) — see [`docs/doctrine/DATASET_SPEC.md`](docs/doctrine/DATASET_SPEC.md)
 Math (`knowledge_base/math/formulas.py`) ↔ Code (the `brain/api.py` engine-API) ↔ Language (concepts/prompt). A
 training example = a canonical spot → a **decision-program** (Python calling the API + brief NL) → the executed action.
 Same `format_spot()` byte-identical across SFT / RL / inference / eval. Qwen-native (code), exact (math by code),
@@ -514,4 +511,4 @@ are now **background/validation** — the goal pivoted to the 6-max GTO-achievin
 
 ## Tests
 `python -m tests.test_game` · `python -m tests.test_table` · `python -m tests.test_bot` · `python -m tests.test_range_tracker`
-· `python -m tests.test_icm` · `python -m tests.test_tournament` · Snowie-Vision: `python -m research.snowie_regress --run`
+· `python -m tests.test_icm` · `python -m tests.test_tournament` · Snowie vision: `python -m research.snowie_regress --run`

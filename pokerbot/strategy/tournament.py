@@ -184,7 +184,7 @@ class Director:
 
     Pro Hand liefert `next_table()` eine frische Table NUR der Überlebenden (rebuy=False) mit den
     aktuellen Blinds/Antes; der Button wandert im Uhrzeigersinn der Überlebenden (vereinfachte
-    Regel statt Dead-Button — NOTES.md). `after_hand(table)` sammelt Stacks ein, vergibt Plätze
+    Regel statt Dead-Button — docs/NOTES.md). `after_hand(table)` sammelt Stacks ein, vergibt Plätze
     (Simultan-Busts: größerer Start-Stack platziert höher) und meldet, ob es weitergeht.
     """
 

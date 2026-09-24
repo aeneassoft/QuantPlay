@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PokerB — die KI lernt live</title>
+<title>PokerB — the AI learns live</title>
 <style>
   :root{--bg:#f5f7f6;--card:#ffffff;--edge:#dfe6e2;--ink:#1d2b23;--muted:#5d6f64;
         --teal:#1f8f80;--gold:#bf8b16;--red:#d6453a;--purple:#6a4ec0;--blue:#2f6fed;--green:#2e9e57;
@@ -39,72 +39,72 @@
 </head>
 <body>
 <header>
-  <h1>🃏 PokerB — die KI lernt gerade (live)</h1>
+  <h1>🃏 PokerB — the AI is learning right now (live)</h1>
   <div class="chips">
-    <span class="chip">Lernschritt <b id="s-step">—</b></span>
-    <span class="chip">Spielstärke <b id="s-reward">—</b></span>
-    <span class="chip">rechnet statt rät <b id="s-ground">—</b></span>
-    <span class="chip">Müll-Quote <b id="s-bad">—</b></span>
-    <span class="chip">Tempo <b id="s-time">—</b></span>
-    <span class="chip">aktualisiert <b id="s-upd">—</b></span>
+    <span class="chip">Training step <b id="s-step">—</b></span>
+    <span class="chip">Playing strength <b id="s-reward">—</b></span>
+    <span class="chip">computes instead of guessing <b id="s-ground">—</b></span>
+    <span class="chip">Garbage rate <b id="s-bad">—</b></span>
+    <span class="chip">Pace <b id="s-time">—</b></span>
+    <span class="chip">updated <b id="s-upd">—</b></span>
   </div>
 </header>
 
 <div class="wrap">
   <div class="card">
-    <h3>📈 Wie gut spielt die KI? <span class="qbtn" data-i="i1">?</span></h3>
-    <div class="info" id="i1">Durchschnittlicher Gewinn in <b>Big Blinds pro Entscheidung</b> (in der Simulation gegen
-      die Gegner-Liga). <b>Soll leicht steigen oder stabil-positiv bleiben</b> — NICHT Richtung −10 abstürzen
-      (das wäre ein Kollaps). Das graue Band ist die Streuung.</div>
+    <h3>📈 How well does the AI play? <span class="qbtn" data-i="i1">?</span></h3>
+    <div class="info" id="i1">Average profit in <b>big blinds per decision</b> (in simulation against
+      the opponent league). <b>Should rise slightly or stay stable-positive</b> — NOT crash toward −10
+      (that would be a collapse). The grey band is the spread.</div>
     <canvas id="c-reward"></canvas>
   </div>
 
   <div class="card">
-    <h3>🧮 Rechnet sie, statt zu raten? <span class="qbtn" data-i="i2">?</span></h3>
-    <div class="info" id="i2">Anteil der Entscheidungen, die die KI mit der <b>Engine ausrechnet</b> (ruft eine
-      Formel auf), statt sie aus dem Gedächtnis zu raten. <b>Soll STEIGEN</b> — genau das ist unser Ziel:
-      rechnen statt halluzinieren.</div>
+    <h3>🧮 Does it compute instead of guessing? <span class="qbtn" data-i="i2">?</span></h3>
+    <div class="info" id="i2">Share of decisions the AI <b>computes with the engine</b> (calls a
+      formula) instead of guessing from memory. <b>Should RISE</b> — that is exactly our goal:
+      compute instead of hallucinate.</div>
     <canvas id="c-ground"></canvas>
   </div>
 
   <div class="card">
-    <h3>🗑️ Wie oft baut sie Müll? <span class="qbtn" data-i="i3">?</span></h3>
-    <div class="info" id="i3">Anteil ungültiger/illegaler Programme (die Engine lehnt sie ab). <b>Soll niedrig
-      bleiben</b> — unter der grünen 10%-Linie. Steigt es Richtung der roten 20%-Linie, verlernt die KI das
-      richtige Format.</div>
+    <h3>🗑️ How often does it produce garbage? <span class="qbtn" data-i="i3">?</span></h3>
+    <div class="info" id="i3">Share of invalid/illegal programs (the engine rejects them). <b>Should stay
+      low</b> — below the green 10% line. If it climbs toward the red 20% line, the AI is forgetting the
+      correct format.</div>
     <canvas id="c-bad"></canvas>
   </div>
 
   <div class="card">
-    <h3>⏱️ Tempo (Sek. pro Schritt) <span class="qbtn" data-i="i4">?</span></h3>
-    <div class="info" id="i4">Sekunden pro Lernschritt. Zeigt, ob wir im Zeitbudget bleiben. <b>Hoch</b> = die
-      CPU-Auswertung (das Durchsimulieren der Hände) bremst — dann läuft die teure GPU oft leer.</div>
+    <h3>⏱️ Pace (sec per step) <span class="qbtn" data-i="i4">?</span></h3>
+    <div class="info" id="i4">Seconds per training step. Shows whether we stay within the time budget. <b>High</b> = the
+      CPU evaluation (simulating the hands) is the bottleneck — then the expensive GPU often sits idle.</div>
     <canvas id="c-st"></canvas>
   </div>
 
-  <div class="toggle"><button id="t-det">▸ Technik-Details ein-/ausblenden</button></div>
+  <div class="toggle"><button id="t-det">▸ Show/hide technical details</button></div>
   <div id="details">
     <div class="card">
       <h3>Exploration <span class="qbtn" data-i="i5">?</span></h3>
-      <div class="info" id="i5">Wie „breit" die KI noch ausprobiert (Entropie). <b>Soll NICHT auf 0 fallen</b> —
-        sonst wiederholt sie stur dasselbe und lernt nichts Neues mehr.</div>
+      <div class="info" id="i5">How "widely" the AI still explores (entropy). <b>Should NOT drop to 0</b> —
+        otherwise it stubbornly repeats the same thing and stops learning anything new.</div>
       <canvas id="c-ent"></canvas>
     </div>
     <div class="card">
-      <h3>Programm-Länge <span class="qbtn" data-i="i6">?</span></h3>
-      <div class="info" id="i6">Durchschnittliche Länge der erzeugten Programme (Tokens). <b>Soll stabil bleiben</b>
-        — wenn sie davonläuft, schreibt die KI sinnloses Zeug.</div>
+      <h3>Program length <span class="qbtn" data-i="i6">?</span></h3>
+      <div class="info" id="i6">Average length of the generated programs (tokens). <b>Should stay stable</b>
+        — if it runs away, the AI is writing nonsense.</div>
       <canvas id="c-len"></canvas>
     </div>
     <div class="card">
-      <h3>„Nichts zu lernen"-Quote <span class="qbtn" data-i="i7">?</span></h3>
-      <div class="info" id="i7">Anteil der Situationen, in denen alle Versuche gleich bewertet wurden = dort gibt es
-        kein Lernsignal. <b>0,1–0,5 ist gesund</b>; viel höher = die Situationen sind zu trivial.</div>
+      <h3>"Nothing to learn" rate <span class="qbtn" data-i="i7">?</span></h3>
+      <div class="info" id="i7">Share of spots where all attempts were scored identically = no learning signal
+        there. <b>0.1–0.5 is healthy</b>; much higher = the spots are too trivial.</div>
       <canvas id="c-zero"></canvas>
     </div>
   </div>
 
-  <div id="gates"><span class="gmuted">Die End-Bewertung (GATE-Leiter) erscheint hier nach dem Eval …</span></div>
+  <div id="gates"><span class="gmuted">The final evaluation (GATE ladder) appears here after the eval …</span></div>
 </div>
 
 <script>
@@ -117,7 +117,7 @@ function draw(id, series, opts){
   cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
   const P={l:38,r:10,t:8,b:18}, pw=W-P.l-P.r, ph=H-P.t-P.b;
   const all=series.flatMap(s=>s.data).filter(p=>p.y!=null&&isFinite(p.y));
-  if(!all.length){ ctx.fillStyle='#9aa8a0'; ctx.font='12px sans-serif'; ctx.fillText('— wartet auf Daten —',P.l,H/2); return; }
+  if(!all.length){ ctx.fillStyle='#9aa8a0'; ctx.font='12px sans-serif'; ctx.fillText('— waiting for data —',P.l,H/2); return; }
   let xs=all.map(p=>p.x), ys=all.map(p=>p.y);
   let xmin=Math.min(...xs), xmax=Math.max(...xs);
   let ymin=opts.ymin!=null?opts.ymin:Math.min(...ys), ymax=opts.ymax!=null?opts.ymax:Math.max(...ys);
@@ -159,10 +159,10 @@ async function tick(){
   const g=d.gates, gel=document.getElementById('gates');
   if(g&&g.gates){ const gd=g.gates, it=[];
     const add=(k,ok)=>it.push(`<span class="gate ${ok?'gpass':'gfail'}">${k}: ${ok?'✓':'✗'}</span>`);
-    add('Format+Acc',gd['G0_pokerbench+dsl']); add('Legalität',gd['G1_legality']);
-    add('RL > Start',gd['G2_rl_beats_sft_init']); add('robust',gd['G3_robust_vs_each_type']);
-    it.push(`<span class="gate gmuted">Δ vs. Start: ${gd['delta_vs_sft_bb100']} bb/100</span>`);
-    it.push(`<span class="gate ${gd.PASS?'gpass':'gfail'}">Gesamt: ${gd.PASS?'BESTANDEN':'noch nicht'}</span>`);
+    add('Format+Acc',gd['G0_pokerbench+dsl']); add('Legality',gd['G1_legality']);
+    add('RL > start',gd['G2_rl_beats_sft_init']); add('robust',gd['G3_robust_vs_each_type']);
+    it.push(`<span class="gate gmuted">Δ vs. start: ${gd['delta_vs_sft_bb100']} bb/100</span>`);
+    it.push(`<span class="gate ${gd.PASS?'gpass':'gfail'}">Overall: ${gd.PASS?'PASSED':'not yet'}</span>`);
     gel.innerHTML=it.join('');
   }
 }

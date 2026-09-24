@@ -93,7 +93,7 @@ class Coach:
 
     def _chat(self, user: str, max_tokens: int = 700) -> str:
         if not self._client:
-            return "(Coaching nicht verfügbar — kein Claude-API-Key gefunden.)"
+            return "(Coaching unavailable — no Claude API key found.)"
         try:
             msg = self._client.messages.create(
                 model=self.model, max_tokens=max_tokens,
@@ -102,7 +102,7 @@ class Coach:
             )
             return "".join(b.text for b in msg.content if b.type == "text").strip()
         except Exception as e:  # noqa: BLE001
-            return f"(Coach-Fehler: {type(e).__name__}: {e})"
+            return f"(Coach error: {type(e).__name__}: {e})"
 
     # --- public coaching surfaces ---------------------------------------
     def explain_move(self, state: dict, hero_idx: int, decision: dict) -> str:

@@ -1,4 +1,4 @@
-"""K5 — GTOW-Nachtfahrplan v10 (Build-Karte docs/V10_BUILD_CARD.md K5 + E8/E10; Fakten docs/V10_FAKTEN.md A8/B14).
+"""K5 — GTOW-Nachtfahrplan v10 (Build-Karte docs/plans/V10_BUILD_CARD.md K5 + E8/E10; Fakten docs/reports/V10_FACTS.md A8/B14).
 
 Zwei Arme auf dem Live-Fundament (PRINCE + Harness-Default-Resolver ON, OHNE RAISE_NARROW — v8-K3-Kontra-
 indikation, data/runs/gtow_v8_protokoll_2026-08-31.json '1_arm_konfigurationen'):
@@ -707,7 +707,7 @@ class Nachtfahrt:
         if self.manifest_datei.exists():
             with self.manifest_datei.open(encoding="utf-8") as f:
                 return json.load(f)
-        return {"meta": {"zweck": "K5 GTOW-Pilot v10: Chunk-Ledger (Karte docs/V10_BUILD_CARD.md K5)",
+        return {"meta": {"zweck": "K5 GTOW-Pilot v10: Chunk-Ledger (Karte docs/plans/V10_BUILD_CARD.md K5)",
                          "arme": {ARM_NAMEN[a]: env for a, env in ARME.items()},
                          "sequenzen": {str(n): s for n, s in self.sequenzen.items()}},
                 "chunks": []}
@@ -723,7 +723,7 @@ class Nachtfahrt:
     def vorregistriere(self) -> bool:
         if self.manifest["meta"].get("vorregistrierung"):
             return False
-        eintrag = {"typ": "V10-GTOW-VORREGISTRIERUNG", "quelle": "docs/V10_BUILD_CARD.md K5 Z.104-107",
+        eintrag = {"typ": "V10-GTOW-VORREGISTRIERUNG", "quelle": "docs/plans/V10_BUILD_CARD.md K5 Z.104-107",
                    "aussage": VORREGISTRIERTE_AUSSAGE, "arme": self.manifest["meta"]["arme"],
                    "sequenzen": self.manifest["meta"]["sequenzen"], "chunk_haende": self.chunk_haende,
                    "stopp_regeln": "illegale Aktion ODER API-Ablehnung http_4xx (ausser 409/429) ODER Deadline-"

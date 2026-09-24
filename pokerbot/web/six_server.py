@@ -3,7 +3,7 @@
 Fast — bots decide locally (no LLM during play). Every hand is logged to a session file; an
 end-of-session analysis of the human's play is available via /api/analyze.
 
-TRAINER (docs/TRAINER_PLAN.md): /training serves the coaching UI. Every human decision is captured
+TRAINER (docs/plans/TRAINER_PLAN.md): /training serves the coaching UI. Every human decision is captured
 pre-action (P0-1), graded at hand end within the auto-deal window (P0-5), and rendered as warm German
 feedback (P1). All coach modules load lazily + fail-soft: a trainer bug can never crash the game.
 
@@ -30,15 +30,15 @@ from pydantic import BaseModel
 
 from pokerbot import config
 from pokerbot.arena.mtt import MTT
-from pokerbot.arena.sixmax import PROFILES, PUNISHER_ASSIGN, SixMaxBot
+from pokerbot.arena.sixmax import PROFILES, SixMaxBot
 from pokerbot.engine.table import Table
 from pokerbot.web.session_log import append_record, build_hand_record
 
-NAMES = ["Du", "Ava", "Ben", "Cleo", "Dex", "Eve", "Finn", "Gina", "Hugo", "Iris"]  # bis 10-max
+NAMES = ["You", "Ava", "Ben", "Cleo", "Dex", "Eve", "Finn", "Gina", "Hugo", "Iris"]  # bis 10-max
 HUMAN = 0
 _INDEX = (Path(__file__).parent / "static" / "six.html").read_text(encoding="utf-8")
 GRADING_BUDGET_MS = 800          # whole-hand grading must fit the client's auto-deal window
-TRAINER_MODES = ("gto", "exploit", "arena", "punish", "tournament")
+TRAINER_MODES = ("gto", "exploit", "arena", "tournament")
 TOP_DEVIATIONS = 3               # Ergebnis-Screen: die groessten Abweichungen (Rang = Pot in bb, Proxy fuer Kosten)
 ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet", "raise": "Raise", "allin": "All-in"}
 # ARENA-Modus (User, 2026-08-02): eine "verrückte Online-Landschaft" — zufällige, ADAPTIVE Gegnertypen
@@ -75,7 +75,7 @@ class Session:
     def __init__(self, stack=10000, sb=50, bb=100, mode="gto", players=6, seed=None):
         # Multiway (2026-08-04): Tischgroesse 2..10 waehlbar; Default 6 = unveraendertes Erlebnis.
         n = max(2, min(len(NAMES), int(players or 6)))
-        # TURNIER-MODUS (2026-09-09, docs/TURNIER_MODUS.md): 60 Spieler an 6 Tischen; der Mensch sitzt am
+        # TURNIER-MODUS (2026-09-09, docs/reports/TOURNAMENT_MODE.md): 60 Spieler an 6 Tischen; der Mensch sitzt am
         # Hero-Tisch (voll gespielt), die Nebentische spielt der MTT-Direktor je eine Hand pro Hero-Hand.
         self.mtt: MTT | None = None
         if mode == "tournament":
@@ -118,11 +118,6 @@ class Session:
                 self.table.seats[s].stack = self._arena_rng.randint(*ARENA_STACK_BB) * bb
         elif mode == "tournament":
             _assign = {i: self.mtt.entrants[s.name].profile for i, s in enumerate(self.table.seats) if i != HUMAN}
-        elif mode == "punish":
-            # PUNISHMENT (User, 2026-08-03): 5 Jäger, jeder auf ein GEMESSENES Princedarkness-Leak gebaut
-            # (sixmax.PUNISHER_ASSIGN — sheriff/iso_hammer/value_press/trap_nit/blind_fighter). Reads AN,
-            # kein Difficulty-Controller (die Besetzung IST der Punkt), kein Prince (die Jäger sind der Punkt).
-            _assign = dict(PUNISHER_ASSIGN)
         else:
             cycle = ["tag", "lag", "nit", "station", "maniac"]
             _assign = {s: cycle[(s - 1) % len(cycle)] for s in range(1, self.table.n)}
@@ -229,10 +224,10 @@ class Session:
                      "human_action": (r.get("human_action") or {}).get("action")} for r in pending])
                 self.last_feedback = fb
             except Exception as e:  # noqa: BLE001
-                self.last_feedback = {"text": f"(Feedback derzeit nicht verfügbar: {e!r})", "html": "", "terms": []}
+                self.last_feedback = {"text": f"(Feedback currently unavailable: {e!r})", "html": "", "terms": []}
         ms = (time.perf_counter() - t0) * 1000
         if ms > GRADING_BUDGET_MS:
-            print(f"WARN: Trainer-Grading {ms:.0f}ms > {GRADING_BUDGET_MS}ms Budget (Hand {self.logged_hand})")
+            print(f"WARN: trainer grading {ms:.0f}ms > {GRADING_BUDGET_MS}ms budget (hand {self.logged_hand})")
 
     def _observe_all(self, actor, street, action, to_call, preflop_raises):
         # feed ONE public action to every bot's model (legitimate: all players see public actions)
@@ -332,7 +327,7 @@ class Session:
         aufgehoben und der Hero ist normal dran — ein Fold statt Gratis-Check waere ein reiner EV-Verlust."""
         t = self.table
         if t.hand_over or t.seats[HUMAN].folded:
-            raise RuntimeError("Vorab-Fold: Hand vorbei oder schon gefoldet")
+            raise RuntimeError("Pre-fold: hand is over or already folded")
         events: list[dict] = []
         self.prefold_state = None
         while not t.hand_over and t.to_act is not None:
@@ -365,7 +360,7 @@ class Session:
         self.table.seats[seat].stack = rng.randint(*ARENA_STACK_BB) * self.table.bb
         self.bots[seat] = SixMaxBot(seat, PROFILES[profil])   # frisches Gegnermodell — er kennt dich nicht
         self.profile_assign[seat] = profil
-        self._arena_news = f"{alt} verlässt den Tisch — {neu} setzt sich ({int(self.table.seats[seat].stack / self.table.bb)}bb)."
+        self._arena_news = f"{alt} leaves the table — {neu} sits down ({int(self.table.seats[seat].stack / self.table.bb)}bb)."
 
     def _tournament_prepare(self) -> bool:
         """Rundenschluss (Nebentische, Busts, Balancing) + frischer Hero-Tisch. False = Turnier vorbei."""
@@ -511,17 +506,17 @@ class Session:
             if diff.get("match"):
                 verdict["text"] = "GTO ✓"
             else:
-                reason = (dec.get("rationale") or {}).get("reasoning") or f"Referenz ({dec.get('source')})"
+                reason = (dec.get("rationale") or {}).get("reasoning") or f"reference ({dec.get('source')})"
                 amt = dec.get("amount")
                 size = f" {amt / self.table.bb:.1f}bb" if amt and dec.get("action") in ("bet", "raise") else ""
-                verdict["text"] = f"Abweichung: {ACTION_DE.get(dec.get('action'), dec.get('action'))}{size} — {reason}"
+                verdict["text"] = f"Deviation: {ACTION_DE.get(dec.get('action'), dec.get('action'))}{size} — {reason}"
             st["decisions"] += 1
             st["gto"] += int(verdict["match"])
             if not verdict["match"]:
                 pot_bb = round((rec.get("obs") or {}).get("pot", 0) / self.table.bb, 1)
                 st["deviations"].append({**verdict, "pot_bb": pot_bb})
         except Exception as e:  # noqa: BLE001 — sichtbar, nie stumm (Doktrin); das Spiel laeuft weiter
-            verdict["text"] = f"(Berater nicht verfuegbar: {e!r})"
+            verdict["text"] = f"(Advisor unavailable: {e!r})"
             verdict["match"] = None
         st["last"] = verdict
 
@@ -601,7 +596,7 @@ def training() -> str:
     # the trainer UI — same fresh-read pattern as index() (six.html stays byte-identical, P2-7 gate)
     p = Path(__file__).parent / "static" / "training.html"
     if not p.exists():
-        return "<h1>training.html fehlt — Build unvollständig (siehe docs/TRAINER_PLAN.md P2-1)</h1>"
+        return "<h1>training.html missing — build incomplete (see docs/plans/TRAINER_PLAN.md P2-1)</h1>"
     return p.read_text(encoding="utf-8")
 
 
@@ -609,7 +604,7 @@ def training() -> str:
 def new_session(req: NewReq) -> JSONResponse:
     global SESSION
     if req.mode not in TRAINER_MODES:
-        return JSONResponse({"error": f"mode muss einer von {TRAINER_MODES} sein"}, status_code=400)
+        return JSONResponse({"error": f"mode must be one of {TRAINER_MODES}"}, status_code=400)
     reg = _coach("registry")
     if SESSION is not None and reg is not None:     # P0-6: end row BEFORE the replacement start row
         try:
@@ -705,14 +700,14 @@ def replay_last() -> JSONResponse:
     if SESSION is None:
         return JSONResponse({"error": "no session"}, status_code=400)
     if SESSION.last_hand_record is None:
-        return JSONResponse({"error": "noch keine Hand beendet"}, status_code=400)
+        return JSONResponse({"error": "no hand finished yet"}, status_code=400)
     rp = _coach("replay")
     if rp is None:
-        return JSONResponse({"error": "replay-Modul fehlt"}, status_code=400)
+        return JSONResponse({"error": "replay module missing"}, status_code=400)
     try:
         return JSONResponse(rp.compile_replay(SESSION.last_hand_record, SESSION.last_graded))
     except Exception as e:  # noqa: BLE001
-        return JSONResponse({"error": f"Replay-Fehler: {e!r}"}, status_code=400)
+        return JSONResponse({"error": f"Replay error: {e!r}"}, status_code=400)
 
 
 @app.get("/api/opponent_panel")
@@ -734,11 +729,11 @@ def trainer_report_route() -> JSONResponse:
         return JSONResponse({"error": "no session"}, status_code=400)
     tr = _coach("trainer_report")
     if tr is None:
-        return JSONResponse({"error": "report-Modul fehlt"}, status_code=400)
+        return JSONResponse({"error": "report module missing"}, status_code=400)
     try:
         return JSONResponse(tr.report(SESSION.path, SESSION.decisions_path))
     except Exception as e:  # noqa: BLE001
-        return JSONResponse({"error": f"Report-Fehler: {e!r}"}, status_code=400)
+        return JSONResponse({"error": f"Report error: {e!r}"}, status_code=400)
 
 
 def main() -> None:
@@ -756,10 +751,10 @@ def main() -> None:
     if gr is not None:
         try:
             gr.prewarm()
-            print("Trainer-Grader vorgewärmt (Advisor + Orakel).")
+            print("Trainer grader prewarmed (advisor + oracle).")
         except Exception as e:  # noqa: BLE001
-            print(f"Grader-Prewarm übersprungen: {e!r}")
-    print(f"PokerB 6-max läuft auf  {url}   ·   Trainer: {url}/training   (Strg+C zum Beenden)")
+            print(f"Grader prewarm skipped: {e!r}")
+    print(f"PokerB 6-max running at  {url}   ·   Trainer: {url}/training   (Ctrl+C to stop)")
     if args.open or args.trainer:
         import threading
         import webbrowser

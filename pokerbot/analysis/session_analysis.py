@@ -82,19 +82,19 @@ def narrative(stats: dict) -> str:
         return ""
     import anthropic
     client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
-    sys = ("Du bist ein Heads-Up/6-max-Poker-Coach. Analysiere die Spielstatistik eines Spielers "
-           "ehrlich und konkret: Spielstil-Einordnung (tight/loose, passiv/aggressiv), die größten "
-           "Leaks, und 3 konkrete Verbesserungen. Beziehe dich auf die Zahlen (VPIP, PFR, "
-           "Aggression, bb/100). Antworte auf Deutsch, prägnant (max ~180 Wörter).")
+    sys = ("You are a heads-up/6-max poker coach. Analyze a player's session stats honestly and "
+           "concretely: style classification (tight/loose, passive/aggressive), the biggest leaks, "
+           "and 3 concrete improvements. Refer to the numbers (VPIP, PFR, aggression, bb/100). "
+           "Answer in English, concise (max ~180 words).")
     try:
         msg = client.messages.create(
             model=config.CLAUDE_MODEL, max_tokens=600,
             system=sys,
             messages=[{"role": "user", "content":
-                       f"Spielstatistik (6-max, {stats['hands']} Hände):\n{json.dumps(stats, ensure_ascii=False, indent=2)}"}])
+                       f"Session stats (6-max, {stats['hands']} hands):\n{json.dumps(stats, ensure_ascii=False, indent=2)}"}])
         return "".join(b.text for b in msg.content if b.type == "text").strip()
     except Exception as e:  # noqa: BLE001
-        return f"(Analyse-Text nicht verfügbar: {type(e).__name__})"
+        return f"(Analysis text unavailable: {type(e).__name__})"
 
 
 def analyze_session(path) -> dict:

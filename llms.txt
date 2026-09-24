@@ -1,0 +1,27 @@
+# QuantPlay (repository)
+
+> A 6-max No-Limit Hold'em trainer that runs in the browser (https://quantplay.io) and the measured poker-bot laboratory behind it. Python 3.12, no ML framework needed to play. License: PolyForm Noncommercial 1.0.0 (commercial use needs written permission). Author: Leonhard Hampe (AeneasSoft).
+
+## Start here
+- README.md: human overview, honest results table, repository map
+- docs/PROJECT_BALANCE_2026-09-10.md: the critical closure note (goal missed, why, what has value)
+- docs/STATE.md: live state, newest block first
+- docs/catalogs/MODULE_CATALOG.md: every module (272) with purpose, interface, dependencies, measurement status, pitfall — including REFUTED modules
+- docs/catalogs/MEASUREMENT_CATALOG.md: every real measurement with channel, n, verdict, source, and whether it still holds
+- AGENTS.md: short tool-neutral guide for coding agents
+- CLAUDE.md: working conventions for AI-assisted sessions (measurement doctrine, forbidden zones, escalation)
+- docs/catalogs/CANDIDATES.md: untested candidates with pre-registered expectations
+
+## Machine-usable entry points
+- Play/drive the trainer without HTTP: `pokerbot.web.browser_bridge.dispatch(method, path, body_json)` → `{"status", "body"}`
+- Server: `python -m pokerbot.web.six_server --trainer` (FastAPI routes listed in pokerbot/web/six_server.py)
+- Engine as an API for programs: pokerbot/brain/api.py (typed functions: equity, pot odds, MDF, legal actions, …)
+- Paired/duplicate evaluation: pokerbot/benchmark/duplicate.py, pokerbot/autogym/pargate.py (A/A must be exactly 0)
+- Exact ICM: pokerbot/strategy/icm.py; tournament doctrine: pokerbot/strategy/tournament.py
+- Audited formulas: knowledge_base/math/formulas.py (docstrings cite the source book)
+- Tests: `python -m tests.<name>` (see README)
+
+## Rules that matter when editing
+- Numbers only with a source (file:line); the channel decides what a number means; self-play mirror gains are a non-regression bound, not strength
+- Strategy code changes only as guard wrappers plus a paired gate; formulas in knowledge_base/math are immutable
+- Never commit keys, third-party hand histories or person files

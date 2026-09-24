@@ -1,6 +1,6 @@
 """Post-flop NLHE calculations — GPT-5.5-generated, ENGINE-VERIFIED (each self-check passes; gate +
 materialize in research/postflop_calc_*). Pure stdlib. The callable library the engine-API exposes to the
-brain. Regenerate via `python -m research.postflop_calc_materialize`. Per docs/math_accuracy_strategy.md."""
+brain. Regenerate via `python -m research.postflop_calc_materialize`. Per docs/plans/math_accuracy_strategy.md."""
 from __future__ import annotations
 
 import itertools  # noqa: F401

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quantplay.io/sitemap.xml

@@ -1,4 +1,4 @@
-"""GATE G3 -- K1-Orakel-Abnahme, stratifizierter Lauf (Gate-Laeufer, 2026-09-07). Karte docs/V10_BUILD_CARD.md K1:
+"""GATE G3 -- K1-Orakel-Abnahme, stratifizierter Lauf (Gate-Laeufer, 2026-09-07). Karte docs/plans/V10_BUILD_CARD.md K1:
 mittlere TV <= 0,02, p95 <= 0,05, max <= 0,10; >= 64 Vorgeschichten, jede Guard-Klasse >= 16x.
 
 Nutzt AUSSCHLIESSLICH die Bausteine von research/k1_oracle.py (Phase 1 Spielen, Orakel-Pakete, Auswertung) und

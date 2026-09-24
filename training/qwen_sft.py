@@ -33,7 +33,7 @@ ATTN = os.environ.get("ATTN", "sdpa")           # sdpa = torch's flash kernel on
 DSL = os.environ.get("DSL", "")                  # comma-sep DSL jsonl shards (our gold) to mix with PokerBench; "" = none
 SKIP_PB = os.environ.get("SKIP_PB", "0") == "1"  # train on the DSL shards ONLY (skip the 560k PokerBench HF download — local)
 OUT = os.environ.get("OUT", "/root/qwen_poker_lora")
-CURRICULUM = os.environ.get("CURRICULUM", "0") == "1"   # load DSL shards IN ORDER (a->d) + replay, NO global shuffle (docs/llm_curriculum.md)
+CURRICULUM = os.environ.get("CURRICULUM", "0") == "1"   # load DSL shards IN ORDER (a->d) + replay, NO global shuffle (docs/plans/llm_curriculum.md)
 REPLAY = float(os.environ.get("REPLAY", "0.15"))        # fraction of prior-phase rows replayed before each later phase (anti-forgetting)
 PACKING = os.environ.get("PACKING", "0") == "1"         # OFF by default -> clean per-example completion-only masking
 ASSIST_ONLY = os.environ.get("ASSIST_ONLY", "1") == "1" # completion-only loss (mask the prompt, train on the program) = THE frac_bad fix
@@ -58,7 +58,7 @@ def load_pokerbench():
 
 def load_dsl(paths: str):
     """Load our DSL shards (spot->completion JSONL) into the SAME {messages:[user,assistant]} format = the canonical,
-    inference-identical chat form (docs/DATASET_SPEC.md). Returns a Dataset (or None if no rows)."""
+    inference-identical chat form (docs/doctrine/DATASET_SPEC.md). Returns a Dataset (or None if no rows)."""
     import json
     from datasets import Dataset
     rows = []
@@ -93,7 +93,7 @@ def _rows_for(path: str) -> list:
 
 def load_curriculum(paths: str, replay: float = REPLAY, seed: int = 0):
     """Load DSL shards IN ORDER, mixing a `replay` slice of all PRIOR phases before each later phase (curriculum +
-    anti-forgetting, docs/llm_curriculum.md). NO shuffle — train order == phase order (paired with _OrderedSFT)."""
+    anti-forgetting, docs/plans/llm_curriculum.md). NO shuffle — train order == phase order (paired with _OrderedSFT)."""
     import random
 
     from datasets import Dataset

@@ -1,4 +1,4 @@
-"""Integrator-Tests v10 (docs/V10_BUILD_CARD.md E4 + Arm B): hand_id-Injektion im Spiegel, r10_stack-Registry,
+"""Integrator-Tests v10 (docs/plans/V10_BUILD_CARD.md E4 + Arm B): hand_id-Injektion im Spiegel, r10_stack-Registry,
 RC_STACK/wickle_decide. Laeuft als `python -m tests.test_integration_v10` (pytest ist lokal nicht installiert)."""
 from __future__ import annotations
 

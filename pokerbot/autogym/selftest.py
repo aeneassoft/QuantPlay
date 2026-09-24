@@ -2,7 +2,7 @@
 
 Vier vorregistrierte Erwartungen; jede wird geprueft und als PASS/FAIL gebucht.
 Erst wenn dieser Selbsttest gruen ist, ist die Schleife 'lokal bewiesen' im Sinne
-des Plans (docs/AUTOGYM_PLAN.md) — und erst dann lohnt ein Pod.
+des Plans (docs/plans/AUTOGYM_PLAN.md) — und erst dann lohnt ein Pod.
 
   E1  ORAKEL-WAHRHEIT: jede verdrahtete Formel besteht eine UNABHAENGIGE
       Fraction-Referenz (Pruefer getrennt vom Beprueften, test_math_suite-Kultur).

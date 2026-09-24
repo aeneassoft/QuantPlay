@@ -1,4 +1,4 @@
-"""K1-ORAKEL v2 (Gate G3, Karte docs/V10_BUILD_CARD.md K1-Abnahme): misst, wie gut die K1-Likelihood-Rekonstruktion
+"""K1-ORAKEL v2 (Gate G3, Karte docs/plans/V10_BUILD_CARD.md K1-Abnahme): misst, wie gut die K1-Likelihood-Rekonstruktion
 (pokerbot/strategy/hero_range.py) die TATSAECHLICH AUSGEFUEHRTE Politik des Stacks trifft.
 
 Orakel = offline decide() je hypothetischer Hero-Combo: an jedem Hero-Knoten vor dem River wird der Stack

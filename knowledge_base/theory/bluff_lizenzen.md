@@ -1,55 +1,55 @@
-# BLUFF-LIZENZEN — die strukturellen Voraussetzungen des Bluffens, mathematisch
-(Programm-Dokument, 2026-08-16; Anlass: Brown 2026 + das AUSLESE-v1-Gate — Auswahl, nicht Quote)
+# BLUFF LICENSES — the structural preconditions of bluffing, mathematically
+(Program document, 2026-08-16; occasion: Brown 2026 + the AUSLESE v1 gate — selection, not quota)
 
-**These:** Ein Bluff ist nie „eine schwache Hand mit Frequenz f", sondern eine Hand mit einer
-**Lizenz** — einer berechenbaren strukturellen Eigenschaft, die den Bluff profitabel macht.
-Brown misst: NULL Haende sind in allen vier Modellvarianten pure Bluffs; die 27 realen
-Bluff-Haende zerfallen danach, WELCHE fallengelassene Vereinfachung sie lizenziert.
-Unsere Aufgabe: die Lizenzen finden, kategorisieren, als Formeln fassen, dann messen.
+**Thesis:** A bluff is never "a weak hand with frequency f", but a hand with a
+**license** — a computable structural property that makes the bluff profitable.
+Brown measures: ZERO hands are pure bluffs in all four model variants; the 27 real
+bluff hands split according to WHICH dropped simplification licenses them.
+Our task: find the licenses, categorize them, express them as formulas, then measure.
 
-Alle Groessen unten sind aus LEGALER Information berechenbar: eigene Karten h, Board B,
-Einsatzgroesse b, Pot P, und die Bayes-Tracker-Range des Gegners W = {Combo c -> Gewicht w(c)}
-(aus der gespielten Linie). Continue-Range C(W,b) = die Combos, die W gegen Groesse b
-weiterspielt (Defense-Advisor / MDF-Kern der staerksten Combos).
+All quantities below are computable from LEGAL information: own cards h, board B,
+bet size b, pot P, and the opponent's Bayes-tracker range W = {combo c -> weight w(c)}
+(from the line played). Continue range C(W,b) = the combos with which W continues
+against size b (defense advisor / MDF core of the strongest combos).
 
-## L1 — BLOCKER-LIZENZ (Karten-Entfernung auf der Continue-Seite)
-    Block(h) = 1 − [ Σ_{c∈C, c∩h≠∅} w(c) ] / [ Σ_{c∈C} w(c) ]  … relativer Gewichtsverlust
-    praeziser als Score:  Block(h) = Σ_{c∈C} w(c)·1[c∩h≠∅] / Σ_{c∈C} w(c)
-Hero haelt Karten, die die WEITERSPIEL-Combos des Gegners physisch reduzieren (Nut-Flush-
-Blocker etc.). Lizenz, wenn Block(h) ≥ β. Quelle: Brown (Karten-Entfernung = die 169x169-
-Nicht-Skalaritaet); count_hand_combos_with_blockers liegt unverdrahtet in formulas.py.
+## L1 — BLOCKER LICENSE (card removal on the continue side)
+    Block(h) = 1 − [ Σ_{c∈C, c∩h≠∅} w(c) ] / [ Σ_{c∈C} w(c) ]  … relative weight loss
+    more precisely as a score:  Block(h) = Σ_{c∈C} w(c)·1[c∩h≠∅] / Σ_{c∈C} w(c)
+Hero holds cards that physically reduce the opponent's CONTINUE combos (nut flush
+blockers etc.). License if Block(h) ≥ β. Source: Brown (card removal = the 169x169
+non-scalarity); count_hand_combos_with_blockers sits unwired in formulas.py.
 
-## L2 — UNBLOCKER-LIZENZ (die Fold-Seite nicht beruehren)
-    Unblock(h) = 1 − Σ_{c∈F} w(c)·1[c∩h≠∅] / Σ_{c∈F} w(c),   F = W \ C (die Fold-Range)
-Hero haelt KEINE Karten der Gegner-FOLD-Range — jede geblockte Fold-Combo senkt die realisierte
-Fold-Frequenz unter die MDF-Rechnung. Vollstaendige Lizenzstaerke = Block(h)·Unblock(h)-Paar.
+## L2 — UNBLOCKER LICENSE (don't touch the fold side)
+    Unblock(h) = 1 − Σ_{c∈F} w(c)·1[c∩h≠∅] / Σ_{c∈F} w(c),   F = W \ C (the fold range)
+Hero holds NO cards of the opponent's FOLD range — every blocked fold combo lowers the realized
+fold frequency below the MDF calculation. Full license strength = the Block(h)·Unblock(h) pair.
 
-## L3 — EQUITY-BACKUP (Semi-Bluff-Lizenz)
-    E_called(h) = Equity(h | C(W,b), B)     … Equity GEGEN DIE CALLING-Range
-    Lizenz, wenn  FE_noetig(P, b, E_called) = (b − E_called·(P+2b)) / (P + b − E_called·(P+2b))
-    unter der realistischen Fold-Schaetzung liegt (required_fold_equity, verdrahtet, E1-geprueft).
-Outs machen den Bluff zweistufig profitabel. Quelle: semi_bluff_ev (Formelsammlung), Brown
-(Nichtdeterminismus-Variante lizenziert eigene Bluff-Haende).
+## L3 — EQUITY BACKUP (semi-bluff license)
+    E_called(h) = Equity(h | C(W,b), B)     … equity AGAINST THE CALLING range
+    License if  FE_required(P, b, E_called) = (b − E_called·(P+2b)) / (P + b − E_called·(P+2b))
+    lies below the realistic fold estimate (required_fold_equity, wired, E1-checked).
+Outs make the bluff profitable in two stages. Source: semi_bluff_ev (formula collection), Brown
+(the non-determinism variant licenses its own bluff hands).
 
-## L4 — CAP-LIZENZ (Range-Asymmetrie)
-    Cap(W,B) = Σ_{c∈W} w(c)·1[staerke(c,B) ≥ nut-Schwelle] / Σ w(c)   … Nut-Anteil des Gegners
-    Lizenz, wenn Cap(W,B) ≤ κ  (der Gegner KANN kaum stark sein — seine Linie hat ihn gecappt).
-Quelle: nut_fraction/capped_range_penalty (Sammlung, bisher NICHT_VERDRAHTBAR mangels Range —
-die Tracker-Range macht sie jetzt berechenbar!). Das ist der sel_guard-Trick auf der Bet-Seite.
+## L4 — CAP LICENSE (range asymmetry)
+    Cap(W,B) = Σ_{c∈W} w(c)·1[strength(c,B) ≥ nut threshold] / Σ w(c)   … the opponent's nut share
+    License if Cap(W,B) ≤ κ  (the opponent CAN hardly be strong — his line has capped him).
+Source: nut_fraction/capped_range_penalty (collection, so far NICHT_VERDRAHTBAR for lack of a range —
+the tracker range now makes them computable!). This is the sel_guard trick on the bet side.
 
-## L5 — GEOMETRIE-LIZENZ (Sizing/SPR)
-    b*(P, s) aus geometric_bet_fraction_to_all_in; Lizenz fuer Overbet-Polarisierung nur, wenn
-    die eigene Range am Knoten die Nut-Seite besitzt (L4 gespiegelt auf Hero) und SPR den
-    Druck traegt (stackoff_equity_threshold_from_spr). Quelle: Brown (Bet-Groessen-Achse).
+## L5 — GEOMETRY LICENSE (sizing/SPR)
+    b*(P, s) from geometric_bet_fraction_to_all_in; license for overbet polarization only if
+    one's own range at the node owns the nut side (L4 mirrored onto hero) and the SPR carries the
+    pressure (stackoff_equity_threshold_from_spr). Source: Brown (bet-size axis).
 
-## Das Messprogramm (vorregistriert)
-1. **Katalogisieren:** alle Bluff-Instanzen aus decisions.jsonl.gz + dem GTOW-Raise-Mining
-   (488 Raises: Flop 53% Air) + Browns 27 Haenden je Lizenz scoren -> welche Lizenzen treten
-   real auf, einzeln oder im Buendel?
-2. **Orakel-Checks:** L-Check `bluff_ohne_lizenz` (Hero-Bet mit niedriger Equity UND
-   Block·Unblock·Cap alle unter Schwelle = struktureller Spew) + F-Check Lizenz-Raten.
-3. **Kandidat (Runde 3, gegen AUSLESE v1):** der Bet-seitige Selektions-Guard — Bluffs nur
-   mit Lizenz-Score ueber Schwelle, Value unangetastet. Erwartung vorregistriert VOR dem Bau.
-4. **Ehrlichkeit:** Schwellen (β, κ, …) sind Knoepfe mit Schranken; die Lizenz-DEFINITIONEN
-   sind Formeln und unveraenderlich. Erst Katalog (deskriptiv), dann Check (normativ) —
-   nie umgekehrt, sonst bauen wir Dogma statt Messung.
+## The measurement program (pre-registered)
+1. **Catalog:** score all bluff instances from decisions.jsonl.gz + the GTOW raise mining
+   (488 raises: flop 53% air) + Brown's 27 hands per license -> which licenses occur
+   in reality, individually or in bundles?
+2. **Oracle checks:** L check `bluff_ohne_lizenz` (hero bet with low equity AND
+   Block·Unblock·Cap all below threshold = structural spew) + F check license rates.
+3. **Candidate (round 3, against AUSLESE v1):** the bet-side selection guard — bluffs only
+   with a license score above threshold, value untouched. Expectation pre-registered BEFORE the build.
+4. **Honesty:** thresholds (β, κ, …) are knobs with bounds; the license DEFINITIONS
+   are formulas and immutable. Catalog (descriptive) first, then check (normative) —
+   never the other way round, otherwise we build dogma instead of measurement.

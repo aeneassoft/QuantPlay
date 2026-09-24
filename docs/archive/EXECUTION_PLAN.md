@@ -3,7 +3,7 @@
 **How we run this:** step by step. After each numbered step I report + commit, then wait for your go for the
 next. **INTERRUPT CAVEAT:** when the big Slumbot run (`be7o77422`: exploit 5000 + baseline 3000) finishes,
 we PAUSE whatever step we're on, read the numbers, decide if they change priorities, then resume.
-Companion docs: [STATE.md](STATE.md) · [INTEGRATION.md](INTEGRATION.md) · gap audit memory `postflop-spec-unused`.
+Companion docs: [STATE.md](../STATE.md) · [INTEGRATION.md](INTEGRATION.md) · gap audit memory `postflop-spec-unused`.
 
 Backup before we start changing the bot: tag `slumbot-bot-2026-06-14` (pushed). Restore anytime via
 `git checkout slumbot-bot-2026-06-14`.

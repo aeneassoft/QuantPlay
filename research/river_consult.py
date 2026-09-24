@@ -104,7 +104,7 @@ def main():
     print(f"  Claude done ({ci}+{co} tok)\n", flush=True)
     print("===== CLAUDE: technical implementation =====\n" + ctext, flush=True)
 
-    out = config.ROOT / "docs" / "river_corset_consult.md"
+    out = config.ROOT / "docs" / "consults" / "river_corset_consult.md"
     with open(out, "w", encoding="utf-8") as f:
         f.write("# River-corset consult (OpenAI math -> Claude technical)\n\n## Context\n" + _CONTEXT + "\n")
         for k, v in data.items():

@@ -2,514 +2,514 @@
 
 ## OpenAI gpt-5.1
 
-1) Repräsentation: Wie man Poker so modelliert, dass Compute wirklich besser ist als „Buchtheorie“
+1) Representation: How to model poker so that compute is genuinely better than "book theory"
 -------------------------------------------------------------------------------
 
-Der Kern: Du willst **alles** in Begriffe gießen, über die man
-- Erwartungswerte sauber definieren kann,
-- Belief-States und Gegenfaktoren (counterfactual values) berechnen kann,
-- Gradienten / Regrets / Policy-Updates sauber ableiten kann.
+The core: you want to cast **everything** into terms over which you can
+- cleanly define expected values,
+- compute belief states and counterfactual values,
+- cleanly derive gradients / regrets / policy updates.
 
-### a) Zentrale mathematische Objekte
+### a) Central mathematical objects
 
-**Spielmodell (für 2p NLHE, CGT-Style):**
+**Game model (for 2p NLHE, CGT-style):**
 
-- Zustandsraum: Histories \(h = (a_1, a_2, ..., a_t)\).  
-- Öffentliche Infos: Board, Pot, Betgrößen-Historie, wer am Zug ist, effektive Stacks.  
-- Private Infos: Hole Cards \(c_i\).  
-- Informationsmengen \(I\): Menge von Histories, die für einen Spieler **ununterscheidbar** sind (gleiche Public-Infos, eigene Karten, aber Gegnerkarten unbekannt).  
-- Strategien \(\sigma_i(I)\): Wahrscheinlichkeitsverteilungen über Aktionen \(a\in A(I)\).  
-- Payoff: \(u_i(h)\) am Terminalzustand (Showdown / Fold).
+- State space: histories \(h = (a_1, a_2, ..., a_t)\).  
+- Public information: board, pot, bet-size history, who is to act, effective stacks.  
+- Private information: hole cards \(c_i\).  
+- Information sets \(I\): set of histories that are **indistinguishable** for a player (same public info, own cards, but opponent cards unknown).  
+- Strategies \(\sigma_i(I)\): probability distributions over actions \(a\in A(I)\).  
+- Payoff: \(u_i(h)\) at the terminal state (showdown / fold).
 
-**Rechentechnisch relevante Größen:**
+**Computationally relevant quantities:**
 
 - **Belief State**:  
-  \(b(I)\) = Verteilung über alle möglichen verdeckten Karten / vorherigen Mixes, konsistent mit Public-Line.  
-  Praktisch: „Rangerverteilung“ über Kombos (oft faktorisierte Approx).
+  \(b(I)\) = distribution over all possible hidden cards / previous mixes, consistent with the public line.  
+  In practice: "range distribution" over combos (often a factorized approx).
 
 - **Counterfactual Value (CFV)**:  
-  \(v_i^\sigma(I)\) = erwarteter Payoff von Player \(i\), *bedingt* darauf, dass sich das Spiel in \(I\) befindet, gewichtet mit der Wahrscheinlichkeit, dass der Gegner & Chance zu \(I\) geführt haben. Zentral bei CFR, DeepStack, ReBeL.
+  \(v_i^\sigma(I)\) = expected payoff of player \(i\), *conditional* on the game being in \(I\), weighted by the probability that the opponent & chance led to \(I\). Central in CFR, DeepStack, ReBeL.
 
 - **Regret** \(r(I,a)\):  
-  Vorteil, den man gehabt hätte, wenn man in \(I\) immer Aktion \(a\) statt der aktuellen Policy gewählt hätte:
+  Advantage one would have had by always choosing action \(a\) in \(I\) instead of the current policy:
   \[
-  r(I,a) = v_i^\sigma(I \text{ mit } a) - v_i^\sigma(I)
+  r(I,a) = v_i^\sigma(I \text{ with } a) - v_i^\sigma(I)
   \]
-  -> Regret-Matching / (D)CFR.
+  -> Regret matching / (D)CFR.
 
-**Menschliche Begriffe → Maschinenprimitiven**
+**Human concepts → machine primitives**
 
 - **Ranges**:  
-  Mensch: „Er openraist 25% Range, ich 3-bette 10%“  
-  Maschine:  
-  - Verteilung \(\rho_{\text{pre}}\) über Hole-Karten,  
-  - aktualisierte Posteriorverteilung nach Actions: \(\rho_{\text{post}}(c_{\text{villain}} \mid h)\).  
-  Implementiert als:
-  - tabellarisch (Abstraktion),
-  - oder parametrisiertes Modell \(f_\theta(\text{public obs}) \to\) Dichte über “bucketed” Handtypen / Kartenbits.
+  Human: "He open-raises a 25% range, I 3-bet 10%"  
+  Machine:  
+  - distribution \(\rho_{\text{pre}}\) over hole cards,  
+  - updated posterior distribution after actions: \(\rho_{\text{post}}(c_{\text{villain}} \mid h)\).  
+  Implemented as:
+  - tabular (abstraction),
+  - or a parametrized model \(f_\theta(\text{public obs}) \to\) density over "bucketed" hand types / card bits.
 
-- **Polarisierung**:  
-  Mensch: starke + Bluffs, keine mittelstarken Hände.  
-  Maschine:
-  - Policy, die die Aktion „große Bet“ nur in CFV-Extremen (sehr hoch / sehr niedrig) wählt.  
-  - Lässt sich als Struktur im Q-Value sehen: Aktion „Potbet“ wird für Hände mit großen \(|v - \text{EV-Fold}|\) bevorzugt.  
-  - In Repräsentationen lernt das Modell typischerweise „Monotonien“: je stärker/ schwächer, desto eher große Bets.
+- **Polarization**:  
+  Human: strong hands + bluffs, no medium-strength hands.  
+  Machine:
+  - A policy that chooses the action "big bet" only at CFV extremes (very high / very low).  
+  - Can be seen as structure in the Q-value: the action "pot bet" is preferred for hands with large \(|v - \text{EV-Fold}|\).  
+  - In representations the model typically learns "monotonicities": the stronger/ weaker, the more likely big bets.
 
 - **MDF (Minimum Defense Frequency)**:  
-  Mensch: \(\text{MDF} = \frac{\text{Pot}}{\text{Pot}+\text{Bet}}\).  
-  Maschine:
-  - Der exakt gleiche Ausdruck taucht auf, wenn man eine BR-Optimierung (bester Call/Fold-Mix) gegen eine gegebene Bluff-Frequenz auflöst.  
-  - Aber Compute muss nicht MDF „wissen“: CFR/Best-Response-Iteration *induzieren* MDF, weil jede Abweichung von MDF zu ausnutzbaren Bluffs/Folds führt.  
-  - Praktisch: MDF ist eine **starke Prior** / initialisierende Heuristik für die Policy (siehe Teil 2).
+  Human: \(\text{MDF} = \frac{\text{Pot}}{\text{Pot}+\text{Bet}}\).  
+  Machine:
+  - The exact same expression appears when one solves a BR optimization (best call/fold mix) against a given bluff frequency.  
+  - But compute does not need to "know" MDF: CFR/best-response iteration *induce* MDF, because any deviation from MDF leads to exploitable bluffs/folds.  
+  - In practice: MDF is a **strong prior** / initializing heuristic for the policy (see Part 2).
 
-- **Blocker**:  
-  Mensch: „Mein A♣ blockt seine Nut-Flushes → bessere Bluffbet.“  
-  Maschine:
-  - CFV-Differenz entsteht, weil bestimmte Kartenkombos in der Belief-Verteilung dünner werden, wenn ich diese Karte halte.  
-  - Feature-seitig: Input-Encoding, das einzelne Kartenbits + Suit-Pattern sauber wiedergibt; das Netz lernt, wie Kartensymmetrien CFVs verschieben.  
-  - Explizit kann man „Blocker-Features“ als zusätzliche Eingaben codieren (z. B. Counts spezifischer Nuthände, die mein Holding blockt).
+- **Blockers**:  
+  Human: "My A♣ blocks his nut flushes → better bluff bet."  
+  Machine:
+  - The CFV difference arises because certain card combos become thinner in the belief distribution when I hold this card.  
+  - Feature-wise: an input encoding that cleanly represents individual card bits + suit patterns; the net learns how card symmetries shift CFVs.  
+  - Explicitly, one can encode "blocker features" as additional inputs (e.g. counts of specific nut hands that my holding blocks).
 
 - **Equity**:  
-  Mensch: „Equity vs Range“ = Gewinnwahrscheinlichkeit im All-in.  
-  Maschine:
-  - Equity ist nur *ein* Bestandteil des CFV, unter der Policy / Betting-Strategie.  
-  - Wichtig: Statt isolierter Preflop/Flop-Equity optimiert Compute den **gesamten Wert** über das gesamte Subgame.  
-  - Technisch: \(v_i^\sigma(I)\) integriert beides – Equity & erwartete Folding-/Bluffselektion.
+  Human: "equity vs range" = win probability in an all-in.  
+  Machine:
+  - Equity is only *one* component of the CFV, under the policy / betting strategy.  
+  - Important: instead of isolated preflop/flop equity, compute optimizes the **total value** over the entire subgame.  
+  - Technically: \(v_i^\sigma(I)\) integrates both – equity & expected folding/bluff selection.
 
-### b) Wo 1 Stunde Compute 3 Jahre Pro-Wissen dominiert
+### b) Where 1 hour of compute dominates 3 years of pro knowledge
 
-**Compute ist überlegen, sobald:**
+**Compute is superior as soon as:**
 
-1. **Genaue Mischfrequenzen in komplexen SPOTs**  
-   - Z. B. 3-bet-Pot, SPR ~ 2, multi-street Betting mit vielen Bet-Sizes.  
-   - Ein lokaler Solver (TexasSolver) + cf-values über ein Board-Sampling kann:
-     - exakte Frequenzen für Hunderte/ Tausende von Händen ausgeben,  
-     - Fehlerkurven (wie schlecht ist „always c-bet 60% Pot“) hochauflösend liefern.  
-   - Ein Mensch kann qualitativ verstehen: „turn check-raise ist polar“, aber nicht:
-     - „Hand X bettet 32% Flop, 51% Turn, 8% River, mit welcher Kombo Gewichtung, um IP-Check-Back-Leaks zu bestrafen.“
+1. **Exact mixing frequencies in complex SPOTs**  
+   - E.g. 3-bet pot, SPR ~ 2, multi-street betting with many bet sizes.  
+   - A local solver (TexasSolver) + cf-values over a board sampling can:
+     - output exact frequencies for hundreds/ thousands of hands,  
+     - deliver error curves (how bad is "always c-bet 60% pot") at high resolution.  
+   - A human can understand qualitatively: "turn check-raise is polar", but not:
+     - "Hand X bets 32% flop, 51% turn, 8% river, with which combo weighting, to punish IP check-back leaks."
 
-2. **Leakkurven / Exploit-Stärke quantifizieren**  
-   - Beispiel: „Villain foldet Flop vs c-bet 55% statt GTO 35%“ → Compute kann:
-     - systematisch Best-Response suchen,  
-     - exploitative Linie in bb/100 ausrechnen, per Boardklasse / Commitment-Level.  
-   - Diese fein granulierten „Leak-Mapping-Heatmaps“ sind jenseits dessen, was ein Pro per Intuition konstruieren kann.
+2. **Quantifying leak curves / exploit strength**  
+   - Example: "Villain folds flop vs c-bet 55% instead of GTO 35%" → compute can:
+     - systematically search for the best response,  
+     - calculate the exploitative line in bb/100, per board class / commitment level.  
+   - These finely granular "leak-mapping heatmaps" are beyond what a pro can construct by intuition.
 
-3. **Abstraktion & Subgame-Re-Solving** in vielen Spots  
-   - Durch **cached GTO-Benchmarks** kannst du in 1h:
-     - Tausende Strategien quer über Boardklassen gegen GTO ground truth scoren,  
-     - unter Variation von Parametern (Aggression, C-bet-Frequenz, Sizing-Mix usw.) optimale Hyperparameter finden.  
-   - Der Mensch kann zwar Regeln finden, aber **nicht** 1000 Varianten durchsimulieren und ihren GTO-Gap bewerten.
+3. **Abstraction & subgame re-solving** in many spots  
+   - Through **cached GTO benchmarks** you can in 1h:
+     - score thousands of strategies across board classes against GTO ground truth,  
+     - find optimal hyperparameters while varying parameters (aggression, c-bet frequency, sizing mix, etc.).  
+   - The human can find rules, but **cannot** simulate 1000 variants and evaluate their GTO gap.
 
-4. **Belief-State-Optimierung > statische Heuristik**  
-   - OppModel + Node-Locking:  
-     - Compute kann (über No-Regret/Gradienten) automatisch finden, wie stark man von GTO abweicht, um ein bestimmtes OppModel maximal auszubeuten, bei fixierter Exploitability-Budget-Constraint.  
-   - Menschen sind hier qualitativ gut („vs Nit fold ich mehr“), aber:
-     - Compute kann diese Adjustments sehr präzise in Mischfrequenzen/Line-Auswahl anpassen, inkl. komplexer Multiline-Exploits.
+4. **Belief-state optimization > static heuristics**  
+   - OppModel + node locking:  
+     - Compute can automatically find (via no-regret/gradients) how far to deviate from GTO in order to maximally exploit a specific OppModel, under a fixed exploitability-budget constraint.  
+   - Humans are qualitatively good here ("vs a nit I fold more"), but:
+     - Compute can tune these adjustments very precisely in mixing frequencies/line selection, incl. complex multi-line exploits.
 
-**Wo Compute **NICHT** einfach 3 Jahre Pro ersetzt:**
+**Where compute does **NOT** simply replace 3 years of a pro:**
 
-1. **Priors / Abstraktionen / Domain-Reduktion**  
-   - Welche Bet-Sizes überhaupt zulassen?  
-   - Welche States zusammenlegen (Board-Cluster, SPR-Klassen, Positionen)?  
-   - Welche menschlichen Heuristiken sparen 90% des Suchraums, ohne 90% der EV zu killen?  
-   -> Hier sind gute „Theorie-Priors“ Gold wert und reduzieren Compute massiv.
+1. **Priors / abstractions / domain reduction**  
+   - Which bet sizes to allow at all?  
+   - Which states to merge (board clusters, SPR classes, positions)?  
+   - Which human heuristics save 90% of the search space without killing 90% of the EV?  
+   -> Here good "theory priors" are worth their weight in gold and reduce compute massively.
 
-2. **Modellspezifikation**  
-   - Architektur von Value/Policy-Netz, Feature-Design, Parameterisierung von Ranges (z. B. Bucketing, Suit-Isomorphien).  
-   - Ein starker Pro, der gleichzeitig die Compute-Pipeline versteht, kann sehr gut einschätzen, **welche** Details wichtig sind (z. B. tiefe River-Value-Traps vs. Turn-Aggressionsmuster) und das Netz/Fokus entsprechend lenken.
+2. **Model specification**  
+   - Architecture of the value/policy net, feature design, parametrization of ranges (e.g. bucketing, suit isomorphisms).  
+   - A strong pro who also understands the compute pipeline can judge very well **which** details matter (e.g. deep river value traps vs. turn aggression patterns) and steer the net/focus accordingly.
 
-3. **Meta-Strategie / Game-Selection / Reale Populationsannahmen**  
-   - Selbst das perfekte 2p-zero-sum GTO löst nicht:
-     - Multiway-Dynamiken,  
-     - Rake/Struktur-spezifische Anpassungen,  
-     - Live-Tells, Zeitverhalten, etc.  
-   - Menschen liefern robustere High-Level-Priors, in welchen Games/Lineups welcher Exploit-Regime-Modus sinnvoll ist.
+3. **Meta-strategy / game selection / real population assumptions**  
+   - Even perfect 2p zero-sum GTO does not solve:
+     - multiway dynamics,  
+     - rake/structure-specific adjustments,  
+     - live tells, timing behavior, etc.  
+   - Humans provide more robust high-level priors about which exploit-regime mode makes sense in which games/lineups.
 
-4. **Deutung & Robustheit**  
-   - Compute kann tausende Spots solve’n, aber:
-     - Pattern-Erkennung auf einem abstrahierten Level („was *bedeutet* diese Range-Krümmung?“) ist weiterhin eine menschliche Stärke.  
-   - Diese Einsichten helfen, Fehler der Abstraktion / Overfitting zu erkennen.
+4. **Interpretation & robustness**  
+   - Compute can solve thousands of spots, but:
+     - Pattern recognition at an abstracted level ("what does this range curvature *mean*?") remains a human strength.  
+   - These insights help to detect abstraction errors / overfitting.
 
 ---
 
-2) Analytische Theorie als relaxierte Prior: Prinzipielle Frameworks
+2) Analytical theory as a relaxed prior: principled frameworks
 --------------------------------------------------------------------
 
-Deine Intuition („Chen, MDF, α=s/(1+s) als *relaxierbare* Struktur“) passt sehr gut in mehrere etablierte Frameworks:
+Your intuition ("Chen, MDF, α=s/(1+s) as a *relaxable* structure") fits very well into several established frameworks:
 
-### a) Analytische Formeln als **Priors / Initialisierung**
+### a) Analytical formulas as **priors / initialization**
 
-**Bayes-Prior / Architektur-Prior:**
+**Bayesian prior / architecture prior:**
 
-- Beispiel: Deine initiative-/range-aware Chen/MDF-Heuristik liefert:
-  - für jeden Spot eine „hart kodierte“ Policy \(\pi_{\text{theory}}(I)\),  
-  - oder Target-Kennzahlen (z. B. „C-bet 70% auf trockenem Board“).
-- Im Lernmodell:
-  - Initialisiere Policy-Netz \( \pi_\theta \approx \pi_{\text{theory}}\) (Supervised-Init: MSE / CE auf \(\pi_{\text{theory}}\)).  
-  - Danach: Self-Play / CFR-Updates, um von dieser Approximation *weg* zu verbessern.
+- Example: your initiative-/range-aware Chen/MDF heuristic provides:
+  - for every spot a "hard-coded" policy \(\pi_{\text{theory}}(I)\),  
+  - or target metrics (e.g. "c-bet 70% on a dry board").
+- In the learning model:
+  - Initialize the policy net \( \pi_\theta \approx \pi_{\text{theory}}\) (supervised init: MSE / CE on \(\pi_{\text{theory}}\)).  
+  - Afterwards: self-play / CFR updates to improve *away* from this approximation.
 
-Positiver Effekt:
-- Suchraum ist von Anfang an im vernünftigen Regime (z. B. kein massives Overbluffen auf nut-lastigen Boards).
-- Compute wird für Feinjustierung genutzt, nicht für „Grundschultheorie“.
+Positive effect:
+- The search space is in a reasonable regime from the start (e.g. no massive overbluffing on nut-heavy boards).
+- Compute is used for fine-tuning, not for "elementary-school theory".
 
-### b) Analytische Theorie als **Soft-Regularisierung**
+### b) Analytical theory as **soft regularization**
 
-Formell:  
+Formally:  
 \[
 \mathcal{L}(\theta) = \mathcal{L}_{\text{game}}(\theta) + \lambda \cdot \mathcal{R}(\theta)
 \]
-mit z. B.
+with e.g.
 \[
 \mathcal{R}(\theta) = \sum_I D_{\text{KL}}\left(\pi_\theta(\cdot\mid I) \;\|\; \pi_{\text{theory}}(\cdot\mid I)\right)
 \]
 
 Interpretation:
-- \(\mathcal{L}_{\text{game}}\): Exploitability-Näherung, BR-Loss, DCFR-Objektiv oder Self-Play-Cross-Entropy / Advantage-Loss.  
-- \(\mathcal{R}\): „Bleib nicht zu weit von der Theorie-Policy weg, außer wenn es EV bringt.“
+- \(\mathcal{L}_{\text{game}}\): exploitability approximation, BR loss, DCFR objective or self-play cross-entropy / advantage loss.  
+- \(\mathcal{R}\): "Don't stray too far from the theory policy, unless it brings EV."
 
-**Constraint-Annealing / Homotopy:**
+**Constraint annealing / homotopy:**
 
-- Starte mit hohem \(\lambda\) (starke Theorie-Bindung),  
-- reduziere \(\lambda\) über Zeit („Engine wärmt auf“).  
-- Ergebnis: Model beginnt im Theorienahen Regime, löst sich dann, wenn Daten (Self-Play / GTO-Benchmark) Gründe liefern.
+- Start with a high \(\lambda\) (strong theory binding),  
+- reduce \(\lambda\) over time ("the engine warms up").  
+- Result: the model starts in the theory-near regime, then breaks away when data (self-play / GTO benchmark) provide reasons.
 
-Das ist exakt die Idee von:
-- **Lagrange-Multiplikatoren / Lagrangian Relaxation**:
-  - Theoretische Constraints (z. B. MDF, Pot-Control auf bestimmten Boards) als soft constraints implementieren,  
-  - Lagrange-Multiplikator \(\lambda\) wird dynamisch (oder per Schedule) angepasst.
+This is exactly the idea of:
+- **Lagrange multipliers / Lagrangian relaxation**:
+  - implement theoretical constraints (e.g. MDF, pot control on certain boards) as soft constraints,  
+  - the Lagrange multiplier \(\lambda\) is adjusted dynamically (or per schedule).
 
-### c) Analytik als **Curriculum**
+### c) Analytics as a **curriculum**
 
-Curriculum Learning-Ansatz:
+Curriculum learning approach:
 
 1. Phase 1:  
-   - Nur einfache Spots mit hoher analytischer Abdeckung (z. B. single-raised Pots, CBET-only, wenig Sizing-Optionen).  
-   - Loss = Distanz zu analytischer Policy + leichter Self-Play-Anteil.
+   - Only simple spots with high analytical coverage (e.g. single-raised pots, CBET-only, few sizing options).  
+   - Loss = distance to the analytical policy + a light self-play share.
 
 2. Phase 2:  
-   - Komplexere Spots (3bet-Pots, Turns, Rivers, verschiedene Sizings).  
-   - Mehr Gewicht auf explizite Gegenfaktoren (CFV-Schätzung, Best-Response-Loss).
+   - More complex spots (3bet pots, turns, rivers, various sizings).  
+   - More weight on explicit counterfactuals (CFV estimation, best-response loss).
 
 3. Phase 3:  
-   - Vollständige Self-Play/Exploitability-Optimierung; analytische Theorie nur noch als Regularisierung für Out-of-Distribution-States.
+   - Full self-play/exploitability optimization; analytical theory only as regularization for out-of-distribution states.
 
-So verstärken sich Theorie & Lernen, statt zu kollidieren:
-- Theorie definiert den „Startraum“ und die „erlaubten Tendenzen“.
-- Lernkomponente nutzt Abweichungen von der Theorie nur dann, wenn diese **messbar EV-positiv**sind.
+This way theory & learning reinforce each other instead of colliding:
+- Theory defines the "starting space" and the "allowed tendencies".
+- The learning component uses deviations from the theory only when they are **measurably EV-positive**.
 
-### d) Konkrete Konstruktion für euch
+### d) Concrete construction for you
 
-**Beispiel: α = s / (1 + s)** (Kontrolle über Aggressionsgrad vs. Stack/Pot-Verhältnis)
+**Example: α = s / (1 + s)** (control over the aggression level vs. the stack/pot ratio)
 
-- Verwende α als deterministische Funktion deiner Features (SPR, Position, Initiative).  
-- Policy-Netz lernt *Residuums-Parameters* \(\delta\alpha\):  
+- Use α as a deterministic function of your features (SPR, position, initiative).  
+- The policy net learns *residual parameters* \(\delta\alpha\):  
   \[
   \alpha_{\text{eff}} = \frac{s}{1+s} + f_\theta(\text{state})
   \]
-  mit Regularisierung \(\|\delta\alpha\|^2\) oder KL vs. Basis-α.  
-- So bleibt die globale Struktur (höhere s → höhere Aggression) erhalten, aber Subtleties (z. B. speziell Q-high-Boards vs K-high) lernt das Netz.
+  with regularization \(\|\delta\alpha\|^2\) or KL vs. the base α.  
+- This preserves the global structure (higher s → higher aggression), but the net learns the subtleties (e.g. specifically Q-high boards vs K-high).
 
-**MDF-Baseline**
+**MDF baseline**
 
-- Für jeden Betspot: analytische MDF \(\text{MDF}_{\text{theory}}\).  
-- Netz gibt \(\text{MDF}_\theta(I)\) aus.  
-- Regularisierung:
+- For every bet spot: analytical MDF \(\text{MDF}_{\text{theory}}\).  
+- The net outputs \(\text{MDF}_\theta(I)\).  
+- Regularization:
   \[
   \mathcal{R}(I) = (\text{MDF}_\theta(I) - \text{MDF}_{\text{theory}})^2
   \]
-  es sei denn, GTO-Benchmark zeigt klar, dass Abweichung besser ist → dann \(\lambda\) lokal senken (adaptive Regularisation).
+  unless the GTO benchmark clearly shows that deviating is better → then lower \(\lambda\) locally (adaptive regularisation).
 
 ---
 
-3) „Computation Substrate“: Worauf aufbauen?
+3) "Computation substrate": what to build on?
 ---------------------------------------------
 
 ### a) OpenSpiel
 
-**OpenSpiel (DeepMind, Open-Source)** ist im Moment das Nächstliegende zu „Qiskit für Spieltheorie“:
+**OpenSpiel (DeepMind, open source)** is currently the closest thing to "Qiskit for game theory":
 
-- Framework für:
-  - Representation von **Simultan- und Sequenzspielen** mit unvollständiger Information,  
-  - CFR, DCFR, XFP, PSRO, RL-Algorithmen,  
-  - diverse Beispielspiele (u. a. Leduc, Kuhn, Goofspiel, einige Poker-Varianten).
+- Framework for:
+  - representation of **simultaneous and sequential games** with imperfect information,  
+  - CFR, DCFR, XFP, PSRO, RL algorithms,  
+  - various example games (incl. Leduc, Kuhn, Goofspiel, some poker variants).
 
-- Stärken:
-  - Sehr modulare Darstellung von Spielen (Infosets, Actions, Transitions).  
-  - Saubere Implementationen von klassischen Algorithmen (Counterfactual Regret Minimization + Varianten, Policy Gradients, etc.).  
-  - Integration mit JAX / TensorFlow / PyTorch möglich.
+- Strengths:
+  - Very modular representation of games (infosets, actions, transitions).  
+  - Clean implementations of classic algorithms (counterfactual regret minimization + variants, policy gradients, etc.).  
+  - Integration with JAX / TensorFlow / PyTorch possible.
 
-- Schwächen:
-  - Für NLHE in voller Komplexität nur als Spiel-Template nutzbar;  
-  - keine Out-of-the-box hoch optimierte NLHE-Lösungsmodule wie Pio/TexasSolver.  
-  - Performance & Abstraktionen sind generisch, nicht NLHE-optimiert.
+- Weaknesses:
+  - For NLHE in full complexity only usable as a game template;  
+  - no out-of-the-box, highly optimized NLHE solving modules like Pio/TexasSolver.  
+  - Performance & abstractions are generic, not NLHE-optimized.
 
-Trotzdem:  
-**Als konzeptionelles & experimentelles Substrat ist OpenSpiel absolut sinnvoll**, insbesondere, um:
-- neue CFR-Varianten, Exploitability-Metriken, OppModel-Algorithmen etc. erstmal in Leduc/Kuhn zu testen,  
-- generische IIGS- (Imperfect Information Game Solving) Pipelines zu validieren.
+Nevertheless:  
+**As a conceptual & experimental substrate, OpenSpiel makes absolute sense**, in particular to:
+- first test new CFR variants, exploitability metrics, OppModel algorithms etc. in Leduc/Kuhn,  
+- validate generic IIGS (Imperfect Information Game Solving) pipelines.
 
-### b) Andere relevante OSS-Bausteine
+### b) Other relevant OSS building blocks
 
 - **ACPC/annual computer poker competition code**  
-  - Legacy, aber gute Referenzen für:  
-    - Game-Abstraction,  
-    - Best-Response-Tools,  
-    - Evaluator.
+  - Legacy, but good references for:  
+    - game abstraction,  
+    - best-response tools,  
+    - evaluators.
 
-- **DeepStack/Deep CFR/Pluribus Open Repos** (teils inoffiziell, teils Reimplementierungen):  
-  - z. B.:
-    - Open-Source „Deep CFR“-Implementierungen (Python/C++/PyTorch)  
-    - RLCard (mehr RL-orientiert, Poker & Kartenspiele, aber weniger game-theoretisch streng)
+- **DeepStack/Deep CFR/Pluribus open repos** (partly unofficial, partly reimplementations):  
+  - e.g.:
+    - open-source "Deep CFR" implementations (Python/C++/PyTorch)  
+    - RLCard (more RL-oriented, poker & card games, but less game-theoretically rigorous)
 
-- **Poker-Spezifische Projekte**:
-  - Es gibt diverse GitHub-Repos für:
-    - Counterfactual Regret Minimization in Texas Hold’em,  
-    - Abstraktion & Bucketing.  
-  - Qualität variiert, aber manche enthalten solide Evaluatoren + CFR-Kerne.
+- **Poker-specific projects**:
+  - There are various GitHub repos for:
+    - counterfactual regret minimization in Texas Hold’em,  
+    - abstraction & bucketing.  
+  - Quality varies, but some contain solid evaluators + CFR cores.
 
-### c) Wann lohnt sich bespoke Tooling?
+### c) When is bespoke tooling worth it?
 
-Mit deinem Setup:
+With your setup:
 
-- **Ihr habt bereits**:
-  - TexasSolver (lokaler Postflop-GTO-Oracle),
-  - GTO-Benchmark (GTO-Gap-Scorer, cached),
+- **You already have**:
+  - TexasSolver (local postflop GTO oracle),
+  - GTO benchmark (GTO gap scorer, cached),
   - OppModel.
 
-Was hier fehlt, was generische Frameworks nicht gut lösen:
+What is missing here, which generic frameworks do not solve well:
 
-1. **Nahtlose Integration von NLHE-Spezifika + High-Performance-Lösungen**
-   - Board-Equity-Evaluatoren,  
-   - Suit-/Isomorphie-Symmetrisierung,  
-   - SPR-Stratifizierung und Subgame-Resolving.
+1. **Seamless integration of NLHE specifics + high-performance solutions**
+   - board equity evaluators,  
+   - suit/isomorphism symmetrization,  
+   - SPR stratification and subgame resolving.
 
-2. **Custom Training-Loops**:
-   - Online Re-solving mit GTO-Oracle-Calls,  
-   - Node-Locking basierend auf OppModel-Schätzungen,  
-   - Exploitability-Budgeting (Regime Blend \(\sigma = (1-\lambda)\cdot \text{GTO} + \lambda\cdot \text{Exploit}\)).
+2. **Custom training loops**:
+   - online re-solving with GTO oracle calls,  
+   - node locking based on OppModel estimates,  
+   - exploitability budgeting (regime blend \(\sigma = (1-\lambda)\cdot \text{GTO} + \lambda\cdot \text{Exploit}\)).
 
-Das spricht **klar für eine eigene Infrastruktur**, aber nicht „from scratch“:
-- Nutze OpenSpiel als **Referenz für Algorithmen** (CFR-Varianten, Exploitability-Berechnung, PSRO-Ideen).  
-- Eure NLHE-Engine (TexasSolver + Abstraktion + Evaluator) ist der eigentliche „Hardware-Sim“.  
-- Baue ein dünnes, gut designtes Interface:
-  - `GameState`-Objekt mit ähnlicher API wie OpenSpiel, aber NLHE-optimiert,  
-  - Adapter für Self-Play / DCFR / ReBeL-like Search, die eure Solver-Calls einbinden.
+This speaks **clearly for your own infrastructure**, but not "from scratch":
+- Use OpenSpiel as a **reference for algorithms** (CFR variants, exploitability computation, PSRO ideas).  
+- Your NLHE engine (TexasSolver + abstraction + evaluator) is the actual "hardware sim".  
+- Build a thin, well-designed interface:
+  - a `GameState` object with an API similar to OpenSpiel, but NLHE-optimized,  
+  - adapters for self-play / DCFR / ReBeL-like search that integrate your solver calls.
 
 ---
 
-4) Konkreter Trainings-Plan für die Pod-Runs
+4) Concrete training plan for the pod runs
 --------------------------------------------
 
-Ziel: In 1 GPU-Stunde **maximalen Fortschritt** bzgl.
-- (a) GTO-Gap auf eurem Benchmark,
-- (b) Exploit bb/100 vs. OppModel / realistische Gegnerprofile.
+Goal: in 1 GPU hour, **maximum progress** regarding
+- (a) the GTO gap on your benchmark,
+- (b) exploit bb/100 vs. OppModel / realistic opponent profiles.
 
-### a) Repräsentation auf dem Pod
+### a) Representation on the pod
 
-**State-Features (Input)**:
-- Öffentliche Infos:
-  - Board (bitmap: 52-Karten-One-Hot oder komprimierte Rank/Suit-Features + Isomorphien),
-  - Potgrösse, effektive Stacks, SPR,
-  - Position (IP/OOP), Street, vergangene Betgrößen (als normalisierte Größen, z. B. Pot-Fraction),
-  - Action-History-Embedding (LSTM/Transformer light oder einfach aggregierte Stats wie „Anzahl Bets/Raises“, Max-Bet-Multiplier etc.).
+**State features (input)**:
+- Public information:
+  - board (bitmap: 52-card one-hot or compressed rank/suit features + isomorphisms),
+  - pot size, effective stacks, SPR,
+  - position (IP/OOP), street, past bet sizes (as normalized sizes, e.g. pot fraction),
+  - action-history embedding (LSTM/Transformer light or simply aggregated stats like "number of bets/raises", max-bet multiplier etc.).
 
-- Private Infos:
-  - Eigene Hole Cards (One-Hot oder embed),
-  - optional: Bucket-ID (wenn du Abstraktion nutzt).
+- Private information:
+  - own hole cards (one-hot or embed),
+  - optional: bucket ID (if you use abstraction).
 
-**Outputs** (Policy/Value):
+**Outputs** (policy/value):
 
-- **Policy Head**:  
-  - Wahrscheinlichkeitsverteilung über diskrete Aktionen (Fold, Call, Raise {x1/2, x2/3, Pot, All-In, …}).  
-  - Optional Multi-Head: separater Head für Bluff/Value classifiers, falls du polarisierte Strukturen forcieren willst.
+- **Policy head**:  
+  - probability distribution over discrete actions (fold, call, raise {x1/2, x2/3, pot, all-in, …}).  
+  - Optional multi-head: a separate head for bluff/value classifiers, if you want to force polarized structures.
 
-- **Value Head**:  
-  - CFV-Schätzung unter aktueller (oder Ziel-)Policy \(\hat{v}_\theta(I)\).  
-  - Optional: Value-Head per Handklasse (z. B. 169/1326-Buckets), nützlich für Node-Locking/Range-Visualisierung.
+- **Value head**:  
+  - CFV estimate under the current (or target) policy \(\hat{v}_\theta(I)\).  
+  - Optional: value head per hand class (e.g. 169/1326 buckets), useful for node locking/range visualization.
 
-### b) Trainingsziel/e in 1h: Kombination aus 3 Loss-Komponenten
+### b) Training objective(s) in 1h: combination of 3 loss components
 
-**1. Supervised + distillation von TexasSolver (GTO-Oracle):**
+**1. Supervised + distillation from TexasSolver (GTO oracle):**
 
-- Nutze gecachte GTO-Stategien als „Ground Truth“ in vielen Spots (bereits vorhanden durch dein Benchmarking).  
-- Loss-Komponenten:
-  - Policy-Distillation:  
+- Use cached GTO strategies as "ground truth" in many spots (already available through your benchmarking).  
+- Loss components:
+  - Policy distillation:  
     \[
     \mathcal{L}_{\text{policy}} = \mathbb{E}_I \left[ D_{\text{KL}}\big(\pi_\theta(\cdot\mid I) \|\; \pi_{\text{GTO}}(\cdot\mid I)\big) \right]
     \]
-  - Value-Distillation:
+  - Value distillation:
     \[
     \mathcal{L}_{\text{value}} = \mathbb{E}_I \left[ \|\hat{v}_\theta(I) - v_{\text{GTO}}(I)\|^2 \right]
     \]
 
-Das ist sehr compute-effizient:
-- Oracle-/Benchmark-Daten sind gecached.  
-- In 1h kannst du sehr viele Batches durchschieben (reines Feedforward + Backprop).  
-- Ergebnis: kleiner, schnell evaluierbarer „approx-GTO-Netz“, das weite Bereiche des Zustandsraums abdeckt.
+This is very compute-efficient:
+- Oracle/benchmark data are cached.  
+- In 1h you can push a great many batches through (pure feedforward + backprop).  
+- Result: a small, quickly evaluable "approx-GTO net" that covers wide areas of the state space.
 
-**2. Exploit-Learning vs OppModel (mit Exploitability-Budget)**
+**2. Exploit learning vs OppModel (with exploitability budget)**
 
-Parallel (oder in späterer Phase desselben Runs):
+In parallel (or in a later phase of the same run):
 
-- Sammle Self-Play/Off-Policy Daten, bei denen PokerB gegen:
-  - reine GTO-approx-Policy, und  
-  - OppModel-Policy (realistische Gegner) spielt.
+- Collect self-play/off-policy data in which PokerB plays against:
+  - a pure GTO-approx policy, and  
+  - the OppModel policy (realistic opponents).
 
-- Ziel: Lerne eine **Exploit-Policy** \(\pi_\theta^{\text{exploit}}\), aber mit Soft-Constraint auf GTO-Nähe.
+- Goal: learn an **exploit policy** \(\pi_\theta^{\text{exploit}}\), but with a soft constraint on GTO proximity.
 
 Loss:
 
-- EV-Metrik vs OppModel:
+- EV metric vs OppModel:
   \[
   \mathcal{L}_{\text{exploit}} = -\mathbb{E}_{\text{episodes}}[ \text{bb/100 vs OppModel} ]
   \]
-- plus Regularisierung:
+- plus regularization:
   \[
   \mathcal{R} = \mathbb{E}_I D_{\text{KL}}\big(\pi_\theta^{\text{exploit}}(\cdot\mid I) \|\; \pi_\theta^{\text{GTO-approx}}(\cdot\mid I)\big)
   \]
-- Gesamt:
+- Total:
   \[
   \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{policy}} + \beta \mathcal{L}_{\text{value}} + \gamma \mathcal{L}_{\text{exploit}} + \lambda \mathcal{R}
   \]
 
-mit:
-- \(\beta\): Gewichtung Value-Distillation,
-- \(\gamma\): Fokus auf Exploit-Update in dieser Pod-Session,
-- \(\lambda\): Exploitability-Budget-Kontrolle (Regime-Blending).
+with:
+- \(\beta\): weighting of value distillation,
+- \(\gamma\): focus on the exploit update in this pod session,
+- \(\lambda\): exploitability-budget control (regime blending).
 
-**Compute-Effizienz:**
-- Du kannst viele Off-Policy-Transitions aus vorhandenen Simulationen recyceln (Replay Buffer).  
-- Neue Episoden gegen OppModel können parallel auf vielen CPUs laufen; GPU macht nur Training.  
-- 1h reicht, um signifikante Updates zu machen, solange das Netz schlank ist (z. B. < 50M Parameter).
+**Compute efficiency:**
+- You can recycle many off-policy transitions from existing simulations (replay buffer).  
+- New episodes against OppModel can run in parallel on many CPUs; the GPU only does training.  
+- 1h is enough to make significant updates, as long as the net is lean (e.g. < 50M parameters).
 
-**3. Direkte Optimierung der GTO-Gap über DCFR-like Objective (optional)**
+**3. Direct optimization of the GTO gap via a DCFR-like objective (optional)**
 
-Wenn du Exploitability schätzen kannst (z. B. über approximierten Best-Response oder existierenden Benchmark), könntest du:
+If you can estimate exploitability (e.g. via an approximate best response or an existing benchmark), you could:
 
-- GTO-Gap als Differenz zwischen:
-  - Wert unter deiner Policy,  
-  - Wert unter Oracle-GTO.  
-- Minimieren via:
-  - Gradient-basierter Policy-Optimierung (bewusst einfache Policy Gradient / advantage actor-critic),  
-  - oder CFR-ähnlichen Updates, bei denen Regrets in einem Netz gespeichert werden (Deep CFR).
+- define the GTO gap as the difference between:
+  - the value under your policy,  
+  - the value under the oracle GTO.  
+- Minimize it via:
+  - gradient-based policy optimization (deliberately simple policy gradient / advantage actor-critic),  
+  - or CFR-like updates in which regrets are stored in a net (Deep CFR).
 
-Für 1h-Runs ist aber meist **Policy-/Value-Distillation + leichte RL-Exploit-Komponente** effizienter als vollwertiges CFR-Training.
+For 1h runs, however, **policy/value distillation + a light RL exploit component** is usually more efficient than full-fledged CFR training.
 
-### c) Meta-Coach (Claude Haiku) im Loop
+### c) Meta-coach (Claude Haiku) in the loop
 
-Claude kann sinnvoll eingesetzt werden, um:
+Claude can be used sensibly to:
 
-1. **Hyperparameter-Suche im Kleinen zu steuern**:
-   - nach jedem Pod-Run:
-     - GTO-Gap-Change,
-     - Exploit-bb/100-Change,
-     - Exploitability-Budget (Effektive KL-Entfernung von GTO).  
-   - Claude bewertet: welche Loss-Gewichtungen (\(\beta, \gamma, \lambda\)) funktionierten,  
-   - schlägt neue Konfigurationen / Curriculum-Schritte vor.
+1. **Steer small-scale hyperparameter search**:
+   - after each pod run:
+     - GTO gap change,
+     - exploit bb/100 change,
+     - exploitability budget (effective KL distance from GTO).  
+   - Claude evaluates which loss weightings (\(\beta, \gamma, \lambda\)) worked,  
+   - proposes new configurations / curriculum steps.
 
-2. **Curriculum-Design**:
-   - Reihenfolge der Spots, die stärker trainiert werden sollen (z. B. River-Entscheidungen mit hohem EV-Impact zuerst).  
-   - Identifikation von Boardklassen, in denen GTO-Gap besonders groß ist → fokussiertes Retraining.
+2. **Curriculum design**:
+   - Order of the spots that should be trained more heavily (e.g. river decisions with high EV impact first).  
+   - Identification of board classes in which the GTO gap is particularly large → focused retraining.
 
-3. **Node-Locking-Policy**:
-   - vorgeschlagene Node-Locks gegen OppModel (z. B. „Vs. dieser Gegner: im 3bet-Pot check-raise-Frequenz in Spots X/Y erhöhen“), die dann durch TexasSolver lokal verifiziert und in die Trainingdaten integriert werden.
+3. **Node-locking policy**:
+   - proposed node locks against OppModel (e.g. "Vs. this opponent: increase the check-raise frequency in the 3bet pot in spots X/Y"), which are then verified locally by TexasSolver and integrated into the training data.
 
 ---
 
-Kurzfassung Handlungsplan:
+Summary of the action plan:
 
-1. **Representation fixieren**: kompaktes Policy+Value-Netz mit reichhaltigen, aber leichtgewichtigen Features (Board, History, Cards, SPR).  
-2. **Analytische Theorie als Prior**: Policy init auf Chen/MDF-Variante, Soft-Regularisierung gegen diese Heuristik mit annealing.  
-3. **Gecachte Oracle-Daten ausnutzen**: Distillation von TexasSolver-GTO in großem Batch-Training → GTO-Gap schnell reduzieren.  
-4. **Exploit-Komponente**: kleine RL-Schicht darauf, die vs. OppModel EV maximiert, aber KL-gebunden an GTO-approx bleibt (Exploitability-Budget).  
-5. **Bespoke Tooling**: eure TexasSolver+Abstraktion ist die „Hardware“, mit einem dünnen, OpenSpiel-inspirierten, aber NLHE-spezifischen Solver-/Training-Interface oben drauf.  
-6. **1h-Pod-Run**:  
-   - ~70–80% Zeit Distillation / GTO-Gap-Minimierung,  
-   - ~20–30% Zeit Exploit-Finetuning vs OppModel & Replay,  
-   - nach dem Run: evaluieren, Hyperparameter adaptieren (Meta-Coach).
+1. **Fix the representation**: a compact policy+value net with rich but lightweight features (board, history, cards, SPR).  
+2. **Analytical theory as a prior**: policy init on a Chen/MDF variant, soft regularization against this heuristic with annealing.  
+3. **Exploit cached oracle data**: distillation of TexasSolver GTO in large-batch training → reduce the GTO gap quickly.  
+4. **Exploit component**: a small RL layer on top that maximizes EV vs. OppModel but stays KL-bound to the GTO approx (exploitability budget).  
+5. **Bespoke tooling**: your TexasSolver+abstraction is the "hardware", with a thin, OpenSpiel-inspired but NLHE-specific solver/training interface on top.  
+6. **1h pod run**:  
+   - ~70–80% of the time distillation / GTO-gap minimization,  
+   - ~20–30% of the time exploit fine-tuning vs OppModel & replay,  
+   - after the run: evaluate, adapt hyperparameters (meta-coach).
 
 ## Claude claude-opus-4-8
 
-# Antwort: Pod-Foundation konkret machen
+# Answer: Making the pod foundation concrete
 
-## 1) Recursive-ToM-LLM auf Hand Histories — wertvoll oder Essay?
+## 1) Recursive-ToM LLM on hand histories — valuable or essay?
 
-**Urteil: Als Trainingssignal weitgehend Essay. Als Konzept-Miner und Test-Generator wertvoll — aber nur in stark eingeschränkter Form.**
+**Verdict: As a training signal, largely essay. As a concept miner and test generator valuable — but only in a strongly restricted form.**
 
-Das Problem mit "rekursiver ToM über alle Spieler" als Lernsignal: Es ist nicht *grounded*. Die LLM-Prosa ("er denkt, dass ich denke…") produziert keine überprüfbaren EVs. Du hast aber bereits den GTO-Benchmark als ground truth — jedes LLM-ToM-Argument muss sich daran messen lassen, sonst ist es Geschwätz. **Verwende den Benchmark als Lügendetektor für die LLM-Reasoning.**
+The problem with "recursive ToM over all players" as a learning signal: it is not *grounded*. The LLM prose ("he thinks that I think…") produces no verifiable EVs. But you already have the GTO benchmark as ground truth — every LLM ToM argument must be measured against it, otherwise it is chatter. **Use the benchmark as a lie detector for the LLM reasoning.**
 
-Wo es konkret Wert hat (nach Priorität):
+Where it has concrete value (by priority):
 
-- **(a) Spot-Generator / Stress-Test-Miner — JA.** Haiku liest Hand Histories und schlägt *Knotenkategorien* vor, in denen Blocker / Polarisierung / Range-Asymmetrie entscheidend sind ("hier hängt alles am Nut-Blocker"). Das sind Kandidaten-Spots, die du dann **mit dem Solver verifizierst**. Output: eine kuratierte, schwierigkeitsgewichtete Spot-Liste für den Benchmark — genau da, wo dein Bot wahrscheinlich am meisten GTO-Gap hat.
-- **(b) Feature-Discovery — JA, begrenzt.** Wenn die LLM-ToM konsistent auf eine Größe zeigt, die in deinem Encoding fehlt (z.B. "Anzahl der Nut-Combos, die mein Holding blockt"), ist das ein konkreter Feature-Vorschlag. Das ist billig zu testen: Feature rein → GTO-Gap auf Benchmark fällt? behalten.
-- **(c) Direktes Policy-Signal — NEIN.** Ablenkung. LLM-ToM-Text in Loss-Funktionen zu gießen ist teuer, rauschig und vom Solver dominiert.
+- **(a) Spot generator / stress-test miner — YES.** Haiku reads hand histories and proposes *node categories* in which blockers / polarization / range asymmetry are decisive ("here everything hinges on the nut blocker"). These are candidate spots that you then **verify with the solver**. Output: a curated, difficulty-weighted spot list for the benchmark — exactly where your bot likely has the largest GTO gap.
+- **(b) Feature discovery — YES, limited.** If the LLM ToM consistently points to a quantity that is missing from your encoding (e.g. "number of nut combos my holding blocks"), that is a concrete feature proposal. This is cheap to test: feature in → GTO gap on the benchmark drops? keep.
+- **(c) Direct policy signal — NO.** Distraction. Pouring LLM ToM text into loss functions is expensive, noisy and dominated by the solver.
 
-**Operationalisierung (gehört NICHT in den Hot-Pod-Loop, sondern offline davor):**
+**Operationalization (does NOT belong in the hot pod loop, but offline before it):**
 ```
-HH → Haiku: "markiere Knoten, wo ToM/Blocker/Polarisierung den Baum kippt"
-   → Solver verifiziert jeden markierten Knoten (CFV-Sensitivität)
-   → behalte nur Knoten mit hoher CFV-Varianz → "Hard-Spot-Set"
-   → speise Hard-Spot-Set in den Benchmark ein (Gewichtung)
+HH → Haiku: "mark nodes where ToM/blockers/polarization tip the tree"
+   → solver verifies every marked node (CFV sensitivity)
+   → keep only nodes with high CFV variance → "hard-spot set"
+   → feed the hard-spot set into the benchmark (weighting)
 ```
-Das **füttert** den Pod-Run (besseres Eval-Set), läuft aber asynchron auf CPU.
+This **feeds** the pod run (better eval set), but runs asynchronously on CPU.
 
 ---
 
-## 2) Chen/MDF-Schwellen als Priors — der Self-Improvement-Loop
+## 2) Chen/MDF thresholds as priors — the self-improvement loop
 
-Genau richtig und sofort buildbar. Deine hand-coded Baseline ist eine *parametrisierte Policy* π_θ mit kleinem θ (Open-%, 3bet-%, MDF-Fudge, c-bet-Größen, Polarisierungs-Cutoffs). Das ist ein niedrigdimensionales, billig-evaluierbares Optimierungsproblem — perfekt für CPU + Haiku-Coach.
+Exactly right and buildable immediately. Your hand-coded baseline is a *parametrized policy* π_θ with a small θ (open %, 3bet %, MDF fudge, c-bet sizes, polarization cutoffs). That is a low-dimensional, cheaply evaluable optimization problem — perfect for CPU + Haiku coach.
 
-**Der Loop (CPU-only, kein GPU nötig):**
+**The loop (CPU-only, no GPU needed):**
 ```
-θ_0 = Chen/MDF-Defaults (gute Priors → schneller Start)
+θ_0 = Chen/MDF defaults (good priors → fast start)
 loop:
   1. PROPOSE θ':
-       - Haiku schlägt strukturierte Edits vor ("erhöhe BTN-open 2%, polarisiere Turn-bet")
-       - PARALLEL: CMA-ES / Bayes-Opt schlägt numerische Schritte vor
-  2. EVALUATE: GTO-Gap(π_θ') auf gewichtetem Spot-Set  (Sekunden, gecacht)
-  3. ACCEPT wenn Gap sinkt (mit Exploitability-Budget als Constraint)
-  4. LOG (θ', gap, welcher Proposer) → füttert Haiku als Kontext zurück
+       - Haiku proposes structured edits ("raise BTN open by 2%, polarize the turn bet")
+       - IN PARALLEL: CMA-ES / Bayes-opt proposes numerical steps
+  2. EVALUATE: GTO-Gap(π_θ') on the weighted spot set  (seconds, cached)
+  3. ACCEPT if the gap drops (with the exploitability budget as a constraint)
+  4. LOG (θ', gap, which proposer) → fed back to Haiku as context
 ```
 
-**Wichtige Designentscheidungen:**
-- **Haiku ist Vorschlags-Proposer, nicht Schiedsrichter.** Akzeptanz entscheidet *immer* der Benchmark. Haiku gewinnt nur, wenn es schneller in gute Regionen springt als blinde Suche — das misst du (Accept-Rate pro Proposer).
-- **θ pro Subgame-Klasse** (per SPR-Bucket × Initiative × Board-Textur), nicht global. Sonst mittelt sich alles weg.
-- **Exploitability-Budget als harte Nebenbedingung**, nicht als Term im Loss — sonst optimiert der Loop sich in ausnutzbare Ecken.
+**Important design decisions:**
+- **Haiku is a proposer, not a referee.** Acceptance is *always* decided by the benchmark. Haiku only wins if it jumps into good regions faster than blind search — you measure that (accept rate per proposer).
+- **θ per subgame class** (per SPR bucket × initiative × board texture), not global. Otherwise everything averages out.
+- **Exploitability budget as a hard constraint**, not as a term in the loss — otherwise the loop optimizes itself into exploitable corners.
 
-Dieser Loop ist auch dein **Dry-Run** für die Pod-Infrastruktur: gleiche propose→eval→accept-Schleife, nur dass auf dem Pod ein neuronales π_θ und DCFR-Updates die Rolle von CMA-ES übernehmen.
-
----
-
-## 3) Was VOR dem Pod-Launch fertig sein muss — geordnet
-
-Prinzip: **Der Pod darf erst laufen, wenn die Reward-/Eval-Pipeline wasserdicht ist.** Ein GPU-Pod, der gegen einen falschen oder langsamen Benchmark optimiert, verbrennt Geld in die falsche Richtung.
-
-**Tier 0 — Eval-Integrität (Blocker, ohne das kein Launch):**
-1. **Benchmark als API mit stabilem Contract**: `gto_gap(policy, spot_set) → scalar + per-node breakdown`, deterministisch, gecacht, < Sekunden. Das ist dein Reward-Signal — es muss bombenfest sein.
-2. **Exploitability-Budget-Check als separater Gate**: jede Policy bekommt `(gto_gap, exploitability)`. Akzeptanz nur wenn beide ok.
-3. **Spot-Set fixiert + versioniert** (inkl. des Hard-Spot-Set aus §1a, falls fertig — sonst ohne, kein Blocker).
-
-**Tier 1 — Loop-Mechanik auf CPU validieren (vor GPU):**
-4. **Der §2-Loop läuft end-to-end** auf der Baseline und senkt nachweislich den Gap. Wenn das auf CPU nicht funktioniert, funktioniert es auf dem Pod auch nicht — nur teurer.
-5. **State-Encoding eingefroren**: Public-Obs + Karten-Bits + Suit-Pattern + Blocker-Counts (das eine Feature aus §1b, falls verifiziert). Encoding-Änderungen mitten im Pod-Run = Neustart.
-
-**Tier 2 — Pod-spezifisch (das eigentlich Neue):**
-6. **Kleines on-pod π_θ-Netz** (Policy + Value-Head), das dasselbe Encoding frisst und am selben Benchmark gemessen wird.
-7. **DCFR-Update-Schleife** über subgame-resolved CFVs, Value-Net als Bootstrap an Subgame-Blättern (die etablierte GTO-Abkürzung: re-solve + abstraction + value-fn + SPR + DCFR).
-8. **Haiku-Meta-Coach-Hook**: gleiche Schnittstelle wie im CPU-Loop, schlägt jetzt Hyperparameter / Abstraktions-Edits / Node-Lock-Targets vor.
-
-**Bewusst NICHT vor dem Launch (Ablenkungen):**
-- Volle ReBeL-Belief-Search — zu schwer, später.
-- DeepNash/R-NaD-Pfad — anderer Paradigmen-Ast, jetzt parallelisiert die Aufmerksamkeit. Parken.
-- LLM-ToM als Loss-Signal (§1c).
-- 6-max / Multiway — erst 2p zero-sum sauber (nur da gilt deine no-regret→Nash-Garantie).
+This loop is also your **dry run** for the pod infrastructure: the same propose→eval→accept loop, except that on the pod a neural π_θ and DCFR updates take over the role of CMA-ES.
 
 ---
 
-## 4) Das EINE höchste-Hebel-Ding zuerst auf den Pod
+## 3) What must be finished BEFORE the pod launch — in order
 
-**Die Reward-Pipeline als Pod-Service: `gto_gap` + Exploitability-Gate, als der gemeinsame, deterministische, schnelle Fitness-Operator, an den sowohl der CPU-Prior-Loop (§2) als auch das on-pod π_θ (§3-Tier2) andocken.**
+Principle: **The pod may only run once the reward/eval pipeline is watertight.** A GPU pod that optimizes against a wrong or slow benchmark burns money in the wrong direction.
 
-Begründung: Alles andere — Haiku-Coach, DCFR, Prior-Tuning, neuronale Policy — ist nur ein *Proposer*. Der Benchmark ist der *Selektor*. In jedem Selbstverbesserungs-System bestimmt die Qualität und Geschwindigkeit des Selektors die Qualität des Endprodukts; ein starker Proposer mit schwachem Selektor optimiert konfident in die falsche Richtung. Du hast den Selektor schon (TexasSolver-Oracle + gecachter Benchmark) — der höchste Hebel ist, ihn als **stabilen, deterministischen, sub-sekunden-schnellen Service** zu härten, an dem CPU- und GPU-Welt austauschbar hängen.
+**Tier 0 — eval integrity (blocker, no launch without it):**
+1. **Benchmark as an API with a stable contract**: `gto_gap(policy, spot_set) → scalar + per-node breakdown`, deterministic, cached, < seconds. This is your reward signal — it must be rock-solid.
+2. **Exploitability-budget check as a separate gate**: every policy gets `(gto_gap, exploitability)`. Acceptance only if both are ok.
+3. **Spot set fixed + versioned** (incl. the hard-spot set from §1a, if finished — otherwise without it, not a blocker).
 
-Konkret heißt "zuerst": Tier-0 fertig, dann den §2-CPU-Loop daran laufen lassen, *Gap-senkt-nachweislich* verifizieren — **erst dann** GPU-Strom anschalten.
+**Tier 1 — validate the loop mechanics on CPU (before GPU):**
+4. **The §2 loop runs end-to-end** on the baseline and demonstrably lowers the gap. If this does not work on CPU, it will not work on the pod either — just more expensively.
+5. **State encoding frozen**: public obs + card bits + suit pattern + blocker counts (the one feature from §1b, if verified). Encoding changes in the middle of a pod run = restart.
+
+**Tier 2 — pod-specific (the actually new part):**
+6. **Small on-pod π_θ net** (policy + value head) that consumes the same encoding and is measured on the same benchmark.
+7. **DCFR update loop** over subgame-resolved CFVs, value net as a bootstrap at the subgame leaves (the established GTO shortcut: re-solve + abstraction + value-fn + SPR + DCFR).
+8. **Haiku meta-coach hook**: same interface as in the CPU loop, now proposes hyperparameters / abstraction edits / node-lock targets.
+
+**Deliberately NOT before the launch (distractions):**
+- Full ReBeL belief search — too hard, later.
+- DeepNash/R-NaD path — a different paradigm branch, right now it splits the attention. Park it.
+- LLM ToM as a loss signal (§1c).
+- 6-max / multiway — first clean 2p zero-sum (only there does your no-regret→Nash guarantee hold).
+
+---
+
+## 4) The ONE highest-leverage thing to put on the pod first
+
+**The reward pipeline as a pod service: `gto_gap` + exploitability gate, as the shared, deterministic, fast fitness operator that both the CPU prior loop (§2) and the on-pod π_θ (§3-Tier2) dock onto.**
+
+Rationale: everything else — Haiku coach, DCFR, prior tuning, neural policy — is only a *proposer*. The benchmark is the *selector*. In every self-improvement system, the quality and speed of the selector determine the quality of the end product; a strong proposer with a weak selector optimizes confidently in the wrong direction. You already have the selector (TexasSolver oracle + cached benchmark) — the highest leverage is to harden it into a **stable, deterministic, sub-second service** on which the CPU and GPU worlds hang interchangeably.
+
+Concretely, "first" means: Tier 0 finished, then run the §2 CPU loop against it, verify *gap-demonstrably-drops* — **only then** switch on the GPU power.

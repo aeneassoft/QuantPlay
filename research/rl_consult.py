@@ -1,6 +1,6 @@
 """Parallel frontier consult for the RL run (user directive): OpenAI = RL KNOWLEDGE (what makes our poker GRPO actually
 LIFT bb/100 above SFT), Claude = TECHNICAL IMPLEMENTATION in OUR build (GLM-Z1-9B wiring + RTX PRO 6000 local-train +
-qwen_grpo). Saves docs/rl_consult_openai.md + docs/rl_consult_claude.md. Frontier = a GATED PRIOR — verify before applying.
+qwen_grpo). Saves docs/consults/rl_consult_openai.md + docs/consults/rl_consult_claude.md. Frontier = a GATED PRIOR — verify before applying.
 Run:  python -m research.rl_consult
 """
 from __future__ import annotations
@@ -37,7 +37,7 @@ def _oai_obj(props):
 
 def main() -> None:
     context = (BRIEF
-               + "\n\n=== docs/RL_RUNCARD.md (our consolidated run-card) ===\n" + _read("docs/RL_RUNCARD.md")
+               + "\n\n=== docs/plans/RL_RUNCARD.md (our consolidated run-card) ===\n" + _read("docs/plans/RL_RUNCARD.md")
                + "\n\n=== training/qwen_grpo.py (the actual DAPO/GRPO trainer) ===\n" + _read("training/qwen_grpo.py"))
 
     # ---- OpenAI: RL KNOWLEDGE ----
@@ -56,11 +56,11 @@ def main() -> None:
     oai_user = ("Give the RL KNOWLEDGE that most increases P(the lift happens) for THIS setup:\n" + context)
     print("consulting OpenAI (RL knowledge) ...", flush=True)
     oai, oai_use = openai_json(oai_sys, oai_user, oai_schema, "rl_knowledge", max_tokens=9000)
-    (ROOT / "docs" / "rl_consult_openai.md").write_text(
+    (ROOT / "docs" / "consults" / "rl_consult_openai.md").write_text(
         "# RL consult — OpenAI (RL knowledge)\n\n" + "\n\n".join(
             f"## {k}\n{v if not isinstance(v, list) else chr(10).join('- ' + str(x) for x in v)}"
             for k, v in oai.items()), encoding="utf-8")
-    print(f"  OpenAI done (tokens {oai_use}) -> docs/rl_consult_openai.md", flush=True)
+    print(f"  OpenAI done (tokens {oai_use}) -> docs/consults/rl_consult_openai.md", flush=True)
 
     # ---- Claude: TECHNICAL IMPLEMENTATION IN OUR BUILD ----
     cl_sys = ("You are a senior ML engineer giving a CONCRETE, file-level technical implementation plan for THIS exact "
@@ -75,9 +75,9 @@ def main() -> None:
                "changes to make the RL actually LIFT. Be specific to the files shown.\n\n" + context)
     print("consulting Claude (technical implementation) ...", flush=True)
     cl_text, cl_use = ask_claude(cl_sys, cl_user, thinking=True, max_tokens=10000)
-    (ROOT / "docs" / "rl_consult_claude.md").write_text(
+    (ROOT / "docs" / "consults" / "rl_consult_claude.md").write_text(
         "# RL consult — Claude (technical implementation in our build)\n\n" + cl_text, encoding="utf-8")
-    print(f"  Claude done (tokens {cl_use}) -> docs/rl_consult_claude.md", flush=True)
+    print(f"  Claude done (tokens {cl_use}) -> docs/consults/rl_consult_claude.md", flush=True)
     print("CONSULTS COMPLETE.", flush=True)
 
 

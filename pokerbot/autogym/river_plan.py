@@ -1,4 +1,4 @@
-"""K2 — OEFFENTLICHER RIVER-PLAN (v10 Build-Karte docs/V10_BUILD_CARD.md, Entscheidungen E1/E4/E5/E7).
+"""K2 — OEFFENTLICHER RIVER-PLAN (v10 Build-Karte docs/plans/V10_BUILD_CARD.md, Entscheidungen E1/E4/E5/E7).
 
 WARUM: der v8/v9-`river_play_guard` (improver.py:535-604) gated JE ENTSCHEIDUNG am aktuellen Pot, loeste je
 Entscheidung neu (B=1), snappte Off-Tree-Sizes stumm und hashte die HERO-HOLE in den Sampling-Schluessel

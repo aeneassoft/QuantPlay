@@ -1,6 +1,6 @@
 """Task #35: extract the EXACT per-texture GTO bet frequencies (OOP-donk node + IP-c-bet node) from the
 1340-board TexasSolver cache -> knowledge_base/postflop/texture_freqs.json. Replaces the heuristic donk/c-bet
-constants (the NOTES.md deferred-precision item). Same unweighted-over-combos convention as floor_map's GTO-bet.
+constants (the docs/NOTES.md deferred-precision item). Same unweighted-over-combos convention as floor_map's GTO-bet.
 Run: python -m extraction.texture_freqs
 """
 from __future__ import annotations

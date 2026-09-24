@@ -260,7 +260,7 @@ def pick_value_size(pot: int, model, street: str, hero_committed: int, hero_stac
 # Known approximation (documented): per-pair blocker removal between the two ranges is skipped (hero's own combo
 # IS exact vs every villain combo); acceptable for a sizing gate, not for a solve.
 ECALL_SIZES = [0.35, 0.65, 1.0, 1.5]     # the census river grid (GTOW's own arms) + the jam added by the caller
-# PRINCEDARKNESS OVERBET MENU (2026-07-06, mined from the user's own 1,078-hand catalog: 43% of his river
+# HUMAN-CATALOG OVERBET MENU (2026-07-06, mined from a 1,078-hand human river catalog: 43% of his river
 # bets are >1.5x pot, river-raises 62% — the +98bb-jam pattern): widen the VALUE-SIZE menu with 2.0x/2.5x
 # arms. NOT a frequency lever (the 4x-refuted class): the selection-aware eCall chooser still requires
 # eq-vs-the-range-that-CALLS-that-size to clear its threshold — bigger arms only win the argmax where the

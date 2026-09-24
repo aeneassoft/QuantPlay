@@ -198,9 +198,9 @@ def make_config(out_dir: str):
         output_dir=out_dir,
         loss_type="dapo", epsilon=0.2, epsilon_high=0.28,
         beta=float(os.environ.get("BETA", "0.0")),     # KL coef. 0 = DAPO (no ref model, RL diverges from the SFT teacher).
-        #                                                Poker reward is noisy + reward-hacking-prone (qwen_train_claude.md
+        #                                                Poker reward is noisy + reward-hacking-prone (docs/consults/qwen_train_claude.md
         #                                                recommends 0.04-0.1) -> raise BETA if GATE-5/entropy shows collapse
-        #                                                (costs a ref model in memory). See docs/RL_RUNCARD.md.
+        #                                                (costs a ref model in memory). See docs/plans/RL_RUNCARD.md.
         scale_rewards=False, mask_truncated_completions=True, num_iterations=1,
         num_generations=int(os.environ.get("NUM_GEN", "8")),
         generation_batch_size=int(os.environ.get("GEN_BATCH", "64")),

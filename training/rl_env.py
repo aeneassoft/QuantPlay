@@ -7,7 +7,7 @@ A policy is any callable `policy(table, seat) -> (action: str, amount_chips: int
   * a league bot    -> obs_for -> decide                                                    (self-play / baselines)
 The hero seat is fixed (default 0) but the BUTTON rotates each hand, so the hero plays every position over a run.
 Per-hand net = realized chips won − chips committed (chips are conserved within a hand -> a zero-sum invariant we test).
-Per docs/QWEN_6MAX_PLAN.md.
+Per docs/plans/QWEN_6MAX_PLAN.md.
 """
 from __future__ import annotations
 

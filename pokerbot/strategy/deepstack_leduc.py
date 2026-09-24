@@ -1,4 +1,4 @@
-"""GATE 0 of the value-net plan (docs/VALUE_NET_PLAN.md): DeepStack-style CFV value net + continual re-solving on
+"""GATE 0 of the value-net plan (docs/plans/VALUE_NET_PLAN.md): DeepStack-style CFV value net + continual re-solving on
 LEDUC, validated against EXACT exploitability. This proves the value-net+resolving MACHINERY is correct for ~$0
 BEFORE any HUNL/GPU compute (the discipline that would have caught the fcpa −212).
 

@@ -1,4 +1,4 @@
-"""Build the 4 ORDERED curriculum shards (docs/llm_curriculum.md): a_contract -> b_ground -> c_decide -> d_exploit.
+"""Build the 4 ORDERED curriculum shards (docs/plans/llm_curriculum.md): a_contract -> b_ground -> c_decide -> d_exploit.
 
 The LLM curriculum (for an LLM, not a human): the base already KNOWS poker concepts + Python, so we teach the 3 things
 it lacks, in order — (a) the output CONTRACT (always emit a valid program), via the CLEAREST engine-oracle decisions;

@@ -1,437 +1,437 @@
 # Mathematical shortcut to GTO? (OpenAI gpt-5.1)
 
-Ich beantworte die Frage direkt:  
-Es gibt **keinen bekannten mathematischen „Trick“**, der NLHE-GTO im vollen 100–200bb‑Game in polynomieller Zeit oder „Kopfrechnen‑artig“ liefert.  
-Es gibt aber eine **praktische Abkürzung**: *Subgame‑Re‑Solving mit Abstraktion + starker Wertfunktion* (DeepStack/Libratus‑Stil). Das ist der zentrale Shortcut, und auf Workstation‑Hardware absolut realisierbar – allerdings immer noch mit signifikantem Rechenaufwand und ohne theoretische Garantien für kleine Exploitability.
+I'll answer the question directly:  
+There is **no known mathematical "trick"** that delivers NLHE GTO in the full 100–200bb game in polynomial time or "mental-arithmetic style".  
+But there is a **practical shortcut**: *subgame re-solving with abstraction + a strong value function* (DeepStack/Libratus style). That is the central shortcut, and absolutely feasible on workstation hardware – though still with significant computational effort and without theoretical guarantees of small exploitability.
 
-Im Detail zu deinen Punkten:
+In detail on your points:
 
 ---
 
-## 1) Komplexitäts‑Untergrenze: Wie groß ist volles NLHE, und ist große Rechenarbeit unvermeidbar?
+## 1) Complexity lower bound: How large is full NLHE, and is heavy computation unavoidable?
 
-### Größenordnung des Spiels
+### Order of magnitude of the game
 
-Ein paar etablierte Vergleichszahlen (heads‑up, Limit/NL):
+A few established reference numbers (heads-up, limit/NL):
 
-- **Kuhn Poker**: 3 Karten, 2 Spieler, 1 Setzrunde → exakt gelöst, winzige Spielbäume.
+- **Kuhn Poker**: 3 cards, 2 players, 1 betting round → solved exactly, tiny game trees.
 - **Heads‑Up Limit Hold’em (HULHE)**:  
-  Bowling et al. (2015) geben:
-  - ca. \(3\times 10^{14}\) Informationssets insgesamt
-  - wurde „essentially weakly solved“ mit massiver CFR‑Rechnung.
-- **Heads‑Up No‑Limit Hold’em (HUNL), 200bb, volle Betfreiheit**:  
-  Zahl der Information Sets liegt (je nach Modellierung der Betgrößen) im Bereich von **mindestens** \(10^{16} - 10^{18}\) Infosets, eher noch mehr, weil:
-  - Private Karten: \(\binom{52}{2} \approx 1{,}3\times 10^{3}\) Starting Hands.
-  - Boards: Flop \(\binom{50}{3}\approx 19{,}6\times 10^{3}\), Turn \(\binom{47}{1}=47\), River \(\binom{46}{1}=46\).  
-    Produkt über Streets → \(\mathcal O(10^{8})\) mögliche Boards.
-  - Betfolgen: mit „continuous‑ähnlicher“ Betauswahl (z.B. beliebige Beträge in [1, Stack]) zahlt man exponentiell im maximalen Anzahl Bets pro Straße.
+  Bowling et al. (2015) give:
+  - approx. \(3\times 10^{14}\) information sets in total
+  - was "essentially weakly solved" with massive CFR computation.
+- **Heads-Up No-Limit Hold’em (HUNL), 200bb, full bet freedom**:  
+  The number of information sets lies (depending on how the bet sizes are modeled) in the range of **at least** \(10^{16} - 10^{18}\) infosets, probably even more, because:
+  - Private cards: \(\binom{52}{2} \approx 1.3\times 10^{3}\) starting hands.
+  - Boards: flop \(\binom{50}{3}\approx 19.6\times 10^{3}\), turn \(\binom{47}{1}=47\), river \(\binom{46}{1}=46\).  
+    Product over streets → \(\mathcal O(10^{8})\) possible boards.
+  - Bet sequences: with "continuous-like" bet selection (e.g. arbitrary amounts in [1, Stack]) you pay exponentially in the maximum number of bets per street.
 
-Selbst mit diskretisierten Betgrößen (z.B. 10–20 mögliche Größen pro Street) ergibt sich:
-- Tiefe des Game Trees ~ 4 Streets × (mehrere Raise‑Rounds pro Street).
-- Verzweigungsfaktor pro Node: mehrere Calls/Folds/Raises → \(\ge 5–20\).
-- Resultierende Infosets: astronomisch.
+Even with discretized bet sizes (e.g. 10–20 possible sizes per street) you get:
+- Depth of the game tree ~ 4 streets × (several raise rounds per street).
+- Branching factor per node: several calls/folds/raises → \(\ge 5–20\).
+- Resulting infosets: astronomical.
 
-Alle heutigen Solver (CFR, CFR+, XFP, etc.) operieren mit **massiver Abstraktion** (Karten + Sizings), eben weil das exakte, un‑abstrahierte Spiel jenseits aller praktikablen Ressourcen liegt.
+All of today's solvers (CFR, CFR+, XFP, etc.) operate with **massive abstraction** (cards + sizings), precisely because the exact, unabstracted game lies beyond all practicable resources.
 
-### Gibt es strukturelle / polynomielle Ergebnisse?
+### Are there structural / polynomial results?
 
-Formale Komplexitätsresultate:
+Formal complexity results:
 
-- Allgemein: Zwei‑Personen‑Nullsummen‑Spiele mit imperfekter Information und endlichen, aber großen Bäumen: Finden eines exakten Nash‑Gleichgewichts ist in der **Grammatik von Linear Programming** (größtes reduzierte Normalform‑LP) → pseudo‑polynomiell in der Größe der Normalform, aber die Normalform wächst **exponentiell** in der Spieltiefe & Informationsstruktur.
-- Mit **sequence form** kann man die LP‑Größe auf \(\mathcal O(|I|)\) (Infosets) reduzieren, aber \(|I|\) ist bereits astronomisch.
+- In general: two-player zero-sum games with imperfect information and finite but large trees: finding an exact Nash equilibrium lies in the **grammar of linear programming** (largest reduced normal-form LP) → pseudo-polynomial in the size of the normal form, but the normal form grows **exponentially** in the game depth & information structure.
+- With the **sequence form** one can reduce the LP size to \(\mathcal O(|I|)\) (infosets), but \(|I|\) is already astronomical.
 
-Es gibt **kein** Ergebnis im Stil:
-> „NLHE‑GTO kann in Zeit poly(n) gelöst werden, wobei n = Anzahl Karten + Anzahl Blätter.“
+There is **no** result of the kind:
+> "NLHE GTO can be solved in time poly(n), where n = number of cards + number of leaves."
 
-Im Gegenteil:
+On the contrary:
 
-- Diverse Arbeiten zu der Komplexität von Imperfect‑Information‑Games (z.B. NP‑Härte/PPAD‑Härte für bestimmte Klassen) zeigen, dass schon stark vereinfachte Varianten extrem schwer sind.
-- Für Poker‑ähnliche Spiele (vielmehr: Stichkartenspiele mit Teilinformation) gibt es keine bekannte Polyzeit‑Algorithmen für exaktes Gleichgewicht, und nichts deutet darauf hin, dass HUNL hier eine Ausnahme ist.
+- Various works on the complexity of imperfect-information games (e.g. NP-hardness/PPAD-hardness for certain classes) show that even heavily simplified variants are extremely hard.
+- For poker-like games (more precisely: trick-taking card games with partial information) there are no known polytime algorithms for an exact equilibrium, and nothing suggests that HUNL is an exception here.
 
-**Woher kommt der Kostentreiber konkret?**
+**Where exactly does the cost driver come from?**
 
-1. **Kombinatorik der Karten**  
-   – siehe „Combinatorial probability from equally likely outcomes“ in deinem Extract: Anzahl „Microstates“  
+1. **Combinatorics of the cards**  
+   – see "Combinatorial probability from equally likely outcomes" in your extract: number of "microstates"  
    \(|\Omega| = \binom{52}{2}\cdot \binom{50}{3}\cdot \binom{47}{1}\cdot \binom{46}{1}\).  
-   Jedes Mikro‑Szenario trägt zur EV‑Berechnung (Range‑vs‑Range‑EV‑Formel) bei.  
-   → Schon bloßes Auswerten einer festen Strategieprofil‑EV ist teuer.
+   Every micro-scenario contributes to the EV computation (range-vs-range EV formula).  
+   → Even just evaluating the EV of a fixed strategy profile is expensive.
 
-2. **Betgrößen‑Kontinuum**  
-   Aktionsraum ist quasi kontinuierlich. Um ihn endlich zu machen, braucht man Diskretisierung (Sizings). Je feiner, desto größer der Baum.
+2. **Bet-size continuum**  
+   The action space is quasi-continuous. To make it finite, you need discretization (sizings). The finer, the larger the tree.
 
-3. **Imperfekte Information & Belief‑Updates**  
-   You must reason in „Range‑space“, nicht über einzelne Hände – siehe deine „Range‑vs‑Range perspective“-Formel:
+3. **Imperfect information & belief updates**  
+   You must reason in "range space", not about individual hands – see your "Range-vs-Range perspective" formula:
    \[
    EV(\sigma_H,\sigma_V) = \sum_{h,v,b} P_H(h) P_V(v) P_B(b)\,\pi(h,v,b;\sigma_H,\sigma_V).
    \]
-   Strategien sind hochdimensional (eine Funktion von Infoset → Mixed Action).
+   Strategies are high-dimensional (a function from infoset → mixed action).
 
-Fazit:  
-Exaktes GTO für vollständiges HUNL mit „kontinuierlicher“ Betfreiheit ist mit bekannten Methoden **nur via astronomischen Rechenaufwand** erreichbar; es gibt keine bekannte strukturelle Abkürzung, die die Komplexitätsklasse ändert.
+Conclusion:  
+Exact GTO for full HUNL with "continuous" bet freedom is achievable with known methods **only via astronomical computational effort**; there is no known structural shortcut that changes the complexity class.
 
 ---
 
-## 2) Analytische Lösungen per Indifferenzprinzip: Wie weit reichen sie?
+## 2) Analytical solutions via the indifference principle: How far do they reach?
 
-### Was wir sauber, geschlossen lösen können
+### What we can solve cleanly, in closed form
 
-Indifferenzprinzip bedeutet im Kern: Setze Strategien so, dass der Gegner zwischen seinen bestmöglichen Antworten gleichgültig ist; in 2‑Spieler‑Nullsummen‑Spielen führt das zur Linearisierung der Best‑Response‑Bedingungen.
+At its core, the indifference principle means: set strategies such that the opponent is indifferent between their best possible responses; in 2-player zero-sum games this leads to a linearization of the best-response conditions.
 
-Exakte, bekannte analytische Lösungen:
+Exact, known analytical solutions:
 
 - **Kuhn Poker, AKQ etc.**  
-  Klassische Lehrbeispiele: kleine, endliche Kartenspiele mit 3–4 Karten und wenigen Betaktionen. Durch Kombinatorik („Combinatorial probability“), Additivität und Indifferenz lassen sich GTO‑Mischungen exakt bestimmen.
+  Classic textbook examples: small, finite card games with 3–4 cards and few betting actions. Through combinatorics ("Combinatorial probability"), additivity and indifference, the GTO mixes can be determined exactly.
 
 - **[0,1]‑Interval Games (Clairvoyance, Half‑Street, Full‑Street)**
-  Typischer Aufbau:  
-  - Spielstärke oder Handwert \(x\in[0,1]\).  
-  - Eine Seite kennt \(x\) (asymmetrische Information).  
-  - Strategien sind Funktionen \(s(x)\) (z.B. Schwellenstrategien: bet/fold bei \(x>\theta\)).  
-  Hier bekommt man analytisch:
-  - optimalen Bluffanteil \(\alpha = s/(1+s)\) in polarisierten Bet‑Modellem,
-  - optimale Callingfrequenzen via **MDF**:
+  Typical setup:  
+  - Hand strength or hand value \(x\in[0,1]\).  
+  - One side knows \(x\) (asymmetric information).  
+  - Strategies are functions \(s(x)\) (e.g. threshold strategies: bet/fold at \(x>\theta\)).  
+  Here you get analytically:
+  - the optimal bluff fraction \(\alpha = s/(1+s)\) in polarized bet models,
+  - optimal calling frequencies via **MDF**:
     \[
     \text{MDF} = \frac{P}{P+B},
     \]
-    direkt aus deinen Pot‑Odds‑Formeln:
-    - „Pot Odds“: \( \text{RequiredEquity} = \frac{C}{P+B+C} \),
-    - Heads‑Up Standardfall „EquityNeeded to call“: \( \frac{C}{P+C} \),
-    - Verhältnis Value/Bluff so, dass Call mit MDF indifferent ist (EV=0).
+    directly from your pot-odds formulas:
+    - "Pot Odds": \( \text{RequiredEquity} = \frac{C}{P+B+C} \),
+    - Heads-up standard case "EquityNeeded to call": \( \frac{C}{P+C} \),
+    - value/bluff ratio such that a call at MDF is indifferent (EV=0).
 
-Diese Modelle liefern sehr klare Formeln:  
-- optimales Bluff‑to‑Value‑Ratio,
-- optimale-fold Frequenz, etc.
+These models yield very clear formulas:  
+- optimal bluff-to-value ratio,
+- optimal fold frequency, etc.
 
-### Warum man das nicht einfach „zusammenstitchen“ kann
+### Why you can't simply "stitch it together"
 
-Die Hoffnung:  
-„Wir lösen für jede Street / jedes SPR‑Setup einen kleinen analytischen Subgame und kleben das Ganze zusammen.“
+The hope:  
+"We solve a small analytical subgame for every street / every SPR setup and glue the whole thing together."
 
-Das scheitert an mehreren Punkten:
+This fails on several points:
 
-1. **Card Removal/Blocker‑Effekte**  
-   Analytische Modelle beschreiben meist einen „repräsentativen“ Wert \(x\) oder Handkategorie (Nuts/Bluffs). Im echten NLHE ist aber:
-   - jede konkrete Kombo unterschiedlich,
-   - Blocker ändern gegnerische Range‑Dichten.  
-   Sobald du Subgames isoliert löst, ignorierst du, dass deine Preflop/Flop‑Aktion die Zusammensetzung der späteren Ranges (und damit die Parameter der analytischen Formeln) ändert.
+1. **Card removal/blocker effects**  
+   Analytical models usually describe a "representative" value \(x\) or hand category (nuts/bluffs). In real NLHE, however:
+   - every concrete combo is different,
+   - blockers change the opponent's range densities.  
+   As soon as you solve subgames in isolation, you ignore that your preflop/flop action changes the composition of the later ranges (and thus the parameters of the analytical formulas).
 
-2. **Range‑Interaktion zwischen Streets**  
-   GTO auf dem Flop ist nicht nur eine Funktion des aktuellen Pot‑Odds‑Verhältnisses, sondern hängt davon ab, wie deine Turn‑ und River‑Strategien aussehen (Backwards Induction).  
-   Analytische Modelle wie polarized vs bluff‑catcher/Alpha=MDF etc. sind **street‑lokal**; sie ignorieren folgende Struktur:
+2. **Range interaction between streets**  
+   GTO on the flop is not just a function of the current pot-odds ratio, but depends on what your turn and river strategies look like (backwards induction).  
+   Analytical models such as polarized vs bluff-catcher/Alpha=MDF etc. are **street-local**; they ignore the following structure:
    \[
    EV(\text{Flop Action}) = \mathbb{E}[\; \text{EV Turn+River} \mid \text{implied Ranges}\;].
    \]
-   Ohne konsistente Modellierung der zukünftigen Spielbäume bleibt die Lösung lokal.
+   Without consistent modeling of the future game trees, the solution remains local.
 
-3. **Multi‑Street / Multi‑Sizing Interaktionen**  
-   Schon bei 2 Streets mit mehreren Betgrößen ergibt sich ein Raum von EV‑Funktionen, die nicht durch ein fixes Paar „Alpha, MDF“ beschrieben werden können; die optimale Strategie ist eine hochdimensionale Funktion.
+3. **Multi-street / multi-sizing interactions**  
+   Even with 2 streets with several bet sizes, you get a space of EV functions that cannot be described by a fixed "Alpha, MDF" pair; the optimal strategy is a high-dimensional function.
 
-**Klarer Grenzverlauf:**
+**Clear boundary:**
 
-- Analytische Lösungen **funktionieren gut** für:
-  - Single‑Street, Head‑to‑Head Spots mit:
-    - idealisierter „Nuts+Bluff vs Bluff‑Catcher“ Struktur,
-    - klarer Potgröße P und Betgröße B,
-    - Vernachlässigung künftiger Streets (deine „Pot Odds“‑Formel + Indifferenz).
-  - Einige ideale Multi‑Street‑Modelle in [0,1]‑Welten mit sehr einfachen Strukturen.
+- Analytical solutions **work well** for:
+  - single-street, head-to-head spots with:
+    - an idealized "nuts+bluff vs bluff-catcher" structure,
+    - a clear pot size P and bet size B,
+    - neglect of future streets (your "pot odds" formula + indifference).
+  - Some ideal multi-street models in [0,1] worlds with very simple structures.
 
-- Sie **brechen zusammen**, sobald:
-  - du realistische Range‑Strukturen (viele Diskrete Handkombinationen + Blocker) einbeziehst,
-  - mehrere vernünftige Betgrößen auf mehreren Streets nutzt,
-  - du globale Konsistenz (Preflop bis River) erzwingen willst.
+- They **break down** as soon as:
+  - you include realistic range structures (many discrete hand combinations + blockers),
+  - use several reasonable bet sizes on several streets,
+  - want to enforce global consistency (preflop to river).
 
-Daher: Analytische Subgame‑Rezepte sind exzellente **Heuristik/Baseline** (für Sizings, Bluffanzahl, MDF‑Instinkt), aber nicht kompositorisch zu einer echten Near‑GTO‑Gesamtstrategie erweiterbar, außer in extrem groben Abstraktionen.
+Therefore: analytical subgame recipes are an excellent **heuristic/baseline** (for sizings, number of bluffs, MDF instinct), but they cannot be extended compositionally into a true near-GTO overall strategy, except in extremely coarse abstractions.
 
 ---
 
-## 3) Subgame‑Decomposition + Depth‑Limited Solving (DeepStack/Libratus) als praktischer Shortcut?
+## 3) Subgame decomposition + depth-limited solving (DeepStack/Libratus) as a practical shortcut?
 
-### Prinzip
+### Principle
 
-Statt das ganze Spiel auf einmal zu lösen, machst du:
+Instead of solving the whole game at once, you do:
 
-1. **Precompute / Train** eine **Wertfunktion** \(V(I)\), die an einem Cutoff‑Depth für jedes Infoset \(I\) (Board + Ranges + Pot + Stackzustand) den EV der optimalen Weiterführung approximiert:
+1. **Precompute / train** a **value function** \(V(I)\) that, at a cutoff depth, approximates for every infoset \(I\) (board + ranges + pot + stack state) the EV of the optimal continuation:
    \[
    V(I) \approx \max_{\sigma_H}\min_{\sigma_V} EV(\sigma_H,\sigma_V\mid I).
    \]
 
-2. **Online** (oder beim Offlinesolver mit Cutoff‑Tiefe):
-   - löse nur einen **limitierten Teilbaum** bis Tiefe \(d\) mit CFR (oder ähnliches),
-   - wenn der Cutoff erreicht ist, verwende \(V(I)\) als Terminalwert statt den vollen Restbaum auszuspielen.
+2. **Online** (or in the offline solver with a cutoff depth):
+   - solve only a **limited subtree** up to depth \(d\) with CFR (or something similar),
+   - when the cutoff is reached, use \(V(I)\) as the terminal value instead of playing out the full remaining tree.
 
-Damit vermeidest du, den vollen Baum explizit zu generieren.
+This way you avoid generating the full tree explicitly.
 
-### DeepStack/Libratus – was ist bewiesen/berichtete Performance?
+### DeepStack/Libratus – what is proven / what performance is reported?
 
 - **DeepStack (Moravčík et al., 2017)**:
-  - Depth‑Limited Re‑Solving am Turn (Dealweise), Value Network für Rest des Spiels.
-  - Spielt HUNL 200bb auf „Superhuman“-Niveau in HUNL‑Matches, aber ohne strikte, globale Exploitability‑Obergrenze (nur bounds in vereinfachten Games).
+  - Depth-limited re-solving at the turn (per deal), value network for the rest of the game.
+  - Plays HUNL 200bb at a "superhuman" level in HUNL matches, but without a strict, global exploitability upper bound (only bounds in simplified games).
 
 - **Libratus (Brown & Sandholm, 2017)**:
-  - Riesige Precomputation mit abstrahierten „Blueprint“-Strategien,
-  - Online Subgame‑Re‑Solving bei großen Pötten.  
-  - Siege vs Top‑Pros; keine formale \(\varepsilon\)‑Gewähr für exakte HUNL, aber „practical unexploitable“ auf menschlichem Niveau.
+  - Huge precomputation with abstracted "blueprint" strategies,
+  - online subgame re-solving in large pots.  
+  - Wins vs top pros; no formal \(\varepsilon\) guarantee for exact HUNL, but "practically unexploitable" at the human level.
 
-**Kosten auf moderater Hardware?**
+**Cost on moderate hardware?**
 
-Mit **einem starken Postflop‑Oracle wie TexasSolver** (das du explizit erwähnst) bist du massiv im Vorteil:
+With **a strong postflop oracle like TexasSolver** (which you explicitly mention) you have a massive advantage:
 
-- Du kannst TexasSolver als dein „V(I)“-Modul benutzen:
-  - Precompute viele typische Board + Stack + Pot‑Konstellationen,
-  - oder on‑the‑fly re‑solven (wenn Grids & Ranges klein sind).
+- You can use TexasSolver as your "V(I)" module:
+  - precompute many typical board + stack + pot configurations,
+  - or re-solve on the fly (if grids & ranges are small).
 
-Eine realistische Pipeline auf einer „großen Workstation“ (z.B. 32–64 Cores, 1 GPU) ist:
+A realistic pipeline on a "large workstation" (e.g. 32–64 cores, 1 GPU) is:
 
 - **Preflop**:
-  - Lösung im abstrahierten Game (z.B. 4–6 Betgrößen, 5–10 Bucket‑Kartenabstraktion), via CFR+.  
-  - Laufzeit: Tage bis ein paar Wochen, aber einmalig. Speicher: dutzende GB.
+  - Solution in the abstracted game (e.g. 4–6 bet sizes, 5–10 bucket card abstraction), via CFR+.  
+  - Runtime: days to a few weeks, but one-time. Memory: dozens of GB.
 
 - **Postflop**:
-  - Nutze TexasSolver oder eigenen CFR+ Postflopsolver mit z.B.:
-    - 2–3 Betgrößen pro Straße,
-    - 10–20 Card Buckets,
-    - SPR‑abhängige Tree‑Pruning (dazu weiter unten).
-  - Pro Board: Sekunden bis Minuten auf CPU, schneller mit GPU/VEGAS‑ähnlicher Parallelisierung.
+  - Use TexasSolver or your own CFR+ postflop solver with e.g.:
+    - 2–3 bet sizes per street,
+    - 10–20 card buckets,
+    - SPR-dependent tree pruning (more on this below).
+  - Per board: seconds to minutes on CPU, faster with GPU/VEGAS-like parallelization.
 
-**Residual‑Exploitability?**
+**Residual exploitability?**
 
-- Empirisch: Mit sauberem Preflop‑Blueprint und guten Postflop‑Abstraktionen erreicht man Exploitabilities von:
-  - **< 25–50 mBB/Hand** (0.025–0.05 BB/Hand) in realistischen Modell‑Spielen,
-  - **< 5–10 mBB/Hand** mit stärkerer Abstraktion und viel Rechenzeit.  
-  Das sind Richtwerte aus veröffentlichten Benchmarks in kleineren/abstrahierten Spielen.
+- Empirically: with a clean preflop blueprint and good postflop abstractions, one reaches exploitabilities of:
+  - **< 25–50 mBB/hand** (0.025–0.05 BB/hand) in realistic model games,
+  - **< 5–10 mBB/hand** with stronger abstraction and a lot of compute time.  
+  These are reference values from published benchmarks in smaller/abstracted games.
 
-Man hat keine strikte Bound für das exakte reale Spiel, aber:
+There is no strict bound for the exact real game, but:
 
-- Im gleichen Sinne wie DeepStack/Libratus: „praktisch sehr schwer ausnutzbar“, d.h. menschliche Exploiter oder Standard‑Bots gewinnen kaum.
+- In the same sense as DeepStack/Libratus: "practically very hard to exploit", i.e. human exploiters or standard bots barely win.
 
-Fazit zu (3):  
-Ja, **Subgame‑Re‑Solving mit Wertfunktion** ist das real existierende, funktionierende Shortcut‑Paradigma.  
-Es reduziert den Baumdrang radikal, ohne auf exakte globale Lösung zu zielen.
+Conclusion on (3):  
+Yes, **subgame re-solving with a value function** is the really existing, working shortcut paradigm.  
+It radically reduces the tree burden without aiming for an exact global solution.
 
 ---
 
-## 4) Beschleunigung des iterativen Lösens: CFR+, DCFR, predictive RM, ED
+## 4) Accelerating iterative solving: CFR+, DCFR, predictive RM, ED
 
 ### Baseline: Vanilla CFR
 
-- Konvergenzrate (theoretisch): \(\mathcal O(1/\sqrt{T})\) auf die Worst‑Case‑Average‑Regret; damit auch auf Exploitability, in 2‑Spieler‑Nullsummen.
-- In der Praxis für große Pokerspiele sehr langsam: man braucht 10^8+ Iterationen, je nach Abstraktion, um auf akzeptable Exploitability zu kommen.
+- Convergence rate (theoretical): \(\mathcal O(1/\sqrt{T})\) on the worst-case average regret; hence also on exploitability, in 2-player zero-sum.
+- In practice very slow for large poker games: you need 10^8+ iterations, depending on the abstraction, to reach acceptable exploitability.
 
 ### CFR+ (Tammelin 2014)
 
-- Nutzt „Regret‑Matching+“ (Regrets werden bei Unterschreiten von 0 auf 0 gecappt) + Strategiewichtung (z.B. „linear averaging“ ab späteren Iterationen).
-- empirisch: **1–2 Größenordnungen** schnellere Konvergenz als Vanilla CFR bei Pokerinstanzen.
-- Theoretisch: immer noch \(\mathcal O(1/\sqrt{T})\) Maximum‑Regret, aber der Konstantefaktor ist deutlich besser.
+- Uses "Regret Matching+" (regrets are capped at 0 when they fall below 0) + strategy weighting (e.g. "linear averaging" from later iterations on).
+- Empirically: **1–2 orders of magnitude** faster convergence than vanilla CFR on poker instances.
+- Theoretically: still \(\mathcal O(1/\sqrt{T})\) maximum regret, but the constant factor is significantly better.
 
 ### Discounted CFR (DCFR, Brown & Sandholm 2019)
 
-- Diskontierung alter Regrets und/oder Strategiegewichte, um neuere Iterationen stärker zu gewichten.
-- Empirisch nochmal **Faktor 2–10** Beschleunigung gegenüber CFR+ in vielen Pokerinstanzen.
-- Asymptotik: Bleibt sublinear \(\mathcal O(1/\sqrt{T})\) – kein formaler Sprung wie von poly zu log; aber Realwelt‑Zeit reduziert sich massiv.
+- Discounting of old regrets and/or strategy weights in order to weight newer iterations more heavily.
+- Empirically another **factor 2–10** speedup over CFR+ in many poker instances.
+- Asymptotics: remains sublinear \(\mathcal O(1/\sqrt{T})\) – no formal leap as from poly to log; but real-world time drops massively.
 
 ### Predictive / Optimistic Regret Matching
 
-- Methoden, die zukünftige Gradienten/Regrets extrapolieren (optimistic regret matching, predictive CFR).
-- In vielen Zero‑Sum‑Spielen signifikant schneller als „plain“ Regret Matching, aber:
-  - Analytisch: weiterhin Subgradienten‑Verfahren mit sublinearer Rate,  
-  - Praktisch: **Iterationenzahl kann um Faktor 2–5 sinken**.
+- Methods that extrapolate future gradients/regrets (optimistic regret matching, predictive CFR).
+- In many zero-sum games significantly faster than "plain" regret matching, but:
+  - Analytically: still subgradient methods with a sublinear rate,  
+  - Practically: **the number of iterations can drop by a factor of 2–5**.
 
-### Exploitability‑Descent (ED)
+### Exploitability Descent (ED)
 
-- Direkte Minimierung der Exploitability via Gradientenmethoden (Winands, Lock, u.a.; jüngere Arbeiten von Brown/Sandholm).
-- Produziert monotone Abnahme der Exploitability (oder nahe daran), anders als CFR, das nur Garantien über Durchschnittsstrategien hat.
-- Kann in Praxis schneller niedrige Exploitability erreichen als CFR‑Familie, aber Implementation ist komplex (BR‑Berechnungen nötig).
+- Direct minimization of exploitability via gradient methods (Winands, Lock, et al.; more recent works by Brown/Sandholm).
+- Produces a monotone decrease in exploitability (or close to it), unlike CFR, which only has guarantees on average strategies.
+- Can reach low exploitability faster than the CFR family in practice, but the implementation is complex (BR computations required).
 
-**Kernaussage zu (4):**
+**Key takeaway on (4):**
 
-- **Keine** dieser Methoden ändert die *Komplexitätsklasse*. Alle bleiben letztlich in der Sphäre von:
+- **None** of these methods changes the *complexity class*. All ultimately remain in the realm of:
   \[
-  \text{Iterationszahl} \sim \frac{C}{\varepsilon^2}
+  \text{number of iterations} \sim \frac{C}{\varepsilon^2}
   \]
-  für gewünschte Genauigkeit \(\varepsilon\), nur dass \(C\) deutlich kleiner wird.
-- Praktisch ist CFR+ / DCFR heute der Goldstandard:
-  - Bis zu **100×** schneller als naive CFR (je nach Problem).
-  - Kritischer Faktor bei baumgroßen Spielen.
+  for a desired accuracy \(\varepsilon\), only that \(C\) becomes significantly smaller.
+- In practice, CFR+ / DCFR is the gold standard today:
+  - Up to **100×** faster than naive CFR (depending on the problem).
+  - A critical factor for tree-sized games.
 
 ---
 
-## 5) Abstraktionstheorie: Wie viel Schrumpfung für gegebene Exploitability?
+## 5) Abstraction theory: How much shrinkage for a given exploitability?
 
-Zwei Hauptachsen:
+Two main axes:
 
-1. **Kartenabstraktion (Card Abstraction)**  
-   Gruppieren von Holdings/Boards in „Buckets“ (Cluster) mit ähnlicher Equity/Runout‑Struktur.
+1. **Card abstraction**  
+   Grouping holdings/boards into "buckets" (clusters) with similar equity/runout structure.
 
-2. **Aktionsabstraktion (Action Abstraction)**  
-   Diskretisierung der Betgrößen (z.B. nur {1/3, 2/3, Potsize, All‑In}).
+2. **Action abstraction**  
+   Discretization of the bet sizes (e.g. only {1/3, 2/3, Potsize, All‑In}).
 
-### Grobe Thumb‑Rules aus der Praxis
+### Rough rules of thumb from practice
 
-(Beispiele aus öffentlich dokumentierten Systemen und Open‑Source‑Solver‑Setups.)
+(Examples from publicly documented systems and open-source solver setups.)
 
-- **Flop‑Card‑Abstraktion**:
-  - 50–200 Buckets (Boards/Hand‑Buckets) sind üblich.
-  - 50 Buckets → grob, aber schon spielbar.  
-  - 200 Buckets → deutlich näher an GTO, aber Speicher und Rechenzeit wachsen linear mit #Buckets.
+- **Flop card abstraction**:
+  - 50–200 buckets (boards/hand buckets) are common.
+  - 50 buckets → coarse, but already playable.  
+  - 200 buckets → significantly closer to GTO, but memory and compute time grow linearly with #buckets.
 
-- **Action‑Abstraktion** (per Street):
-  - 2–4 Betgrößen + Fold/Call ist typischer Standard:
-    - C‑Bet: z.B. 33%, 75%, 150% Pot.
-    - Sizes pro Street: 3–4.
-  - Reduziert Aktionsverzweigung enorm;  
-    un‑abstrahierte Bets (z.B. 100+ Größen) sind faktisch unlösbar.
+- **Action abstraction** (per street):
+  - 2–4 bet sizes + fold/call is the typical standard:
+    - C-bet: e.g. 33%, 75%, 150% pot.
+    - Sizes per street: 3–4.
+  - Reduces action branching enormously;  
+    unabstracted bets (e.g. 100+ sizes) are effectively unsolvable.
 
-- **Spielgrößen**:
-  - Ein HUNL‑Blueprint mit z.B.:
-    - 3 Betgrößen/Street,
-    - 100 Card‑Buckets,
-    - 4‑Bet‑Limiter (max #Raises pro Street),
-    landest du bei:
-    - \(\sim 10^7 - 10^8\) Infosets →  
-      gerade noch lösbar mit mehreren Milliarden CFR+‑Iterationen.
+- **Game sizes**:
+  - A HUNL blueprint with e.g.:
+    - 3 bet sizes/street,
+    - 100 card buckets,
+    - a 4-bet limiter (max #raises per street),
+    you end up at:
+    - \(\sim 10^7 - 10^8\) infosets →  
+      just barely solvable with several billion CFR+ iterations.
 
 Exploitability:
 
-- Empirische Studien (z.B. Johanson et al.) zeigen:
-  - Moderate Card+Action‑Abstraktionen für HULHE/HUNL führen zu Exploitabilities im Bereich:
-    - **0.01–0.05 BB/Hand** gegen einen perfekt exploitenden Gegner der Originalgames (in Tests mit Rückkarten‑Mapping u.Ä.).
-- Sehr aggressive Abstraktion (z.B. 1–2 Betgrößen, 10–20 Card Buckets) → deutlich exploitable, aber immer noch krass stärker als menschliche Gegner.
+- Empirical studies (e.g. Johanson et al.) show:
+  - Moderate card+action abstractions for HULHE/HUNL lead to exploitabilities in the range of:
+    - **0.01–0.05 BB/hand** against a perfectly exploiting opponent of the original games (in tests with back-card mapping and the like).
+- Very aggressive abstraction (e.g. 1–2 bet sizes, 10–20 card buckets) → clearly exploitable, but still vastly stronger than human opponents.
 
-Theorie:
+Theory:
 
-- „Abstraction Pathologies“ sind real: Best Responses im abstrakten Game können bei Zurückprojektion ins reale Game stark suboptimal sein (kein Monotonie‑Theorem).  
-  Es gibt keine allgemeine, brauchbare **a priori** Bound:  
-  „Mit 100 Buckets + 3 Sizes ist Exploitability ≤ X“ – das ist empirisch, nicht bewiesen.
+- "Abstraction pathologies" are real: best responses in the abstract game can be strongly suboptimal when projected back into the real game (no monotonicity theorem).  
+  There is no general, usable **a priori** bound:  
+  "With 100 buckets + 3 sizes, exploitability is ≤ X" – that is empirical, not proven.
 
-Trotzdem:  
-Abstraktion ist der **entscheidende Hebel**, der Spielgröße von „astronomisch“ auf „groß, aber machbar“ reduziert.
+Nevertheless:  
+Abstraction is the **decisive lever** that reduces the game size from "astronomical" to "large, but doable".
 
 ---
 
-## 6) SPR‑Struktur / Stacktiefe: Schrumpft der Strategieraum bei kleinem SPR?
+## 6) SPR structure / stack depth: Does the strategy space shrink at small SPR?
 
-Hypothese:  
-„Der Strategieraum wird bei kleinem SPR (Shortstack) stark kleiner und kollabiert gen Push/Fold; das gilt auch in Cashgames bei fixen Blinds.“
+Hypothesis:  
+"The strategy space becomes much smaller at small SPR (short stack) and collapses toward push/fold; this also holds in cash games with fixed blinds."
 
-### Ja, qualitativ richtig
+### Yes, qualitatively correct
 
-- In Turnier‑Theorie ist das formell und praktisch sichtbar:
-  - Bei SPR ≈ 1–3 dominiert „Commitment“: viele Linien sind de facto 2‑Straßen‑Spiele (Vorentscheidung am Flop/Preflop).
-  - Nash‑Push/Fold‑Tabellen (für sehr kleine Stacks) zeigen, dass der beste Strategieraum stark eingeschränkt ist.
+- In tournament theory this is formally and practically visible:
+  - At SPR ≈ 1–3, "commitment" dominates: many lines are de facto 2-street games (decision made in advance on the flop/preflop).
+  - Nash push/fold tables (for very small stacks) show that the best strategy space is heavily restricted.
 
-- In Cashgames:
-  - **Preflop**: Bei ~20bb und drunter in 6‑max/Heads‑Up sind 3‑Bet/4‑Bet‑Preflopgeschichten sehr oft All‑Ins → Endzustände mit trivialeren Ranges, weniger Multi‑Street‑Lines.
+- In cash games:
+  - **Preflop**: At ~20bb and below in 6-max/heads-up, 3-bet/4-bet preflop sequences are very often all-ins → end states with more trivial ranges, fewer multi-street lines.
   - **Postflop**:  
-    Wenn SPR nach Preflop‑Action klein ist:
-    - Flop betsizes sind so, dass Turn/River kaum mehr „echte“ Entscheidungen haben,
-    - viele Spots sind effectively „1.5‑Street Games“.
+    When the SPR after the preflop action is small:
+    - flop bet sizes are such that turn/river hardly have any "real" decisions left,
+    - many spots are effectively "1.5-street games".
 
-Deshalb nutzen die meisten Solver und Trainer bereits SPR‑basierte Trees:
+That's why most solvers and trainers already use SPR-based trees:
 
-- Für SPR < 3:  
-  - Weniger Betgrößen,
-  - limitierte Betsequenzen,
-  - z.T. direkte Shove/Call‑Abstraktion.
+- For SPR < 3:  
+  - fewer bet sizes,
+  - limited bet sequences,
+  - in part a direct shove/call abstraction.
 
-### Ist die Dimensionalität des Strategieraums eine Funktion des SPR?
+### Is the dimensionality of the strategy space a function of SPR?
 
-Nicht exakt mathematisch formalisiert, aber strukturell:
+Not formalized exactly mathematically, but structurally:
 
-- Anzahl „bedeutender“ Strategiefreiheitsgrade steigt mit:
-  - Anzahl noch verbleibender Bets pro Stack (→ \(\log_{\text{typischer BetSize}}(\text{Stack})\)),
-  - Anzahl Streets bis zum Showdown und
-  - möglicher Range‑Erosion.
+- The number of "significant" strategic degrees of freedom increases with:
+  - the number of bets per stack still remaining (→ \(\log_{\text{typical bet size}}(\text{Stack})\)),
+  - the number of streets until showdown and
+  - possible range erosion.
 
-- Bei niedrigem SPR können viele Actionpfade rein durch EV‑Prioritäten „dominiert“ sein:
-  - z.B. mit 30bb im 3‑Bet‑Pot mittleres Overpair: Es gibt kaum sinnvolle Lines außer bet/broke vs check/call top Anteil; fein abgestimmtes Multi‑Street‑Balancing wird unwichtiger.
+- At low SPR, many action paths can be "dominated" purely by EV priorities:
+  - e.g. with 30bb in a 3-bet pot with a medium overpair: there are hardly any sensible lines other than bet/broke vs check/call top portion; finely tuned multi-street balancing becomes less important.
 
-**Tractable Decomposition?**
+**Tractable decomposition?**
 
-Ja, das ist in der Praxis **eine echte Abkürzung**:
+Yes, in practice this is **a real shortcut**:
 
-- Man kann die Preflop/Flop‑Strategie abhängig vom (Ziel‑)SPR clustern:
-  - tiefe Stacks (100–200bb): reiche Action‑Abstraktion, viele Betgrößen,
-  - mittlere Stacks (~40–80bb): reduzierte Betgrößen, konservativere Bäume,
-  - Shortstacks (<25bb): sehr stark vereinfachte Strategiemodelle (evtl. Teil‑Push/Fold, einziger Bet pro Street).
+- One can cluster the preflop/flop strategy depending on the (target) SPR:
+  - deep stacks (100–200bb): rich action abstraction, many bet sizes,
+  - medium stacks (~40–80bb): reduced bet sizes, more conservative trees,
+  - short stacks (<25bb): very heavily simplified strategy models (possibly partial push/fold, a single bet per street).
 
-Dadurch löst du nur die schwierigeren, hochdimensionalen Fälle selten / auf höherer Abstraktion und kannst die trivialeren (Low‑SPR) Fälle billiger / teils analytisch („MDF+Alpha“) modellieren.
+This way you solve the harder, high-dimensional cases only rarely / at a higher abstraction and can model the more trivial (low-SPR) cases more cheaply / partly analytically ("MDF+Alpha").
 
 ---
 
-## Schlussfrage: Mit moderater Hardware + TexasSolver + analytischer Basis – was ist der effektivste konkrete Shortcut?
+## Final question: With moderate hardware + TexasSolver + an analytical basis – what is the most effective concrete shortcut?
 
 **Setup**:  
-- 1 GPU‑Pod, viele CPU‑Cores.  
-- Lokaler Postflop‑Solver (TexasSolver), der subgames auf einzelnen Boards mit Abstraktion lösen kann.  
-- Analytische Baselines (MDF, Pot Odds, Chen‑ähnliche Heuristiken).
+- 1 GPU pod, many CPU cores.  
+- Local postflop solver (TexasSolver) that can solve subgames on individual boards with abstraction.  
+- Analytical baselines (MDF, pot odds, Chen-like heuristics).
 
-**Ziel**: Maximal starke, near‑GTO HUNL‑Strategie mit minimalem Compute.  
+**Goal**: A maximally strong, near-GTO HUNL strategy with minimal compute.  
 
-### Wichtigste Einzeltechnik (höchster Hebel):
+### Most important single technique (highest leverage):
 
-> **Blueprint‑Strategie mit SPR‑strukturierten, abstrahierten Postflop‑Subgames + Online/Offline‑Subgame‑Re‑Solving (DeepStack/Libratus‑Stil) unter Nutzung von TexasSolver als Wertfunktion.**
+> **Blueprint strategy with SPR-structured, abstracted postflop subgames + online/offline subgame re-solving (DeepStack/Libratus style) using TexasSolver as the value function.**
 
-Konkret, möglichst operativ:
+Concretely, as operational as possible:
 
-1. **Preflop / High‑Level Blueprint (Offline, einmalig)**  
-   - Baue ein abstrahiertes Preflop+Flop‑Spiel mit:
-     - 2–3 Betgrößen Preflop, 3‑Bet/4‑Bet‑Cap,
-     - 2–3 Betgrößen Flop,
-     - Board‑Abstraktion mit 30–50 Clustern (zunächst grob),
-     - SPR‑abhängige Treegrößen (tiefe Stacks haben mehr Raises).
-   - Löse mit **DCFR oder CFR+** (auf CPU/GPU verteilt).  
-     - Ziel: Exploitability im abstrakten Spiel << 0.05 BB/Hand.
-   - Extrahiere:  
-     - Open/3‑Bet/4‑Bet Ranges,  
-     - C‑Bet‑Frequenzen & Sizings nach Board‑Cluster.
+1. **Preflop / high-level blueprint (offline, one-time)**  
+   - Build an abstracted preflop+flop game with:
+     - 2–3 bet sizes preflop, 3-bet/4-bet cap,
+     - 2–3 bet sizes on the flop,
+     - board abstraction with 30–50 clusters (coarse at first),
+     - SPR-dependent tree sizes (deep stacks have more raises).
+   - Solve with **DCFR or CFR+** (distributed across CPU/GPU).  
+     - Target: exploitability in the abstract game << 0.05 BB/hand.
+   - Extract:  
+     - open/3-bet/4-bet ranges,  
+     - c-bet frequencies & sizings by board cluster.
 
-2. **Postflop‑Oracle‑Training / Wertfunktion (Offline)**  
-   - Verwende TexasSolver, um für repräsentative Samples von:
+2. **Postflop oracle training / value function (offline)**  
+   - Use TexasSolver to compute, for representative samples of:
      - \((\text{Board}, \text{Pot}, \text{Stacks}, \text{Ranges\_Hero}, \text{Ranges\_Villain})\)  
-     die GTO‑EVs zu berechnen.
-   - Trainiere ein **Value‑Netzwerk** \(V_\theta(I)\), das:
-     - Eingabe: Features des Infosets (Board, SPR, Pot, Hero/Villain‑Range‑Features),
-     - Ausgabe: EV für Hero bei beidseitigem Near‑GTO.  
-   - Alternativ (falls du kein NN willst):  
-     - speichern einer dichten Lookup‑Tabelle für „typische“ Postflop‑Szenarien (z.B. 10–20 Boards pro Cluster, einige Potgrößen & SPR‑Bins).
+     the GTO EVs.
+   - Train a **value network** \(V_\theta(I)\) that has:
+     - input: features of the infoset (board, SPR, pot, hero/villain range features),
+     - output: EV for hero under near-GTO play on both sides.  
+   - Alternatively (if you don't want an NN):  
+     - store a dense lookup table for "typical" postflop scenarios (e.g. 10–20 boards per cluster, a few pot sizes & SPR bins).
 
-3. **SPR‑basierte Postflop Trees (Offline)**  
-   - Definiere pro SPR‑Range (z.B. 1–3, 3–6, 6–12, >12) eigene vereinfachte Action‑Abstraktionen:
-     - hohe SPR: 3–4 Betgrößen je Street, 2–3 Raise‑Runden,
-     - niedrige SPR: 1–2 Betgrößen, max 1 Raise‑Runde, ggf. All‑In.
-   - Löse exemplarische Subgames mit TexasSolver/CFR+ auf Repräsentant‑Boards/SPR‑Kombinationen.  
-     Nutze analytische Formeln (MDF, Alpha=s/(1+s)) als **Initialisierung** der Frequenzen (bessere Startpunkte → weniger CFR‑Iterationen nötig).
+3. **SPR-based postflop trees (offline)**  
+   - Define for each SPR range (e.g. 1–3, 3–6, 6–12, >12) its own simplified action abstractions:
+     - high SPR: 3–4 bet sizes per street, 2–3 raise rounds,
+     - low SPR: 1–2 bet sizes, max 1 raise round, possibly all-in.
+   - Solve exemplary subgames with TexasSolver/CFR+ on representative board/SPR combinations.  
+     Use analytical formulas (MDF, Alpha=s/(1+s)) as **initialization** of the frequencies (better starting points → fewer CFR iterations needed).
 
-4. **Online‑(oder Offlinemap‑)Subgame Re‑Solving**  
-   - Während der „Laufzeit“ (oder bei Offlinesimulationsgenerierung):
-     - Wenn sich ein komplexer Spot ergibt (großer Pot, hohe SPR, tiefe Straße),  
-       löse ein **lokales Subgame**:
-       - fixiere bisherige Ranges (aus Preflop‑Blueprint),
-       - beschneide Tree gemäß SPR,
-       - nutze \(V_\theta(I)\) (oder TexasSolver auf noch tieferen Ebenen) als Terminalwerte.
-     - Für einfachere Spots (niedriger SPR, oder Standard‑Boards)  
-       nutze direkt die Blueprint‑Strategie plus vereinfachte Heuristik (MDF‑basiert).
+4. **Online (or offline-map) subgame re-solving**  
+   - During "runtime" (or when generating offline simulations):
+     - When a complex spot arises (large pot, high SPR, deep street),  
+       solve a **local subgame**:
+       - fix the previous ranges (from the preflop blueprint),
+       - prune the tree according to SPR,
+       - use \(V_\theta(I)\) (or TexasSolver at even deeper levels) as terminal values.
+     - For simpler spots (low SPR, or standard boards)  
+       use the blueprint strategy directly plus a simplified heuristic (MDF-based).
 
-5. **Exploitability‑Monitoring (Simulation)**  
-   - Generiere Matches vs:
-     - BR‑Approximationsbots im abstrahierten Spiel,
-     - alternativen Solver‑Strategien („red team“),
-   - Schätze Effektiv‑Exploitability empirisch (mBB/Hand).
+5. **Exploitability monitoring (simulation)**  
+   - Generate matches vs:
+     - BR approximation bots in the abstracted game,
+     - alternative solver strategies ("red team"),
+   - Estimate effective exploitability empirically (mBB/hand).
 
-**Warum ist genau das der höchste Hebel?**
+**Why exactly is this the highest leverage?**
 
-- Du kombinierst:
-  - **Abstraktion** (massiver Größenreduktion),
-  - **SPR‑Struktur** (weniger Freiheitsgrade bei kleinen Stacks),
-  - **Subgame‑Re‑Solving** (nur die wirklich schwierigen Situationen werden genau gerechnet),
-  - **Wertfunktion/TexasSolver** als „Black‑Box‑GTO‑Postflop‑Oracle“.
-- Dadurch vermeidest du:
-  - global vollständige CFR‑Run über das ganze Game,
-  - überfeine Preflop/Postflopabstraktionen,  
-  und konzentrierst Compute dort, wo EV‑Gewinn/Exploitability‑Reduktion maximal ist (große Pots, hohe SPR).
+- You combine:
+  - **abstraction** (massive size reduction),
+  - **SPR structure** (fewer degrees of freedom with small stacks),
+  - **subgame re-solving** (only the truly difficult situations are computed precisely),
+  - **value function/TexasSolver** as a "black-box GTO postflop oracle".
+- This way you avoid:
+  - a globally complete CFR run over the entire game,
+  - overly fine preflop/postflop abstractions,  
+  and concentrate compute where the EV gain/exploitability reduction is maximal (large pots, high SPR).
 
-Wenn du nur **eine** Technik nennen willst, die als „Shortcut“ im strengen Sinn gilt, dann ist es:
+If you want to name only **one** technique that counts as a "shortcut" in the strict sense, then it is:
 
-> **Continual Subgame Re‑Solving mit Abstraktion und einer gelernten / oracle‑basierten Wertfunktion am Depth‑Limit.**
+> **Continual subgame re-solving with abstraction and a learned / oracle-based value function at the depth limit.**
 
-Alles andere (CFR+ vs DCFR, MDF/Alpha‑Analytik, Bucketanzahl, SPR‑Trees) sind Optimierungen dieser Grundidee, aber sie ändern nicht die prinzipielle Architektur.
+Everything else (CFR+ vs DCFR, MDF/Alpha analytics, bucket count, SPR trees) are optimizations of this basic idea, but they do not change the fundamental architecture.

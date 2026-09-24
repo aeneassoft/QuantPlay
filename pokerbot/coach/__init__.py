@@ -1,4 +1,4 @@
-"""Claude-backed coaching + the trainer's decision capture/grading modules (TRAINER_PLAN.md P0).
+"""Claude-backed coaching + the trainer's decision capture/grading modules (docs/plans/TRAINER_PLAN.md P0).
 
 The Coach import is guarded: coach.py hard-imports `anthropic` at module level, but the trainer
 modules (decision_log/registry/grader) must import inside the six_server play path even without

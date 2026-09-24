@@ -35,7 +35,7 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # Runde 10 (v9 ERNTE-Build, HU_OPTIMAL_KARTE A1/A2): Play tief
               # (Trigger 15bb, fp16, Solver-Sizes) + stackoff-Haertung.
               "r10_ernte",
-              # v10 (docs/V10_BUILD_CARD.md, Arm B): r8_stack-Kette, aber der
+              # v10 (docs/plans/V10_BUILD_CARD.md, Arm B): r8_stack-Kette, aber der
               # hand-abhaengige river_gpu_guard ist durch den OEFFENTLICHEN
               # River-Plan (K2, K1-Hero-Range) ersetzt. GPU-Arm.
               "r10_stack",
@@ -43,7 +43,7 @@ KANDIDATEN = ("mdf_guard", "podds_guard", "sel_guard", "sel_m06", "sel_m10", "se
               # aber der Plan sitzt auf der VOLLSTAENDIGEN v5-Kette (r8_stack) statt auf r8-ohne-Chirurgie.
               # WARUM: der dokumentierte Katastrophenherd war der Fallback in Plan-Pots — er liess
               # river_gpu_guard (feuert ab Pot 3000) weg, also genau in den grossen Poetten
-              # (docs/V10_GATES_REPORT.md, Re-Release-Punkt "K2-Fallback auf r8-Chirurgie").
+              # (docs/reports/V10_GATES_REPORT.md, Re-Release-Punkt "K2-Fallback auf r8-Chirurgie").
               "r10_h0")
 
 # K2-Kanal (V10_BUILD_CARD E4/E5): im Gym feste Iterationen + deterministischer

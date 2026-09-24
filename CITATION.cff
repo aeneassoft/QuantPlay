@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use QuantPlay (the trainer, the engine, the knowledge base or the measurement catalogue), please cite it."
+title: "QuantPlay: a 6-max No-Limit Hold'em trainer and a measured poker-bot laboratory"
+type: software
+authors:
+  - family-names: Hampe
+    given-names: Leonhard
+    affiliation: AeneasSoft
+repository-code: "https://github.com/aeneassoft/QuantPlay"
+url: "https://quantplay.io"
+license: "PolyForm-Noncommercial-1.0.0"
+date-released: "2026-09-24"
+version: "2026.09"
+keywords:
+  - poker
+  - no-limit holdem
+  - 6-max
+  - GTO
+  - exploitative play
+  - ICM
+  - tournament
+  - poker trainer
+  - AIVAT
+  - paired evaluation
+  - Pyodide
+  - WebAssembly
+abstract: >-
+  QuantPlay is a browser-based 6-max No-Limit Hold'em trainer (Python running in the visitor's browser via
+  Pyodide) and the poker-bot laboratory it grew out of: an engine with a preflop blueprint, postflop math and a
+  measured guard chain, an opponent league, tournament/ICM doctrine, benchmark harnesses (GTO Wizard AI,
+  Slumbot, Kaggle Game Arena, PokerSnowie), and two catalogues documenting every module and every measurement,
+  including the ideas that were refuted.

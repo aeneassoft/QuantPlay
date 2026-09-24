@@ -1,7 +1,6 @@
-"""Two deep gpt-5.1 analyses the user asked for:
+"""A deep gpt-5.1 analysis the user asked for:
   Q1 — game theory of poker + a CRITICAL examination of mainstream poker theory (ranges, GTO,
        solvability, exploitation/arms-race, and the user's 'bet on strategy-fit, not outcomes' idea).
-  Q2 — what the user's own notes + session data reveal about their playstyle / poker understanding.
 
 Run:  python -m extraction.theory_qa
 Saves to knowledge_base/theory/.
@@ -11,11 +10,8 @@ from __future__ import annotations
 from openai import OpenAI
 
 from pokerbot import config
-from pokerbot.analysis.session_analysis import compute_stats
-from pokerbot.analysis.session_deep import fmt_hand, hnet, user_sessions
 
 client = OpenAI(api_key=config.OPENAI_API_KEY)
-NOTES_FILE = r"C:\Users\hampe\Desktop\Textdokument (neu).txt"
 
 
 def _resolve_model() -> str:
@@ -78,44 +74,13 @@ def q1_game_theory() -> str:
     return ask(system, user, 9000)
 
 
-def q2_playstyle() -> str:
-    try:
-        notes = open(NOTES_FILE, encoding="utf-8").read()
-    except OSError:
-        notes = "(Notizen nicht lesbar)"
-    all_recs = [r for _, recs in user_sessions() for r in recs]
-    stats = compute_stats(all_recs) if all_recs else {}
-    ranked = sorted(all_recs, key=hnet)
-    sample = "\n".join(fmt_hand(r) for r in ranked[:3] + ranked[-3:][::-1])
-    system = (
-        "Du bist ein scharfsinniger Poker- und Meta-Game-Analyst. Beurteile, was die EIGENEN Notizen "
-        "eines Spielers (während er gegen unseren Bot spielte) über sein Poker-Verständnis und sein "
-        "META-Denken verraten. Er behauptet, den Bot 'verstanden' zu haben — prüfe das ehrlich. "
-        "Antworte auf Deutsch, konkret, mit Bezug auf seine einzelnen Beobachtungen."
-    )
-    user = (
-        f"SPIELER-NOTIZEN (während des Spiels gegen den Bot):\n{notes}\n\n"
-        f"AGGREGAT-STATISTIK seiner Sessions: {stats}\n\n"
-        f"BEISPIELHÄNDE:\n{sample}\n\n"
-        "Beurteile: (a) Auf welchem Niveau denkt dieser Spieler (Level-1/2/3-Denken, Exploitation, "
-        "Meta-Game)? (b) Hat er den Bot wirklich verstanden — welche echten Lecks hat er korrekt "
-        "identifiziert? (c) Was ist stark, was naiv/falsch in seinen Schlüssen? (d) Was sollte er als "
-        "Nächstes lernen, um vom 'Bot-Exploiter' zum starken Spieler zu werden?"
-    )
-    return ask(system, user, 6000)
-
-
 def main() -> None:
     out_dir = config.KNOWLEDGE_DIR / "theory"
     out_dir.mkdir(parents=True, exist_ok=True)
-    print("=== gpt-5.1 — Q1: SPIELTHEORIE & KRITIK DER MAINSTREAM-THEORIE ===\n")
+    print("=== gpt-5.1 — Q1: GAME THEORY & A CRITIQUE OF MAINSTREAM THEORY ===\n")
     a1 = q1_game_theory()
     print(a1)
     (out_dir / "game_theory_critique.md").write_text(a1, encoding="utf-8")
-    print("\n\n=== gpt-5.1 — Q2: DEIN PLAYSTYLE (aus deinen Notizen) ===\n")
-    a2 = q2_playstyle()
-    print(a2)
-    (out_dir / "playstyle_analysis.md").write_text(a2, encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 """GTOW's RAISE-range composition, split by raise-size class + pot type ($0, offline).
 
 The freq book (freq_mine.py -> gtow_frequencies.json) shows GTOW's raise range is POLARIZED on aggregate
-(flop raises 49% air) — but the v3.3 lever (raise-facing-bet range narrowing, NOTES.md) needs the SIZE split:
+(flop raises 49% air) — but the v3.3 lever (raise-facing-bet range narrowing, docs/NOTES.md) needs the SIZE split:
 a normal raise keeps a large bluff share, a raise-ALL-IN in a bloated pot is the nutted case that stacked us
 (RANK4: K2o called a turn check-raise jam in a 4bet pot, -38bb AIVAT). Both holes are always logged -> the
 composition is exact, no showdown-selection bias.

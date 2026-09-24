@@ -1,4 +1,4 @@
-"""v10 — eingefrorene VERTRAEGE (G0, Build-Karte docs/V10_BUILD_CARD.md; Fakten docs/V10_FAKTEN.md).
+"""v10 — eingefrorene VERTRAEGE (G0, Build-Karte docs/plans/V10_BUILD_CARD.md; Fakten docs/reports/V10_FACTS.md).
 
 Reine Datentypen (frozen dataclasses) + Validierung + Kanonisierungs-Helfer. KEINE Strategie, KEIN Sampling,
 KEIN Solver. Alles hier ist so gebaut, dass es mit BEIDEN echten Zustandsformaten arbeitet:

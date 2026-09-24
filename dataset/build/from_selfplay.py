@@ -1,4 +1,4 @@
-"""REASONING-LOOP decision SFT examples (docs/llm_curriculum.md). Each completion is a GENUINE program-of-thought where
+"""REASONING-LOOP decision SFT examples (docs/plans/llm_curriculum.md). Each completion is a GENUINE program-of-thought where
 the action is DERIVED from engine computation (equity vs the price) via CONTROL FLOW — not a hardcoded decide() with
 decorative comments. (The old form computed `req` then ignored it: the reasoning was DEAD CODE, the decision memorized
 — so nothing the model "reasoned" influenced the action. User directive 2026-06-17: everything the LLM emits must drive

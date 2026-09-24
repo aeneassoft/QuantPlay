@@ -1,4 +1,4 @@
-"""Append-only trainer session registry (TRAINER_PLAN.md P0-6, doctrine TRAINER_DESIGN.md §4).
+"""Append-only trainer session registry (docs/plans/TRAINER_PLAN.md P0-6, doctrine docs/doctrine/TRAINER_DESIGN.md §4).
 
 WHY: the single module-global SESSION dies wholesale on 'Neu' (six_server.py:125, recon gotcha #1) —
 so session provenance (mode, flag fingerprint, file paths, final net) must live in an append-only
@@ -76,7 +76,7 @@ def register_start(session) -> dict | None:
         session_log.append_record(REGISTRY_PATH, row)
         return row
     except Exception as e:  # noqa: BLE001 — registry failure must never break /api/new_session
-        print(f"[registry] WARNUNG: Start-Zeile nicht geschrieben: {e!r}", file=sys.stderr)
+        print(f"[registry] WARNING: start row not written: {e!r}", file=sys.stderr)
         return None
 
 
@@ -93,7 +93,7 @@ def register_end(session) -> dict | None:
         session_log.append_record(REGISTRY_PATH, row)
         return row
     except Exception as e:  # noqa: BLE001
-        print(f"[registry] WARNUNG: End-Zeile nicht geschrieben: {e!r}", file=sys.stderr)
+        print(f"[registry] WARNING: end row not written: {e!r}", file=sys.stderr)
         return None
 
 

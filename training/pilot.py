@@ -5,7 +5,7 @@ RunPod spend (both consults' #1 advice). For each generated 6-max decision state
 Output per state = the EV-ranked candidates + an EV-GAP between the rollout-BEST action and a BASELINE policy's action.
 A positive mean gap = there IS exploitable signal a learner could capture (the local GATE-2 evidence). This harness is
 the $0 half; the Qwen-policy + AWR/DPO adapter + the on-GPU run are the pod half (training/qwen_grpo.py). The output
-(spot, best_action, gap) is also the AWR/preference training data. Per docs/QWEN_6MAX_PLAN.md + the plan's pilot.
+(spot, best_action, gap) is also the AWR/preference training data. Per docs/plans/QWEN_6MAX_PLAN.md + the plan's pilot.
 
 HARD INVARIANT (tested): when fold is legal it is a candidate with EV exactly 0, so the oracle EV is always >= 0 —
 the learner can never be forced into a -EV spot it could have folded.

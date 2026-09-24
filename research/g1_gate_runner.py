@@ -1,4 +1,4 @@
-"""G1 Gate-Laeufer (v10, docs/V10_BUILD_CARD.md G1) — fuehrt die Invarianten-/Test-Kommandos der Karte NACHEINANDER
+"""G1 Gate-Laeufer (v10, docs/plans/V10_BUILD_CARD.md G1) — fuehrt die Invarianten-/Test-Kommandos der Karte NACHEINANDER
 als Subprozesse aus und protokolliert jede Ausgabe woertlich nach data/runs/v10/G1_tests.txt (+ G1_summary.json).
 
 Nur Messung, kein Strategie-Code. Jeder Block traegt Kommando, Exit-Code, Dauer, Zeitstempel; die Ausgabe wird
@@ -82,7 +82,7 @@ def main() -> int:
     dirty = subprocess.run(["git", "status", "--short"], cwd=str(ROOT), capture_output=True, text=True,
                            encoding="utf-8").stdout
     with LOG.open("w", encoding="utf-8") as f:
-        f.write(f"G1 GATE — Invarianten/Tests (docs/V10_BUILD_CARD.md G1)\nStart {time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f.write(f"G1 GATE — Invarianten/Tests (docs/plans/V10_BUILD_CARD.md G1)\nStart {time.strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"Python {sys.version.split()[0]}  HEAD {git}  dirty-Zeilen {len(dirty.splitlines())}\n"
                 f"Treiber: research/g1_gate_runner.py  (Shell-POKERB_* gestrippt: "
                 f"{sorted(k for k in os.environ if k.startswith('POKERB_'))})\n")

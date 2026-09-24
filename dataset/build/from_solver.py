@@ -1,4 +1,4 @@
-"""Solver-grounded MIXED-strategy SFT data (Pillar 2, docs/full_gpu_load.md / the GTO plan). TexasSolver (OSS,
+"""Solver-grounded MIXED-strategy SFT data (Pillar 2, docs/plans/full_gpu_load.md / the GTO plan). TexasSolver (OSS,
 Discounted-CFR-class, CPU, $0) solves a postflop spot exactly and dumps the GTO action FREQUENCIES — exactly the
 mixed, multi-size targets representation-v2 needs (hand-written formulas can't express a 60/40 check-bet split). Each
 solved hand -> a canonical Spot -> a `decide_mix({...}, size=)` program whose mix IS the solver's ground truth.

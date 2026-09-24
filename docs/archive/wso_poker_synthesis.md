@@ -23,7 +23,7 @@ NOT military game theory.
 
 ## Honest priority (the bottom line)
 1. **WSO does NOT advance the theory-of-mind / exploitation EDGE** (the user's vision). Reasoning about a hidden-info,
-   *adapting* adversary needs the OPPONENT-MODELING + CFR machinery (see `EXPLOIT_VISION.md`: Bayesian opponent
+   *adapting* adversary needs the OPPONENT-MODELING + CFR machinery (see `../plans/EXPLOIT_VISION.md`: Bayesian opponent
    typing, recursive belief, level-k, safe-gated) — a continuous optimizer cannot do it.
 2. **Even as a tuner it is not the best choice** — o3's sharp point: CMA-ES / Bayesian Optimization typically beat WSO
    on noisy low-dim objectives. So WSO is not even optimal for its one niche.

@@ -1,7 +1,7 @@
 """Decontamination: the PokerBench TEST-set spot-keys, so NO training example (ANY source — PokerBench train, the
 local KB converters, the Phase-3 frontier-distillation, Phase-4 self-play) ever leaks a held-out test spot into
 training. Addresses the Phase-2 caveat. Cached to dataset/decontam_keys.json (built once from HF `RZ412/PokerBench`
-split='test'). Per docs/QWEN_6MAX_PLAN.md / DATASET_SPEC.md.
+split='test'). Per docs/plans/QWEN_6MAX_PLAN.md / docs/doctrine/DATASET_SPEC.md.
 """
 from __future__ import annotations
 

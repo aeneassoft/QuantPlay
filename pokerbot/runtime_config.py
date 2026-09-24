@@ -1,6 +1,6 @@
 """K4 Produktionsintegritaet — Laufzeit-Fingerprint dessen, was GELADEN wurde, + Fehlkonfig-Gatter.
 
-Hintergrund (docs/V10_BUILD_CARD.md K4, docs/V10_FAKTEN.md A8/B12, docs/HU_OPTIMAL_KARTE.md D1): der GTOW-Harness
+Hintergrund (docs/plans/V10_BUILD_CARD.md K4, docs/reports/V10_FACTS.md A8/B12, docs/catalogs/HU_OPTIMAL_MAP.md D1): der GTOW-Harness
 lief ohne jede Konfig-Pruefung (`gto_mode.fingerprint()` existierte, wurde aber nie gerufen; `POKERB_AUSLESE_STACK`
 fehlte in den Fingerprint-Keys), und die HU-Web-App spielte eine nie gemessene Konfiguration. Jede bb/100-Zahl haengt
 an der Frage, WELCHER Bot sie erspielt hat — dieses Modul beantwortet sie pro Prozess, aus dem laufenden Objekt
@@ -289,7 +289,7 @@ def gatter_aus_env(fp: Mapping[str, Any], log=print) -> str | None:
                                    "turn_defense", "slowplay")}
     profil = os.environ.get(ENV_ERWARTE_PROFIL)
     if not profil:
-        log(f"[K4] Fingerprint {fp.get('fingerprint_hash', '')[:12]} {kern} (kein Erwartungsprofil, nur geloggt)")
+        log(f"[K4] Fingerprint {fp.get('fingerprint_hash', '')[:12]} {kern} (no expectation profile, logged only)")
         return None
     if profil not in ERWARTUNGSPROFILE:
         raise SystemExit(f"{ENV_ERWARTE_PROFIL}={profil!r} unbekannt; bekannt: {sorted(ERWARTUNGSPROFILE)}")

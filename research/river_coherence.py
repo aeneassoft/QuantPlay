@@ -1,11 +1,11 @@
 """RIVER COHERENCE DIAGNOSTIC — grade our bot's river value/bluff/bluff-catch coherence vs the SOLVED
-river equilibrium, per docs/RIVER_SYSTEM.md "DER RIVER-DIAGNOSE-SCORE" (OpenAI q6_river_diagnostic,
+river equilibrium, per docs/doctrine/RIVER_SYSTEM.md "DER RIVER-DIAGNOSE-SCORE" (OpenAI q6_river_diagnostic,
 data/research_sweep/openai_river_consult.json).
 
 For every RIVER aggressor decision node in the logged GTOW hands (data/sessions/gtow_hands_*.jsonl):
   1. Reconstruct BOTH ranges line-aware via range_tracker (the same Bayesian walk the live resolver uses).
   2. Solve the river subgame via gto_oracle.solve — CACHE-FIRST (the 12GB warm cache hits many); live solves
-     are capped by --max-solves (an export may be holding the CPU — see docs/PRECISION_DOCTRINE.md).
+     are capped by --max-solves (an export may be holding the CPU — see docs/doctrine/PRECISION_DOCTRINE.md).
   3. From sigma*, tag each hero combo at each candidate bet size s as THEORETICAL VALUE (equity vs the villain
      range >= 0.5 = it wants a call = EV_bet>=EV_check on the river) vs THEORETICAL BLUFF (equity < 0.5 but it
      still bets in sigma*). Sum to V*_s (value weight betting s) and B*_s (bluff weight).

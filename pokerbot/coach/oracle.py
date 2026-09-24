@@ -1,5 +1,5 @@
 """P0-3 Oracle-Diff: the trainer's grading reference — PRINCE v2.2 as a SAFE per-spot HU oracle plus the
-neutral arena-'tag' core for multiway spots (TRAINER_PLAN.md P0-3; fairness doctrine TRAINER_DESIGN.md §1).
+neutral arena-'tag' core for multiway spots (docs/plans/TRAINER_PLAN.md P0-3; fairness doctrine docs/doctrine/TRAINER_DESIGN.md §1).
 
 WHY two oracles: PokerBot (PRINCE) is HU-ONLY — villain is hardcoded as 1-hero_idx (bot.py:316/1260) and
 state['players'] must be exactly 2 — so HU spots (n_active==2) are graded by a dedicated PRINCE instance on a
@@ -32,7 +32,7 @@ import os
 import random
 from types import SimpleNamespace
 
-# PRINCE v2.2 = the trainer's grading anchor (TRAINER_PLAN.md Basis-Bot). Expand the profile BEFORE any
+# PRINCE v2.2 = the trainer's grading anchor (docs/plans/TRAINER_PLAN.md Basis-Bot). Expand the profile BEFORE any
 # pokerbot.strategy import — postflop.py/advisor.py read their flags at IMPORT time (gto_mode.py:6). The
 # post-v2.2 default-OFF levers (PAIR_DEFENSE/RIVER_DEFENSE/PURIFY/...) are NOT set here (excluded, v2.2 anchor).
 os.environ.setdefault("POKERB_PRINCE", "1")
@@ -121,7 +121,7 @@ def record_to_hu_state(rec: dict) -> dict:
     hero_seat = spot["hero_seat"]
     live = [s for s in spot["seats"] if not s["folded"] and s["seat"] != hero_seat]
     if len(live) != 1:
-        raise ValueError(f"HU-Adapter braucht genau 2 aktive Spieler, fand {1 + len(live)}")
+        raise ValueError(f"HU adapter needs exactly 2 active players, found {1 + len(live)}")
     vill = live[0]
     hero = next(s for s in spot["seats"] if s["seat"] == hero_seat)
     to_call = int(legal["to_call"])

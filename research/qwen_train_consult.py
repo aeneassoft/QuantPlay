@@ -122,12 +122,12 @@ def main():
     out.mkdir(exist_ok=True)
     print(f"=== {OPENAI_MODEL} (conceptual pipeline + RL + ROI) ...", flush=True)
     o = ask_openai(OPENAI_MODEL, OPENAI_SYSTEM, OPENAI_Q)
-    (out / "qwen_train_gpt55.md").write_text(f"# Qwen 6-max training pipeline — conceptual+RL ({OPENAI_MODEL})\n\n{o}\n", encoding="utf-8")
-    print(f"  saved docs/qwen_train_gpt55.md ({len(o)} chars)", flush=True)
+    (out / "consults" / "qwen_train_gpt55.md").write_text(f"# Qwen 6-max training pipeline — conceptual+RL ({OPENAI_MODEL})\n\n{o}\n", encoding="utf-8")
+    print(f"  saved docs/consults/qwen_train_gpt55.md ({len(o)} chars)", flush=True)
     print(f"=== {CLAUDE_MODEL} (TECHNICAL: stack, data pipeline, APIs-in-loop, self-play, gates) ...", flush=True)
     c = ask_claude(CLAUDE_MODEL, CLAUDE_SYSTEM, CLAUDE_Q)
-    (out / "qwen_train_claude.md").write_text(f"# Qwen 6-max training pipeline — technical ({CLAUDE_MODEL})\n\n{c}\n", encoding="utf-8")
-    print(f"  saved docs/qwen_train_claude.md ({len(c)} chars)", flush=True)
+    (out / "consults" / "qwen_train_claude.md").write_text(f"# Qwen 6-max training pipeline — technical ({CLAUDE_MODEL})\n\n{c}\n", encoding="utf-8")
+    print(f"  saved docs/consults/qwen_train_claude.md ({len(c)} chars)", flush=True)
     print("DONE — both saved to docs/. Synthesize into a conceptual design + a data-prep + APIs-in-loop plan.", flush=True)
 
 

@@ -26,7 +26,7 @@ def turn_boundary_cfv(board4, oop_str, ip_str, pot=20.0, eff=50.0, acc=0.5, iter
     """-> (turn_cfv0{combo:cfv}, turn_cfv1{combo:cfv}, cnt0, cnt1, fails). Solve k_rivers of the 48 run-outs + average
     per combo. k_rivers=48 (default) = exact (zero-sum preserved by the constant n=46 averaging); k_rivers<48 = a
     faster MC estimate for the PILOT (a sample becomes ~k/48 the cost, so it actually COMPLETES inside a short gen
-    window; per-combo n varies slightly -> zero-sum only APPROXIMATE — see NOTES.md, refine on the full run)."""
+    window; per-combo n varies slightly -> zero-sum only APPROXIMATE — see docs/NOTES.md, refine on the full run)."""
     unseen = [c for c in CARDS if c not in board4]
     if k_rivers < len(unseen):
         unseen = random.Random("".join(board4)).sample(unseen, k_rivers)   # deterministic per board

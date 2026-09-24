@@ -1,8 +1,8 @@
-"""Render CATALOG.md (+ dataset/manifest.json) from the DATA REGISTRY — the never-stale, human+agent map of "the gold".
+"""Render docs/catalogs/DATA_CATALOG.md (+ dataset/manifest.json) from the DATA REGISTRY — the never-stale, human+agent map of "the gold".
 
 Run:  python -m dataset.build_manifest    (regenerate after the data changes)
 
-CATALOG.md (git-committed) = the durable navigation artifact: every registered asset grouped by ROLE, with LIVE
+docs/catalogs/DATA_CATALOG.md (git-committed) = the durable navigation artifact: every registered asset grouped by ROLE, with LIVE
 row-counts/sizes + descriptions, PLUS a knowledge_base/ summary and an appendix of on-disk files not yet curated — so
 nothing is hidden even if it isn't in the registry yet. manifest.json = the same, machine-readable.
 """
@@ -113,7 +113,7 @@ def build() -> tuple[str, list]:
 
 def main() -> None:
     md, machine = build()
-    cat = config.ROOT / "CATALOG.md"
+    cat = config.ROOT / "docs/catalogs/DATA_CATALOG.md"
     man = config.DATASET_DIR / "manifest.json"
     cat.write_text(md, encoding="utf-8")
     man.write_text(json.dumps(machine, indent=2), encoding="utf-8")

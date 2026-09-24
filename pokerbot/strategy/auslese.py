@@ -17,7 +17,7 @@ Historie v4 (Tag auslese-v4): FINAL_STACK war r6_button; Mirror 3x30k vs basis
 (v8-K3) -> setze_env(resolver_on=True) laesst RN weg. Die Guards sind HU-ONLY
 (2-Spieler-State-Ausdruecke) — NIE in den Multiway-Kern verdrahten.
 
-v10-RELEASE-KANDIDAT (docs/V10_BUILD_CARD.md, 2026-09-07): RC_STACK = r10_stack
+v10-RELEASE-KANDIDAT (docs/plans/V10_BUILD_CARD.md, 2026-09-07): RC_STACK = r10_stack
 = dieselbe Kette darunter (r6_button + wert_bremse), aber der hand-abhaengige
 river_gpu_guard ist durch den OEFFENTLICHEN River-Plan (K2, pokerbot/autogym/
 river_plan.py: ein Solve je Hand am River-Beginn, K1-Hero-Range ohne Injektion,

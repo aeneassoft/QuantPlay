@@ -1,7 +1,7 @@
 """Convert validated POKER STRATEGY (the canonical literature + quality public strategy) into EXACT, self-verifying
 mathematical FORMULAS via GPT-5.5 — formalizing prose wisdom into computable functions the brain can call. Same schema
 + gate as research/postflop_calc_consult (→ research.postflop_calc_gate strategy_calc → materialize → api.<fn> + the
-DSL dataset). Frontier = prior; every spec ships a machine-checkable self-verification. Per docs/math_accuracy_strategy.md.
+DSL dataset). Frontier = prior; every spec ships a machine-checkable self-verification. Per docs/plans/math_accuracy_strategy.md.
 
 Run: python -m research.strategy_to_formula_consult
 """

@@ -1,6 +1,6 @@
 """Trainer-Session -> PokerStars-6-max-HH fuer den GTOW-Analyzer (P4-B, externe Zweitmeinung).
 
-WHY (TRAINER_DESIGN.md par.4): die Menschen-Haende einer Trainer-Session werden im
+WHY (docs/doctrine/TRAINER_DESIGN.md par.4): die Menschen-Haende einer Trainer-Session werden im
 PokerStars-Format exportiert, damit der GTOW-Analyzer unsere eigenen Grades unabhaengig
 gegenprueft. Wiederverwendet wird research/sixmax_export.format_hand (verifizierte Signatur
 format_hand(hand_id, dt, h) mit h = {names, button, holes, history, result}).
@@ -10,7 +10,7 @@ RUNOUT-FIX (Code schlaegt Plan): sixmax_export.format_hand emittiert Street-Head
 NICHT im 6-max-Exporter. All-in-Runouts werden silent gedealt (table.py:223, keine deal-Events),
 darum injiziert dieser Export fehlende deal-Events synthetisch VOR dem Formatieren.
 
-OFF-TREE-ENTSCHEIDUNG (dokumentiert, TRAINER_PLAN.md P4-B Schritt 5): exportiert werden die ROHEN
+OFF-TREE-ENTSCHEIDUNG (dokumentiert, docs/plans/TRAINER_PLAN.md P4-B Schritt 5): exportiert werden die ROHEN
 Groessen des Menschen — nachtraegliches Snappen (_snap_hero) wuerde die Pot-Buchhaltung aller
 Folgeaktionen desynchronisieren. Stattdessen warnt der Export pro Hero-Bet, deren Pot-Fraktion
 > 10% von der naechsten Tree-Groesse abweicht: 'diese Spots graded der Analyzer degradiert/nicht'.

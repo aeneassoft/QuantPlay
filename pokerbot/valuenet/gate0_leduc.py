@@ -1,4 +1,4 @@
-"""Gate 0 — Leduc CFV value net + depth-limited continual re-solving (docs/VALUE_NET_PLAN.md).
+"""Gate 0 — Leduc CFV value net + depth-limited continual re-solving (docs/plans/VALUE_NET_PLAN.md).
 
 The DeepStack machinery proven on Leduc, where `exploitability()` is EXACT (mbb/hand vs a true
 best response). Phases, each persisted to data/research_sweep/gate0_leduc.json as it completes:

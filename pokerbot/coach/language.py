@@ -1,11 +1,11 @@
 """Sprachschicht des Trainers: der eingefrorene coach.v1-Vertrag + austauschbare Render-Backends.
 
-WHY: Die Sprachschicht ENTSCHEIDET NICHTS und RECHNET NICHTS (TRAINER_DESIGN.md §3) — sie formt
+WHY: Die Sprachschicht ENTSCHEIDET NICHTS und RECHNET NICHTS (docs/doctrine/TRAINER_DESIGN.md §3) — sie formt
 bereits berechnete Zahlen in warmes Deutsch. Der Vertrag ist hier gepinnt, damit Grader (P0),
 Templates (P1) und Backends (P3) dieselbe Sprache sprechen; jede Zahl im gerenderten Text MUSS
 aus dem Payload stammen (die GLM-Lektion: LLM-Output wird gegatet, nie vertraut).
 
-BINDING Enum-Pin (TRAINER_PLAN.md Must-Fix "GRADE/GRADE_TYP VOCABULARY DRIFT"):
+BINDING Enum-Pin (docs/plans/TRAINER_PLAN.md Must-Fix "GRADE/GRADE_TYP VOCABULARY DRIFT"):
   grade     in {ok, teuer, leak}                                  — KEIN 'none'
   grade_typ in {pot_odds, mdf, sizing, advisor_freq, oracle_diff} — das P0-4-Vokabular
 
@@ -37,7 +37,7 @@ MODES = frozenset({"gto", "exploit"})
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_DEFAULT_MODEL = "qwen3:8b"
-OLLAMA_TIMEOUT_S = 2.0          # harte Latenz-Grenze (TRAINER_DESIGN.md §3: < 2 s oder Templates)
+OLLAMA_TIMEOUT_S = 2.0          # harte Latenz-Grenze (docs/doctrine/TRAINER_DESIGN.md §3: < 2 s oder Templates)
 
 # Zaehlt jeden Rueckfall vom LLM auf Templates (Timeout/leer/halluzinierte Zahl) — Mess-Artefakt
 # fuer research/language_backend_test.py (die frac_bad-Disziplin aus den GLM-Lektionen).
@@ -48,7 +48,7 @@ _NUM_TOKEN_RE = re.compile(r"\d+(?:[.,]\d+)?")
 _LEXICAL_NUM_RE = re.compile(r"[34]-?[Bb]et\w*")
 # Board-Kartenzahlen (3 Flop / 4 Turn / 5 River) sind strukturell erlaubt, wenn vom Board die Rede ist.
 _BOARD_COUNT_WHITELIST = frozenset({"3", "4", "5"})
-_BOARD_WORDS = ("Flop", "Turn", "River", "Board", "Karte")
+_BOARD_WORDS = ("Flop", "Turn", "River", "Board", "Karte", "flop", "turn", "river", "board", "card", "cards", "Card", "Cards")
 
 _ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet",
               "raise": "Raise", "allin": "All-in"}
@@ -58,20 +58,20 @@ _ACTION_DE = {"fold": "Fold", "check": "Check", "call": "Call", "bet": "Bet",
 def validate_payload(payload: dict) -> dict:
     """Erzwingt den coach.v1-Vertrag. ValueError bei falschem Schema/Enum — nie still durchwinken."""
     if not isinstance(payload, dict) or payload.get("schema") != SCHEMA:
-        raise ValueError(f"kein {SCHEMA}-Payload: schema={payload.get('schema')!r}")
+        raise ValueError(f"not a {SCHEMA} payload: schema={payload.get('schema')!r}")
     if payload.get("mode") not in MODES:
-        raise ValueError(f"mode {payload.get('mode')!r} nicht in {sorted(MODES)}")
+        raise ValueError(f"mode {payload.get('mode')!r} not in {sorted(MODES)}")
     if payload.get("grade") not in GRADES:
-        raise ValueError(f"grade {payload.get('grade')!r} nicht in {sorted(GRADES)}")
+        raise ValueError(f"grade {payload.get('grade')!r} not in {sorted(GRADES)}")
     if payload.get("grade_typ") not in GRADE_TYPES:
-        raise ValueError(f"grade_typ {payload.get('grade_typ')!r} nicht in {sorted(GRADE_TYPES)}")
+        raise ValueError(f"grade_typ {payload.get('grade_typ')!r} not in {sorted(GRADE_TYPES)}")
     if payload.get("confidence") not in CONFIDENCES:
-        raise ValueError(f"confidence {payload.get('confidence')!r} nicht in {sorted(CONFIDENCES)}")
+        raise ValueError(f"confidence {payload.get('confidence')!r} not in {sorted(CONFIDENCES)}")
     ha = payload.get("human_action")
     if not isinstance(ha, dict) or "action" not in ha:
-        raise ValueError("human_action fehlt oder hat keine 'action'")
+        raise ValueError("human_action missing or has no 'action'")
     if not isinstance(payload.get("numbers"), dict):
-        raise ValueError("numbers fehlt (dict mit vorberechneten Zahlen)")
+        raise ValueError("numbers missing (dict of precomputed numbers)")
     return payload
 
 
@@ -151,9 +151,9 @@ class LanguageBackend(Protocol):
 
 
 def _fmt(value: float) -> str:
-    """Deutsche Zahldarstellung, deckungsgleich mit den _allowed_forms von validate_numbers."""
+    """Zahldarstellung (englisch, Dezimalpunkt), deckungsgleich mit den _allowed_forms von validate_numbers."""
     v = float(value)
-    return str(int(v)) if v == int(v) else f"{v:.1f}".replace(".", ",")
+    return str(int(v)) if v == int(v) else f"{v:.1f}"
 
 
 def _action_de(act: dict | None) -> str:
@@ -161,7 +161,7 @@ def _action_de(act: dict | None) -> str:
         return "?"
     verb = _ACTION_DE.get(act.get("action", "?"), str(act.get("action")))
     amount = act.get("amount_bb")
-    return f"{verb} auf {_fmt(amount)} bb" if amount is not None else verb
+    return f"{verb} to {_fmt(amount)} bb" if amount is not None else verb
 
 
 def _grade_sentence(payload: dict) -> str:
@@ -169,33 +169,33 @@ def _grade_sentence(payload: dict) -> str:
     n = payload["numbers"]
     typ = payload["grade_typ"]
     if typ == "pot_odds" and "required_equity_pct" in n:
-        eq = f", du hattest etwa {_fmt(n['equity_pct'])} %" if "equity_pct" in n else ""
-        return f"Der Call brauchte {_fmt(n['required_equity_pct'])} % Equity{eq}."
+        eq = f", you had about {_fmt(n['equity_pct'])}%" if "equity_pct" in n else ""
+        return f"The call needed {_fmt(n['required_equity_pct'])}% equity{eq}."
     if typ == "mdf" and "mdf_pct" in n:
-        return f"MDF sagt: mindestens {_fmt(n['mdf_pct'])} % der Range verteidigen."
+        return f"MDF says: defend at least {_fmt(n['mdf_pct'])}% of your range."
     if typ == "sizing" and "bet_frac_pot" in n:
-        snap = f", die Baum-Groesse waere {_fmt(n['snapped_frac_pot'])}" if "snapped_frac_pot" in n else ""
-        return f"Dein Sizing lag bei {_fmt(n['bet_frac_pot'])}x Pot{snap}."
+        snap = f", the tree size would be {_fmt(n['snapped_frac_pot'])}x" if "snapped_frac_pot" in n else ""
+        return f"Your sizing was {_fmt(n['bet_frac_pot'])}x pot{snap}."
     if typ == "advisor_freq" and "advisor_bet_pct" in n:
-        return f"Der Solver-Advisor spielt das etwa {_fmt(n['advisor_bet_pct'])} % der Zeit."
+        return f"The solver advisor plays this about {_fmt(n['advisor_bet_pct'])}% of the time."
     if payload.get("oracle_action"):
-        return f"Der Bot haette {_action_de(payload['oracle_action'])} gespielt."
-    return "Die Referenz war hier knapp — Entscheidung im Rahmen."
+        return f"The bot would have played {_action_de(payload['oracle_action'])}."
+    return "The reference was close here — the decision is within bounds."
 
 
 def _fallback_render(payload: dict) -> str:
     """Deterministischer deutscher Mini-Renderer: Rueckgrat, wenn templates_de (P1-B, paralleler
     Builder) noch fehlt oder wirft. Warmer Ton per Fairness-Doktrin §1.5 (nie 'Fehler')."""
     grade = payload["grade"]
-    lead = {"ok": "Gut gespielt", "teuer": "Ein teurer Kauf", "leak": "Ein klarer teurer Kauf"}[grade]
+    lead = {"ok": "well played", "teuer": "a bit costly", "leak": "clearly costly"}[grade]
     text = f"{payload['street'].capitalize()}: {_action_de(payload['human_action'])} — {lead}. "
     text += _grade_sentence(payload)
     mixed = payload.get("mixed") or {}
     if grade == "ok" and mixed.get("is_mixed") and mixed.get("dist"):
-        parts = " / ".join(f"{_fmt(p)} % {a.capitalize()}" for a, p in sorted(mixed["dist"].items()))
-        text += f" GTO mischt hier: {parts} — beides gut."
+        parts = " / ".join(f"{_fmt(p)}% {a.capitalize()}" for a, p in sorted(mixed["dist"].items()))
+        text += f" GTO mixes here: {parts} — both fine."
     if payload["confidence"] == "bot_einschaetzung":
-        text += " (Bot-Einschaetzung)"
+        text += " (bot estimate)"
     return text
 
 
@@ -205,11 +205,11 @@ def _frac(pct) -> float | None:
 
 
 def _payload_to_record(payload: dict) -> dict:
-    """coach.v1 -> Decision-Record-Form (TRAINER_DESIGN.md §4), die templates_de konsumiert.
+    """coach.v1 -> Decision-Record-Form (docs/doctrine/TRAINER_DESIGN.md §4), die templates_de konsumiert.
     Einheiten-Konversion Prozent->Bruch fuer equity/pot_odds/mdf und den Advisor-Mix."""
     n = payload["numbers"]
     dist = (payload.get("mixed") or {}).get("dist")
-    conf = {"hart": "hart", "bot_einschaetzung": "Bot-Einschätzung"}[payload["confidence"]]
+    conf = {"hart": "hard", "bot_einschaetzung": "Bot estimate"}[payload["confidence"]]
     return {"hand_id": payload.get("hand_id"), "street": payload.get("street"),
             "mode": payload.get("mode"), "grade": payload.get("grade"),
             "grade_typ": payload.get("grade_typ"), "human_action": payload.get("human_action"),
@@ -240,11 +240,11 @@ class TemplateBackend:
 
 
 _OLLAMA_PROMPT = (
-    "Du bist ein warmer, konkreter Poker-Coach. Formuliere aus dem folgenden JSON genau 1-2 "
-    "deutsche Saetze Feedback zur Entscheidung. HARTE REGEL: Uebernimm Zahlen AUSSCHLIESSLICH "
-    "woertlich aus dem JSON-Feld 'numbers' (und amount_bb). NIE rechnen, NIE runden, NIE neue "
-    "Zahlen erfinden. Nie Ergebnisse bewerten, nur die Entscheidung. Leaks heissen 'teurer "
-    "Kauf', gute Zuege werden explizit gelobt.\n\nJSON:\n"
+    "You are a warm, concrete poker coach. From the JSON below, write exactly 1-2 English "
+    "sentences of feedback on the decision. HARD RULE: take numbers ONLY verbatim from the JSON "
+    "field 'numbers' (and amount_bb). NEVER compute, NEVER round, NEVER invent new numbers. Never "
+    "judge results, only the decision. Leaks are called 'costly', good moves get explicit "
+    "praise.\n\nJSON:\n"
 )
 
 
@@ -294,7 +294,7 @@ def get_backend(name: str = "templates") -> LanguageBackend:
         return TemplateBackend()
     if chosen == "ollama":
         return OllamaBackend()
-    print(f"[language] unbekanntes Backend {chosen!r} — Templates bleiben Default", file=sys.stderr)
+    print(f"[language] unknown backend {chosen!r} — templates stay the default", file=sys.stderr)
     return TemplateBackend()
 
 
@@ -332,9 +332,12 @@ def _selftest():
     assert validate_numbers("Du brauchtest 73 % Equity.", payload) == ["73"]
     assert validate_numbers("Der Call brauchte 33,3 % bei 24 % Equity.", payload) == []
     assert validate_numbers("Am Flop liegen 3 Karten.", payload) == []      # Struktur-Whitelist
+    assert validate_numbers("The flop shows 3 cards.", payload) == []       # englische Whitelist-Woerter
     assert validate_numbers("Nimm 7 mehr.", payload) == ["7"]               # nicht ableitbar -> flag
     assert validate_numbers("du brauchtest 1-von-3 (33% Equity)", payload) == []  # Vergleichsform
     assert validate_numbers("Gegen die 3-Bet weiterspielen.", payload) == []  # Vokabel, keine Zahl
+    assert validate_numbers("Continue against the 3-bet, fold to the 4-bet.", payload) == []
+    assert validate_numbers("You needed 33.3% equity, had about 24%.", payload) == []
 
     # 4) Mixing-Support rendert beide Frequenzen (Doktrin §1.2)
     mixed = _fixture_payload(grade="ok", grade_typ="advisor_freq",

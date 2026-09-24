@@ -26,7 +26,7 @@ python -m extraction.runpod_launch --go      # provisions a cost-capped CPU pod
 ```
 `--go` aborts if the balance is below a safety reserve. If the headless pod-create mutation doesn't
 match your account/template, create a 32-vCPU `python:3.12` pod in the RunPod UI and run the same
-3 steps — the training job + `pod_bootstrap.sh` are ready either way.
+3 steps — the training job + `../../infra/serverless/pod_bootstrap.sh` are ready either way.
 
 ## Tournament / ICM extension
 Add `--icm` to wrap chip EV in a concave (sqrt) utility — a placeholder for a real ICM model. The next

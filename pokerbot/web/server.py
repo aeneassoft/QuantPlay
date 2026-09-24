@@ -70,8 +70,8 @@ class Session:
         if auslese_an:
             self._advisor_decide = wickle_decide(self.advisor)
         self.fingerprint_advisor = runtime_config.fingerprint_geladen(self.advisor, stack_name)
-        runtime_config.gatter_aus_env(self.fingerprint_advisor, log=lambda m: print("[K4 Berater]", m))
-        self.coach = Coach(language="de")
+        runtime_config.gatter_aus_env(self.fingerprint_advisor, log=lambda m: print("[K4 advisor]", m))
+        self.coach = Coach(language="en")
         self.last_bot: dict | None = None       # {state, decision} for "explain"
         self.last_human: dict | None = None      # {state, action, amount, reco} for "review"
         self.counted = True
@@ -229,7 +229,7 @@ def advice() -> JSONResponse:
 @app.post("/api/coach/explain")
 def coach_explain() -> JSONResponse:
     if SESSION is None or not SESSION.last_bot:
-        return JSONResponse({"text": "Noch kein Bot-Zug zum Erklären."})
+        return JSONResponse({"text": "No bot move to explain yet."})
     lb = SESSION.last_bot
     txt = SESSION.coach.explain_move(lb["state"], BOT, lb["decision"])
     return JSONResponse({"text": txt})
@@ -238,7 +238,7 @@ def coach_explain() -> JSONResponse:
 @app.post("/api/coach/review")
 def coach_review() -> JSONResponse:
     if SESSION is None or not SESSION.last_human or not SESSION.last_human.get("reco"):
-        return JSONResponse({"text": "Noch kein eigener Zug zum Bewerten."})
+        return JSONResponse({"text": "No move of yours to review yet."})
     lh = SESSION.last_human
     txt = SESSION.coach.review_user_move(lh["state"], HUMAN, lh["action"],
                                          lh["amount"], lh["reco"])
@@ -248,7 +248,7 @@ def coach_review() -> JSONResponse:
 @app.post("/api/coach/ask")
 def coach_ask(req: AskReq) -> JSONResponse:
     if SESSION is None:
-        return JSONResponse({"text": "Starte zuerst ein Spiel."})
+        return JSONResponse({"text": "Start a game first."})
     st = SESSION.game.state(hide=BOT)
     txt = SESSION.coach.ask(req.question, st, HUMAN)
     return JSONResponse({"text": txt})
@@ -263,7 +263,7 @@ def main() -> None:
     ap.add_argument("--open", action="store_true", help="open the browser automatically")
     args = ap.parse_args()
     url = f"http://{args.host}:{args.port}"
-    print(f"PokerB läuft auf  {url}   (zum Beenden: Strg+C)")
+    print(f"PokerB running at  {url}   (Ctrl+C to stop)")
     if args.open:
         import threading
         import webbrowser

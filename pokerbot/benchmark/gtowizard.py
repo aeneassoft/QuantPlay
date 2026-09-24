@@ -232,7 +232,7 @@ class PokerBotAgent:
         self._decide_lock = threading.Lock()   # decide mutiert Bot-Zustand (Tracker) -> ein Thread zur Zeit
         # E5-Laufzeitnachweis: act_dict DIREKT aus dem Event-Loop-Thread gerufen (= poker_agent.py:74 ungepatcht)
         # blockiert alle parallelen Haende. Der Zaehler macht den Zustand messbar (Ledger-Ereignis 'e5_sync_act_dict'),
-        # statt ihn aus einer gitignorierten Quelldatei zu raten (docs/V10_LEDGER_PATCH.md).
+        # statt ihn aus einer gitignorierten Quelldatei zu raten (docs/reports/V10_LEDGER_PATCH.md).
         self.loop_blockierende_aufrufe = 0
 
     def _zaehle_loop_blockade(self) -> None:
@@ -246,7 +246,7 @@ class PokerBotAgent:
         if self.loop_blockierende_aufrufe == 1:
             import sys
             print("[K4/E5] WARNUNG: act_dict synchron im Event-Loop gerufen -- parallele Haende blockiert; "
-                  "PokerBotMVP.act muss act_async awaiten (docs/V10_LEDGER_PATCH.md)", file=sys.stderr)
+                  "PokerBotMVP.act muss act_async awaiten (docs/reports/V10_LEDGER_PATCH.md)", file=sys.stderr)
 
     def act_dict(self, gsr: dict) -> dict:
         self._zaehle_loop_blockade()
@@ -262,7 +262,7 @@ class PokerBotAgent:
         """E5: decide im Worker-Thread (asyncio.to_thread, Vorbild tools/gtow_client/src/poker_agent.py:208) —
         der Event-Loop bleibt fuer die parallelen Haende frei (bisher blockierte der synchrone act_dict ALLE, V10_FAKTEN
         A8). Die Serialisierung der Entscheidungen bleibt ueber _decide_lock erhalten. PokerBotMVP.act (gitignored)
-        ruft dies statt act_dict — Patch dokumentiert in docs/V10_LEDGER_PATCH.md."""
+        ruft dies statt act_dict — Patch dokumentiert in docs/reports/V10_LEDGER_PATCH.md."""
         import asyncio
         return await asyncio.to_thread(self.act_dict, gsr)
 

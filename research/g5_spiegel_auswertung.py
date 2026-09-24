@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""G5-Auswertung eines pargate-Spiegels (docs/V10_BUILD_CARD.md, Gate G5).
+"""G5-Auswertung eines pargate-Spiegels (docs/plans/V10_BUILD_CARD.md, Gate G5).
 
 Liest result.json + edges.json eines pargate-Run-Ordners und weist die Gate-
 Kennzahlen aus: bb/100 +- SE, Bootstrap-CI, Verdikt, Divergenz-Decks, nz_median,

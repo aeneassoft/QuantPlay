@@ -1,6 +1,6 @@
 """COMPONENT COMPETENCE MATRIX — which decision-generating component of the bot is best in which region of
 the game, graded against the TexasSolver oracle. Operationalizes the "ensemble, don't discard" principle
-(per-context reliability weighting) for the PRECISION DOCTRINE (docs/PRECISION_DOCTRINE.md): a routing-DESIGN
+(per-context reliability weighting) for the PRECISION DOCTRINE (docs/doctrine/PRECISION_DOCTRINE.md): a routing-DESIGN
 instrument, NOT a shippable router.
 
 REUSE: this is floor_map.py's region-decomposition machinery generalized across COMPONENTS. It reads the same
@@ -532,7 +532,7 @@ CAVEATS = [
     "GRADER = TexasSolver (bundled OSS solver), ~90% aligned with GTO Wizard but NOT identical. Every number "
     "here is a PROXY for GTO-closeness, not bb/100 truth. A component 'winning' a region wins vs THIS oracle.",
     "This measures ISOLATED component competence, NOT composed behavior. Routing by it is a DESIGN HYPOTHESIS: "
-    "the composed router still needs its own LIVE gate. Lesson (docs/PRECISION_DOCTRINE.md): behaviour levers "
+    "the composed router still needs its own LIVE gate. Lesson (docs/doctrine/PRECISION_DOCTRINE.md): behaviour levers "
     "carried interaction risk (Hebel x Resolver measured -58 live vs -20 isolated) — isolated wins do not add.",
     f"Cells with n < {MIN_DECISIVE_N} graded hands are LOW-COVERAGE (marked '*'); their winner is noise, never "
     "decisive. The preflop_blueprint track is graded vs its OWN solved mixture (no postflop-solver preflop "

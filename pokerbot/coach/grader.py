@@ -1,8 +1,8 @@
-"""Deterministic decision grader for the 6-max trainer — math checks + grade bands (TRAINER_PLAN.md P0-2/P0-4/P0-5).
+"""Deterministic decision grader for the 6-max trainer — math checks + grade bands (docs/plans/TRAINER_PLAN.md P0-2/P0-4/P0-5).
 
 WHY: the trainer grades every HUMAN decision captured by decision_log (schema trainer.decision.v1) against
 engine truth. Four cheap deterministic checks (pot odds / MDF / sizing geometry / advisor frequency) plus the
-P0-3 oracle diff feed assemble_grade(), which implements the BINDING fairness doctrine (TRAINER_DESIGN.md §1):
+P0-3 oracle diff feed assemble_grade(), which implements the BINDING fairness doctrine (docs/doctrine/TRAINER_DESIGN.md §1):
 
   - Nie Ergebnisse graden, nur Entscheidungen.
   - ✗ leak NUR bei mathematisch harten Verstößen (Pot-Odds klar verletzt, grobe MDF-Verletzung,
@@ -56,13 +56,13 @@ OK_SIZE_DIFF = 0.25         # both-aggressive: sizing within this fraction of th
 
 GRADE_OK, GRADE_TEUER, GRADE_LEAK = "ok", "teuer", "leak"
 
-CONF_MATH = "Mathe (unanfechtbar)"
-CONF_ADVISOR = "Solver-Frequenz (HU-trainiert, Näherung)"
-CONF_ORACLE = "Bot-Einschätzung"
+CONF_MATH = "Math (indisputable)"
+CONF_ADVISOR = "Solver frequency (HU-trained, approximation)"
+CONF_ORACLE = "Bot estimate"
 _CONFIDENCE = {"pot_odds": CONF_MATH, "mdf": CONF_MATH, "sizing": CONF_MATH,
                "advisor_freq": CONF_ADVISOR, "oracle_diff": CONF_ORACLE}
 
-# German display names for action verbs inside erklaerung_kurz (verbs themselves are common poker German).
+# Display names for action verbs inside erklaerung_kurz (player-facing text is English).
 _DE = {"fold": "Fold", "check": "Check", "call": "Call", "raise": "Raise", "bet": "Bet", "allin": "All-in"}
 
 # human verb -> advisor-dist key, per node type ('defense' = facing a bet, 'bet' = free to bet/check)
@@ -173,7 +173,7 @@ def check_advisor(rec: dict) -> dict:
     spot = rec["spot"]
     street = spot.get("street")
     if street == "preflop":                            # api.preflop_mix returns None on 6-max (api.py:130)
-        return {"available": False, "reason": "kein 6-max Preflop-Advisor"}
+        return {"available": False, "reason": "no 6-max preflop advisor"}
     to_call = spot.get("to_call") or 0
     hole, board = spot["hero_hole"], spot.get("board") or []
     role = "IP" if understanding._in_position(_spot_obj(spot)) else "OOP"
@@ -205,19 +205,19 @@ def _hard_violation(checks: dict) -> dict | None:
     """✗ leak ONLY here — a hard math violation, named + numbered, warm ('teurer Kauf'), with the alternative."""
     po = checks.get("pot_odds") or {}
     if po.get("violated"):
-        text = (f"Call brauchte {po.get('req', 0) * 100:.0f}% Equity, selbst gegen jede Hand nur "
-                f"{po.get('eq_max', 0) * 100:.0f}% — teurer Kauf, Fold spart auf Dauer.")
+        text = (f"The call needed {po.get('req', 0) * 100:.0f}% equity, even against any two cards you had only "
+                f"{po.get('eq_max', 0) * 100:.0f}% — a costly call, folding saves money in the long run.")
         return {"grade": GRADE_LEAK, "grade_typ": "pot_odds", "confidence": CONF_MATH, "erklaerung_kurz": text}
     md = checks.get("mdf") or {}
     if md.get("violated"):
-        text = (f"Starke Hand ({md.get('strength') or 0:.2f}) gegen nur {md.get('size_faced', 0):.1f}x Pot "
-                f"gefoldet — MDF sagt: mindestens {md.get('mdf', 0) * 100:.0f}% verteidigen, Call war der "
-                f"bessere Kauf.")
+        text = (f"Strong hand ({md.get('strength') or 0:.2f}) folded to just a {md.get('size_faced', 0):.1f}x-pot bet "
+                f"— MDF says defend at least {md.get('mdf', 0) * 100:.0f}%, calling was the "
+                f"cheaper choice.")
         return {"grade": GRADE_LEAK, "grade_typ": "mdf", "confidence": CONF_MATH, "erklaerung_kurz": text}
     sz = checks.get("sizing") or {}
     if sz.get("violated"):
-        text = (f"Sizing {sz.get('human_frac', 0):.2f}x Pot statt ~{sz.get('snapped_frac', 0):.2f}x vom "
-                f"Baum — Geometrie-Fehler, die Standardgröße macht denselben Job billiger.")
+        text = (f"Sizing {sz.get('human_frac', 0):.2f}x pot instead of ~{sz.get('snapped_frac', 0):.2f}x from "
+                f"the tree — the geometry is off, the standard size does the same job for less.")
         return {"grade": GRADE_LEAK, "grade_typ": "sizing", "confidence": CONF_MATH, "erklaerung_kurz": text}
     return None
 
@@ -231,20 +231,20 @@ def _support_ok(checks: dict, o: dict) -> dict | None:
         support = sorted(((k, v) for k, v in dist.items() if v >= MIX_SUPPORT), key=lambda kv: (-kv[1], kv[0]))
         if len(support) >= 2:
             mix = " / ".join(f"{v * 100:.0f}% {_DE.get(k, k)}" for k, v in support)
-            tail = "beides gut" if len(support) == 2 else "alles spielbar"
-            text = f"GTO mischt hier: {mix} — {tail}."
+            tail = "both fine" if len(support) == 2 else "all playable"
+            text = f"GTO mixes here: {mix} — {tail}."
         else:
-            text = f"Sauber: der Solver spielt {_DE.get(adv.get('chosen'), 'das')} hier in {p * 100:.0f}% der Fälle."
+            text = f"Clean: the solver plays {_DE.get(adv.get('chosen'), 'this')} here {p * 100:.0f}% of the time."
         return {"grade": GRADE_OK, "grade_typ": "advisor_freq", "confidence": CONF_ADVISOR, "erklaerung_kurz": text}
     if o.get("match"):
-        act = _DE.get(o.get("oracle_action"), o.get("oracle_action") or "dieselbe Aktion")
+        act = _DE.get(o.get("oracle_action"), o.get("oracle_action") or "the same action")
         return {"grade": GRADE_OK, "grade_typ": "oracle_diff", "confidence": CONF_ORACLE,
-                "erklaerung_kurz": f"Sauber: der Referenz-Bot spielt hier genauso ({act})."}
+                "erklaerung_kurz": f"Clean: the reference bot plays exactly the same here ({act})."}
     sd = o.get("size_diff_frac")
     if sd is not None and sd <= OK_SIZE_DIFF:
         return {"grade": GRADE_OK, "grade_typ": "oracle_diff", "confidence": CONF_ORACLE,
-                "erklaerung_kurz": f"Gleiche Linie wie der Referenz-Bot, Sizing nur {sd * 100:.0f}% Pot "
-                                   f"daneben — gut."}
+                "erklaerung_kurz": f"Same line as the reference bot, sizing only {sd * 100:.0f}% of pot "
+                                   f"off — good."}
     return None
 
 
@@ -256,23 +256,23 @@ def _teuer_or_no_reference(checks: dict, o: dict) -> dict:
     if p is not None:                                  # advisor has an opinion and it is < MIX_SUPPORT
         dist = adv.get("dist") or {}
         alt = o.get("oracle_action") or (max(dist, key=dist.get) if dist else None)
-        alt_de = _DE.get(alt, alt or "die Standardlinie")
-        chosen_de = _DE.get(adv.get("chosen"), "diese Linie")
-        text = (f"Teurer Kauf: der Solver wählt {chosen_de} hier nur in {p * 100:.0f}% der Fälle — "
-                f"{alt_de} ist meist der bessere Kauf.")
+        alt_de = _DE.get(alt, alt or "the standard line")
+        chosen_de = _DE.get(adv.get("chosen"), "this line")
+        text = (f"Costly: the solver picks {chosen_de} here only {p * 100:.0f}% of the time — "
+                f"{alt_de} is usually the better choice.")
         return {"grade": GRADE_TEUER, "grade_typ": "advisor_freq", "confidence": CONF_ADVISOR,
                 "erklaerung_kurz": text}
     if o.get("oracle_action"):                         # oracle disagreed (no match, sizing not close)
         act = _DE.get(o["oracle_action"], o["oracle_action"])
         return {"grade": GRADE_TEUER, "grade_typ": "oracle_diff", "confidence": CONF_ORACLE,
-                "erklaerung_kurz": f"Teurer Kauf: der Referenz-Bot spielt hier {act} — auf Dauer die "
-                                   f"günstigere Linie."}
+                "erklaerung_kurz": f"Costly: the reference bot plays {act} here — the cheaper "
+                                   f"line in the long run."}
     return {"grade": GRADE_OK, "grade_typ": "oracle_diff", "confidence": CONF_ORACLE,
-            "erklaerung_kurz": "Keine Referenz für diesen Spot verfügbar — Mathe sauber, keine Beanstandung."}
+            "erklaerung_kurz": "No reference available for this spot — the math checks out, nothing to flag."}
 
 
 def assemble_grade(checks: dict, oracle_diff: dict, street: str, n_active) -> dict:
-    """Grade bands per TRAINER_DESIGN.md §1.2 EXACTLY: leak ONLY on hard math violations; ok on mixed
+    """Grade bands per docs/doctrine/TRAINER_DESIGN.md §1.2 EXACTLY: leak ONLY on hard math violations; ok on mixed
     support / oracle match / near sizing; else teuer. Confidence labels are honest to what P0 has:
     preflop 6-max and the river both resolve to 'Bot-Einschätzung' via the map (no preflop advisor, no
     resolver yet — the trainer that names its limits is more credible, §1.3). `street`/`n_active` are part
@@ -323,7 +323,7 @@ def grade_decision(rec: dict) -> dict:
                                  rec.get("spot", {}).get("n_active"))
     except Exception as e:  # noqa: BLE001 — never a worse grade because the grader itself broke
         verdict = {"grade": GRADE_OK, "grade_typ": "oracle_diff", "confidence": CONF_ORACLE,
-                   "erklaerung_kurz": "Bewertung fehlgeschlagen — keine Beanstandung.", "grade_error": repr(e)}
+                   "erklaerung_kurz": "Grading failed — nothing to flag.", "grade_error": repr(e)}
     rec["checks"] = checks
     rec["oracle"] = odiff
     rec.update(verdict)
@@ -433,7 +433,7 @@ def _selftest() -> None:                               # noqa: C901 — one line
         grade_decision(rec)
         assert rec["checks"]["pot_odds"]["violated"] is True, rec["checks"]["pot_odds"]
         assert rec["grade"] == GRADE_LEAK and rec["grade_typ"] == "pot_odds", (rec["grade"], rec["grade_typ"])
-        assert "Mathe" in rec["confidence"]
+        assert "Math" in rec["confidence"]
         assert rec["grade_ms"] >= 0
         print(f"  leak fixture pot_odds : req={rec['checks']['pot_odds']['req']:.3f} "
               f"eq_max={rec['checks']['pot_odds']['eq_max']:.3f} -> {rec['erklaerung_kurz']}")
@@ -471,7 +471,7 @@ def _selftest() -> None:                               # noqa: C901 — one line
         grade_decision(rec3)
         assert rec3["checks"]["advisor"] == {"available": False}, rec3["checks"]["advisor"]
         assert rec3["grade"] == GRADE_TEUER and rec3["grade_typ"] == "oracle_diff", rec3["grade"]
-        assert rec3["confidence"] == "Bot-Einschätzung"
+        assert rec3["confidence"] == CONF_ORACLE
         print(f"  teuer fixture         : {rec3['erklaerung_kurz']}")
 
         # -- (4) fold of a strong made hand vs 0.4x-pot bet -> leak/mdf
@@ -479,7 +479,7 @@ def _selftest() -> None:                               # noqa: C901 — one line
         rec4 = _fixture_record("flop", ["Ah", "Kd", "7c"], ["As", "Ad"], 1400, 400, "fold")
         grade_decision(rec4)
         assert rec4["checks"]["mdf"]["violated"] is True, rec4["checks"]["mdf"]
-        assert rec4["grade"] == GRADE_LEAK and rec4["grade_typ"] == "mdf" and "Mathe" in rec4["confidence"]
+        assert rec4["grade"] == GRADE_LEAK and rec4["grade_typ"] == "mdf" and "Math" in rec4["confidence"]
         print(f"  leak fixture mdf      : strength={rec4['checks']['mdf']['strength']:.2f} "
               f"-> {rec4['erklaerung_kurz']}")
 

@@ -157,7 +157,7 @@ class PokerBot:
         self.fold_model = None   # set to a LearnedFoldModel to enable fold-equity-optimal sizing
         self.value_raise_eq = 0.72   # facing-bet value-raise threshold (A/B-able via the duplicate gate)
         self.range_cbet = True       # flop-c-bet medium hands at the solver-calibrated texture freq (A/B hook)
-        self.oop_donk_freq = 0.5     # OOP-caller donk-frequency cap (was over-donking 52% vs GTO ~20%; A/B hook, NOTES.md)
+        self.oop_donk_freq = 0.5     # OOP-caller donk-frequency cap (was over-donking 52% vs GTO ~20%; A/B hook, docs/NOTES.md)
         self.opp_model = OppModel()  # EXPLOIT-PRIMARY (#49): Dirichlet per-node villain response model
         self._river_keys: list = []  # river-bet node keys this hand (recorded for post-hand observation)
         # ---- floor-ablation A/B toggles (default True = current behavior; flipped only by floor_ablate.py) ----
@@ -319,7 +319,7 @@ class PokerBot:
     def _preflop_blueprint(self, state, hole, hc, pct, eff_bb, is_sb, raises, r):
         """Solved GTO preflop action from the 200bb blueprint (extraction/preflop_solve.py), or None to fall
         through to the heuristic. Gated to deep stacks; a value-only jam clamp guards the checkdown solve's
-        blocker-blind bluff-jams (it would 5bet/jam 76s for 200bb = spew). See NOTES.md."""
+        blocker-blind bluff-jams (it would 5bet/jam 76s for 200bb = spew). See docs/NOTES.md."""
         if eff_bb < self.bp_deep_min_bb or not pbp.available():
             return None
         la = state["legal"]
@@ -864,7 +864,7 @@ class PokerBot:
         # OOP as the caller (no initiative): GTO mostly CHECKS to the aggressor (check-raise/check-call) and
         # donks only the strong part of range, capped. We were OVER-DONKING (52% vs GTO ~20%) by value-betting
         # every strong hand here. Donk only value, frequency-capped; everything else checks (no air spew-donk).
-        # Exact per-texture donk frequencies are a deferred refinement (NOTES.md).
+        # Exact per-texture donk frequencies are a deferred refinement (docs/NOTES.md).
         if street == "flop" and not self._has_initiative(state):
             donk_rate = min(1.0, self.oop_donk_freq * 4.0 * _texture_freq(board, "OOP"))  # per-texture GTO donk freq
             if eq >= pf.VALUE_EQ and (0.5 if _PURIFY2 else self.rng.random()) < donk_rate:
@@ -1017,7 +1017,7 @@ class PokerBot:
         """River blocker signal in [-1,1]: how much MORE hero's two cards block villain's VALUE combos than
         villain's WEAK combos. + => hero removes value -> good to BLUFF (fewer continues) and to BLUFFCATCH
         (villain's bets skew bluffier). Grounded in blocker theory; magnitudes deliberately small and the bluff
-        side is frequency-preserving (biases selection, not amount). River-solver calibration deferred (NOTES.md)."""
+        side is frequency-preserving (biases selection, not amount). River-solver calibration deferred (docs/NOTES.md)."""
         combos = R.combos_for_classes(vrange, list(board))   # exclude board only -> hero-blocking is measurable
         if not combos:
             return 0.0

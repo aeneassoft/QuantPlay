@@ -1,5 +1,5 @@
-"""K1 — HERO-LIKELIHOOD-REPLAY: Heros OEFFENTLICHE Range am River-Beginn (v10, Karte docs/V10_BUILD_CARD.md K1;
-Entscheidungen E3/E6/E11; Fakten docs/V10_FAKTEN.md A4/A5/B8/B9).
+"""K1 — HERO-LIKELIHOOD-REPLAY: Heros OEFFENTLICHE Range am River-Beginn (v10, Karte docs/plans/V10_BUILD_CARD.md K1;
+Entscheidungen E3/E6/E11; Fakten docs/reports/V10_FACTS.md A4/A5/B8/B9).
 
     r_river(h)  ∝  r_0(h) · M_board(h) · Π_t π_exec(a_t | s_t, h)        ueber alle Hero-Aktionen VOR dem River.
 

@@ -7,7 +7,7 @@ The thesis (GATE 2) = the GRPO policy's mixed bb/100 BEATS its own SFT-init.
 
 `league_eval` / `robustness` / `gate_ladder` are MODEL-FREE pure functions over `rl_env.evaluate_policy` (a policy is any
 `policy(table, seat)->(action, amount)`), so they're $0-testable with a league-bot stub. `pokerbench_acc` + `main` need a
-GPU model (pod). Per docs/QWEN_6MAX_PLAN.md + the CLAUDE.md robustness theory.
+GPU model (pod). Per docs/plans/QWEN_6MAX_PLAN.md + the CLAUDE.md robustness theory.
 """
 from __future__ import annotations
 

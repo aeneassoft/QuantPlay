@@ -1,5 +1,5 @@
 """The canonical 6-max poker SPOT — the single, source-agnostic representation the LLM brain sees, byte-identical
-across SFT / RL self-play / live inference / eval (per docs/DATASET_SPEC.md). Aligned to PokerBench's encoding
+across SFT / RL self-play / live inference / eval (per docs/doctrine/DATASET_SPEC.md). Aligned to PokerBench's encoding
 (positions UTG/HJ/CO/BTN/SB/BB, the betting line, board, pot, hero holding, legal moves), in BIG-BLIND units.
 
 `Spot` is the dataclass; `spot_from_table(table, seat)` builds it from the live engine (`pokerbot/engine/table.py`,
@@ -29,7 +29,7 @@ INCLUDE_MADE_HAND = os.environ.get("POKERB_MADE_HAND", "1") == "1"
 # primitive the model ALREADY knows (api.solver_freq is in the SYSTEM_PROMPT) → bounded OOD risk. DEFAULT OFF so the
 # baseline prompt stays byte-identical; flip ON only via the gated GTOW A/B (POKERB_SOLVER_FREQ=1, gtow_glm_pod --ab-hints).
 # ★ HARD RULE: serve-time ONLY — NEVER bake this line into the dataset builders. Training on a made-hand serve-hint
-# REGRESSED the model (−28→−90, postflop spew, 2026-06-21; see NOTES.md + [[glm-resft-regression]]).
+# REGRESSED the model (−28→−90, postflop spew, 2026-06-21; see docs/NOTES.md + [[glm-resft-regression]]).
 INCLUDE_SOLVER_FREQ = os.environ.get("POKERB_SOLVER_FREQ", "0") == "1"
 
 # Consolidated strategic-understanding block (pokerbot/brain/understanding.py) — fuses SPR / position / pot-odds / MDF

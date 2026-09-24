@@ -2,20 +2,20 @@
 
 ## Math (OpenAI gpt-5.1)
 
-Ich strukturiere das in drei Blöcke, mit Formeln und so wenig „Story“ wie möglich.
+I structure this in three blocks, with formulas and as little "story" as possible.
 
 ---
 
-## 1) GTO-Approximation mit dem, was ihr habt
+## 1) GTO approximation with what you have
 
-### 1.1 Fundamentale Zielgröße
+### 1.1 Fundamental target quantity
 
-Sei  
-- \(G\) das echte NLHE-Spiel,  
-- \(\sigma^*\) ein Nash-Gleichgewichts-Strategieprofil,  
-- \(u_i(\sigma)\) der erwartete Wert für Spieler \(i\) im Spiel (in bb/Hand o.ä.).  
+Let  
+- \(G\) be the real NLHE game,  
+- \(\sigma^*\) a Nash equilibrium strategy profile,  
+- \(u_i(\sigma)\) the expected value for player \(i\) in the game (in bb/hand or similar).  
 
-Für 2‑Spieler Nullsummen gilt:
+For 2‑player zero-sum games:
 
 \[
 \text{Exploitability}(\sigma) 
@@ -23,111 +23,111 @@ Für 2‑Spieler Nullsummen gilt:
 = \max_{\tau} u_1(\tau,\sigma) - u_1(\sigma^*, \sigma^*)
 \]
 
-In bb/100: \(\epsilon := \text{Exploitability}(\sigma)\) ist der maximal mögliche Verlust ggü. perfekter GTO-Spielweise, wenn ein adversarialer Gegner perfekt ausnutzt.
+In bb/100: \(\epsilon := \text{Exploitability}(\sigma)\) is the maximum possible loss relative to perfect GTO play when an adversarial opponent exploits perfectly.
 
-Nahe GTO heißt: \(\epsilon\) „klein“ (z.B. < 5–10 bb/100) auf der relevanten Teilmenge der Zustände (Positionen, Stackgrößen etc.).
+Near GTO means: \(\epsilon\) "small" (e.g. < 5–10 bb/100) on the relevant subset of states (positions, stack sizes, etc.).
 
 ---
 
-### 1.2 Deep CFR (Neural) als Kern-Baseline
+### 1.2 Deep CFR (neural) as the core baseline
 
-Eure Validierung: Leduc mit Deep CFR, NashConv von 2.33 → 0.33.  
-In einem 2‑Spieler Nullsummen-Spiel entspricht NashConv im Wesentlichen der Summe der Exploitabilities der Spieler; für symmetrisches Spiel:
+Your validation: Leduc with Deep CFR, NashConv from 2.33 → 0.33.  
+In a 2‑player zero-sum game, NashConv essentially corresponds to the sum of the players' exploitabilities; for a symmetric game:
 
 \[
 \text{NashConv}(\sigma) = \text{Exploitability}_1(\sigma) + \text{Exploitability}_2(\sigma) \approx 2\epsilon
 \]
 
-also \(\epsilon \approx \frac{\text{NashConv}}{2}\).
+so \(\epsilon \approx \frac{\text{NashConv}}{2}\).
 
-**Übertrag auf NLHE:**
+**Transfer to NLHE:**
 
-1. **Spielabstraktion**  
-   - Diskretisierung der Action-Sizes: z.B. {Check, 33%, 75%, 125%, All-in} statt kontinuierlich.  
-   - Bucketing von Handstärken bzw. Equity/Draw-Struktur (ähnlich Pluribus / Libratus-Patterns, aber ihr könnt die Infos aus Acevedo verwenden: Kategorie-Splitting nach „top pair good kicker“, „nut FD + overcards“ etc.).  
-   - Board-Klassen (trocken / middling / wet, paired / unpaired etc.).
+1. **Game abstraction**  
+   - Discretization of the action sizes: e.g. {Check, 33%, 75%, 125%, All-in} instead of continuous.  
+   - Bucketing of hand strengths or equity/draw structure (similar to Pluribus / Libratus patterns, but you can use the information from Acevedo: category splitting by "top pair good kicker", "nut FD + overcards", etc.).  
+   - Board classes (dry / middling / wet, paired / unpaired, etc.).
 
-2. **Deep CFR auf dem abstrahierten Spiel**  
-   - Genau die OpenSpiel+PyTorch-Pipeline, aber auf euer NLHE-Abstraktionsspiel.  
-   - Output: Strategieprofile \(\hat{\sigma}\) mit einem **upper bound** auf die Exploitability im abstrahierten Spiel: \(\epsilon_{\text{abs}}\).
+2. **Deep CFR on the abstracted game**  
+   - Exactly the OpenSpiel+PyTorch pipeline, but on your NLHE abstraction game.  
+   - Output: strategy profiles \(\hat{\sigma}\) with an **upper bound** on the exploitability in the abstracted game: \(\epsilon_{\text{abs}}\).
 
-3. **De-Abstraktion (Action Translation)**  
-   - Mapping von abstrakten Actions auf reale Betgrößen:  
-     - z.B. „75% Pot“ im Model → 70–80% Pot in Realität, mit feinem Jitter.  
-   - Hands aus Buckets auf konkrete Combos mappen: innerhalb eines Buckets gleiche Mischstrategie.  
+3. **De-abstraction (action translation)**  
+   - Mapping of abstract actions to real bet sizes:  
+     - e.g. "75% pot" in the model → 70–80% pot in reality, with fine jitter.  
+   - Map hands from buckets to concrete combos: the same mixed strategy within a bucket.  
 
-Die Gesamtexploitability im echten Spiel ist dann:
+The total exploitability in the real game is then:
 
 \[
-\epsilon_{\text{real}} \le \epsilon_{\text{abs}} + \epsilon_{\text{abstraktion}}
+\epsilon_{\text{real}} \le \epsilon_{\text{abs}} + \epsilon_{\text{abstraction}}
 \]
 
-\(\epsilon_{\text{abstraktion}}\) ist der Fehler durch Bucketing + Action-Diskretisierung. Den kann man grob upper-bounds messen, indem man im abstrahierten Spiel:
+\(\epsilon_{\text{abstraction}}\) is the error due to bucketing + action discretization. It can be measured as a rough upper bound by, in the abstracted game:
 
-- verschiedene Abstraktionsgranularitäten vergleicht (coarse vs. fine Buckets) und
-- die Strategie der feineren Abstraktion als Gegner für die grobe benutzt.
+- comparing different abstraction granularities (coarse vs. fine buckets) and
+- using the strategy of the finer abstraction as the opponent for the coarse one.
 
-Differenz in EV stellt eine empirische Obergrenze für den Abstraktionsfehler dar.
+The difference in EV represents an empirical upper bound on the abstraction error.
 
-**Realistisch erreichbarer GTO-Grad**
+**Realistically attainable degree of GTO**
 
-Mit moderner Hardware (GPU-Pods, Deep CFR oder DCFR) und guter Abstraktion:
+With modern hardware (GPU pods, Deep CFR or DCFR) and good abstraction:
 
-- Exploitability im abstrahierten Spiel im Bereich \< 10^-3 Pot pro Hand ist üblich in Forschung (Libratus, Pluribus).  
-- Übertragen auf Echtgeld: \(\epsilon_{\text{real}} \lesssim 1–3\) bb/100 für typische Stacks/Spots ist realistisch, sofern
-  - Action-Sets sinnvoll (ca. 4–6 Sizes/Street),
-  - Board/Hand-Buckets ausreichend fein (100–1000 Buckets, je nach Street).
+- Exploitability in the abstracted game in the range \< 10^-3 pot per hand is common in research (Libratus, Pluribus).  
+- Transferred to real money: \(\epsilon_{\text{real}} \lesssim 1–3\) bb/100 for typical stacks/spots is realistic, provided
+  - the action sets are sensible (approx. 4–6 sizes/street),
+  - the board/hand buckets are fine enough (100–1000 buckets, depending on the street).
 
-**Konkrete Pipeline für euch**
+**Concrete pipeline for you**
 
 1. **Preflop**  
-   - Push/Fold Nash-Solver (MCCFR) nutzen für <= 20–25 bb Stacks → nahezu GTO Push/Fold-Ranges.  
-   - Für deeper Stacks: Buch-Ranges aus *Modern Poker Theory* als Startpolicy. Dann:
-     - Preflop-NLHE mit Action-Abstraktion (Raise-Sizes: 2–2.5x, 3x, 4x, All-in, etc.) als separates Spiel definieren.
-     - Deep CFR laufen lassen, beginnend von Buch-Ranges als initial policy (warm start).  
-   - Output: Preflop-Policy \(\hat{\sigma}^{\text{PF}}\) mit niedriger abstrahierter Exploitability.
+   - Use a push/fold Nash solver (MCCFR) for <= 20–25 bb stacks → nearly GTO push/fold ranges.  
+   - For deeper stacks: book ranges from *Modern Poker Theory* as the starting policy. Then:
+     - Define preflop NLHE with action abstraction (raise sizes: 2–2.5x, 3x, 4x, all-in, etc.) as a separate game.
+     - Run Deep CFR, starting from the book ranges as the initial policy (warm start).  
+   - Output: preflop policy \(\hat{\sigma}^{\text{PF}}\) with low abstracted exploitability.
 
 2. **Postflop**  
-   - Für typische Pot-Konfigurationen (Single-Raised Pot, 3bet pot, Blind vs Blind, etc.) getrennte Subgames und Strategien trainieren.  
-   - Start-Approximation aus Acevedo/Chen:  
-     - z.B. C-Bet-Frequenzen durch Toy-Game-Formeln (s.u.),  
-     - Range-Balancing auf Basis MDF etc.  
-   - Dann Deep CFR verfeinern.
+   - Train separate subgames and strategies for typical pot configurations (single-raised pot, 3bet pot, blind vs blind, etc.).  
+   - Starting approximation from Acevedo/Chen:  
+     - e.g. c-bet frequencies via toy-game formulas (see below),  
+     - range balancing based on MDF, etc.  
+   - Then refine with Deep CFR.
 
-3. **Exploit-Bot**  
-   - Eure aktuelle Exploiter-Policy \(\sigma^{\text{exploit}}\) wird zusätzlich als explizites „Best-Response-orientiertes“ Policy-Netz trainiert, das GTO-Baseline als Prior nutzt, aber RL-artig auf Population-Leaks optimiert.
+3. **Exploit bot**  
+   - Your current exploiter policy \(\sigma^{\text{exploit}}\) is additionally trained as an explicit "best-response-oriented" policy network that uses the GTO baseline as a prior, but optimizes RL-style on population leaks.
 
 ---
 
-## 2) Bill Chen / Toy-Games → Near-GTO-Baseline ohne Solver
+## 2) Bill Chen / toy games → near-GTO baseline without a solver
 
-Kernideen, die ihr mathematisch nutzen könnt:
+Core ideas you can use mathematically:
 
-### 2.1 Indifferenzprinzip
+### 2.1 Indifference principle
 
-In Nullsummen-Spielen im Gleichgewicht gilt: der Gegner ist indifferent zwischen allen Reaktionen, die er mit positiver Wahrscheinlichkeit spielt.
+In zero-sum games in equilibrium: the opponent is indifferent between all responses he plays with positive probability.
 
-Formal, einfaches River-Bluff-Spot:
+Formally, a simple river bluff spot:
 
-- Pot: \(P\), Hero kann mit Frequenz \(f_B\) bluffen, Betgröße \(B\).  
-- Villain callt mit Frequenz \(c\).  
-- Hero hat zwei Handklassen: Value (V) und Bluff (L).  
-- EV des Calls gegen Heros gemischte Strategie:
+- Pot: \(P\), hero can bluff with frequency \(f_B\), bet size \(B\).  
+- Villain calls with frequency \(c\).  
+- Hero has two hand classes: value (V) and bluff (L).  
+- EV of the call against hero's mixed strategy:
 
 \[
 \text{EV}_\text{Villain}(\text{Call}) = x \quad \text{EV}_\text{Villain}(\text{Fold}) = 0
 \]
 
-Im Gleichgewicht: \(x=0\) (Indifferenz).
+In equilibrium: \(x=0\) (indifference).
 
-Konkreter:
+More concretely:
 
-Sei  
-- Bluff-Anteil in Heros Bet-Range: \(\alpha\),  
-- Value-Anteil: \(1-\alpha\).
+Let  
+- the bluff share in hero's betting range be \(\alpha\),  
+- the value share: \(1-\alpha\).
 
-Villain gewinnt bei Call gegen Bluff: \(P+B\)  
-und verliert bei Call gegen Value: \(B\).
+Villain wins when calling against a bluff: \(P+B\)  
+and loses when calling against value: \(B\).
 
 \[
 \text{EV}_\text{Villain}(\text{Call}) = \alpha (P+B) - (1-\alpha) B = 0
@@ -137,58 +137,58 @@ und verliert bei Call gegen Value: \(B\).
 \Rightarrow \alpha (P+B) = (1-\alpha) B \Rightarrow \alpha = \frac{B}{P+2B}
 \]
 
-Das ist die optimale **Blufffrequenz in der Bet-Range** für diesen 1-Street-Toyspot (equal equity 0/1 Setup).
+This is the optimal **bluff frequency in the betting range** for this 1-street toy spot (equal equity 0/1 setup).
 
 ---
 
-### 2.2 Chen/Ankenman-Formel: \(\alpha = \frac{s}{1+s}\)
+### 2.2 Chen/Ankenman formula: \(\alpha = \frac{s}{1+s}\)
 
-Viele Quellen geben die Blufffrequenz direkt in Abhängigkeit des Bet-Sizes \(s = B/P\) (Bet als Pot-Multiple). Der sauber hergeleitete Standardfall (auf 0/1-Spiel kalibriert) ist
-
-\[
-\alpha^* = \frac{s}{1+s} \quad\text{(unter geeigneter Normalisierung des Payoff-Spiels)}
-\]
-
-Der exakte Ausdruck hängt von der gewählten Toy-Game-Definition ab (Chen benutzt [0,1]-Verteilungen statt 0/1-Binär-Payoffs). Wichtig: strukturell habt ihr immer Form
+Many sources give the bluff frequency directly as a function of the bet size \(s = B/P\) (bet as a pot multiple). The cleanly derived standard case (calibrated to the 0/1 game) is
 
 \[
-\alpha^*(s) = \frac{\text{Funktion in } s}{\text{Funktion in } s + \text{Konstante}}
+\alpha^* = \frac{s}{1+s} \quad\text{(under a suitable normalization of the payoff game)}
 \]
 
-Ihr könnt die exakten Toy-Setups aus *The Mathematics of Poker* nehmen und für die dortige Payoff-Normalisation:
+The exact expression depends on the chosen toy-game definition (Chen uses [0,1] distributions instead of 0/1 binary payoffs). Important: structurally you always have the form
 
-- Held-out-Formeln für **Gleichgewichts-Blufffrequenzen** je Betgröße,
-- und daraus Range-Aufteilungen ableiten.
+\[
+\alpha^*(s) = \frac{\text{function of } s}{\text{function of } s + \text{constant}}
+\]
 
-Nutzbar in der Engine:
+You can take the exact toy setups from *The Mathematics of Poker* and, for the payoff normalization used there:
 
-**Heuristik für River-Bets:**
+- held-out formulas for **equilibrium bluff frequencies** per bet size,
+- and derive range splits from them.
 
-- Input: \(s = B/P\) (Ziel-Betgröße).  
-- Compute optimale Bluff-Dichte \(\alpha^*(s)\) aus Toy-Formel (z.B. \(\alpha = s/(1+s)\) oder die korrekte Variante für euer Setup).  
-- Range-Aufteilung:
-  - sortiere Hände nach EV als Bet (Value) vs. Check.  
-  - definier Value-Teil bis Value-Grenzhand (z.B. Top X %).  
-  - Bluff-Kandidaten = Hände mit klar negativem Showdown-EV.  
-  - wähle so viele Bluffs, dass \(\frac{\text{\#Bluffs}}{\text{\#Value + \#Bluffs}} \approx \alpha^*(s)\).
+Usable in the engine:
 
-Damit bekommt ihr für alle „reinen“ River-Entscheidungen eine **toy-game-kalibrierte Balance**, auch ohne vollständigen Solver.
+**Heuristic for river bets:**
+
+- Input: \(s = B/P\) (target bet size).  
+- Compute the optimal bluff density \(\alpha^*(s)\) from the toy formula (e.g. \(\alpha = s/(1+s)\) or the correct variant for your setup).  
+- Range split:
+  - sort hands by EV as a bet (value) vs. check.  
+  - define the value part down to the marginal value hand (e.g. top X %).  
+  - bluff candidates = hands with clearly negative showdown EV.  
+  - choose as many bluffs as needed so that \(\frac{\text{\#Bluffs}}{\text{\#Value + \#Bluffs}} \approx \alpha^*(s)\).
+
+This gives you a **toy-game-calibrated balance** for all "pure" river decisions, even without a complete solver.
 
 ---
 
-### 2.3 Mindest-Verteidigungsfrequenz (MDF)
+### 2.3 Minimum defense frequency (MDF)
 
-MDF ergibt sich aus der Bedingung, dass der Gegner mit einem reinen Bluff-Einsatz nicht automatisch +EV hat.
+MDF follows from the condition that the opponent does not automatically have +EV with a pure bluff bet.
 
-Pot vor Bet: \(P\), Bet: \(B\).  
-Villain blufft immer, Hero foldet mit Frequenz \(f\).  
-EV des Bluffers:
+Pot before the bet: \(P\), bet: \(B\).  
+Villain always bluffs, hero folds with frequency \(f\).  
+EV of the bluffer:
 
 \[
 \text{EV}_\text{Bluff} = f \cdot P - (1-f) \cdot B
 \]
 
-MDF ist kleinste Call-Frequenz \(c = 1-f\), so dass \(\text{EV}_\text{Bluff} \le 0\):
+MDF is the smallest call frequency \(c = 1-f\) such that \(\text{EV}_\text{Bluff} \le 0\):
 
 \[
 fP - (1-f) B \le 0 \Rightarrow fP \le (1-f) B
@@ -196,142 +196,142 @@ fP - (1-f) B \le 0 \Rightarrow fP \le (1-f) B
 \Rightarrow c \ge 1 - \frac{B}{P+B} = \frac{P}{P+B}
 \]
 
-**MDF-Formel:**
+**MDF formula:**
 
 \[
 \text{MDF} = \frac{P}{P+B}
 \]
 
-Benutzbar als baseline-call-Frequenz beim Bluffcatchen, wenn ihr annehmt, dass Villain ungefähr „maximal“ bluffen könnte.
+Usable as the baseline call frequency when bluff-catching, if you assume that villain could bluff roughly "maximally".
 
-Strategisch:  
-- Sortiere deine Hände nach EV zum Call vs. Fold (bzw. nach Handstärke / Blockerqualität).  
-- Call so viele Combos, dass deine Call-Frequenz \(\approx \text{MDF}\).
+Strategically:  
+- Sort your hands by EV of calling vs. folding (or by hand strength / blocker quality).  
+- Call as many combos as needed so that your call frequency is \(\approx \text{MDF}\).
 
-Das ist „GTO-ish“ gegen einen Bluff-heavy Pot-Multiple, solange die Bet-Range des Gegners nicht massiv value-lastig ist.
-
----
-
-### 2.4 [0,1]-Toy-Games (Chen & Ankenman)
-
-Grundsetup (stark vereinfacht, aber mathematisch brauchbar):
-
-- Spieler 1 zieht \(x \sim U[0,1]\) (Handstärke).  
-- Spieler 2 zieht \(y \sim U[0,1]\), unabhängig.  
-- beide kennen ihr eigenes, nicht das gegnerische \(x,y\), aber die Verteilungen.  
-- Moves: bet/check, call/fold, ggf. variierende Betgrößen.  
-
-Nash-Strategien haben Form:
-
-- Es gibt **Schwellenwerte** \(t_B, t_C\):  
-  - Wenn \(x > t_B\) → Player 1 bettet for Value.  
-  - Wenn \(x < t_L\) → Player 1 kann mit optimaler Frequenz bluffen (mixing).  
-  - Player 2 callt mit \(y > t_C\) und foldet sonst.  
-
-Indifferenz-Bedingungen liefern Gleichungen für \(t_B, t_C\) und die Blufffrequenz:
-
-Beispiel (einfacher Case, eine Betgröße):
-
-1. Bedingung: Player 2 ist indifferent zwischen Call/Fold mit Grenzhand \(y = t_C\).  
-2. Bedingung: Player 1 ist indifferent zwischen Bet/Check mit Grenzhand \(x = t_B\).
-
-Diese Gleichungen kann man **auf unsere NLHE-Situationen mappen**, indem man:
-
-- \(x\) als quantile der eigenen Handstärke-Verteilung interpretiert (z.B. EQ vs Range),  
-- \(y\) als quantile gegnerischer Handstärke,  
-- und Betgröße \(s\) als \(B/P\).
-
-Dann liefert das Toy-Game:
-
-- Value-Schwelle (ab welcher Equity vs Range man Value betten sollte),  
-- Blufffenster (unterhalb welcher Equity man Bluffs mischen darf),  
-- optimale Mischfrequenzen (z.B. Bluffanteil in bet-Range als Funktion von \(s\)).
-
-**Implementierbare Heuristik:**
-
-Für jede Street:
-
-1. Approximiere deine Equity-Verteilung \(F_H(e)\) gegen geschätzte Gegner-Range.  
-2. Wähle eine Betgröße \(s\).  
-3. Aus Toy-Game-Gleichungen ableiten:
-   - Equity-Grenze \(e_V\) (Value),  
-   - Equity-Grenze \(e_L\) (Bluff-Untergrenze),  
-   - Blufffrequenz in \([0,e_L]\) bzw. relative Bluff/Value-Ratio.  
-4. Mische gemäß dieser Schwellen, um „balanced by construction“ zu sein.
-
-Damit habt ihr eine **analytische near-GTO-Baseline**, ohne vollständigen Solver, die ihr als Prior ins Netz füttern könnt.
+This is "GTO-ish" against a bluff-heavy pot multiple, as long as the opponent's betting range is not massively value-heavy.
 
 ---
 
-## 3) Regime-Switch: Wann Exploit > GTO?
+### 2.4 [0,1] toy games (Chen & Ankenman)
 
-Wir brauchen eine quantitative Bedingung:
+Basic setup (heavily simplified, but mathematically usable):
 
-> Exploiten lohnt nur, wenn der EV-Gewinn gegen den Gegner-Leak den zusätzlichen EV-Verlust durch eigene Exploitability übersteigt.
+- Player 1 draws \(x \sim U[0,1]\) (hand strength).  
+- Player 2 draws \(y \sim U[0,1]\), independently.  
+- both know their own \(x,y\), not the opponent's, but they know the distributions.  
+- Moves: bet/check, call/fold, possibly varying bet sizes.  
+
+Nash strategies have the form:
+
+- There are **thresholds** \(t_B, t_C\):  
+  - If \(x > t_B\) → player 1 bets for value.  
+  - If \(x < t_L\) → player 1 can bluff with the optimal frequency (mixing).  
+  - Player 2 calls with \(y > t_C\) and folds otherwise.  
+
+Indifference conditions yield equations for \(t_B, t_C\) and the bluff frequency:
+
+Example (simple case, one bet size):
+
+1. Condition: player 2 is indifferent between call/fold with the marginal hand \(y = t_C\).  
+2. Condition: player 1 is indifferent between bet/check with the marginal hand \(x = t_B\).
+
+These equations can be **mapped onto our NLHE situations** by:
+
+- interpreting \(x\) as a quantile of one's own hand-strength distribution (e.g. EQ vs range),  
+- \(y\) as a quantile of the opponent's hand strength,  
+- and the bet size \(s\) as \(B/P\).
+
+The toy game then yields:
+
+- the value threshold (from which equity vs range one should value-bet),  
+- the bluff window (below which equity one may mix in bluffs),  
+- optimal mixing frequencies (e.g. the bluff share in the betting range as a function of \(s\)).
+
+**Implementable heuristic:**
+
+For each street:
+
+1. Approximate your equity distribution \(F_H(e)\) against the estimated opponent range.  
+2. Choose a bet size \(s\).  
+3. Derive from the toy-game equations:
+   - the equity boundary \(e_V\) (value),  
+   - the equity boundary \(e_L\) (lower bluff boundary),  
+   - the bluff frequency in \([0,e_L]\) or the relative bluff/value ratio.  
+4. Mix according to these thresholds in order to be "balanced by construction".
+
+This gives you an **analytical near-GTO baseline**, without a complete solver, that you can feed into the network as a prior.
+
+---
+
+## 3) Regime switch: when is exploit > GTO?
+
+We need a quantitative condition:
+
+> Exploiting only pays if the EV gain against the opponent's leak exceeds the additional EV loss from one's own exploitability.
 
 ### 3.1 Notation
 
-- \(\sigma^{\text{GTO}}\): eure near-GTO-Baseline (Exploitability \(\epsilon\)).  
-- \(\sigma^{\text{EXP}}\): eine exploitative Policy, die auf Population/Opponent getuned ist.  
-- \(u(\sigma_H,\sigma_V)\): EV (bb/Hand) von Hero vs Villain.
+- \(\sigma^{\text{GTO}}\): your near-GTO baseline (exploitability \(\epsilon\)).  
+- \(\sigma^{\text{EXP}}\): an exploitative policy tuned to the population/opponent.  
+- \(u(\sigma_H,\sigma_V)\): EV (bb/hand) of hero vs villain.
 
-Definiere:
+Define:
 
-1. **GTO-versus-Gegner-EV**:
+1. **GTO-versus-opponent EV**:
    \[
    v_{\text{GTO}} := u(\sigma^{\text{GTO}}, \sigma_V)
    \]
 
-2. **Exploit-EV gegen aktuelle Schätzung der Gegnerstrategie \(\hat{\sigma}_V\)**:
+2. **Exploit EV against the current estimate of the opponent's strategy \(\hat{\sigma}_V\)**:
    \[
    v_{\text{EXP}} := u(\sigma^{\text{EXP}}, \hat{\sigma}_V)
    \]
 
-3. **Eigen-Exploitability der Exploit-Policy** (Upper bound):
+3. **Own exploitability of the exploit policy** (upper bound):
    \[
    \epsilon_{\text{EXP}} := \max_{\tau} u(\tau, \sigma^{\text{EXP}}) - u(\sigma^{\text{GTO}}, \sigma^{\text{GTO}})
    \]
-   Praktisch: \(\epsilon_{\text{EXP}}\) ist schwer exakte zu berechnen, aber ihr könnt:
-   - GTO-Bot als Gegner nutzen: \(\Delta u = u(\sigma^{\text{GTO}},\sigma^{\text{EXP}}) - u(\sigma^{\text{GTO}},\sigma^{\text{GTO}}) \approx -\epsilon_{\text{EXP}}\) (lower bound),  
-   - plus Sicherheitszuschlag.
+   In practice: \(\epsilon_{\text{EXP}}\) is hard to compute exactly, but you can:
+   - use the GTO bot as the opponent: \(\Delta u = u(\sigma^{\text{GTO}},\sigma^{\text{EXP}}) - u(\sigma^{\text{GTO}},\sigma^{\text{GTO}}) \approx -\epsilon_{\text{EXP}}\) (lower bound),  
+   - plus a safety margin.
 
-### 3.2 Safe-Exploit-Kriterium
+### 3.2 Safe-exploit criterion
 
-Wir wollen nur exploiten, wenn der **sichere Mehrwert** positiv ist.  
-Der Mehrwert ist
+We only want to exploit if the **safe added value** is positive.  
+The added value is
 
 \[
 \Delta v := v_{\text{EXP}} - v_{\text{GTO}}
 \]
 
-Aber beide Terme sind geschätzt, plus Varianz. Außerdem kann der tatsächliche \(\sigma_V\) von \(\hat{\sigma}_V\) abweichen.
+But both terms are estimated, plus variance. In addition, the actual \(\sigma_V\) can deviate from \(\hat{\sigma}_V\).
 
-Sicherheits-Bound-Ansatz:
+Safety-bound approach:
 
-- Sei \(\widehat{\Delta v}\) der empirische EV-Unterschied (oder best estimate) aus eurem Opponent-Modell:  
+- Let \(\widehat{\Delta v}\) be the empirical EV difference (or best estimate) from your opponent model:  
   \[
   \widehat{\Delta v} \approx u(\sigma^{\text{EXP}}, \hat{\sigma}_V) - u(\sigma^{\text{GTO}}, \hat{\sigma}_V)
   \]
-- Sei \(\epsilon\) die Exploitability eurer GTO-Baseline (klein).  
-- Sei \(\tilde{\epsilon}\) ein Upper bound auf die **zusätzliche** Exploitability, die durch Exploit-Policy entsteht:
+- Let \(\epsilon\) be the exploitability of your GTO baseline (small).  
+- Let \(\tilde{\epsilon}\) be an upper bound on the **additional** exploitability created by the exploit policy:
   \[
   \tilde{\epsilon} \approx \epsilon_{\text{EXP}} - \epsilon
   \]
 
-Safe-Exploit-Bedingung:
+Safe-exploit condition:
 
 \[
 \widehat{\Delta v} > k \cdot \tilde{\epsilon}
 \]
 
-mit einem Sicherheitsfaktor \(k\). Eure Idee „~2·epsilon“ entspricht \(k = 2\).  
+with a safety factor \(k\). Your idea "~2·epsilon" corresponds to \(k = 2\).  
 
 Intuition:
 
-- Worst-Case: Villain adaptiert optimal, so dass ihr \(\tilde{\epsilon}\) mehr verliert, als ihr durch den bisher beobachteten Leak gewinnt.  
-- Mit Faktor 2 verlangt ihr, dass der beobachtete Exploit-Vorsprung mindestens doppelt so groß ist wie das zusätzliche Worst-Case-Leak, d.h. selbst bei starker Adaption bleibt Netto-EV > 0.
+- Worst case: villain adapts optimally, so that you lose \(\tilde{\epsilon}\) more than you gain from the leak observed so far.  
+- With factor 2 you require that the observed exploit advantage is at least twice as large as the additional worst-case leak, i.e. even under strong adaptation the net EV stays > 0.
 
-Konkrete Entscheidungsregel in bb/100:
+Concrete decision rule in bb/100:
 
 \[
 \widehat{\Delta v} \ (\text{bb/100}) > 2 \cdot \tilde{\epsilon} \ (\text{bb/100})
@@ -339,153 +339,153 @@ Konkrete Entscheidungsregel in bb/100:
 
 ---
 
-### 3.3 Live-Schätzung von \(\widehat{\Delta v}\) und \(\tilde{\epsilon}\)
+### 3.3 Live estimation of \(\widehat{\Delta v}\) and \(\tilde{\epsilon}\)
 
-#### 3.3.1 Schätzung des Gegner-Leak-EVs
+#### 3.3.1 Estimating the opponent-leak EV
 
-Für jeden Gegner i haltet ihr ein Modell \(\hat{\sigma}_i\) (Parameter: Fold-to-Cbet, 3bet-Frequenz, River-Overfold etc.).  
-Für eine bestimmte Abweichung (z.B. overfold am River):
+For each opponent i you keep a model \(\hat{\sigma}_i\) (parameters: fold-to-cbet, 3bet frequency, river overfold, etc.).  
+For a specific deviation (e.g. overfolding on the river):
 
-1. Modelliert ihr zwei Policies:
+1. You model two policies:
 
    - \(\sigma^{\text{GTO}}\)  
-   - \(\sigma^{\text{EXP}}\) (z.B. mehr Bluffs in Spots, wo Villain overfoldet)
+   - \(\sigma^{\text{EXP}}\) (e.g. more bluffs in spots where villain overfolds)
 
-2. Simuliert (oder analytisch approximiert) ihr den EV-Unterschied gegen \(\hat{\sigma}_i\):
+2. You simulate (or approximate analytically) the EV difference against \(\hat{\sigma}_i\):
 
    \[
    \widehat{\Delta v}_i = u(\sigma^{\text{EXP}}, \hat{\sigma}_i) - u(\sigma^{\text{GTO}}, \hat{\sigma}_i)
    \]
 
-3. Statistische Sicherheit: Bei endlicher Stichprobe N Hände ist eure \(\widehat{\Delta v}_i\) noisy.  
-   - Schätzt Standardfehler \(\text{SE}(\widehat{\Delta v}_i) \approx \frac{\hat{\sigma}_\text{outcome}}{\sqrt{N}}\).  
-   - Nehmt ein Konfidenz-Intervall, z.B. 95% lower bound:
+3. Statistical safety: with a finite sample of N hands your \(\widehat{\Delta v}_i\) is noisy.  
+   - Estimate the standard error \(\text{SE}(\widehat{\Delta v}_i) \approx \frac{\hat{\sigma}_\text{outcome}}{\sqrt{N}}\).  
+   - Take a confidence interval, e.g. the 95% lower bound:
      \[
      \widehat{\Delta v}_i^{\text{LB}} = \widehat{\Delta v}_i - 1.96 \cdot \text{SE}(\widehat{\Delta v}_i)
      \]
-   - Setzt in die Safe-Exploit-Bedingung die **untere Schranke** ein:
+   - Plug the **lower bound** into the safe-exploit condition:
      \[
      \widehat{\Delta v}_i^{\text{LB}} > 2 \cdot \tilde{\epsilon}
      \]
 
-Damit exploitet ihr erst, wenn der beobachtete Vorteil statistisch signifikant und groß genug ist.
+This way you only exploit once the observed advantage is statistically significant and large enough.
 
-#### 3.3.2 Schätzung der zusätzlichen Exploitability \(\tilde{\epsilon}\)
+#### 3.3.2 Estimating the additional exploitability \(\tilde{\epsilon}\)
 
-Offline-Precompute:
+Offline precompute:
 
-1. Lasst GTO-Bot vs. GTO-Bot spielen → Basis-Quote (0 oder minimal).  
-2. Lasst Exploit-Bot vs. GTO-Bot spielen:
-   - beobachteter EV: \(u(\sigma^{\text{EXP}},\sigma^{\text{GTO}})\)  
-   - dann
+1. Let the GTO bot play vs. the GTO bot → base rate (0 or minimal).  
+2. Let the exploit bot play vs. the GTO bot:
+   - observed EV: \(u(\sigma^{\text{EXP}},\sigma^{\text{GTO}})\)  
+   - then
      \[
      \tilde{\epsilon} \approx u(\sigma^{\text{GTO}},\sigma^{\text{GTO}}) - u(\sigma^{\text{EXP}},\sigma^{\text{GTO}})
      \]
-     (typisch negativ für EXP).  
+     (typically negative for EXP).  
 
-Das gibt euch je nach Exploit-Regel einen festen, konservativen Wert \(\tilde{\epsilon}\) in bb/100.
+Depending on the exploit rule, this gives you a fixed, conservative value \(\tilde{\epsilon}\) in bb/100.
 
-Wenn ihr mehrere Exploit-Module habt (z.B. River-Overbluff, Turn-Overfold), könnt ihr für jedes Modul einen eigenen \(\tilde{\epsilon}_k\) precomputen und im Live-System nur einzelne Module aktivieren, die ihre jeweilige Safe-Exploit-Bedingung erfüllen.
+If you have several exploit modules (e.g. river overbluff, turn overfold), you can precompute a separate \(\tilde{\epsilon}_k\) for each module and in the live system activate only those individual modules that satisfy their respective safe-exploit condition.
 
 ---
 
-### 3.4 Konkreter Regime-Switch-Algorithmus
+### 3.4 Concrete regime-switch algorithm
 
-Für jeden Gegner i:
+For each opponent i:
 
-1. Initial: spiele \(\sigma^{\text{GTO}}\).  
-2. Für jedes Exploit-Modul k (z.B. „Villain foldet zu viel auf 3-Bets“):
-   - Online-Schätzung des Leaks (Parameter \(\theta_{i,k}\)), z.B. empirische Fold-Frequenz.  
-   - Aus \(\theta_{i,k}\) + analytischem Modell/Simulation: erwarteter Exploit-Gewinn \(\widehat{\Delta v}_{i,k}\).  
-   - Schätze Varianz/SE → Lower bound \(\widehat{\Delta v}_{i,k}^{\text{LB}}\).  
-   - Known \(\tilde{\epsilon}_k\) aus Offline-Benchmark gegen GTO.
-   - Wenn
+1. Initially: play \(\sigma^{\text{GTO}}\).  
+2. For each exploit module k (e.g. "villain folds too much to 3-bets"):
+   - Online estimate of the leak (parameter \(\theta_{i,k}\)), e.g. the empirical fold frequency.  
+   - From \(\theta_{i,k}\) + an analytical model/simulation: the expected exploit gain \(\widehat{\Delta v}_{i,k}\).  
+   - Estimate the variance/SE → lower bound \(\widehat{\Delta v}_{i,k}^{\text{LB}}\).  
+   - Known \(\tilde{\epsilon}_k\) from the offline benchmark against GTO.
+   - If
      \[
      \widehat{\Delta v}_{i,k}^{\text{LB}} > 2 \cdot \tilde{\epsilon}_k
      \]
-     → Modul k **aktiv** (abweichen von GTO im entsprechenden Subspace
+     → module k **active** (deviate from GTO in the corresponding subspace
 
 ## Theory (Claude)
 
-# HYBRID-ARCHITEKTUR: GTO-Default mit Exploit-Override
+# HYBRID ARCHITECTURE: GTO default with exploit override
 
-Lass mich brutal ehrlich anfangen: Eure -207 bb/100 gegen Slumbot sind kein "Tuning-Problem", sondern ein **Architektur-Fehler**. Euer Exploiter hat keine sichere Default-Strategie — er "exploitet" auch dann, wenn nichts zu exploiten ist, und VPIP 0.75 ist purer Selbstmord gegen balanciertes Spiel. Die Lösung ist nicht "weniger exploiten", sondern **eine echte GTO-Basis, von der aus man kontrolliert abweicht**.
+Let me start brutally honestly: your -207 bb/100 against Slumbot is not a "tuning problem", but an **architecture error**. Your exploiter has no safe default strategy — it "exploits" even when there is nothing to exploit, and VPIP 0.75 is pure suicide against balanced play. The solution is not "exploit less", but **a real GTO basis from which one deviates in a controlled way**.
 
 ---
 
-## 1) DIE ARCHITEKTUR
+## 1) THE ARCHITECTURE
 
 ```
                     ┌─────────────────────────────────┐
-   Spielzustand ───▶│   FEATURE / OBSERVATION LAYER    │
+   Game state ─────▶│   FEATURE / OBSERVATION LAYER    │
    (Hand, Board,    │   (Hand-Buckets, Pot-Odds, SPR,  │
-    Aktionen,       │    Position, Aktions-History)    │
+    actions,        │    Position, action history)     │
     Stats)          └──────────────┬──────────────────┘
                                    │
               ┌────────────────────┼────────────────────┐
               ▼                    ▼                    ▼
    ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-   │  GTO-BASELINE    │  │ REGIME-DETEKTOR  │  │  EXPLOIT-LAYER   │
+   │  GTO-BASELINE    │  │ REGIME DETECTOR  │  │  EXPLOIT-LAYER   │
    │  σ_GTO           │  │  (Bayesian)      │  │  Δ-Adjustments   │
-   │  Deep CFR +      │  │  liefert:        │  │  pro Gegner-Leck │
-   │  Buch-Ranges     │  │  λ ∈ [0,1]       │  │                  │
+   │  Deep CFR +      │  │  yields:         │  │  per opp. leak   │
+   │  book ranges     │  │  λ ∈ [0,1]       │  │                  │
    └────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘
             │                     │                     │
             └─────────────────────┼─────────────────────┘
                                   ▼
               σ_final = (1-λ)·σ_GTO  ⊕  λ·σ_exploit
-              mit HARD-CAP: λ ≤ λ_max(confidence, exploitability)
+              with HARD CAP: λ ≤ λ_max(confidence, exploitability)
                                   │
                                   ▼
-                          AKTION + Sizing
+                          ACTION + sizing
 ```
 
-### Kernprinzip: **GTO ist der Anker, Exploit ist die Abweichung**
+### Core principle: **GTO is the anchor, exploitation is the deviation**
 
-`σ_final = blend(σ_GTO, σ_exploit, λ)` — wobei `λ` der **Exploit-Anteil** ist, gesteuert vom Regime-Detektor. Bei `λ=0` spielt ihr reine GTO (unexploitable). Das fixt Slumbot sofort.
+`σ_final = blend(σ_GTO, σ_exploit, λ)` — where `λ` is the **exploit share**, controlled by the regime detector. At `λ=0` you play pure GTO (unexploitable). That fixes Slumbot immediately.
 
-**Wichtig:** Blending NICHT naiv linear auf Wahrscheinlichkeiten mischen ohne Kontrolle — ihr braucht einen **Exploitability-Budget**:
+**Important:** do NOT blend naively and linearly on probabilities without control — you need an **exploitability budget**:
 
 ```python
 def safe_blend(sigma_gto, sigma_exploit, lam, max_exploitability):
-    # Naiver Blend
+    # Naive blend
     sigma = (1 - lam) * sigma_gto + lam * sigma_exploit
-    # Wie weit weicht das von GTO ab? (in EV-Verlust-Worst-Case)
+    # How far does this deviate from GTO? (in worst-case EV loss)
     deviation = estimate_exploitability(sigma, sigma_gto)
     if deviation > max_exploitability:
-        # Skaliere lam zurück bis im Budget
+        # Scale lam back until within budget
         lam = solve_lam_for_budget(sigma_gto, sigma_exploit, max_exploitability)
         sigma = (1 - lam) * sigma_gto + lam * sigma_exploit
     return sigma
 ```
 
-Das ist der entscheidende Punkt: **Ihr begrenzt, wie ausnutzbar ihr selbst werdet.** Gegen Slumbot bleibt das Budget bei ~0, ihr spielt GTO.
+That is the decisive point: **you limit how exploitable you yourself become.** Against Slumbot the budget stays at ~0 and you play GTO.
 
 ---
 
-### REGIME-DETEKTOR — die wichtigste neue Komponente
+### REGIME DETECTOR — the most important new component
 
-Der Detektor muss EINE Frage beantworten: *"Wie sicher bin ich, dass dieser Gegner exploitable ist, und wie stark?"* → Output: `λ` pro Decision-Node.
+The detector must answer ONE question: *"How sure am I that this opponent is exploitable, and how strongly?"* → output: `λ` per decision node.
 
-#### Signale (live, pro Gegner gesammelt):
+#### Signals (live, collected per opponent):
 
-| Signal | Was es misst | GTO-Indikator | Exploit-Indikator |
+| Signal | What it measures | GTO indicator | Exploit indicator |
 |---|---|---|---|
-| **Fold-to-CBet** | Folds vs erwartete GTO-Frequenz | ≈ MDF | >> MDF (überfoldet) oder << (klebt) |
-| **Fold-to-3Bet** | 3Bet-Defense | balanciert | überfoldet → 3Bet-Bluff |
-| **VPIP/PFR-Gap** | Preflop-Looseness | tight gap | großer Gap = passiv/loose |
-| **WTSD / W$SD** | Showdown-Tendenz | ~GTO-Range | Calling-Station / Nit |
-| **Bet-Sizing-Tells** | Size↔Strength-Korrelation | dekorreliert | korreliert (lesbar) |
-| **Aggression-Frequenz** | AFq pro Street | balanciert | extrem → exploitable |
-| **Limp/Open-Limp** | klassisches Fischsignal | nie | ja → schwach |
+| **Fold-to-CBet** | folds vs expected GTO frequency | ≈ MDF | >> MDF (overfolds) or << (sticky) |
+| **Fold-to-3Bet** | 3bet defense | balanced | overfolds → 3bet bluff |
+| **VPIP/PFR gap** | preflop looseness | tight gap | large gap = passive/loose |
+| **WTSD / W$SD** | showdown tendency | ~GTO range | calling station / nit |
+| **Bet-sizing tells** | size↔strength correlation | decorrelated | correlated (readable) |
+| **Aggression frequency** | AFq per street | balanced | extreme → exploitable |
+| **Limp/open-limp** | classic fish signal | never | yes → weak |
 
-#### Schwellen & Statistische Signifikanz (Bill Chen liefert hier den Hebel!)
+#### Thresholds & statistical significance (Bill Chen provides the lever here!)
 
-Ihr dürft **nicht** nach 10 Händen exploiten — das ist genau, was euren Exploiter killt. Nutzt die **Bernoulli-Varianz + z-Score** aus Chen direkt:
+You must **not** exploit after 10 hands — that is exactly what kills your exploiter. Use the **Bernoulli variance + z-score** from Chen directly:
 
 ```python
 def is_leak_significant(observed_freq, gto_freq, n_samples, z_threshold=2.0):
-    # Bernoulli-Varianz (Chen): sigma = sqrt(p(1-p)/n)
+    # Bernoulli variance (Chen): sigma = sqrt(p(1-p)/n)
     p = gto_freq
     se = (p * (1 - p) / n_samples) ** 0.5
     if se == 0: return False, 0.0
@@ -493,68 +493,68 @@ def is_leak_significant(observed_freq, gto_freq, n_samples, z_threshold=2.0):
     return abs(z) > z_threshold, z
 ```
 
-**Regel:** Ein Leck wird erst zum Exploit, wenn `|z| > 2.0` (≈95% Konfidenz). Davor: `λ = 0`, reine GTO. Das ist die direkte Anwendung eurer Chen-Auszüge ("Significance of extreme deviations in binary outcomes").
+**Rule:** a leak only becomes an exploit when `|z| > 2.0` (≈95% confidence). Before that: `λ = 0`, pure GTO. This is the direct application of your Chen excerpts ("Significance of extreme deviations in binary outcomes").
 
-#### λ-Berechnung (Bayesian, pro Leck):
+#### λ computation (Bayesian, per leak):
 
 ```python
 def compute_lambda(leaks):
-    # Jedes Leck: (z_score, ev_gain_if_exploited)
+    # Each leak: (z_score, ev_gain_if_exploited)
     confidence = 0.0
     for leak in leaks:
         sig, z = is_leak_significant(leak.obs, leak.gto, leak.n)
         if sig:
-            # Konfidenz wächst mit z und Sample-Size, sättigt
-            conf = 1 - exp(-(abs(z) - 2.0))  # 0 bei z=2, →1 bei großem z
+            # Confidence grows with z and sample size, saturates
+            conf = 1 - exp(-(abs(z) - 2.0))  # 0 at z=2, →1 for large z
             confidence = max(confidence, conf * leak.ev_weight)
-    lam = clamp(confidence, 0.0, LAMBDA_MAX)  # LAMBDA_MAX z.B. 0.7
+    lam = clamp(confidence, 0.0, LAMBDA_MAX)  # LAMBDA_MAX e.g. 0.7
     return lam
 ```
 
-#### Umschalt-Logik (3 Regimes):
+#### Switching logic (3 regimes):
 
 ```
-λ = 0.0          → REINE GTO    (kein Read / Gegner balanciert / n < min_samples)
-0 < λ < 0.7      → MIXED        (Leck erkannt, vorsichtige Abweichung)
-λ → LAMBDA_MAX   → FULL EXPLOIT (großes signifikantes Leck, viel Sample)
+λ = 0.0          → PURE GTO     (no read / opponent balanced / n < min_samples)
+0 < λ < 0.7      → MIXED        (leak detected, cautious deviation)
+λ → LAMBDA_MAX   → FULL EXPLOIT (large significant leak, large sample)
 ```
 
-**Anti-Slumbot-Schalter:** Wenn der Detektor erkennt, dass der Gegner *selbst* GTO-nah spielt (alle Frequenzen innerhalb z<2 von GTO **UND** unsere bisherigen Exploit-Versuche verlieren EV) → `λ = 0` *forced*, plus **Exploitability-Self-Check**: Misst, ob WIR gerade exploitable werden, und zieht zurück.
+**Anti-Slumbot switch:** if the detector recognizes that the opponent *himself* plays close to GTO (all frequencies within z<2 of GTO **AND** our exploit attempts so far are losing EV) → `λ = 0` *forced*, plus an **exploitability self-check**: it measures whether WE are currently becoming exploitable, and pulls back.
 
 ---
 
-## 2) WIE BUCH-WISSEN DIE GTO-BASELINE INFORMIERT
+## 2) HOW BOOK KNOWLEDGE INFORMS THE GTO BASELINE
 
-Deep CFR auf NLHE braucht Monate Compute und konvergiert nie perfekt. **Die Bücher sind euer Warm-Start, eure Sanity-Checks und euer Fallback dort, wo das Netz noch schlecht ist.**
+Deep CFR on NLHE needs months of compute and never converges perfectly. **The books are your warm start, your sanity checks and your fallback wherever the network is still poor.**
 
-### Modern Poker Theory (Acevedo) — konkrete Hebel:
+### Modern Poker Theory (Acevedo) — concrete levers:
 
-- **Preflop-Ranges als Prior/Anchor:** Acevedos GTO-Open/3Bet/Call-Ranges (positionsabhängig) → direkt als **Initialisierung** der Deep-CFR-Preflop-Strategie und als **Hard-Fallback** für Preflop, wo das Netz instabil ist. Preflop ist klein genug, das kann fast tabelliert sein.
-- **MDF (Minimum Defense Frequency)** = `1 - bet/(pot+bet)` → liefert den **GTO-Referenzwert** für euren Regime-Detektor (Fold-to-CBet-Signal). Ohne MDF wisst ihr nicht, was "überfolden" überhaupt bedeutet.
-- **Sizing-Buckets:** Acevedos Standardsizes (33/50/75/100/overbet) → das **Aktions-Abstraction-Set** für Deep CFR. Verhindert Aktionsraum-Explosion.
+- **Preflop ranges as prior/anchor:** Acevedo's GTO open/3bet/call ranges (position-dependent) → directly as the **initialization** of the Deep CFR preflop strategy and as a **hard fallback** for preflop wherever the network is unstable. Preflop is small enough that it can almost be tabulated.
+- **MDF (minimum defense frequency)** = `1 - bet/(pot+bet)` → provides the **GTO reference value** for your regime detector (fold-to-cbet signal). Without MDF you don't know what "overfolding" even means.
+- **Sizing buckets:** Acevedo's standard sizes (33/50/75/100/overbet) → the **action abstraction set** for Deep CFR. Prevents an explosion of the action space.
 
-### Bill Chen & Ankenman — die strukturelle Theorie:
+### Bill Chen & Ankenman — the structural theory:
 
-- **Indifferenz-Prinzip:** Optimale Bluff-Frequenz macht Gegner indifferent. → `Bluffs : Value = bet : (pot+bet)` am River. Das ist euer **GTO-Frequenz-Check**: Wenn Deep CFR River-Bluffs außerhalb dieses Verhältnisses ausspuckt → Bug oder Nichtkonvergenz.
-- **Optimale Bluff-/Value-Ratio** und **α (optimale Bluffcatch-Frequenz)** → direkt verdrahtbare Formeln für River-Spots, wo Deep CFR teuer/ungenau ist.
-- **[0,1]-Toy-Games:** Liefern die *Struktur* (polarisierte Ranges betten groß, Bluffcatcher rufen mit Frequenz α) → als **Regularisierung/Sanity-Layer** über dem Netz.
-- **Varianz/CLT** → euer ganzes Regime-Detektor-Signifikanz-Framework (siehe oben).
+- **Indifference principle:** the optimal bluff frequency makes the opponent indifferent. → `Bluffs : Value = bet : (pot+bet)` on the river. That is your **GTO frequency check**: if Deep CFR spits out river bluffs outside this ratio → bug or non-convergence.
+- **Optimal bluff-to-value ratio** and **α (optimal bluff-catching frequency)** → formulas that can be wired directly for river spots where Deep CFR is expensive/inaccurate.
+- **[0,1] toy games:** provide the *structure* (polarized ranges bet big, bluff catchers call with frequency α) → as a **regularization/sanity layer** over the network.
+- **Variance/CLT** → your entire regime-detector significance framework (see above).
 
-**Konkret:** 
+**Concretely:** 
 
 ```python
 sigma_gto = neural_deep_cfr(state)
-sigma_gto = enforce_chen_constraints(sigma_gto, state)  # Bluff:Value-Ratio, MDF
+sigma_gto = enforce_chen_constraints(sigma_gto, state)  # bluff:value ratio, MDF
 sigma_gto = blend_with_book_prior(sigma_gto, acevedo_range(state), 
                                    weight=netz_unsicherheit(state))
 ```
 
-Wo das Netz unsicher/unkonvergiert ist (hohe nash_conv lokal), zieht ihr stärker Richtung Buch.
+Where the network is uncertain/unconverged (high nash_conv locally), you pull more strongly toward the book.
 
 ---
 
-## 3) WARUM DAS DIE SLUMBOT-NIEDERLAGE FIXT
+## 3) WHY THIS FIXES THE SLUMBOT DEFEAT
 
-Die -207 bb/100 hatten **drei** Ursachen, alle behoben:
+The -207 bb/100 had **three** causes, all fixed:
 
-1. **VPIP 0.75 (zu loose):** Eure Baseline war ein Exploiter ohne GTO-Anker. → **Neue Baseline ist Deep CFR + Acevedo-Ranges**, VPIP fällt auf
+1. **VPIP 0.75 (too loose):** your baseline was an exploiter without a GTO anchor. → **The new baseline is Deep CFR + Acevedo ranges**, VPIP drops to

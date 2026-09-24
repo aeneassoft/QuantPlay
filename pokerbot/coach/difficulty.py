@@ -1,6 +1,6 @@
 """Adaptiver Schwierigkeitsregler: Session-Fehlerrate -> 10-20%-Band -> Liga-Komposition.
 
-WHY: Lern-Maximierung per Fehlerraten-Band (TRAINER_DESIGN.md §5, 85%-Regel — ehrlich eine
+WHY: Lern-Maximierung per Fehlerraten-Band (docs/doctrine/TRAINER_DESIGN.md §5, 85%-Regel — ehrlich eine
 HYPOTHESE, deshalb als adaptives Band umgesetzt, nicht als Dogma). Der Regler ist eine PURE,
 deterministische Funktion ueber der PRESET_LADDER: zu viele teure Entscheidungen (> 20 %)
 -> weichere Liga (mehr station/nit/whale, exploit_gain runter); zu wenige (< 10 %) -> haertere
@@ -25,7 +25,7 @@ EXPLOIT_GAIN_MAX = 1.5          # Feindial-Obergrenze; die READ_*-Caps deckeln d
 EXPLOIT_GAIN_STEP = 0.5
 
 # Leiter leichteste -> haerteste Belegung (Sitz 1-5; Sitz 0 = Mensch). Nur existierende
-# arena-Profile (TRAINER_PLAN.md P3-D Schritt 2); Tier 2 = die heutige Default-Belegung.
+# arena-Profile (docs/plans/TRAINER_PLAN.md P3-D Schritt 2); Tier 2 = die heutige Default-Belegung.
 PRESET_LADDER: tuple[dict[int, str], ...] = (
     {1: "whale", 2: "station", 3: "rock", 4: "nit", 5: "whale"},      # T0
     {1: "station", 2: "whale", 3: "nit", 4: "rock", 5: "maniac"},     # T1

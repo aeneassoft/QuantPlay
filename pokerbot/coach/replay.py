@@ -1,6 +1,6 @@
 """Replay compiler: rebuild a played hand as ordered animation steps from the session logs.
 
-WHY: the trainer's replay walkthrough (docs/TRAINER_DESIGN.md §6) must be FULLY deterministic
+WHY: the trainer's replay walkthrough (docs/doctrine/TRAINER_DESIGN.md §6) must be FULLY deterministic
 from the JSONL logs alone. build_hand_record (pokerbot/web/session_log.py:14) drops the
 engine's 'blinds'/'deal' history events (the 'player' filter), so blind seats and the 3/1/1
 board reveal are re-derived here from button + board order. Pure dict->dict — no FastAPI or
@@ -241,16 +241,16 @@ def _synthetic_hand() -> tuple[dict, list[dict]]:
             {"street": "flop", "seat": 0, "pos": "BTN", "action": "call", "amount": 9700, "is_human": False},
         ],
         "result": {"reason": "showdown", "pot": 20050, "reveal": True,
-                   "winners": [{"seat": 2, "name": "Du", "amount": 20050, "rank": "Drilling"}],
-                   "shown": {"2": {"hole": ["Qs", "Qd"], "rank": "Drilling"}},
+                   "winners": [{"seat": 2, "name": "You", "amount": 20050, "rank": "Three of a Kind"}],
+                   "shown": {"2": {"hole": ["Qs", "Qd"], "rank": "Three of a Kind"}},
                    "board": ["Qh", "8s", "3c", "6d", "Jc"]},
         "net": {"0": -10000, "1": -50, "2": 10050},
     }
     decisions = [
         {"hand_no": 7, "street": "preflop", "human_action": "call", "oracle_action": "raise",
-         "grade": "ok", "erklaerung_kurz": "Call und Raise sind beide gut — GTO mischt hier."},
+         "grade": "ok", "erklaerung_kurz": "Call and raise are both fine — GTO mixes here."},
         {"hand_no": 7, "street": "flop", "human_action": "bet", "oracle_action": "bet",
-         "grade": "ok", "erklaerung_kurz": "Top Set auf trockenem Board — Value pur."},
+         "grade": "ok", "erklaerung_kurz": "Top set on a dry board — pure value."},
     ]
     return rec, decisions
 
@@ -319,7 +319,7 @@ def _selftest():
                              {"street": "preflop", "seat": 1, "pos": "SB", "action": "fold",
                               "amount": None, "is_human": False}],
                     result={"reason": "fold", "pot": 150, "reveal": False,
-                            "winners": [{"seat": 2, "name": "Du", "amount": 150}]})
+                            "winners": [{"seat": 2, "name": "You", "amount": 150}]})
     fold_out = compile_replay(fold_rec, [])
     assert fold_out["final_pot"] == 150
     assert not any(s["type"] == "street" for s in fold_out["steps"])

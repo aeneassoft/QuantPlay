@@ -1,52 +1,52 @@
-# Weg zu 100% GTO — Code-Review & Verbesserungs-Ladder
+# The path to 100% GTO — code review & improvement ladder
 
-*Erstellt 2026-06-15 nach einem vollständigen Durchgang durch die Decision-Engine. Geordnet nach Hebel
-Richtung GTO, nicht nach Aufwand. Liest sich als Begleiter zu `NOTES.md` (die gemessenen Gaps) und
-`docs/STATE.md` (der Live-State).*
-
----
-
-## 0. Die ehrliche Rahmung zuerst (sonst zielt der Rest ins Leere)
-
-**„100% GTO" ist für die zwei Modi des Bots zwei verschiedene Dinge:**
-
-- **Heads-Up NLHE:** GTO ist ein wohldefiniertes Objekt (ein im Wert eindeutiges Gleichgewicht). Aber
-  niemand hat es je *exakt* erreicht — Slumbot, DeepStack, Supremus sind alle Approximationen. Das
-  realistische Ziel ist **„von GTO innerhalb der Messgenauigkeit ununterscheidbar"** = near-zero
-  LBR-Exploitability. Das ist erreichbar.
-- **6-max:** GTO ist **prinzipiell nicht erreichbar** — multiplayer general-sum ⇒ Nash PPAD-hart,
-  nicht eindeutig, No-Regret konvergiert nur zu einem CCE, nicht Nash (steht schon in
-  `data/sessions/solvability_6max.md`). Hier ist „100% GTO" das falsche Ziel; das richtige ist
-  **bounded exploitability**. Dieser Report behandelt deshalb primär HU.
-
-**Der eine Satz, auf den alles hinausläuft:** GTO ist ein *global gekoppelter Fixpunkt* — die Ranges
-müssen über den ganzen Spielbaum konsistent sein. Man kann sich GTO **nicht durch besseres lokales
-Heuristik-Tuning annähern**, weil jede lokale Entscheidung von einer korrekten Range abhängt, die
-selbst aus dem Gleichgewicht folgt. Man erreicht GTO nur, indem die Strategie *ein einziges
-selbstkonsistentes Objekt* wird. Praktisch heißt das genau einen von zwei Wegen:
-
-1. **Real-time Subgame-Resolving mit korrekten Ranges** (der DeepStack/Supremus-Weg) — im Repo als
-   `strategy/resolver.py` schon **angelegt, aber unfertig + per Default AUS**.
-2. **Ein offline trainiertes Self-Play-Blueprint** (Deep-CFR / CFVnet) — im Repo als `deep_cfr.py`
-   gerüstet, bewusst zurückgestellt.
-
-Der aktuelle Bot ist ein **heuristischer Floor + supervised Advisors + Exploit-Layer**. Das ist eine
-gute, ehrliche Konstruktion — aber sie ist *strukturell* keine GTO-Strategie und kann es durch
-Tuning auch nie werden. Die gemessenen **−160 ±75 bb/100 (paired) gegen die Solver-Oracle** (NOTES,
-„DEFINITIVE TexasSolver head-to-head") sind nicht ein „fast GTO mit kleinen Lecks", sondern der
-erwartbare Abstand einer Heuristik zum Gleichgewicht.
-
-Die gute Nachricht: das Repo hat den richtigen Weg schon erkannt und teilweise gebaut. Der
-**River-Resolver hat bereits −12.9 ±69.6** gemessen (NOTES MVP#2) — das ist das mit Abstand
-GTO-näheste Ergebnis im ganzen Projekt. Der Rest dieses Reports ist im Kern: *macht diesen Weg fertig*.
+*Written 2026-06-15 after a complete pass through the decision engine. Ordered by leverage
+toward GTO, not by effort. Reads as a companion to `../NOTES.md` (the measured gaps) and
+`docs/STATE.md` (the live state).*
 
 ---
 
-## 1. Die Keystone-Schwäche: die Villain-Range ist keine Range
+## 0. The honest framing first (otherwise the rest aims at nothing)
 
-Das ist die wichtigste Einzelsache im ganzen Bot, weil **alles Postflop darauf steht.**
+**"100% GTO" is two different things for the bot's two modes:**
 
-In [`strategy/bot.py`](../pokerbot/strategy/bot.py) `_villain_range` (Z. 481) + `_narrow` (Z. 502):
+- **Heads-up NLHE:** GTO is a well-defined object (an equilibrium unique in value). But
+  nobody has ever reached it *exactly* — Slumbot, DeepStack, Supremus are all approximations. The
+  realistic target is **"indistinguishable from GTO within measurement accuracy"** = near-zero
+  LBR exploitability. That is achievable.
+- **6-max:** GTO is **unreachable in principle** — multiplayer general-sum ⇒ Nash PPAD-hard,
+  not unique, no-regret converges only to a CCE, not Nash (already stated in
+  `data/sessions/solvability_6max.md`). Here "100% GTO" is the wrong target; the right one is
+  **bounded exploitability**. This report therefore deals primarily with HU.
+
+**The one sentence everything comes down to:** GTO is a *globally coupled fixed point* — the ranges
+must be consistent across the whole game tree. One **cannot approach GTO through better local
+heuristic tuning**, because every local decision depends on a correct range, which itself
+follows from the equilibrium. GTO is reached only when the strategy becomes *a single
+self-consistent object*. In practice that means exactly one of two paths:
+
+1. **Real-time subgame re-solving with correct ranges** (the DeepStack/Supremus path) — in the repo already
+   **laid out as `strategy/resolver.py`, but unfinished + OFF by default**.
+2. **An offline-trained self-play blueprint** (Deep-CFR / CFVnet) — in the repo scaffolded as `deep_cfr.py`,
+   deliberately deferred.
+
+The current bot is a **heuristic floor + supervised advisors + exploit layer**. That is a
+good, honest construction — but it is *structurally* not a GTO strategy and can never become one
+through tuning. The measured **−160 ±75 bb/100 (paired) against the solver oracle** (NOTES,
+"DEFINITIVE TexasSolver head-to-head") are not an "almost GTO with small leaks", but the
+expected distance of a heuristic from the equilibrium.
+
+The good news: the repo has already recognized the right path and partly built it. The
+**river resolver has already measured −12.9 ±69.6** (NOTES MVP#2) — by far the most
+GTO-near result in the whole project. The rest of this report is, at its core: *finish this path*.
+
+---
+
+## 1. The keystone weakness: the villain range is not a range
+
+This is the single most important thing in the whole bot, because **everything postflop stands on it.**
+
+In [`strategy/bot.py`](../../pokerbot/strategy/bot.py) `_villain_range` (l. 481) + `_narrow` (l. 502):
 
 ```python
 def _villain_range(self, state):
@@ -57,209 +57,207 @@ def _villain_range(self, state):
 def _narrow(self, classes, board, hole, aggression):
     ...
     keep_frac = {0: 0.92, 1: 0.60, 2: 0.38}.get(aggression, 0.30)
-    ranked = sorted(combos, key=lambda c: evaluate(board, list(c)))  # nach absoluter Stärke
+    ranked = sorted(combos, key=lambda c: evaluate(board, list(c)))  # by absolute strength
     return ranked[:n]
 ```
 
-Das ist **„die stärksten X% Hände nach absoluter Brettstärke"** — keine pokertheoretische Range. Konsequenzen,
-die jede einzelne Postflop-Zahl verfälschen:
+That is **"the strongest X% of hands by absolute board strength"** — not a poker-theoretic range. Consequences
+that distort every single postflop number:
 
-- **Keine Bluffs in der Villain-Range.** `_narrow` behält bei Aggression nur die *stärksten* Combos.
-  Das Modell glaubt also: *wer auf Turn/River bettet, hat immer Value.* → Der Bot **over-foldet
-  Bluffcatcher** (er denkt, er sei nie gegen einen Bluff) und **under-blufft selbst** (er denkt,
-  Villain callt immer mit Value). Das ist exakt die Klasse von Leak, die im −160-Head-to-head
-  „facing-bet DEFENSE / turn-river LINES" als Hauptbleed benannt ist.
-- **Keine Draws gewichtet, keine Action-Lineage.** Eine echte Range entsteht aus den Aktionen
-  (open → call → check-raise …), nicht aus einem statischen Stärke-Perzentil.
-- **Die Equity (`equity_vs_range`) ist mathematisch sauber, aber gegen die falsche Verteilung** →
-  jede MDF/Pot-Odds/Value-Schwelle danach ist auf Sand gebaut.
+- **No bluffs in the villain range.** Under aggression `_narrow` keeps only the *strongest* combos.
+  So the model believes: *whoever bets on the turn/river always has value.* → The bot **over-folds
+  bluff-catchers** (it thinks it is never facing a bluff) and **under-bluffs itself** (it thinks
+  villain always calls with value). That is exactly the class of leak named in the −160 head-to-head
+  as the main bleed, "facing-bet DEFENSE / turn-river LINES".
+- **No draws weighted, no action lineage.** A real range arises from the actions
+  (open → call → check-raise …), not from a static strength percentile.
+- **The equity (`equity_vs_range`) is mathematically clean, but against the wrong distribution** →
+  every MDF/pot-odds/value threshold after it is built on sand.
 
-**Fix (das Fundament für fast alles andere):** ein **Bayesian action-consistent Range-Tracker** —
-Start aus den Preflop-Ranges, dann pro Betting-Aktion ein Bayes-Update über die
-Blueprint-/Solver-Policy (P(Aktion | Hand) gewichtet die Combos). Genau das ist die in
-[`strategy/range_tracker.py`](../pokerbot/strategy/range_tracker.py) als „P0-proper refinement"
-markierte, noch fehlende Postflop-Narrowing-Stufe. Heute ist `range_tracker` **nur preflop-line-aware**
-(SRP → sb_open/bb_defend; 3bet → top 18%). Ohne diese Stufe kann **weder der Advisor noch der Resolver
-GTO sein.**
+**Fix (the foundation for almost everything else):** a **Bayesian action-consistent range tracker** —
+start from the preflop ranges, then per betting action a Bayes update over the
+blueprint/solver policy (P(action | hand) weights the combos). That is exactly the still-missing postflop
+narrowing stage marked in [`strategy/range_tracker.py`](../../pokerbot/strategy/range_tracker.py) as the
+"P0-proper refinement". Today `range_tracker` is **only preflop-line-aware**
+(SRP → sb_open/bb_defend; 3bet → top 18%). Without this stage **neither the advisor nor the resolver
+can be GTO.**
 
-> Ohne korrekte Ranges ist „mehr GTO" unmöglich. Mit ihnen fällt die Hälfte der anderen Punkte von
-> selbst. **Das ist der höchste Hebel im Projekt.**
+> Without correct ranges, "more GTO" is impossible. With them, half of the other points fall out
+> by themselves. **This is the highest lever in the project.**
 
 ---
 
-## 2. Den echten GTO-Pfad anschalten: der Resolver
+## 2. Switch on the real GTO path: the resolver
 
-[`strategy/resolver.py`](../pokerbot/strategy/resolver.py) ist der eigentliche Weg zu Postflop-GTO und
-schon gut gebaut: er löst den **tatsächlichen öffentlichen River-State live mit TexasSolver bis zum
-Terminal** (River = 1 Betting-Runde ⇒ **kein Value-Net nötig**, sauber exakt). In `bot.py` aber:
+[`strategy/resolver.py`](../../pokerbot/strategy/resolver.py) is the actual path to postflop GTO and
+already well built: it solves the **actual public river state live with TexasSolver to the
+terminal** (river = 1 betting round ⇒ **no value net needed**, cleanly exact). In `bot.py`, however:
 
 ```python
-self.use_resolver = False        # Z. 82 — river resolver AUS
-self.use_turn_resolver = False   # Z. 83 — turn resolver AUS
+self.use_resolver = False        # l. 82 — river resolver OFF
+self.use_turn_resolver = False   # l. 83 — turn resolver OFF
 ```
 
-Zwei Dinge blockieren ihn:
+Two things block it:
 
-1. **Die Ranges, die reingehen, sind falsch** — `river_ranges()` liefert nur preflop-Linien-Ranges (wieder
-   das Problem aus §1). Der Resolver löst also das *richtige Brett mit zu weiten Ranges* → er gibt die
-   GTO-Strategie für ein *anderes Spiel* zurück.
-2. **Er ist per Default aus** (richtig so, solange #1 offen ist).
+1. **The ranges that go in are wrong** — `river_ranges()` delivers only preflop-line ranges (again
+   the problem from §1). So the resolver solves the *right board with ranges that are too wide* → it returns
+   the GTO strategy for a *different game*.
+2. **It is off by default** (rightly so, as long as #1 is open).
 
-**Fix (der direkte −160 → ≈0 Pfad):**
-- Erst §1 (korrekte Continuation-Ranges) bauen, dann in `river_ranges` einspeisen.
-- `use_resolver=True` (River zuerst — exakt lösbar, sauberster Win), dann `use_turn_resolver=True`
-  (Turn→River-Subtree, größerer Baum, langsamer).
-- Gaten über AIVAT / die paired `gto_oracle_match`. NOTES MVP#2 hat River-Resolver schon bei **−12.9**
-  gemessen — das ist der Beweis, dass dieser Weg trägt.
-- Latenz live: River-Solve ist ms–s; Turn-Solve teurer. Für eine reine GTO-Maschine ggf. Caching nach
-  Board-Bucket + Linie.
+**Fix (the direct −160 → ≈0 path):**
+- First build §1 (correct continuation ranges), then feed them into `river_ranges`.
+- `use_resolver=True` (river first — exactly solvable, cleanest win), then `use_turn_resolver=True`
+  (turn→river subtree, bigger tree, slower).
+- Gate via AIVAT / the paired `gto_oracle_match`. NOTES MVP#2 has already measured the river resolver at **−12.9**
+  — that is the proof that this path carries.
+- Latency live: a river solve is ms–s; a turn solve is more expensive. For a pure GTO machine, possibly caching by
+  board bucket + line.
 
-**Das ist konkret der Übergang von „heuristik, die GTO-Frequenzen nachahmt" zu „spot-spezifisch GTO".**
+**This is concretely the transition from "a heuristic that imitates GTO frequencies" to "spot-specific GTO".**
 
 ---
 
-## 3. Facing-Bet-Defense & Sizing — wo die bb/100 wirklich bluten
+## 3. Facing-bet defense & sizing — where the bb/100 really bleed
 
-NOTES sagt explizit: der deterministische GTO-gap (31% Flop / 29% River) ist **frequenztreu** —
-unsere Bet-vs-Check-*Frequenzen* matchen den Solver. Aber: *„the gap measures only bet-vs-check at the
+NOTES says explicitly: the deterministic GTO gap (31% flop / 29% river) is **frequency-faithful** —
+our bet-vs-check *frequencies* match the solver. But: *"the gap measures only bet-vs-check at the
 lead/cbet nodes; it does NOT capture SIZING / facing-bet DEFENSE / turn-river LINES, where the real EV
 leak sits."*
 
-Im Code sieht man genau das:
+In the code you see exactly that:
 
-- **Der Advisor feuert nur auf Bet-vs-Check-Knoten** (flop/turn/river, first-to-act/after-check). **Wenn
-  der Bot einen Bet *facing* ist**, läuft die Heuristik: `call_thresh = req + MDF-shade`, Value-Raise ab
-  `eq ≥ 0.72`, sonst Fold (`bot.py` Z. 290–328). D.h. der „GTO-gegroundete" Teil deckt **Betting ab, aber
-  nicht Defending.** Defending ist die Hälfte des Spiels und hier rein heuristisch.
-- **Sizing mischt nicht.** GTO nutzt mehrere Größen mit Frequenzen; der Bot bluff-bettet fix ~60% Pot,
-  value über `pick_value_size`. NOTES-Leak #2: *„fold-equity-optimal sizing ≠ EV-optimal"* — `max(folds)`
-  ist nicht `max(EV)`.
-- **MDF-shade ist evtl. nicht EV-gegroundet** (NOTES-Leak #3): MDF ist gegen Underbluffer das falsche
-  Modell.
+- **The advisor fires only on bet-vs-check nodes** (flop/turn/river, first-to-act/after-check). **When
+  the bot is *facing* a bet**, the heuristic runs: `call_thresh = req + MDF-shade`, value raise from
+  `eq ≥ 0.72`, otherwise fold (`bot.py` l. 290–328). I.e. the "GTO-grounded" part covers **betting, but
+  not defending.** Defending is half the game and here purely heuristic.
+- **Sizing does not mix.** GTO uses several sizes with frequencies; the bot bluff-bets a fixed ~60% pot,
+  value via `pick_value_size`. NOTES leak #2: *"fold-equity-optimal sizing ≠ EV-optimal"* — `max(folds)`
+  is not `max(EV)`.
+- **The MDF shade is possibly not EV-grounded** (NOTES leak #3): MDF is the wrong model against underbluffers.
 
-**Fix:** Fällt größtenteils aus §1+§2 heraus — sobald der Resolver mit korrekten Ranges läuft, *ist* die
-Facing-Bet-Antwort und das Sizing die GTO-Antwort (gemischt, range-vs-range). Bis dahin bleibt es eine
-Heuristik, die per Konstruktion nicht GTO sein kann. **Nicht einzeln wegtunen — durch den Resolver
-ersetzen.**
+**Fix:** Falls largely out of §1+§2 — as soon as the resolver runs with correct ranges, the
+facing-bet answer and the sizing *are* the GTO answer (mixed, range-vs-range). Until then it remains a
+heuristic that by construction cannot be GTO. **Do not tune away individually — replace it with the resolver.**
 
 ---
 
-## 4. Preflop ist nicht GTO (und die beste Tabelle ist nicht mal eingebunden)
+## 4. Preflop is not GTO (and the best table is not even wired in)
 
-Überraschender Befund beim Durchgang:
+Surprising finding during the pass:
 
-- **Push/Fold (≤14bb)** in [`cfr_preflop.py`](../pokerbot/strategy/cfr_preflop.py) ist echtes MCCFR-Nash —
-  **aber nur des JAM/FOLD-Abstraktionsspiels.** Es modelliert *nur* All-in oder Fold. Echtes GTO bei 14bb
-  enthält Min-Raises, Limps, Non-Allin-3bets. Reines Push/Fold ist nur bis ~10bb wirklich GTO-nah.
-- **Tiefere Stacks (>14bb)** in `bot.py` `_preflop` (`_bb_vs_open`, `_vs_3bet`, `_deep_reraise`) sind ein
-  **Perzentil-Stärke-Heuristik-System** mit *festen* Sizings: 2.5bb open, 3.2× 3bet, 2.3× 4bet, feste
-  Value/Bluff-Frequenz-Bänder. Keine Size-Mischung, keine GTO-Frequenzen.
-- **Die distillierte 88.6%-PokerBench-Tabelle** ([`preflop_gto.py`](../pokerbot/strategy/preflop_gto.py))
-  ist laut eigenem Docstring **nur in den 6max-RFI eingebunden — nicht in den HU-`bot.py`.** Der HU-Bot
-  benutzt also seine schwächere Heuristik, obwohl die bessere Tabelle im Repo liegt.
+- **Push/fold (≤14bb)** in [`cfr_preflop.py`](../../pokerbot/strategy/cfr_preflop.py) is real MCCFR-Nash —
+  **but only of the JAM/FOLD abstraction game.** It models *only* all-in or fold. Real GTO at 14bb
+  contains min-raises, limps, non-all-in 3bets. Pure push/fold is only really GTO-near up to ~10bb.
+- **Deeper stacks (>14bb)** in `bot.py` `_preflop` (`_bb_vs_open`, `_vs_3bet`, `_deep_reraise`) are a
+  **percentile-strength heuristic system** with *fixed* sizings: 2.5bb open, 3.2× 3bet, 2.3× 4bet, fixed
+  value/bluff frequency bands. No size mixing, no GTO frequencies.
+- **The distilled 88.6% PokerBench table** ([`preflop_gto.py`](../../pokerbot/strategy/preflop_gto.py))
+  is, per its own docstring, **wired only into the 6max RFI — not into the HU `bot.py`.** So the HU bot
+  uses its weaker heuristic although the better table sits in the repo.
 
 **Fix:**
-- `preflop_gto.py` in `bot.py._preflop` einbinden und um vs-open / vs-3bet / vs-4bet erweitern (Keys mit
-  der Preflop-Action-Sequenz, wie im Docstring als „Step 4b" vermerkt).
-- Mittlere Stacks: echte Preflop-Solves mit Open-Size- + 3bet/4bet-Bäumen und **Mischung**, statt fixer
-  Sizes.
-- Push/Fold: entweder das CFR-Spiel um Min-Raise/Limp-Linien erweitern, oder dokumentieren, dass es nur
-  ≤~10bb GTO ist.
+- Wire `preflop_gto.py` into `bot.py._preflop` and extend it with vs-open / vs-3bet / vs-4bet (keys with
+  the preflop action sequence, as noted in the docstring as "Step 4b").
+- Medium stacks: real preflop solves with open-size + 3bet/4bet trees and **mixing**, instead of fixed
+  sizes.
+- Push/fold: either extend the CFR game with min-raise/limp lines, or document that it is only
+  ≤~10bb GTO.
 
 ---
 
-## 5. Die Advisors: ein Approximations-Pfad, kein GTO-Pfad
+## 5. The advisors: an approximation path, not a GTO path
 
-Die MLP-Advisors ([`strategy/advisor.py`](../pokerbot/strategy/advisor.py)) sind sauberer Glue über echte
-Solver-Daten und sinnvoll. Aber als GTO-Mechanismus haben sie eine **Decke**, und der Grund steht in den
-Features ([`strategy/features.py`](../pokerbot/strategy/features.py)) + NOTES-Leaks #1/#5:
+The MLP advisors ([`strategy/advisor.py`](../../pokerbot/strategy/advisor.py)) are clean glue over real
+solver data and sensible. But as a GTO mechanism they have a **ceiling**, and the reason is in the
+features ([`strategy/features.py`](../../pokerbot/strategy/features.py)) + NOTES leaks #1/#5:
 
-- **Der Info-Set ist zu grob.** `_vector` kodiert: tier (air/medium/strong), 5 Texturen, role IP/OOP,
-  ein paar Draw-Booleans, overcards, scalar strength. **Keine** Linie, **kein** SPR, **kein** Pot-Typ
-  (SRP vs 3bet-Pot), **keine** Range-Asymmetrie. → K72r in BTN-vs-BB-SRP wird mit K72r im 3bet-Pot in
-  *einen* Info-Set gemittelt (NOTES-Leak #1). GTO behandelt die völlig verschieden.
-- **Trainiert auf P(bet)/MSE, nicht auf reach-weighted EV-gap** (NOTES-Leak #5): ein Netz kann die
-  *Frequenz* matchen und trotzdem an seltenen High-EV-gap-Knoten bluten. Eine Frequenz-Übereinstimmung
-  ist *nicht* GTO.
-- **Coverage begrenzt:** Flop-Netz aus voller Coverage, Turn aus nur 46 Flop-Files (+ laufender Solve),
-  River 1308 Boards. 3bet-Pots, mehrere Stacktiefen fehlen ganz.
+- **The info set is too coarse.** `_vector` encodes: tier (air/medium/strong), 5 textures, role IP/OOP,
+  a few draw booleans, overcards, scalar strength. **No** line, **no** SPR, **no** pot type
+  (SRP vs 3bet pot), **no** range asymmetry. → K72r in a BTN-vs-BB SRP is averaged with K72r in a 3bet pot into
+  *one* info set (NOTES leak #1). GTO treats those completely differently.
+- **Trained on P(bet)/MSE, not on reach-weighted EV gap** (NOTES leak #5): a net can match the
+  *frequency* and still bleed at rare high-EV-gap nodes. A frequency match
+  is *not* GTO.
+- **Coverage limited:** flop net from full coverage, turn from only 46 flop files (+ ongoing solve),
+  river 1308 boards. 3bet pots, several stack depths are missing entirely.
 
-**Fix (falls der Advisor-Pfad weiter verfolgt wird):** Linie/SPR/Pot-Typ/Position als Features;
-Loss = reach-weighted EV-gap statt MSE; Solver-Coverage-Kampagne (RunPod/GCP mass-solve) für 3bet-Pots
-+ Stacktiefen. **Aber ehrlich:** ein supervised Advisor *approximiert* GTO, er *ist* es nie. Für „100%"
-ist er die zweitbeste Schiene hinter dem Resolver/Self-Play. Sinnvoll als schneller, breiter Floor und
-als Fallback, wenn der Resolver eine Linie nicht lösen kann.
-
----
-
-## 6. Verifikation — ohne sie ist jeder GTO-Claim wertlos
-
-Man kann „nah an GTO" nicht *behaupten*, nur *messen*. Die Mess-Disziplin im Repo ist exzellent
-(paired/duplicate, AIVAT-bewusst, Noise-Floors, Skinner-bewusste Reverts — siehe `scorecard.py`,
-`duplicate.py`). Zwei Lücken bleiben, beide blockieren einen belastbaren GTO-Nachweis:
-
-- **LBR ist nur v1 und range-blind** (NOTES „Move A"): die uniforme Card-Resampling-Variante *sieht eine
-  korrumpierte Range nicht* (injizierter c-bet-air/river-overbluff → paired-delta ~0 trotz 99/300
-  Feuern). Echtes GTO ⇔ near-zero Exploitability, und das certifiziert nur ein echter Best-Response.
-  **Fix: LBR v2** — Bayesian action-consistent Range + multi-street Best-Response. Das ist das *einzige
-  interne* Instrument, das „wie nah an GTO" ohne externen Key beziffern kann. (Hängt wieder an §1.)
-- **GTO Wizard Key ist 401** (`benchmark/gtowizard.py` ist fertig + offline-getestet, blockt nur auf
-  gültigem Key). AIVAT vs GTOW-AI ist der definitive externe Maßstab. **Fix:** gültigen Key besorgen,
-  dann `--num-hands 2500` für die Leaderboard-Zahl. (User-Entscheidung — outward-facing, verbraucht Quota.)
+**Fix (if the advisor path is pursued further):** line/SPR/pot type/position as features;
+loss = reach-weighted EV gap instead of MSE; solver coverage campaign (RunPod/GCP mass-solve) for 3bet pots
++ stack depths. **But honestly:** a supervised advisor *approximates* GTO, it never *is* it. For "100%"
+it is the second-best track behind the resolver/self-play. Sensible as a fast, broad floor and
+as a fallback when the resolver cannot solve a line.
 
 ---
 
-## 7. Kleinere, konkrete Code-Beobachtungen (richtig, aber niedrigerer Hebel)
+## 6. Verification — without it every GTO claim is worthless
 
-- **Equity-Noise:** `EQUITY_ITERS=1500` live, **120 in Benchmarks** (`floor_map`, `gto_oracle_match`). 120
-  MC-Samples flippen dünne Pot-Odds-Entscheidungen — genau so ein Bug wurde am River schon gefunden und
-  durch exakte Enumeration (`equity.py` Z. 49–57) behoben. Flop/Turn sind noch MC. Erwägen: suit-canonical
-  Equity-Cache (steht als „Simplify Tier-A" in STATE.md) und höhere Bench-Iters für decision-grade Läufe.
-- **Der Exploit-Layer ist korrekt GTO-neutral.** Das LCB-Gate (`exploit_engine.choose_river`) fällt bei
-  dünnen Daten auf den Floor zurück (`cold-start → floor`), also *schadet* er der GTO-Nähe nicht — er ist
-  orthogonal. Wichtig: gegen einen *echten* GTO-Gegner gibt es keine ausnutzbaren Folds, das Gate bleibt
-  also am Floor. Gut so. (Für „100% GTO" würde man den Exploit-Layer ohnehin abschalten — er ist die
-  *Anti*-GTO-Schiene für die ausbeutbare Feld-Population. Die zwei Ziele „GTO" und „max-exploit" sind
-  verschiedene Knöpfe; der Bot trennt sie sauber über `exploit=True/False`.)
-- **`value_raise_eq=0.72` + feste 0.8×Pot-Value-Raise** (`bot.py` Z. 307–311): Punkt-Schätzung, keine
-  Mischung — wird vom Resolver ersetzt.
-- **`_has_initiative` ist nur preflop-abgeleitet** (Z. 469): korrekt für SRP, aber in komplexeren Linien
-  (float, delayed c-bet, probe) ist „Initiative" kein Boolean. Der Resolver braucht das Konzept gar nicht.
+One cannot *claim* "close to GTO", only *measure* it. The measurement discipline in the repo is excellent
+(paired/duplicate, AIVAT-aware, noise floors, Skinner-aware reverts — see `scorecard.py`,
+`duplicate.py`). Two gaps remain, both block a robust GTO proof:
+
+- **LBR is only v1 and range-blind** (NOTES "Move A"): the uniform card-resampling variant *does not see a
+  corrupted range* (injected c-bet air/river overbluff → paired delta ~0 despite 99/300
+  firings). Real GTO ⇔ near-zero exploitability, and only a real best response certifies that.
+  **Fix: LBR v2** — Bayesian action-consistent range + multi-street best response. That is the *only
+  internal* instrument that can quantify "how close to GTO" without an external key. (Depends on §1 again.)
+- **GTO Wizard key is 401** (`benchmark/gtowizard.py` is finished + offline-tested, blocks only on a
+  valid key). AIVAT vs GTOW-AI is the definitive external yardstick. **Fix:** obtain a valid key,
+  then `--num-hands 2500` for the leaderboard number. (User decision — outward-facing, consumes quota.)
 
 ---
 
-## 8. Die Ladder — geordnet nach Hebel Richtung GTO
+## 7. Smaller, concrete code observations (correct, but lower leverage)
 
-| # | Schritt | Warum es GTO-Hebel ist | Hängt an |
+- **Equity noise:** `EQUITY_ITERS=1500` live, **120 in benchmarks** (`floor_map`, `gto_oracle_match`). 120
+  MC samples flip thin pot-odds decisions — exactly such a bug was already found on the river and
+  fixed by exact enumeration (`equity.py` l. 49–57). Flop/turn are still MC. Consider: suit-canonical
+  equity cache (listed as "Simplify Tier-A" in STATE.md) and higher bench iters for decision-grade runs.
+- **The exploit layer is correctly GTO-neutral.** The LCB gate (`exploit_engine.choose_river`) falls back
+  to the floor on thin data (`cold-start → floor`), so it does *not harm* GTO proximity — it is
+  orthogonal. Important: against a *real* GTO opponent there are no exploitable folds, so the gate stays
+  at the floor. Good. (For "100% GTO" one would switch the exploit layer off anyway — it is the
+  *anti*-GTO track for the exploitable field population. The two goals "GTO" and "max-exploit" are
+  different knobs; the bot separates them cleanly via `exploit=True/False`.)
+- **`value_raise_eq=0.72` + fixed 0.8×pot value raise** (`bot.py` l. 307–311): point estimate, no
+  mixing — replaced by the resolver.
+- **`_has_initiative` is preflop-derived only** (l. 469): correct for SRP, but in more complex lines
+  (float, delayed c-bet, probe) "initiative" is not a boolean. The resolver does not need the concept at all.
+
+---
+
+## 8. The ladder — ordered by leverage toward GTO
+
+| # | Step | Why it is GTO leverage | Depends on |
 |---|---------|------------------------|----------|
-| **1** | **Bayesian action-consistent Range-Tracker** (Postflop-Continuation-Narrowing in `range_tracker.py`) | Fundament: ohne korrekte Ranges ist *nichts* GTO. Fixt Equity, Defense, Bluffcatch in einem. | — |
-| **2** | **Resolver anschalten** (River, dann Turn) mit den korrekten Ranges aus #1; AIVAT-gegatet | *Der* echte Postflop-GTO-Pfad; River exakt lösbar; schon −12.9 gemessen | #1 |
-| **3** | **Facing-Bet-Defense + Sizing** über den Resolver statt Heuristik | Wo die −160 real bluten (NOTES) | #1, #2 |
-| **4** | **Preflop-GTO einbinden** (`preflop_gto.py` in HU-bot; vs-open/3bet/4bet; gemischte Sizes) | HU-Preflop ist aktuell Heuristik; die bessere Tabelle ist nicht mal verdrahtet | — |
-| **5** | **LBR v2** (range-aware, multi-street) | Das einzige interne Instrument, das GTO-Nähe *zertifiziert* | #1 |
-| **6** | **Advisor-Info-Set verbreitern** (Linie/SPR/Pot-Typ; EV-gap-Loss) + Solver-Coverage-Kampagne | Macht die Approximations-Schiene + den Fallback besser | Coverage-Compute |
-| **7** | **GTO Wizard Key** → AIVAT-Leaderboard | Definitiver externer GTO-Maßstab | gültiger Key (User) |
-| **8** | **Self-Play-Blueprint** (Deep-CFR/CFVnet, Leduc→NLHE) | Der *andere* prinzipielle GTO-Weg; teuer, daher zuletzt | RunPod-GPU |
+| **1** | **Bayesian action-consistent range tracker** (postflop continuation narrowing in `range_tracker.py`) | Foundation: without correct ranges *nothing* is GTO. Fixes equity, defense, bluff-catching in one. | — |
+| **2** | **Switch on the resolver** (river, then turn) with the correct ranges from #1; AIVAT-gated | *The* real postflop GTO path; river exactly solvable; already measured −12.9 | #1 |
+| **3** | **Facing-bet defense + sizing** via the resolver instead of the heuristic | Where the −160 really bleed (NOTES) | #1, #2 |
+| **4** | **Wire in preflop GTO** (`preflop_gto.py` in the HU bot; vs-open/3bet/4bet; mixed sizes) | HU preflop is currently heuristic; the better table is not even wired | — |
+| **5** | **LBR v2** (range-aware, multi-street) | The only internal instrument that *certifies* GTO proximity | #1 |
+| **6** | **Widen the advisor info set** (line/SPR/pot type; EV-gap loss) + solver coverage campaign | Makes the approximation track + the fallback better | coverage compute |
+| **7** | **GTO Wizard key** → AIVAT leaderboard | Definitive external GTO yardstick | valid key (user) |
+| **8** | **Self-play blueprint** (Deep-CFR/CFVnet, Leduc→NLHE) | The *other* principled GTO path; expensive, hence last | RunPod GPU |
 
-**Wenn nur EINE Sache gemacht wird:** #1 (Range-Tracker). Es ist der Keystone, der #2/#3/#5 erst möglich
-macht und für sich allein schon jede Postflop-Zahl korrigiert.
+**If only ONE thing is done:** #1 (range tracker). It is the keystone that makes #2/#3/#5 possible in the first
+place and on its own already corrects every postflop number.
 
-**Der realistische „so nah an GTO wie HU geht"-Pfad:** #1 → #2 → #3 → #5 (gaten) → #4. Das bringt den
-gemessenen Abstand plausibel von −160 Richtung ≈0 vs Solver und macht den Claim *überprüfbar*.
+**The realistic "as close to GTO as HU allows" path:** #1 → #2 → #3 → #5 (gate) → #4. That plausibly brings the
+measured distance from −160 toward ≈0 vs the solver and makes the claim *verifiable*.
 
 ---
 
-## 9. Fazit in drei Sätzen
+## 9. Conclusion in three sentences
 
-1. Der Bot ist eine *saubere, ehrlich gemessene Heuristik mit Exploit-Layer* — aber strukturell **keine**
-   GTO-Strategie, und kein Maß an lokalem Tuning macht ihn zu einer; GTO ist ein global gekoppelter
-   Fixpunkt, der nur über Resolving-mit-korrekten-Ranges oder Self-Play erreichbar ist.
-2. Beide echten Wege sind im Repo **schon angelegt** (`resolver.py`, `deep_cfr.py`) und der Resolver hat
-   bereits das GTO-näheste Ergebnis geliefert (−12.9) — er ist nur durch **eine fehlende Komponente
-   blockiert: korrekte Postflop-Ranges** (§1).
-3. „100% GTO" ist für HU als *„innerhalb der Messgenauigkeit / near-zero LBR"* realistisch erreichbar
-   (Ladder oben) und für 6-max prinzipiell unmöglich (dort ist bounded exploitability das richtige Ziel).
+1. The bot is a *clean, honestly measured heuristic with an exploit layer* — but structurally **not** a
+   GTO strategy, and no amount of local tuning makes it one; GTO is a globally coupled
+   fixed point reachable only via re-solving-with-correct-ranges or self-play.
+2. Both real paths are **already laid out** in the repo (`resolver.py`, `deep_cfr.py`) and the resolver has
+   already delivered the most GTO-near result (−12.9) — it is blocked only by **one missing component:
+   correct postflop ranges** (§1).
+3. "100% GTO" is realistically achievable for HU as *"within measurement accuracy / near-zero LBR"*
+   (ladder above) and impossible in principle for 6-max (there, bounded exploitability is the right target).
 
-*— Review-Pass über bot.py, advisor.py, resolver.py, range_tracker.py, postflop.py, gto_oracle.py,
+*— Review pass over bot.py, advisor.py, resolver.py, range_tracker.py, postflop.py, gto_oracle.py,
 exploit_engine.py, opp_model.py, equity.py, gto_baseline.py, features.py, preflop_gto.py, cfr_preflop.py,
 floor_map.py, gto_oracle_match.py, scorecard.py + CLAUDE/STATE/NOTES.*

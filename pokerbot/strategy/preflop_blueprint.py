@@ -4,7 +4,7 @@ Maps a LIVE preflop decision (is_sb, #raises, villain all-in?) to a blueprint no
 for the hand class. Replaces bot.py's "open top-X% at a fixed 2.5bb / deep_jam_pct" heuristic cascade with a mixed,
 size-aware equilibrium.
 
-Trust profile (honest, see NOTES.md): the blueprint is solved at 200bb with a checkdown+IP-realization continuation.
+Trust profile (honest, see docs/NOTES.md): the blueprint is solved at 200bb with a checkdown+IP-realization continuation.
 It is MOST accurate for the ALL-IN-DISCIPLINE nodes (4bet/5bet/jam — run-it-out equity is exact) and for the open/
 3bet STRUCTURE + mixing; the OOP flat-defense WIDTH carries a realization approximation (the high-quality version =
 a real postflop continuation per leaf = the GCP scale-up). Calibrated to 200bb -> gate to deep stacks.

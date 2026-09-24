@@ -1,4 +1,4 @@
-"""G4-AUSWERTUNG — Holdout-Pruefstand (Karte docs/V10_BUILD_CARD.md K3/G4) aus den Pruefstand-Reports.
+"""G4-AUSWERTUNG — Holdout-Pruefstand (Karte docs/plans/V10_BUILD_CARD.md K3/G4) aus den Pruefstand-Reports.
 
 Liest die JSON-Reports von research/river_br_pruefstand.py (Hauptlauf Villain 'tracker' + Sensitivitaet Villain
 'preflop', optional den A/A-Kontrolllauf) und schreibt data/runs/v10/G4_holdout.{json,md}.
@@ -142,7 +142,7 @@ def kosten(h: dict) -> dict:
 def md_zeilen(res: dict) -> list[str]:
     h, s, aa = res["haupt"], res.get("sensitivitaet"), res.get("kontrolle_aa")
     z = [f"# G4 — Holdout-Pruefstand (K3) — {res['status']}", "",
-         f"Erzeugt {res['erzeugt']}. Karte: docs/V10_BUILD_CARD.md K3/G4. Status-Regel: siehe research/g4_auswertung.py Docstring.", "",
+         f"Erzeugt {res['erzeugt']}. Karte: docs/plans/V10_BUILD_CARD.md K3/G4. Status-Regel: siehe research/g4_auswertung.py Docstring.", "",
          "## Kennzahlen (Hauptlauf, Villain = Tracker)", "",
          f"- Roots bewertet: **{h['n_bewertet']}** (UNSUPPORTED {h['n_unsupported']}); Nenner {h['n_roots_ge_schwelle']} Roots >= 1500 von "
          f"{h['n_haende']} Holdout-Haenden -> Auswahlgewicht {h['auswahlgewicht']:.4f}",

@@ -2,7 +2,7 @@
 Flaggschiff-Verbesserung, v10.1-Potenzial, "Zwitter" aus allen gebauten Bauteilen.
 
 Der Schluessel wird AUS DER DATEI gelesen (nie hartkodiert, CLAUDE.md-Regel).
-Run:  python -m research.konsult_sol --briefing <pfad.md> --out "KONSULT_GPT56_SOL_2026-09-10.md"
+Run:  python -m research.konsult_sol --briefing <pfad.md> --out "docs/consults/CONSULT_GPT56_SOL_2026-09-10.md"
 """
 from __future__ import annotations
 

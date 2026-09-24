@@ -1,4 +1,4 @@
-"""G1-Invarianten fuer K1 (pokerbot/strategy/hero_range.py; Karte docs/V10_BUILD_CARD.md K1-Abnahme):
+"""G1-Invarianten fuer K1 (pokerbot/strategy/hero_range.py; Karte docs/plans/V10_BUILD_CARD.md K1-Abnahme):
 Σ=1 (1e-6) · Board-Combos exakt 0 · Invarianz gegen Heros echte Hand · Guard-Transformation vs explizite
 Enumeration (≤1e-6) · Massenerhaltung · C(h) BITGENAU gegen den echten improver-Guard (E6) · beide Kanaele
 (Engine-History UND gtow_to_state-Form) · Replay-Buchhaltung == Engine · Tracker-Paritaet · p_defense_batch-

@@ -11,13 +11,29 @@
   view fields consumed: hand_no button sb bb street board pot current_bet to_act hand_over result human_seat
     session_net hands_done seats[] legal bot_events + optional: mode, coach, difficulty.
 -->
-<html lang="de">
+<html lang="en">
 <head>
-<script>window.QP_BUILD={"v": "e768f351cd", "pyodide": "0.28.3"}</script>
-<script src="bridge.js?v=e768f351cd"></script>
+<script>window.QP_BUILD={"v": "48efb0b2c0", "pyodide": "0.28.3"}</script>
+<script src="bridge.js?v=48efb0b2c0"></script>
+<meta name="description" content="Free 6-max No-Limit Hold'em poker trainer that runs entirely in your browser: profiled bot opponents, every decision graded with an explanation, exploit and arena modes, a 60-player tournament with ICM. No account, no server, open source."/>
+<link rel="canonical" href="https://quantplay.io/"/>
+<link rel="license" href="https://polyformproject.org/licenses/noncommercial/1.0.0"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://quantplay.io/"/>
+<meta property="og:title" content="QuantPlay — 6-max No-Limit Hold'em trainer in your browser"/>
+<meta property="og:description" content="Free 6-max No-Limit Hold'em poker trainer that runs entirely in your browser: profiled bot opponents, every decision graded with an explanation, exploit and arena modes, a 60-player tournament with ICM. No account, no server, open source."/>
+<meta property="og:image" content="https://quantplay.io/og.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="QuantPlay — 6-max No-Limit Hold'em trainer in your browser"/>
+<meta name="twitter:description" content="Free 6-max No-Limit Hold'em poker trainer that runs entirely in your browser: profiled bot opponents, every decision graded with an explanation, exploit and arena modes, a 60-player tournament with ICM. No account, no server, open source."/>
+<meta name="twitter:image" content="https://quantplay.io/og.png"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "QuantPlay", "url": "https://quantplay.io/", "description": "Free 6-max No-Limit Hold'em poker trainer that runs entirely in your browser: profiled bot opponents, every decision graded with an explanation, exploit and arena modes, a 60-player tournament with ICM. No account, no server, open source.", "applicationCategory": "GameApplication", "operatingSystem": "Any (browser, WebAssembly)", "browserRequirements": "WebAssembly, Web Workers", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "license": "https://polyformproject.org/licenses/noncommercial/1.0.0", "codeRepository": "https://github.com/aeneassoft/QuantPlay", "author": {"@type": "Person", "name": "Leonhard Hampe"}, "keywords": "poker trainer, 6-max, no-limit holdem, GTO, exploit, ICM, tournament, Pyodide, WebAssembly"}</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>QuantPlay — Trainer</title>
+<title>QuantPlay — free 6-max No-Limit Hold'em trainer in your browser</title>
 <style>
   :root{
     --bg1:#0a1020; --bg2:#060a14; --rail:#1a2740; --rail2:#0f1830;
@@ -36,9 +52,10 @@
   .hdr .right{display:flex;gap:18px;align-items:center}
   #modebadge{font-weight:800;font-size:12px;color:#06121f;background:var(--cyan);border-radius:8px;padding:1px 8px}
   #modebadge.arena{background:#ff8a4a}
-  #modebadge.punish{background:var(--red);color:#fff}
-  #m-punish{background:#b3453c;color:#fff}
   .zoomctl{display:inline-flex;align-items:center;gap:6px;margin-right:14px}
+  .ghbtn{display:inline-flex;align-items:center;gap:7px;background:#12203a;color:#cfe3ff;border:1px solid #2b4468;border-radius:8px;padding:3px 13px;text-decoration:none;font-weight:600;margin-left:12px}
+  .ghbtn:hover{background:#1b2d4f;color:#fff}
+  .ghbtn.big{font-size:16px;padding:8px 18px;margin:10px 0 0 0}
   .zbtn{background:#12203a;color:#cfe3ff;border:1px solid #2b4468;border-radius:8px;padding:3px 13px;
     font-size:20px;font-weight:800;cursor:pointer;line-height:1.4}
   .zbtn:hover{background:#1b2f52}
@@ -239,12 +256,12 @@
 <body>
 <div id="stage">
   <div class="hdr">
-    <div><b>♠ QuantPlay</b> <span class="g">Trainer</span></div>
+    <div><b>♠ QuantPlay</b> <span class="g">Trainer</span><a class="ghbtn" href="https://github.com/aeneassoft/QuantPlay" target="_blank" rel="noopener" title="Source code, docs and measurements on GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" style="vertical-align:-3px;fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a></div>
     <div class="right">
-      <span class="zoomctl"><button id="z-out" class="zbtn" title="Kleiner (Strg −)">A−</button><span id="zoomlbl">100%</span><button id="z-in" class="zbtn" title="Größer (Strg +)">A+</button></span>
+      <span class="zoomctl"><button id="z-out" class="zbtn" title="Smaller (Ctrl −)">A−</button><span id="zoomlbl">100%</span><button id="z-in" class="zbtn" title="Larger (Ctrl +)">A+</button></span>
       <span id="modebadge">GTO</span>
-      <span id="liga">Liga –</span>
-      <span id="hph">– H./Std</span>
+      <span id="liga">League –</span>
+      <span id="hph">– hands/h</span>
       <span id="meta">—</span>
     </div>
   </div>
@@ -261,27 +278,27 @@
   <div class="bar" id="bar"><div class="wait">…</div></div>
 
   <div class="panel">
-    <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Session-Netto (bb)</div></div>
+    <div class="net"><div class="v" id="snet">0</div><div class="l" id="snetl">Session net (bb)</div></div>
     <div id="matchcount" style="display:none"></div>
     <div id="thud"></div>
     <div id="verdict"></div>
     <div class="mini">
-      <button id="b-new" class="sec">Neu</button>
-      <button id="b-an">Analyse</button>
+      <button id="b-new" class="sec">New</button>
+      <button id="b-an">Analysis</button>
       <button id="b-replay" class="sec">Replay <span class="kbd">P</span></button>
     </div>
     <h3>Feedback</h3>
-    <div id="coach"><div class="ph">Spiel eine Hand — das Feedback erscheint hier.</div></div>
+    <div id="coach"><div class="ph">Play a hand — feedback appears here.</div></div>
     <details id="botread" style="display:none">
-      <summary>🧠 Was der Bot über dich gelernt hat</summary>
+      <summary>🧠 What the bot has learned about you</summary>
       <div id="brbody">—</div>
     </details>
-    <h3>Analyse</h3><div class="out" id="out">Spiel ~100 Hände, dann „Analyse".</div>
-    <h3>Verlauf</h3><div class="log" id="log"></div>
+    <h3>Analysis</h3><div class="out" id="out">Play ~100 hands, then hit "Analysis".</div>
+    <h3>Log</h3><div class="log" id="log"></div>
     <details id="gloss">
-      <summary>📖 Glossar</summary>
-      <input id="gfilter" placeholder="Begriff suchen…" autocomplete="off"/>
-      <div id="glist"><div class="muted" style="padding:6px 8px">Glossar wird geladen…</div></div>
+      <summary>📖 Glossary</summary>
+      <input id="gfilter" placeholder="Search terms…" autocomplete="off"/>
+      <div id="glist"><div class="muted" style="padding:6px 8px">Loading glossary…</div></div>
     </details>
   </div>
 </div>
@@ -289,31 +306,30 @@
 <div id="modeoverlay">
   <div class="mo-card">
     <h2>♠ QuantPlay Trainer</h2>
-    <p>Wähle deinen Trainingsmodus:</p>
+    <a class="ghbtn big" href="https://github.com/aeneassoft/QuantPlay" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" style="vertical-align:-3px;fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> Open source on GitHub — code, docs &amp; every measurement</a>
+    <p>Choose your training mode:</p>
     <div>
-      <button id="m-gto">GTO-Modus</button>
-      <button id="m-exploit">Exploit-Modus</button>
-      <button id="m-arena">Arena-Modus</button>
-      <button id="m-punish">Punishment</button>
-      <button id="m-tournament">Turnier</button>
-      <button id="m-match" class="sec">Match — nur spielen</button>
+      <button id="m-gto">GTO mode</button>
+      <button id="m-exploit">Exploit mode</button>
+      <button id="m-arena">Arena mode</button>
+      <button id="m-tournament">Tournament</button>
+      <button id="m-match" class="sec">Match — just play</button>
     </div>
-    <p><b style="color:#eaf2ff">GTO:</b> die Bots spielen ihre Grundlinie — und sobald ein Pot heads-up ist, übernimmt ♛ Prince, unser bester Bot.<br/>
-       <b style="color:#eaf2ff">Exploit:</b> die Bots lernen dich live und nutzen deine Leaks — du erlebst deine Ausbeutbarkeit.<br/>
-       <b style="color:#eaf2ff">Arena:</b> die wilde Online-Landschaft — wechselnde, adaptive Gegnertypen mit allen Stack-Tiefen. Bestehe den Stresstest, indem du trotzdem GTO spielst; bewertet wird unverändert streng.<br/>
-       <b style="color:#ff7b6e">Punishment:</b> fünf Jäger, gebaut aus DEINEN vermessenen Leaks — der Sheriff callt deinen einen Schlag, der Iso-Hammer bestraft jeden Limp, die Value-Presse kassiert deine Call-downs, der Trap-Nit wartet auf deinen Riesenpott, der Blind-Fighter 3-bettet dich weich. Bewertet wird unverändert streng.<br/>
-       <b style="color:#c9b3ff">Turnier:</b> MTT mit 60 Spielern an 6 Tischen à 10 — normale Online-Population (Stations, Regs, Nits, Maniacs), steigende Blinds mit Antes, Tischausgleich bis zum Final Table, Top 9 bezahlt. Nach jeder Aktion ein Urteil (GTO ✓ / Abweichung) und ICM-Hinweise, sobald der Bubble-Faktor greift.<br/>
-       <b style="color:#eaf2ff">Match:</b> dieselben GTO-Gegner + ♛ Prince, aber OHNE Coaching und Ablenkung — nur du, der Tisch und ein Hand-Zähler (150 Testhände, dann open end). Alles wird still mitgeschrieben und benotet — auswerten kannst du hinterher.</p>
+    <p><b style="color:#eaf2ff">GTO:</b> the league bots play their baseline strategy straight, and every decision you make is graded with an explanation.<br/>
+       <b style="color:#eaf2ff">Exploit:</b> the bots read you live and attack your leaks — you experience how exploitable you are.<br/>
+       <b style="color:#eaf2ff">Arena:</b> the wild online landscape — rotating, adaptive opponent types at every stack depth. Pass the stress test by sticking to GTO anyway; grading stays just as strict.<br/>
+       <b style="color:#c9b3ff">Tournament:</b> 60-player MTT across 6 tables of 10 — a typical online field (stations, regs, nits, maniacs), rising blinds with antes, table balancing down to the final table, top 9 paid. A verdict after every action (GTO ✓ / deviation) plus ICM hints once the bubble factor kicks in.<br/>
+       <b style="color:#eaf2ff">Match:</b> the same GTO opponents, but WITHOUT coaching or distractions — just you, the table and a hand counter (150 test hands, then open end). Everything is logged and graded silently — review it afterwards.</p>
   </div>
 </div>
 
 <div id="tourend">
   <div class="mo-card">
-    <h2>🏁 Turnier beendet</h2>
+    <h2>🏁 Tournament over</h2>
     <div class="big" id="te-place"></div>
     <p id="te-body"></p>
     <ul id="te-dev"></ul>
-    <div><button id="te-new">Turnier neu</button><button id="te-menu" class="sec">Zum Menü</button></div>
+    <div><button id="te-new">New tournament</button><button id="te-menu" class="sec">Back to menu</button></div>
   </div>
 </div>
 
@@ -330,14 +346,14 @@ const SC6=[[50,95],[9,82],[9,17],[50,5],[91,17],[91,82]];         // die bewähr
 function seatCoords(n){if(n===6)return SC6;const o=[];for(let i=0;i<n;i++){const a=Math.PI/2+2*Math.PI*i/n;o.push([50+44*Math.cos(a),50+46*Math.sin(a)]);}return o;}
 let SC=SC6;
 const AVCOL=['#37e0c8','#f0c860','#7aa2ff','#ff8db0','#a0e878','#ffb066','#c9b3ff','#ff9b9b','#8ee0ff','#e6d68a'];
-const RANK_DE={'High Card':'Hohe Karte','Pair':'Paar','Two Pair':'Zwei Paare','Three of a Kind':'Drilling',
-  'Straight':'Straße','Flush':'Flush','Full House':'Full House','Four of a Kind':'Vierling',
+const RANK_DE={'High Card':'High Card','Pair':'Pair','Two Pair':'Two Pair','Three of a Kind':'Three of a Kind',
+  'Straight':'Straight','Flush':'Flush','Full House':'Full House','Four of a Kind':'Four of a Kind',
   'Straight Flush':'Straight Flush','Royal Flush':'Royal Flush'};
 const STREET_DE={preflop:'Preflop',flop:'Flop',turn:'Turn',river:'River',showdown:'Showdown'};
 const ICON={ok:'✓',teuer:'～',leak:'✗'};
 // third person for the ticker, second person for the human's own line, noun for replay labels
-const VERB3={fold:'foldet',check:'checkt',call:'callt',bet:'setzt',raise:'erhöht',allin:'All-in'};
-const VERB2={fold:'foldest',check:'checkst',call:'callst',bet:'setzt',raise:'erhöhst',allin:'All-in'};
+const VERB3={fold:'folds',check:'checks',call:'calls',bet:'bets',raise:'raises',allin:'shoves'};
+const VERB2={fold:'fold',check:'check',call:'call',bet:'bet',raise:'raise',allin:'shove'};
 const ACTION_DE={fold:'Fold',check:'Check',call:'Call',bet:'Bet',raise:'Raise',allin:'All-in'};
 function verbDe(a){return VERB3[a]||a;}
 
@@ -445,7 +461,7 @@ function buildGloss(){
     const quelle=e.quelle?` <span class="muted">(${esc(e.quelle)})</span>`:'';
     return `<div class="gentry" id="g-${slug}" data-s="${esc((e.begriff+' '+(e.erklaerung||'')).toLowerCase())}">`+
       `<b>${esc(e.begriff)}</b> ${esc(e.erklaerung||'')}${formel}${quelle}</div>`;
-  }).join('')||'<div class="muted" style="padding:6px 8px">Kein Glossar verfügbar.</div>';
+  }).join('')||'<div class="muted" style="padding:6px 8px">No glossary available.</div>';
 }
 // THE single markup fn for client-composed strings: escape FIRST, then wrap term spans (order = XSS safety)
 function markTerms(text){
@@ -516,7 +532,7 @@ function renderCoach(c){
     `<div class="fbhead"><span class="badge ${w}">${ICON[w]}</span> Hand #${esc(c.hand_no!=null?c.hand_no:'–')}</div>`+
     (badges?`<div class="badges">${badges}</div>`:'')+
     `<div class="fbbody">${body}</div>`+
-    `<button id="b-weiter">Weiter <span class="kbd">Leertaste</span></button>`;
+    `<button id="b-weiter">Continue <span class="kbd">Space</span></button>`;
   $('b-weiter').onclick=dealNow;
   qualityBanner(c);                              // Fallback-Pfad (fetchFeedback) aktualisiert das Banner mit
 }
@@ -524,8 +540,8 @@ function coachPlaceholder(v){
   const my=v.legal&&v.legal.to_act===v.human_seat;
   const street=STREET_DE[v.street]||v.street;
   const zeile=my
-    ?`Du bist dran (${street}) — Pot ${bbs(v.pot)}bb${(v.legal.to_call>0)?', '+bbs(v.legal.to_call)+'bb zu callen':''}.`
-    :`Gegner sind dran (${street}).`;
+    ?`Your turn (${street}) — pot ${bbs(v.pot)}bb${(v.legal.to_call>0)?', '+bbs(v.legal.to_call)+'bb to call':''}.`
+    :`Opponents to act (${street}).`;
   // The live prompt goes into its own slim line ABOVE the feedback — the previous hand's coaching text
   // stays readable while the new hand runs (it used to be wiped the instant the next hand was dealt).
   const keep=$('coach').querySelector('.fbhead') ? $('coach').innerHTML : '';
@@ -548,7 +564,7 @@ async function fetchFeedback(){
 /* ── bot read panel (P3-C UI, exploit mode only) ─────────────────────── */
 function fmtStat(o,label){
   if(!o)return '';
-  if(o.value==null)return `<div class="muted">${esc(label)}: noch nicht genug Daten (${o.n!=null?o.n:0}/${o.min!=null?o.min:'?'})</div>`;
+  if(o.value==null)return `<div class="muted">${esc(label)}: not enough data yet (${o.n!=null?o.n:0}/${o.min!=null?o.min:'?'})</div>`;
   const v=(o.value<=1.5)?pct(o.value):(Math.round(o.value*100)/100);
   return `<div>${esc(label)}: <b>${v}</b> (n=${o.n!=null?o.n:'?'})</div>`;
 }
@@ -563,22 +579,22 @@ async function loadBotRead(){
   if(d.hinweis)h+=`<div class="muted">${markTerms(d.hinweis)}</div>`;
   (d.live_exploits||[]).forEach(x=>{h+=`<div class="exploit">⚠ ${markTerms(x.text_de||x.text||x.key||'')}</div>`;});
   const st=d.stats||{};
-  h+=fmtStat(st.fold_to_bet,'Fold auf Bet')+fmtStat(st.threebet,'3-Bet')+fmtStat(st.aggression,'Aggression');
+  h+=fmtStat(st.fold_to_bet,'Fold to bet')+fmtStat(st.threebet,'3-Bet')+fmtStat(st.aggression,'Aggression');
   if(st.vpip_raw!=null||st.pfr_raw!=null)
     h+=`<div class="muted">VPIP ${pct(st.vpip_raw)} · PFR ${pct(st.pfr_raw)}</div>`;
-  el.innerHTML=h||'<span class="muted">Noch keine Daten.</span>';
+  el.innerHTML=h||'<span class="muted">No data yet.</span>';
 }
 $('botread').addEventListener('toggle',()=>{if($('botread').open)loadBotRead();});
 
 /* ── render: the single redraw point (six.html architecture) ─────────── */
 function curMode(){return (view&&view.mode)||MODE;}
 function render(v){
-  if(!v||!Array.isArray(v.seats)){log('Fehler: Zustand ohne Sitze — nicht gerendert','s');return;}   // Schutz: nie den Tisch leeren
+  if(!v||!Array.isArray(v.seats)){log('Error: state without seats — not rendered','s');return;}   // Schutz: nie den Tisch leeren
   view=v; bb=v.bb;
   if(v.hand_no!==tickerHand){tickerParts=[];tickerStreet=null;tickerHand=v.hand_no;$('ticker').textContent='—';}
   $('meta').innerHTML=`Hand <b>#${v.hand_no}</b> · ${STREET_DE[v.street]||v.street} · Pot <span class="g">${bbs(v.pot)}bb</span>`;
   const mb=$('modebadge');mb.textContent=curMode().toUpperCase();
-  mb.className={exploit:'exploit',arena:'arena',punish:'punish',tournament:'tournament'}[curMode()]||'';
+  mb.className={exploit:'exploit',arena:'arena',tournament:'tournament'}[curMode()]||'';
   if(v.seats&&v.seats.length!==SC.length)SC=seatCoords(v.seats.length);   // Turnier: bis 10 Sitze
   renderTournament(v.tournament);
   // Match-Zähler: Testphase bis 150 abgeschlossene Hände (mit Balken), danach Wettkampf open end
@@ -587,35 +603,35 @@ function render(v){
     const h=v.hands_done||0;
     if(h<MATCH_TEST_HANDS){
       mc.className='';
-      mc.innerHTML=`<span class="phase">Testphase</span><b>${h}</b> / ${MATCH_TEST_HANDS} Hände gespielt`+
+      mc.innerHTML=`<span class="phase">Test phase</span><b>${h}</b> / ${MATCH_TEST_HANDS} hands played`+
         `<div class="prog"><div class="fill" style="width:${Math.min(100,100*h/MATCH_TEST_HANDS)}%"></div></div>`;
     }else{
       mc.className='comp';
-      mc.innerHTML=`<span class="phase">Wettkampf · open end</span><b>${h}</b> Hände gespielt`+
-        `<span class="muted" style="font-size:18px"> (Testphase ✓)</span>`;
+      mc.innerHTML=`<span class="phase">Competition · open end</span><b>${h}</b> hands played`+
+        `<span class="muted" style="font-size:18px"> (test phase ✓)</span>`;
     }
   }
   if(v.arena_news){log('🔄 '+esc(v.arena_news),'s');pushTicker(v.street,v.arena_news);}
   // einmal pro Hand ansagen, sobald der Pot heads-up wird und Prince den Gegner-Sitz übernimmt
   if(v.prince_seat!=null&&lastPrinceHand!==v.hand_no){
     lastPrinceHand=v.hand_no;
-    const nm=(v.seats[v.prince_seat]||{}).name||('Sitz '+v.prince_seat);
-    log(`♛ Heads-up — <b>Prince v2</b> übernimmt für ${esc(nm)}.`,'r');
+    const nm=(v.seats[v.prince_seat]||{}).name||('Seat '+v.prince_seat);
+    log(`♛ Heads-up — <b>Prince v2</b> takes over for ${esc(nm)}.`,'r');
   }
   // P3-D: minimal difficulty indicator — from view fields when the server ships them, '–' otherwise
   const df=v.difficulty||v.liga||null;
   const rate=df?(df.error_rate!=null?df.error_rate:df.rate):null;
-  $('liga').textContent=df?`Liga ${df.tier_name!=null?df.tier_name:(df.tier!=null?df.tier:'–')} · Fehler ${pct(rate)} (Ziel 10–20 %)`:'Liga –';
+  $('liga').textContent=df?`League ${df.tier_name!=null?df.tier_name:(df.tier!=null?df.tier:'–')} · Errors ${pct(rate)} (target 10–20 %)`:'League –';
   // hands/hour: rolling window over the last 20 hand-ends
   let hph='–';
   if(handEndTimes.length>=3){
     const w=handEndTimes.slice(-20), span=w[w.length-1]-w[0];
     if(span>0)hph=String(Math.round((w.length-1)/(span/3.6e6)));
   }
-  $('hph').textContent=hph+' H./Std';
+  $('hph').textContent=hph+' hands/h';
   const sn=(v.session_net||0)/bb;
   $('snet').textContent=(sn>=0?'+':'')+bbs(v.session_net); $('snet').className='v '+(sn>0?'pos':sn<0?'neg':'');
-  $('snetl').textContent=`Session-Netto (bb) · ${v.hands_done||0} Hände`;
+  $('snetl').textContent=`Session net (bb) · ${v.hands_done||0} hands`;
   $('botread').style.display=(curMode()!=='gto')?'':'none';   // Exploit UND Arena: die Gegner lernen dich
   document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
   const winnerSeats=new Set((v.result&&v.result.winners||[]).map(w=>w.seat));
@@ -628,7 +644,7 @@ function render(v){
     const av=(v.tournament&&v.tournament.avatars&&v.tournament.avatars[s.name])||ini;   // Turnier: Profil-Avatar
     el.innerHTML=`<div class="holes" id="h${s.seat}"></div>
       <div class="pod"><div class="who"><span class="av" style="background:${AVCOL[s.seat%AVCOL.length]}">${av}</span>
-        <span class="nm" ${crown?'title="Prince v2 — unser bester HU-Bot — spielt diesen Sitz"':''}>${s.is_turn?'▶ ':''}${crown}${s.name}</span><span class="pos">${s.pos}</span></div>
+        <span class="nm" ${crown?'title="Prince v2 — our best heads-up bot — plays this seat"':''}>${s.is_turn?'▶ ':''}${crown}${s.name}</span><span class="pos">${s.pos}</span></div>
         <div class="stk">${bbs(s.stack)} bb${s.all_in?' · ALL-IN':''}</div></div>`;
     $('felt').appendChild(el);
     setCards(document.getElementById('h'+s.seat), s.folded?[]:s.hole, s.is_human?'hero':'sm');
@@ -683,9 +699,9 @@ function dealNow(){cancelAutodeal();if(!replayMode)nextHand();}
 // Qualitäts-Banner (User-QA 2026-08-02): prominent ist WIE du gespielt hast, nie OB du gewonnen hast —
 // das Ergebnis benoten wäre Ergebnis-Orientierung (Anti-Tilt-Doktrin §1.1).
 const QUALITY_BANNER={
-  ok:   {txt:'✓ Gut gespielt',                        col:'var(--win)'},
-  teuer:{txt:'～ Nicht ganz optimal — sieh ins Feedback', col:'var(--gold)'},
-  leak: {txt:'✗ Signifikanter Fehler — sieh ins Feedback', col:'var(--red)'},
+  ok:   {txt:'✓ Well played',                        col:'var(--win)'},
+  teuer:{txt:'～ Not quite optimal — see the feedback', col:'var(--gold)'},
+  leak: {txt:'✗ Significant mistake — see the feedback', col:'var(--red)'},
 };
 function qualityBanner(c){
   const ban=$('banner');
@@ -704,7 +720,7 @@ function renderEnd(v){
   ban.classList.remove('show');
   if(!MATCH)qualityBanner(v.coach);              // Grading läuft serverseitig synchron -> meist sofort da
   const wl=(v.result.winners||[]).map(w=>`${v.seats[w.seat].name}${w.rank?' ('+(RANK_DE[w.rank]||w.rank)+')':''}`).join(', ');
-  log('🏆 '+wl+(net?` · du ${net>0?'+':''}${bbs(net)}bb`:''),'r');
+  log('🏆 '+wl+(net?` · you ${net>0?'+':''}${bbs(net)}bb`:''),'r');
   if(!v.coach)fetchFeedback();
   if($('botread').open&&curMode()==='exploit')loadBotRead();
   // NO auto-deal: the hand ends and STAYS on screen until the user presses "Nächste Hand" (or Space).
@@ -721,12 +737,12 @@ function renderBar(v){
   armedRaise=false;
   if(!my){
     if(v.hand_over&&v.tournament&&v.tournament.finished){
-      bar.innerHTML='<button id="b-deal" class="big">Turnier neu</button>';
+      bar.innerHTML='<button id="b-deal" class="big">New tournament</button>';
       $('b-deal').onclick=()=>startWith('tournament');return;
     }
     if(v.hand_over){                             // explicit deal button — nothing advances behind your back
-      bar.innerHTML='<button id="b-deal" class="big">Nächste Hand <span class="kbd">Leertaste</span></button>'+
-        `<label class="autodeal"><input type="checkbox" id="cb-auto"${autoDealOn?' checked':''}> automatisch</label>`;
+      bar.innerHTML='<button id="b-deal" class="big">Next hand <span class="kbd">Space</span></button>'+
+        `<label class="autodeal"><input type="checkbox" id="cb-auto"${autoDealOn?' checked':''}> auto-deal</label>`;
       $('b-deal').onclick=dealNow;
       $('cb-auto').onchange=e=>{autoDealOn=e.target.checked;localStorage.setItem('autoDeal',autoDealOn?'1':'0');
         if(!autoDealOn)cancelAutodeal();};
@@ -740,11 +756,11 @@ function renderBar(v){
       bar.innerHTML='';
       let fb=null;
       if(!heroFolded){fb=mk('Fold','F','fold',prefold);fb.id='b-prefold';
-        fb.title='Vorab folden: die Hand wird im Hintergrund zu Ende gespielt';}
+        fb.title='Fold in advance: the hand plays out in the background';}
       bar.appendChild(btnRow(fb,null,null,null));   // nur Fold sichtbar, Rest Platzhalter -> gleiche Plaetze
       // Groessenzeile als Platzhalter (gleiche Hoehe) mit dem Wartetext
       const ph=document.createElement('div');ph.className='sizerow';
-      ph.innerHTML='<span class="wait">Gegner sind dran…</span><button class="stp" style="visibility:hidden">−</button>';
+      ph.innerHTML='<span class="wait">Opponents to act…</span><button class="stp" style="visibility:hidden">−</button>';
       bar.appendChild(ph);
     }
     wasWaiting=true;
@@ -829,7 +845,7 @@ async function api(p,b){
     // WHY: eine Nicht-OK-Antwort ohne "error" (z.B. FastAPI-422 {"detail":...}) wurde als Spielzustand gerendert
     // -> leerer Tisch, "Hand #undefined" (User-Fund 2026-09-09). Alles, was kein Zustand ist, wird ein Fehler.
     if(!r.ok&&!j.error)return {error:'HTTP '+r.status+' '+(j.detail?JSON.stringify(j.detail).slice(0,160):'')};
-    if(!j.error&&!Array.isArray(j.seats))return {error:'unerwartete Antwort von '+p};
+    if(!j.error&&!Array.isArray(j.seats))return {error:'unexpected response from '+p};
     return j;
   }catch(err){return {error:String(err)};}
   finally{busy=false;}
@@ -848,7 +864,7 @@ async function runSteps(){
     if(tok!==stepToken)return;
     const v=await api('/api/step',{});
     if(tok!==stepToken)return;
-    if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+    if(v.error){if(v.error!=='busy')log('Error: '+v.error,'s');return;}
     render(v);
     if(v.street!==prevStreet&&botsToAct())await sleep(T.STREETPAUSE-T.STEP);
     if(tok!==stepToken)return;
@@ -856,11 +872,11 @@ async function runSteps(){
 }
 async function startSession(){
   stepToken++;replayMode=false;replayData=null;
-  $('log').innerHTML='';log('— Neues Spiel ('+MODE.toUpperCase()+') —','s');
+  $('log').innerHTML='';log('— New game ('+MODE.toUpperCase()+') —','s');
   sessionStart=Date.now();handEndTimes=[];lastEndHand=null;coachHand=null;fbRequestedHand=null;
   // P0-0: mode travels in the request; servers without the field ignore the extra key
   const v=await api('/api/new_session',{stack_bb:100, mode:MODE, step:true});
-  if(v.error){log('Fehler: '+v.error,'s');return;}
+  if(v.error){log('Error: '+v.error,'s');return;}
   render(v);
   runSteps();
 }
@@ -868,7 +884,7 @@ async function nextHand(){
   if(replayMode)return;                          // no live actions from inside a replay
   stepToken++;advTimer=null;
   const v=await api('/api/hand',{step:true});
-  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+  if(v.error){if(v.error!=='busy')log('Error: '+v.error,'s');return;}
   render(v);
   runSteps();
 }
@@ -884,14 +900,14 @@ async function prefold(){
   if(!botsToAct()){prefoldPending=false;renderBar(view);runSteps();return;}   // inzwischen selbst dran / Hand vorbei
   const v=await api('/api/prefold',{});
   prefoldPending=false;
-  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
+  if(v.error){if(v.error!=='busy')log('Error: '+v.error,'s');return;}
   render(v);                                     // erst die Bot-Aktionen ins Protokoll, dann die Zusammenfassung
   if(v.prefold==='check_frei'){
-    log('<span class="y">Vorab-Fold aufgehoben</span> — kein Einsatz kam an, dein Check ist frei.','y');
+    log('<span class="y">Pre-fold cancelled</span> — nobody bet, your check is free.','y');
   }else if(v.prefold==='kampflos'){
-    log('<span class="y">Vorab-Fold nicht noetig</span> — alle haben gefoldet, du gewinnst die Blinds.','y');
+    log('<span class="y">Pre-fold not needed</span> — everyone folded, you win the blinds.','y');
   }else{
-    log('<span class="y">Du</span>: fold (vorab) — die Hand lief im Hintergrund zu Ende.','y');
+    log('<span class="y">You</span>: fold (in advance) — the hand played out in the background.','y');
   }
   if(v.hand_over&&(v.prefold==='gefoldet'||v.prefold==='kampflos')&&!replayMode){cancelAutodeal();advTimer=setTimeout(nextHand,T.PREFOLD_NEXT);}
   else runSteps();
@@ -902,21 +918,21 @@ async function send(a,amt){
   const street=view?view.street:null;
   if(amt!=null)amt=Math.round(amt);              // Chips sind ganzzahlig (Turnier-bb 50: Viertel-bb = 12,5)
   const v=await api('/api/action',{action:a,amount:amt,step:true});
-  if(v.error){if(v.error!=='busy')log('Fehler: '+v.error,'s');return;}
-  pushTicker(street,'Du '+(VERB2[a]||a)+(amt?' '+bbs(amt)+'bb':''));
-  log(`<span class="y">Du</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');
+  if(v.error){if(v.error!=='busy')log('Error: '+v.error,'s');return;}
+  pushTicker(street,'You '+(VERB2[a]||a)+(amt?' '+bbs(amt)+'bb':''));
+  log(`<span class="y">You</span>: ${a}${amt?(' '+bbs(amt)+'bb'):''}`,'y');
   render(v);
   runSteps();
 }
 async function analyze(){
-  $('out').textContent='… analysiere …';
+  $('out').textContent='… analyzing …';
   const v=await api('/api/analyze',{});
-  if(v.error&&v.error!=='busy'){$('out').textContent='Analyse nicht verfügbar: '+v.error;return;}
+  if(v.error&&v.error!=='busy'){$('out').textContent='Analysis unavailable: '+v.error;return;}
   if(v.report_html){$('out').innerHTML=v.report_html;return;}   // P1-E rich report (server-marked terms)
   const s=v.stats||{};
-  const head=`Hände: ${s.hands!=null?s.hands:'–'}\nVPIP ${s.vpip_pct!=null?s.vpip_pct:'–'}% · PFR ${s.pfr_pct!=null?s.pfr_pct:'–'}% · 3bet ${s.threebet_pct!=null?s.threebet_pct:'–'}%\n`+
+  const head=`Hands: ${s.hands!=null?s.hands:'–'}\nVPIP ${s.vpip_pct!=null?s.vpip_pct:'–'}% · PFR ${s.pfr_pct!=null?s.pfr_pct:'–'}% · 3bet ${s.threebet_pct!=null?s.threebet_pct:'–'}%\n`+
     `Aggression ${s.postflop_aggression_factor!=null?s.postflop_aggression_factor:'–'} · Showdown ${s.went_to_showdown_pct!=null?s.went_to_showdown_pct:'–'}%\n`+
-    `Netto: ${s.net_bb!=null?s.net_bb:'–'} bb (${s.bb_per_100!=null?s.bb_per_100:'–'} bb/100)`;
+    `Net: ${s.net_bb!=null?s.net_bb:'–'} bb (${s.bb_per_100!=null?s.bb_per_100:'–'} bb/100)`;
   $('out').innerHTML=esc(head).replace(/\n/g,'<br>')+(v.narrative?'<br><br>'+markTerms(v.narrative):'');
 }
 
@@ -926,11 +942,11 @@ async function enterReplay(){
   cancelAutodeal();stepToken++;                  // FIRST — the hand must not auto-advance under the walkthrough
   try{
     const r=await fetch('/api/replay/last');
-    if(!r.ok){log('Replay nicht verfügbar ('+r.status+')','s');return;}
+    if(!r.ok){log('Replay unavailable ('+r.status+')','s');return;}
     replayData=await r.json();
-  }catch(err){log('Replay nicht verfügbar','s');return;}
+  }catch(err){log('Replay unavailable','s');return;}
   if(!replayData||!Array.isArray(replayData.steps)||!replayData.steps.length){
-    log('Replay: keine Schritte vorhanden','s');return;}
+    log('Replay: no steps available','s');return;}
   liveView=view; replayMode=true; replayIdx=0;
   renderReplayState(replayIdx);
 }
@@ -976,7 +992,7 @@ function renderReplayState(i){
   const seats=(liveView&&liveView.seats)||[];
   const reveal=R.result&&R.result.reveal, shown=(reveal&&R.result.shown)||{};
   const atEnd=i===R.steps.length-1;
-  $('meta').innerHTML=`<b style="color:var(--gold)">REPLAY</b> — Hand #${R.hand_no} · Schritt ${i+1}/${R.steps.length}`;
+  $('meta').innerHTML=`<b style="color:var(--gold)">REPLAY</b> — Hand #${R.hand_no} · Step ${i+1}/${R.steps.length}`;
   document.querySelectorAll('.seat,.bet,.pop').forEach(e=>e.remove());
   $('banner').classList.remove('show');
   seats.forEach(s=>{
@@ -1009,9 +1025,9 @@ function renderReplayState(i){
   $('bar').classList.remove('myturn');
   $('bar').innerHTML='';
   const row=document.createElement('div');row.className='btnrow';
-  row.appendChild(mk('⟨ Zurück','←','sec',replayPrev));
-  row.appendChild(mk('Weiter ⟩','→','',replayNext));
-  row.appendChild(mk('Verlassen','Esc','fold',exitReplay));
+  row.appendChild(mk('⟨ Back','←','sec',replayPrev));
+  row.appendChild(mk('Next ⟩','→','',replayNext));
+  row.appendChild(mk('Exit','Esc','fold',exitReplay));
   $('bar').appendChild(row);
 }
 function renderReplayCoach(st){
@@ -1019,14 +1035,14 @@ function renderReplayCoach(st){
   if(st.type==='deal'){
     h+=`<div><b>${esc((st.street||'').toUpperCase())}</b> — ${esc((st.cards||[]).join(' '))}</div>`;
   }else if(st.type==='blinds'){
-    h+='<div class="muted">Blinds gesetzt.</div>';
+    h+='<div class="muted">Blinds posted.</div>';
   }else if(st.type==='showdown'||st.type==='result'){
-    const wl=(st.winners||[]).map(w=>`${esc(w.name||('Sitz '+w.seat))} (+${bbs(w.amount)}bb)`).join(', ');
-    h+=`<div>${st.reason==='fold'?'Alle folden':'Showdown'}${wl?' — '+wl:''}</div>`;
+    const wl=(st.winners||[]).map(w=>`${esc(w.name||('Seat '+w.seat))} (+${bbs(w.amount)}bb)`).join(', ');
+    h+=`<div>${st.reason==='fold'?'Everyone folds':'Showdown'}${wl?' — '+wl:''}</div>`;
   }else if(isHeroStep(st)){
     // the design-doc core: gespielt vs empfohlen + grade + one-liner, glossary-clickable
     const d=st.decision||st.coach;    // plan name 'decision'; the live server ships 'coach'
-    h+=`<div>Gespielt: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
+    h+=`<div>Played: <b>${esc(ACTION_DE[st.action]||st.action)}${st.amount?' '+bbs(st.amount)+'bb':''}</b></div>`;
     if(d){
       const badge=`<span class="badge ${esc(d.grade||'')}">${ICON[d.grade]||''} ${esc(d.grade||'')}</span>`;
       // Frequenz nur, wo sie SINN macht (User-Regel): bei einem echten Mix (2. Aktion >=15%) ersetzt sie
@@ -1035,22 +1051,22 @@ function renderReplayCoach(st){
       const dist=(d.dist||[]).filter(x=>x&&x[1]>=0.02);
       if(dist.length>=2&&dist[1][1]>=0.15){
         const mix=dist.slice(0,3).map(x=>`${Math.round(x[1]*100)}% ${esc(x[0])}`).join(' / ');
-        h+=`<div>Bot spielt hier: <b>${mix}</b> ${badge}</div>`;
+        h+=`<div>Bot plays here: <b>${mix}</b> ${badge}</div>`;
       }else{
         const oaTxt=d.recommended!=null?d.recommended:actionTxt(d.oracle_action);
-        h+=`<div>Empfohlen: <b>${esc(oaTxt)}</b> ${badge}</div>`;
+        h+=`<div>Recommended: <b>${esc(oaTxt)}</b> ${badge}</div>`;
       }
       // der volle Coaching-Text pro Entscheidung (replay.py rendert via templates_de); one_liner = Fallback
       const txt=d.text||d.one_liner||d.erklaerung_kurz;
       if(txt)h+=`<div class="fbbody">${markTerms(txt)}</div>`;
       const nums=[];
       if(d.equity!=null)nums.push('Equity '+pct(d.equity));
-      if(d.pot_odds!=null)nums.push('benötigt '+pct(d.pot_odds));
+      if(d.pot_odds!=null)nums.push('needs '+pct(d.pot_odds));
       if(d.mdf!=null)nums.push('MDF '+pct(d.mdf));
       if(nums.length)h+=`<div class="muted">${markTerms(nums.join(' · '))}</div>`;
-    }else h+='<div class="muted">keine Empfehlung geloggt</div>';
+    }else h+='<div class="muted">no recommendation logged</div>';
   }else{
-    h+=`<div class="muted">${esc(st.pos||'Sitz '+st.seat)} ${esc(verbDe(st.action))}${st.amount?' '+bbs(st.amount)+'bb':''}</div>`;
+    h+=`<div class="muted">${esc(st.pos||'Seat '+st.seat)} ${esc(verbDe(st.action))}${st.amount?' '+bbs(st.amount)+'bb':''}</div>`;
   }
   $('coach').innerHTML=h;
 }
@@ -1137,24 +1153,24 @@ function setQuick(n){
 }
 document.addEventListener('keydown',onKey);
 
-/* ── Turnier-HUD / Berater-Urteil / Ergebnis (2026-09-09, docs/TURNIER_MODUS.md) ── */
+/* ── Turnier-HUD / Berater-Urteil / Ergebnis (2026-09-09, docs/reports/TOURNAMENT_MODE.md) ── */
 let lastVerdictKey=null, finalBannerShown=false;
 function renderTournament(t){
   const hud=$('thud'),vd=$('verdict'),te=$('tourend');
   if(!t){hud.style.display='none';vd.style.display='none';te.style.display='none';return;}
-  const np=t.next_payout?`Platz ${t.next_payout.place}: ${t.next_payout.amount.toFixed(2)}`:'—';
+  const np=t.next_payout?`Place ${t.next_payout.place}: ${t.next_payout.amount.toFixed(2)}`:'—';
   hud.style.display='block';   // WHY 'block': '' loescht nur den Inline-Stil, die CSS-Regel display:none bliebe wirksam
   hud.innerHTML=`<div class="row"><span><span class="k">Level</span> <b>${t.level}</b> · ${t.sb}/${t.bb}${t.ante?' A'+t.ante:''}</span>`+
-    `<span><span class="k">Spieler</span> <b>${t.players_left}</b>/${t.n_entries}</span>`+
-    `<span><span class="k">Rang</span> <b>${t.rank!=null?t.rank:'–'}</b></span>`+
-    `<span><span class="k">Tisch</span> ${t.table_no||'–'}/${t.tables}${t.final_table?' · <b>FINAL TABLE</b>':''}</span></div>`+
+    `<span><span class="k">Players</span> <b>${t.players_left}</b>/${t.n_entries}</span>`+
+    `<span><span class="k">Rank</span> <b>${t.rank!=null?t.rank:'–'}</b></span>`+
+    `<span><span class="k">Table</span> ${t.table_no||'–'}/${t.tables}${t.final_table?' · <b>FINAL TABLE</b>':''}</span></div>`+
     `<div class="row"><span><span class="k">Stack</span> <b>${t.hero_stack_bb}</b> bb</span>`+
     `<span><span class="k">Ø</span> ${t.avg_stack_bb} bb</span>`+
-    `<span><span class="k">Nächste Stufe</span> ${np}</span>`+
-    `<span><span class="k">Level in</span> ${t.hands_to_level} H.</span>`+
+    `<span><span class="k">Next payout</span> ${np}</span>`+
+    `<span><span class="k">Level in</span> ${t.hands_to_level} hands</span>`+
     `<span><span class="k">GTO</span> ${pct(t.advisor.stats.gto_quote)} (${t.advisor.stats.decisions})</span></div>`;
   if(t.table_change){log('🪑 '+esc(t.table_change),'r');pushTicker(view.street,t.table_change);}
-  if(t.final_table&&!finalBannerShown){finalBannerShown=true;log('🏆 <b>FINAL TABLE</b> — die letzten '+t.players_left+' Spieler.','r');
+  if(t.final_table&&!finalBannerShown){finalBannerShown=true;log('🏆 <b>FINAL TABLE</b> — the last '+t.players_left+' players.','r');
     const ban=$('banner');ban.textContent='FINAL TABLE';ban.style.color='var(--gold)';ban.classList.add('show');}
   const a=t.advisor.last;
   if(a&&a.text){
@@ -1165,9 +1181,9 @@ function renderTournament(t){
   }else vd.style.display='none';
   if(t.finished){
     const st=t.advisor.stats;
-    $('te-place').textContent=t.place?`Platz ${t.place} von ${t.n_entries}`:'Turnier vorbei';
-    $('te-body').innerHTML=`Payout <b>${(t.payout||0).toFixed(2)}</b> (Pool ${t.prize_pool.toFixed(0)}) · GTO-Quote <b>${pct(st.gto_quote)}</b> bei ${st.decisions} Entscheidungen`;
-    $('te-dev').innerHTML=(st.top_deviations||[]).map(d=>`<li>Hand #${d.hand_no} ${STREET_DE[d.street]||d.street} (Pot ${d.pot_bb} bb): du ${ACTION_DE[d.human]||d.human} — ${esc(d.text)}</li>`).join('')||'<li>Keine Abweichungen — sauber gespielt.</li>';
+    $('te-place').textContent=t.place?`Place ${t.place} of ${t.n_entries}`:'Tournament over';
+    $('te-body').innerHTML=`Payout <b>${(t.payout||0).toFixed(2)}</b> (Pool ${t.prize_pool.toFixed(0)}) · GTO rate <b>${pct(st.gto_quote)}</b> over ${st.decisions} decisions`;
+    $('te-dev').innerHTML=(st.top_deviations||[]).map(d=>`<li>Hand #${d.hand_no} ${STREET_DE[d.street]||d.street} (pot ${d.pot_bb} bb): you ${ACTION_DE[d.human]||d.human} — ${esc(d.text)}</li>`).join('')||'<li>No deviations — clean play.</li>';
     te.style.display='flex';
   }else te.style.display='none';
 }
@@ -1185,7 +1201,6 @@ function startWith(mode,match=false){
 $('m-gto').onclick=()=>startWith('gto');
 $('m-exploit').onclick=()=>startWith('exploit');
 $('m-arena').onclick=()=>startWith('arena');
-$('m-punish').onclick=()=>startWith('punish');    // 5 Jäger auf die vermessenen Leaks (Reads AN)
 $('m-tournament').onclick=()=>{finalBannerShown=false;lastVerdictKey=null;startWith('tournament');};
 $('m-match').onclick=()=>startWith('gto',true);   // Match = GTO-Gegner + Prince, Anzeige stumm
 $('b-new').onclick=showOverlay;

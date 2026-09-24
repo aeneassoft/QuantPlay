@@ -4,7 +4,7 @@ WARUM: das Leaderboard https://www.kaggle.com/benchmarks/kaggle/poker-heads-up m
 in einem All-play-all von Frontier-LLMs (Stand v1: Spitze +34,9, Schluss -49,3). Die Umgebung ist
 OPEN SOURCE und laeuft hier auf dem PC — anders als GTOW kostet eine Hand also weder Zeitfenster noch
 Hand-Budget. Das macht sie zum billigen Volumen-Kanal; ein GTO-Anker ist sie NICHT (das Feld sind LLMs,
-kein Re-Solver — siehe docs/KAGGLE_ARENA.md).
+kein Re-Solver — siehe docs/reports/KAGGLE_ARENA.md).
 
 Spielkonfiguration EXAKT wie Kaggle (Default aus kaggle_environments/envs/open_spiel_env):
     python_repeated_pokerkit(max_num_hands=100, reset_stacks=True, rotate_dealer=True,
@@ -68,7 +68,7 @@ _SPIEL: dict = {}
 def spiel(stack_einheiten: int = 200):
     """Laedt (einmalig) das Kaggle-Poker-Spiel in der gewuenschten Stacktiefe.
     stack_einheiten=200 -> 100 bb (Kaggles eigene Konfiguration);
-    stack_einheiten=400 -> 200 bb (die Tiefe des GTOW-Wettbewerbs, siehe docs/KAGGLE_ARENA.md). Der String kommt aus kaggle_environments selbst,
+    stack_einheiten=400 -> 200 bb (die Tiefe des GTOW-Wettbewerbs, siehe docs/reports/KAGGLE_ARENA.md). Der String kommt aus kaggle_environments selbst,
     damit eine Aenderung dort hier auffaellt statt still zu divergieren."""
     global _SPIEL
     if stack_einheiten not in _SPIEL:
@@ -194,7 +194,7 @@ def spiel_aktion(entscheidung: dict, state, spieler: int) -> int:
 
 # ----------------------------------------------------------------- Agenten
 class PrinceAgent:
-    """Der Champion (Trainer-Konfig, docs/TRAINER_VERDRAHTUNG.md): PRINCE-Profil, exploit AUS,
+    """Der Champion (Trainer-Konfig, docs/reports/TRAINER_WIRING.md): PRINCE-Profil, exploit AUS,
     Resolver AN, AUSLESE-Kette FINAL_STACK. `stack=None` = nackter Bot (Basis-Arm)."""
 
     def __init__(self, stack: str | None = "final", seed: int = 7, kanal: str = "gym"):
@@ -316,7 +316,7 @@ def duell(a_fabrik, b_fabrik, decks: int, seed0: int = 90000, stack_einheiten: i
     for i in range(decks):
         ds = seed0 + i
         # hand_id IDENTISCH je Deck (nicht je Haelfte): sie keyt die private Randomisierung des
-        # Bots — verschiedene IDs zerstoerten in v10 den A/A-Nulltest (-9,4 statt 0, docs/V10_GATES_REPORT.md).
+        # Bots — verschiedene IDs zerstoerten in v10 den A/A-Nulltest (-9,4 statt 0, docs/reports/V10_GATES_REPORT.md).
         hid = str(ds)
         hin = spiele_hand([a_fabrik(), b_fabrik()], ds, hid, stack_einheiten)      # A auf Sitz 0
         rueck = spiele_hand([b_fabrik(), a_fabrik()], ds, hid, stack_einheiten)    # A auf Sitz 1
