@@ -115,7 +115,7 @@ noncommercial purposes: personal study, research, teaching, hobby projects, and 
 organizations. **Any commercial use — selling, running as a paid service, using the bot, trainer, ranges,
 knowledge base or measurements inside a commercial product or to make money at the tables for a business —
 requires written permission.** Ask via a GitHub issue or the contact on the organization page. Keep the
-`Required Notice:` line from `LICENSE.md` with every copy.
+[`NOTICE`](NOTICE) file (the `Required Notice:` line) with every copy.
 
 ## Status
 

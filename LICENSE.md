@@ -1,5 +1,3 @@
-Required Notice: Copyright 2026 AeneasSoft (https://github.com/aeneassoft) — QuantPlay poker trainer, engine, knowledge base and measurements. Commercial use requires written permission.
-
 # PolyForm Noncommercial License 1.0.0
 
 <https://polyformproject.org/licenses/noncommercial/1.0.0>
